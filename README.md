@@ -1,2 +1,2 @@
 # boshang-ymj.weixinguanfang.com
-医美佳微美容系统
+博商网络 医美佳微美容系统
