@@ -602,10 +602,15 @@ class OrderAction extends CommonAction{
      * 逻辑处理暂为：后台点击开始返款，执行一次返款操作，然后执行定时器，根据返还间隔执行下次返款
      */
     public function backmoney(){
+        $this->baoError('正在返款中或已返款完成！',U('order/index'));
         $order_id = $this->_param('order_id');
         $user_id = $this->_param('user_id');
         if(empty($order_id)){
             $this->baoError('请选择要返款的订单！');
+        }
+        $order = D('Order')->find($order_id);
+        if(!empty($order['is_back'])){
+
         }
         //首先修改状态 订单表为返款中
         D('Order')->save(array('order_id'=>$order_id,'is_back'=>1));

@@ -32,6 +32,7 @@ function success(msg, timeout, callback) {
     }, timeout ? timeout : 3000);
 }
 function error(msg, timeout, callback) {
+    alert(1);
     var boxHtml = '<div class="baomsgbox"></div>';
     if ($(".baomsgbox").length == 0) {
         $("body").append(boxHtml);

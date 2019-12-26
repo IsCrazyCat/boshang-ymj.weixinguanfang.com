@@ -78,7 +78,7 @@ class CommonAction extends Action
         }
         return THEME_PATH . $template . c('TMPL_TEMPLATE_SUFFIX');
     }
-    protected function baoSuccess($message, $jumpUrl = '', $time = 3000)
+    protected function baoSuccess($message, $jumpUrl = '', $time = 30000)
     {
         $str = '<script>';
         $str .= 'parent.success("' . $message . '",' . $time . ',\'jumpUrl("' . $jumpUrl . '")\');';

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="1c28c23d-29fe-4f05-baf4-bad477bd6e6e" name="ymj.weixinguanfang.com" url="http://115.28.220.201">
+        <fileTransfer host="115.28.220.201" port="21">
+          <advancedOptions>
+            <advancedOptions controlEncoding="UTF8" dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+          <option name="port" value="21" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

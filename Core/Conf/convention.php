@@ -24,7 +24,7 @@ return  array(
 
     /* Cookie设置 */
     'COOKIE_EXPIRE'         => 0,    // Coodie有效期
-    'COOKIE_DOMAIN'         => 'ymj.weixinguanfang.com',     // Cookie有效域名按照这个格式修改，修改为你的域名
+    'COOKIE_DOMAIN'         => 'www.ymj.com',     // Cookie有效域名按照这个格式修改，修改为你的域名
     'COOKIE_PATH'           => '/',     // Cookie路径
     'COOKIE_PREFIX'         => '',      // Cookie前缀 避免冲突
 

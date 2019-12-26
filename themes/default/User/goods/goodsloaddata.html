@@ -55,16 +55,16 @@
 
                     <case value="1">
                         <span class="button button-small bg-dot">预约成功</span>
-                        <a target="x-frame" class="button button-small bg-gray"
-                           href="<{:U('goods/refund',array('order_id'=>$order['order_id']))}>">申请退款</a>
+<!--                        <a target="x-frame" class="button button-small bg-gray"-->
+<!--                           href="<{:U('goods/refund',array('order_id'=>$order['order_id']))}>">申请退款</a>-->
                     </case>
-                    <case value="4">
-                        <a target="x-frame" class="button button-small bg-dot"
-                           href="<{:U('goods/cancel_refund',array('order_id'=>$order['order_id']))}>">取消退款</a>
-                    </case>
+<!--                    <case value="4">-->
+<!--                        <a target="x-frame" class="button button-small bg-dot"-->
+<!--                           href="<{:U('goods/cancel_refund',array('order_id'=>$order['order_id']))}>">取消退款</a>-->
+<!--                    </case>-->
 
                     <case value="2"><a target="x-frame" class="button button-small bg-blue"
-                                       href="<{:U('goods/queren',array('order_id'=>$order['order_id']))}>">确认收货</a>
+                                       href="<{:U('goods/queren',array('order_id'=>$order['order_id']))}>">已完成</a>
                     </case>
                     <case value="8">
                         <eq name="order.is_dianping" value="0">

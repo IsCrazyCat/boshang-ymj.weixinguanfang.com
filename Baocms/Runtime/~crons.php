@@ -4,7 +4,7 @@ return array (
   array (
     0 => 'WeatherUpdate',
     1 => 3,
-    2 => 1577346794,
+    2 => 1577352729,
   ),
 );
 ?>
