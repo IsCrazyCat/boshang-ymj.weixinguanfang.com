@@ -1,0 +1,160 @@
+<include  file='public:header'/>  
+<style>
+.top-fixed .top-back { padding-left:5px;}
+.top-fixed .top-back a { width:70px; font-size:16px;margin-top: 3px;}
+.top-fixed .top-back i {font-size: 16px;}
+ul { padding-left: 0px;}
+.xiaoqu-search{padding:15px;background:#fff;padding-bottom:5px}
+.xiaoqu-list p {height: 20px;line-height: 20px; margin: 0;color: #999;font-size: 12px;overflow: hidden;}
+p{margin-bottom:0px;}
+.list-media-x{ margin-top:0rem;}
+.list-media-x p {margin-top: .01rem; line-height:20px;font-size: 12px;}
+.list-media-x li dd.zhong{display:block;padding:10px;overflow:hidden;width:100%;border-bottom:1px #eee solid}
+.list-media-x li dd.zhong span.album{ font-size:12px; color:#FFF;margin-right: 0px;position:absolute;right:10%;bottom:0;width:45px;height:20px;line-height:20px;text-align:center;background: #06c1ae;}
+.list-media-x li dd.zhong a img{padding-bottom:0}
+.mod-2 h4 {height:30px;line-height:30px;}
+.mod-2 h4 a.text-right{ float:right;}
+.mod-1 a {display: -webkit-inline-box; color:#F00;}
+.filter2 .tab { border-bottom: 1px solid #f0f0f0; border-top:1px solid #f0f0f0;}
+</style>
+ 
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+    	<a class="top-addr" href="<{:U('city/index')}>"><{:bao_msubstr($city_name,0,4,false)}> <i class="icon-angle-down"></i></a>
+	</div>
+	<div class="top-title">
+		搜索信息
+	</div>
+	<div class="top-share">
+	</div>
+</header>
+
+
+
+
+	<div class="line xiaoqu-search">
+		<form method="post"  action="<{:U('life/search')}>" id="form1" class="form1">
+			<div class="form-group">
+				<div class="field">
+					<div class="input-group">
+						<input type="text" class="input" name="keyword" size="50" value="<{$keyword}>" placeholder="输入关键字"  />
+						<span class="addbtn"><button type="button" class="button icon-search"></button></span>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+
+
+<!--<div id="filter2" class="filter2">
+    <ul class="tab clearfix">
+    
+    
+       <li class="item">
+        <a href="javascript:void(0);">
+        <if condition="!empty($area)">
+        <span id="str_b_node" style="color:#f60;"><{$areass[$area]['area_name']}></span>
+        <else/>
+        <span id="str_b_node">选择地区</span>
+        </if>
+        <em></em>
+        </a>
+      </li>
+      
+      
+      <li class="item">
+        <a href="javascript:void(0);"> 
+        <if condition="!empty($s2)">
+        <span id="str_b_node" style="color:#f60;"><{:bao_msubstr($attrs['select2'][$s2]['attr_name'],0,3,false)}></span>
+        <else/>
+        <span id="str_b_node">选择分类</span>
+        </if><em></em>
+        </a>
+      </li>
+     
+     
+      <li class="item">
+        <a href="javascript:void(0);">
+        <if condition="empty($order)">
+        <span id="str_e_node">选择排序</span>
+        <elseif condition="$order eq 1"/>
+        <span id="str_b_node" style="color:#f60;">时间排序</span>
+        <elseif condition="$order eq 2"/>
+        <span id="str_b_node" style="color:#f60;">销量排序</span>
+        <elseif condition="$order eq 3"/>
+        <span id="str_b_node" style="color:#f60;">距离排序</span>
+        </if>
+        <em></em>
+        </a>
+      </li>
+      
+      
+      
+    </ul>
+    
+    <div class="inner" style=" display:none">
+        <ul>
+       <li><a href="<{:LinkTo('life/lists',$linkArr,array('area'=>0))}>">全部地区</a></li>
+			<volist name="areas" id="ae">
+            <php>if($ae['city_id'] == $city_id){</php>
+				<li><a <if condition="$area eq $ae['area_id']"> style="color:red;"</if> href="<{:LinkTo('life/lists',$linkArr,array('area'=>$ae['area_id']))}>"><{$ae.area_name}></a></li>
+                 <php>}</php>
+			</volist>
+        </ul>
+    </div>
+    
+     <div class="inner" style=" display:none">
+        <ul>
+       <li class="on"><a href="<{:LinkTo('life/lists',$linkArr,array('s1'=>0))}>">全部</a></li>
+			<volist name="attrs['select1']" id="select1">
+				<li><a <if condition="$s1 eq $select1['attr_id']"> style="color:red;"</if> href="<{:LinkTo('life/lists',$linkArr,array('s1'=>$select1['attr_id']))}>"><{$select1['attr_name']}></a></li>
+			</volist>
+        </ul>
+    </div>
+    
+    
+    <div class="inner" style="display:none;">
+              <ul>
+              <li <if condition="$_GET['order'] eq 1"> style="color:red;"</if> > 
+					<a href="<{:LinkTo('coupon/index',array('area'=>$area_id,'business'=>$business_id,'order'=>1))}>">下载次数</a>
+				</li>
+				<li <if condition="$_GET['order'] eq 2"> style="color:red;"</if> >
+					<a href="<{:LinkTo('coupon/index',array('area'=>$area_id,'business'=>$business_id,'order'=>2))}>">推荐排序</a>
+				</li>
+             
+            </ul>
+      </div>
+      
+      
+      
+      <div id="parent_container" class="inner_parent" style="display:none;">
+        <div class="innercontent"></div>
+      </div>
+      <div id="inner_container" class="inner_child" style="display:none;">
+        <div class="innercontent"></div>
+      </div>
+    
+</div>
+
+<div id="fullbg" class="fullbg" style="display: none; height: 250px;">
+<i class="pull2"></i>-->
+<div class="blank-10 bg"></div>
+<div class="life-list" id="life-list"></div>
+<script>
+	$(document).ready(function () {
+		showFilter({ibox:'filter2',content1:'parent_container',content2:'inner_container',fullbg:'fullbg'});
+		loaddata('<{$nextpage}>', $("#life-list"), true);
+	});
+</script>
+</div>
+
+
+<div class="mall-cart">
+		<a href="<{:u('wap/life/release')}>">
+		<div class="round radius-circle"><div class="badge-corner"><i class="icon-pencil-square-o"></i></div></div>
+		</a>
+	</div>
+    
+    
+<include file="public:footer"/>

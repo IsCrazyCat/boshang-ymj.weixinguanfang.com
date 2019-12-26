@@ -1,0 +1,35 @@
+<include file="public:header"/>
+<div class="content_right">
+<style>
+.password_input .left { width: 250px !important;}
+</style>  
+<div class="tgdd">
+    <div class="tgdd_t password_t">
+        <ul>
+            <li><a href="<{:U('life/index')}>">分类信息列表</a></li>
+            <li><a href="<{:U('shopdingyue/base')}>">订阅设置</a></li>
+            <li><a href="<{:U('shopdingyue/index')}>">我的订阅</a></li>
+            <li class="on"><a href="<{:U('sms/index')}>">购买短信</a></li>
+            <li><a href="<{:U('money/money')}>">余额充值</a></li>
+        </ul>
+    </div>
+    <form method="post"  action="<{:U('sms/index')}>"  target="baocms_frm">
+        <div class="password_nr">
+            <div class="password_input">
+                <div class="left">亲，您当前共有余额：<font color="red"><{:round($MEMBER['money']/100,2)}>元</font>
+                <if condition="!empty($nums['num'])">
+                <br/>
+                您当前有短信：<font color="red"><{$nums['num']}></font>条。
+                </if></div>
+                <div class="lef int_box">
+                <input class="oldPassw" name="num" type="text" value="" />
+                <code>价格<{$sms_shop_money}>元一条，一次性最多购买<{$sms_shop_big}>条！最少<{$sms_shop_small}>条，并只能为整数。</code>
+                </div>
+            </div>
+            <div class="password_subm"><input class="submit" type="submit" value="点击购买" /></div>
+        </div>
+    </form>
+</div>
+</div>
+</div>
+<include file="public:footer"/>

@@ -1,0 +1,126 @@
+<include  file='public:header'/>
+<link rel="stylesheet" type="text/css" href="/static/default/wap/other/webuploader.css"> 
+<script src="/static/default/wap/other/webuploader.js"></script>
+<style>
+.post-form {padding:10px 0;}
+.post-form .form-title select{height:40px;width:200%;padding:10px;background:#fff!important;border:none!important;margin:-1px;outline:none}
+.post-form .form-title input{height:40px;border:none;width:100%;padding:10px;}
+.post-form .form-title span{height:40px;line-height:40px;border:none;width:100%;padding:0 10px;overflow:hidden;display:block;}
+.post-form .form-content{border:none;resize:none;width:100%;height:150px;padding:10px;}
+.post-form .button {margin:5px;}
+.Upload-img .jq_photo_more span.resporse_photo, .Upload-img .moreToUpload_img{margin:0 5px 5px 0; float:left; z-index:3;}
+.Upload-img .jq_photo_more span.resporse_photo img, .Upload-img .jq_uploads_img img{width:100%;margin-bottom:3px;}
+.Upload-img .jq_photo_more span.resporse_photo a.resporse_a, .Upload-img .jq_uploads_img .moreToUpload_img a{ font-size:12px; color:#FFF;margin-right: 0px;bottom:0;width:45px;height:20px;line-height:20px;text-align:center;background: #06c1ae;padding: 0 10px;border-radius: 2px;}
+#login-input input.mapinputs{ width:48%; float:left; margin-right:5px;}
+#login-input input.mapinputs2{ width:100%; float:left; margin:10px 0px;}
+</style> 
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('tieba/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			编辑帖子
+		</div>
+		<div class="top-share">
+		</div>
+	</header>
+	<form class="post-form"  method="post"  target="x-frame"  action="<{:U('tieba/edit',array('post_id'=>$detail['post_id']))}>">
+		<div class="line border-bottom">
+			<div class="x9 form-title">
+				<select name="data[cate_id]">
+					<option value="">选择分类</option>
+					<foreach name="sharecate" key="k" index="index" item="item">
+					<if condition="$item['parent_id'] neq 0">
+					<option value="<{$item['cate_id']}>" <eq name="item.cate_id" value="$detail.cate_id">selected="selected"</eq>><{$item['cate_name']}></option>
+					</if>
+					</foreach>
+				</select>
+			</div>
+		</div>
+		<div class="line border-bottom">
+			<div class="x12 form-title">
+				<input type="text" name="data[title]" value="<{$detail.title|default=''}>" placeholder="请输入标题"  />
+			</div>
+		</div>
+		<div class="line border-bottom">
+			<textarea class="form-content" name="data[contents]" placeholder="文明上网，登陆发言"><{:cleanhtml($detail['details'])}></textarea>
+		</div>
+		<div class="blank-10 clearfix"></div>
+		<div class="container">
+
+   <div class="Upload-img-box">
+		<div id="moreToUpload">修改图片</div>
+        <div class="blank-10"></div>
+		<div class="Upload-img">
+			<div class="list-img loading_photo" style="display:none;"></div>
+			<div class="list-img jq_photo_photo" style="display:none;"></div>
+			<div class="jq_photo_more"></div>
+            <div class="jq_uploads_img">
+                <if condition="!empty($detail['pic'])">
+                     <foreach name="pic" item="item">
+                        <div class="moreToUpload_img  x3">
+                            <img src="<{:config_img($item)}>">
+                            <a href="javascript:void(0);">取消</a>  
+                            <input type="hidden" name="photos[]" value="<{$item}>"/> 
+                        </div>
+                    </foreach>
+                </if>
+                
+                
+			</div>
+		</div>
+	</div>
+	<script>
+    	var width_tieba_pic = '<{:thumbSize($CONFIG[attachs][tieba][thumb],0)}>';                     
+		var height_tieba_pic = '<{:thumbSize($CONFIG[attachs][tieba][thumb],1)}>'; 
+        var uploader = WebUploader.create({                 
+			auto: true,                             
+			swf: '/static/default/webuploader/Uploader.swf',                             
+			server: '<{:U("app/upload/uploadify",array("model"=>"tieba"))}>',                             
+			pick: '#moreToUpload',
+			fileNumberLimit:10,                    
+			resize: true,    
+			accept: {
+				title: 'Images',
+				extensions: 'gif,jpg,jpeg,png',
+				mimeTypes: 'image/*'
+			}, 
+			compress:{width:width_tieba_pic,height:height_tieba_pic,quality:80,allowMagnify: false,crop: true}     
+        });
+
+        uploader.on( 'beforeFileQueued', function( file ) {
+            $(".loading_photo").show();
+            if(file.size > 1024000){
+                uploader.option( 'compress', {
+                    width:width_tieba_pic,
+                    quality:60
+                });
+            }
+        });
+        uploader.on('uploadSuccess', function( file,resporse) {
+            $(".loading_photo").hide();
+			var str = '<span class="resporse_photo x3"><img src="' + resporse.url + '">  <input type="hidden" name="photos[]" value="' + resporse.url + '" /><a class="resporse_a" href="javascript:void(0);">取消</a> </span>';     
+            $(".jq_photo_more").append(str);  
+        });
+        uploader.on( 'uploadError', function( file ) {
+            alert('上传出错');
+        });
+        $(document).ready(function () {
+            $(document).on("click", ".jq_uploads_img a", function () {
+                $(this).parent().remove();
+            });
+			$(document).on("click", ".jq_photo_more a", function () {
+                $(this).parent().remove();
+            });
+        });
+    </script>
+	<div class="blank-10"></div>
+  
+              <button class="button button-block button-big bg-dot" type="submit">确认编辑</button>  
+            </div>
+            
+		</div>
+	</form>
+	
+
+<include  file='public:footer'/> 

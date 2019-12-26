@@ -1,0 +1,53 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+	<ul>
+		<li><a href="#">商家管理</a> > <a href="">运费模板设置</a> > <a>具体地区运费列表</a></li>
+	</ul>
+</div>
+<div class="tuan_content">
+		<div class="radius5 tuan_top">
+			<div class="tuan_top_t">
+            	<div class="left tuan_topser_l">
+					记住，添加运费模板后请设置好地区，如果不设置的地区则自动免邮！全国34多个省份都必须选择！
+				</div>
+				<div class="right tuan_topfb_r">
+					<a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('shopkuaidi/listcreate',array('kuaidi_id' => $kuaidi_id))}>">添加地区运费+</a>
+				</div>
+			</div>
+		</div>
+	<div class="tuanfabu_tab">
+		<ul>
+			<li class="tuanfabu_tabli on"><a href="<{:U('shopkuaidi/index')}>">运费模板列表</a></li>
+            <php>
+            $cha = 34 - $count;
+            </php>
+            <li class="tuanfabu_tabli"><a href="<{:U('shopkuaidi/lists',array('kuaidi_id' => $kuaidi_id))}>">您已设置<{$count}>地区<if condition="$cha gt 0">，还有<{$cha}>个地区未设置运费，请尽快完善</if></a></li>
+		</ul>
+	</div>
+	<table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr style="background-color:#eee;">
+		<td>ID</td>
+		<td>地区区域</td>
+		<td>首重费用</td>
+		<td>续重费用</td>
+        <td>商家名称</td>
+		<td>操作</td>
+		
+	</tr>
+	<foreach name="list" item="var">
+	<tr>
+		<td><{$var.id}></td>
+		<td><{$var.name}></td>
+		<td><{:round($var['shouzhong']/100,2)}></td>
+		<td><{:round($var['xuzhong']/100,2)}></td>
+        <td><{$shops[$var['shop_id']]['shop_name']}></td>
+		<td>
+            <a class="tag" href="<{:U('shopkuaidi/listedit',array('yunfei_id'=>$var['id']))}>">编辑</a>
+			<a  mini="confirm" href="<{:U('shopkuaidi/listdelete',array('yunfei_id'=>$var['id']))}>">删除</a>
+		</td>
+		
+	</tr>
+	</foreach>
+	</table>
+	<{$page}>
+</div>

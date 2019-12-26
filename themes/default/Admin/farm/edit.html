@@ -1,0 +1,225 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">农家乐</li>
+        <li class="li2">农家乐管理</li>
+        <li class="li2 li3">编辑农家乐</li>
+    </ul>
+</div>
+<form  target="baocms_frm" action="<{:U('farm/edit',array('farm_id'=>$detail['farm_id']))}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                 <tr>
+                    <td class="lfTdBt">选择商家：</td>
+                    <td class="rgTdBt">
+                        <div class="lt">
+                            <input type="hidden" id="shop_id" name="data[shop_id]" value="<{$detail.shop_id|default=''}>"/>
+                            <input type="text" id="shop_name" name="shop_name" value="<{$shop.shop_name}>" class="manageInput" />
+                        </div>
+                        <a mini="select"  w="1000" h="600" href="<{:U('shop/select')}>" class="remberBtn">选择商家</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">农家乐名称：</td>
+                    <td class="rgTdBt"><input type="text" name="data[farm_name]" value="<{$detail.farm_name|default=''}>" class="scAddTextName w210" />
+
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">农家乐简介：</td>
+                    <td class="rgTdBt"><input type="text" name="data[intro]" value="<{$detail.intro|default=''}>" class="scAddTextName w210" />
+
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">农家乐地址：</td>
+                    <td class="rgTdBt"><input type="text" name="data[addr]" value="<{$detail.addr|default=''}>" class="scAddTextName w210" />
+
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">农家乐起价：</td>
+                    <td class="rgTdBt"><input type="text" name="data[price]" value="<{$detail.price|default=''}>" class="scAddTextName w210" />
+
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">农家乐电话：</td>
+                    <td class="rgTdBt"><input type="text" name="data[tel]" value="<{$detail.tel|default=''}>" class="scAddTextName w210" />
+
+                    </td>
+                </tr>
+                
+                
+                
+              <tr>
+                    <td class="lfTdBt">农家乐主图：</td>
+                 <td class="rgTdBt">
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <input type="hidden" name="data[photo]" value="<{$detail.photo}>" id="data_photo" />
+                        <div id="fileToUpload" >上传酒店主图</div>
+                    </div>
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <img id="photo_img" width="120" height="80"  src="<{:config_img($detail['photo'])}>" />
+                        <a href="<{:U('setting/attachs')}>">缩略图设置</a>
+                        <{$CONFIG.attachs.hotle.thumb}>
+                    </div>
+                    <script>                                            
+						var width_hotle = '<{:thumbSize($CONFIG[attachs][hotle][thumb],0)}>';                         
+						var height_hotle = '<{:thumbSize($CONFIG[attachs][hotle][thumb],1)}>';                         
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"hotle"))}>',                             
+						pick: '#fileToUpload',                             
+						resize: true,  
+						compress : {width: width_hotle,height: height_hotle,quality: 80,allowMagnify: false,crop: true}                       
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_photo").val(resporse.url);                             
+						$("#photo_img").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+                </td>
+            </tr>
+                <tr>
+                  <td class="lfTdBt">农家乐详情图：</td>
+                        <td class="rgTdBt">
+                            <div>
+                                <div id="moreToUpload" >上传图片</div>
+                            </div>							
+							<script>                                
+									var width_hotle_pic = '<{:thumbSize($CONFIG[attachs][hotle][thumb],0)}>';  //获取宽度                              
+									var height_hotle_pic = '<{:thumbSize($CONFIG[attachs][hotle][thumb],1)}>'; //获取高度 
+                       
+									var uploader = WebUploader.create({                                    
+									auto: true,                                    
+									swf: '/static/default/webuploader/Uploader.swf',                                    
+									server: '<{:U("app/upload/uploadify",array("model"=>"hotle"))}>',                                    
+									pick: '#moreToUpload',                                    
+									fileNumberLimit:10,                                    
+									resize: true, 
+									crop: false,  
+									compress : {width:width_hotle_pic,height:height_hotle_pic,quality: 80,allowMagnify: false,crop: true},														
+								});                                                               
+								uploader.on( 'uploadSuccess', function( file,resporse) {                                    
+								var str = '<span style="width: 240px; height: 135px; float: left; margin-left: 5px; margin-top: 10px;">  <img width="240" height="135" src="' + resporse.url + '">  <input type="hidden" name="thumb[]" value="' + resporse.url + '" />    <a href="javascript:void(0);">取消</a>  </span>';                                   
+								 $(".jq_uploads_img").append(str);                                
+									 });                                                            
+								 uploader.on( 'uploadError', function( file ) {                                    
+									alert('上传出错');                                
+								 });                                
+								 $(document).on("click", ".jq_uploads_img a", function () {                                    
+									 $(this).parent().remove();                                
+								 });                            
+                             </script>
+                            <div class="jq_uploads_img">
+                            
+                                <foreach  name="thumb" item="item">
+                                    <span style="width: 200px; height: 120px; float: left; margin-left: 5px; margin-top: 10px;"> 
+                                        <img width="240" height="135" src="<{:config_img($item['photo'])}>">  
+                                        <input type="hidden" name="thumb[]" value="<{:config_img($item['photo'])}>" />  
+                                        <a href="javascript:void(0);">取消</a>  
+                                    </span>
+                                </foreach>
+                            </div>					
+                        </td>
+                    </tr>
+             <tr> 
+                
+                
+                <tr>
+                    <td class="lfTdBt">分类：</td>
+                    <td class="rgTdBt">
+                        <volist name="new_cates" id="var">
+                            <label><span><{$var.name}>：</span><input style="width: 20px; height: 20px;" type="checkbox" name="cate_id[]" value="<{$i}>" <notempty name="var.sel">checked="checked"</notempty> /></label>
+                        </volist>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">适合人群：</td>
+                    <td class="rgTdBt">
+                        <volist name="new_groups" id="var">
+                        <label><span><{$var.name}>：</span><input style="width: 20px; height: 20px;" type="checkbox" name="group_id[]" value="<{$i}>" <notempty name="var.sel">checked="checked"</notempty> /></label>
+                        </volist>
+                    </td>
+                </tr>
+                
+        <tr>
+            <td class="lfTdBt">属性：</td>
+            <td class="rgTdBt">
+                <label><span>标准间：</span><input style="width: 20px; height: 20px;" type="checkbox" name="data[have_room]" value="1" <if condition="$detail['have_room'] eq 1">checked="checked"</if> /></label>
+                <label><span>一客喜换：</span><input style="width: 20px; height: 20px;" type="checkbox" name="data[have_washchange]" value="1" <if condition="$detail['have_washchange'] eq 1">checked="checked"</if> /></label>
+                <label><span>WIFI：</span><input style="width: 20px; height: 20px;" type="checkbox" name="data[have_wifi]" value="1" <if condition="$detail['have_wifi'] eq 1">checked="checked"</if> /></label>
+                <label><span>淋浴：</span><input style="width: 20px; height: 20px;" type="checkbox" name="data[have_shower]" value="1" <if condition="$detail['have_shower'] eq 1">checked="checked"</if> /></label>
+                <label><span>电视：</span><input style="width: 20px; height: 20px;" type="checkbox" name="data[have_tv]" value="1" <if condition="$detail['have_tv'] eq 1">checked="checked"</if> /></label>
+                <label><span>包含门票：</span><input style="width: 20px; height: 20px;" type="checkbox" name="data[have_ticket]" value="1" <if condition="$detail['have_ticket'] eq 1">checked="checked"</if> /></label>
+                <label><span>洗漱用品：</span><input style="width: 20px; height: 20px;" type="checkbox" name="data[have_toiletries]" value="1" <if condition="$detail['have_toiletries'] eq 1">checked="checked"</if> /></label>
+                <label><span>全天热水：</span><input style="width: 20px; height: 20px;" type="checkbox" name="data[have_hotwater]" value="1" <if condition="$detail['have_hotwater'] eq 1">checked="checked"</if> /></label>
+            </td>
+        </tr>
+
+        <tr>
+            <td class="lfTdBt">农家乐坐标：</td>
+            <td class="rgTdBt">
+                <div class="lt">
+                    经度<input type="text" name="data[lng]" id="data_lng" value="<{$detail.lng|default=''}>" class="scAddTextName w200" />
+                    纬度 <input type="text" name="data[lat]" id="data_lat" value="<{$detail.lat|default=''}>" class="scAddTextName w200" />
+                </div>
+                <a style="margin-left: 10px;" mini="select"  w="600" h="600" href="<{:U('public/maps')}>" class="seleSj">百度地图</a>
+        </tr>
+
+
+     <tr>
+        <td class="lfTdBt">预约须知：</td>
+        <td class="rgTdBt">
+        	<script type="text/plain" id="data_notice" name="data[notice]" style="width:800px;height:360px;"><{$detail.notice}></script>
+        </td>
+      </tr>
+      <link rel="stylesheet" href="__PUBLIC__/qiniu_ueditor/themes/default/css/ueditor.min.css" type="text/css">
+      <script type="text/javascript" charset="utf-8" src="__PUBLIC__/qiniu_ueditor/ueditor.config.js"></script>
+      <script type="text/javascript" charset="utf-8" src="__PUBLIC__/qiniu_ueditor/ueditor.all.min.js"></script>
+      <script type="text/javascript" src="__PUBLIC__/qiniu_ueditor/lang/zh-cn/zh-cn.js"></script>
+      <script>
+        um = UE.getEditor('data_notice', {
+        lang: 'zh-cn',
+	    toolbars:[['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'backcolor', 'fontsize', 'fontfamily', 'justifyleft', 'justifyright', 'justifycenter', 'justifyjustify', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', 'link', 'unlink', 'map', 'template', 'background','inserttable','print','attachment',  'emotion',  'snapscreen','insertimage', 'music', 'insertvideo']],  
+           });
+     </script>
+     
+     
+       <tr>
+        <td class="lfTdBt">店铺环境：</td>
+        <td class="rgTdBt">
+        	<script type="text/plain" id="data_environmental" name="data[environmental]" style="width:800px;height:360px;"><{$detail.environmental}></script>
+        </td>
+      </tr>
+      <script>
+        um2 = UE.getEditor('data_environmental', {
+        lang: 'zh-cn',
+	    toolbars:[['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'backcolor', 'fontsize', 'fontfamily', 'justifyleft', 'justifyright', 'justifycenter', 'justifyjustify', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', 'link', 'unlink', 'map', 'template', 'background','inserttable','print','attachment',  'emotion',  'snapscreen','insertimage', 'music', 'insertvideo']],  
+           });
+     </script>
+     
+       <tr>
+        <td class="lfTdBt">商家介绍：</td>
+        <td class="rgTdBt">
+        	<script type="text/plain" id="data_details" name="data[details]" style="width:800px;height:360px;"><{$detail.details}></script>
+        </td>
+      </tr>
+      <script>
+        um3 = UE.getEditor('data_details', {
+        lang: 'zh-cn',
+	    toolbars:[['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'backcolor', 'fontsize', 'fontfamily', 'justifyleft', 'justifyright', 'justifycenter', 'justifyjustify', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', 'link', 'unlink', 'map', 'template', 'background','inserttable','print','attachment',  'emotion',  'snapscreen','insertimage', 'music', 'insertvideo']],  
+           });
+     </script>
+     
+        
+     
+    </table>
+       <input type="submit" value="确认添加" class="smtQrIpt" />
+</div>
+
+</div>
+</form>
+<include  file='public:footer'/>       

@@ -1,0 +1,105 @@
+<include file='public:header'/>  
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			订座菜品管理
+		</div>
+		<div class="top-share">
+			<a href="<{:u('distributors/dingmenu/create')}>" class="top-addr icon-plus"> 增菜</a>
+		</div>
+	</header><include file='public:header'/>
+
+
+<script>
+		$(function(){
+			$(".sh_prompt_infor_closs").click(function(){
+				$(".sh_prompt_infor_box").hide();
+			});
+		});
+    </script>
+
+<style>
+.xiaoqu-search{ margin-top:2rem;}
+</style>
+<!-- 筛选TAB -->
+<ul id="shangjia_tab">
+        <li style="width: 50%;"><a href="<{:U('dingmenu/index')}>" class="on">出售中的菜品</a></li>
+        <li style="width: 50%;"><a href="<{:U('dingmenu/shelves')}>">已下架的菜品</a></li>
+</ul>   
+
+
+<div class="line xiaoqu-search">
+		<form method="post"  action="<{:U('dingmenu/index')}>" id="form1" class="form1">
+			<div class="form-group">
+				<div class="field">
+					<div class="input-group">
+						<span class="addbtn"><button type="button" class="button icon-search"></button></span>
+						<input type="text" class="input" name="keyword" size="50" value="<{$keyword}>" placeholder="菜单昵称"  />
+						<span class="addbtn"><button type="submit" class="button">搜索</button></span>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+  
+<div class="xiaoqu-list">
+
+<foreach name="list" item="var">
+		<ul id="xiaoqu-list">
+               <li class="line">
+	<a href="javascript:void(0);" class="item fix hightitem">	
+		<div class="x2">
+                    <img src="__ROOT__/attachs/<{$var.photo}>">
+		</div>
+        <div class="x7">
+			<p class="addr">名称：<{$var.menu_name}></p>
+            <p class="addr">分类：<{$dingcates[$var['cate_id']]['cate_name']}> &nbsp;
+            <eq name="var.is_new" value="1">新品<else/>无</eq>
+            <eq name="var.is_sale" value="1">优惠<else/>无</eq>
+            <eq name="var.is_tuijian" value="1">推荐<else/>无</eq>
+            </p>
+            <p class="addr">价格：<{:round($var['price']/100,2)}> &nbsp; &nbsp; 优惠价：<{:round($var['ding_price']/100,2)}></p>
+		</div>
+        
+        <div class="x3">
+        <a href="javascript:void(0);" rel="<{$var.menu_id}>"  class="jquery-delete button bg-yellow float-right">下架</a>
+        <a href="<{:U('dingmenu/edit',array('menu_id'=>$var['menu_id']))}>" class="button bg-yellow float-right  margin-top">编辑</a>
+        </div>
+		</li>
+<div class="blank-10 bg"></div>
+    </foreach>
+
+</ul>  
+</div>   
+
+<div class="blank-20"></div>
+<script>
+	$(document).ready(function () {
+		$(document).on('click', ".jquery-delete", function (e) {
+			var menu_id = $(this).attr('rel');
+			layer.confirm('您确定要下架该订座菜品？', {
+				skin: 'layer-ext-demo', 
+				area: ['50%', 'auto'], //宽高
+				btn: ['是的', '不'], //按钮
+				shade: false //不显示遮罩
+			}, function () {
+				$.post("<{:U('dingmenu/delete')}>", {menu_id: menu_id}, function (result) {
+					if (result.status == "success") {
+						layer.msg(result.msg);
+						setTimeout(function () {
+							location.reload();
+						}, 1000);
+					} else {
+						layer.msg(result.msg);
+					}
+				}, 'json');
+			});
+		});
+	});
+</script>
+<div class="container login-open">
+<h5 style="text-align:center"><{$page}><!--分页代码不要忘记加--> </h5>
+</div>
+<include file="public:footer_ding"/>

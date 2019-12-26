@@ -1,0 +1,71 @@
+/*面板修正*/
+.panel h4{font-size:14px;font-weight:bold;}
+.panel .panel-head{padding:8px 15px;background:#FAFAFA;border-bottom:thin solid #FFF;}
+.panel .panel-body{border-top:thin solid #DDD;}
+
+/*切换链接*/
+.nav-justified li{width:110px;float:left;}
+
+/*边栏导航*/
+.side{width:180px;background:#FFF;z-index:99;}
+.side .panel{border-top:none;margin:0;}
+.side .side-hd{background:url("../image/member/side-titbg.png") no-repeat;}
+.side .side-hd h2{height:40px;line-height:40px;font-weight:bold;font-size:14px;text-align:center;color:#FFF;}
+.side .panel-head {cursor:pointer;background:#FAFAFA;}
+.side .panel-head h4{font-size:14px;font-weight:bold;cursor:pointer;}
+.side .panel-head i {margin-right:10px;}
+.side .panel-body{padding:0;}
+.side .panel-body ul{padding:0;margin-bottom:-1px;}
+.side .panel-body li{height:40px;line-height:40px;border-bottom:thin solid #DDD;}
+.side .panel-body a{font-size:13px;height:39px;line-height:40px;display:block;padding-left:20px;}
+.side .panel-body a:hover{background:#FAFAFA;}
+
+/*频道导航*/
+.guide{position:relative;width:100%;height:45px;}
+.guide em{height:45px;width:60px;background:url("../image/member/guide-bg.png") no-repeat;position:absolute;left:0;}
+.guide .guide-box{height:40px;width:100%;background:#FAFAFA;padding-left:50px;line-height:40px;font-size:13px;}
+.guide .guide-box i{margin:0 10px;}
+
+
+/*主要框架*/
+.main{background:#FFF;overflow:hidden;margin-left:10px;float:right;width:940px;font-size:14px!important;}
+.main .m-frame{margin:0;width:100%;border:none;}
+
+
+/*用户信息*/
+.user-panel p{margin:5px 0;}
+.user-panel .avatar{display:block;}
+.user-panel .panel-body{border-bottom:thin solid #DDD;border-top:none;}
+.user-panel .avatar img{width:100px;height:100px;border-radius:100px;overflow:hidden;}
+.user-panel h3{font-size:20px;font-family:"Microsoft YaHei";}
+.user-panel h3 em{font-size:12px;margin-left:10px;color:#999;}
+.user-panel h3 i{color:#E74C3C;}
+.user-panel .cert {margin:5px 0;}
+.user-panel .cert span{margin-right:10px;}
+.user-panel .cert i{margin-right:3px;color:#999;font-size:14px;}
+.user-panel .intel{margin:10px 0 0 0;}
+.user-panel .intel i{font-size:40px;color:#F80;margin-right:10px;}
+.user-panel .intel em{color:#F80;}
+.user-panel .feetr{background:#FAFAFA;height:40px;line-height:40px;border-top:thin solid #FFF;padding:0 10px;}
+.user-panel .feetr span{margin-right:20px;}
+.user-panel .feetr em{color:#F60;}
+.user-panel  dl dt{font-size:14px;}
+.user-panel  dl dd{overflow:hidden;}
+.user-panel  dl a{width:50%;float:left;font-size:13px;height:30px;line-height:30px;border-bottom:thin dotted #EEE;}
+
+/*订单表格*/
+.order-table th{border-bottom:none!important;}
+
+
+/*点评传图*/
+.ping-pic{padding:0;overflow:hidden;height:auto;}
+.ping-pic li{width:150px;height:100px;float:left;margin-left:5px;margin-top:10px;position:relative;}
+.ping-pic img{width:150px;height:100px;padding:1px;border:thin solid #DDD;}
+.ping-pic li a{position:absolute;bottom:2px;right:2px;padding:2px 5px;background:#FAFAFA;}
+
+
+
+
+
+
+

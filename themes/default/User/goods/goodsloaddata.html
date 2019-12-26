@@ -1,0 +1,90 @@
+<foreach name="list" item="order">
+    <li class="line ">
+        <dt>
+            <a class="x3">订单ID：<{$order.order_id}></a>
+            <a class="x9 text-right">下单时间：<{$order.create_time|date='Y-m-d H:i:s',###}></span> </a>
+        </dt>
+
+        <foreach name="goods" item="good">
+            <if condition="$good['order_id'] eq $order['order_id']">
+                <dd class="zhong">
+                    <div class="x4">
+                        <img src="<{:config_img($products[$good['goods_id']]['photo'])}>" width="70" height="70">
+                    </div>
+                    <div class="x8">
+                        <p><a href="<{:U('goods/detail',array('order_id'=>$order['order_id']))}>"><{$products[$good['goods_id']]['title']}> </a>
+                        </p>
+
+                        <p class="text-small">
+                            <span class="text-dot1 margin-right">小计：<span class="text-dot">&yen;<{:round($good['price']/100,2)}> x <{$good.num}> = &yen;<{:round($good['total_price']/100,2)}> 元</span></span>
+                        </p>
+                        <if condition="!empty($good[key_name])">
+                            <p class="text-small">
+                                <span class="text-dot1 margin-right">规格：<span class="text-dot"><{$good.key_name}></span></span>
+                            </p>
+                        </if>
+
+                    </div>
+                </dd>
+            </if>
+        </foreach>
+
+        <dt>
+            <div class="x12">
+             <span class="margin-right">
+
+             实际支付：
+             <eq name="order.status" value="0">
+             未支付
+             <else/>
+             <a class="text-dot"> &yen;<{:round($order['need_pay']/100,2)}></a> 元
+             </eq>
+                 </eq></span>
+            </div>
+        </dt>
+        <dl>
+            <p class="text-right padding-top x12">
+                <switch name="order.status">
+                    <case value="0">
+                        <a class="button button-small bg-dot"
+                           href="<{:u('wap/mall/pay',array('type'=>goods,'order_id'=>$order['order_id'],'address_id'=>$order['address_id']))}>"
+                           target="_blank">预约中</a>
+                        <a target="x-frame" class="button button-small bg-gray"
+                           href="<{:U('goods/orderdel',array('order_id'=>$order['order_id']))}>">取消订单</a>
+                    </case>
+
+                    <case value="1">
+                        <span class="button button-small bg-dot">预约成功</span>
+                        <a target="x-frame" class="button button-small bg-gray"
+                           href="<{:U('goods/refund',array('order_id'=>$order['order_id']))}>">申请退款</a>
+                    </case>
+                    <case value="4">
+                        <a target="x-frame" class="button button-small bg-dot"
+                           href="<{:U('goods/cancel_refund',array('order_id'=>$order['order_id']))}>">取消退款</a>
+                    </case>
+
+                    <case value="2"><a target="x-frame" class="button button-small bg-blue"
+                                       href="<{:U('goods/queren',array('order_id'=>$order['order_id']))}>">确认收货</a>
+                    </case>
+                    <case value="8">
+                        <eq name="order.is_dianping" value="0">
+                            <a class="button button-small bg-blue"
+                               href="<{:U('goods/dianping',array('order_id'=>$order['order_id']))}>">我要评价</a>
+                        </eq>
+                        <eq name="order.is_dianping" value="1">
+                            <a class="button button-small bg-gray">已评价</a>
+                        </eq>
+
+                    </case>
+                </switch>
+
+                <a class="button button-small bg-blue"
+                   href="<{:U('goods/detail',array('order_id'=>$order['order_id']))}>">详情</a>
+            </p>
+        </dl>
+    </li>
+    <div class="blank-10 bg"></div>
+
+
+</foreach>
+

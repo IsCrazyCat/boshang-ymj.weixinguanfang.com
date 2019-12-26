@@ -1,0 +1,100 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">优惠买单</li>
+        <li class="li2 li3">编辑优惠买单</li>
+    </ul>
+</div>
+        <form target="baocms_frm" action="<{:U('shopyouhui/edit',array('yh_id'=>$detail['yh_id']))}>" method="post">
+        <div class="mainScAdd">
+        <div class="tableBox"> 
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+            
+      	
+        <tr>
+            <td class="lfTdBt">商家：</td>
+            <td class="rgTdBt"> <div class="lt">
+               <input type="hidden" id="shop_id" name="data[shop_id]" value="<{$detail.shop_id|default=''}>"/>
+               <input type="text" id="shop_name" name="shop_name" value="<{$shops.shop_name}>"   disabled="disabled" class="manageInput" />
+                </div>
+            </td>
+       </tr>
+                
+                
+        <tr>
+          <td class="lfTdBt">优惠状态：</td>
+            <td class="rgTdBt">
+                 <if condition="$detail[is_open] eq 1"><span style="color: green;">开启中</span><else/><span style="color: red;">关闭</span></if>
+            </td>
+        </tr>    
+        
+        <!--增加开始-->
+        <tr>
+          <td class="lfTdBt">优惠类型：</td>
+            <td class="rgTdBt">
+                <input class="yh_type" type="radio" rel="0" name="data[type_id]" value="0" <if condition="$detail[type_id]" value="0">checked="checked"</if>  class="cjinput" />折扣
+				<input class="yh_type" type="radio" rel="1" name="data[type_id]" value="1" <if condition="$detail[type_id]" value="1">checked="checked"</if>  class="cjinput" />满减
+
+            </td>
+        </tr>
+        
+        
+        <tr class="jq_tr jq_tr_0">
+           <td class="lfTdBt" >折扣优惠：</td>
+            <td class="rgTdBt">
+              <input type="hidden" name="data[yh_id]" value="<{$detail.yh_id}>"/>
+              <input type="text" name="data[discount]" value="<{$detail.discount|default=''}>" class="scAddTextName" />
+            </td>
+        </tr>
+        
+       <tr class="jq_tr jq_tr_0">
+           <td class="lfTdBt" >扣除折扣：</td>
+            <td class="rgTdBt">
+              <input type="text" name="data[deduction]" value="<{$detail.deduction|default=''}>" class="scAddTextName" />
+              <code>注意，这里一般是0.2-0.6,不太写多了，扣点之前跟商家沟通下</code>
+            </td>
+        </tr>        
+        
+         <tr class="jq_tr jq_tr_1">
+           <td class="lfTdBt" >满减优惠：</td>
+            <td class="rgTdBt">
+               <input type="hidden" name="data[yh_id]" value="<{$detail.yh_id}>"/>
+               满<input type="text" name="data[min_amount]" value="<{$detail.min_amount|default=''}>" class="scAddTextName" />
+               减<input type="text" name="data[amount]" value="<{$detail.amount|default=''}>" class="scAddTextName" />
+            </td>
+        </tr>
+        
+        <tr class="jq_tr jq_tr_1">
+           <td class="lfTdBt" >网站抽成：</td>
+            <td class="rgTdBt">
+              <input type="text" name="data[vacuum]" value="<{$detail.vacuum|default=''}>" class="scAddTextName" />
+            </td>
+        </tr>        
+        
+     
+       
+		<script>
+            $(document).ready(function(){
+                var fullcut = "<{$detail.type_id}>";
+                if(fullcut == 1){
+                    var tag = 1;
+                }else{
+                    var tag = 0;
+                }
+                $(".yh_type").click(function(){
+                    $(".jq_tr").hide();
+                    $(".jq_tr_"+$(this).attr('rel')).show();
+                })
+                
+                 $(".yh_type").eq(tag).click();
+            })
+        </script>
+        
+       
+    </table>
+            <div class="smtQr"><input type="submit" value="确认编辑" class="smtQrIpt" /></div>
+    </form>
+    </div>
+    </div>
+<include  file='public:footer'/>       

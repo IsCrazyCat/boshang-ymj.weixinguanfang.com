@@ -1,0 +1,56 @@
+<include file="public:header" /> 
+<include file="public:topOne" />
+            <div class="between">
+                    <div class="hotel_state">
+                        <div class="list_box">
+                            <ul>
+                                <li class="list">1.提交订单</li>
+                                <li class="list">2.去支付</li>
+                                <li class="list on">3.完成</li>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="img img3"></div>
+                    </div>
+                    <table  class="tab_bor">
+                        <tr>
+                            <td><p class="tab_p1"><img src="__TMPL__statics/images/tp_15.png"></p></td>
+                            <td><p class="tab_p2"><{$message}><a href="<{:U('home/hotel/index')}>"> &nbsp再去逛逛>></a></p></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><div class="tab_p4"><a href="<{:U('members/hotels/index')}>">查看已订酒店</a></div></td>
+                        </tr>
+                    </table>
+                    <table class="tab_xx" width="100%">
+                        <tr>
+                            <th colspan="5">订单信息</th>
+                        </tr>
+                        <tr>
+                            <td>订单编号：<{$detail.order_id}></td>
+                            <td>下单时间：<{$detail.single_time|date='Y-m-d H:i',###}></td>
+                            <td>付款方式：<{$paytype[$detail['code']]['name']}></td>
+                            <td>付款时间：<{$detail.create_time|date='Y-m-d H:i',###}></td>
+                            <td>酒店地址：<{$citys[$hotel['city_id']]['name']}>&nbsp;<{$areas[$hotel['area_id']]['area_name']}>&nbsp;<{$bizs[$hotel['business_id']]['business_name']}>&nbsp;<{$hotel['addr']}></td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">房间信息</th>
+                            <th>房间单价</th>
+                            <th colspan="2">预订时间</th>
+                            <th>房间数量</th>
+                            <th class="tab_fiveTh">总额</th>
+                        </tr>
+                        <tr>
+                            <td width="150"><img width="150" src="<{:config_img($tuans['photo'])}>"></td>
+                            <td width="200"><{$tuans['title']}></td>
+                            <td><{$room['price']}>X</td>
+                            <td><{$order['stime']}> -- <{$order['ltime']}></td>
+                            <td><{$order.num}>=</td>
+                            <td class="tab_fiveTh"><{$order['amount']}></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">&nbsp;</td>
+                            <td><p class="pay_total_p">支付总金额：<span>￥<{:round($detail['need_pay']/100,2)}></span></p></td>
+                        </tr>
+                    </table>      
+            </div>
+            <include file="public:footer"/>

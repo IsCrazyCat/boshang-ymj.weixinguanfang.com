@@ -1,0 +1,123 @@
+<include  file='public:header'/>   
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('running/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			跑腿详情
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+<style>
+.list-media-x {margin-top:0rem;}
+footer{position:fixed;bottom:0;z-index:999; background:rgba(241,9,9,0.8);width:100%}
+footer>div{width:65%;float:left}
+footer p{text-align:center;color:#fff;font-size:12px}
+footer .icon{width:1.24rem;height:.24rem;margin:0 auto;margin-top:.04rem;font-size: 18px;}
+footer .icon.on{}
+footer .i-1{background-position:center 0}
+footer .i-2{background-position:center -.24rem}
+footer .i-3{background-position:center -.48rem}
+footer .i-4{background-position:center -.72rem}
+footer .i-5{background-position:center -.96rem}
+.footer-btn,.footer-cart{}
+.footer-cart .price{font-size:14px;color:#fff;height:.55rem;line-height:2.8rem;margin-left:2.0rem;margin-top:0.2rem;}
+.footer-cart .cart{width:2.32rem;height:2.32rem;position:absolute;top:0.7rem;left:.5rem}
+.footer-cart .cart-num{width:1.3rem;height:1.3rem;line-height:1.3rem;background:#EB6100;border-radius:2.5rem;color:#FFF;text-align:center;position:relative;bottom:2.2rem;left:.64rem}
+.footer-cart .btn{width: 25%;height:3rem;background:#2fbdaa;float:right;cursor:pointer;color:#FFF;text-align:center;font-size:16x;line-height:3rem;}
+.footer-cart .disable{width:5.5rem;height:3rem;background:#dedede;float:right;cursor:pointer;color:#FFF;text-align:center;font-size:16x;line-height:3rem;}
+</style>
+
+<ul id="shangjia_tab">
+    <li class="x6"><a href="<{:LinkTo('running/state',array('running_id'=>$detail['running_id']))}>" >跑腿状态</a></li>
+    <li class="x6"><a href="<{:LinkTo('running/detail',array('running_id'=>$detail['running_id']))}>"  class="on">跑腿详情</a></li>
+</ul>
+
+
+<div class="panel-list" style="margin-top:2.2rem;">
+	<ul>
+		<li>
+			<a href="javascript:;">
+				需求说明：
+				<em><{$detail.title}></em>
+			</a>
+		</li>
+		<li>
+			<a href="javascript:;">
+				发布时间：
+				<em class="text-dot"><{$detail.create_time|date='Y-m-d H:i:s',###}></em>
+			</a>
+		</li>
+        
+		
+        <div class="blank-10 bg"></div>
+		<li>
+			<a href="javascript:;">
+				联系人：
+				<em class="text-dot"><{$detail.name}> <{$detail.mobile}></em>
+			</a>
+		</li>
+		<li>
+			<a href="javascript:;">
+				地址
+				<em><{$detail.addr}></em>
+			</a>
+		</li>
+	</ul>
+</div>
+<div class="blank-10 bg"></div>
+<div class="list-media-x">
+	<ul>
+		<li class="line padding">
+            <foreach  name="thumb" item="item">
+               <div class="x4">
+                    <img style="width:90%;" src="<{:config_img($item)}>">
+                </div>
+            </foreach>
+		</li>  
+	</ul>
+</div>
+<div class="blank-10 bg"></div>
+<div class="panel-list">
+	<ul>
+		<li>
+			<a href="javascript:;">
+				跑腿费用：
+				<em><{:round($detail['freight']/100,2)}></em>
+			</a>
+		</li>
+		<li>
+			<a href="javascript:;">
+				已付费用：
+				<em><{:round($detail['price']/100,2)}></em>
+			</a>
+		</li>
+        
+        <li>
+			<a href="javascript:;">
+				实际付款：
+				<em><{:round($detail['need_pay']/100,2)}></em>
+			</a>
+		</li>
+		
+	</ul>
+</div>
+		
+<div class="blank-10"></div>
+<div class="container text-center">
+    <if condition="$detail.status eq 0">
+        <a class="button button-block button-big bg-dot margin-bottom" >待付款</a>
+        <a  href="<{:U('running/pay',array('running_id'=>$detail['running_id']))}>" class="button button-block button-big bg-dot margin-bottom" >去付款</a>
+    <elseif condition="$detail.status eq 1"/>
+       <a class="button button-block button-big margin-bottom bg-dot" >已付款</a>
+    <elseif condition="$detail.status eq 2"/>
+       <a class="button button-block button-big margin-bottom bg-dot" >跑腿中</a>
+    <elseif condition="$detail.status eq 3"/>
+    	<a class="button button-block button-big margin-bottom bg-dot" >已完成跑腿</a>
+    <elseif condition="$detail.status eq 8"/>
+       <a class="button button-block button-big  margin-bottom bg-dot" >已完成订单</a>
+    </if>
+</div>
+<include file='running:footer'/>

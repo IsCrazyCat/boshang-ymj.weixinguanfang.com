@@ -1,0 +1,44 @@
+<div class="listBox clfx" style="width: 800px;">
+    <div class="menuManage">
+        <form  target="baocms_frm" action="<{:U('pkuaidi/listcreate', array('kuaidi_id' => $kuaidi_id))}>" method="post">
+            <div class="mainScAdd">
+                <div class="tableBox">
+                    <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+
+                        <tr>
+                            <td class="lfTdBt">配送名称：</td>
+                            <td class="rgTdBt"><input type="text" name="data[name]" value="<{$detail.name|default=''}>" class="scAddTextName w150" />
+                            </td>
+                        </tr>
+                        <tr>
+                    <td class="lfTdBt">配送区域：</td>
+                     <td class="rgTdBt">
+                        <select id="province_id" name="data[province_id]" class="manageSelect w100">
+                            <foreach name="provinceList" item="var">
+                                <option value="<{$var.id}>"  <eq name="var.id" value="$detail.province_id">selected="selected"</eq> ><{$var.name}></option>      
+                            </foreach>
+                        </select>
+                    </td>
+                </tr>   
+                        <tr>
+                            <td class="lfTdBt">首重费用：</td>
+                            <td class="rgTdBt"><input type="text" name="data[shouzhong]" value="<{$detail.shouzhong|default=''}>" class="scAddTextName w150" />
+                            	<code>1KG为首重</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lfTdBt">续重费用：</td>
+                            <td class="rgTdBt"><input type="text" name="data[xuzhong]" value="<{$detail.xuzhong|default=''}>" class="scAddTextName w150" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="smtQr"><input type="submit" value="确认添加" class="smtQrIpt" /></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+

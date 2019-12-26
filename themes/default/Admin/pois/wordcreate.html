@@ -1,0 +1,29 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">当前位置</li>
+        <li class="li2">黄页</li>
+        <li class="li2 li3">词条</li>
+    </ul>
+</div>
+        <form target="baocms_frm" action="<{:U('pois/wordcreate')}>" method="post">
+            
+             <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >  
+                <tr>
+                    <td class="lfTdBt">词语：</td>
+                    <td class="rgTdBt"><input type="text" name="data[text]" value="<{$detail.text|default=''}>" class="manageInput" />
+                    </td>
+                </tr>
+				<tr>
+                    <td class="lfTdBt">价格：</td>
+                  <td class="rgTdBt"><input type="text" name="data[price]" value="<{$detail.price|default=''}>" class="manageInput" /> 元/年
+                    </td>
+                </tr>
+
+
+    </table>
+            <div class="smtQr"><input type="submit" value="确认编辑" class="smtQrIpt" /></div>
+</form>
+</div>
+</div>
+<include  file='public:footer'/>       

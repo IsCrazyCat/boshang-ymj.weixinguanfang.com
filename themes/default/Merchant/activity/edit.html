@@ -1,0 +1,211 @@
+<include  file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+
+<div class="sjgl_lead">
+  <ul>
+    <li><a href="#">活动管理</a> > <a href="">活动</a> > <a>编辑活动</a></li>
+  </ul>
+</div>
+<div class="tuan_content">
+  <div class="radius5 tuan_top">
+    <div class="tuan_top_t">
+      <div class="left tuan_topser_l">商家发布的活动要在后台审核之后才能显示在前台</div>
+    </div>
+  </div>
+  <div class="tabnr_change  show">
+    <form method="post"  action="<{:U('activity/edit',array('activity_id'=>$detail['activity_id']))}>"  target="baocms_frm">
+      <table class="tuanfabu_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <input type="hidden" id="shop_id" name="data[shop_id]" value="<{$detail.shop_id}>"/>
+          <td width="120"><p class="tuanfabu_t">选择套餐：</p></td>
+          <td><div class="tuanfabu_nr">
+          
+              <select id="tuan_id" name="data[tuan_id]" class="tuanfabu_int tuanfabu_intw2" >
+                <foreach name="tuan" item="var">
+                  <option value="<{$var.tuan_id}>"  <eq name="var.tuan_id" value="$detail.tuan_id">selected="selected"</eq> ><{$var.title}></option>
+                </foreach>
+              </select>
+              
+            </div></td>
+        </tr>
+        <tr>
+          <td width="120"><p class="tuanfabu_t">活动类型：</p></td>
+          <td><div class="tuanfabu_nr">
+              <select id="cate_id" name="data[cate_id]" class="tuanfabu_int tuanfabu_intw2">
+              
+                <foreach name="cates" item="var">
+                  <option value="<{$var.cate_id}>"  <eq name="var.cate_id" value="$detail.cate_id">selected="selected"</eq> ><{$var.cate_name}></option>
+                </foreach>
+                
+              </select>
+            </div></td>
+        </tr>
+        <tr>
+          <td width="120"><p class="tuanfabu_t">活动标题：</p></td>
+          <td><div class="tuanfabu_nr">
+              <input type="text" name="data[title]" value="<{$detail.title}>" class="tuanfabu_int tuanfabu_intw1" />
+            </div></td>
+        </tr>
+        <tr>
+          <td width="120"><p class="tuanfabu_t">活动简介：</p></td>
+          <td><div class="tuanfabu_nr">
+              <textarea  name="data[intro]" cols="50" rows="10" style="border:solid 1px #d5d5d5; text-indent:10px;"><{$detail.intro}></textarea>
+            </div></td>
+        </tr>
+        
+        
+       <tr>
+               <td class="lfTdBt"><p class="tuanfabu_t">活动图片：</p></td>
+                 <td class="rgTdBt">
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <input type="hidden" name="data[photo]" value="<{$detail.photo}>" id="data_photo" />
+                        <div id="fileToUpload" >上传缩略图</div>
+                    </div>
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <img id="photo_img" width="120" height="80"  src="<{:config_img($detail['photo'])}>" />
+                        <a href="<{:U('setting/attachs')}>">缩略图设置</a>
+                        <{$CONFIG.attachs.hoteltuan.thumb}>
+                    </div>
+                    <script>                                            
+						var width_activity = '<{:thumbSize($CONFIG[attachs][activity][thumb],0)}>';                         
+						var height_activity = '<{:thumbSize($CONFIG[attachs][activity][thumb],1)}>';                        
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"activity"))}>',                             
+						pick: '#fileToUpload',                             
+						resize: true,  
+						compress : {width: width_activity,height: height_activity,quality: 80,allowMagnify: false,crop: true}                                          
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_photo").val(resporse.url);                             
+						$("#photo_img").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+                </td>
+            </tr>
+            
+            
+            
+                <tr>
+                  <td class="lfTdBt"><p class="tuanfabu_t">活动组图：</p></td>
+                        <td class="rgTdBt">
+                            <div>
+                                <div id="moreToUpload" >上传图片</div>
+                            </div>							
+							<script>                                
+									var width_activity_pic = '<{:thumbSize($CONFIG[attachs][activity][thumb],0)}>';  //获取宽度                              
+									var height_activity_pic = '<{:thumbSize($CONFIG[attachs][activity][thumb],1)}>'; //获取高度
+									var uploader = WebUploader.create({                                    
+									auto: true,                                    
+									swf: '/static/default/webuploader/Uploader.swf',                                    
+									server: '<{:U("app/upload/uploadify",array("model"=>"activity"))}>',                                    
+									pick: '#moreToUpload',                                    
+									fileNumberLimit:10,                                    
+									resize: true, 
+									crop: false,  
+									accept: {
+										title: 'Images',
+										extensions: 'gif,jpg,jpeg,png',
+										mimeTypes: 'image/*'//只永许上传JPG格式文件
+									}, 
+									compress : {width: width_activity_pic,height: height_activity_pic,quality:90,allowMagnify: false,crop: true}      														
+								});                                                               
+								uploader.on( 'uploadSuccess', function( file,resporse) {                                    
+								var str = '<span style="width: 220px; height: 150px; float: left; margin-left: 5px; margin-top: 10px;">  <img width="200" height="150" src="' + resporse.url + '">  <input type="hidden" name="thumb[]" value="' + resporse.url + '" />    <a href="javascript:void(0);">取消</a>  </span>';                                   
+								 $(".jq_uploads_img").append(str);                                
+									 });                                                            
+								 uploader.on( 'uploadError', function( file ) {                                    
+									alert('上传出错');                                
+								 });                                
+								 $(document).on("click", ".jq_uploads_img a", function () {                                    
+									 $(this).parent().remove();                                
+								 });                            
+                             </script>
+                            <div class="jq_uploads_img">
+                                <foreach  name="thumb" item="item">
+                                    <span style="width: 200px; height: 170px; float: left; margin-left: 5px; margin-top: 5px;"> 
+                                        <img width="200" height="150" src="<{:config_img($item)}>">  
+                                        <input type="hidden" name="thumb[]" value="<{$item}>" />  
+                                        <a href="javascript:void(0);">取消</a>  
+                                    </span>
+                                </foreach>
+                            </div>					
+                        </td>
+                    </tr>
+             <tr>
+      
+         <tr>
+          <td><p class="tuanfabu_t">活动内容：</p></td> <td><div class="tuanfabu_nr">
+                <script type="text/plain" id="data_details" name="data[details]" style="width:800px;height:360px;"><{$detail.details}></script>
+                <link rel="stylesheet" href="/Public/qiniu_ueditor/themes/default/css/ueditor.min.css" type="text/css">
+                <script type="text/javascript" charset="utf-8" src="/Public/qiniu_ueditor/ueditor.config.js"></script>
+                <script type="text/javascript" charset="utf-8" src="/Public/qiniu_ueditor/ueditor.all.min.js"></script>
+                <script type="text/javascript" src="/Public/qiniu_ueditor/lang/zh-cn/zh-cn.js"></script>
+                <script>
+                    um = UE.getEditor('data_details', {
+                        lang: 'zh-cn',
+						toolbars:[['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'backcolor', 'fontsize', 'fontfamily', 'justifyleft', 'justifyright', 'justifycenter', 'justifyjustify', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', 'link', 'unlink', 'map', 'template', 'background','inserttable','print','attachment',  'emotion',  'snapscreen','insertimage', 'music', 'insertvideo']],  
+                        });
+                </script>
+                </div>
+             </td>
+         </tr>
+         
+         
+        <tr>
+          <td width="120"><p class="tuanfabu_t">价格：</p></td>
+          <td><div class="tuanfabu_nr">
+              <input type="text" name="data[price]" value="<{$detail.price|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+              <code>填写参加活动的价格，暂时不支持在线付款</code>
+            </div></td>
+        </tr>
+        <tr>
+          <td width="120"><p class="tuanfabu_t">活动开始时间：</p></td>
+          <td><div class="tuanfabu_nr">
+              <input type="text" name="data[bg_date]" value="<{$detail.bg_date|default=''}>" onfocus="WdatePicker();" class="tuanfabu_int tuanfabu_intw2" />
+              <code>活动开始时间</code>
+            </div></td>
+        </tr>
+        <tr>
+          <td width="120"><p class="tuanfabu_t">活动结束时间：</p></td>
+          <td><div class="tuanfabu_nr">
+              <input type="text" name="data[end_date]" value="<{$detail.end_date|default=''}>" onfocus="WdatePicker();" class="tuanfabu_int tuanfabu_intw2" />
+              <code>活动结束时间</code>
+            </div></td>
+        </tr>
+        
+        <tr>
+          <td width="120"><p class="tuanfabu_t">报名截止时间：</p></td>
+          <td><div class="tuanfabu_nr">
+              <input type="text" name="data[sign_end]" value="<{$detail.sign_end|default=''}>" onfocus="WdatePicker();" class="tuanfabu_int tuanfabu_intw2" />
+              <code>到时间后或者不能报名</code>
+            </div></td>
+        </tr>
+        
+        <tr>
+          <td width="120"><p class="tuanfabu_t">活动具体时间：</p></td>
+          <td><div class="tuanfabu_nr">
+              <input type="text" name="data[time]" value="<{$detail.time|default=''}>" class="tuanfabu_int tuanfabu_intw2" /><span style="margin-left:10px;">(例如：2014年10月24日 7点半 -- 9点半 或者 2014-10-24 7:30 -- 9:00)</span>
+            </div></td>
+        </tr>
+        
+        <tr>
+          <td width="120"><p class="tuanfabu_t">活动地址：</p></td>
+          <td><div class="tuanfabu_nr">
+              <input type="text" name="data[addr]" value="<{$detail.addr|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+              <code>填写活动举报地址</code>
+            </div></td>
+        </tr>
+      
+      </table>
+      <div class="tuanfabu_an">
+        <input type="submit" class="radius3 sjgl_an tuan_topbt" value="确认修改" />
+      </div>
+    </form>
+  </div>
+</div>
+<include  file='public:footer'/>

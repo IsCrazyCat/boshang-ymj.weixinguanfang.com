@@ -1,0 +1,29 @@
+<include file='public:header'/> 
+<body>
+	<header>
+		<a href="<{:U('/mcenter/index')}>"><i class="icon-goback"></i></a>
+		<div class="title">我的信息</div>
+		<i class="icon-menu"></i>
+	</header>
+<div class="content_right" style="margin-top: 0.5rem;">  
+    <div class="tgdd">
+        <div class="tgdd_nr">
+            <ul class="myMessage_list">
+                <foreach name="list" item="item">
+                    <li>
+                        <img src="__ROOT__/attachs/<{$item.face}>" width="48" height="48" />
+                        <div class="nr">
+                            <div class="left">
+                                <p><{$item.nickname}></p>
+                                <p class="date"><{$item.time|date='Y-m-d H:i',###}></p>
+                            </div>
+                            <div class="right"><a class="btn" href="<{:U('msg/mlist',array('uid'=>$item['user_id']))}>">查看对话</a></div>
+                        </div>
+                    </li>
+                </foreach>
+            </ul>
+        </div>
+    </div> 
+</div>
+</div>
+<include file="public:footer"/>

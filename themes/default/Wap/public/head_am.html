@@ -1,0 +1,35 @@
+<html xmlns="http://www.w3.org/1999/xhtml" class="am-touch js cssanimations"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<title><if condition="!empty($seo_title)"><{$seo_title}>_</if><{$CONFIG.site.sitename}></title>
+<!--开启判断加入cnd -->
+<if condition="$CONFIG['mobile']['amazeui'] eq 1"><!--如果开启就显示-->
+<link rel="stylesheet" href="http://images2.5maiche.cn/static/assets/css/amazeui.min.css">
+<link rel="stylesheet" href="/static/default/news/css/<{$ctl}>.css"/>
+<script src="http://images2.5maiche.cn/static/assets/js/jquery.min.js" type="text/javascript"></script>
+<script src="http://images2.5maiche.cn/static/assets/other/layer.js"></script>
+<script src="/static/default/wap/js/public.js"></script>
+<else /><!--否则加载本地-->
+<link rel="stylesheet" href="/static/default/news/css/amazeui.min.css">
+<link rel="stylesheet" href="/static/default/news/css/<{$ctl}>.css"/>
+<script src="/static/default/news/js/amazeui.min.js" type="text/javascript"></script>
+<script src="/static/default/wap/other/layer.js"></script>
+<script src="/static/default/wap/js/public.js"></script>
+</if>
+
+
+<script>
+            function bd_encrypt(gg_lat, gg_lon)   
+            {
+				var page =  "/mobile/near/dingwei/lat/"+gg_lat+"/lng/"+gg_lon+".html";
+				$.get(page, function (data) {
+					
+				}, 'html');
+            }
+            navigator.geolocation.getCurrentPosition(function (position) {
+                bd_encrypt(position.coords.latitude, position.coords.longitude);
+            });
+        </script>
+</head>

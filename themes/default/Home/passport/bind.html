@@ -1,0 +1,144 @@
+<include file="public:header" /><include file="public:topOne"/>
+<style type="text/css">
+* {margin: 0px;	padding: 0px;}
+body {font-size: 12px; background-color:#fff;}
+ul {padding: 0;	margin: 0; list-style: none;}
+a {text-decoration: none; color: #000000;}
+a:hover {color: #fb510e; text-decoration: none;}
+.clear {font-size: 0px; height: 0px; line-height: 0px; clear: both;}
+img {font-size: 0px; border: none;}
+.font {width: 1200px; margin: 0 auto;}
+.font_top_box{width:100%; background-color:#f9f2ec;}
+.font_top {width: 1180px; margin: 0 auto; height: 40px; padding:5px 10px; line-height: 40px; background: url(__TMPL__statics/images/tp_12.png) left center no-repeat; padding-left: 30px;}
+.font_zw {width: 1200px; margin:30px auto;}
+.font_zw_nav {border-bottom:2px solid #0fbcaa; margin-bottom: 40px; height:40px;}
+.font_zw_nav ul li {display:block; float:left; cursor:pointer; margin-right:10px;}
+.font_zw_nav ul li a {display:block; padding: 0px 20px; font-size: 16px;  font-weight: bold; text-align: center; line-height: 40px; cursor: pointer;}
+.font_zw_nav ul li a:hover, .font_zw_nav ul li a.actived {color: #0fbcaa; border:2px solid #0fbcaa; border-bottom:none 0px; background-color:#fff;}
+.font_zw_font {background: #fafafa; border: 1px solid #eee; overflow: hidden; padding: 20px; min-height:400px;}
+.ylign {width: 300px; height: 40px; line-height: 40px; border: 1px #d8d5d5 solid; float: left; border-radius:3px; text-indent:10px;}
+.yzm {width: 115px; height: 40px; text-indent:10px; line-height: 40px; border: 1px #d8d5d5 solid; float: left; border-radius:3px;}
+.yzm_code{float: left; margin-left:10px; width:100px; height:38px; overflow:hidden; border: 1px #d8d5d5 solid; background-color:#fff;}
+.yzm_code img{ width:100%; height:38px; border: 1px #fff solid;}
+.font_zw_font table td {padding-bottom: 10px; color:#666;}
+.font_zw_font table td .ts{background: url(__TMPL__statics/images/tp_12.png) left center no-repeat; padding-left: 30px; line-height: 24px;}
+.font_zw_font table td a {
+	color: #FF5502;
+	text-decoration: none;
+}
+.font_zw_font table td a:hover {
+	color: #FF5502;
+	text-decoration: underline;
+}
+.an {
+	background: url(__TMPL__statics/images/aniu.jpg) no-repeat;
+	width: 154px;
+	height: 50px;
+	text-align: center;
+	border: 0px;
+	font-size: 16px;
+	font-family: "微软雅黑";
+	color: #fff;
+	cursor: pointer;
+	background-color:#2fbdaa;
+	border-radius:3px;
+	
+}
+</style>
+<body>
+<iframe id="baocms_frm" name="baocms_frm" style="display:none;"></iframe>
+<div class="font_top_box">
+    <div class="font_top">还差一步，您就可以使用<{$types[$connect['type']]}>快捷登录了</div>
+</div>
+<div class="font">
+    <div class="font_zw">
+        <div class="font_zw_nav">
+            <ul>
+                <li rel="cp2" ><a href="javascript:;"  class="actived" >已有账号</a></li>
+                <li  rel="cp1"> <a href="javascript:;" >还没有注册账号</a></li>
+            </ul>
+        </div>
+        <script>
+                    $(document).ready(function(){
+                       $(".font_zw_nav li").mouseover(function(){
+                           var index = $(this).index();
+                            $(".font_zw_nav li").each(function(a){
+                                if(a == index){
+                                    $(this).find('a').addClass('actived');
+                                    $("#"+$(this).attr('rel')).show();
+                                }else{
+                                    $(this).find('a').removeClass('actived');
+                                    $("#"+$(this).attr('rel')).hide();
+                                }
+                            });
+                           
+                       });
+                       
+                    });
+                </script>
+        <div class="font_zw_font">
+            <div id="cp1" style="display:none;">
+                <form  action="<{:U('passport/register')}>" id="register_frm" method="post" target="baocms_frm">
+                    <table width="0" border="0">
+                        <tr>
+                            <td colspan="2"><p class="ts">为您创造一个新账户，与<{$types[$connect['type']]}>账户绑定</p></td>
+                        </tr>
+                        <tr>
+                            <td align="right">手机/EMAIL：</td>
+                            <td><input name="data[account]" type="text" class="ylign"/></td>
+                        </tr>
+                        <tr>
+                            <td align="right">昵称：</td>
+                            <td><input name="data[nickname]" type="text" class="ylign"/></td>
+                        </tr>
+                        <tr>
+                            <td align="right">密码：</td>
+                            <td><input name="data[password]" type="password" class="ylign"/></td>
+                        </tr>
+                        <tr>
+                            <td align="right">确认密码：</td>
+                            <td><input name="password2" type="password" class="ylign"/></td>
+                        </tr>
+                        <tr>
+                            <td align="right">验证码：</td>
+                            <td><input name="yzm" type="text" class="yzm"/>
+                                <div class="yzm_code" rel="bao_yzm_code"><img id="bao_yzm_code"  src="__ROOT__/index.php?g=app&m=verify&a=index&mt=<{:time()}>" /> </div></td>
+                        </tr>
+                        <tr>
+                            <td align="right"></td>
+                            <td><input type="hidden" value="1" name="is_agree">
+                                <input name="" type="submit" value="绑定账号" class="an"/></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+            <div id="cp2" >
+                <form id="login_frm"  action="<{:U('passport/login')}>" method="post" target="baocms_frm">
+                    <table width="0" border="0">
+                        <tr>
+                            <td colspan="2"><p class="ts">如果您已有账户可以直接与<{$types[$connect['type']]}>账户绑定</p></td>
+                        </tr>
+                        <tr>
+                            <td align="right">账号：</td>
+                            <td><input  name="account" type="text" class="ylign"/></td>
+                        </tr>
+                        <tr>
+                            <td align="right">密码：</td>
+                            <td><input  name="password" type="password" class="ylign"/></td>
+                        </tr>
+                        <tr>
+                            <td align="right">验证码：</td>
+                            <td><input name="yzm" type="text" class="yzm"/>
+                                <div class="yzm_code"  rel="bao_yzm_code1"><img id="bao_yzm_code1"  src="__ROOT__/index.php?g=app&m=verify&a=index&mt=<{:time()}>" /> </div></td>
+                        </tr>
+                        <tr>
+                            <td align="right"></td>
+                            <td><input name="" type="submit" value="绑定账号" class="an"/></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="public:footer"/> 

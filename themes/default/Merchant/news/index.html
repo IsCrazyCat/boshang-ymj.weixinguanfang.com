@@ -1,0 +1,60 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">营销管理</a> > <a href="">文章营销</a> > <a>资讯列表</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t tuanfabu_top">
+            <div class="left tuan_topser_l">大篇幅展示，推广利器，切记不可以发得太赤裸裸的广告！文章质量不高的通过不了审核！ </div>
+        </div>
+    </div>
+    <div class="tuanfabu_tab">
+        <ul>
+            <li class="tuanfabu_tabli on"><a href="<{:U('news/index')}>">资讯列表</a></li>
+            <li class="tuanfabu_tabli"><a href="<{:U('news/create')}>">发布资讯</a></li>
+        </ul>
+    </div> 
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>标题</td>
+            <td>创建时间</td>
+            <td>浏览量</td>
+            <td>状态</td>
+            <td>操作</td>
+        </tr>
+        <foreach name="list" item="var">
+            <tr>
+                <td><{$var.title}></td>
+                <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                <td><{$var.views}></td>
+                <td><eq name="var.audit" value="0">等待审核【通过审核后才能推送到粉丝】<else/>正常</eq></td>
+            	<td>
+                <eq name="var.audit" value="1">
+                
+                    <!--<eq name="var.is_tuisong_sms" value="0">
+                   	 	<a mini="confirm" href="<{:U('news/sms',array('news_id'=>$var['news_id']))}>">短信推送</a>
+                    <else/>
+                    <{$var.is_tuisong_sms_time|date='Y-m-d H:i:s',###}>短信已推送
+                    </eq> 
+                    <eq name="var.is_tuisong_weixin" value="0">
+                    	<a mini="confirm" href="<{:U('news/weixin',array('news_id'=>$var['news_id']))}>">微信推送</a>
+                    <else/>
+                     <{$var.is_tuisong_weixin_time|date='Y-m-d H:i:s',###}>微信已推送
+                    </eq>-->
+                    <eq name="var.is_tuisong_msg" value="0">
+                    	<a mini="confirm"  href="<{:U('news/msg',array('news_id'=>$var['news_id']))}>">站内信推送</a>
+                    <else/>
+                    <{$var.is_tuisong_msg_time|date='Y-m-d H:i:s',###}>站内信已推送
+               		</eq>
+                </eq>
+                <a href="<{:U('news/edit',array('news_id'=>$var['news_id']))}>">编辑</a>
+                
+                </td>
+            </tr>
+        </foreach>
+    </table>
+    <{$page}>
+</div>
+<include  file='public:footer'/>

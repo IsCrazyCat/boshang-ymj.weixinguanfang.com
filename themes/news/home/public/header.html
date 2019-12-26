@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="renderer" content="webkit|ie-comp|ie-stand">
+        <{$CONFIG['site']['headinfo']}>
+        <title><php>if($config['title'])echo $config['title'];else echo $seo_title;</php></title>
+        <meta name="keywords" content="<{$seo_keywords}>" />
+        <meta name="description" content="<{$seo_description}>" />
+        <link href="__TMPL__statics/css/style.css" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="/themes/default/Pchome/statics/css/<{$ctl}>.css" />
+        <link rel="stylesheet" href="/themes/news/Pchome/statics/css/<{$ctl}>.css" />
+        <script> var BAO_PUBLIC = '__PUBLIC__'; var BAO_ROOT = '__ROOT__';</script>
+        <script src="__TMPL__statics/js/jquery.js"></script>
+        <script src="__PUBLIC__/js/layer/layer.js"></script>
+        <script src="__TMPL__statics/js/jquery.flexslider-min.js"></script>
+        <script src="__TMPL__statics/js/js.js"></script>
+        <script src="__PUBLIC__/js/web.js"></script>
+        <script src="__TMPL__statics/js/baocms.js"></script>
+    </head>
+<style>
+/*背景*/
+.searchBox .submit, .sy_hottjJd, .cityInfor_nr .cityInfor_list .nr:hover .link .img, .topBackOn, .goods_flListA.on, .nearbuy_hotNum, .sy_sjcpBq1, .spxq_qgjjKk, .spxq_xqT li.on code, .hdxq_ljct, .qg-sp-tab span.on, .dcsy_topLi:hover .dcsy_topLiTu, .sjsy_ljzx, .dui-huan, .locaNr_serAn, .seat-check.on, .spxq_xqMapList li.on, .hdsy_Licj_l em, .hdsy_LicjA, .tBarFabu .sub_btn .btn, .dcsy_topLi.on .dcsy_topLiTu, .liveBtn, .cloudBuy_list .btn, .jfsy_spA, .jfsy_flexslider .flex-control-nav .flex-active, .spxq_xqT li.on a, .subBtn, .cloudBuy_cont_tab ul li.on, .zy_doorSer_detail .nrForm .btn, .basic-info .action .write,  .sy_coupon_tab a.on, .sales-promotion .tag-tuan, .comment_input p .pn, .goods .tm-fcs-panel span.y a, .login_btndz{ background-color: <{$color}>!important; }
+/*文字颜色*/
+.sy_FloorBtz .bt, .fontcl3, .topOne .nr .left a.on, .liOne:hover .liOneA, .spxq_qgsnum, .nearbuy_zjClear, .zixunList .wz .bt a, .spxq_pjAn, .sjsy_newsList h3, .locaTopDl a, .liOne .list ul li a:hover, .spxq_xqMapT, .spxq_table td a, .hdsy_Licj_l, .hdsy_Libms, .zixunDetail h1, .zixun_hot h3, .liveTab li,.shfw_xq_new li, .jfsy_jffzT, .jfsy_wellcome .blue, .maincl, .m-detail-main-winner-content .user, .pointcl, .liOne_visit_pull .empty a, .liOne_visit_pull .empty a, .goods .tm-price, .intro a, .comment .price{color: <{$color}>!important; }/*边框top上*/
+.sy_FloorBt, .qg-sp-tab span.on, .zixun_hot h3, .liveTab {border-bottom: 1px solid <{$color}>!important;}/*边框*/
+.spxq_qgjjKk, .hdxq_tgList, .liOne .list ul, .liOne_visit .liOne_visit_pull, .seat-check.on, .liveSearchLeft{border: 1px solid <{$color}>!important;}
+
+/*特殊的*/
+.liOne:hover .liOneA {color: <{$color}>; border-left: 1px solid <{$color}>;border-right: 1px solid <{$color}>!important;}
+.changeCity_link:after {border-bottom: 2px solid <{$color}>!important;border-right: 2px solid <{$color}>!important;}
+.spxq_xqT {border-bottom: 1px solid <{$color}>!important;}
+.hdsy_tabLi.on a {border-top: 2px solid <{$color}>!important;}
+.spxq_slider .flex-control-thumbs li .flex-active {border-color: <{$color}> !important;}
+.zixunRelet { border-top: 2px solid <{$color}>!important;}
+.sy_sjcpLi:hover {border-color: <{$color}>!important;}
+.navListAll{background-color: #17A994;}
+.topTwo .menu {width: 18%; margin-top: 10px;float: right;color: #929292;font-size: 12px;text-align: center;}
+.topTwo .ment_left {float: left;width: 33%;}
+.topTwo .ment_left .ment_left_img img { width: 36px;height: 36px;}
+.navA {position: relative;}
+.navA .hot {display: block;width: 27px;height: 18px;background: url(/themes/default/Pchome/statics/images/header-hot.gif) no-repeat center top;position: absolute;right:-15px;top: 2px;}
+.mod .mod-title .current {border-bottom: 2px solid <{$color}>;}
+.topTwo .searchBox_r .searchBox {border: 2px solid <{$color}>;}
+.superior {border-top: <{$color}> 2px solid;}
+.navListAll {background-color:#2fbdaa;}
+.navA.on, .navA:hover { background-color:transparent;color:#f60;}
+.nav {width: 100%;border-bottom: 2px solid #2fbdaa;background-color:transparent;}
+.navA {color: #333;}
+
+</style>
+<style>
+.anchorBL{   display:none !important;  }  
+</style>
+
+
+
+    <body>
+
+        <iframe id="baocms_frm" name="baocms_frm" style="display:none;"></iframe>

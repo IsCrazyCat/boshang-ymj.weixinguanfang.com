@@ -1,0 +1,137 @@
+<include file="public:header" /> 
+<include file="public:top"/>
+<include file="public:nav2"/>
+<style>
+.yhsy_syLiNr {background-color: #EFEFEF;}
+.yhsy_syLiNr .left p{ padding:0 5px;}
+.yhsy_syLiWx canvas{width: 102px;height: 102px;margin: 0px auto;padding: 10px;background: #fff;}
+.sy_sjcpBq span {width: 215px;}
+.goods_flList .stycate {height: 30px;line-height: 30px;}
+</style>
+<div class="yhsy_banner">
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.yhsy_flexslider').flexslider({
+                directionNav: true,
+                pauseOnAction: false,
+            });
+        });//首页轮播js
+    </script>
+    <div class="yhsy_flexslider">
+        <ul class="slides">
+            <calldata mdl="Ad" where=" bg_date ELT '{$today}' AND end_date EGT '{$today}' AND city_id IN ({$city_ids}) AND closed=0 AND site_id=23" limit="0,3" cache="21600" order="orderby asc">
+                <li class="sy_hotgzLi flex-active-slide" style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 1; display: block; z-index: 2;"><a href="<{$item.link_url}>" title="<{$item.title}>" target="_blank"><img width="1200" height="272" src="<{:config_img($item['photo'])}>" draggable="false"></a></li>
+            </calldata>
+        </ul>
+        <ol class="flex-control-nav flex-control-paging"></ol>
+    </div>
+</div>
+
+<div class="content"> 
+    <div class="goods_flBox">
+        <ul>
+            <li class="goods_flList">
+                <div class="left goods_flList_l">分类：</div>
+                <div style="width:1000px;" class="left goods_flList_r">
+                    <a  class="<if condition='empty($cat)'>on</if> goods_flListA"  title="所有商家" href="<{:LinkTo('coupon/index',$linkArr,array('cat'=>0,'cate_id'=>0))}>">全部</a>
+                    <php>$i = 1;</php>
+                    <foreach name="shopcates" item="item">
+                        <eq name="item.parent_id" value="0"> 
+                        <php>$i++;if($i < 12){</php>
+                        <a title="<{$item.cate_name}>"  href="<{:LinkTo('coupon/index',$linkArr,array('cat'=>$item['cate_id']))}>"  <eq name="item.cate_id" value="$cat">class="goods_flListA on"<else/>class="goods_flListA"</eq> ><{$item.cate_name}></a>
+                        <php>}</php>
+                        </eq>
+                    </foreach>
+                </div>
+            <if condition="!empty($cat)">
+                <div class="left goods_flList_r stycate">
+                    <foreach name="shopcates" item="item">
+                        <eq name="item.parent_id" value="$cat">
+                        <a title="<{$item.cate_name}>"  class="<eq name='item.cate_id' value='$cate_id'> on</eq> goods_flListA"  href="<{:LinkTo('coupon/index',$linkArr,array('cat'=>$cat,'cate_id'=>$item['cate_id']))}>"  ><{$item.cate_name}></a>
+                        </eq>
+                    </foreach>
+                </div>    
+            </if>
+
+            </li>
+
+            <li class="goods_flList">
+                <div class="left goods_flList_l">地区：</div>
+                <div style="width:1000px;" class="left goods_flList_r">
+
+                    <a  class="<if condition='empty($area_id)'>on</if> goods_flListA"  title="全部地区" href="<{:LinkTo('coupon/index',$linkArr,array('area'=>0,'business_id'=>0))}>">全部</a>  
+
+                    <foreach name="areas" item="item">
+
+                        <eq name="item.city_id" value="$city_id">
+
+                        <a title="<{$item.area_name}>"  href="<{:LinkTo('coupon/index',$linkArr,array('area'=>$item['area_id']))}>"  <eq name="item.area_id" value="$area_id">class="goods_flListA on"<else/>class="goods_flListA"</eq> ><{$item.area_name}></a> 
+
+                        </eq>
+
+                    </foreach>
+
+                </div>
+
+            <if condition="!empty($area_id)">
+                <div class="left goods_flList_r stycate">
+                    <foreach name="bizs" item="item">
+                        <eq name="item.area_id" value="$area_id">
+                        <a title="<{$item.business_name}>"  class="<eq name='item.business_id' value='$business_id'> on</eq> goods_flListA"  href="<{:LinkTo('coupon/index',$linkArr,array('area'=>$area_id,'business'=>$item['business_id']))}>"  ><{$item.business_name}></a>
+                        </eq>
+                    </foreach>
+                </div>    
+            </if>
+            </li>
+        </ul>
+    </div>
+
+
+
+    <div class="yhsy_syList">
+        <ul>
+            <script type="text/javascript" src="__TMPL__statics/js/jquery.qrcode.min.js"></script>
+            <foreach name="list" item="item">
+                <li class="yhsy_syLi">
+                    <div class="yhsy_syLiNr">
+                        <a href="<{:U('detail',array('coupon_id'=>$item['coupon_id']))}>" target="_blank" style="position:relative;">
+                        	<img src="<{:config_img($item['photo'])}>" width="230"/>
+                            <a href="<{:U('detail',array('coupon_id'=>$item['coupon_id']))}>" target="_blank"  class="dui-huan right" style="position:absolute;right:0;bottom:0;margin-bottom:23px;">下载</a>
+                        </a>
+                        <div class="left" style="height:85px;line-height:22px;">
+                            <P style="height:44px;overflow:hidden;"><{$item.title}></P>
+                            <p>下载：<span class="red-color"><{$item.downloads}></span>次 <span>剩余：<span class="red-color"><{$item.num}><span></span>次</span></p>
+                        </div>
+                        <div class="clear"></div>
+                        <script type="text/javascript">
+						$(function () {
+							var str = "<{$host}><{:u('wap/coupon/detail',array('coupon_id'=>$item['coupon_id']))}>";
+							$("#code_<{$item.coupon_id}>").empty();
+							$('#code_<{$item.coupon_id}>').qrcode(str);
+						})
+                        </script>
+                      
+                         <div class="yhsy_syLiBgDw">
+                            <div class="yhsy_syLiBgK">
+                                <div class="yhsy_syLiDwNr">
+                                    <a href="<{:U('coupon/detail',array('coupon_id'=>$item['coupon_id']))}>"><div class="yhsy_syLiWx"><div style="width: 122px; height: 122px; margin: 0px auto;" id="code_<{$item.coupon_id}>"></div></div>
+                                        <p>[扫一扫，手机购物享受优惠]</p></a>
+                                </div>
+                                <div class="yhsy_syLiBg"></div>
+                            </div>
+                        </div 
+                    </div>
+                    <if condition="!empty($item['full_price'])">
+                        <div class="sy_sjcpBq">
+                            <span class="sy_sjcpBq3">满&yen;<{:round($item['full_price']/100,2)}>元&nbsp;减&yen;<{:round($item['reduce_price']/100,2)}>元</span>
+                        </div>
+                    </if>
+                </li>
+            </foreach>
+        </ul>
+    </div>
+    <div class="x">
+        <{$page}>
+    </div>
+</div>
+<include file="public:footer"/>

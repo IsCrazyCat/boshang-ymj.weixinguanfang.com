@@ -1,0 +1,33 @@
+<include  file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">结算</a> > <a href="">提现申请</a> > <a>提现</a></li>
+    </ul>
+</div>
+<style>
+.tabnr_change.show p.magin-top{ margin:10px 50px}
+.tabnr_change.show .money_tixian{ margin:20px 50px;}
+</style>
+<script type="text/javascript" src="/themes/default/Home/statics/js/jquery.qrcode.min.js"></script><!--二维码-->
+<div class="tuan_content">
+   <include  file='money:nav'/> 
+    <div class="tabnr_change  show">
+        <p class="magin-top">
+		电脑端已经停止提现，提现请登录手机端提现，网址：<a href="<{$CONFIG.site.host}>/distributors"><{$CONFIG.site.host}>/distributors</a> 
+        </p>
+        <div class="money_tixian"  id="money_tixian">
+        <p class="magin-sao">手机扫一扫</p>
+        </div>
+    </div> 
+     <script type="text/javascript">
+          $(function () {
+             var str = "<{$CONFIG.site.host}>/distributors";
+             $("#money_tixian").empty();
+             $('#money_tixian').qrcode(str);
+           })
+     </script>
+
+</div>
+</div>
+<include  file='public:footer'/>

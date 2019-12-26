@@ -1,0 +1,76 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">小区服务台</li>
+        <li class="li2">服务台信息</li>
+        <li class="li2 li3">新增</li>
+    </ul>
+</div>
+<div class="mainScAdd ">
+
+    <div class="tableBox">
+        <form  target="baocms_frm" action="<{:U('feedback/create')}>" method="post">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">标题：</td>
+                    <td class="rgTdBt"><input type="text" name="data[title]" value="<{$detail.title|default=''}>" class="manageInput" />
+
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">用户：</td>
+                    <td class="rgTdBt">
+                        <div class="lt">
+                            <input type="hidden" id="user_id" name="data[user_id]" value="<{$detail.user_id|default=''}>" class="manageInput" />
+                            <input type="text" name="nickname" id="nickname"  value="" />
+                        </div>
+                        <a mini="select"  w="800" h="600" href="<{:U('user/select')}>" class="remberBtn">选择用户</a>
+                    </td>
+                </tr> 
+                
+                
+                
+                
+                <tr>
+                    <td class="lfTdBt">选择小区：</td>
+                    <td class="rgTdBt">
+                        <div class="lt">
+                            <input type="hidden" id="community_id" name="data[community_id]" value="<{$detail.community_id|default=''}>" class="manageInput" />
+                            <input type="text" name="community" id="community"  value="" />
+                        </div>
+                        <a mini="select"  w="800" h="600" href="<{:U('community/select')}>" class="remberBtn">选择小区</a>
+                    </td>
+                </tr> 
+                
+                
+                
+                
+                
+                 <tr>
+                    <td  class="lfTdBt">详细内容：</td>
+                    <td class="rgTdBt">
+                        <textarea name="data[details]" rows="5" cols="40"><{$detail.details|default=''}></textarea>
+                    </td>
+                </tr>
+                
+                
+                 <tr>
+                    <td  class="lfTdBt">回复内容：</td>
+                    <td class="rgTdBt">
+                        <textarea name="data[reply]" rows="5" cols="40"><{$detail.reply|default=''}></textarea>
+                    </td>
+                </tr>
+                
+                
+           
+               
+                <tr>
+                    <td colspan="2">
+                        <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>       

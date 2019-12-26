@@ -1,0 +1,102 @@
+<include  file='public:header'/>
+<link rel="stylesheet" type="text/css" href="/static/default/wap/other/webuploader.css"> 
+<script src="/static/default/wap/other/webuploader.js"></script> 
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('tieba/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			发表帖子
+		</div>
+		<div class="top-share">
+		</div>
+	</header>
+	<form class="post-form" action="<{:U('tieba/post',array('cat'=>$cate[cate_id]))}>" method="post" >
+		<input type="hidden" id="photo" name="data[photo]" />
+		<input type="hidden" name="data[safecode]" value="<{$safecode}>" />
+		<div class="line border-bottom">
+			<div class="x9 form-title">
+				<select name="cat">
+					<option value="">选择分类</option>
+					<foreach name="sharecates" key="k" index="index" item="item">
+					<if condition="$item['parent_id'] neq 0">
+					<option value="<{$item['cate_id']}>"><{$item['cate_name']}></option>
+					</if>
+					</foreach>
+				</select>
+			</div>
+		</div>
+		<div class="line border-bottom">
+			<div class="x9 form-title">
+				<input type="text" name="data[title]" value="" placeholder="请输入标题"  />
+			</div>
+			<div class="x3 text-right">
+				<button class="button bg-green margin-small-right" type="submit">发表</button>
+			</div>
+		</div>
+		<div class="line border-bottom">
+			<textarea class="form-content" name="data[contents]" placeholder="文明上网，登陆发言"></textarea>
+		</div>
+		<div class="blank-10 clearfix"></div>
+		<div class="container">
+
+    <div class="Upload-img-box">
+       <div  id="fileToUpload">上传图片</div>
+       <div class="Upload-img">
+       <div class="list-img loading" style="display:none;"><img src=""></div>
+       <div class="list-img jq_photo" style="display:none;"></div>
+               <div class="jq_photo1">
+                                   
+            </div>	      
+      </div>
+    </div>
+    <script>
+    	var width_tieba = '<{:thumbSize($CONFIG[attachs][tieba][thumb],0)}>';                     
+		var height_tieba = '<{:thumbSize($CONFIG[attachs][tieba][thumb],1)}>';
+		var pic_wap_quality = '<{$CONFIG[attachs][pic_wap_quality][thumb]}>';    
+        var uploader = WebUploader.create({                 
+			auto: true,                             
+			swf: '/static/default/webuploader/Uploader.swf',                             
+			server: '<{:U("app/upload/uploadify",array("model"=>"tieba"))}>',                             
+			pick: '#fileToUpload',  
+			fileNumberLimit:10,                            
+			resize: true,    
+			accept: {
+				title: 'Images',
+				extensions: 'gif,jpg,jpeg,png',
+				mimeTypes: 'image/*'//只永许上传JPG格式文件
+			}, 
+			compress : {width: width_tieba,height: height_tieba,quality: pic_wap_quality,allowMagnify: false,crop: true}
+        });
+        uploader.on( 'beforeFileQueued', function( file ) {
+            $(".loading").show();
+            if(file.size > 1024000){
+                uploader.option( 'compress', {
+                    width:width_tieba,//这里裁剪长度
+                    quality:60
+                });
+            }
+        });
+        uploader.on( 'uploadSuccess', function( file,resporse) {
+            $(".loading").hide();
+            var str = '<img src="'+resporse.url+'"><input type="hidden" name="photos[]" value="' + resporse.url + '" />';
+			$(".jq_photo1").append(str);  
+        });
+        uploader.on( 'uploadError', function( file ) {
+            alert('上传出错');
+        });
+      $(document).ready(function () {
+            $(document).on("click", ".photo img", function () {
+                $(this).parent().remove();
+            });
+        });
+    </script>
+                    
+  
+                
+            </div>
+		</div>
+	</form>
+	
+
+<include  file='public:footer'/> 

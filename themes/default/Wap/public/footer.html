@@ -1,0 +1,49 @@
+
+<style>
+.footer-search{padding:15px;background:#fff;border-bottom:thin solid #eee;padding-bottom:5px}
+</style>
+   
+<div class="footer">
+    <a href="<{:u('user/member/index')}>">客户端</a> &nbsp;  &nbsp;
+    	<if condition="!empty($is_shop)">
+    <a href="<{:u('distributors/index/index')}>" title="管理商家">管理商家</a>   &nbsp; &nbsp; 
+    	<else/>
+    <a href="<{:u('user/apply/index')}>" title="商家入驻">商家入驻</a>   &nbsp; &nbsp; 
+    </if>
+    城市：<a class="button button-small text-yellow" href="<{:U('city/index')}>"  title="<{:bao_msubstr($city_name,0,4,false)}>"><{:bao_msubstr($city_name,0,4,false)}></a>                          
+</div>
+<div class="blank-20"></div>
+<if condition="$CONFIG[other][footer] eq 1">
+    <footer class="foot-fixed">
+    <a class="foot-item <if condition="($ctl eq 'index') AND ($act neq 'more')">active</if>" href="<{:U('index/index')}>">		
+    <span class="icon icon-home"></span>
+    <span class="foot-label">首页</span>
+    </a>
+    
+    <a class="foot-item <eq name="ctl" value="qianggou">active</eq>" href="<{:U('wap/tuan/index')}>">
+    <span class="icon icon-paw"></span><span class="foot-label">套餐</span></a>
+        
+    <a class="foot-item <eq name="ctl" value="shopping">active</eq>" href="<{:U('wap/mall/index')}>">
+    <span class="icon icon-umbrella"></span><span class="foot-label">商城</span></a>
+
+<!--    <if condition="$is_weixin"></a>-->
+<!--       <a class="foot-item <eq name="ctl" value="biz">active</eq>" href="<{:U('near/index')}>">			-->
+<!--       <span class="icon icon-map-marker"></span><span class="foot-label">附近</span></a>-->
+<!--    <else/>-->
+<!--       <a class="foot-item <eq name="ctl" value="thread">active</eq>" href="<{:U('thread/index')}>">			-->
+<!--       <span class="icon icon-commenting"></span><span class="foot-label">贴吧</span></a>-->
+<!--    </if>-->
+
+    <a class="foot-item <eq name="ctl" value="shop">active</eq>" href="<{:U('wap/shop/index')}>">
+    <span class="icon icon-user"></span><span class="foot-label">门店</span></a>
+
+    <a class="foot-item <eq name="ctl" value="user">active</eq>" href="<{:U('user/member/index')}>">			
+    <span class="icon icon-user"></span><span class="foot-label">我的</span></a>
+    
+    </footer>
+</if>
+
+<iframe id="x-frame" name="x-frame" style="display:none;"></iframe>
+<include  file='public:footer_share'/> 
+</body>
+</html>

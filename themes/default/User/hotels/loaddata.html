@@ -1,0 +1,64 @@
+<foreach name="list" item="item">
+<li class="line ">
+        <dt>
+            <a class="x4">订单编号：<{$item.order_id}></a>
+            <a class="x8 text-right" href="<{:U('hotels/detail',array('order_id'=>$item['order_id']))}>">  
+                <{:bao_msubstr($hotels[$item['hotel_id']]['hotel_name'],0,12,false)}> <span class=" icon-angle-right"></span> 
+            </a>
+        </dt>
+  <dd class="zhong">
+        <div class="x3">
+            <a href="<{:U('wap/hotels/detail',array('hotel_id'=>$item['hotel_id']))}>">
+            	<img src="<{:config_img($hotels[$item['hotel_id']]['photo'])}>" width="70" height="70" style="width:90%;">
+            </a>
+        </div>
+        <div class="x9">
+            <p><{$hotels[$item['hotel_id']]['hotel_name']}></p>
+            <p class="text-small">
+				<span class="text-dot1 margin-right">预订时间：<{$item.stime}>--<{$item.ltime}></span>
+
+			</p>
+            <p class="text-small">
+				<span class="text-dot1 margin-right">
+                 订单总额：&yen;<{$item.amount}></span>&nbsp;&nbsp;<span>房间数量：<{$item['num']}>
+                </span>
+			</p>
+      </div>
+    </dd>
+        
+      
+      <dl>
+      <p class="text-right padding-top">
+          <a class="button button-little bg-dot"  href="<{:U('hotels/detail',array('order_id'=>$item['order_id']))}>">查看详情</a>
+          <if condition="$item['online_pay'] eq 0">
+              <a class="button button-little bg-blue" >到店付</a>
+              <eq name="item.order_status" value="-1"><a class="button button-little bg-gray" >已取消</a></eq>
+              <eq name="item.order_status" value="2">
+                      <a class="button button-little bg-dot" >已完成</a>
+                  <if condition="$item['comment_status'] eq 1">
+                      <a class="button button-little bg-blue" >已点评</a>
+                  <else/>
+                      <a class="button button-little bg-dot" href="<{:U('hotels/comment',array('order_id'=>$item['order_id']))}>">去点评</a>
+                  </if>
+              </eq>
+         <else/>
+             <if condition="$item['order_status'] eq 0">
+                  <a class="button button-little bg-dot"  href="<{:U('mobile/hotel/pay',array('order_id'=>$item['order_id']))}>">去付款</a>
+             <elseif condition="$item[order_status] eq 1" />
+                  <a class="button button-little bg-blue" >已付款</a>
+             <elseif condition="$item[order_status] eq 2" />
+                  <a class="button button-little bg-blue" >已入驻</a>
+                 <if condition="$item['comment_status'] eq 1">
+                      <a class="button button-little bg-blue" >已点评</a>
+                 <else/>
+                      <a class="button button-little bg-dot" href="<{:U('hotels/comment',array('order_id'=>$item['order_id']))}>">去点评</a>
+                 </if>
+             <else/>
+                <a class="button button-little bg-gray" >已取消</a>
+             </if>
+         </if>         
+       </p>     
+      </dl>
+    </li>
+	<div class="blank-10 bg"></div>
+</foreach>

@@ -1,0 +1,52 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li2">频道</li>
+        <li class="li1">分类信息</li>
+        <li class="li2">信息举报</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>不需要启用的字段就不需要填写</p>
+    <div class="jsglNr">
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox" style="margin-top: 10px;">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="id" /></td>
+                        <td class="w50">ID</td>
+                        <td>信息</td>
+                        <td>举报类型</td>
+                        <td>举报人</td>
+                        <td>举报理由</td>
+                        <td>时间</td>
+                        <td>IP</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_id" type="checkbox" name="id[]" value="<{$var.id}>" /></td>
+                            <td><{$var.id}></td>
+                            <td><{$lifes[$var['life_id']]['title']}> ----ID:<{$var.life_id}></td>
+                            <td>
+                            <if condition="$var['type'] eq 1">
+                            电话被冒用
+                            <elseif condition="$var['type'] eq 2" />
+                            虚假违法信息
+                            <elseif condition="$var['type'] eq 3" />
+                            信息已过期
+                            <else/>
+                            未填写
+                            </if>
+							</td>
+                            <td><{$users[$var['user_id']]['account']}></td>
+                            <td><if condition="!empty($var['content'])"><{$var.content}><else/>未填写</if></td>
+                            <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                            <td><{$var.create_ip}></td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+        </form>
+    </div>
+    <include  file='public:footer'/>       

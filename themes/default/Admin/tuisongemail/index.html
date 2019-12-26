@@ -1,0 +1,75 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">邮件</li>
+        <li class="li2"> 邮件群发</li>
+        <li class="li2"> 列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span> 建议用企业邮箱或者163企业邮箱发送，免得进去垃圾箱！建议选择用户组推送，很耗时间，哎，一般已不要去用！</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('tuisongemail/create','','新建推送消息','','',800,400)}>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="tuisong_id" /></td>
+                        <td class="w50">ID</td>
+                        <td>推送标题</td>
+                        <td>推送会员</td>
+                        <td>推送用户组</td>
+                        <td>推送内容</td>
+                        <td>推送时间</td>
+                        <td>操作</td>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_tuisong_id" type="checkbox" name="tuisong_id[]" value="<{$var.tuisong_id}>" /></td>
+                            <td><{$var.tuisong_id}></td>
+                            <td><{$var.title}></td>
+                            <td>
+                            <if condition="!empty($users[$var['user_id']]['account'])">
+                            <{$users[$var['user_id']]['account']}>(<{$var.user_id}>)
+                            <else/>
+                            全部会员
+                            </if>
+                            </td>
+                            <td>
+                            <if condition="!empty($ranks[$var['rank_id']]['rank_name'])">
+                            <{$ranks[$var['rank_id']]['rank_name']}>
+                            <else/>
+                            全部用户组
+                            </if>
+                            </td>
+                            <td width="30%"><{$var.content}></td>
+                            <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                            <td>
+                            
+                      
+                            
+                           
+                            
+                            <{:BA('tuisongemail/tuisong',array("tuisong_id"=>$var["tuisong_id"]),'推送','act','remberBtn')}>
+                           
+                                <{:BA('tuisongemail/delete',array("tuisong_id"=>$var["tuisong_id"]),'删除','act','remberBtn')}>
+                            </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('tuisongemail/delete','','批量删除','list','a2')}>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>  
+

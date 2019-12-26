@@ -1,0 +1,119 @@
+<include file="public:header" /> 
+<include file="public:top"/>
+<include file="public:nav2"/>
+<script src="/static/default/pc/js/mod/shop.js"></script>
+<style>
+.zy_content { padding-top: 5px;}
+.mn {overflow: hidden;}
+.layui-layer-page .layui-layer-content{ padding:20px;}
+.layui-layer-page .layui-layer-content input[type='text']{ width:100%; height:36px; border:1px solid #ccc; background:#fff; margin-bottom:10px; text-indent:10px; font-size:14px;}
+.layui-layer-page .layui-layer-content input[type='button']{ width:100%; height:40px; border:none; background:#33b095; color:#fff; font-size:16px;}
+.layui-layer-page .layui-layer-content p{ line-height:28px; color:#999;}
+.layui-layer-page .layui-layer-content .check_box{ overflow:hidden; margin-bottom:5px;}
+.layui-layer-page .layui-layer-content .check_box label{ display:block; float:left; margin-right:20px; margin-bottom:10px;}
+</style>
+
+<div class="content zy_content">
+
+	<div class="spxq_loca">
+     <a href="<{:U('shop/index')}>">商家 ></a>
+     <a><{$detail.shop_name}></a>
+    </div>
+    
+
+        <div class="body-content c2016">
+        <div class="shop-type c2016">
+            <ul>
+                <li><a href="<{:U('shop/detail',array('shop_id'=>$detail['shop_id']))}>">首页</a></li>
+                <li><a href="<{:U('shop/about',array('shop_id'=>$detail['shop_id']))}>">商家介绍</a></li>
+                <li><a href="<{:U('shop/photo',array('shop_id'=>$detail['shop_id']))}>">相册</a></li>
+                <li><a href="<{:U('shop/goods',array('shop_id'=>$detail['shop_id']))}>">商品</a></li>
+                <li><a href="<{:U('shop/tuan',array('shop_id'=>$detail['shop_id']))}>">套餐</a></li>
+                <li><a href="<{:U('shop/coupon',array('shop_id'=>$detail['shop_id']))}>">优惠劵</a></li>
+                <li><a href="<{:U('shop/news',array('shop_id'=>$detail['shop_id']))}>">新闻</a></li>
+                <li class="a"><a href="<{:U('shop/ping',array('shop_id'=>$detail['shop_id']))}>">点评</a></li>
+            </ul>
+        </div>
+        
+        <!--4-->
+        <div class="banner2016 c2016">
+            
+            <include file="shop:shop_top"/>
+            
+            
+            
+            
+            <div id="aside" class="aside">
+                <div class="photos-container">
+                    <div class="photos">
+                        <a href="<{:U('shop/photo',array('shop_id'=>$detail['shop_id']))}>" target="_blank">
+                        <div style="background: #ddd url(<{:config_img($detail['photo'])}>) no-repeat 0 0; height: 180px; left: -1px; position: absolute; top: -1px; width: 180px; background-size: 100% auto;">
+                        </div>
+                        </a>
+                        <p>
+                            <a class="upload-photo" href="<{:U('shop/photo',array('shop_id'=>$detail['shop_id']))}>" target="_blank">更多商家图片</a><a class="icon"></a><a id="pic-count"> <{$pic}> </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!--4-->
+   
+       <div class="wp ct2 c2016">
+       
+    <div class="mn">
+	<div id="comment" class="mod comment">
+            <h2 class="mod-title c2016 J-tab">
+                <a class="item current" data-type="default"><span>商家</span>点评(共有<{$totalnum}>人参与点评)<span class="sub-title"></span></a>
+                <span class="y">
+                <a href="<{:U('shop/ping',array('shop_id'=>$detail['shop_id']))}>" class="star-current">更多»</a>
+                </span>
+            </h2>
+        
+        <ul class="comment-list J-list">
+        <!--点评开始-->
+        <volist name="list" id="var">
+            <li class="comment-item">
+                <a class="avatar J-avatar" target="_blank" rel="nofollow"><img src="<{:config_img($users[$var['user_id']]['face'])}>"></a>
+                    <p class="user-info">
+                        <span class="y f_12 666">发表时间：<{:formatTime($var['create_time'])}><br><br></span>
+                        <a class="name"><{:config_user_name($users[$var['user_id']]['nickname'])}></a>
+                    </p>
+                <div class="content2">
+                    <p class="shop-info">
+                        <span class="sml-rank-stars sml-str<{:round($var['score']*10,2)}>"></span>
+                        <span class="item">人均<em><{$var.cost}></em>元</span>
+                    </p>
+                <p class="desc"><{$var.contents}></p>
+                <ul class="ml cm c2016">
+               				 <foreach name="pics" item="pic">
+								<eq name="pic.dianping_id" value="$var.dianping_id">
+									<li><img src="<{:config_img($pic['pic'])}>" /></li>
+								</eq>
+							</foreach>
+                </ul>
+                </div>
+            </li>
+        </volist>
+       <!--点评结束-->
+        </ul>
+        
+      
+  
+        </div>
+          <div class="page">
+            <div class="pg">
+           		<{$page}>
+            </div>
+        </div>
+    </div>
+
+
+        
+        
+        
+        
+       
+<include file="shop:shop_footer"/>  
+<include file="public:footer"/>

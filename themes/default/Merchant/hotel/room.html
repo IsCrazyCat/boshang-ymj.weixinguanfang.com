@@ -1,0 +1,58 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">酒店</a> > <a>酒店房间</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <form method="post" action="<{:U('hotel/room')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">
+           房间名称：<input type="text" class="radius3 tuan_topser"  name="keyword" value="<{$keyword}>" />
+            <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/>
+            </div>
+            <div class="right tuan_topfb_r"><a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('hotel/setroom')}>">添加房间+</a></div>
+        </div>
+    </div>
+    </form>
+    <div class="tuanfabu_tab">
+        <ul>
+            <li class="tuanfabu_tabli on"><a href="<{:U('hotel/room')}>">酒店房间</a></li>
+            <li class="tuanfabu_tabli"><a href="<{:U('hotel/index')}>">酒店订单</a></li>
+        </ul>
+    </div> 
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>房间名称</td>
+            <td>房间图片</td>
+            <td>房间类型</td>
+            <td>房间价格</td>
+            <td>房间剩余</td>
+            <td>是否提供早餐</td>
+            <td>是否有宽带</td>
+            <td>是否可以取消</td>
+            <td>创建时间</td>
+            <td>操作</td>
+        </tr>
+        <foreach name="list" item="var">
+            <tr>
+                <td><{$var.title}></td>
+                <td style="height: 80px;"><img src="<{:config_img($var['photo'])}>"  style="width: 80px;  margin: 0px auto;" /></td>
+                <td><{$roomtype[$var['type']]}></td>
+                <td><{$var.price}></td>
+                <td><{$var.sku}></td>
+                <td><eq name="var.is_zc" value="1">提供<else/>不提供</eq></td>
+                <td><eq name="var.is_kd" value="1">提供<else/>不提供</eq></td>
+                <td><eq name="var.is_cancel" value="1">可以<else/>不可以</eq></td>
+                <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                <td>
+                <a class="radius3 sy_c1an" href="<{:U('hotel/editroom',array('room_id'=>$var['room_id']))}>">编辑</a>
+            </td>
+            </tr>
+        </foreach>
+    </table>
+    <{$page}>
+</div>
+
+<include  file='public:footer'/>

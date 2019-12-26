@@ -1,0 +1,85 @@
+<include  file='public:header'/>  
+<include  file='public:top'/>  
+<div class="content" style="float: none;">
+    <div class="jifenC_xq_sjlm">
+        <div class="jifenC4">
+            <div class="jifenC4_bt"><span>会员卡使用说明</span></div>
+            <ul class="jifenC4_ul">
+                <li class="jifenC4_liY">
+                    <div class="jifenC4_liY_Nr"><span>领取会员卡</span><p>去联盟商家领取会员卡</p></div>
+                </li>
+                <li class="jifenC4_li_fxj">&nbsp;</li>
+                <li class="jifenC4_liY">
+                    <div class="jifenC4_liY_Nr"><span>享受优惠</span><p>持卡在任意商铺消费都会享受优惠</p></div>
+                </li>
+                <li class="jifenC4_li_fxj">&nbsp;</li>
+                <li class="jifenC4_liY">
+                    <div class="jifenC4_liY_Nr"><span>反馈积分</span><p>用户消费后商家会返一定的积分</p></div>
+                </li>
+                <li class="jifenC4_li_fxj">&nbsp;</li>
+                <li class="jifenC4_liY">
+                    <div class="jifenC4_liY_Nr"><span>兑换商品</span><p>用户可以用积分兑换精美礼品</p></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="shangjiaC">
+        <div class="left">
+            <div class="sj_detjj jifenC_xq_sjlmjj">
+                <div class="sj_jjbox">
+                    <div class="left"><img src="<{:config_img($detail['photo'])}>" width="350" height="204" />
+                        <div class="sj_jjnr">
+                            <div class="sj_jjt"><{$detail.shop_name}></div>
+                            <p>地址：<{$detail.addr}></p>
+                            <p>商家：<{$detail.shop_name}></p>
+                            <p>营业时间：<{$shopdetail.business_time}></p>
+                            <div class="jifenC_xq_sjlm_gz">
+                                使用规则
+                                <ul>
+                                    <li>1.到商家店铺领取会员卡</li>
+                                    <li>2.凭此卡在店内消费可以享受八折优惠</li>
+                                    <li>3.定期有会员活动</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <img src="__TMPL__statics/images/wx.png" width="129" height="128" /><p>手机扫一扫，随时享有优惠</p>
+                    </div>
+                </div>
+            </div>
+            <div class="sj_xqnr">
+                <div class="jifenC_xq_sjlmjjNr">
+                    <ul>
+                        <li>商家简介</li>
+                    </ul>
+                </div>
+                <div class="sj_xqnrJj jifen_xqnrJj">
+                    <{$shopdetail['details']}>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="sj_map">
+                <h3>商家地图</h3>
+                <div class="sjRbox">
+                    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7b92b3afff29988b6d4dbf9a00698ed8"></script>
+                    <div id="allmap" style="width:220px; height:260px;"></div>
+                    <script type="text/javascript">
+                        // 百度地图API功能
+                        var map = new BMap.Map("allmap");
+                        map.centerAndZoom(new BMap.Point("<{$detail.lng}>", "<{$detail.lat}>"), 15);
+                        var point = new BMap.Point("<{$detail.lng}>", "<{$detail.lat}>");
+                        map.centerAndZoom(point, 15);
+                        var marker = new BMap.Marker(point); // 创建标注
+                        map.clearOverlays();
+                        map.addOverlay(marker); // 将标注添加到地图中
+                        marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                        map.addControl(new BMap.NavigationControl()); //添加默认缩放平移控件
+                    </script>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="public:footer"/>

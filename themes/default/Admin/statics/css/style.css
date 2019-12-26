@@ -1,0 +1,111 @@
+@charset "utf-8";.bottom_box{width:100%;position:relative;height:1200px}
+.bottom_box .leftMenu{background:#272930;left:0;padding-top:10px;text-align:center;top:0;z-index:5;position:absolute;width:200px;height:100%}
+.bottom_box .leftMenu .menuClik{padding:10px;overflow:hidden;height:auto}
+.bottom_box .leftMenu .menuClik .left{display:block;font-family:"微软雅黑";font-size:12px;color:#FFF;height:32px;width:52px;background-color:#1f7ac8;margin-right:12px;line-height:32px;background-image:url(../images/ico_03.png);background-repeat:no-repeat;background-position:8px center;text-align:left;padding-left:32px;cursor:pointer}
+.bottom_box .leftMenu .menuClik .center{display:block;font-family:"微软雅黑";font-size:12px;color:#FFF;height:32px;width:52px;background-color:#094;line-height:32px;text-align:center;background-image:url(../images/ico_05.png);background-repeat:no-repeat;background-position:8px center;text-align:left;padding-left:32px;cursor:pointer}
+.bottom_box .leftMenu .leftMenu_ul{display:block;width:198px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-right-style:solid;border-left-style:solid;position:relative;height:auto;border-top:1px solid #1a1c20;border-bottom:1px solid #2f323a}
+.bottom_box .leftMenu .leftMenu_ul .leftMenu_li{height:auto;border-top:1px solid #32353e;border-bottom:1px solid #1a1c20;background-repeat:no-repeat;background-position:center top;font-size:14px;line-height:45px;color:#307bcb;text-align:left;position:relative;font-family:"微软雅黑";width:198px;display:block;z-index:0}
+.leftMenu_li .leftMenu_a{display:block;background-image:url(../images/leftico_13.png);background-repeat:no-repeat;background-position:168px center;color:#c9d4f6;position:relative;padding-left:30px;font-size:12px;text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);}
+.leftNav2{width:199px;height:auto;background-color:#1A1C20;border-bottom-width:1px;border-bottom-style:solid;border-bottom-color:#1A1C20;display:none}
+.leftNav2 li{font-family:"微软雅黑";font-size:14px;line-height:30px;color:#c9d4f6}
+.leftNav2 li:hover{font-family:"微软雅黑";font-size:14px;line-height:30px;color:#fff;background-color:#09C;}
+.leftNav2 li a{text-indent:50px;font-size:12px;color:#c9d4f6;width:196px;display:block; text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);}
+.curHover{color:#c9d4f6!important;border-left:2px solid #09C;;background-color:#1e2025}
+.currents{background-image:url(../images/leftico_on_13.png)!important}
+.current{height:28px;line-height:28px;padding:0 10px;background:#09c;color:#fff!important;border-radius:3px;border:1px solid #09c}
+.rightMenu{margin-left:200px;height:100%}
+
+.main-sc .jsglNr .tableBox table tr td a.common1 {
+    background-color: #09c;
+    height: 20px;
+    font-family: "微软雅黑";
+    font-size: 12px;
+    line-height: 20px;
+    color: #FFF;
+    display: inline-block;
+    border-radius: 0px;
+	padding:0px 7px;
+    background-repeat: no-repeat;
+    background-position: 20px center;
+    margin-right: 20px;
+	-moz-border-radius: 50%;      /* Gecko browsers */
+    -webkit-border-radius: 50%;   /* Webkit browsers */
+    border-radius:50%px;            /* W3C syntax */
+
+}
+
+.main-sc .jsglNr .tableBox table tr td a.common2 {
+    background-color: #F00;
+    height: 20px;
+    font-family: "微软雅黑";
+    font-size: 12px;
+    line-height: 20px;
+    color: #FFF;
+    display: inline-block;
+    border-radius: 0px;
+	padding:0px 7px;
+    background-repeat: no-repeat;
+    background-position: 20px center;
+    margin-right: 20px;
+
+  margin-right: 20px;
+	-moz-border-radius: 50%;      /* Gecko browsers */
+    -webkit-border-radius: 50%;   /* Webkit browsers */
+    border-radius:50%px;            /* W3C syntax */
+}
+.btn-success {
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}.btn {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}.btn-default.active, .btn-default.focus, .btn-default:active, .btn-default:focus, .btn-default:hover, .open>.dropdown-toggle.btn-default {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+}.btn.focus, .btn:focus, .btn:hover {
+    color: #333;
+    text-decoration: none;
+}.btn-default:hover, .btn-default:active, .btn-default.hover {
+    background-color: #e7e7e7;
+}.table-bordered {
+    border: 1px solid #F7F7F7;
+}.table {
+    width:98%;
+    max-width: 100%; margin:10px;
+}table {
+    background-color: transparent;
+}.mainScAdd .tableBox table tr td {
+    vertical-align: middle;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}.table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
+    border: 1px solid #F7F7F7;
+}.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #F7F7F7;
+}
+table {
+    border-spacing: 0;
+    border-collapse: collapse;
+}

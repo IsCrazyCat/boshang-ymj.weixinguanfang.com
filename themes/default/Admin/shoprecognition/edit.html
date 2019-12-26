@@ -1,0 +1,63 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">认领</li>
+        <li class="li2 li3">编辑认领</li>
+    </ul>
+</div>
+<p class="attention"><span>注意：</span>就算不通过已应该回复下吧！</p>
+<form target="baocms_frm" action="<{:U('shoprecognition/edit',array('recognition_id'=>$detail['recognition_id']))}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">用户：</td>
+                    <td class="rgTdBt">
+                        <div class="lt">
+                            <input type="hidden" id="user_id" name="data[user_id]" value="<{$detail.user_id|default=''}>" />
+                            <input class="scAddTextName w150 sj" type="text" name="nickname" id="nickname"  value="<{$user.nickname}>" />
+                        </div>
+						<code>编辑页面不提供修改</code>
+                    </td>
+                </tr>  
+                <tr>
+                    <td class="lfTdBt">申请的商家：</td>
+                    <td class="rgTdBt"> <div class="lt">
+                            <input type="hidden" id="shop_id" name="data[shop_id]" value="<{$detail.shop_id|default=''}>"/>
+                            <input type="text" id="shop_name" name="shop_name" value="<{$shop.shop_name}>" class="scAddTextName w150 sj" />
+                        </div>
+                       <code>编辑页面不提供商家修改</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">申请人姓名：</td>
+                    <td class="rgTdBt"><input type="text" name="data[name]" value="<{$detail.name|default=''}>" class="scAddTextName w260" />
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">申请人手机：</td>
+                    <td><input type="text" name="data[mobile]" value="<{$detail.mobile|default=''}>" class="scAddTextName w260" />
+
+                    </td>
+                </tr>
+                 <tr>
+                    <td class="lfTdBt">申请人理由？：</td>
+                    <td class="rgTdBt"><textarea  name="data[content]" cols="50" rows="10" ><{$detail.content|default=''}></textarea>
+					<code>认领人的申请理由</code>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="lfTdBt">管理员回复</td>
+                    <td class="rgTdBt"><textarea  name="data[reply]" cols="50" rows="10" ><{$detail.reply|default=''}></textarea>
+					<code>管理员回复后，认领人可以在会员中心看到！</code>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认编辑" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>       

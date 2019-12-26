@@ -1,0 +1,53 @@
+<include file="pay:top"/>
+<style>
+.container{margin-right:auto;width:1200px;margin:auto;margin-left:auto;padding-left:7.5px;padding-right:7.5px}
+.alert-box{border:1px solid #eee;background:#fff;margin:80px 0}
+.alert-box .box-bd{padding:50px 100px;box-shadow:0 1px 2px #CCC;font-size:16px;line-height:40px;text-align: center;}
+.alert-box .box-hd{height:50px;line-height:50px;text-align:center;font-size:20px;border-bottom:1px solid #eee;background-color: #F1F1F1;}
+p.height-large{margin:0 0 50px; font-size: 28px;}
+.btn-primary{color:#fff;background-color:#06C1AE;border-color:#06C1AE}
+.btn2{display:inline-block;margin-bottom:0;font-weight:400;text-align:center;vertical-align:middle;-ms-touch-action:manipulation;touch-action:manipulation;cursor:pointer;background-image:none;border:1px solid transparent;white-space:nowrap;padding:10px 50px;font-size:28px;line-height:1.42857143;border-radius:0;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
+.fa{font-family:fa!important;font-style:normal;-webkit-font-smoothing:antialiased;-webkit-text-stroke-width:.2px;-moz-osx-font-smoothing:grayscale}
+p.height-large .btn-jump{ color:#F00}
+</style>
+
+            
+<div class="container">
+	<div class="alert-box">
+		<div class="box-hd">
+			<present name="message">
+			错误内容
+			<else/>
+			提示内容
+			</present>
+		</div>
+		<div class="box-bd">
+			<present name="message">
+			<p class="height-large"><?php echo($message); ?></p>
+			<else/>
+			<p class="height-large"><?php echo($error); ?></p>
+			</present>
+			<p class="height-large">
+				<a href="<{:U('members/index/index')}>" class="btn2 btn-big btn-primary"><i class="fa fa-home"></i> 回到会员中心</a>
+				<a href="<{$jumpUrl}>" id="jump" class="btn2 btn-jump btn"></a>
+			</p>
+		</div>
+	</div>
+
+</div>
+<script>
+	var t= 3;
+	setInterval("refer()",1000);
+	function refer(){
+		$("#jump").html(t + "秒后自动跳转");
+		if(t<=1){
+			$("#jump").html("如果未跳转请手动返回");
+			$("#jump").addClass("gray");
+			window.location = "<?php echo($jumpUrl);?>";
+		}else{
+			$("#jump").html(t + "秒后自动跳转");
+		}
+		t--; 
+	}
+</script> 
+<include  file='public:footer'/>   

@@ -1,0 +1,157 @@
+<include  file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家</a> > <a href="">商家管理</a> > <a>商家认证信息编辑</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">由于审核没有通过，您正在编辑商家<{$SHOP['shop_name']}></div>
+        </div>
+    </div> 
+    <div class="tabnr_change  show">
+        <form method="post"  action="<{:U('audit/edit',array('audit_id'=>$detail['audit_id']))}>"  target="baocms_frm">
+            <table class="tuanfabu_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+            
+            
+            <!--单图上传案例开始【photo】-->
+             <tr><td><p class="tuanfabu_t">营业执照：</p></td>
+                 <td><div class="tuanfabu_nr">
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <input type="hidden" name="data[photo]" value="<{$detail.photo}>" id="data_photo" />
+                        <div id="fileToUpload" >上传营业执照</div>
+                    </div>
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <img id="photo_img" width="80" height="80"  src="<{:config_img($detail['photo'])}>" />
+                        <a href="<{:U('setting/attachs')}>">缩略图设置</a>
+                        <{$CONFIG.attachs.goods.thumb}>
+                    </div>
+                    <script>                                            
+						var width_shop_audit = '<{:thumbSize($CONFIG[attachs][shop_audit][thumb],0)}>';                         
+						var height_shop_audit = '<{:thumbSize($CONFIG[attachs][shop_audit][thumb],1)}>';                         
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"shop_audit"))}>',                             
+						pick: '#fileToUpload',                             
+						resize: true,  
+						compress : {width: width_shop_audit,height: height_shop_audit,quality: 80,allowMagnify: false,crop: true}                       
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_photo").val(resporse.url);                             
+						$("#photo_img").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+                    </div>
+                </td></tr>
+            <!--单图上传案例结束-->
+                
+                
+                
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">企业名称：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[name]" value="<{$detail.name|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+                        </div></td>
+                </tr>
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">注册号：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[zhucehao]" value="<{$detail.zhucehao|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+                        </div></td>
+                </tr>
+               
+               
+             
+                  <tr>
+                    <td width="120"><p class="tuanfabu_t">营业地址：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[addr]" value="<{$detail.addr|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+                        </div></td>
+                </tr>
+                
+                
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">营业期限：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[end_date]" value="<{$detail.end_date|default=''}>" onfocus="WdatePicker();" class="tuanfabu_int tuanfabu_intw2" />
+                        </div></td>
+                </tr>
+                
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">组织机构代码证：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[zuzhidaima]" value="<{$detail.zuzhidaima|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+                        </div></td>
+                        
+                </tr>
+                
+                
+              
+                <!--下面是员工信息-->
+                
+                 <tr>
+                    <td width="120"><p class="tuanfabu_t">员工姓名：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[user_name]" value="<{$detail.user_name|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+                        </div></td>
+                </tr>
+                
+                <!--单图上传案例开始【photo】-->
+             <tr><td><p class="tuanfabu_t">员工照片：</p></td>
+                 <td><div class="tuanfabu_nr">
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <input type="hidden" name="data[pic]" value="<{$detail.pic}>" id="data_pic" />
+                        <div id="fileToUpload2" >上传员工照片</div>
+                    </div>
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <img id="pic_img" width="80" height="80"  src="<{:config_img($detail['photo'])}>" />
+                        <a href="<{:U('setting/attachs')}>">缩略图设置</a>
+                        <{$CONFIG.attachs.goods.thumb}>
+                    </div>
+                    <script>                                            
+						var width_shop_audit_pic = '<{:thumbSize($CONFIG[attachs][shop_audit][thumb],0)}>';                         
+						var height_shop_audit_pic = '<{:thumbSize($CONFIG[attachs][shop_audit][thumb],1)}>';                         
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"shop_audit"))}>',                             
+						pick: '#fileToUpload2',                             
+						resize: true,  
+						compress : {width: width_shop_audit_pic,height: height_shop_audit_pic,quality: 80,allowMagnify: false,crop: true}                       
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_pic").val(resporse.url);                             
+						$("#pic_img").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+                    </div>
+                </td></tr>
+            <!--单图上传案例结束-->
+            
+                
+                  <tr>
+                    <td width="120"><p class="tuanfabu_t">员工手机号：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[mobile]" value="<{$detail.mobile|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+                        </div></td>
+                </tr>
+                
+                
+             
+            </table>
+            <div class="tuanfabu_an">
+                <input type="submit" class="radius3 sjgl_an tuan_topbt" value="确认编辑" />
+            </div>
+        </form>
+    </div> 
+</div>
+<include  file='public:footer'/>

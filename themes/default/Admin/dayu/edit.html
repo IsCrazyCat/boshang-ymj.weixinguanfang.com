@@ -1,0 +1,32 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">大鱼模板管理</li>
+        <li class="li2 li3">修改大鱼模板</li>
+    </ul>
+</div>
+    <p class="attention"><span>注意：</span><span style="color: red;">除特殊情况外，请不要随意更改本地调用标签，可能会导致不能正常发送短信！</span></p>
+<form  target="baocms_frm" action="<{:U('dayu/edit',array('dayu_id'=>$info['dayu_id']))}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">模板名：</td>
+                    <td class="rgTdBt"><input type="text" name="data[dayu_name]" class="manageInput" value="<{$info.dayu_name}>" /></td>
+                </tr><tr>
+                    <td class="lfTdBt">本地调用：</td>
+                    <td class="rgTdBt"><input style="border: 1px red solid;" type="text" name="data[dayu_local]" class="manageInput" value="<{$info.dayu_local}>" /></td>
+                </tr><tr>
+                    <td class="lfTdBt">模板ID：</td>
+                    <td class="rgTdBt"><input type="text" name="data[dayu_tag]" class="manageInput" value="<{$info.dayu_tag}>" /></td>
+                </tr><tr>
+                    <td class="lfTdBt">说明：</td>
+                    <td class="rgTdBt"><textarea  name="data[dayu_note]" cols="50" rows="10" ><{$info.dayu_note}></textarea></td>
+                </tr>
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认修改" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>       

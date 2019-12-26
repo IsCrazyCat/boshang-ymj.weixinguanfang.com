@@ -1,0 +1,150 @@
+<include file="public:header"/>
+
+<style>
+
+.tgdd_nrt {
+
+    background-color: #fff;
+
+}
+
+</style>
+
+<div class="content_right">  
+
+    <div class="tgdd">
+
+        <div class="tgdd_nr">
+
+           <div class="blank-20"></div>
+
+     <table class="tuan_table3" width="100%" border="0" cellspacing="0" cellpadding="0">
+
+        <tr style="background-color:#F9F9F9;">
+
+            <td width="35%">活动图片</td>
+
+            <td width="12%">活动标题</td>
+
+            <td width="13%">活动地址</td>
+
+            <td width="18%">活动开始时间</td>
+
+            <td width="15%">活动结束时间</td>
+
+     </table>
+
+     <div class="blank-10"></div>
+
+  <volist name="list" id="item" key="index"> 
+
+  <table class="tuan_table1" width="100%" border="0">
+
+  <tbody><tr class="tr_left_2">
+
+    <td class="left10" colspan="4">
+
+    ID：<span class="mallorder_jg"><{$item.sign_id}></span>
+
+    <span class="td_top_1">报名时间：<{$item.create_time|date='Y-m-d H:i',###}>  </span></td>
+
+  </tr>
+
+  <tr>
+
+    <td class="td_left_1"> 
+
+    
+
+    <table class="tuan_table2" width="100%" border="0">
+
+      <tbody><tr class="tr_left_1">
+
+      
+
+        <td class="left1">
+
+        <!--商品展示开始-->
+
+        <div class="index__production___yfP3y">
+
+        <a target="_blank" href="<{:u('home/activity/detail',array('activity_id'=>$item['activity_id']))}>" class="index__pic___TScfk">
+
+        
+
+        <img src="<{:config_img($activity[$item['activity_id']]['photo'])}>"><span></span></a>
+
+        <div class="index__infos___A6XLq">
+
+            <p><{$activity[$item['activity_id']]['title']}></p>
+
+        	</div>
+
+		</div>
+
+       <!--商品展示END-->
+
+        
+
+        </td>
+
+        <td class="left2">
+
+       
+
+        </td>
+
+        <td class="left3"><{$activity[$item['activity_id']]['title']}></td>
+
+       
+
+      </tr>
+
+     
+
+    </tbody></table>    
+
+    </td>
+
+    <td class="left7" width="15%"><{$activity[$item['activity_id']]['addr']}> 
+
+     </td>
+
+    <td class="left8" width="20%">
+
+   <{$activity[$item['activity_id']]['bg_date']}>
+
+
+
+    </td>
+
+    <td class="left9" width="15%">
+
+   <{$activity[$item['activity_id']]['end_date']}>
+
+    </td>
+
+  </tr>
+
+ 
+
+</tbody>
+
+</table>
+
+<br/> 
+
+</volist>
+
+            <div class="x"><{$page}></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+<include file="public:footer"/>
+

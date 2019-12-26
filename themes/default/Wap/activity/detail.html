@@ -1,0 +1,129 @@
+<php>$mobile_title = $detail['title'].'活动';</php>
+<include  file='public:header'/>   
+<style>
+.global_focus img { max-width:100%!important}
+global_focus p  img { max-width:100% !important}
+</style>
+<script src="/static/default/wap/other/roll.js"></script> 
+	<header class="top-fixed bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('activity/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			活动详情
+		</div>
+		<div class="top-share">
+			<a href="javascript:void(0);" id="share-btn"><i class="icon-share"></i></a>
+		</div>
+	</header>  
+	<div id="share-box" class="share-box">
+		<div class="dialog-mask"></div>
+			<ul class="line">
+				<li class="-mob-share-weibo x3"><img src="/static/default/wap/image/share/share-weibo.png" /><p>新浪微博</p></li>
+				<li class="-mob-share-tencentweibo x3"><img src="/static/default/wap/image/share/share-twb.png" /><p>腾讯微博</p></li>
+				<li class="-mob-share-qzone x3"><img src="/static/default/wap/image/share/share-qzone.png" /><p>QQ空间</p></li>			
+				<li class="-mob-share-qq x3"><img src="/static/default/wap/image/share/share-py.png" /><p>QQ好友</p></li>
+				<li class="-mob-share-weixin x3"><img src="/static/default/wap/image/share/share-weixin.png" /><p>微信</p></li>
+				<li class="-mob-share-renren x3"><img src="/static/default/wap/image/share/share-renren.png" /><p>人人网</p></li>
+				<li class="-mob-share-kaixin x3"><img src="/static/default/wap/image/share/share-kaixin.png" /><p>开心网</p></li>
+				<li id="mui-card-close" class="mui-card-close x3"><img src="/static/default/wap/image/share/share-close.png" /><p>关闭</p></li>
+			</ul>
+		<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=890ab8bbdb3c"></script>
+	</div>
+	<script>
+		$(document).ready(function () {
+			$("#share-box").hide();
+			$("#share-btn").click(function () {
+				$("#share-box").toggle();
+				$('html,body').animate({scrollTop:0}, 'slow');
+			});
+			$("#mui-card-close").click(function () {
+				$("#share-box").hide();
+			});
+		});
+	</script>
+<div class="tuan-detail">   
+    <div class="line banner">	
+			<div id="focus" class="focus">
+		<div class="hd">
+			<ul></ul>
+		</div>
+		<div class="bd">
+			<ul>
+          		<li><a href="javascript:void(0);"><img src="<{:config_img($detail['photo'])}>" /></a></li>
+                <php>$i=0;</php>
+                <foreach name="detail.thumb" item="item">
+                <php>$i++;if($i<=3){</php>
+                <li><a href="javascript:void(0);"><img src="<{:config_img($item)}>" /></a></li>
+                <php>}</php>
+                </foreach>
+			</ul>
+		</div>
+	</div>
+			<div class="title">
+				<h1><{:bao_msubstr($detail['title'],0,20)}></h1>
+				<p><{:bao_msubstr($detail['intro'],0,40)}></p>
+			</div>	
+		</div>
+</div>            
+
+	<script type="text/javascript">
+		TouchSlide({ 
+			slideCell:"#focus",
+			titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+			mainCell:".bd ul", 
+			effect:"left", 
+			autoPlay:true,//自动播放
+			autoPage:true, //自动分页
+			switchLoad:"_src" //切换加载，真实图片路径为"_src" 
+		});
+	</script>
+
+	<div class="hd-detail tuan-detail">
+		<div class="detail-ctrl">
+         <php>
+         $num = D('Activitysign') -> where('activity_id ='.$detail['activity_id']) -> sum(num);
+         </php> 
+			<span><em><{$num}></em>人已报名</span>
+            <if condition="$detail['sign_end'] lt $today">
+              <a class="button  bg-gray float-right"  href="javascript:void(0);">活动结束</a  >
+              <else/><!--否则显示立即报名-->
+                  <eq name="detail['sign']" value="0">
+                  	<if condition="empty($MEMBER)">
+                  <a class="button  bg-dot float-right"  href="<{:u('wap/passport/login')}>">登录报名</a>
+                 	 <else/>
+                  <a class="button  bg-yellow float-right"  href="<{:U('activity/sign',array('activity_id'=>$detail['activity_id']))}>">立即报名</a>
+                  	</if>   
+                  	<else/>
+                  <a class="button  bg-gray float-right"  href="javascript:void(0);">已报名</a>  
+                  </eq> 
+          </if><!--结束-->
+       </div>
+       
+        <div class="blank-10 bg"></div>
+		<div class="detail-info">
+			<h1>商家信息</h1>
+			<p>提供商家：<a href="<{:U('shop/detail',array('shop_id'=>$shop['shop_id']))}>"><{$shop.shop_name}></a></p>
+			<p>联系电话：<a href="tel:<{$shop.tel}>"><{$shop.tel}></a></p>
+			<p>商家地址：<{$detail.addr}></p>
+            <p>活动时间：<{$detail.time}></p>
+			<p>位置导航：<a href="<{:U('shop/gps',array('shop_id'=>$shop['shop_id']))}>">到这里去</a></p>
+		</div>
+    
+
+		<div class="blank-10 bg"></div>
+		<div class="detail-info2">
+			<h1>活动介绍</h1><div class="blank-10"></div>
+			<p><{$detail.intro}></p>
+		</div>
+		<div class="blank-10 bg"></div>
+		<div class="detail-info2">
+			<h1>活动详情</h1><div class="blank-10"></div>
+            <div id="focus" class="global_focus">
+             	<{$detail.details}>
+            </div>
+		</div>
+		<div class="blank-10 bg 00"></div>
+
+
+<include  file='public:footer'/>

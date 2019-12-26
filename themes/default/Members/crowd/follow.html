@@ -1,0 +1,39 @@
+<include file="public:header"/>
+<style>
+.tuan_table {border-bottom: solid 1px #ececec;}
+.tuan_table tr {border-top: solid 1px #ececec;}
+.tuan_table td {background-color:#fff;}
+</style>
+<div class="content_right">
+<div class="tgdd">
+       
+    <div class="tgdd_t password_t">
+            <ul>
+                <li> <a href="<{:U('crowd/index')}>">我参加的众筹</a></li>
+                <li> <a href="<{:U('crowd/crowd_list')}>">我发布的众筹</a></li>
+                <li class="on"> <a>”<{$detail.title}>“ 的点餐</a></li>
+            </ul>
+    </div>
+    <div class="tgdd_nr">
+        <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+           <td width="50">ID</td>
+            <td width="500">用户名</td>
+            <td width="500">类型</td>
+            <td width="100">时间</td>
+        </tr>
+        <foreach name="meals" item="var">
+        <tr>
+              <td ><{$var.ask_id}></td>
+                <td><{$users[$var['uid']]['nickname']}></td>
+                <td><if condition="$var[type] EQ 'zan'">用户赞了该众筹<else/>该众筹被关注</if></td>
+                <td><{$var.dateline|date='Y-m-d H:i:s',###}></td>
+        </tr>
+        </foreach>
+    </table>
+    </div>
+    </div>
+</div>
+</div>
+</div></div>
+<include file="public:footer"/>

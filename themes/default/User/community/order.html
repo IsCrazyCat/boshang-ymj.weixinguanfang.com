@@ -1,0 +1,66 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:u('user/member/xiaoqu')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			物业费账单
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+<style>
+.list-media-x { margin-top: 2rem;}
+.list-media-x p.text-gray{ font-size:12px;}
+ul { padding-left: 0px !important;}
+</style>
+<!-- 筛选TAB -->
+<ul id="shangjia_tab">
+        <li style="width: 20%;"><a href="<{:LinkTo('community/index')}>">小区</a></li>
+        <li style="width: 20%;"><a href="<{:LinkTo('community/tongzhi')}>" >通知</a></li>
+        <li style="width: 20%;"><a href="<{:LinkTo('community/feedback')}>">报修</a></li>
+        <li style="width: 20%;"><a href="<{:LinkTo('community/order')}>"   class="on">账单</a></li>
+        <li style="width: 20%;"><a href="<{:LinkTo('community/tieba')}>">贴吧</a></li>
+</ul>
+
+
+
+
+
+<div class="list-media-x" id="list-media">
+<div class="blank-10 bg"></div>
+	<div class="container">
+		<div class="blank-10"></div>
+		<p><span class="text-dot">总需缴费总额：</span><{:round($counts['order']/100,2)}></p>
+        <p><span class="text-dot">已缴费：</span><{:round($counts['order_1']/100,2)}></p>
+        <p><span class="text-gray">未缴费用清单：</span><{:round($counts['order_0']/100,2)}>。 
+        水费：<{:round($counts['order_type_1_is_pay']/100,2)}>，
+        电费：<{:round($counts['order_type_2_is_pay']/100,2)}>，
+        天然气费：<{:round($counts['order_type_3_is_pay']/100,2)}>，
+        停车费：<{:round($counts['order_type_4_is_pay']/100,2)}>，
+        物业费：<{:round($counts['order_type_5_is_pay']/100,2)}>。
+        </p>
+	</div>
+     <div class="blank-10 bg"></div>
+	<ul></ul>
+
+</div>	
+
+ 
+
+<script>
+	$(document).ready(function () {	 
+		loaddata('<{$nextpage}>', $("#list-media ul"), true);
+	});
+</script>
+
+<include  file='public:footer'/>
+
+
+
+
+
+    
+
+   

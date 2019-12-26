@@ -1,0 +1,69 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">当前位置</li>
+        <li class="li2">文章管理</li>
+        <li class="li2 li3">打赏列表</li>
+
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span> 这里显示的是文章打赏列表，当前筛选数据共计打赏&yen; <{:round($sum/100,2)}>元</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('article/create','','添加文章')}>
+            </div>
+            <div class="right">
+                <form class="" method="post"  action="<{:U('article/donate')}>"> 
+                    <div class="seleHidden" id="seleHidden">
+                        <div class="seleK">
+                   
+                            <label>
+                                <input type="hidden" id="user_id" name="user_id" value="<{$user_id|default=''}>" />
+                                <input type="text" name="nickname" id="nickname"  value="<{$nickname}>"   class="text" />
+                                <a mini="select"  w="800" h="600" href="<{:U('user/select')}>" class="sumit">选择用户</a>
+                            </label>
+                                <input type="submit" class="inptButton" value="   搜索" />
+                            </label>
+                        </div>
+                    </div>
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="donate_id" /></td>
+                        <td class="w50">ID</td>
+                        <td>打赏文章ID</td>
+                        <td>打赏会员</td>
+                        <td>打赏金额</td>
+                        <td>打赏时间</td>
+                        <td>打赏IP</td>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_donate_id" type="checkbox" name="donate_id[]" value="<{$var.article_id}>" /> </td>
+                            <td><{$var.donate_id}></td>
+                            <td><{$var.article_id}></td>
+                            <td><{$users[$var['user_id']]['nickname']}></td>
+                            <td> &yen; <{:round($var['money']/100,2)}>元</td>
+                            <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                            <td><{$var.create_ip}></td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>  
+

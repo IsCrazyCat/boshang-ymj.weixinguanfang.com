@@ -1,0 +1,24 @@
+<volist name="list" id="item" key="index">
+    <li class="line">
+<!--        <a href="<{:U('mall/index',array('goods_id'=>$item['goods_id']))}>">-->
+            <div style="width:30%;float:left">
+                <img src="<{$item['photo']}>" />
+            </div>
+            <div style="margin-top:0.1rem; padding: 0 5px;width:70%;float:left">
+                <h4><{$item.name}></h4>
+                <if condition="empty($item['catesInfo']) neq true">
+                    <foreach name="item['catesInfo']" item="val" index="key">
+                        <a  href="<{:U('mall/index',array('cat'=>$key,'car_id'=>$item['car_id']))}>">
+                            <p class="desc"> <span style="color:#F00; font-size:12px;"><{$val['count']}>款</span> <{$val['name']}>适用该车型</p>
+                        </a>
+                    </foreach>
+                <else/>
+                    <p class="desc"> 暂无商品适用该车型</p>
+                </if>
+
+<!--                <p class="desc"> <span style="color:#F00; font-size:12px;">4款</span> 机油适用该车型</p>-->
+<!--                <p class="desc"> <span style="color:#F00; font-size:12px;">4款</span> 柴油适用该车型</p>-->
+            </div>
+<!--        </a>-->
+    </li>
+</volist>

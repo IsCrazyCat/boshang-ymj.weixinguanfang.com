@@ -1,0 +1,39 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+<title>商城分类</title>
+<link href="__TMPL__statics/css/style.css?v=20150609" rel="stylesheet" type="text/css">
+<script src="__TMPL__statics/js/jquery.js?v=20150609"></script>
+<script src="__PUBLIC__/js/store.js?v=20150610"></script>
+<script> var BAO_PUBLIC = '__PUBLIC__';
+            var BAO_ROOT = '__ROOT__';</script>
+<header>
+<div class="headerTop">
+    <div class="headerTop_back"><a href="<{:U('index/index')}>"></a></div>
+    <div class="headerTop_t">添加分类</div>
+</div> 
+</header>
+	<form method="post" action="<{:U('goodsshopcate/create')}>">
+<section class="fixed_pad">
+	<div class="CouponBox">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+         <tr class="Coupon_tr">
+			<td class="CouponDel_td">分类名:</td>
+            <td><input class="CouponInput" style="width:200px;" name="data[cate_name]"  type="text" /></td>
+
+        </tr>
+		   <tr class="Coupon_tr">
+			<td class="CouponDel_td">排序:</td>
+            <td><input class="CouponInput" style="width:50px;" name="data[orderby]"  type="text" /></td>
+
+        </tr>
+		   
+    </table>
+	<input class="CouponButt" type="submit" value="确认" />
+</div>
+
+
+</form>
+</section>
+<include file="public:footer"/>

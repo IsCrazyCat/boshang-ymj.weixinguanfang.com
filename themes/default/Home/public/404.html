@@ -1,0 +1,16 @@
+<include  file='public:header'/>  
+<include  file='public:top'/>
+<include  file='public:nav'/>
+<style>
+.Erreur_box {position: relative;margin-top: 20px;display: block;}
+.Erreur_box .Erreur .clo a {text-decoration: none;margin: 0 10px; font-weight:bold}
+</style>
+<body style="background-color:#fff;">
+<div class="Erreur_box">
+    <div class="Erreur">
+        <p><img src="__TMPL__statics/images/erreur_404.png" width="470" height="274"></p>
+        <p><span>Sorry!</span>您访问的页面不见了！</p>
+        <p class="clo">你可以访问<a href="<{:u('home/index/index')}>"><{$CONFIG.site.sitename}>首页</a>或<a href="javascript:location.reload(true);">刷新页面</a></p>
+    </div>
+</div>
+<include  file='public:footer'/> 

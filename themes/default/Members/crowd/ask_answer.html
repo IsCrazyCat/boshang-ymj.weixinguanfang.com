@@ -1,0 +1,24 @@
+<include  file='public:header'/>
+<div class="content_right">   
+    <div class="tgdd">
+        <form  target="baocms_frm" action="<{:U('crowd/ask_answer',array('ask_id'=>$ask['ask_id']))}>" method="post">
+            <div class="addAddress_nr">
+                <p class="addAddress_t">回答众筹</p>
+                <ul>
+                   <li>
+                        <div class="left"><span>回答：</span></div>
+                        <div class="lef">
+                            <textarea cols='50' rows='5' name="data[answer_c]"><{$ask.answer_c|default=''}></textarea>
+                        </div>
+                    </li>
+                    
+                    
+                </ul>
+                <div class="addAddress_bcqx"><input class="bc" type="submit" value="确认发布" /></div>
+            </div>
+
+        </form>
+    </div>
+</div>
+</div>
+<include file="public:footer"/>

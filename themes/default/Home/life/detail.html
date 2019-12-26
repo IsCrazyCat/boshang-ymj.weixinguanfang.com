@@ -1,0 +1,366 @@
+<include  file='public:header'/>
+<include  file='public:top'/>
+<include  file='public:nav2'/>
+<script src="__TMPL__statics/js/jquery.cookie.js?v=20150718"></script>
+<script type="text/javascript" src="__TMPL__statics/js/jquery.jcarousel.min.js"></script>
+<script type="text/javascript" src="__TMPL__statics/js/jquery.pikachoose.min.js"></script>
+<script type="text/javascript" language="javascript" src="__PUBLIC__/js/layer/layer.js"></script>
+<style>
+.zy_content { padding-top: 0px;}
+.hotel_detl_infor { padding:10px 0;}
+.hotel_detl_infor_top {margin:0;padding:10px 0;border-bottom: 1px dashed #ccc;}
+.hotel_detl_nr li.cate{border-radius: 3px;height: 16px;line-height: 16px; margin-bottom: 5px;width: 100px;float: left;padding: 0 10px;}
+.hotel_detl_nr li.cate a{border-color: #33b095;color: #33b095;text-align: center;}
+.hotel_detl_nr2{display: table-cell;}
+.hotel_detl_infor .pub_wz {width: 600px;}
+.hdxq_p{ font-size:16px;}
+.hotel_detl_box { border:none;}
+.hotel_detl_tit { border-bottom: 2px solid #F5F5F5;}
+.life_detail_click{background-color: #33b095;padding: 0px 15px;line-height:30px;color: #fff;font-size: 16px;display: inline-block;float: right;}
+.life_detail_mobile{color: #f94c4c;font-size:20px;margin-left: 150px;}
+.hotel_detl_infor .pub_wz .addr, .hotel_detl_infor .pub_wz .state_box, .spxq_qgjgk{padding: 10px 0;}
+.layui-layer-page .layui-layer-content{ padding:20px;}
+.layui-layer-page .layui-layer-content input[type='text']{ width:100%; height:36px; border:1px solid #ccc; background:#fff; margin-bottom:10px; text-indent:10px; font-size:14px;}
+.layui-layer-page .layui-layer-content input[type='button']{ width:100%; height:40px; border:none; background:#33b095; color:#fff; font-size:16px;}
+.layui-layer-page .layui-layer-content p{ line-height:28px; color:#999;}
+.layui-layer-page .layui-layer-content .check_box{ overflow:hidden; margin-bottom:5px;}
+.layui-layer-page .layui-layer-content .check_box label{ display:block; float:left; margin-right:20px; margin-bottom:10px;}
+</style>
+<!--主体内容-->
+<div class="content zy_content" style="position: relative; padding-top: 5px;">
+	
+    <div class="content zy_content" style="position: relative;">
+    <div class="spxq_xqT spxq_xqT2">
+        <ul>
+            <li class="jq_spxq_xqBt1 on"><code rel="spxq_xqBt1">详情介绍</code><em></em></li>
+            <li class="jq_spxq_xqBt2"><code rel="spxq_xqBt2">相关类目</code><em></em></li>
+            <li class="jq_spxq_xqBt3"><code rel="spxq_xqBt3">附近信息</code><em></em></li>
+        </ul>
+        <div style="float:right;">
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            var href = window.location.href;
+            var param = href.split('#');
+            if (param[1] != undefined && param[1] !=null && param[1] != "") {
+                var _targetTop2 = $('#' + param[1]).offset().top-50;//获取位置
+                jQuery("html,body").stop(true).animate({scrollTop: _targetTop2}, 300);//跳转
+            }
+            $(".spxq_xqT2 ul li").click(function () {
+                $(".spxq_xqT2 ul li").removeClass("on");
+                $(this).addClass("on");
+                var _targetTop = $('.' + $(this).find('code').attr('rel')).offset().top - 50;//获取位置
+                jQuery("html,body").stop(true).animate({scrollTop: _targetTop}, 300, function(){
+                    
+                });//跳转
+            });
+            $(window).scroll(function () {
+                $('.spxq_xqT2 ul li').each(function(i){                   
+                    if($("."+$(this).find('code').attr("rel")).offset().top - $(window).scrollTop() < 50){
+                        $(this).addClass('on').siblings().removeClass('on');
+                    }
+                });
+            });            
+        });
+    </script>
+
+    <div class="spxq_loca">
+   		 <a href="<{:U('index/index')}>" title="<{$CONFIG.site.sitename}>"><{$CONFIG.site.sitename}></a>&gt;&gt;
+         <a href="<{:U('life/index')}>">生活信息</a></li>&gt;&gt;
+         <a href="<{:U('life/index',array('channel'=>$channel,'cat'=>0))}>"><{$chl[$channel]}></a>&gt;&gt;
+         <a href="<{:U('life/index',array('channel'=>$channel,'cat'=>$cate[cate_id]))}>"><{$cate.cate_name}></a>&gt;&gt;
+         <{$detail.title}>&gt;&gt;
+         <a style="color:#F00;" href="<{:U('life/fabu')}>">我已要发布信息</a>
+    
+    </div>
+	<!--简介-->
+    <div class="hotel_detl_box mb20">
+    	<div class="hotel_detl_infor_top">
+            <div class="left">
+                <h1 style="width: 100%;"><{:bao_msubstr($detail['title'],0,38,false)}></h1>
+            </div>
+            <div class="FocAndShare2 right share bdsharebuttonbox" data-tag="share_1">
+                <ul>
+                
+                   <li class="list"> <a href="javascript:void(0);" class="das"><em class="ico ico_2"></em>举报</a></li>
+                   <li class="list"><a mini='act' href="<{:U('shop/favorites',array('shop_id'=>$detail['shop_id']))}>"> <em class="ico ico_2"></em>收藏</a></li>
+                   <li class="list"><a data-cmd="more" href="javascript:void(0);"><em class="ico ico_3"></em>分享</a></li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <script>window._bd_share_config = {share: [{"tag": "share_1", 'bdCustomStyle': '__TMPL__statics/empty.css'}]};
+                with (document)
+                    0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+            </script>
+            
+            
+          <script>
+        $(document).ready(function(){
+            $(".das").click(function(){
+                layer.open({
+                    type: 1,
+                    title:'请选择举报理由',
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['360px', 'auto'], //宽高
+                    content: '<div class="check_box"><label><input type="radio" name="type" value="1">电话被冒用</label><label><input type="radio" name="type" value="2">虚假违法信息</label><label><input type="radio" name="type" value="3">信息已过期</label></div><input type="text" class="donate2" name="content" placeholder="请输入举报内容" value=""><input type="button" class="sure_das" value="确认举报"><p>举报不可取消，请慎重操作</p>',
+                  });
+            })
+            
+            $(document).on('click','.sure_das',function(){
+                var url = "<{:U('life/report')}>";
+                var life_id = "<{$detail.life_id}>";
+                var type = $("input[name='type']:checked").val();
+                var content = $(".donate2").val();
+                layer.confirm('您确认要举报此信息吗？', {
+                    btn: ['是的','不了'] //按钮
+                  }, function(){
+                    $.post(url,{life_id:life_id,type:type,content:content},function(data){
+                        if(data.status == 'login'){
+                            ajaxLogin();
+                        }else if(data.status == 'error'){
+                            layer.msg(data.msg);
+                        }else{
+                            layer.msg(data.msg);
+                            setTimeout(function(){
+                                window.location.reload(true);
+                            },1000)
+                        }
+                    },'json')
+                  });
+            })
+            
+        })
+    </script>
+  
+            
+            
+        <div class="hotel_detl_infor farm_detl_infor">
+            <div class="img_box left" style="overflow: hidden; height: 300px;">
+                <!-- 轮播图片 Begin -->
+                <div class="pikachoose">
+                    <ul id="pikame" class="jcarousel-skin-pika">
+                        <li><a href="javascript:void(0);" target="_blank"><img src="<{:config_img($detail['photo'])}>"/></a></li>
+                        <foreach name="pics" item="item">
+                            <li><a href="javascript:void(0);" target="_blank"><img src="<{:config_img($item['photo'])}>"/></a></li>
+                        </foreach>
+                    </ul>
+                </div>
+                <script language="javascript">
+                    $(document).ready(function (){
+                        $("#pikame").PikaChoose({carousel:true, carouselVertical:true});
+                    });
+                </script>
+                <!-- 轮播图片 End -->
+            </div>
+            <div class="pub_wz">
+               
+                <p class="addr">
+                    <span class="graycl">地址：</span><{$detail.addr}>
+                    <a href="javascript:void(0);" class="see map_icon"><em class="ico"></em>查看地图</a>
+                    <a href="javascript:void(0);" class="see"><em class="ico1"></em>浏览次数：<{$detail.views}></a>
+                    <a href="javascript:void(0);" class="see"><em class="ico2"></em>信息编号：<{$detail.life_id}></a>
+                </p>
+                <div class="state_box">
+                	<ul>
+                    	<li class=""><{:config_user_name($user['nickname'])}></li>
+                        <li class="mar">|</li>
+                        <li class="wd blackcl6">注册时间：<{$user.reg_time|date='Y-m-d',###}></li>
+                        <li class="mar">|</li>
+                    	<li class="">发布日期： <{$detail.create_time|date='Y-m-d H:i:s',###}></li>
+                    </ul>
+                </div>
+                <div class="state_box">
+                	<span class="graycl">认证信息：</span>
+                     <eq name="detail.is_shop" value="1">
+                            <span class="bq2">手机认证</span>
+                            <span class="bq2">实名认证</span>
+                     <else />
+                            <if condition="empty($user['mobile'])"><span class="bq2">手机认证</span></if>
+                            <span class="bq2">实名</span>
+                            <if condition="empty($user['email'])"><span class="bq2">邮箱认证</span></if>
+                    </eq>  
+                </div>
+              
+                	  <div class="spxq_qgjgk addr">
+                          <p class="hdxq_p">
+                              <if condition="!empty($cate['text1'])"><{$cate.text1}>：<{$detail.text1}></if>
+                              <if condition="!empty($cate['text2'])"><{$cate.text2}>：<{$detail.text2}></if>
+                              <a class="life_detail_click" rel="<{$detail.mobile}>" href="javascript:void(0);"><em class="sjxq_zxem bg1"></em>点击查看</a>
+                                <script>
+                                    $(document).ready(function (e) {
+                                        $(".life_detail_click").click(function () {
+                                            $(".life_detail_mobile span").html($(this).attr('rel'));
+                                        });
+                                    });
+                                </script>
+                              <a href="javascript:void(0);" class="life_detail_mobile">电话：<span><{:msubstr($detail['mobile'],0,7)}></span></a>                          </p>
+                      </div>
+                    <div class="spxq_qgjgk">
+                        <p class="hdxq_p">
+                            <if condition="!empty($cate['select1'])">
+                                <{$cate['select1']}>：
+                                <{$attrs['select1'][$detail['select1']]['attr_name']}>
+                            </if>
+                            <if condition="!empty($cate['select2'])">
+                                <span class="jfxq_kcy">
+                                     <{$cate['select2']}>：
+                                     <{$attrs['select2'][$detail['select2']]['attr_name']}>
+                                </span>
+                            </if>
+                            <if condition="!empty($cate['select3'])">
+                                <span class="jfxq_kcy">
+                                     <{$cate['select3']}>：
+                                     <{$attrs['select3'][$detail['select3']]['attr_name']}>
+                                </span>
+                            </if>
+                            <if condition="!empty($cate['select4'])">
+                                <span class="jfxq_kcy">
+                                     <{$cate['select4']}>：
+                                     <{$attrs['select4'][$detail['select4']]['attr_name']}>
+                                </span>
+                            </if>
+                            <if condition="!empty($cate['select5'])">
+                                <span class="jfxq_kcy">
+                                     <{$cate['select5']}>：
+                                     <{$attrs['select5'][$detail['select5']]['attr_name']}>
+                                </span>
+                            </if>
+                        </p>
+                        
+                     </div>
+
+                    <div class="spxq_qgjgk">
+                        <p class="hdxq_p">
+                        <if condition="!empty($cate['num1'])"><{$cate.num1}>：<span class="jfxq_jfj"><{$detail.num1}><{$cate.unit1}></span></if>
+                        <if condition="!empty($cate['num2'])"><span class="jfxq_kcy"><{$cate.num2}>：<span class="jfxq_jfj"><{$detail.num2}><{$cate.unit2}></span></span></if>
+                        </p>
+                    </div>
+   
+                
+              
+            </div>
+            <div class="clear"></div>
+        </div>
+	</div>
+    <!--简介结束-->
+   
+
+    <div class="spxq_xqT">
+        <ul>
+            <li class="on"><code rel="spxq_xqBt1">详情介绍</code><em></em></li>
+            <li><code rel="spxq_xqBt2">相关类目</code><em></em></li>
+            <li><code rel="spxq_xqBt3">附近信息</code><em></em></li>
+        </ul>
+    </div>
+    <!--地图-->
+    <div class="hotel_detl_box mb20 spxq_xqBt1">
+        <div class="hotel_detl_tit">详情介绍</div>
+        <div class="hotel_detl_nr">
+            <div class="hotel_map">
+              <{$ex.details}>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="hotel_detl_box mb20 spxq_xqBt2">
+        <div class="hotel_detl_tit">相关类目</div>
+        <div class="hotel_detl_nr hotel_detl_nr2">    
+             <foreach name="cates" item="item">
+                        <eq name="item.channel_id" value="$channel">
+                        <li class="cate">
+                            <a href="<{:LinkTo('life/index',array('cat'=>$item['cate_id']))}>"><{$item.cate_name}></a>    
+                        </li>  
+                        </eq>
+             </foreach>
+        </div>
+    </div>
+    
+
+  <div class="hotel_detl_box mb20 spxq_xqBt3">
+        <div class="hotel_detl_tit">附近信息</div>
+        <div class="hotel_detl_nr">    
+              <ul class="liveBoxlist">
+
+                    <foreach name="list"  item="var">
+
+                        <li>
+                            <a title="<{$var.title}>" href="<{:U('life/detail',array('life_id'=>$var['life_id']))}>" target="_blank">
+                                <img width="120" height="77" src="<{:config_img($var['photo'])}>" />
+                            </a>
+                            <h3><span><{$var.last_time|date='Y-m-d',###}></span>
+                                <a title="<{$var.title}>" href="<{:U('life/detail',array('life_id'=>$var['life_id']))}>" target="_blank"><{:bao_msubstr($var['title'],0,60)}></a>
+                                <gt name="var.urgent_date" value="$today"> <code></code> </gt>
+
+                                <gt name="var.top_date" value="$today"> <code class="c3"></code></gt>
+                                <if condition="$var['is_shop'] eq 1">
+                                    <code class="c2"></code>
+                                    <else/>           
+                                    <code class="c4"></code>
+                                </if>
+                            </h3>
+                            <p><{$areas[$var['area_id']]['area_name']}> - <{$bizs[$var['business_id']]['business_name']}> - <{$var.addr}></p>
+                        <if condition="!empty($var['num1'])">
+                            <p class="red"><{$var.num1}><{$cates[$var['cate_id']]['unit1']}></p>
+                            <else/>
+                            <p class="red"><{$var.text1}></p>
+                        </if>
+                        </li>
+
+                    </foreach>
+
+                </ul>
+        </div>
+    </div>
+
+
+
+
+    
+    <div class="map_fixed">
+        <div class="map_fixed_tit">
+                <span>查看地图</span>
+         <a href="javascript:;" title="关闭" class="close">×</a> 
+        </div>
+        <div class="map_fixed_box">
+                <div id="allmap2" style="width:700px; height:430px;"></div>
+        </div>
+        <p class="zhu">注：地图位置坐标仅供参考，具体情况以实际道路标识信息为准</p>
+    </div>
+
+<!--主体内容结束-->
+
+<script>
+	$(document).ready(function() {
+            $(".seat_soso .btn").click(function(){
+                    $(".seat_yuyue_mask").show();
+            });
+            $(".seat_yuyue_mask .close").click(function(){
+                    $(".seat_yuyue_mask").hide();
+            });
+
+            $('.pub_wz .map_icon').click(function(){
+                $('.map_fixed').show();
+                   var map2 = new BMap.Map("allmap2");
+                    map2.centerAndZoom(new BMap.Point("<{$detail.lng}>", "<{$detail.lat}>"), 17);
+                    var point2 = new BMap.Point("<{$detail.lng}>", "<{$detail.lat}>");
+                    map2.centerAndZoom(point2, 13);
+                    var marker2 = new BMap.Marker(point2); // 创建标注
+                    map2.clearOverlays();
+                    map2.addOverlay(marker2); // 将标注添加到地图中
+                    marker2.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                    map2.addControl(new BMap.NavigationControl()); //添加默认缩放平移控件
+            })
+            $('.map_fixed .close').click(function(){
+                    $('.map_fixed').fadeOut(100);
+            })
+            
+            
+    });
+</script>
+
+<!--立即预约弹出层end-->
+<include file="public:footer"/>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7b92b3afff29988b6d4dbf9a00698ed8"></script>

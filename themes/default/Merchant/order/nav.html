@@ -1,0 +1,28 @@
+<!--全局-->
+<div class="tuanfabu_tab">
+  <ul>
+  <if condition="$ding['is_pei'] neq 0">
+    <li class="tuanfabu_tabli <eq name="ctl" value="goods">on</eq>"><a href="<{:U('goods/index')}>">商品列表</a></li>
+    <li class="tuanfabu_tabli <if condition="($ctl neq 'goods') AND ($act eq 'index')">on</if>"><a href="<{:U('order/index')}>">全部订单</a></li>
+    <li class="tuanfabu_tabli <eq name="act" value="wait">on</eq>"><a href="<{:U('order/wait')}>">已付款</a></li>
+    <li class="tuanfabu_tabli <eq name="act" value="wait2">on</eq>"><a href="<{:U('order/wait2')}>">货到付款</a></li>
+    <li class="tuanfabu_tabli <eq name="act" value="picks">on</eq>"><a href="<{:U('order/picks')}>">捡货单</a></li>
+    <li class="tuanfabu_tabli <eq name="act" value="delivery">on</eq>"><a href="<{:U('order/delivery')}>">待确认</a></li>
+    <li class="tuanfabu_tabli <eq name="act" value="wait_refunded">on</eq>"><a href="<{:U('order/wait_refunded')}>">待退款</a></li>
+    <li class="tuanfabu_tabli <eq name="act" value="refunded">on</eq>"><a href="<{:U('order/refunded')}>">已退款</a></li>
+    <li class="tuanfabu_tabli <eq name="act" value="over">on</eq>"><a href="<{:U('order/over')}>">已完成</a></li>
+  <else/>
+    <li class="tuanfabu_tabli <eq name="ctl" value="goods">on</eq>"><a href="<{:U('goods/index')}>">商品列表</a></li>
+    <li class="tuanfabu_tabli <if condition="($ctl neq 'goods') AND ($act eq 'index')">on</if>"><a href="<{:U('order/index')}>">全部订单</a></li>
+    <li class="tuanfabu_tabli <eq name="act" value="delivery">on</eq>"><a href="<{:U('order/delivery')}>">待确认</a></li>
+    <li class="tuanfabu_tabli <eq name="act" value="wait_refunded">on</eq>"><a href="<{:U('order/wait_refunded')}>">待退款</a></li>
+    <li class="tuanfabu_tabli <eq name="act" value="refunded">on</eq>"><a href="<{:U('order/refunded')}>">已退款</a></li>
+    <li class="tuanfabu_tabli <eq name="act" value="count">on</eq>"><a href="<{:U('order/count')}>">订单统计</a></li>
+  </if>
+</ul>
+</div> 
+
+
+
+
+

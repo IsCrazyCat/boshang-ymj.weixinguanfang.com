@@ -1,0 +1,60 @@
+<include  file='public:header'/>
+
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">优惠券</a> > <a>优惠券列表</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <form method="post" action="<{:U('coupon/index')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">
+            优惠券名称：<input type="text" name="keyword" value="<{$keyword}>" class="radius3 tuan_topser" />
+            <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/>
+            </div>
+            <div class="right tuan_topfb_r"><a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('coupon/create')}>">发布优惠券+</a></div>
+        </div>
+    </div>
+    </form>
+    <div class="tuanfabu_tab">
+        <ul>
+            <li class="tuanfabu_tabli on"><a href="<{:U('coupon/index')}>">优惠券列表</a></li>
+            <li class="tuanfabu_tabli"><a href="<{:U('coupon/download')}>">优惠券下载</a></li>
+            <li class="tuanfabu_tabli"><a href="<{:U('coupon/used')}>">优惠券消费</a></li>
+        </ul>
+    </div> 
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>标题</td>
+            <td>优惠券图片</td>
+            <td>满多少</td>
+            <td>减多少</td>
+            <td>过期日期</td>
+            <td>浏览量</td>
+            <td>下载量</td>
+            <td>是否审核</td>
+            <td>创建时间</td>
+            <td>操作</td>
+        </tr>
+        <foreach name="list" item="var">
+            <tr>
+                <td><{$var.title}></td>
+                <td style="height: 80px;"><img src="<{:config_img($var['photo'])}>"  style="width: 110px;  margin: 0px auto;" /></td>
+                <td><{$var.expire_date}></td>
+                <td>&yen;<{:round($var['full_price']/100,2)}></td>
+                <td>&yen;<{:round($var['reduce_price']/100,2)}></td>
+                <td><{$var.views}></td>
+                <td><{$var.downloads}></td>
+                <td><eq name="var.audit" value="0">等待审核<else/>正常</eq></td>
+            <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+            <td>
+                <a href="<{:U('coupon/edit',array('coupon_id'=>$var['coupon_id']))}>">编辑</a>
+            </td>
+            </tr>
+        </foreach>
+    </table>
+    <{$page}>
+</div>
+
+<include  file='public:footer'/>

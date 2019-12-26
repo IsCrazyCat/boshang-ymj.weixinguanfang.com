@@ -1,0 +1,58 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">结算管理</li>
+        <li class="li2 li3">资金记录</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>按年统计</p>
+    <div class="jsglNr">
+        
+        <form method="post" action="<{:U('shopmoney/tjyear')}>">
+            <div class="selectNr selectNr2" style="display: block;">
+                <div class="left">
+                    <div class="seleK">
+                  
+                        <label>
+                            <span>年份</span>
+                            <input type="text" name="year" value="<{$year|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy'});"  class="text" />
+                        </label>
+                        <label>
+                            <input type="hidden" id="shop_id" name="shop_id" value="<{$shop_id|default=''}>"/>
+                            <input type="text"   id="shop_name" name="shop_name" value="<{$shop_name}>" class="text w150 sj" />
+                            <a mini="select"  w="1000" h="600" href="<{:U('shop/select')}>" class="seleSj">选择商家</a>
+                        </label>
+                    </div>
+                </div>
+                <div class="right">
+                    <input type="submit" value="   搜索"  class="inptButton" />
+                </div>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td style="width: 200px;">商家    </td>
+                    <td>年度    </td>
+                    <td>结算资金</td>
+                  
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><{$shops[$var['shop_id']]['shop_name']}></td>
+                        <td><{$var.m}></td>
+                        <td><{:round($var['money']/100,2)}></td>
+                
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  

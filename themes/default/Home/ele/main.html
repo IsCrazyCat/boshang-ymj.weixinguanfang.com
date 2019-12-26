@@ -1,0 +1,240 @@
+<include file="public:header" /> 
+<include file="public:top"/>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.dcsy_flexslider').flexslider({
+            directionNav: true,
+            pauseOnAction: false,
+            /*slideshow: false,*/
+            /*manualControlEvent:"hover",*/
+        });
+
+    });//首页轮播js
+</script>
+<script>
+    $(function () {
+        $('#selectBoxInput').click(function () {
+            $('.selectList').toggle(300);
+        });
+        $(".selectList li a").click(function () {
+            $("#selectBoxInput").html($(this).html());
+            $('.selectList').hide();
+        });
+    });//头部搜索框js
+</script>
+<div class="nav">
+    <div class="navList">
+        <!--<div class="navListBg">&nbsp;</div>-->
+        <ul>
+            <li class="navListAll zy_navListAll"><span class="navListAllt">全部套餐分类<em></em></span>
+                <div class="shadowy navAll">
+                    <div class="menu_fllist2">
+                        <php>$i=0;</php>             
+                        <foreach name="tuancates" item="item">
+                            <eq name="item.parent_id" value="0"> 
+                            <php>$i++;if($i <= 10){</php>
+                            <div <if condition="$i == 1">class="item2 bo"<else/>class="item2"</if> >
+                                <h3>
+                                    <div class="left"><span>&nbsp;</span><a class="menu_flt" title="<{$item.cate_name}>" target="_blank" href="<{:U('tuan/index',array('cat'=>$item['cate_id']))}>"><{:msubstr($item['cate_name'],0,2,'utf-8',false)}></a></div>
+                                    <div class="right">
+                                        <php>$i2=0;</php>
+                                        <foreach name="tuancates" item="item2">
+                                            <eq name="item2.parent_id" value="$item.cate_id"> 
+
+                                            <php>$i2++;if($i2 <= 2){</php>
+                                            <a title="<{$item2.cate_name}>" target="_blank" href="<{:U('tuan/index',array('cat'=>$item2['cate_id']))}>"><{:msubstr($item2['cate_name'],0,4,'utf-8',false)}></a>
+                                            <php>}</php>
+                                            </eq>
+                                        </foreach>
+                                        &gt;</div>
+                                </h3>
+                                <div class="menu_flklist2" style="height: 420px;">
+                                    <div class="menu_fl2t"><a title="<{$item.cate_name}>" target="_blank" href="<{:U('tuan/index',array('cat'=>$item['cate_id']))}>"><{$item.cate_name}></a></div>
+                                    <div class="menu_fl2nr">
+                                        <ul>
+                                            <php>$k=0;</php>
+                                            <foreach name="tuancates" item="item2">
+                                                <eq name="item2.parent_id" value="$item.cate_id"> 
+                                                <php>$k++;</php>
+                                                <if condition="$k%16 eq 1">
+                                                    <li class="menu_fl2nrli">
+                                                        <ul> 
+
+                                                            <li><a title="<{$item2.cate_name}>" target="_blank" href="<{:U('tuan/index',array('cat'=>$item2['cate_id']))}>"><{$item2['cate_name']}></a></li>
+                                                            <elseif condition="$k%16 eq 0"/>
+
+                                                        </ul>
+                                                    </li>
+                                                    <else/>
+                                                    <li><a title="<{$item2.cate_name}>" target="_blank" href="<{:U('tuan/index',array('cat'=>$item2['cate_id']))}>"><{$item2['cate_name']}></a></li>
+                                                </if>
+                                                </eq>
+                                            </foreach>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <php>}</php>
+                            </eq>
+                        </foreach>
+                    </div>
+                    <script type="text/javascript">
+                        $('.menu_fllist2 > .item2').hover(function () {
+                            var eq = $('.menu_fllist2 > .item2').index(this), //获取当前滑过是第几个元素
+                                    h = $('.menu_fllist2').offset().top, //获取当前下拉菜单距离窗口多少像素
+                                    s = $(window).scrollTop(), //获取游览器滚动了多少高度
+                                    i = $(this).offset().top, //当前元素滑过距离窗口多少像素
+                                    item = $(this).children('.menu_flklist2').height(), //下拉菜单子类内容容器的高度
+                                    sort = $('.menu_fllist2').height();                     //父类分类列表容器的高度
+
+                            if (item > sort) {                                              //如果子类的高度小于父类的高度
+                                if (eq == 0) {
+                                    $(this).children('.menu_flklist2').css('top', (i - h));
+                                } else {
+                                    $(this).children('.menu_flklist2').css('top', (i - h) + 1);
+                                }
+                            } else {
+                                if (s > h) {                                                //判断子类的显示位置，如果滚动的高度大于所有分类列表容器的高度
+                                    if (i - s > 0) {                                            //则 继续判断当前滑过容器的位置 是否有一半超出窗口一半在窗口内显示的Bug,
+                                        $(this).children('.menu_flklist2').css('top', (s - h) + 2);
+                                    } else {
+                                        $(this).children('.menu_flklist2').css('top', (s - h) - (-(i - s)) + 2);
+                                    }
+                                } else {
+                                    $(this).children('.menu_flklist2').css('top', 0);
+                                }
+                            }
+
+                            $(this).addClass('on');
+                            $(this).children('.menu_flklist2').css('display', 'block');
+                        }, function () {
+                            $(this).removeClass('on');
+                            $(this).children('.menu_flklist2').css('display', 'none');
+                        });//导航菜单js
+                    </script>
+                </div>
+            </li>
+            <li class="navLi"><a class="navA <if condition='$ctl eq ele and $act eq index'>on</if> " href="<{:U('ele/index')}>">首页</a></li>
+            <li class="navLi"><a class="navA <if condition='$ctl eq ele and $act eq nearby'>on</if>" href="<{:U('ele/nearby')}>">身边外卖</a></li>
+            <li class="navLi"><a class="navA " href="<{:U('ele/index',array('new'=>1))}>">今日新单</a></li>
+            <li class="navLi"><a class="navA" href="<{:U('ele/index',array('hot'=>1))}>">热门疯抢</a></li>
+        </ul>
+    </div>
+</div>
+    <div class="content zy_content">
+        <div class="dcsy_top">
+            <div class="dcsy_banner">
+                <div class="dcsy_flexslider">
+                    <ul class="slides">
+                        <calldata mdl="Ad" where=" closed=0 AND site_id=32  and bg_date ELT '{$today}' AND end_date EGT '{$today}' " limit="0,5" cache="43200" order="orderby asc">
+                            <li class="sy_hotgzLi"><a target="_blank" href="<{$item.link_url}>"><img src="<{:config_img($item['photo'])}>" width="1182" height="105" /></a></li>
+                        </calldata>
+                        
+                    </ul>
+                </div>
+            </div>
+            <div class="dcsy_topList">
+                <ul>
+                    <li class="dcsy_topLi on"><a href="#"><span class="radius10 dcsy_topLiTu"></span>全部</a></li>
+                    <li class="dcsy_topLi"><a href="#"><span class="radius10 dcsy_topLiTu dcsy_topLiTu2"></span>快餐</a></li>
+                    <li class="dcsy_topLi"><a href="#"><span class="radius10 dcsy_topLiTu dcsy_topLiTu3"></span>正餐</a></li>
+                    <li class="dcsy_topLi"><a href="#"><span class="radius10 dcsy_topLiTu dcsy_topLiTu4"></span>馋嘴小吃</a></li>
+                    <li class="dcsy_topLi"><a href="#"><span class="radius10 dcsy_topLiTu dcsy_topLiTu5"></span>甜点饮料</a></li>
+                    <li class="dcsy_topLi"><a href="#"><span class="radius10 dcsy_topLiTu dcsy_topLiTu6"></span>便利店</a></li>
+                    <li class="dcsy_topLi"><a href="#"><span class="radius10 dcsy_topLiTu dcsy_topLiTu7"></span>鲜花店</a></li>
+                    <li class="dcsy_topLi"><a href="#"><span class="radius10 dcsy_topLiTu dcsy_topLiTu8"></span>烤鸭店</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="dcsy_sx">
+            <div class="dcsy_sxC1"><span><input type="checkbox" />下单立减</span><span><input type="checkbox" />新用户优惠</span><span><input type="checkbox" />超时赔付</span><span><input type="checkbox" />支持发票</span><span><input type="checkbox" />在线支付</span></div>
+            <div class="dcsy_sxC2">
+                <ul>
+                    <li class="dcsy_sxLi on"><a class="dcsy_sxLiA" href="#">默认排序</a></li>
+                    <li class="dcsy_sxLi"><a class="dcsy_sxLiA" href="#">销量<em></em></a></li>
+                    <li class="dcsy_sxLi"><a class="dcsy_sxLiA" href="#">评价<em></em></a></li>
+                    <li class="dcsy_sxLi"><a class="dcsy_sxLiA" href="#">送餐速度<em></em></a></li>
+                    <li class="dcsy_sxLi dcsy_sxLixl"><a class="dcsy_sxLiA" href="#">起送价筛选<em></em></a>
+                        <div class="nearbuy_sxkLi2Xl">
+                            <ul>
+                                <li><a href="#">50元以下</a></li>
+                                <li><a href="#">50-100元</a></li>
+                                <li><a href="#">100-200元</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="dcsy_sxLi dcsy_sxLixl"><a class="dcsy_sxLiA" href="#">全部商家<em></em></a>
+                        <div class="nearbuy_sxkLi2Xl">
+                            <ul>
+                                <li><a href="#">50元以下</a></li>
+                                <li><a href="#">50-100元</a></li>
+                                <li><a href="#">100-200元</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="dcsy_spList">
+            <ul>
+                <li class="dcsy_spLi">
+                    <a href=""><div class="dcsy_spImg"><img src="../img/dcsysp_03.jpg" width="208" height="156" /></div>
+                        <p class="dcsy_spT">果真好精品水果</p>
+                        <p class="dcsy_spPf"><span class="left"><span class="spxq_qgpstarBg"><span class="spxq_qgpstar"></span></span>4.9分</span><span class="right dcsy_spDd">月售247单</span></p>
+                        <p class="dcsy_spPf"><span class="left">起送:￥39 <span class="dcsy_spPs">配送费:￥10</span></span><span class="right"><em class="em_time"></em>50分钟</span></p>
+                        <hr style=" border:none 0px; border-bottom: 1px solid #e0e0e0; margin-top:6px;" />
+                        <p class="dcsy_spBq"><span>&nbsp;</span><span class="dcsy_spBq2">&nbsp;</span><span class="dcsy_spBq3">&nbsp;</span><span class="dcsy_spBq4">&nbsp;</span></p>
+                    </a>
+                </li>
+                <li class="dcsy_spLi">
+                    <a href=""><div class="dcsy_spImg"><img src="../img/dcsysp_03.jpg" width="208" height="156" /></div>
+                        <p class="dcsy_spT">果真好精品水果</p>
+                        <p class="dcsy_spPf"><span class="left"><span class="spxq_qgpstarBg"><span class="spxq_qgpstar"></span></span>4.9分</span><span class="right dcsy_spDd">月售247单</span></p>
+                        <p class="dcsy_spPf"><span class="left">起送:￥39 <span class="dcsy_spPs">配送费:￥10</span></span><span class="right"><em class="em_time"></em>50分钟</span></p>
+                        <hr style=" border:none 0px; border-bottom: 1px solid #e0e0e0; margin-top:6px;" />
+                        <p class="dcsy_spBq"><span>&nbsp;</span><span class="dcsy_spBq2">&nbsp;</span><span class="dcsy_spBq3">&nbsp;</span><span class="dcsy_spBq4">&nbsp;</span></p>
+                    </a>
+                </li>
+                <li class="dcsy_spLi">
+                    <a href=""><div class="dcsy_spImg"><img src="../img/dcsysp_03.jpg" width="208" height="156" /></div>
+                        <p class="dcsy_spT">果真好精品水果</p>
+                        <p class="dcsy_spPf"><span class="left"><span class="spxq_qgpstarBg"><span class="spxq_qgpstar"></span></span>4.9分</span><span class="right dcsy_spDd">月售247单</span></p>
+                        <p class="dcsy_spPf"><span class="left">起送:￥39 <span class="dcsy_spPs">配送费:￥10</span></span><span class="right"><em class="em_time"></em>50分钟</span></p>
+                        <hr style=" border:none 0px; border-bottom: 1px solid #e0e0e0; margin-top:6px;" />
+                        <p class="dcsy_spBq"><span>&nbsp;</span><span class="dcsy_spBq2">&nbsp;</span><span class="dcsy_spBq3">&nbsp;</span><span class="dcsy_spBq4">&nbsp;</span></p>
+                    </a>
+                </li>
+                <li class="dcsy_spLi">
+                    <a href=""><div class="dcsy_spImg"><img src="../img/dcsysp_03.jpg" width="208" height="156" /></div>
+                        <p class="dcsy_spT">果真好精品水果</p>
+                        <p class="dcsy_spPf"><span class="left"><span class="spxq_qgpstarBg"><span class="spxq_qgpstar"></span></span>4.9分</span><span class="right dcsy_spDd">月售247单</span></p>
+                        <p class="dcsy_spPf"><span class="left">起送:￥39 <span class="dcsy_spPs">配送费:￥10</span></span><span class="right"><em class="em_time"></em>50分钟</span></p>
+                        <hr style=" border:none 0px; border-bottom: 1px solid #e0e0e0; margin-top:6px;" />
+                        <p class="dcsy_spBq"><span>&nbsp;</span><span class="dcsy_spBq2">&nbsp;</span><span class="dcsy_spBq3">&nbsp;</span><span class="dcsy_spBq4">&nbsp;</span></p>
+                    </a>
+                </li>
+                <li class="dcsy_spLi">
+                    <a href=""><div class="dcsy_spImg"><img src="../img/dcsysp_03.jpg" width="208" height="156" /></div>
+                        <p class="dcsy_spT">果真好精品水果</p>
+                        <p class="dcsy_spPf"><span class="left"><span class="spxq_qgpstarBg"><span class="spxq_qgpstar"></span></span>4.9分</span><span class="right dcsy_spDd">月售247单</span></p>
+                        <p class="dcsy_spPf"><span class="left">起送:￥39 <span class="dcsy_spPs">配送费:￥10</span></span><span class="right"><em class="em_time"></em>50分钟</span></p>
+                        <hr style=" border:none 0px; border-bottom: 1px solid #e0e0e0; margin-top:6px;" />
+                        <p class="dcsy_spBq"><span>&nbsp;</span><span class="dcsy_spBq2">&nbsp;</span><span class="dcsy_spBq3">&nbsp;</span><span class="dcsy_spBq4">&nbsp;</span></p>
+                    </a>
+                </li>
+                <li class="dcsy_spLi">
+                    <a href=""><div class="dcsy_spImg"><img src="../img/dcsysp_03.jpg" width="208" height="156" /></div>
+                        <p class="dcsy_spT">果真好精品水果</p>
+                        <p class="dcsy_spPf"><span class="left"><span class="spxq_qgpstarBg"><span class="spxq_qgpstar"></span></span>4.9分</span><span class="right dcsy_spDd">月售247单</span></p>
+                        <p class="dcsy_spPf"><span class="left">起送:￥39 <span class="dcsy_spPs">配送费:￥10</span></span><span class="right"><em class="em_time"></em>50分钟</span></p>
+                        <hr style=" border:none 0px; border-bottom: 1px solid #e0e0e0; margin-top:6px;" />
+                        <p class="dcsy_spBq"><span>&nbsp;</span><span class="dcsy_spBq2">&nbsp;</span><span class="dcsy_spBq3">&nbsp;</span><span class="dcsy_spBq4">&nbsp;</span></p>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="x">
+            <{$page}>
+        </div>
+    </div>
+<include file="public:footer"/>

@@ -1,0 +1,53 @@
+<include  file='public:header'/>   
+
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('wuye/owner/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		审核用户
+	</div>
+</header>
+
+<style>
+.fabu-form .form-content2 {border: none;resize: none;width: 100%;height: 200px;padding: 10px; font-size: 12px; color:#999;}
+.fabu-form .form-content1 {border: none;resize: none;width: 100%;height: 150px;padding: 10px;font-size: 12px; color:#999;}
+</style>
+
+<form class="fabu-form" method="post"  target="x-frame" action="<{:U('owner/audit',array('owner_id'=>$detail['owner_id']))}>">
+
+
+
+
+<div class="blank-10 bg border-top"></div>
+<div class="row">
+	<div class="line">
+		<span class="x3">具体地址：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="location" value="<{$detail.location|default=''}>" />
+		</span>
+	</div>
+</div>
+
+
+
+<div class="row">
+	<div class="line">
+		<span class="x3">户号：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="number" value="<{$detail.number|default=''}>" />
+		</span>
+	</div>
+</div>
+  
+
+
+	<div class="container">
+		<div class="blank-30"></div>
+		<button  type="submit" class="button button-block button-big bg-dot">确认审核</button>
+		<div class="blank-30"></div>
+	</div>
+</form>
+
+
+<include  file='public:footer'/>

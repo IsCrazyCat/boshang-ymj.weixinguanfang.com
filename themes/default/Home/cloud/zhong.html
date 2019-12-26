@@ -1,0 +1,276 @@
+﻿<include  file='public:header'/><include  file='public:top'/><include  file='public:nav'/>
+<script>
+    $(document).ready(function (e) {
+        /*图片缩略查看*/
+        $('.min-box-list li img').hover(function () {
+            $('#product_img_slider .show-box li img').attr('src', $(this).data('mpic'));
+            $(this).closest('li').addClass('on').siblings('li').removeClass('on');
+        });
+        /*图片缩略查看*/
+        $(".cloudBuy_cont_tab ul li").each(function (e) {
+            $(this).click(function () {
+                $(this).parent().find("li").removeClass("on");
+                $(this).addClass("on");
+                $(".cloudBuy_nr_box .cloudBuy_nr").each(function (i) {
+                    if (e == i) {
+                        $(this).parent().find(".cloudBuy_nr").hide();
+                        $(this).show();
+                    }
+                    else {
+                        $(this).hide();
+                    }
+                });
+            });
+        });
+
+        $(".suoyou").click(function () {
+            var rightDiv = $(this).closest('.jion_right_div');
+            rightDiv.toggleClass('tanchu');
+            if ($.trim(rightDiv.find('.number_list').html()) == '') {
+                $.post(get_number_list, {id: rightDiv.data('id')}, function (result) {
+                    if (result.status == 1) {
+                        var numberHtml = '';
+                        $.each(result.number, function (i, item) {
+                            numberHtml += '<dd>' + item + '</dd>';
+                        });
+                        $('.number_list_' + rightDiv.data('id')).html(numberHtml);
+                    } else {
+                        alert(result.info);
+                    }
+                });
+            }
+        });
+        $(".jion_close").click(function () {
+            $(this).closest('.jion_right_div').removeClass('tanchu');
+        });
+
+        $("#cloudBuy_code").click(function () {
+            $(".cloudBuy_code_mask").show();
+        });
+        $(".cloudBuy_code_mask").find(".closs").click(function () {
+            $(".cloudBuy_code_mask").hide();
+        });
+    });
+</script>
+<style>
+    img{max-width: 100%;}
+
+    .cloudBuy_code_mask{ display:none; width:520px; border-radius: 5px; box-shadow: 0 0 6px 2px #CCC; background:#fff; position:fixed; z-index:999; top:10%; left:50%; margin-left:-260px; overflow:hidden;}
+    .cloudBuy_code_mask .title{ position:relative; padding:0 10px; border-bottom:1px solid #dedede; background:#eee; font-size:14px; font-weight:bold; color:#000; line-height:30px; overflow:hidden;}
+    .cloudBuy_code_mask .title .closs{ display:inline-block; font-size:18px;}
+    .cloudBuy_code_mask h2{font-size:14px; font-weight:bold; line-height:34px; text-align:center; padding:10px; border-bottom:2px solid #dedede;}
+    .cloudBuy_code_mask .box{ padding:30px 25px 40px; background:#fafafa;}
+    .cloudBuy_code_mask .nr{ margin:20px 0px; height:360px; overflow-y:scroll;}
+    .cloudBuy_code_mask table tr th,.cloudBuy_code_mask table tr td{font-size:12px; line-height:34px; text-align:left;}
+</style>
+<div class="cloudBuy_code_mask">
+    <div class="title">所有号码<a href="javascript:void(0);" class="closs right">×</a></div>
+    <div class="box">
+        <h2>奖品获得者本期总共参与了<span class="pointcl"><{$total}></span>人次</h2>
+        <div class="nr">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <php>foreach($lists as $k=>$item){</php>
+                <tr>
+                    <th colspan="5"><{$k}></th>
+                </tr>
+                <php>$i=1;</php>
+                <php>foreach($item as $aa=>$var){</php>
+                <if condition="$i%5 eq 1">
+                    <tr>
+                        <td <if condition="$detail['win_number'] eq $var['number']">style="color:red;"</if> ><{$var.number}></td>
+                    <elseif condition="$i%5 eq 0"/>
+                    <td <if condition="$detail['win_number'] eq $var['number']">style="color:red;"</if> ><{$var.number}></td>
+                    </tr>
+                    <else/>
+                    <td <if condition="$detail['win_number'] eq $var['number']">style="color:red;"</if> ><{$var.number}></td>
+                </if>
+                <php>$i++;}</php>
+                <php>}</php>
+            </table>
+        </div>
+        <hr style=" border:none 0; border-bottom:2px solid #dedede; height:1px; line-height:0;" />
+    </div>
+</div>
+
+
+
+<div class="content zy_content">
+    <div class="spxq_loca"><a href="<{:U('index/index')}>">首页</a>&gt;&gt;<a href="<{:U('cloud/index')}>">一元云购</a>&gt;&gt;<a href="javascript:void(0);"><{$detail.title}></a></div>
+    <!--内容部分开始-->
+    <div class="cloudBuy_detail">
+        <div class="left cloudBuy_detail_l">
+            <div class="cloudBuy_zhong mb20">
+                <div class="infor mb20">
+                    <div class="img left"><img src="<{:config_img($detail['photo'])}>" /></div>
+                    <div class="wz">
+                        <h1><{$detail.title}> </h1>
+                        <div class="number"><{$detail.win_number}></div>
+                    </div>
+                </div>
+                <div class="m-detail-main-winner">
+                    <div class="m-detail-main-winner-content">
+                        <div class="avatar">
+                            <img width="90" height="90" src="<{:config_img($users[$detail['win_user_id']]['face'])}>"/> 
+                        </div>
+                        <p class="user">恭喜 <a href="javascript:void(0)" title="<{$users[$detail['win_user_id']]['nickname']}>(ID:<{$detail['win_user_id']}>)"><{$users[$detail['win_user_id']]['nickname']}></a>获得了本期奖品</p>
+                        <p class="cid"><b>用户ID：<{$detail['win_user_id']}></b> (ID为用户唯一不变标识)</p>
+                        <p>揭晓时间：<{$detail.lottery_time|date='Y-m-d H:i:s',###}></p>
+                    </div>
+                    <div class="m-detail-main-winner-codes">
+                        <dl>
+                            <dt>
+                            <p style="margin-bottom:5px;color:#3c3c3c">奖品获得者本期总共参与了 <b class="pointcl"><{$total}></b> 人次</p>
+                            </dt>
+                            <dd class="dd_num">Ta的号码:</dd>
+                            <dd class="m-detail-main-codes-list">
+                            <php>$i=1;</php>
+                            <foreach name="u_list" item="item">
+                                <php>if($i<=7){</php>
+                                <span><{$item.number}></span>
+                                <php>$i++;}</php>
+                            </foreach>
+                            ……<p><a id="cloudBuy_code" class="m-detail-main-codes-viewWinnerCodesBtn" href="javascript:void(0)">TA的所有号码&gt;&gt;</a> </p>
+                            </dd>
+                        </dl>
+                    </div>
+                </div>
+                <!--<div class="cloudBuy_login">
+                        <p><a href="#">请登录</a>，查看你的夺宝号码！</p>
+                </div>-->
+                <div class="m-detail-main-rule">
+                    <ul class="txt">
+                        <li> <span class="title">计算公式</span>
+                            <div class="f-clear formula">
+                                <div class="box red-box"> 
+                                    <b class="txt-red"><{$detail.win_number}></b><br>
+                                    <b class="txt-red" style="font-size:12px">本期幸运号码</b>
+                                </div>
+                                <div class="operator">=</div>
+                                <div class="box gray-box">
+                                    <b class="txt-red"><{$return['total']}></b><br/>
+                                    50个时间求和
+                                    <div class="more-box"> <i class="ico ico-arrow ico-arrow-yellow"></i>
+                                        <div class="yellow-box">奖品的最后一个号码分配完毕，公示本奖品的<span class="txt-red">最后50个参与时间</span>，并求和。</div>
+                                    </div>
+                                </div>
+                                <div class="operator" title="取余">÷</div>
+                                <div class="box"><b class="txt-red"><{$detail.price}></b><br/>该奖品总需人次</div>
+                                <div class="operator" title="取余加原始数">+</div>
+                                <div class="box"><b class="txt-red">10000001</b><br/>原始数</div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="cloudBuy_cont">
+                <div class="cloudBuy_cont_tab">
+                    <ul>
+                        <li class="on">中奖详情</li>
+                        <li>奖品详情</li>
+                        <li>所有参与记录</li>
+                    </ul>
+                </div>
+                <div class="cloudBuy_nr_box">
+                    <div class="cloudBuy_nr" style="display:block;">
+                        <div class="cloudBuy_rule mb20">
+                            <div class="left"><p>幸运号码<br />计算规则</p></div>
+                            <div class="wz">
+                                <ol>
+                                    <li><em>1</em>奖品的最后一个号码分配完毕后，将公示该分配时间点前本奖品的最后50个参与时间；</li>
+                                    <li><em>2</em>将这50个时间的数值进行求和（得出数值A）（每个时间按时、分、秒、毫秒的顺序组合，如20:15:25.362则为201525362）；</li>
+                                    <li><em>3</em>（数值A）除以该奖品总需人次得到的余数 + 原始数 10000001，得到最终幸运号码，拥有该幸运号码者，直接获得该奖品。</li>
+                                </ol>
+                            </div>
+                        </div>
+                        <table class="cloudBuy_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                                <th width="320">夺宝时间</th>
+                                <th>会员帐号</th>
+                                <th>参与IP</th>
+                                <th>参与人次</th>
+                            </tr>
+                            <tr>
+                                <td colspan="4"><p class="tip">该奖品最后50条参与记录</p></td>
+                            </tr>
+                            <foreach name="return.datas" item="item">
+                                <tr>
+                                    <td><p class="time"><span><{$item.create_time|date='Y-m-d',###}></span><span><{$item.create_time|date='H:i:s',###}>.<{$item.microtime}><em>→</em><b><{$item.create_time|date='His',###}><{$item.microtime}></b></span></p></td>
+                                    <td><p><{$users[$item['user_id']]['nickname']}></p></td>
+                                    <td><p><{$item.create_ip}></p></td>
+                                    <td><p>1人次</p></td>
+                                </tr>
+                            </foreach>
+                        </table>
+                    </div>
+                    <div class="cloudBuy_nr"><{$detail.details}></div>
+                    <div class="cloudBuy_nr">
+                        <div class="cloudBuy_jion">
+                            <ul class="jion">
+                                <li>
+                                    <div class="jion_left big"><span></span></div>
+                                    <div class="jion_right" style="height:80px;"></div>
+                                    <div class="clear"></div>
+                                </li>
+                                <php>foreach($list as $k=>$item){</php>
+                                <li>
+                                    <div class="jion_left day"><{$k}><span></span></div>
+                                    <div class="jion_right"></div>
+                                </li>
+                                <php>foreach($item as $aa=>$var){</php>
+                                <li>
+                                    <div class="jion_left time"><{$aa}><span></span></div>
+                                    <div class="jion_right">
+                                        <div class="jion_right_div">
+                                            <div>
+                                                <div class="jion_right_icon">
+                                                
+                                                <img src="<{:config_img($users[$var[0]['user_id']]['face'])}>" width="20" height="20"></div>
+                                                <div class="jion_right_txt">
+                                                    <div class="jion_right_txt_name"><{$users[$var[0]['user_id']]['nickname']}></div>
+                                                    <div class="jion_right_txt_ip">(IP：<{$var[0].create_ip}>) 参与了</div>
+                                                    <span><{$var[0].num}>人次</span> </div>
+                                                <div class="suoyou">所有夺宝号码<span></span></div>
+                                            </div>
+                                            <dl class="number_list_197">
+                                                <php>shuffle($var);foreach($var as $val){</php>
+                                                <if condition="$detail['win_number'] eq $val['number']"><dd style="color:red;" title="中奖人：<{$users[$detail['win_user_id']]['nickname']}>"><{$val.number}></dd><else/><dd><{$val.number}></dd></if>
+                                                <php>}</php>
+                                            </dl>
+                                            <div class="jion_close"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <php>}</php>
+                                <php>}</php>
+                                <li>
+                                    <div class="jion_left bottom" style="border:0;"><span></span></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right cloudBuy_detail_r">
+            <div class="cloudBuy_record">
+                <h3>看了又看</h3>
+                <ul>
+                    <calldata mdl="Cloudgoods" where="audit =1 AND closed=0 AND city_id = $city_id AND goods_id != '{$detail['goods_id']}' " order="goods_id desc" limit="0,5">
+                        <li class="list"> <a href="<{:U('cloud/detail',array('goods_id'=>$item['goods_id']))}>"> 
+                        
+                        <img src="<{:config_img($item['photo'])}>" />
+                                <p class="bt"><{$item.title}> </p>
+                                <p class="graycl">已有<span class="pointcl"><{$item.join}></span>人参与<span style="float:right; display: inline-block;">总需人数：<span class="pointcl"><{$item.price}></span></span></p>
+                            </a> </li>
+                    </calldata>
+                </ul>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!--内容部分结束--> 
+</div>
+
+<!--main end--> 
+<include  file='public:footer'/> 

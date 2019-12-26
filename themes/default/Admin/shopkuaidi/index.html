@@ -1,0 +1,85 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">运费模板</li>
+        <li class="li2 li3">运费模板列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>请不要胡乱操作，一般不要修改商家的运费模板</p>
+    <div class="jsglNr">
+        <div class="selectNr">
+            <div class="left">
+                <{:BA('shopkuaidi/create','','添加运单模板')}>
+            </div>
+            <div class="right">
+                <form  method="post"  action="<{:U('shopkuaidi/index')}>"> 
+
+                    <div class="seleHidden" id="seleHidden">
+                        <div class="seleK">
+                            <label>
+                                <input type="hidden" id="shop_id" name="shop_id" value="<{$shop_id|default=''}>"/>
+                                <input type="text"   id="shop_name" name="shop_name" value="<{$shop_name}>" class="inptText" />
+                                <a  href="<{:U('shop/select')}>" mini="select" w="800" h="600" class="sumit">选择商家</a> 
+                            </label>
+                            <span>运费模板名称电话</span>
+                            <input type="text"  class="inptText" name="keyword" value="<{$keyword}>"  />
+                            <input type="submit" value=" 搜索"  class="inptButton" />
+                        </div>
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="id" /></td>
+                    <td class="w50">ID</td>
+                    <td>所属商家</td>
+                    <td>运费模板名称</td>
+                    <td>运费模板电话</td>
+                    <td class="w360">操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_id" type="checkbox" name="kuaidi_id[]" value="<{$var.id}>" /></td>
+                        <td><{$var.id}></td>
+                        <td><{$shops[$var['shop_id']]['shop_name']}></td>
+                        <td><{$var.name}></td>
+                        <td><{$var.tel}></td>
+                    <td>  
+                    <eq name="var.audit" value="0"> <{:BA('shopkuaidi/audit',array("kuaidi_id"=>$var["id"]),'审核','act','remberBtn')}> </eq>     
+                    <{:BA('shopkuaidi/lists',array("kuaidi_id"=>$var["id"]),'运费设置','','remberBtn')}>
+                    <{:BA('shopkuaidi/edit',array("kuaidi_id"=>$var["id"]),'编辑', '','remberBtn')}>
+                    <{:BA('shopkuaidi/delete',array("kuaidi_id"=>$var["id"]),'删除','act','remberBtn')}>
+                    
+                    </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        
+         <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('shopkuaidi/delete','','批量删除','list',' a2')}>
+                     <{:BA('shopkuaidi/audit','','批量审核','list','remberBtn')}>
+                </div>
+            </div>
+            
+    </form>
+    </div>
+</div>
+<include  file='public:footer'/>
+
+
+
+
+
+
+

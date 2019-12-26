@@ -1,0 +1,124 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商城</li>
+        <li class="li2">套餐</li>
+        <li class="li2 li3">订单管理</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>套餐支持，过期退 ，自动退（由于自动退需要在服务器操作，所以将功能改成后台客服人员定期退款！）,无条件申请退款；套餐码价格为0的是到店付套餐码</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="right">
+                <form action="<{:U('tuancode/index')}>"  method="post" >  
+                    <div class="seleHidden" id="seleHidden">
+                        <span> 使用</span>
+                        <select name="st" class="selecttop w100">
+                            <option value="0"  >全部</option>
+                            <option value="-1" <eq name="is_used" value="-1">selected="selected"</eq> >未使用</option>
+                            <option value="1" <eq name="is_used" value="1">selected="selected"</eq>>已经使用</option>
+                        </select>
+
+                        <span>退款</span>
+                        <select name="st" class="selecttop w100">
+                            <option value="999">请选择</option>
+                            <option <eq name="st" value="1">selected="selected"</eq>  value="1">已完成</option>
+                            <option <eq name="st" value="0">selected="selected"</eq>  value="0">等待付款</option>
+                            <option <eq name="st" value="-1">selected="selected"</eq>  value="0">到店付</option>
+                        </select>
+                        <span>套餐码</span>
+                        <input type="text"  class="inptText" name="keyword" value="<{$keyword}>"  /><input type="submit" value="   搜索"  class="inptButton" />
+                    </div> 
+                    <a style="display: inline-block;" href="#" class="searchG">高级搜索</a>
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form>
+            <form action="<{:U('tuancode/index')}>"  method="post" >  
+                <div class="selectNr selectNr2">
+                    <div class="left">
+                        <div class="seleK">
+                            <label>
+                                <span>开始时间</span>
+                                <input type="text"    name="bg_date" value="<{$bg_date|default=''}>"  onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w150" />
+                                <span>结束时间</span>
+                                <input type="text" name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w150" />
+                            </label>
+                            <label>
+                                <span>商家</span>
+                                <input type="hidden" id="shop_id" name="shop_id" value="<{$shop_id|default=''}>"/>
+                                <input type="text"   id="shop_name" name="shop_name" value="<{$shop_name}>" class="text" />
+                                <a  href="<{:U('shop/select')}>"  w="800" h="600" mini="select" class="sumit">选择商家</a>
+                            </label>
+                            <label>
+                                <span>用户</span>
+                                <input type="hidden" id="user_id" name="user_id" value="<{$user_id|default=''}>" />
+                                <input type="text" name="nickname" id="nickname"  value="<{$nickname}>"   class="text" />
+                                <a  href="<{:U('user/select')}>" w="800" h="600" mini="select" class="sumit">选择用户</a>
+                            </label>
+                            <label>
+                                <span class="spanOne">关键词</span>
+                                <input type="text"  class="inptText w120" name="keyword" value="<{$keyword}>"  />
+                            </label>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <input type="submit" value="   搜索"  class="inptButton" />
+                    </div>
+            </form>
+            <div class="clear"></div>
+    </div>
+    <form  target="baocms_frm" method="post">         
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="code_id" /></td>
+                    <td class="w50">ID</td>
+                    <td>套餐码</td>
+                    <td>用户</td>
+                    <td>商家</td>
+                    <td>订单</td>
+                    <td>套餐</td>
+                    <td>价格</td>
+                    <td>结算价格</td>
+                    <td>创建时间</td>
+                    <td>创建IP</td>
+                    <td>是否使用</td>
+                    <td>退款状态</td>
+                    <td>操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_code_id" type="checkbox" name="code_id[]" value="<{$var.code_id}>" /> </td>
+                        <td><{$var.code_id}></td>
+                        <td><{$var.code}></td>
+                        <td><{$users[$var['user_id']]['account']}>(UID:<{$var.user_id}>)</td>
+                        <td><{$shops[$var['shop_id']]['shop_name']}></td>
+                        <td><{$var.order_id}></td>
+                        <td><{$tuans[$var['tuan_id']]['title']}></td>
+                        <td><{:round($var['price']/100,2)}></td>
+                        <td><{:round($var['settlement_price']/100,2)}></td>
+                        <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                        <td><{$var.create_ip}></td>
+                        <td><eq name="var.is_used" value="1">已使用<else />未使用 </eq></td>
+                    <td><eq name="var.status" value="0">没有发生退款<else /><eq name="var.status" value="1">申请退款中<else/> 已经完成退款 </eq> </eq></td>
+                    <td>
+                        <{:BA('tuancode/delete',array("code_id"=>$var["code_id"]),'删除','act','remberBtn')}>
+                    </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                <{:BA('tuancode/delete','','批量删除','list','a2')}>
+            </div>
+        </div>  
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  

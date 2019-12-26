@@ -1,0 +1,123 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">预订</li>
+        <li class="li2">预订管理</li>
+        <li class="li2 li3">预订订单列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：订单批量完成和取消等功能会自动过滤不符合条件的订单，若出现提示成功但订单状态没有改，请注意订单具体状态是否符合操作</span></p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('booking/order')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <label>
+                                <span>状态</span>
+                                <select name="st" class="select w100">
+                                    <option value="999">请选择</option>
+                                    <foreach name="status" key="key" item="item">
+                                        <option <eq name="st" value="$key">selected="selected"</eq>  value="<{$key}>"><{$item}></option>
+                                    </foreach>
+
+                                </select>
+                            </label>
+                        <label>
+                        <span>关键字(电话或联系人或订单号)</span>
+                        <input type="text" name="keyword" value="<{$keyword}>" class="inptText" /><input type="submit" value="   搜索"  class="inptButton" />
+                        </label>
+                    </div> 
+                </form>
+                <a href="javascript:void(0);" class="searchG">高级搜索</a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form method="post" action="<{:U('ding/order')}>">
+            <div class="selectNr selectNr2">
+                <div class="left">
+                    <div class="seleK">
+                        <label>
+                            <span>状态</span>
+                            <select name="st" class="select w80">
+                                <option value="999">请选择</option>
+                                <foreach name="status" key="key" item="item">
+                                    <option <eq name="st" value="$key">selected="selected"</eq>  value="<{$key}>"><{$item}></option>
+                                </foreach>
+
+                            </select>
+                        </label>
+                        <label>
+                            <span>开始时间</span>
+                            <input type="text" name="bg_date" value="<{$bg_date|default=''}>"  onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd'});"  class="text w150" />
+                        </label>
+                        <label>
+                            <span>结束时间</span>
+                            <input type="text" name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd'});"  class="text w150" />
+                        </label>
+                        <label>
+                            <span>关键字（电话或联系人或订单号）:</span>
+                            <input type="text" name="keyword" value="<{$keyword}>" class="inptText" />
+                        </label>
+                    </div>
+                </div>
+                <div class="right">
+                    <input type="submit" value="   搜索"  class="inptButton" />
+                </div>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="order_id" /></td>
+                    <td class="w50">ID</td>
+                    <td>商家名称</td>
+                    <td>预订时间</td>
+                    <td>预订人数</td>
+                    <td>包厢/大厅</td>
+                    <td>联系人</td>				
+                    <td>金额</td>
+                    <td>点菜金额</td>
+                    <td>订单状态</td>
+                    <td>下单时间</td>
+                    <td class="w360">操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_order_id" type="checkbox" name="order_id[]" value="<{$var.order_id}>" /></td>
+                        <td><{$var.order_id}></td>
+                        <td><{$shops[$var['shop_id']]['shop_name']}></td>
+                        <td><{$var.ding_date}>&nbsp;<{$var.ding_time}></td>
+                        <td><{$var.ding_num}></td>
+                        <td><eq name="var.ding_type" value="1">包厢<else/>大厅</eq></td>
+                        <td><{$var.name}><eq name="var.sex" value="1">先生<else/>女士</eq>(<{$var.mobile}>)</td>
+                        <td><{:round($var['amount']/100,2)}>元</td>
+                        <td><{:round($var['menu_amount']/100,2)}>元</td>
+                        <td><{$status[$var['order_status']]}></td>
+                        <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                    <td>
+                    <if condition="$var['order_status'] neq -1 and $var['order_status'] neq 2 " ><{:BA('booking/complete',array("order_id"=>$var["order_id"]),'完成','act','remberBtn')}></if>
+                    <if condition="$var['order_status'] neq -1"><{:BA('booking/cancel',array("order_id"=>$var["order_id"]),'取消','act','remberBtn')}></if>
+                    <{:BA('booking/orderdelete',array("order_id"=>$var["order_id"]),'删除','act','remberBtn')}>
+                    </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                <{:BA('booking/complete','','批量完成','list',' remberBtn')}>
+                <{:BA('booking/cancel','','批量取消','list',' remberBtn')}>
+                <{:BA('booking/orderdelete','','批量删除','list',' a2')}>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+
+

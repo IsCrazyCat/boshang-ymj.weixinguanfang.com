@@ -1,0 +1,44 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">功能</li>
+        <li class="li2">广告</li>
+        <li class="li2 li3">新增</li>
+    </ul>
+</div>
+<form target="baocms_frm" action="<{:U('adsite/edit',array('site_id'=>$detail['site_id']))}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">广告位名称：</td>
+                    <td class="rgTdBt"><input type="text" name="data[site_name]" value="<{$detail.site_name|default=''}>" class="manageInput w300" />
+                    </td>
+                </tr>    
+                <tr>
+                    <td class="lfTdBt">广告位类型：</td>
+                    <td class="rgTdBt">
+                        <select name="data[site_type]" class="manageSelect w300">
+                            <foreach name="types" item="var" key="key">
+                                <option value="<{$key}>"  <eq name="key" value="$detail.site_type">selected="selected"</eq> ><{$var}></option>
+                            </foreach>
+                        </select> 
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">广告位位置：</td>
+                    <td  class="rgTdBt">
+                        <select name="data[site_place]" class="manageSelect w300">
+                            <foreach name="place" item="var" key="key">
+                                <option value="<{$key}>"  <eq name="key" value="$detail.site_place">selected="selected"</eq> ><{$var}></option>
+                            </foreach>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认编辑" class="smtQrIpt" /></div>
+    </div>
+</form>
+
+<include  file='public:footer'/>       

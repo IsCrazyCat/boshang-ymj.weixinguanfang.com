@@ -1,0 +1,122 @@
+<php>$a=1;</php>
+<volist name="list" id="item" key="index">
+    <li class="line padding">
+        <div class="x12">
+            <p class="text-small">编号：<{$item.order_id}>             
+              <eq name="item.type" value="0">（商城订单id：<{$item.type_order_id}>）
+              </eq>
+              <eq name="item.type" value="1">（外卖订单id：<{$item.type_order_id}>）
+              </eq><a class="icon icon-send radius-little " style=" color:#F00; padding:0px 5px;"> 距离<{$item.d}></a>
+           </p>
+    				  <!--PHP代码开始-->
+                          <php>
+                            if($item['type'] == 0){ 
+                                $Order = D('Order');
+                                $lists = $Order -> where('order_id ='.$item['type_order_id']) -> find();//商品
+                                $t = 0;
+                                $OrderGoods = D('OrderGoods');
+                                $new_list = $OrderGoods -> where('order_id ='.$lists['order_id']) ->  select();
+                                $Goods = D('Goods');
+                                foreach($new_list as $key => $val){
+                                    $v = $Goods->where('goods_id ='.$val['goods_id'])->getField('title');
+                                    $new_list[$key]['t'] = $v ;
+                                }
+                            }elseif($item['type'] == 1){ //外卖
+                                $EleOrder = D('EleOrder');
+                                $lists = $EleOrder -> where('order_id ='.$item['type_order_id']) -> find();
+                                $t = 1;
+                                $EleOrderProduct = D('EleOrderProduct');
+                                $new_list = $EleOrderProduct -> where('order_id ='.$lists['order_id']) ->select();
+                                $EleProduct = D('EleProduct');
+                                foreach($new_list as $key => $val){
+                                    $v = $EleProduct->where('product_id ='.$val['product_id'])->getField('product_name');
+                                    $new_list[$key]['t'] = $v;  
+                                }
+                            }
+                        </php> 
+                        <!--PHP代码结束-->                    
+            <!--商品循环开始-->
+            <div class="blank-10"></div>
+            <table class="table">
+                <tbody><tr>
+                    <th>商品信息</th>
+                    <th>单价</th>
+                    <th>数量</th>
+                </tr>
+                <volist name="new_list" id="var">	
+                <tr>  
+                    <td><{:bao_msubstr($var['t'],0,18,false)}></td>
+                    <td>￥<php>echo round(($var['total_price']/$var['num'])/100,2);</php></td>
+                    <td> x<{$var.num}></td>
+                </tr> 
+                </volist>                 
+            </tbody></table>
+            <div class="blank-10"></div>
+            <!--商品循环结束-->
+          
+		 <p class="text-small">下单时间：<{$item.create_time|date='Y-m-d H:i:s',###}> </p> 
+         <p class="text-right padding-top">
+         <a href="javascript:void(0);" rel="mini_delivery_ejected_<{$item.order_id}>" class="mini_delivery_btn button button-small bg-blue">配送地址</a> 
+         <a href="<{:U('lists/detail',array('order_id'=>$item['order_id']))}>" class="button button-small bg-yellow">详情</a>
+         <eq name="t" value="0"><eq name="lists.is_daofu" value="1"><a href="javascript:void(0);" class="button button-small bg-yellow">货到付款</a></eq></eq>
+         <eq name="t" value="1"><eq name="lists.is_daofu" value="1"><a href="javascript:void(0);" class="button button-small bg-yellow">货到付款</a></eq></eq>
+         <a href="javascript:void(0);" val="<{$item.order_id}>" class="button button-small bg-dot qiang_btn">抢单</a>
+         </p>
+        </div>
+    </li>
+    <div class="blank-10 bg"></div>
+<php>$a++;</php>
+</volist><!--循环结束-->
+
+
+
+<volist name="list" id="addr">
+    <div class="mini_delivery_ejected mini_delivery_ejected_<{$addr.order_id}>">
+        <div class="cont">
+            <a href="javascript:void(0);" rel="mini_delivery_ejected_<{$addr.order_id}>" class="closs">×</a>
+            <div class="title">配送ID(<{$addr.order_id}>)地址详情</div>
+            <div class="num">
+            <table class="table">
+                <div class="blank-10"></div>
+                <a class="text-small button-block">商家名称：<{$shops[$addr['shop_id']]['shop_name']}>-  <{$shops[$addr['shop_id']]['tel']}></a>
+                <a class="text-small button-block">商家地址：<{$shops[$addr['shop_id']]['addr']}> </a>
+                <div class="blank-10 bg"></div>
+                <a class="text-small button-block">买家地址：<{$addr['addr']}> </a>
+                <a class="text-small button-block">买家姓名：<{$addr['name']}></a>
+                <a href="tel:<{$item.mobile}>" class="text-small button-block">买家手机：<{$addr['mobile']}> <span class="icon icon-phone"> 一键拨号</span></a>
+           </table>
+            </div>
+            <input type="button" value="确定" rel="mini_delivery_ejected_<{$addr.order_id}>"  class="btn" >
+        </div>
+    </div>
+</volist>
+<!---->
+  <script type="text/javascript" language="javascript">
+   		$(document).ready(function(){
+			//弹窗开始
+			$(".mini_delivery_btn").click(function () {
+            $("."+$(this).attr('rel')).show();
+			});
+			$(".mini_delivery_ejected").find(".closs").click(function () {
+				$("."+$(this).attr('rel')).hide();
+			});
+			$(".mini_delivery_ejected").find(".btn").click(function () {
+				$("."+$(this).attr('rel')).hide();
+			});
+			//弹窗结束
+             
+			$('.qiang_btn').click(function(){
+				var id = $(this).attr('val');
+				$.post('<{:U("lists/handle")}>',{order_id:id},function(result){
+					if(result.status == 'success'){
+						layer.msg(result.message,{icon:6});
+						setTimeout(function(){
+							location.reload(true);
+						},3000);
+					}else{
+						layer.msg(result.message);
+					}
+				},'json');
+			})
+		})
+   </script>

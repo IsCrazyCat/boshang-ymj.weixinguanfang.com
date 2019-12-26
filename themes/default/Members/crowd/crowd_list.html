@@ -1,0 +1,83 @@
+<include file="public:header"/>
+<div class="content_right">
+<style>
+.myInfor_sx_fk {margin-bottom:5px;}
+</style>
+<div class="tgdd">
+      <include file="crowd:nav"/><!--导航-->
+   <div class="tgdd_nr">
+     <table class="tuan_table3" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#F9F9F9;">
+            <td width="32%">众筹图片</td>
+            <td width="10%">众筹过期时间</td>
+            <td width="10%">众筹金额</td>
+            <td width="10%">已筹金额</td>
+            <th width="10%">状态</th>
+            <td width="25%">操作</td>
+     </table>
+     <div class="blank-10"></div>
+  <foreach name="list" item="var"> 
+  <table class="tuan_table1" width="100%" border="0"> 
+  <tbody><tr class="tr_left_2">
+    <td class="left10" colspan="4">
+    众筹编号：<span class="mallorder_jg"><{$var.goods_id}></span>
+    <span class="td_top_1">发布时间：<{$var.create_time|date='Y-m-d H:i:s',###}> &nbsp;&nbsp;&nbsp;&nbsp; 众筹副标题：<{$var['intro']}> </span></td>
+  </tr>
+  <tr>
+    <td class="td_left_1"> 
+    <table class="tuan_table2" width="100%" border="0">
+      <tbody><tr class="tr_left_1">
+        <td class="left1">
+        <!--商品展示开始-->
+        <div class="index__production___yfP3y">
+        <a target="_blank" href="<{:U('home/crowd/detail',array('goods_id'=>$var['goods_id']))}>" class="index__pic___TScfk">
+        <img src="<{:config_img($var['photo'])}>"><span></span></a>
+        <div class="index__infos___A6XLq">
+            <p><a href="<{:U('home/crowd/detail',array('goods_id'=>$var['goods_id']))}>" target="_blank">
+            <span>标题：<{$var['title']}></span></p>
+            <p><span>佣金：&yen;<{$var['commission']}></span></p>
+            <p><span>浏览：<{$var['views']}> &nbsp;&nbsp; 赞：<{$var['zan_num']}></span></p>
+            
+        	</div>
+		</div>
+       <!--商品展示END-->
+        </td>
+        <td class="left2"></td>
+        <td class="left3"><{$var['ltime']}></td>
+        <td class="left4">&yen;<{$var['all_price']}></td>
+        <td class="left5"></td>
+      </tr>
+    </tbody></table>    
+    </td>
+    <td class="left7" width="15%">
+     	<a class="myInfor_sx_fk">已筹：&yen;<{$var['have_price']}></a>
+        <php>$jindu = $var['have_price']/$var['all_price']*100; </php>
+        <if condition="!empty($jindu)">
+        	<br/><a class="myInfor_sx_fk">进度：<{$jindu}>%</a>
+        </if>
+    </td>
+    <td class="left8" width="10%">
+    	<eq name="var.audit" value="0">等待审核<else/>正常</eq>
+    </td>
+    <td class="left9" width="25%">
+         <a class="myInfor_sx_fk"  href="<{:U('crowd/edit',array('goods_id'=>$var['goods_id']))}>">编辑</a>
+         <a class="myInfor_sx_fk"  href="<{:U('crowd/setting',array('goods_id'=>$var['goods_id']))}>">设置众筹</a>
+         <a class="myInfor_sx_fk"  href="<{:U('crowd/project',array('goods_id'=>$var['goods_id']))}>">项目进展</a>
+         <a class="myInfor_sx_fk"  href="<{:U('crowd/ask',array('goods_id'=>$var['goods_id']))}>">话题</a>
+         <a class="myInfor_sx_fk"  href="<{:U('crowd/lists',array('goods_id'=>$var['goods_id']))}>">参与支持</a>
+         <a class="myInfor_sx_fk"  href="<{:U('crowd/follow',array('goods_id'=>$var['goods_id']))}>">关注点赞</a>
+    </td>
+  </tr>
+</tbody>
+</table>
+<br> 
+</foreach>         
+            <div class="x">
+                <{$page}>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<include file="public:footer"/>

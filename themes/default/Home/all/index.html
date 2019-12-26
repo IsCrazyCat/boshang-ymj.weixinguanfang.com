@@ -1,0 +1,60 @@
+<include file="public:header" /> 
+<include file="public:top"/>
+<include file="public:nav2"/>
+
+<div class="content"> 
+	<div class="main-list">
+		<dl class="all-list">
+			<dt>
+				<span class="a">&nbsp;</span>
+				<span class="b">名称</span>
+				<span class="c">类型</span>
+				<span class="d">说明</span>
+			</dt>
+			<?php
+				if ($total_num>0){
+			?>
+				<foreach name="list" item="item">
+					<dd>
+						<span class="a">
+							<a href="<{:U($item['t_url'],array($item['t_param']=>$item['t_id']))}>" target="_blank">
+								<img src="<{:config_img($item['t_photo'])}>" onerror="this.src='/static/default/images/nopic.jpg'" />
+							</a>
+						</span>
+						<span class="b">
+							<a href="<{:U($item['t_url'],array($item['t_param']=>$item['t_id']))}>" class="a_name" target="_blank">
+								<{$item.t_title}>
+							</a>
+						</span>
+						<span class="c">
+							<{$item.t_name}>
+						</span>
+						<span class="d">
+							<{$item.t_note}>
+						</span>
+					</dd>
+				</foreach>
+			<?php
+				}
+				else{
+			?>
+				<dd align="center">
+					暂无数据
+				</dd>
+			<?php
+				}
+			?>
+			</if>
+		</dl>
+		<div class="blank-20"></div>
+		<div class="text-center">
+			<div class="x">
+				<{$page}>
+			</div>
+		</div>
+		<div class="blank-20 27149"></div>
+	</div>
+</div>
+<include file="public:footer"/>
+
+

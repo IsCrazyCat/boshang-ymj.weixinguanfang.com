@@ -1,0 +1,58 @@
+body,html{background:#FFF;}
+#main .banner{
+    background: url("../image/sign/checkin.png") no-repeat center;
+    height: 130px; margin: 0 auto; padding: 20px;
+    -webkit-background-size: 95% 130px;
+    background-size: 95% 130px;
+}
+#main ul{
+    background: #fff;
+	list-style:none;
+	padding:0;
+}
+#main .result{
+    font-size: 20px; color: #f4a048; text-align: center; padding: 25px 0;
+}
+#main .asset{
+    font-size: 14px; padding:10px 20px; border: 1px solid #e6e6e6; border-radius: 6px;
+    background-color: #f2f2f2; margin: 0 10px 20px;
+}
+#main li.btn{
+    text-align: center; padding-bottom:20px;
+}
+#main a.btn{
+    border:1px solid #4390af; border-radius: 6px; background-color: #55abce;
+    padding: 10px 0; display: block; margin: 0 10px;
+    font-size: 16px; color: #fff;
+}
+
+#main .asset span{
+    color: #55abce;
+}
+#main .how{
+    display: block; text-align: center; font-size: 12px; padding-top:10px;
+}	
+
+#main .yao{
+	display:block;
+    background: url(../image/sign/yao.png) no-repeat center;
+    height: 130px; margin: 0 auto; padding: 20px;
+    -webkit-background-size: 95% 130px;
+    background-size: 95% 130px;
+}
+
+#main .chou{
+	display:block;
+    background: url(../image/sign/chou.png) no-repeat center;
+    height: 130px; margin: 0 auto; padding: 20px;
+    -webkit-background-size: 95% 130px;
+    background-size: 95% 130px;
+}
+
+#main .gua{
+	display:block;
+    background: url(../image/sign/gua.png) no-repeat center;
+    height: 130px; margin: 0 auto; padding: 20px;
+    -webkit-background-size: 95% 130px;
+    background-size: 95% 130px;
+}

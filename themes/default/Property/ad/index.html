@@ -1,0 +1,48 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="javascript:void(0);">小区广告</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <form method="post" action="<{:U('ad/index')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">
+            标题：<input type="text" class="radius3 tuan_topser" placeholder="输入关键词"  name="keyword" value="<{$keyword}>" />
+            <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/>
+            </div>
+            <div class="right tuan_topfb_r"><a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('ad/create')}>">添加广告+</a></div>
+        </div>
+    </div>
+    </form>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>编号</td>
+            <td>广告标题</td>
+            <td>浏览次数</td>
+            <td>广告图片</td>
+            <td>广告链接</td>
+            <td>排序</td>
+            <td>创建时间</td>
+            <td>操作</td>
+        </tr>
+        <foreach name="list" item="var">
+            <tr>
+                <td><{$var.ad_id}></td>
+                <td><{$var.title}></td>
+                <td><{$var.click}></td>
+                <td style="height: 80px;"><img src="<{:config_img($var['photo'])}>"  style="width: 80px;  margin: 0px auto;" /></td>
+                <td><{$var.link_url}></td>
+                <td><{$var.orderby}></td>
+                <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                <td>
+                <a class="radius3 sy_c1an" href="<{:U('ad/edit',array('ad_id'=>$var['ad_id']))}>">编辑</a>
+                <a class="radius3 sy_c1an" mini='comfirm' href="<{:U('ad/delete',array('ad_id'=>$var['ad_id']))}>">删除</a>
+            </td>
+            </tr>
+        </foreach>
+    </table>
+</div>
+
+<include  file='public:footer'/>

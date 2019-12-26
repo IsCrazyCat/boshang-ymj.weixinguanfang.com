@@ -1,0 +1,32 @@
+<include file="public:header"/>
+<div class="content_right">  
+<div class="tgdd">
+    <div class="tgdd_t">
+        <ul>
+            <li class="on"><a href="<{:U('distribution/qrcode')}>">二维码</a></li>
+        </ul>
+    </div>
+    <div class="password_input">
+				<div class="left">邀请链接</div>
+				<div class="lef">
+         
+                
+					<input type="text" style="width:600px;" value="<{$host}>/passport/register/fuid/<{$MEMBER.user_id}>.html" readonly onfocus="this.select()" onmouseover="this.focus()" />
+				</div>
+			</div>
+            
+    <div class="tgdd_nr">
+        <table border="0" cellspacing="0" width="100%"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; text-align:center;">
+            <tr class="tgdd_nrC">
+                <td class="tgdd_nrCtd bullionLog_td"><div class="padding-large">
+                    <p><img src="__ROOT__/attachs/<{$file}>" width="296px" />
+                    </p>
+                    <p>赶快推荐分享给您的朋友吧！</p>
+                </div></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</div>
+</div>
+<include file="public:footer"/>

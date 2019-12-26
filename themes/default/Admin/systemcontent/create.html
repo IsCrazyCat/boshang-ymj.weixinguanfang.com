@@ -1,0 +1,42 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">当前位置</li>
+        <li class="li2">系统文章</li>
+        <li class="li2 li3">新增</li>
+    </ul>
+</div>
+  <form  target="baocms_frm" action="<{:U('systemcontent/create')}>" method="post">
+              <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">标题：</td>
+                    <td  class="rgTdBt"><input type="text" name="data[title]" value="<{$detail.title|default=''}>" class="manageInput" />
+
+                    </td>
+                </tr> <tr><td class="lfTdBt">内容：</td><td class="rgTdBt">
+                  <script type="text/plain" id="data_contents" name="data[contents]" style="width:800px;height:360px;"><{$detail.contents}></script>
+					</td>
+             </tr><link rel="stylesheet" href="__PUBLIC__/qiniu_ueditor/themes/default/css/ueditor.min.css" type="text/css">
+                  <script type="text/javascript" charset="utf-8" src="__PUBLIC__/qiniu_ueditor/ueditor.config.js"></script>
+                  <script type="text/javascript" charset="utf-8" src="__PUBLIC__/qiniu_ueditor/ueditor.all.min.js"></script>
+                  <script type="text/javascript" src="__PUBLIC__/qiniu_ueditor/lang/zh-cn/zh-cn.js"></script>
+				  <script>
+                        um = UE.getEditor('data_contents', {
+                            lang: 'zh-cn',
+                            toolbars:[['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'backcolor', 'fontsize', 'fontfamily', 'justifyleft', 'justifyright', 'justifycenter', 'justifyjustify', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', 'link', 'unlink', 'map', 'template', 'background','inserttable','print','attachment',  'emotion',  'snapscreen','insertimage', 'music', 'insertvideo']],  
+                            });
+                   </script> 
+               <tr>
+                   <td class="lfTdBt">排序：</td>
+                    <td  class="rgTdBt"><input type="text" name="data[orderby]" value="<{$detail.orderby|default='100'}>" class="manageInput" />
+
+                    </td>
+                </tr>
+              
+            </table>
+            <div class="smtQr"><input type="submit" value="确认添加" class="smtQrIpt" /></div>
+             </div>
+    
+        </div>
+        </form>
+<include  file='public:footer'/>       

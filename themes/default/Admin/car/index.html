@@ -1,0 +1,79 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">品牌设置</li>
+        <li class="li2 li3">车辆品牌</li>
+    </ul>
+</div>
+<div class="main-jsgl">
+    <p class="attention"><span>注意：</span>车辆品牌设置后，启用后前台才能看到该站点</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin: 10px 20px;">
+            <div class="left">
+                <{:BA('car/create',array("parent_id"=>$parent_id),'添加','','')}>
+            </div>
+            <form method="post" action="<{:U('car/index')}>">
+                <div class="right">
+                    <input type="hidden" name="parent_id" value="<{$parent_id}>">
+                    <input type="text" name="keyword" value="<{$keyword}>" class="inptText" /><input type="submit" value="  搜索"  class="inptButton" />
+                </div>
+            </form>
+        </div>
+        <form target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="car_id" /></td>
+                        <td class="w50">ID</td>
+                        <td>品牌名称</td>
+                        <td>品牌简称</td>
+<!--                        <td>英文名称</td>-->
+                        <td>品牌LOGO</td>
+<!--                        <if condition="$parent_id neq 0">-->
+<!--                            <td>-->
+<!--                                所属品牌-->
+<!--                            </td>-->
+<!--                        </if>-->
+                        <td>是否展示</td>
+                        <td style="width: 300px">操作</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_car_id" type="checkbox" name="car_id[]" value="<{$var.car_id}>"/></td>
+                            <td><{$var.car_id}></td>
+                            <td><{$var.name}></td>
+                            <td><{$var.short_name}></td>
+                            <td>
+                                <if condition="!empty($var['photo'])">
+                                    <img style="padding:5px;width:60px;" src="<{:config_img($var['photo'])}>" />
+                                    <else/>
+                                    无图标
+                                </if>
+                            </td>
+<!--                            <if condition="$parent_id neq 0">-->
+<!--                                <td>-->
+<!--                                    <{$parent['short_name']}>-->
+<!--                                </td>-->
+<!--                            </if>-->
+                            <td><{$var.is_open}></td>
+                            <td>
+                                <{:BA('car/index',array("parent_id"=>$var["car_id"]),'查看下属系列','','remberBtn')}>
+                                <{:BA('car/edit',array("car_id"=>$var["car_id"],"parent_id"=>$parent_id),'编辑','','remberBtn')}>
+                                <{:BA('car/delete',array("car_id"=>$var["car_id"],"parent_id"=>$parent_id),'删除','act','remberBtn')}>
+                            </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr">
+                <div class="left">
+                    <{:BA('car/delete','','批量删除','list','a2')}>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>       
+

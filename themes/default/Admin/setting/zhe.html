@@ -1,0 +1,35 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">基本设置</li>
+        <li class="li2 li3">五折卡配置</li>
+    </ul>
+</div>
+<div class="main-cate">
+    <p class="attention"><span>注意：</span>这里配置是五折卡相关的信息</p>
+</div>       
+<div class="mainScAdd">
+    <div class="tableBox">
+        <form  target="baocms_frm" action="<{:U('setting/zhe')}>" method="post">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+               <tr>
+                    <td class="lfTdBt" >周卡购买费用：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[week_card_price]" value="<{$CONFIG.zhe.week_card_price}>" class="scAddTextName w80" /> 元
+                        <code> 不填写默认关闭周卡，购买费用为实际支付费用，建议费用0.1-9.9元</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt" >年卡购买费用：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[year_card_price]" value="<{$CONFIG.zhe.year_card_price}>" class="scAddTextName w80" /> 元
+                        <code> 不填写默认关闭年卡，购买费用为实际支付费用，建议费用199-399元</code>
+                    </td>
+                </tr>
+            </table>
+            <div class="smtQr"><input type="submit" value="确认添加" class="smtQrIpt" /></div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>       

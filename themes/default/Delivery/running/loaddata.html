@@ -1,0 +1,88 @@
+<foreach name="list" item="item">
+    <li class="line padding">
+        <div class="x12">
+            <p class="text-title">
+                <a class="x3">编号：<{$item.running_id}> </a>
+                <a class="x9 text-right">下单时间： <{$item.create_time|date='m-d H:i:s',###}></a>
+            </p>
+			<div class="blank-10"></div>
+            <table class="table">
+                <tbody><tr>
+                    <th>需求</th>
+                    <th>价格</th>
+                    <th>腿费</th>
+                    <th>实付</th>
+                </tr>
+                <tr>  
+                    <td><a id="running_title_<{$item.running_id}>" class="text-yellow"><{:bao_msubstr($item['title'],0,6,false)}>...</a></td>
+                    <script type="text/javascript">
+                        $('#running_title_<{$item.running_id}>').mouseover(function(){
+                            var title = '<{$item['title']}>';
+                            layer.tips('跑腿需求：'+title+'',$(this),{
+                             tips: [3, '#7a7a7a']
+                            });
+                        })
+                    </script>
+                    <td>&yen;<{:round($item['price']/100,2)}></td>
+                    <td>&yen; <{:round($item['freight']/100,2)}></td>
+                    <td>&yen; <{:round($item['need_pay']/100,2)}></td>
+                </tr>                 
+            	</tbody>
+            </table>
+            <div class="blank-10"></div>
+            <p class="text-default">姓名：<{$item.name}>&nbsp;地址：<{$item.addr}> 
+                <if condition="$is_weixin">
+                    <a class="icon icon-send radius-little text-right">距离： <{$item.d}></a>
+                </if>
+            </p>
+
+<div class="blank-10"></div>
+<p class="text-right padding-top">
+<a href="<{:U("running/detail",array('running_id'=>$item['running_id']))}>" class="button button-small bg-blue">详情</a>
+<a href="tel:<{$item.mobile}>" class="button button-small bg-blue">联系买家</a>
+<eq name="item.status" value="1"><a href="javascript:void(0);" class="button button-small bg-yellow">等待接单</a></eq>
+<eq name="item.status" value="2"><a href="javascript:void(0);" class="button button-small bg-yellow">跑腿中</a></eq>
+<eq name="item.status" value="3"><a href="javascript:void(0);" class="button button-small bg-gray">跑完腿</a></eq> 
+<eq name="item.status" value="1"><a href="javascript:void(0);" val="<{$item.running_id}>" class="button button-small bg-dot qiang_btn">抢单</a></eq>
+<eq name="item.status" value="2"><a href="javascript:void(0);" val="<{$item.running_id}>" class="button button-small bg-dot ok_btn">确认完成</a></eq>
+</p>
+
+          </p>
+        </div>
+    </li>
+
+    <div class="blank-10 bg"></div>
+</foreach>
+
+ <script type="text/javascript" language="javascript">
+                $(document).ready(function () {
+                    $('.qiang_btn').click(function () {
+                        var id = $(this).attr('val');
+                        $.post('<{:U("running/qiang")}>', {running_id: id}, function (result) {
+                            if (result.status == 'success') {
+                                layer.msg(result.message);
+                                setTimeout(function () {
+                                    location.reload(true);
+                                    window.location.href = "<{:U('running/index',array('aready'=>2))}>";
+                                }, 1500);
+                            } else {
+                                layer.msg(result.message);
+                            }
+                        }, 'json');
+                    })
+
+                    $('.ok_btn').click(function () {
+                        var id = $(this).attr('val');
+                        $.post('<{:U("running/running_ok")}>', {running_id: id}, function (result) {
+                            if (result.status == 'success') {
+                                layer.msg(result.message, {icon: 6});
+                                setTimeout(function () {
+                                    window.location.href = "<{:U('running/index',array('aready'=>3))}>";
+                                }, 1500);
+                            } else {
+                                layer.msg(result.message);
+                            }
+                        }, 'json');
+                    })
+                })
+   </script>

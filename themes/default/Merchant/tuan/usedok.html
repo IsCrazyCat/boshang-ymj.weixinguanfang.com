@@ -1,0 +1,68 @@
+<include  file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">套餐</a> > <a>员工验证记录</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <form method="post" action="<{:U('tuan/usedok')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">
+              开始时间：<input type="text" class="radius3 seleFl"  name="bg_date" value="<{$bg_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"/>
+            结束时间：<input type="text" class="radius3 seleFl"  name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"/>
+            编号：<input type="text" placeholder="输入编号" name="keyword" value="<{$keyword}>"  class="radius3 seleFl" />
+           
+            <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/>
+            </div>
+            <div class="right tuan_topfb_r"><a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('tuan/used')}>">套餐劵验证+</a></div>
+        </div>
+    </div>
+    </form>
+     <include file='tuan:nav'/>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+       			<td>验证编号</td>
+                <td>套餐名称</td>
+                <td>原始订单号</td>
+                <td>验证码</td>
+                <td>下单用户</td>
+                <td>消费金额</td>
+                <td>下单时间</td>
+                <td>验证人信息</td>
+                <td>验证时间</td>
+        </tr>
+        <foreach name="list" item="var">
+            <tr>
+            
+         <php>
+          $shopworker = D('Shopworker') -> where('user_id ='.$var['worker_id']) -> find();
+          $user_name = D('Users') -> where('user_id ='.$var['worker_id']) -> find();
+         </php> 
+         
+         
+                <td><{$var.code_id}></td>
+                <td><{:bao_Msubstr($tuans[$var['tuan_id']]['title'],0,10)}></td>
+                <td><{$var.order_id}></td>
+                <td><{$var.code}></td>
+                <td><{:config_user_name($users[$var['user_id']]['nickname'])}></td>
+                <td>&yen;<{:round($var['real_money']/100,2)}></td>
+                <td><{$var.create_time|date="Y-m-d H:i:s",###}></td>
+                <td>
+                    <if condition="!empty($shopworker)">
+                       员工： <{$shopworker['name']}>/ <{$shopworker['work']}>
+                    <else/>
+                       <{:config_user_name($user_name['nickname'])}>
+                    </if>
+                </td>
+           		<td><{$var.used_time|date="Y-m-d H:i:s",###}></td>
+            </tr>
+        </foreach>
+    </table>
+    <div class="paging">
+        <{$page}>
+    </div>
+</div>
+
+<include  file='public:footer'/>

@@ -1,0 +1,28 @@
+<foreach name="meals" item="var">
+           <li class="line">
+            <dt> <a class="x3">编号：<{$var.ask_id}></a><a class="x9 text-right">日期：<{$var.dateline|date='Y-m-d H:i:s',###}></a></dt>
+            <dd class="zhong">
+                <div class="x12">
+                    <p class="text-small">
+                        <span class="text-dot1 margin-right">提问用户名：<{$users[$var['uid']]['nickname']}></span>
+                    </p>
+                    <p class="text-small">
+                        <span class="text-dot1 margin-right">问题：<{$var.ask_c}></span>
+                    </p>
+              </div>
+              <if condition="!empty($var['answer_c'])">
+              <div class="x12">
+                    <p class="text-small">
+                        <span class="text-dot1 margin-right">回复：<{$var.answer_c}></span>
+                    </p>
+              </div>
+              </if>
+             </dd>
+            <dl>
+              <p class="text-right padding-top x12">
+                 <a class="button button-small bg-yellow"  href="<{:U('crowd/ask_answer',array('ask_id'=>$var['ask_id']))}>">回答</a>    
+             </p>
+           </dl>
+        </li>
+        <div class="blank-10 bg"></div>
+    </foreach>

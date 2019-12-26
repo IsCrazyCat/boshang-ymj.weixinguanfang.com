@@ -1,0 +1,44 @@
+<php>$seo_title = $detail['title'];</php>
+<include  file='public:header'/>
+   <header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('tieba/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			选择分类
+		</div>
+	</header>
+	
+	<div class="blank-10"></div>
+
+	<div class="main-coll collapse">
+		<php>$i=0;</php>
+		<foreach name="sharecates" key="k" index="index" item="item">
+		<eq name="item.parent_id" value="0">
+		<php>$i++;</php>
+		
+		<div class="panel <if condition='$i eq 1'>active</if>">
+			<div class="panel-head">
+				<h4><{$item['cate_name']}></h4>
+				<span class="down"><i class="icon-angle-down"></i></span>
+				<span class="up"><i class="icon-angle-up"></i></span>
+			</div>
+			<div class="panel-body">
+			<ul>
+				<foreach name="sharecates" key="k" item="var">
+				<if condition="$item[cate_id] eq $var[parent_id]">
+				<li>
+					<a href="<{:U('tieba/index',array('cat'=>$var[cate_id]))}>">
+						<span><{$var['cate_name']}></span>
+					</a>
+				</li>	
+				</if>
+				</foreach>
+			</ul>
+			</div>
+		</div>
+		</eq>
+		</foreach>
+	</div>
+
+<include  file='public:footer'/>  

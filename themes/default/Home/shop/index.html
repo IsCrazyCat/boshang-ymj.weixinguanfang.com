@@ -1,0 +1,356 @@
+<include file="public:header" /> 
+<include file="public:top"/>
+<include file="public:nav2"/>
+
+<style>
+.shangjiaC_l { width: 932px;}
+.shangjiaC_r { width: 250px; margin-left:5px;}
+.verify {position: absolute;background: url(/themes/default/Home/statics/images/verify.png) no-repeat;}
+.shangjiaC_l .goods_flList_r {width: 800px;}
+.mask_box{z-index: 10;}
+.qrcode_mask {position: fixed;display: none;z-index: 2000;left: 0;top: 0;width: 100%;height: 100%;background: rgba(0,0,0,.3);}
+.qrcode_dhPop {border: 8px solid #666;border-radius: 5px;width:300px;height:320px;background: #fff;margin: 0 auto;margin-top: 10%;z-index: 99;}
+.qrcode_dhPop h2{height:40px;padding-left:15px;font:700 18px/40px 'Microsoft Yahei';color:#666;border-bottom:1px solid #ccc;margin-bottom:15px;background-color:#f8f8f8}
+.qrcode_dhPop h2 span{float:right;background:url(/themes/default/Home/statics/images/tp_54.png) no-repeat center center;width:15px;height:15px;cursor:pointer;display:inline-block;margin:12px 15px 0 0}
+.qrcode_dhPop h2 span:hover{transform:rotate(-180deg);-o-transform:rotate(-180deg);-webkit-transform:rotate(-180deg);-moz-transform:rotate(-180deg);transition:all .4s ease-out;-o-transition:all .4s ease-out;-moz-transition:all .4s ease-out;-webkit-transition:all .4s ease-out}
+#qrcode_img img{margin-left: 20px;}
+</style>
+
+<div class="content content-wrap"> 
+    <div class="shangjiaC">
+        <div class="left shangjiaC_l">
+            <div class="goods_flBox">
+                <ul>
+                    <li class="goods_flList">
+                        <div class="left goods_flList_l">分类：</div>
+                        <div class="left goods_flList_r">
+                            <a  class="<if condition='empty($cat)'>on</if> goods_flListA"  title="所有商家" href="<{:LinkTo('shop/index',$linkArr,array('cat'=>0,'cate_id'=>0))}>">全部</a>
+                            <php>$i = 1;</php>
+                            <foreach name="shopcates" item="item">
+                                <eq name="item.parent_id" value="0"> 
+                                <php>$i++;if($i < 12){</php>
+                                <a title="<{$item.cate_name}>"  href="<{:LinkTo('shop/index',$linkArr,array('cat'=>$item['cate_id']))}>"  <eq name="item.cate_id" value="$cat">class="goods_flListA on"<else/>class="goods_flListA"</eq> ><{$item.cate_name}></a>
+
+                                <php>}</php>
+                                </eq>
+                            </foreach>
+                        </div>
+
+                    <if condition="!empty($cat)">
+                        <div class="left goods_flList_r stycate">
+                            <foreach name="shopcates" item="item">
+                                <eq name="item.parent_id" value="$cat">
+                                <a title="<{$item.cate_name}>"  class="<eq name='item.cate_id' value='$cate_id'> on</eq> goods_flListA"  href="<{:LinkTo('shop/index',$linkArr,array('cat'=>$cat,'cate_id'=>$item['cate_id']))}>"  ><{$item.cate_name}></a>
+                                </eq>
+                            </foreach>
+                        </div>    
+                    </if>
+
+                    </li>
+
+                    <li class="goods_flList">
+                        <div class="left goods_flList_l">地区：</div>
+                        <div class="left goods_flList_r">
+                            <a  class="<if condition='empty($area_id)'>on</if> goods_flListA"  title="全部地区" href="<{:LinkTo('shop/index',$linkArr,array('area'=>0,'business_id'=>0))}>">全部</a>  
+                            <foreach name="areas" item="item">
+                                <eq name="item.city_id" value="$city_id">
+                                <a title="<{$item.area_name}>"  href="<{:LinkTo('shop/index',$linkArr,array('area'=>$item['area_id']))}>"  <eq name="item.area_id" value="$area_id">class="goods_flListA on"<else/>class="goods_flListA"</eq> ><{$item.area_name}></a> 
+                                </eq>
+                            </foreach>
+                        </div>
+
+                    <if condition="!empty($area_id)">
+                        <div class="left goods_flList_r stycate">
+                            <foreach name="bizs" item="item">
+                                <eq name="item.area_id" value="$area_id">
+                                <a title="<{$item.business_name}>"  class="<eq name='item.business_id' value='$business_id'> on</eq> goods_flListA"  href="<{:LinkTo('shop/index',$linkArr,array('area'=>$area_id,'business'=>$item['business_id']))}>"  ><{$item.business_name}></a>
+                                </eq>
+                            </foreach>
+                        </div>    
+                    </if>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nearbuy_sxk">
+                <ul>
+                    <li class="nearbuy_sxkLi <eq name='order' value='d'>on</eq> "><a class="nearbuy_sxkLiA" href="<{:LinkTo('shop/index',$linkArr,array('order'=>'d'))}>">默认</a></li>
+                    <li class="nearbuy_sxkLi <eq name='order' value='x'>on</eq> "><a class="nearbuy_sxkLiA" href="<{:LinkTo('shop/index',$linkArr,array('order'=>'x'))}>">信誉排序<em class="em_up"></em></a></li>
+                    <li class="nearbuy_sxkLi <eq name='order' value='t'>on</eq> "><a class="nearbuy_sxkLiA" href="<{:LinkTo('shop/index',$linkArr,array('order'=>'t'))}>">时间排序<em class="em_up"></em></a></li>
+                    <li class="nearbuy_sxkLi <eq name='order' value='h'>on</eq> "><a class="nearbuy_sxkLiA" href="<{:LinkTo('shop/index',$linkArr,array('order'=>'h'))}>">人气排序<em class="em_up"></em></a></li>
+                </ul>
+            </div>
+
+            <div class="sjsy_sjList shop-wrap">
+                <ul class="shop-list">
+                    <foreach name="list" item="item">
+                       <li class="c2016"> 
+                        <php>$details = D('Shopdetails')->where(array('shop_id'=>$item['shop_id']))->find();</php>
+                       <a href="<{:U('shop/detail',array('shop_id'=>$item['shop_id']))}>" target="_blank" title="<{$item.shop_name}>" class="pic">
+                              <img class="left_transition" title="<{$item.shop_name}>" alt="<{$item.shop_name}>"  src="<{:config_img($item['photo'])}>">
+                              <if condition="!empty($details['wei_pic'])">
+                              	<img class="right_left_transition"  alt="<{$item.shop_name}>"  src="<{:config_img($details['wei_pic'])}>">
+                              </if>
+                              <if condition="$item['is_renzheng'] eq 1"> <span class="verify"></span></if>
+                        </a>
+                        
+                        
+                        <div class="info">
+                        <p class="title">
+                        <a href="<{:U('shop/detail',array('shop_id'=>$item['shop_id']))}>" class="shopname" data-hippo-type="shop" title="<{$item.shop_name}>" target="_blank"><span class="big-name"><{$item.shop_name}></span></a>
+                           <if condition="!empty($item['tuan'])"> 
+                           <a target="_blank" href="<{:U('shop/tuan',array('shop_id'=>$item['shop_id']))}>" class="igroup"></a>
+                           </if>
+                           <if condition="!empty($item['huodong'])">
+                           <a target="_blank" href="<{:U('shop/about',array('shop_id'=>$item['shop_id']))}>" class="ipromote"></a>
+                           </if>
+                           <if condition="!empty($item['coupon'])"> 
+                           <a target="_blank" href="<{:U('shop/coupon',array('shop_id'=>$item['shop_id']))}>" class="icard"></a>
+                           </if>
+                           <if condition="!empty($item['goods'])"> 
+                           <a target="_blank" href="<{:U('shop/goods',array('shop_id'=>$item['shop_id']))}>" class="igoods"></a>
+                           </if>
+                       </p>
+
+                        <p class="remark">
+                        <span class="sml-rank-stars sml-str<{$item['score']}>" title=""></span>
+                        <span> 
+                        <if condition="!empty($item['score_num'])">
+                        <a target="_blank" href="<{:U('shop/ping',array('shop_id'=>$item['shop_id']))}>"><{$item.score_num}> 网友评论</a> 
+                        <else/>
+                        暂无评价
+                        </if>
+                        
+                        </span> </p>
+                        <p class="comment">
+                            <span class="average">人均消费：
+                            <if condition="!empty($details['price'])">
+                            <span class="price"> &yen;<{$details['price']}> </span> 
+                            <else/>
+                            暂无
+                            </if>
+                            </span>
+                            <span class="comment-list">
+                            浏览：<{$item.view}> &nbsp;&nbsp;&nbsp; <span class="price"> 粉丝：<{$item.fans_num}>人 </span>
+                            </span>
+                        </p>
+                       
+                            <div class="intro">
+                            <{:bao_msubstr(cleanhtml($details['details']),0,58,false)}>
+                            </div>
+                        </div>
+                        <div class="message">
+                            <p class="menu">商家类别: 
+                            <a href="<{:U('shop/index',array('cate_id'=>$item['cate_id']))}>"><{$shopcates[$item['cate_id']]['cate_name']}></a>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+                            <p class="address2"><a>商家地址：<{$item.addr}></p>
+                        </div>
+                        <div class="message message_2">
+                            <p class="address2"></p>
+                            <p class="menu"></p>
+                        </div>
+                        
+                        <div class="operate J_operate Hide">
+                        
+                        
+                        <a class="sjsy_ljzx2 yuyue" rel="<{:U('shop/yuyue2',array('shop_id'=>$item['shop_id']))}>" data="<{$item.shop_name}>"  href="javascript:void(0);">我要预约</a>
+                        
+                      <if condition="!empty($details['wei_pic'])">
+                          <span class="line">|</span>
+                          <a class="qrcode" rel="qrcode_mask_<{$item.shop_id}>" data="<{$item.shop_name}>"  href="javascript:void(0);">商家二维码</a>
+                      </if>   
+                         
+                         
+                        <span class="line">|</span>
+                        <a  id="a_favoritemod_1" class="o-favor J_o-favor"  mini='act' href="<{:U('shop/favorites',array('shop_id'=>$item['shop_id']))}>">关注商家</a>
+
+                         <span class="line">|</span>
+                         <a class="sjsy_ljzx3 o-remark2" href="<{:U('shop/about',array('shop_id'=>$item['shop_id']))}>">商家地图</a>
+
+                        </div>
+                        <php>$shopyouhui = D('Shopyouhui')->where(array('shop_id'=>$item['shop_id']))->find();</php>
+                         <if condition="!empty($shopyouhui)">
+                            <div class="zhe_tip">
+                                <if condition="$shopyouhui['type_id'] EQ 0">
+                                    <p><a href="" target="_blank"><{$shopyouhui['discount']}></a></p>
+                                <else/>
+                                    <p><a href="" target="_blank">满减</a></p>
+                                </if>
+                            </div>
+                       </if>
+                        </li>
+
+                    </foreach>
+
+                </ul>
+
+            </div>
+
+            <div class="x">
+                <{$page}>
+            </div>
+        </div>
+
+        <div class="right shangjiaC_r">
+        
+            <div class="aside">
+                <div class="J_mkt-group-2"></div>
+                <div class="hot-ct con-block">
+                  <div class="title"><span>推荐商家</span></div>
+                <div class="wp">
+                   <div class="ct-infor-list">
+                    <ul>
+                    <calldata mdl="Shop" where=" closed=0 AND audit=1" limit="0,10" cache="86400" order="shop_id desc">
+                    <li>
+                      <div class="infor-pic">
+                      <a href="<{:U('shop/detail',array('shop_id'=>$item['shop_id']))}>"><img src="<{:config_img($item['photo'])}>" width="40" height="40"></a>
+                      </div>
+                        <div class="infor-name-grade">
+                        <a href="<{:U('shop/detail',array('shop_id'=>$item['shop_id']))}>"><{:bao_msubstr($item['shop_name'],0,10,false)}></a>
+                        <div class="live-stars">
+                            <div class="ten-stars"><{:bao_msubstr($item['addr'],0,10,false)}></div>
+                            <span class="ten-grade"> <{$item['tel']}></span>
+                        </div>
+                        </div>
+                    </li>
+                    </calldata>
+                    </ul>
+                    </div>
+        
+                </div>
+                </div>
+                
+                
+                <div class="add-new-ct">
+                 <div class="ct-help">
+                 <span>您的商铺没在列表中显示？</span>
+                 </div>
+                <a href="<{:U('shop/apply')}>" class="add-ct-btn" title="立即入驻"></a>
+                <p class="ct-exe-share">把您的产品分享给大家吧！</p>
+                 <p class="ct-exe-share">请拨打电话： <{$CONFIG.site.tel}></p> 
+                 </div>
+            </div>
+
+            
+        </div>
+    </div>
+</div>
+
+<foreach name="list" item="item">
+<div class="qrcode_mask qrcode_mask_<{$item.shop_id}>">
+<div class="qrcode_dhPop">
+    <h2><span class="qrcode_closed"></span><em id="qrcode_title">打开微信扫一扫</em></h2>
+	<div id="qrcode_img">
+    <php>
+    $wei_pic = D('Shopdetails')->where(array('shop_id'=>$item['shop_id']))->find();
+    </php>
+    <img src="<{:config_img($wei_pic['wei_pic'])}>" width="250" height="250">
+    </div>
+</div>
+</div>
+</foreach>
+
+<script>
+    $(document).ready(function () {
+        $(".qrcode").click(function () {
+            $("."+$(this).attr('rel')).show();
+        });
+        $(".qrcode_mask").find(".closs").click(function () {
+            $("."+$(this).attr('rel')).hide();
+        });
+        $(".qrcode_mask").find(".btn").click(function () {
+            $("."+$(this).attr('rel')).hide();
+        });
+		$(".qrcode_closed").click(function () {
+            $(".qrcode_mask").hide();
+        });
+    });
+</script>
+
+<div class="mask_box dhPop_mask">
+<div class="dhPop">
+    <h2><span class="bao_closed"></span><em id="yuyue_shop_name"></em></h2>
+    <form method="post" id="yuyue_form">
+        <table cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td align="right">联系人：</td>
+                <td><input type="text" name="data[name]" class="dhInput" value="<if condition="$MEMBER.nickname neq null"><{$MEMBER.nickname}></if>" /></td>
+            </tr>
+            <tr>
+                <td align="right">手机号：</td>
+                <td><input type="text" class="dhInput" name="data[mobile]" value="<if condition="$MEMBER.mobile neq null"><{$MEMBER.mobile}></if>" /></td>
+            </tr>
+            <tr>
+                <td align="right">预约日期：</td>
+                <td>
+                    <input type="text" class="dhInput" name="data[yuyue_date]" value="<{$yuyue_date}>" onfocus="WdatePicker({minDate: '<{$today}>'});" />
+                    <select id="yuyue_time" name="data[yuyue_time]" class="dhInput" >
+                        <for start="0" end="24">
+                            <option value="<{$i}>:00"><{$i}>:00</option>
+                            <option value="<{$i}>:30"><{$i}>:30</option>
+                        </for>
+                    </select>
+                    <script>
+                        $("#yuyue_time").val('<{$yuyue_time}>');
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">人数：</td>
+                <td>
+                    <select id="number" name="data[number]" class="dhInput">
+                        <for start="1" end="10">
+                            <option <eq name="number" value="$i">selected="selected"</eq> value="<{$i}>"><{$i}>人</option>
+                        </for>
+                        <option value="10"  <eq name="number" value="10">selected="selected"</eq>>10人及以上</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td  align="right">留言：</td>
+                <td><textarea rows="6" cols="50" name="data[content]"></textarea></td>
+            </tr> 
+            <tr>
+                <td align="right"></td>
+                <td><input style="cursor: pointer; margin-bottom: 20px;" class="subBtn" type="button" value="立即预约" /></td>
+            </tr>
+        </table>
+    </form>
+</div>
+</div>
+
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>  
+<script>
+    $(document).ready(function () {
+        $(".sjsy_ljzx2").click(function () {
+            var url = $(this).attr('rel');
+            $("#yuyue_shop_name").html($(this).attr('data'));
+            $(".mask_box").show();
+            $(".subBtn").click(function(){
+                var yuyue_form = $("#yuyue_form").serialize();
+                $.post(url,yuyue_form,function(data){
+					if(data.status == 'login'){
+                       ajaxLogin();
+                    }else if(data.status == 'success'){
+                        $(".mask_box").hide();
+                        layer.msg(data.msg,{icon:1});
+                            setTimeout(function () {
+                                    window.location.href = data.url;
+                            }, 1000)
+                    }else{
+                        layer.msg(data.msg,{icon:2});
+                    }
+                },'json')
+            })
+        });
+        $(".bao_closed").click(function () {
+            $(".mask_box").hide();
+        });
+    })
+
+</script>
+<include file="public:footer"/>
+
+
+
+
+

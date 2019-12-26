@@ -1,0 +1,398 @@
+<include file='public:header'/>
+<include file='public:top'/>
+<include file='public:nav2'/>
+<script src="__TMPL__statics/js/jquery.cookie.js"></script>
+<script type="text/javascript" src="__TMPL__statics/js/jquery.jcarousel.min.js"></script>
+<script type="text/javascript" src="__TMPL__statics/js/jquery.pikachoose.min.js"></script>
+<script type="text/javascript" language="javascript" src="__PUBLIC__/js/layer/layer.js"></script>
+<!--主体内容-->
+<div class="content zy_content" style="position: relative; padding-top: 5px;">
+	<div class="spxq_xqT spxq_xqT2">
+        <ul>
+            <li class="jq_spxq_xqBt1 on"><code rel="spxq_xqBt1">商家位置</code><em></em></li>
+            <li class="jq_spxq_xqBt2"><code rel="spxq_xqBt2">商家介绍</code><em></em></li>
+            <li class="jq_spxq_xqBt3"><code rel="spxq_xqBt3">本店特色菜</code><em></em></li>
+            <li class="jq_spxq_xqBt4"><code rel="spxq_xqBt4">店铺环境</code><em></em></li>
+            <li class="jq_spxq_xqBt5"><code rel="spxq_xqBt5">设施服务</code><em></em></li>
+            <li class="jq_spxq_xqBt6"><code rel="spxq_xqBt6">用户评价</code><em></em></li>
+        </ul>
+    </div>
+    <script>
+        $(document).ready(function () {
+            var href = window.location.href;
+            var param = href.split('#');
+            if (param[1] != undefined && param[1] !=null && param[1] != "") {
+                var _targetTop2 = $('#' + param[1]).offset().top-50;//获取位置
+                jQuery("html,body").stop(true).animate({scrollTop: _targetTop2}, 300);//跳转
+            }
+            $(".spxq_xqT2 ul li").click(function () {
+                $(".spxq_xqT2 ul li").removeClass("on");
+                $(this).addClass("on");
+                var _targetTop = $('.' + $(this).find('code').attr('rel')).offset().top - 50;//获取位置
+                jQuery("html,body").stop(true).animate({scrollTop: _targetTop}, 300, function(){
+                    
+                });//跳转
+            });
+            $(window).scroll(function () {
+                $('.spxq_xqT2 ul li').each(function(i){       
+                    if($("."+$(this).find('code').attr("rel")).offset().top - $(window).scrollTop() < 50){
+                        $(this).addClass('on').siblings().removeClass('on');
+                    }
+                });
+            });            
+        });
+    </script>
+
+    <div class="spxq_loca"><a href="<{:U('index/index')}>" target="_blank">首页</a> > <a href="<{:U('booking/index')}>" target="_blank">预订</a> ><{$detail.shop_name}></div>
+	<!--简介-->
+    <div class="hotel_detl_box mb20">
+    	<div class="hotel_detl_infor_top">
+        	<h1 class="left"><{$detail.shop_name}></h1>
+            <div class="FocAndShare2 right share bdsharebuttonbox" data-tag="share_1">
+                <ul>
+                    <li class="list"><a mini='act' href="<{:U('shop/favorites',array('shop_id'=>$detail['shop_id']))}>">
+                        <em class="ico ico_2"></em>收藏商家</a>
+                    </li>
+                    <li class="list"><a data-cmd="more" href="javascript:void(0);">
+                        <em class="ico ico_3"></em>分享</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <script>window._bd_share_config = {share: [{"tag": "share_1", 'bdCustomStyle': '__TMPL__statics/empty.css'}]};
+                with (document)
+                    0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+            </script>
+        <div class="hotel_detl_infor seat_detl_infor">
+            <div class="img_box left" style="overflow: hidden; height: 300px;">
+                <!-- 轮播图片 Begin -->
+                <div class="pikachoose">
+                    <ul id="pikame" class="jcarousel-skin-pika">
+                        <foreach name="photos" item="item">
+                            <li><a href="javascript:void(0);" target="_blank"><img src="<{:config_img($item['photo'])}>"/></a></li>
+                        </foreach>
+                    </ul>
+                </div>
+                <script language="javascript">
+                    $(document).ready(function (){
+                        $("#pikame").PikaChoose({carousel:true, carouselVertical:true});
+                    });
+                </script>
+                <!-- 轮播图片 End -->
+            </div>
+            <div class="pub_wz">
+                <p class="addr"><span class="graycl">饭店地址：</span><{$detail['addr']}><a href="javascript:void(0);" class="see map_icon"><em class="ico"></em>查看地图</a></p>
+                <div class="state_box">
+                	<ul>
+                    	<li>人均：<b class="pointcl"><{$detail[price]}></b>元</li>
+                        <li class="mar">|</li>
+                        <li class="wd blackcl6"><{$detail.comments}>人已评价</li>
+                        <li class="mar">|</li>
+                        <php>$sc = round($detail['score']/$detail['comments'],1);$scs = $sc*20;</php>
+                    	<li class=""><span class="spxq_qgpstarBg mr10"><span class="spxq_qgpstar" style="width:<{$scs}>%;"></span></span><span class="fontcl1"><{$sc}></span>分</li>
+                    </ul>
+                </div>
+                <div class="state_box mb10">
+                	<ul>
+                    	<li class="mr10">口味：<span class="blackcl6 mr10"><{$detail['kw_score']}></span></li>
+                        
+                        <li class="wd mr10">环境：<span class="blackcl6 mr10"><{$detail['hj_score']}></span></li>
+                        
+                    	<li class="mr10">服务：<span class="blackcl6 mr10"><{$detail['fw_score']}></span></li>
+                    </ul>
+                </div>
+                <p class="mb10"><span class="graycl">电话：</span><{$detail.tel}></p>
+                <p class="graycl mb20">特色：<span class="bq">订</span><if condition="$coupon_list"><span class="bq bq2">券</span></if></p>
+                <p class="mb20"><span class="graycl">营业时间：</span><{$detail.stime}>-<{$detail.ltime}></p>
+            </div>
+            <div class="clear"></div>
+        </div>
+	</div>
+    <!--简介结束-->
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7b92b3afff29988b6d4dbf9a00698ed8"></script>
+    <div class="map_fixed">
+        <div class="map_fixed_tit">
+                <span>查看地图</span>
+         <a href="javascript:;" title="关闭" class="close">×</a> 
+        </div>
+        <div class="map_fixed_box">
+                <div id="allmap2" style="width:700px; height:430px;"></div>
+        </div>
+        <p class="zhu">注：地图位置坐标仅供参考，具体情况以实际道路标识信息为准</p>
+    </div>
+    <script>
+        jQuery(document).ready(function($) {
+            $('.pub_wz .map_icon').click(function(){
+                $('.map_fixed').show();
+                   var map2 = new BMap.Map("allmap2");
+                    map2.centerAndZoom(new BMap.Point("<{$detail.lng}>", "<{$detail.lat}>"), 17);
+                    var point2 = new BMap.Point("<{$detail.lng}>", "<{$detail.lat}>");
+                    map2.centerAndZoom(point2, 17);
+                    var marker2 = new BMap.Marker(point2); // 创建标注
+                    map2.clearOverlays();
+                    map2.addOverlay(marker2); // 将标注添加到地图中
+                    marker2.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                    map2.addControl(new BMap.NavigationControl()); //添加默认缩放平移控件
+            })
+            $('.map_fixed .close').click(function(){
+                    $('.map_fixed').fadeOut(100);
+            })
+    })
+    </script>
+    <!--商家优惠-->
+    <if condition="$coupon_list">
+        <div class="seat_detl_youhui mb10">
+            <div class="title mb10">商家优惠</div>
+            <div>
+                <ul>
+                    <foreach name="coupon_list" item="item">
+                        <li class="list">
+                            <div class="pub_img left"><a target="_blank" href="<{:U('coupon/detail',array('coupon_id'=>$item['coupon_id']))}>"><img src="<{:config_img($item['photo'])}>" width="160" height="120" /><span class="tag">券</span></div>
+                            <div class="pub_wz">
+                                <p class="overflow_clear"><a target="_blank" href="<{:U('coupon/detail',array('coupon_id'=>$item['coupon_id']))}>"><{$item.title}></a></p>
+                                <p class="fontcl1">剩余：<{$item.num}><span class="right graycl num">已下载<{$item.downloads|default='0'}>次</span></p>
+                                <p>过期时间：<{$item.expire_date}></p>
+                            </div>
+                            <div class="clear"></div>
+                        </li>
+                    </foreach>
+                </ul>
+                <div class="clear"></div>
+            </div>
+        </div>
+    </if>
+    <!--<div class="seat_detl_ding mb20"><span class="left tag">订</span><p>本店支持在线订座，满480元送特调果汁初恋一杯，六月特惠，一定要手机买单</p></div>-->
+    <!--商家优惠end-->
+	<!--预约表单-->
+    <div class="hotel_detl_soso mb20" >
+    	<div class="hotel_soso seat_soso">
+                <script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+                <div class="int_box time left"><input class="long date left" id="ding_date" type="text" name="date" value="<{$ding_date}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd',minDate:'%y-%M-{%d}'});" placeholder="日期" /><em class="ico ico_2"></em></div>
+                <div class="short_box left">
+                    <select class="left" id="ding_time">
+                        <option>时间</option>
+                        <volist name='cfg' id='item'>
+                            <option value="<{$item}>" <if condition="$item eq $ding_time">selected="selected"</if> ><{$item}></option>
+                        </volist>
+                    </select>
+                    <select class="left" id="ding_num">
+                        <option>人数</option>
+                        <volist name='room' id='item'>
+                            <option value="<{$item}>" <if condition="$item eq $ding_num">selected="selected"</if> ><{$item}></option>
+                        </volist>
+                    </select>
+                </div>
+                <div class="room_box left" id="ding_type">
+                	<span rel="0" class="list <if condition='$ding_type eq 0'>on</if>">大厅<em class="ico"></em></span>
+                        <span rel="1" class="list <if condition='$ding_type eq 1'>on</if>">包厢<em class="ico"></em></span>
+                </div>
+                <input type="button" value="立即预约" class="btn right"  />
+                <div class="clear"></div>
+        </div>
+    </div>
+    <!--预约表单end-->
+    <div class="spxq_xqT">
+        <ul>
+            <li class="on"><code rel="spxq_xqBt1">商家位置</code><em></em></li>
+            <li><code rel="spxq_xqBt2">商家介绍</code><em></em></li>
+            <li><code rel="spxq_xqBt3">本店特色菜</code><em></em></li>
+            <li><code rel="spxq_xqBt4">店铺环境</code><em></em></li>
+            <li><code rel="spxq_xqBt6">设施服务</code><em></em></li>
+            <li><code rel="spxq_xqBt5">用户评价</code><em></em></li>
+            
+        </ul>
+    </div>
+    <!--地图-->
+    <div class="hotel_detl_box mb20 spxq_xqBt1">
+        <div class="hotel_detl_tit">商家位置</div>
+        <div class="hotel_detl_nr">
+            <div class="hotel_map">
+                <div class="map_box left" id="allmap" style="width:1160px; height:430px;"></div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            // 百度地图API功能
+            var map = new BMap.Map("allmap");
+            map.centerAndZoom(new BMap.Point("<{$detail.lng}>", "<{$detail.lat}>"), 15);
+            var point = new BMap.Point("<{$detail.lng}>", "<{$detail.lat}>");
+            map.centerAndZoom(point, 15);
+            var marker = new BMap.Marker(point); // 创建标注
+            map.clearOverlays();
+            map.addOverlay(marker); // 将标注添加到地图中
+            marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+            map.addControl(new BMap.NavigationControl()); //添加默认缩放平移控件
+        </script>
+    </div>
+    <!--地图结束-->
+    <div class="hotel_detl_box mb20 spxq_xqBt2">
+        <div class="hotel_detl_tit">商家介绍</div>
+        <div class="hotel_detl_nr"><{$detail.details}></div>
+    </div>
+    
+    <div class="hotel_detl_box mb20 spxq_xqBt3">
+        <div class="hotel_detl_tit">本店特色菜</div>
+        <div class="hotel_detl_nr">
+        	<div class="seat-tstj">
+                    <foreach name="menucates" item="item">
+                        <a href="javascript:void(0);"><{$item.cate_name}><span></span></a>
+                    </foreach>
+                    </div>
+            <div class="seat-tj-more"><a href="<{:U('booking/menu',array('shop_id'=>$detail['shop_id']))}>">更多</a></div>
+            <div class="seat-sjtj-img">
+                <ul>
+                    <foreach name="menu_list" item="item">
+                        <li>
+                            <div class="seat-sjtj-img-li">
+                                <a href="javascript:void(0);"><div class="img"><img src="<{:config_img($item['photo'])}>" width="91" height="67"  />
+                                    <div class="price">￥<{:round($item['ding_price']/100,1)}></div>
+                                </div>
+                                <p class="rap"><{$item.menu_name}></p></a>
+                            </div>
+                        </li>
+                    </foreach>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="hotel_detl_box mb20 spxq_xqBt4">
+        <div class="hotel_detl_tit">店铺环境</div>
+        <div class="hotel_detl_nr"></div>
+    </div>
+    <div class="hotel_detl_box mb20 spxq_xqBt5">
+        <div class="hotel_detl_tit">设施服务</div>
+        <div class="hotel_detl_nr">
+        	<div class="hotel_serve">
+            	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <th width="76">网络设施</th>
+                        <td>
+                        	<div class="list_box">
+                                <ul>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco1.png" />
+                                        <p>免费wifi</p>
+                                    </li>
+                                </ul>
+                                <div class="clear"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="76">停车场</th>
+                        <td>
+                        	<div class="list_box">
+                                <ul>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco2.png" />
+                                        <p>提供<span class="fontcl1">收费</span>停车位</p>
+                                    </li>
+                                </ul>
+                                <div class="clear"></div>
+                            </div>
+                        </td>
+                    </tr>
+                   
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="hotel_detl_box mb20 spxq_xqBt6">
+        <div class="hotel_detl_tit">用户评价<a href="<{:U('members/booking/index')}>" class="right hotel_evlt">我也要评价<em class="ico"></em></a></div>
+        <div class="hotel_detl_nr">
+        	<div class="sjxq_tab">
+                <ul>
+                    <li class="sjxq_tabLi <if condition='!$have_photo'>on</if>"><a href="<{:U('booking/detail',array('shop_id'=>$detail['shop_id']))}>">全部</a></li>
+                    <li class="sjxq_tabLi <eq name='have_photo' value='1'>on</eq> "><a href="<{:U('booking/detail',array('shop_id'=>$detail['shop_id'],'have_photo'=>1))}>">晒图评价</a></li>
+                </ul>
+            </div>
+            <div class="spxq_pjListBox">
+                <ul>
+                    <volist name="list" id="var">
+                        <li class="spxq_pjList">
+                            <div class="left spxq_pjList_l">
+                                <div class="spxq_pjTx"><img src="<{:config_img($users[$var['user_id']]['face'])}>" width="75" height="75" /></div>
+                                <p class="spxq_pjYh"><{$users[$var['user_id']]['nickname']}></p>
+                            </div>
+                            <div class="left spxq_pjList_r sjxq_pjList_r">
+                                <div><span class="spxq_qgpstarBg"><span class="spxq_qgpstar spxq_qgpstar<{:round($var['score']*10,1)}>">&nbsp;</span></span><span class="spxq_pjTime"></span>
+                                <!--<{$var.create_time|date='Y-m-d H:i',###}>-->
+                                </div>
+                                <p class="spxq_pjP"><{$var.contents}></p>
+                                <if condition="!empty($var['reply'])"><p class="spxq_pjP"><{$var.reply}></p></if>
+                                <ul class="spxq_pjUl">
+                                    <foreach name="pics" item="pic">
+                                        <if condition="$pic['order_id'] eq $var['order_id']">
+                                            <li class="spxq_pjLi"><a href="javascript:void(0);" rel="<{:config_img($pic['pic'])}>" ><img src="<{:config_img($pic['pic'])}>" width="100" height="100" /></a></li>
+                                        </if>
+                                    </foreach>
+                                </ul>
+                            </div>
+                        </li>
+                    </volist>
+                </ul>
+                <div class="x"><{$page}></div>
+            </div>
+        </div>
+    </div>
+   
+<!--主体内容结束-->
+<!--立即预约弹出层-->
+<div class="seat_yuyue_mask">
+	<div class="cont">
+    	<div class="top">立即预约<a href="javascript:void(0);" class="close right">x</a></div>
+        <div class="title"><{$detail.shop_name}><if condition="$deposit gt 0">(需支付定金<{$deposit}>元)</if>&nbsp;&nbsp;&nbsp;&nbsp; <{$detail.orders}><small class="graycl">人已定！</small></div>
+        <div class="btn_box">
+            <a target="_blank" href="<{:U('booking/menu',array('shop_id'=>$detail['shop_id']))}>" class="btn left" >在线点菜</a>
+            <input type="button" id="order_btn" class="btn btn2 right" value="直接下单" />
+        </div>
+        <div class="shuru">
+            <input type="text" id="note" placeholder="备注：如您的口味需求，请填写，店小二会尽量安排" />
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function() {
+        $(".room_box .list").click(function(){
+            $(".room_box .list").removeClass('on');
+            $(this).addClass('on');
+        })
+        
+        $(".seat_soso .btn").click(function(){
+            $(".seat_yuyue_mask").show();
+        });
+        $(".seat_yuyue_mask .close").click(function(){
+            $(".seat_yuyue_mask").hide();
+        });
+        $("#order_btn").click(function(){
+            var note = $("#note").val();
+            var ding_date = $("#ding_date").val();
+            var ding_time = $("#ding_time option:selected").val();
+            var ding_num = $("#ding_num option:selected").val();
+            var ding_type = $("#ding_type .list.on").attr('rel');
+            SetCookie('note',note);
+            SetCookie('ding_date',ding_date);
+            SetCookie('ding_time',ding_time);
+            SetCookie('ding_num',ding_num);
+            SetCookie('ding_type',ding_type);
+            setTimeout(function () {
+               window.location.href = "<{:U('booking/order',array('shop_id'=>$detail['shop_id']))}>";    
+            }, 1000);
+        })
+        
+        function SetCookie(name, value)
+        {
+                var Days = 30; //此 cookie 将被保存 30天
+                var exp = new Date();    //new Date("December 31, 9998");
+                exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+                document.cookie = name + "=" + value + ";expires=" + exp.toGMTString() +";path=/";
+            }
+    });
+</script>
+<!--立即预约弹出层end-->
+<div class="mask_bg mask_spxq_pjLi_img_mask">
+	<div class="mask_spxq_pjLi_img"><img src="" width="300" height="300" /></div>
+</div>
+<include file="public:footer"/>

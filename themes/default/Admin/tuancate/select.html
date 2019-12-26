@@ -1,0 +1,51 @@
+<include  file='public:header'/>
+<div class="main-jsgl main-sc">
+    <div class="jsglNr">
+
+        <div class="selectNr">
+
+            <div class="right">
+                <form method="post" action="<{:U(',tuancate/select',array('id'=>$id,'show'=>$show))}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <span>  活动类型名称：</span>   <input type="text" name="cate_name" value="<{$cate_name|default=''}>" class="inptText" /><input type="submit" class="inptButton" value="搜索" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <form method="post" action="" target="baocms_frm">
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td>活动类型ID</td>
+                    <td>活动类型名称</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input type="radio" name="cate_id"   rel="<{$var.cate_name}>" value="<{$var.cate_id}>" /><{$var.cate_id}></td>
+                        <td><{$var.cate_name}></td>
+                    </tr>
+                </foreach>
+                <tr>
+                    <td colspan="20" align="center">
+
+                        <div class="smtQr"><input  id="select_btn" type="button" value="确定选择" class="smtQrIpt" /></div>
+                    </td>
+                </tr>
+            </table>
+            <{$page}>
+        </form>
+    </div>
+</div>
+</div>
+<script>
+    $(document).ready(function (e) {
+        $("#select_btn").click(function () {
+            $("input[name='cate_id']").each(function (a) {
+                if ($(this).prop("checked") == true) {
+                    parent.selectCallBack('cate_id', 'cate_name', $(this).val(), $(this).attr('rel'));
+                }
+            });
+        });
+
+    });
+</script>
+<include  file='public:footer'/>      

@@ -1,0 +1,148 @@
+<php>$mobile_title = $detail['shop_name'].'订座首页';</php>
+<include file='public:header'/>    
+<script src="/static/default/wap/other/roll.js"></script>
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('booking/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<{$detail.shop_name}>
+		</div>
+		<div class="top-signed">
+		</div>
+	</header> 
+	 
+
+    <div class="tuan-detail">
+    <div class="line banner">	
+        <div id="focus" class="focus">
+            <div class="hd"><ul></ul></div>
+            <div class="bd">
+                <ul>
+                    <foreach name="photos" item="item">
+                    <li><a><img src="<{:config_img($item['photo'])}>" /></a></li>
+                    </foreach>
+                </ul>
+            </div>
+
+        </div>
+    		<div class="title">
+				<h1><{:bao_Msubstr($detail['shop_name'],0,48,false)}>  </h1>
+				<p><{:bao_Msubstr($detail['addr'],0,88,false)}></p>
+			</div>
+		</div>
+</div>            
+  
+
+	<script type="text/javascript">
+		TouchSlide({ 
+			slideCell:"#focus",
+			titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+			mainCell:".bd ul", 
+			effect:"left", 
+			autoPlay:true,//自动播放
+			autoPage:true, //自动分页
+			switchLoad:"_src" //切换加载，真实图片路径为"_src" 
+		});
+	</script>
+
+
+	<!--小区广告结束-->
+
+	<div class="tuan-detail">
+        <div class="line info">
+			<div class="x12">
+                <span class="mr10">口味：<{$detail.kw_score}></span>
+                <span class="mr10">环境：<{$detail.hj_score}></span>
+                <span class="mr10">服务：<{$detail.fw_score}></span>
+                <a href="<{:U('booking/ding',array('shop_id'=>$detail['shop_id']))}>" class="button button-small bg-blue float-right">在线订座</a>
+			</div> 
+		</div>
+		<div class="blank-10 bg"></div>
+        
+        <div class="padding border-bottom">
+            <div class="line">
+                <span class="x2 text-gray">地址：</span>
+                <span class="x10"><{$detail.addr}></span>
+            </div>
+        </div>
+        <div class="padding border-bottom">
+            <div class="line">
+                <span class="x2 text-gray">导航：</span>
+                <span class="x10">
+                    <a href="<{:U('shop/gps',array('shop_id'=>$detail['shop_id']))}>">地图导航到这去</a>
+                    <i class="icon-angle-right text-gray float-right"></i>
+                </span>
+            </div>
+        </div>
+        <div class="padding border-bottom">
+            <div class="line">
+                <span class="x2 text-gray">点评：</span>
+                <span class="x10">
+                    <a href="<{:U('booking/dianping',array('shop_id'=>$detail['shop_id']))}>"><em class="text-dot margin-small-right"><{$detail.comments}></em>条用户点评
+                    <i class="icon-angle-right text-gray float-right"></i>
+                </span>
+            </div>
+        </div>
+        <div class="padding border-bottom">
+            <div class="line">
+                <span class="x2 text-gray">电话：</span>
+                <span class="x10">
+                    <a href="tel:<{$detail.tel}>"><{$detail.tel}></a>
+                </span>
+            </div>
+        </div>
+        <div class="padding border-bottom">
+            <div class="line">
+                <span class="x2 text-gray">营业：</span>
+                <span class="x10">
+                    <{$detail.stime}>-<{$detail.ltime}>营业，饮料区不接受预订
+                </span>
+            </div>
+        </div>
+        
+        <if condition="$coupon_list">
+        <div class="blank-10 bg"></div>
+            <div id="coupon-list" class="coupon-list">
+            	<foreach name="coupon_list" item="item">
+                    <a href="<{:U('coupon/detail',array('coupon_id'=>$item['coupon_id']))}>" class="item">	
+                        <div class="line">
+                            <div class="x5"><img class="pic" src="<{:config_img($item['photo'])}>" style="width:90%"></div>
+                            <div class="x7">
+                                <h3><{:bao_msubstr($item['title'],0,14,false)}></h3>
+                                <p class="intro"><{:bao_msubstr($item['intro'],0,28,false)}></p>
+                                <p class="info">
+                                    <span class="float-left">已下载：<em class="text-yellow"><{$item.downloads}></em> 次</span>	
+                                    <span class="float-right">剩余：<em class="text-yellow"><{$item.num}></em> 张</span>
+                                </p>
+                            </div>
+                        </div>
+                    </a>
+             </foreach>
+            </div>
+	    </if>
+		<if condition="$menus">
+            <div class="blank-10 bg"></div>
+            <div class="padding border-bottom">
+                <div class="line">
+                    <span class="x4 text-gray">本店特色菜</span>
+                    <span class="x8 text-right" >
+                        <a href="<{:U('booking/menu',array('shop_id'=>$detail['shop_id']))}>">更多特色菜&nbsp; </a>
+                        <i class="icon-angle-right text-gray float-right"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="line padding" id="divButtons" style="text-align: center">
+                <foreach name="menus" item="item">
+                    <input type="button" class="button button-small bg-yellow margin-top" value="<{$item.menu_name}>"> &nbsp;
+               </foreach>
+            </div>
+            </if>
+       </div> 
+        <footer class="footer-cart">
+            <div class="btn-long"><a href="<{:U('booking/ding',array('shop_id'=>$detail['shop_id']))}>">在线订座</a></div>
+        </footer>
+    
+<include file="public:footer_share"/>
+
+

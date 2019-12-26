@@ -1,0 +1,21 @@
+<foreach name='list' item='item'>
+<li>
+	<div class="line">
+		<div class="x3">
+			<a class="line" href="<{:U('jifen/detail',array('goods_id'=>$item['goods_id']))}>"><img src="<{:config_img($item['face_pic'])}>" /></a>
+		</div>
+		<div class="x9">
+			<h5><{:bao_Msubstr($item['title'],0,28,false)}></h5>
+			<p>
+				<span class="text-dot margin-right">积分：<{$item.integral}></span>
+				<del class="text-small text-gray">原价:&yen;<{$item.price}></del>
+			</p>
+			<p>
+				<span class="margin-right">数量：<{$item.num}></span>
+				<span>已兑：<{$item.exchange_num}></span>
+			</p>
+			<a class="button bg-dot"  href="<{:U('jifen/detail',array('goods_id'=>$item['goods_id']))}>">兑换</a>
+		</div>
+	</div>
+</li>
+</foreach>

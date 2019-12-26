@@ -1,0 +1,108 @@
+<include file="public:header"/>
+<div class="content_right">
+<div class="tgdd">
+      <div class="tgdd_t">
+          <ul>
+            <li class="on"><a href="<{:U('cloud/order')}>">拼吧订单</a></li>
+            <li><a href="<{:U('cloud/index')}>">我的拼吧</a></li>
+           </ul>
+        </div>
+      <div class="tgdd_t">
+        <script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+        <form action="<{:U('cloud/order')}>" method="post">
+            <div class="search_form"> 
+                <span class="search_form_wz">开始时间</span><input class="search_form_time" type="text" name="bg_date" value="<{$bg_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd'});"  />
+                <span class="search_form_wz">结束时间</span><input class="search_form_time" type="text" name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd'});" />
+                <span class="search_form_wz">支付方式</span>
+                <select name="st" class="search_form_zt">
+                    <option value="999">请选择</option>
+                    <option <eq name="st" value="0">selected="selected"</eq>  value="0">未付款</option>
+                    <option <eq name="st" value="1">selected="selected"</eq>  value="1">已付款</option>
+                </select>
+                <span class="search_form_wz">订单编号</span>
+                <input type="text" name="keyword" value="<{$keyword}>" class="search_form_ssk" /><input type="submit" class="search_form_ssan" value="搜索" />
+            </div>
+        </form>
+    </div>
+   <div class="tgdd_nr">
+     <table class="tuan_table3" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#F9F9F9;">
+            <td width="33%">基本信息</td>
+            <td width="10%">数量</td>
+            <td width="5%">类型</td>
+            <td width="17%">实付价格</td>
+            <th width="18%">订单状态</th>
+            <td width="15%">操作</td>
+     </table>
+  <div class="blank-10"></div>
+  <foreach name="list" item="var"> 
+  <table class="tuan_table1" width="100%" border="0"> 
+      <tbody>
+      <tr class="tr_left_2">
+        <td class="left10" colspan="4">云购编号：<span class="mallorder_jg"><{$var.log_id}></span></td>
+      </tr>
+      <tr>
+        <td class="td_left_1"> 
+            <table class="tuan_table2" width="100%" border="0">
+              <tbody>
+                  <tr class="tr_left_1">
+                    <td class="left1">
+                    <!--商品展示开始-->
+                    <div class="index__production___yfP3y">
+                    <a target="_blank" href="<{:U('home/cloud/detail',array('goods_id'=>$var['goods_id']))}>" class="index__pic___TScfk">
+                    <img src="<{:config_img($cloudgoods[$var['goods_id']]['photo'])}>"><span></span></a>
+                    <div class="index__infos___A6XLq">
+                        <p><a href="<{:U('home/cloud/detail',array('goods_id'=>$var['goods_id']))}>" target="_blank">
+                            <span>名称：<{$cloudgoods[$var['goods_id']]['title']}></span></a></span>
+                        </p>
+                        <p>下单时间：<{$var.create_time|date='Y-m-d H:i:s',###}></p>
+                        </div>
+                    </div>
+                    <!--商品展示END-->
+                    </td>
+                    <td class="left2"></td>
+                    <td class="left3"><{$var['num']}></td>
+                    <td class="left4">
+                        <eq name="var.type" value="1">1元区</eq>
+                        <eq name="var.type" value="2">5元区</eq>
+                        <eq name="var.type" value="3">10元区</eq>
+                    </td>
+                    <td class="left5"></td>
+                  </tr>
+                </tbody>
+            </table>    
+        </td>
+
+        <td class="left7" width="15%">
+          &yen;<{:round($var['money']/100,2)}>
+        </td>
+        <td class="left8" width="20%">
+            <if condition="$var['status'] eq 0">
+                未付款
+            <elseif condition="$var['status'] eq 1" />
+                已付款
+            <elseif condition="$var['status'] eq 2" />
+                已完成
+            <elseif condition="$var['status'] eq 3" />
+                已失败
+            </if>
+        </td>
+        <td class="left9" width="15%">
+            <if condition="$var['status'] eq 0">
+                <a class="myInfor_sx_fk"  href="<{:U('home/cloud/pay',array('log_id'=>$var['log_id']))}>">去付款</a>
+            </if>
+        </td>
+  </tr>
+</tbody>
+</table>
+<br> 
+</foreach>         
+            <div class="x">
+                <{$page}>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<include file="public:footer"/>

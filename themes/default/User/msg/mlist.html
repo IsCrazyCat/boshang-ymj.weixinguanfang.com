@@ -1,0 +1,77 @@
+<include file='public:header'/> 
+<body>
+    <header>
+        <a href="<{:U('/mcenter/index')}>"><i class="icon-goback"></i></a>
+        <div class="title">我的信息</div>
+        <i class="icon-menu" id="ico_6"></i>
+    </header>
+    <div class="publish_mask message_mask">
+                    <div class="cont">
+                        <textarea name="content" class="jq_content" placeholder="写点什么吧"></textarea>
+                        <input type="button" id="send_message" class="btn" value="提 交">
+                    </div>
+                </div>
+    <div class="content_right" id="scroll" style="margin-top: 0.5rem;">  
+        <div class="tgdd">
+            <div class="tgdd_nr">
+                <ul class="myMessage_details_list">
+                    <foreach name="list" item="item">
+                        <li class="list">
+                        <if condition="$item['send'] eq 1">
+                            <img src="__ROOT__/attachs/<{$froms[$item['from_id']]['face']}>" width="48" height="48" />
+                            <div class="author_box">
+
+                                <div class="nr">
+                                    <p class="author"><{$froms[$item['from_id']]['nickname']}></p>
+                                    <p><{$item.content}></p>
+                                    <p class="date"><{$item.create_time|date='Y-m-d H:i',###}></p>
+                                </div>
+                            </div>
+                            <else/>
+                            <div class="from_list">
+                                <ul>
+                                    <li>
+                                        <div class="left">
+                                            <p class="wz"><{$item.content}></p>
+                                            <p class="date"><{$item.create_time|date='Y-m-d H:i',###}></p>
+                                        </div>
+                                        <div class="right">
+                                            <img src="__ROOT__/attachs/<{$MEMBER['face']}>" width="48" height="48" />
+                                            <p>我</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </if>
+                        </li>
+                    </foreach>
+                </ul>
+                <script>
+                    $(document).ready(function () {
+                        $(".icon-menu").click(function () {
+                            $(".message_mask").toggle();
+                        });
+                        $("#send_message").click(function () {
+                            var url = "<{:U('msg/reply')}>";
+                            var uid = "<{$uid}>";
+                            var content = $(".jq_content").val();
+                            $.post(url, {uid: uid, content: content}, function (data) {
+                                if (data.status == 'success') {
+                                    layer.msg(data.msg);
+                                    setTimeout(function () {
+                                        window.location.reload(true);
+                                    }, 1000)
+                                } else {
+                                    layer.msg(data.msg);
+                                }
+                            }, 'json');
+
+                        })
+                    });
+                </script>
+
+            </div>
+        </div> 
+    </div>
+</div>
+<include file="public:footer"/>

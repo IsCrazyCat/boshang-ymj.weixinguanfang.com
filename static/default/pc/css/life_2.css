@@ -1,0 +1,177 @@
+/*************************************location选择附近套餐位置结束*********************************/
+
+
+.goods_flBox { border: 1px solid #dbdbdb; background-color: #fff; padding: 0px 15px; margin-bottom: 10px; }
+
+.goods_flList { padding: 10px 0px; overflow: hidden; height: auto; display: block; border-top: 1px dotted #dbdbdb; }
+
+.goods_flList .nr { height: 20px; overflow: hidden; }
+
+.goods_flList .nr #quotation { margin-left: 10px; width: 810px; }
+
+.goods_flList:nth-child(1) { border-top: none 0px; }
+
+.goods_flList_l { width: 50px; padding-right: 5px; font-size: 12px; color: #333; line-height: 20px; }
+
+.goods_flList_r { width: 903px; }
+
+.goods_flList .stycate { width: 1088px; height: 20px; line-height: 20px; margin-left: 45px; border: 1px dotted #fa6705; padding: 10px; margin-top: 6px; }
+
+.goods_flListA { display: inline-block; margin-right: 13px; margin-bottom: 4px; padding: 0px 4px; line-height: 20px; font-size: 12px; height: 20px; color: #666; }
+
+.goods_flListA:hover { color: #fff; background-color: #fa6705; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; }
+
+.goods_flListA.on { color: #fff; background-color: #fa6705; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; }
+
+.goods_flListLf { height: 23px; padding: 10px 0px; display: block; }
+
+.goods_flLi { display: block; float: left; position: relative; z-index: 0; }
+
+.goods_flLix { padding: 0px 8px; line-height: 22px; }
+
+.goods_flLiA { display: inline-block; border: 1px solid #fa6705; padding: 0px 5px; background-color: #fff; line-height: 20px; height: 20px; font-size: 12px; float: left; }
+
+.goods_flLiA.on { border-bottom: 1px solid #fff; position: relative; z-index: 2; color: #fa6705; }
+
+.goods_flLiA.on em { background-position: center bottom; }
+
+.goods_flLiA em { display: inline-block; width: 9px; height: 4px; background: url(../images/goods.png) no-repeat center top; vertical-align: middle; margin-left: 4px; }
+
+.goods_flLiFl { display: inline-block; width: 20px; height: 20px; border: 1px solid #fa6705; border-left: none 0px; text-align: center; color: #fa6705; font-size: 20px; line-height: 14px; cursor: pointer; float: left; }
+
+.goods_flLiLfk { position: absolute; z-index: 1; left: 0px; top: 21px; display: none; padding: 8px 0px; border: 1px solid #fa6705; background-color: #fff; width: 298px; line-height: 20px; font-size: 11px; color: #ccc; }
+
+.goods_flLiLfk a { display: inline-block; margin: 2px 10px; line-height: 20px; font-size: 12px; color: #666; }
+
+.goods_flLiLfk a:hover { color: #fa6705; }
+
+.goods_flLiLfk a.on { color: #fa6705; }
+
+#shopping .goods_flList_l { width: 60px; }
+
+#shopping .goods_flList_r { width: 883px; }
+
+/**********************/
+
+.liveList { background: #f1f1f1; width: 100%; float: left; margin-top: 10px; }
+
+.liveSearch { padding: 10px 20px; height: 64px;  background: #fff; border: 1px solid #dbdbdb; }
+
+.liveSearch-hot { padding-left: 20px; }
+
+.liveSearch span { float: right }
+
+.liveSearchLeft { width: 363px; height: 42px; line-height: 42px; border: 1px solid #fa6705; background-color: #fff; }
+
+.liveInput { width: 270px; float: left; padding: 0px 10px; border: none; height: 36px; line-height: 36px; border: none; margin: 2px; }
+
+.liveBtn { width: 87px; float: left; border: none; height: 40px; background-color: #fa6705; line-height: 40px; color: #fff; font-size: 18px; cursor: pointer }
+
+.liveBox { width: 100%; float: left; }
+
+.liveLeft { width: 940px; float: left; background: #fff; margin-top: 5px; }
+
+.liveBar { float: right; width: 250px; margin-top: 5px; }
+
+.life_xq_nr { margin: 0; padding: 0; }
+
+#life .goods_flList_l { width: 60px; }
+
+#life .goods_flList_r { width: 1103px; }
+
+.fast_fabu { background: #fb9335 none repeat scroll 0 0; display: inline-block;  color: #fff; font-size: 18px; height: 36px; line-height: 36px; margin-top: 5px; padding: 0px 15px; }
+.fast_fabu:hover{color: #fff;}
+.liveTab { border-bottom: 1px solid #fa6705; height: 41px; line-height: 41px; }
+
+.liveTab li { color: #fa6705; width: 98px; float: left; line-height: ff0c00; text-align: center; cursor: pointer; font-size: 14px }
+
+.liveTab li.cur { background: #ff1e00; color: #fff }
+
+.liveBoxlist li { line-height: 22px; padding: 10px; height: 77px; border-bottom: 1px dotted #979797; }
+
+.liveBoxlist li img { width: 120px; float: left; margin-right: 15px; }
+
+.liveBoxlist h3 { font-weight: normal; line-height: 25px; font-size: 12px; height: 25px; overflow: hidden }
+
+.liveBoxlist h3 span { float: right; color: #777 }
+
+.liveBoxlist p.red { color: #f00 }
+
+.liveBoxlist h3 a { float: left }
+
+.liveBoxlist h3 code { display: inline-block; height: 16px; width: 36px; background: url(../images/index.gif) no-repeat -109px -98px; float: left; margin-top: 5px; margin-left: 3px; }
+
+.liveBoxlist h3 code.c2 { width: 30px; background-position: -145px -98px }
+
+.liveBoxlist h3 code.c3 { width: 14px; background-position: -175px -98px }
+
+.liveBoxlist h3 code.c4 { width: 28px; background-position: -189px -98px }
+
+.liveBar h3 { margin-top: 10px; border-bottom: 2px solid #bababa; background: #e5e5e5; height: 43px; font-size: 14px; padding: 0px 15px; line-height: 43px; color: #000 }
+
+.relItem { width: 210px; float: left; padding: 10px 20px; background: #fff }
+
+.relItem li { height: 32px; line-height: 32px; background: url(../images/d2.jpg) no-repeat 0px 12px; padding-left: 15px }
+
+/**********************/
+
+
+.index-list-box{list-style:none;padding:0;width:845px;border:thin solid #DDD;}
+
+.index-list-box li{padding:10px;overflow:hidden;border-bottom:thin dashed #DDD;}
+
+.index-list-box li:last-child{border:none!important;}
+
+.index-list-box li .pic{float:left;width:120px;height:120px;}
+
+.index-list-box li .pic img{float:left;width:120px;height:120px;}
+
+.index-list-box li .des{float:left;margin-left:10px;width:690px;}
+
+.index-list-box li .des h3{font-size:14px;font-weight:bold;}
+
+.index-list-box li .des .des-txt{color:#999;height:40px;line-height:20px;overflow:hidden;margin-top:5px;}
+
+
+
+.side-list-coupon{list-style:none;padding:0;}
+
+.side-list-coupon li{border-bottom:thin dashed #DDD;padding-bottom:10px;}
+
+.side-list-coupon img{width:64px;height:64px;}
+
+.side-list-coupon .media-body{height:60px;overflow:hidden;}
+
+
+
+.news-detail,.news-comment{border:thin solid #DDD;padding:10px;width:845px;}
+
+.news-detail h1{font-family:"Microsoft YaHei";margin-top:10px;}
+
+.news-detail .text-center{color:#999;border-bottom:thin solid #DDD;padding:10px 0;}
+
+.news-detail .text-center span{margin:0 10px;}
+
+.news-detail {font-size:14px;line-height:25px;}
+
+.news-detail img{max-width:100%;}
+
+
+
+
+
+.news-comment h2{font-size:20px;font-family:"Microsoft YaHei";}
+
+.news-comment img{width:40px;height:40px;border-radius:40px!important;}
+
+.news-comment  .txt-reply{width:100%;height:60px;}
+
+.news-comment .level-1 p{border-bottom:thin solid #EEE;}
+
+.news-comment .level-2 p{border-bottom:thin dashed #EEE;}
+
+.news-comment  p{padding-bottom:15px!important;overflow:hidden;color:#999;}
+
+.news-comment  p a{margin-left:15px;color:#999;}
+
+.news-comment  p i{margin-right:2px;}

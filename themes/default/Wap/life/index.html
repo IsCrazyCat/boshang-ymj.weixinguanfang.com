@@ -1,0 +1,177 @@
+<include file="public:header"/>
+<script src="/static/default/wap/other/roll.js"></script>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		生活信息
+	</div>
+	<div class="top-search" style="display:none;">
+		<form method="post" action="<{:U('life/search')}>">
+			<input name="keyword" placeholder="输入信息的关键字"  />
+			<button type="submit" class="icon-search"></button> 
+		</form>
+	</div>
+	<div class="top-signed">
+		<a id="search-btn" href="javascript:void(0);"><i class="icon-search"></i></a>
+	</div>
+</header>
+<div id="index-cate" class="index-cate">
+	<script>
+		$(function(){
+			$("#search-btn").click(function(){
+				if($(".top-search").css("display")=='block'){
+					$(".top-search").hide();
+					$(".top-title").show(200);
+				}
+				else{
+					$(".top-search").show();
+					$(".top-title").hide(200);
+				}
+			});
+			$("#index-cate .cate-more").click(function(){
+				$(this).parent().children().find(".more-content").toggle();
+				if($(this).hasClass("active")){
+					$(this).removeClass("active");
+					$(this).children().find("span").html("展开更多");
+				}
+				else{
+					$(this).addClass("active");
+					$(this).children().find("span").html("点击收起");
+				}
+			});
+		});
+	</script>
+    
+    
+    <div id="focus" class="focus">
+			<div class="hd"><ul></ul></div>
+			<!--下面的limit="0,2"是幻灯的个数，2代表2张图，以此类推，site_id=57是你广告位的ID-->
+			<div class="bd">
+				<ul>
+					<calldata mdl="Ad" where=" closed=0 AND site_id=70 AND city_id IN ({$city_ids}) and bg_date ELT '{$today}' AND end_date EGT '{$today}' " limit="0,3" cache="7200" order="orderby asc">
+						<li>
+							<a href="<{:U('app/ad/click',array('ad_id'=>$item['ad_id'],'aready'=>2))}>"><img src="<{:config_img($item['photo'])}>" /></a>
+						</li>
+					</calldata>
+				</ul>
+			</div>
+		</div>
+		<script type="text/javascript">
+			TouchSlide({
+				slideCell: "#focus",
+				titCell: ".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+				mainCell: ".bd ul",
+				effect: "left",
+				autoPlay: true, //自动播放
+				autoPage: true, //自动分页
+				switchLoad: "_src", //切换加载，真实图片路径为"_src", 
+			});
+		</script>
+
+    <ul class="cate-wrap bbOnepx">
+        <li>
+            <a class="icon2" href="<{:U('life/channel',array('channel'=>3))}>" tongji_tag="m_home_job_new">
+                <span class="cate-img" id="job"><img src="/static/default/wap/image/life/life_cate_1.png" /></span>
+                <span class="cate-desc">招聘</span>
+            </a>
+        </li>
+        <li>
+            <a class="icon2" href="<{:U('life/channel',array('channel'=>2))}>" tongji_tag="m_home_house_new">
+                <span class="cate-img" id="house"><img src="/static/default/wap/image/life/life_cate_2.png" /></span>
+                <span class="cate-desc">房产</span>
+            </a>
+        </li>
+        <li>
+            <a class="icon2" href="<{:U('life/channel',array('channel'=>1))}>" tongji_tag="m_home_car_new">
+                <span class="cate-img" id="car"><img src="/static/default/wap/image/life/life_cate_3.png" /></span>
+                <span class="cate-desc">二手车</span>
+            </a>
+        </li>
+        <li>
+            <a class="icon2" href="<{:U('life/channel',array('channel'=>1))}>" tongji_tag="m_home_sale_new">
+                <span class="cate-img" id="sale"><img src="/static/default/wap/image/life/life_cate_4.png" /></span>
+                <span class="cate-desc">二手</span>
+            </a>
+        </li>
+        <li>
+            <a class="icon2" href="<{:U('life/channel',array('channel'=>6))}>" tongji_tag="m_home_jianzhi_new">
+                <span class="cate-img" id="jianzhi"><img src="/static/default/wap/image/life/life_cate_5.png" /></span>
+                <span class="cate-desc">兼职</span>
+            </a>
+        </li>
+        <li>
+            <a class="icon2" href="<{:U('life/channel',array('channel'=>10))}>" tongji_tag="m_home_pets_new">
+                <span class="cate-img" id="pets"><img src="/static/default/wap/image/life/life_cate_6.png" /></span>
+                <span class="cate-desc">宠物</span>
+            </a>
+        </li>
+        <li>
+            <a class="icon2" href="<{:U('life/channel',array('channel'=>9))}>" tongji_tag="m_home_shenghuo_new">
+                <span class="cate-img" id="jiazheng"><img src="/static/default/wap/image/life/life_cate_7.png" /></span>
+                <span class="cate-desc">家政</span>
+            </a>
+        </li>
+        <li>
+            <a class="icon2" href="<{:U('life/channel',array('channel'=>8))}>" tongji_tag="m_home_bendishenghuo_new">
+                <span class="cate-img" id="shenghuo"><img src="/static/default/wap/image/life/life_cate_8.png" /></span>
+                <span class="cate-desc">本地</span>
+            </a>
+        </li>
+    </ul>
+    <div class="blank-10 bg"></div>
+    
+	<div class="tie-ding">
+		<ul>
+		<calldata mdl="Life" where="closed=0 AND audit=1 AND  city_id=$city_id"  order="create_time desc" limit="0,5" cache="600">
+			<li><em class="tag bg-dot">推荐</em><a href="<{:U('life/detail',array('life_id'=>$item['life_id']))}>"><{:bao_msubstr($item['title'],0,20,false)}></a><span class="icon-angle-right"></span></li>
+		</calldata>	
+		</ul>
+	</div>
+    
+    <div class="blank-10 bg"></div>
+	<php>$ii = 0;</php>
+	<volist name="list" id="arr">
+	<php>$ii++;</php>
+	<ul>
+		<li class="cate-name">
+			<a href="<{:U('life/channel',array('channel'=>$key))}>">
+				<img src="/static/default/wap/image/life/cate-<{$ii}>.png" />
+				<span><{$arr['channel']}></span>
+				<span class="float-right text-gray"><i class="icon-angle-right"></i></span>
+			</a>
+		</li>
+		<li class="cate-list">
+			<php>$on=false;$num=count($arr['cate']);</php>
+			<volist name="arr['cate']" id="cate">
+				<if condition="$key lt 12">
+				<a href="<{:U('life/lists',array('cat'=>$cate['cate_id']))}>"><{$cate.cate_name}></a>
+				<else/>
+					<if condition="!$on">
+						<span class="more-content" style="display:none;">
+						<php>$on=true;</php>
+					</if>
+					<a href="<{:U('life/lists',array('cat'=>$cate['cate_id']))}>"><{$cate.cate_name}></a>
+					<if condition="count($arr['cate']) eq $key+1">
+						</span>
+					</if>
+				</if>
+			</volist>
+		</li>
+		<if condition="($key gt 12) AND ($num gt 12)">
+		<li class="cate-more"><a href="javascript:;"><span>展开更多</span><i class="down icon-angle-down"></i><i class="up icon-angle-up"></i></a></li>
+		</if>
+		<li class="blank-10 bg"></li>
+	</ul>
+	</volist>
+</div>
+
+<div class="mall-cart">
+		<a href="<{:u('wap/life/release')}>">
+		<div class="round radius-circle"><div class="badge-corner"><i class="icon-pencil-square-o"></i></div></div>
+		</a>
+	</div>
+    
+    
+<include file="public:footer"/>

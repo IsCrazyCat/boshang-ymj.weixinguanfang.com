@@ -1,0 +1,321 @@
+<include file="public:header"/>
+<link rel="stylesheet" href="/static/default/wap/css/index.css"/>	
+<style>
+.list-media-x li {
+    border-bottom: none;
+    border-top: thin solid #eee;
+}
+</style>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			订阅设置
+		</div>
+	<div class="top-signed">
+		<a href="<{:u('wap/message/index')}>"><i class="icon-envelope"></i></a>
+	</div>
+</header>
+
+<div class="form-x form-auto">      
+        <form method="post"  action="<{:U('shopdingyue/set')}>" >
+            <div class="password_nr">               
+               <div class="line margin-top">
+                    <div class="x2 label text-center">
+                    <label>地区：</label>
+                    </div>
+                    <div class="x10 field form-inline">
+                        <select id="city_id" name="city_id"  class="input margin-small-right input-auto">
+                            <option value="0">请选择...</option>
+                        </select>
+                        <select id="area_id" name="area_id" class="input  margin-small-right input-auto">
+                            <option value="0">请选择...</option>
+                        </select>
+                        <select id="business_id" name="business_id" class="input input-auto">
+                            <option value="0">请选择...</option>
+                        </select>
+                    </div>                    
+                <script src="<{:U('app/datas/cab',array('name'=>'cityareas'))}>"></script>
+                <script>
+                    var city_id = "<{$city_id}>";
+                    var area_id = 0;
+                    var business_id = 0;
+                    $(document).ready(function () {
+                        var city_str = ' <option value="0">请选择...</option>';
+                        for (a in cityareas.city) {
+                            if (city_id == cityareas.city[a].city_id) {
+                                city_str += '<option selected="selected" value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+                            } else {
+                                city_str += '<option value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+                            }
+                        }
+                        $("#city_id").html(city_str);
+
+                        $("#city_id").change(function () {
+                            if ($("#city_id").val() > 0) {
+                                city_id = $("#city_id").val();
+                                var area_str = ' <option value="0">请选择...</option>';
+                                for (a in cityareas.area) {
+                                    if (cityareas.area[a].city_id == city_id) {
+                                        if (area_id == cityareas.area[a].area_id) {
+                                            area_str += '<option selected="selected" value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                        } else {
+                                            area_str += '<option value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                        }
+                                    }
+                                }
+                                $("#area_id").html(area_str);
+                                $("#business_id").html('<option value="0">请选择...</option>');
+                            } else {
+                                $("#area_id").html('<option value="0">请选择...</option>');
+                                $("#business_id").html('<option value="0">请选择...</option>');
+                            }
+
+                        });
+
+                        if (city_id > 0) {
+                            var area_str = ' <option value="0">请选择...</option>';
+                            for (a in cityareas.area) {
+                                if (cityareas.area[a].city_id == city_id) {
+                                    if (area_id == cityareas.area[a].area_id) {
+                                        area_str += '<option selected="selected" value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                    } else {
+                                        area_str += '<option value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                    }
+                                }
+                            }
+                            $("#area_id").html(area_str);
+                        }
+
+
+                        $("#area_id").change(function () {
+                            if ($("#area_id").val() > 0) {
+                                area_id = $("#area_id").val();
+                                var business_str = ' <option value="0">请选择...</option>';
+                                for (a in cityareas.business) {
+                                    if (cityareas.business[a].area_id == area_id) {
+                                        if (business_id == cityareas.business[a].business_id) {
+                                            business_str += '<option selected="selected" value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                        } else {
+                                            business_str += '<option value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                        }
+                                    }
+                                }
+                                $("#business_id").html(business_str);
+                            } else {
+                                $("#business_id").html('<option value="0">请选择...</option>');
+                            }
+
+                        });
+
+                        if (area_id > 0) {
+                            var business_str = ' <option value="0">请选择...</option>';
+                            for (a in cityareas.business) {
+                                if (cityareas.business[a].area_id == area_id) {
+                                    if (business_id == cityareas.business[a].business_id) {
+                                        business_str += '<option selected="selected" value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                    } else {
+                                        business_str += '<option value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                    }
+                                }
+                            }
+                            $("#business_id").html(business_str);
+                        }
+                        $("#business_id").change(function () {
+                            business_id = $(this).val();
+                        });
+                    });
+                </script> 
+                  &nbsp; <div>
+                        <div class="x2 label text-center">
+                            <label>分类：</label>
+                        </div>
+                        <div class="x10 field form-inline">
+                            <select id="channel_id" name="channel_id" class="input margin-small-right input-auto">
+                                <option value="0">请选择...</option>               
+                                <foreach name="channelmeans" item="var">
+                                    <option value="<{$key}>"><{$var}></option> 
+                                </foreach>                                        
+                            </select> 
+
+                            <select name="cate_id"  id="cate_id"  class="input margin-small-right input-auto">
+                                <option value="0">请选择...</option>          
+                            </select>
+                             <select name="attr_id"  id="attr_id"  class="input margin-small-right input-auto">
+                                <option value="0">请选择...</option>          
+                            </select>
+                        </div> 
+                    </div>  
+                     &nbsp;
+                    <div>                  
+                        <div class="x2 label text-center">
+                            <label>短信提醒：</label>
+                        </div>
+                        <div class="x10 field form-inline">
+                            <select id="sms" name="sms" class="input margin-small-right input-auto">
+                                <option value="1" selected="selected">通知</option>
+                                <option value="-1">不通知</option>
+                            </select>
+                        </div>
+                    </div>
+                <script type="text/javascript">
+
+                $("#channel_id").change(function(){
+                        var value = $(this).val();  
+                        url: '<{:U("info/sendsms")}>', 
+                        $.ajax({
+                            type:"POST",
+                            dataType:"JSON",
+                            url:'<{:U("Shopdingyue/catajax")}>',
+                            data:{"channel_id":value
+
+                                 },           
+                            success:function(data){
+                                $("#cate_id").empty();
+                                var count = data.length;
+                                var i = 0;
+                                var b="";
+                                    b=" <option value='0'>请选择...</option>"
+                                   for(i=0;i<count;i++){
+                                       b+="<option value='"+data[i].cate_id+"'>"+data[i].cate_name+"</option>";
+                                   }
+                                $("#cate_id").append(b);
+                            }
+                        });
+                   });
+                $("#cate_id").change(function(){
+                    var value = $(this).val();  
+                    $.ajax({
+                        type:"POST",
+                        dataType:"JSON",
+                        url:'<{:U("Shopdingyue/attrajax")}>',
+                        data:{"cate_id":value
+                             },           
+                        success:function(data){
+                            $("#attr_id").empty();
+                            var count = data.length;
+                            var i = 0;
+                            var b="";
+                                b=" <option value='0'>请选择...</option>"
+                               for(i=0;i<count;i++){
+                                   b+="<option value='"+data[i].attr_id+"'>"+data[i].attr_name+"</option>";
+                               }
+                            $("#attr_id").append(b);
+                        }
+                    });
+               });
+
+                </script>
+        &nbsp;  <div>
+                    <div class="line margin-top">
+                        <div class="x10 float-right">
+                        <input class="button addr_post" type="submit" value="订阅" />
+                        </div>
+                    </div>          
+                </div>   
+                </div>&nbsp;  
+            </div>
+        </form>       
+    </div>
+<div class="tab-body">
+	<div class="tab-panel active" id="tab-shop">
+		<table border="0" cellspacing="0" width="100%"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; text-align:center;">
+        <tr class="tgdd_nrt">
+            <th width="8%">编号</th>
+            <th width="26%">地址</th>
+            <th width="26%">分类</th>
+            <th width="13%">状态</th>
+            <th width="8%">短信</th>
+            <th width="8%">操作</th>
+        </tr>
+        <foreach name="list" item="list">                
+            <tr class="tgdd_nrC">
+                <td class="tgdd_tdtw"><div class="tgdd_tw">
+                       <{$list.dingyue_id}></td>               
+                <td class="tgdd_nrCtd" id="price-color">
+                <foreach name="list['sitelist']" item="s">   
+                    <{$s}>&nbsp;
+                </foreach>
+                </td>
+                <td class="tgdd_nrCtd" id="price-color">
+                     <foreach name="list['catlist']" item="c">  
+                     <{$c}>&nbsp;
+                     </foreach>
+                </td>
+                <if condition="$list.audit eq 1"> 
+                <td>通过</td>
+                <elseif condition="$list.audit eq 0"/>
+                <td>审核中</td>
+                <elseif condition="$list.audit eq -1"/>
+                <td>审核失败</td>
+                <else /> 
+                <td>未审核</td>
+                </if>
+                
+                <if condition="$list.sms eq 1"> 
+                <td> 
+                <div style="cursor: pointer;" id="sms_open<{$list.dingyue_id}>">开</div>
+                </td>
+                <elseif condition="$list.sms eq -1"/>
+                <td><div style="cursor: pointer;" id="sms_open<{$list.dingyue_id}>">关</div></td>
+                <else /> 
+                <td>未设置</td>
+                </if>
+                 <script type="text/javascript">
+                    $("#sms_open<{$list.dingyue_id}>").click(function(){
+                            var sms ="<{$list.sms}>";
+                            var id="<{$list.dingyue_id}>";
+                            var urla="<{:U('shopdingyue/sms_open')}>";
+                            $.ajax({
+                                type:"post",
+                                dataType:"json",
+                                url:urla,
+                                data:{"sms":sms,
+                                      "dingyue_id":id
+                                    },
+                                success:function(response){
+                                     if (response.status == 1) {
+                                        var sms=response.sms;
+                                        $("#sms_open<{$list.dingyue_id}>").html(sms);
+                                     }else{
+                                        alert('不能双击开关！请刷新页面');
+                                     }
+                                    
+                                }
+                        });
+                     });
+                </script>
+
+                <td class="tgdd_nrCtd"><a href="<{:U('shopdingyue/del',array('dingyue_id'=>$list['dingyue_id']))}>">删除</a></td>
+            </tr>
+        </foreach>
+    </table>
+  </div>
+<div class="x" style="padding-bottom:20px;"><{$page}></div>
+</div>
+ <div id="<{$hideb}>"></div>
+ <div id="<{$hidea}>"></div>
+ <div id="<{$hidet}>"></div>
+ <script>
+    $(document).ready(function(){ 
+        if($("#hidearea_id").length>0){
+            $("#city_id").show();
+            $("#business_id").hide();
+            $("#area_id").hide();
+        }else if($("#hidebusiness_id").length>0){
+            $("#city_id").show();
+            $("#area_id").show();
+            $("#business_id").hide();
+        }else{
+            $("#city_id").show();
+            $("#area_id").show();
+            $("#business_id").show();
+        }
+        //分类
+        if($("#hidetwocate_id").length>0){  
+            $("#cate_id").hide(); 
+        }
+    }) 
+    </script>	
+<include  file='public:footer'/>

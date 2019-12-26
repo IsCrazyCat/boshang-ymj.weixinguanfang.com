@@ -1,0 +1,256 @@
+<php>$mobile_title = $detail['title'];</php>
+<include  file='public:header'/>  
+<script src="/static/default/wap/other/roll.js"></script> 
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('life/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		信息详情
+	</div>
+    <div class="top-search" style="display:none;">
+			<form method="post" action="<{:U('life/search')}>">
+				<input name="keyword" placeholder="输入关键字"  />
+				<button type="submit" class="icon-search"></button> 
+			</form>
+	</div>
+	<div class="top-share">
+		<a id="search-btn" href="javascript:void(0);"><i class="icon-search"></i></a> 
+        <a href="<{:U('life/index')}>"><i class="icon-pencil-square-o"></i></a>
+	</div>
+</header> 
+
+
+<script type="text/javascript">
+	$(function(){
+		$("#search-btn").click(function(){
+			if($(".top-search").css("display")=='block'){
+				$(".top-search").hide();
+				$(".top-title").show(200);
+			}
+			else{
+				$(".top-search").show();
+				$(".top-title").hide(200);
+			}
+		});
+		$("#search-bar li").each(function(e){
+			$(this).click(function(){
+				if($(this).hasClass("on")){
+					$(this).parent().find("li").removeClass("on");
+					$(this).removeClass("on");
+					$(".serch-bar-mask").hide();
+				}
+				else{
+					$(this).parent().find("li").removeClass("on");
+					$(this).addClass("on");
+					$(".serch-bar-mask").show();
+				}
+				$(".serch-bar-mask .serch-bar-mask-list").each(function(i){
+					if(e==i){
+						$(this).parent().find(".serch-bar-mask-list").hide();
+						$(this).show();
+					}
+					else{
+						$(this).hide();
+					}
+					$(this).find("li").click(function(){
+						$(this).parent().find("li").removeClass("on");
+						$(this).addClass("on");
+					});
+				});
+			});
+		});
+	});
+	</script>  
+
+
+
+    <if condition="!empty($detail[photo])">
+    <div class="tuan-detail">
+    <div class="line banner">	
+        <div id="focus" class="focus">
+            <div class="hd"><ul></ul></div>
+            <div class="bd">
+                <ul>
+                    <li><a><img src="<{:config_img($detail['photo'])}>" /></a></li>
+                    <foreach  name="pics" item="item">
+                    <li><a><img src="<{:config_img($item['photo'])}>" /></a></li>
+                    </foreach>
+                </ul>
+            </div>
+        </div>
+    </div>            
+	<script type="text/javascript">
+		TouchSlide({ 
+			slideCell:"#focus",
+			titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+			mainCell:".bd ul", 
+			effect:"left", 
+			autoPlay:true,//自动播放
+			autoPage:true, //自动分页
+			switchLoad:"_src" //切换加载，真实图片路径为"_src" 
+		});
+	</script>
+</if>
+
+<div class="www-hatudou-com-similar" style="display: block;">
+    <a href="<{:U('life/detail',array('life_id'=>$detail['life_id']))}>">
+       <span>还有<b id="similar_num"><{$detail.views}></b>个卖家可能也在卖相似宝贝</span>
+       <em>查看详情<i></i></em>
+    </a>
+</div>
+
+<div class="blank-10 bg"></div>
+
+<div class="detail-hd">
+	<h1><{$detail.title}></h1>
+	<p>
+		<span><{$detail.create_time|date='Y-m-d',###}></span>
+		<span><{$detail.views}>人浏览</span>
+	</p>
+</div>
+<div class="blank-10 bg"></div>
+<div class="detail-bd">
+	<div class="num-col">
+		<if condition="!empty($cate['num1'])"><span><{$cate.num1}>：
+			<em>&yen;<{$detail.num1|default='面议'}></em>
+			<if condition="!empty($detail['num1'])">
+				<{$cate.unit1}>
+			</if>
+			</span> 
+		</if>
+		<if condition="!empty($cate['num2'])"><span><{$cate.num2}>：
+			<em> &yen;<{$detail.num2|default='面议'}></em>
+			<if condition="!empty($detail['num2'])">
+			   <{$cate.unit2}>
+			</if>
+			</span> 
+		</if>
+	</div>
+
+	<div class="txt-col">
+		<if condition="!empty($cate['text1'])">
+		<span><{$cate.text1}>：<em><{$detail.text1|default='暂无'}></em></span>
+		</if>
+		<if condition="!empty($cate['text2'])">
+		<span><{$cate.text2}>：<em><{$detail.text2|default='暂无'}></em></span>
+		</if>
+		<if condition="!empty($cate['text3'])">
+		<span><{$cate.text3}>：<em><{$detail.text3|default='暂无'}></em></span>
+		</if>
+        <if condition="!empty($cate['select1'])">
+		<span><{$cate.select1}>：<em><{$attrs['select1'][$detail['select1']]['attr_name']|default='暂无'}></em></span>
+		</if>
+        <if condition="!empty($cate['select2'])">
+		<span><{$cate.select2}>：<em><{$attrs['select2'][$detail['select2']]['attr_name']|default='暂无'}></em></span>
+		</if>
+        <if condition="!empty($cate['select3'])">
+		<span><{$cate.select3}>：<em><{$attrs['select3'][$detail['select3']]['attr_name']|default='暂无'}></em></span>
+		</if>
+        <if condition="!empty($cate['select4'])">
+		<span><{$cate.select4}>：<em><{$attrs['select4'][$detail['select4']]['attr_name']|default='暂无'}></em></span>
+		</if>
+        <if condition="!empty($cate['select5'])">
+		<span><{$cate.select5}>：<em><{$attrs['select5'][$detail['select5']]['attr_name']|default='暂无'}></em></span>
+		</if>
+		<span>所在区域：<em><{$areas[$detail['area_id']]['area_name']}>/<{$business[$detail['business_id']]['business_name']}></em></span>
+		<span>具体地址：<em><{$detail.addr}></em></span>
+	</div>
+
+    <div class="global">
+        <div class="line banner">	
+            <h5>相关描述</h5>
+            <div id="focus" class="global_focus">
+             <{$ex.details}>       
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="blank-10 bg border-bottom"></div>
+<div class="detail-lst">
+	<ul class="life-list">
+		 <calldata mdl="Life" where="cate_id = {$detail['cate_id']} and audit =1 " order="top_date desc,last_time desc" limit="0,4" cache="600">
+		<li class="mod-2">
+			<div class="des flex">
+				<h4>
+					<a href="<{:U('life/detail',array('life_id'=>$item['life_id']))}>"><{$item['title']}></a>
+					<gt name="item.top_date" value="$today"><span>顶</span></gt>
+					<gt name="item.urgent_date" value="$today"><span>急</span></gt>
+				</h4>
+				<p><{$item.addr}> </p>
+				<p>联系人:<{$item.contact}> / <{:formatTime($item['create_time'])}></p>
+			</div>
+			<div class="tel flex">
+				<a href="tel:<{$item.mobile}>"><span class="icon icon-phone"></span></a>
+			</div>
+		</li>
+		</calldata>
+	</ul>
+
+	<a class="more-btn" href="<{:U('life/lists',array('cat'=>$detail['cate_id']))}>">
+		<button class="button button-block bg-dot">
+			查看更多<{$cate.cate_name}>信息
+		</button>
+	</a>
+</div>
+
+
+
+<div class="blank-10 bg"></div> 
+   <div class="jubao">
+       <div class="jubao-font">  
+           <p class="one-line"> 如遇无效、虚假、诈骗信息，请立即举报 </p>
+           <p class="two-line"> 为了您的资金安全，请见面交易，切勿提前支付任何费用。 </p>  
+       </div>
+       <div class="jubao-logo">
+      	 <a target="x-frame"  href="<{:U('life/report',array('life_id'=>$detail['life_id']))}>"><i class="ico"></i><p> 举报 </p></a>
+       </div>
+   </div> 
+<div class="blank-10 bg"></div>    
+  
+
+<nav class="cart-bar">
+		<a class="cart" style="font-size:12px;">
+        <{$detail.contact}> 
+            <eq name="detail.is_shop" value="1">
+			<span class="mui-badge mui-badge-primary">（商家）</span>
+			<else />
+			<span class="mui-badge mui-badge-success">（个人）</span>
+			</eq> 
+        </a>
+        <style>.right10{ margin-right:5px;}.button { padding: 6px 12px !important;}</style>
+		<div class="result">
+            <a id="add-cart" href="tel:<{$detail.mobile}>"><button class="cartadd2 button bg-dot right10"><span class="icon-phone"></span> 电话联系</button></a>
+        <php>$isios = isIos();</php>
+		<if condition="$isios eq true">
+		<a href="sms:<{$detail.mobile}>&body=您好，我在<{$CONFIG.site.sitename}>看到您发的【<{$detail.title}>】信息，想咨询了解。">
+		<else />
+		<a href="sms:<{$detail.mobile}>?body=您好，我在<{$CONFIG.site.sitename}>看到您发的【<{$detail.title}>】信息，想咨询了解。">
+		</if>
+            <button class="button bg-yellow"><span class="icon-mobile"></span> 短信联系</button></a>
+        </div>
+</nav>
+
+<footer>
+
+<div class="footer-line">
+	<div class="footer-logo">
+	</div>
+</div>
+<div class="footer-bar">
+ <if condition="empty($MEMBER)">
+	<a href="<{:u('wap/passport/login')}>"> 登录/注册 </a>
+ <else/>
+    <a href="<{:u('wap/passport/login')}>"> 个人中心 </a>
+ </if>
+    <a href="<{:u('wap/life/phonedelete')}>"> 电话冒用 </a>
+    <a href="#"> 用户反馈 </a>
+</div>
+<div class="footer-copyright">
+	 <{$CONFIG.site.icp}> 
+</div>
+</footer>
+<iframe id="x-frame" name="x-frame" style="display:none;">

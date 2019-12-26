@@ -1,0 +1,105 @@
+<include file='public:header'/>  
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			商家菜品
+		</div>
+		<div class="top-share">
+			<a href="<{:u('distributors/ele/create2')}>" class="top-addr icon-plus"> 增加</a>
+		</div>
+	</header><include file='public:header'/>
+
+
+<script>
+		$(function(){
+			$(".sh_prompt_infor_closs").click(function(){
+				$(".sh_prompt_infor_box").hide();
+			});
+		});
+    </script>
+
+<style>
+.xiaoqu-search{ margin-top:2rem;}
+</style>
+<!-- 筛选TAB -->
+<ul id="shangjia_tab">
+        <li style="width: 50%;"><a href="<{:U('ele/index')}>">出售中的菜品</a></li>
+        <li style="width: 50%;"><a href="<{:U('ele/shelves')}>" class="on">已下架的菜品</a></li>
+</ul>   
+
+
+<div class="line xiaoqu-search">
+		<form method="post"  action="<{:U('ele/shelves')}>" id="form1" class="form1">
+			<div class="form-group">
+				<div class="field">
+					<div class="input-group">
+						<span class="addbtn"><button type="button" class="button icon-search"></button></span>
+						<input type="text" class="input" name="keyword" size="50" value="<{$keyword}>" placeholder="菜单昵称"  />
+						<span class="addbtn"><button type="submit" class="button">搜索</button></span>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+  
+<div class="xiaoqu-list">
+
+<foreach name="list" item="var">
+		<ul id="xiaoqu-list">
+               <li class="line">
+	<a href="javascript:void(0);" class="item fix hightitem">	
+		<div class="x2">
+                    <img src="<{:config_img($var['photo'])}>">
+		</div>
+		</a>
+        <div class="x7"><a href="javascript:void(0);" class="item fix hightitem">	
+			</a><h5><a href="javascript:void(0);" class="item fix hightitem"><{$var.product_name}></a></h5>	
+			<p class="addr">所属分类：<{$cates[$var['cate_id']]['cate_name']}></p>
+            <p class="addr">菜品价格：￥<{:round($var['price']/100,2)}></p>
+            <if condition="!empty($var['desc'])">
+            <p class="addr">简介：<{:bao_msubstr($var['desc'],0,14,false)}></p>
+            </if>
+		</div>
+        
+        <div class="x3">
+        <a href="javascript:void(0);" rel="<{$var.product_id}>"  class="jquery-delete button bg-dot float-right">上架</a>
+        <a href="<{:U('ele/edit2',array('product_id'=>$var['product_id']))}>" class="button bg-yellow float-right  margin-top">编辑</a>
+        </div>
+		</li>
+<div class="blank-10 bg"></div>
+    </foreach>
+
+</ul>  
+</div>   
+
+<div class="blank-20"></div>
+<script>
+	$(document).ready(function () {
+		$(document).on('click', ".jquery-delete", function (e) {
+			var product_id = $(this).attr('rel');
+			layer.confirm('您确定要上架销售该菜品？', {
+				skin: 'layer-ext-demo', 
+				area: ['50%', 'auto'], //宽高
+				btn: ['是的', '不'], //按钮
+				shade: false //不显示遮罩
+			}, function () {
+				$.post("<{:U('ele/updates')}>", {product_id: product_id}, function (result) {
+					if (result.status == "success") {
+						layer.msg(result.msg);
+						setTimeout(function () {
+							location.reload();
+						}, 1000);
+					} else {
+						layer.msg(result.msg);
+					}
+				}, 'json');
+			});
+		});
+	});
+</script>
+<div class="container login-open">
+<h5 style="text-align:center"><{$page}><!--分页代码不要忘记加--> </h5>
+</div>
+<include file="public:footer_waimai"/>

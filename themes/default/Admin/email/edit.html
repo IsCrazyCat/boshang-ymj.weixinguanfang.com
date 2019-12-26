@@ -1,0 +1,55 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">模版管理</li>
+        <li class="li2">邮件模版</li>
+        <li class="li2 li3">编辑模板</li>
+    </ul>
+</div>
+<form target="baocms_frm" action="<{:U('email/edit',array('email_id'=>$detail['email_id']))}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+
+                <tr>
+                    <td class="lfTdBt">全局可用标签：</td>
+                    <td class="rgTdBt" style="font-size: 14px;">站点名称{sitename},客服电话{tel}</td>
+                </tr>
+
+                <tr>
+                    <td class="lfTdBt">标签：</td>
+                    <td class="rgTdBt"><input type="text" name="data[email_key]" value="<{$detail.email_key|default=''}>" class="scAddTextName" />
+
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">说明：</td>
+                    <td class="rgTdBt"><textarea  name="data[email_explain]" cols="50" rows="10" ><{$detail.email_explain|default=''}></textarea>
+
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">模版内容：</td>
+                    <td class="rgTdBt">
+                        <script type="text/plain" id="data_email_tmpl" name="data[email_tmpl]" style="width:800px;height:360px;"><{$detail.email_tmpl}></script>
+                    </td>
+                </tr>
+                <link rel="stylesheet" href="__PUBLIC__/umeditor/themes/default/css/umeditor.min.css" type="text/css">
+                <script type="text/javascript" charset="utf-8" src="__PUBLIC__/umeditor/umeditor.config.js"></script>
+                <script type="text/javascript" charset="utf-8" src="__PUBLIC__/umeditor/umeditor.min.js"></script>
+                <script type="text/javascript" src="__PUBLIC__/umeditor/lang/zh-cn/zh-cn.js"></script>
+                <script>
+                    um = UM.getEditor('data_email_tmpl', {
+                        imageUrl: "<{:U('app/upload/editor')}>",
+                        imagePath: '__ROOT__/attachs/editor/',
+                        lang: 'zh-cn',
+                        langPath: UMEDITOR_CONFIG.UMEDITOR_HOME_URL + "lang/",
+                        focus: false
+                    });
+                </script>
+
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认编辑" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>       
+

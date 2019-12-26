@@ -1,0 +1,224 @@
+<include file="public:header"/>
+
+<style>
+    /*css重写*/
+    .item-list h5 { height: inherit;}
+    .is_renzheng{background: #33b095;padding: 0 3px;color: #fff !important;font-size: 12px;margin-right: 5px; height: 16px;line-height: 16px;margin-top: 3px;}
+    .cate-wrap{font-size:0;background-color:#fff;border-bottom:1px solid #f3f3f3;width:100%;overflow:hidden;}
+    .cate-wrap li{box-sizing:border-box;width:20%;float:left}
+    .icon2{color:#555;font-size:16px;text-align:center;display:block;padding:.6rem 0}
+    .cate-img{background-size:6rem auto;display:inline-block}
+    .cate-img img{width:2.6rem;height:2.6rem}
+    .cate-desc{display:block}
+    .cate-desc{padding-top:.4rem}
+    .container {margin-top: 0rem;}
+    .item-list img{position:relative;padding:0px; }
+    .item-list li span.album{ font-size:12px; color:#FFF;margin-right: 1px;position:absolute;bottom:0;width:100%;height:20px;line-height:20px;text-align:center;background: rgba(0,0,0,0.3);}
+</style>
+<header class="top-fixed bg-yellow bg-inverse">
+    <div class="top-back">
+        <a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+    </div>
+    <if condition="empty($keyword)">
+        <div class="top-title">在线商城</div>
+    </if>
+    <div class="top-search" style="<if condition="empty($keyword)">display:none;</if>">
+    <form method="post" action="<{:U('mall/index')}>">
+        <input type="hidden" name="car_id" value="<{$car_id}>"/>
+        <input name="keyword" placeholder="<{$keyword|default='输入商品的关键字'}>"  />
+        <button type="submit" class="icon-search"></button>
+    </form>
+    </div>
+    <if condition="empty($keyword)">
+        <div class="top-signed">
+            <a id="search-btn" href="javascript:void(0);"><i class="icon-search"></i></a>
+        </div>
+    </if>
+</header>
+<script>
+    $(function(){
+        $("#search-btn").click(function(){
+            if($(".top-search").css("display")=='block'){
+                $(".top-search").hide();
+                $(".top-title").show(200);
+            }
+            else{
+                $(".top-search").show();
+                $(".top-title").hide(200);
+            }
+        });
+        $("#search-bar li").each(function(e){
+            $(this).click(function(){
+                if($(this).hasClass("on")){
+                    $(this).parent().find("li").removeClass("on");
+                    $(this).removeClass("on");
+                    $(".serch-bar-mask").hide();
+                }
+                else{
+                    $(this).parent().find("li").removeClass("on");
+                    $(this).addClass("on");
+                    $(".serch-bar-mask").show();
+                }
+                $(".serch-bar-mask .serch-bar-mask-list").each(function(i){
+
+                    if(e==i){
+                        $(this).parent().find(".serch-bar-mask-list").hide();
+                        $(this).show();
+                    }
+                    else{
+                        $(this).hide();
+                    }
+                    $(this).find("li").click(function(){
+                        $(this).parent().find("li").removeClass("on");
+                        $(this).addClass("on");
+                    });
+                });
+            });
+        });
+    });
+</script>
+
+    <ul class="cate-wrap bbOnepx">
+        <php>$a = 0;</php>
+        <volist name="goodscates" id="item">
+            <eq name="item.parent_id" value="0">
+                <php>$a++;</php>
+                <if condition="$a lt 10">
+                    <li>
+                        <a class="icon2" href="<{:U('mall/index',array('cat'=>$item['cate_id']))}>" tongji_tag="m_home_job_new">
+                            <span class="cate-img" id="job"><img src="<{:config_img($item['photo'])}>" /></span>
+                            <span class="cate-desc"><{:bao_msubstr($item['cate_name'],0,4,false)}></span>
+                        </a>
+                    </li>
+                </if>
+            </eq>
+        </volist>
+    </ul>
+
+
+
+<div id="filter2" class="filter2">
+    <ul class="tab clearfix">
+        <li class="item">
+            <a href="javascript:void(0);">
+                <if condition="!empty($cat)">
+                    <span id="str_b_node" style="color:#f60"> <{$goodscates[$cat]['cate_name']}></span>
+                    <else/>
+                    <span id="str_b_node">选择分类</span>
+                </if>
+                <em></em>
+            </a>
+        </li>
+        <li class="item">
+            <a href="javascript:void(0);">
+                <if condition="!empty($business)">
+                    <span id="str_b_node" style="color:#f60;"><{$bizs[$business]['business_name']}></span>
+                    <else/>
+                    <if condition="!empty($area)">
+                        <span id="str_b_node" style="color:#f60;"><{$areass[$area]['area_name']}></span>
+                        <else/>
+                        <span id="str_d_node">选择地区</span>
+                    </if>
+                </if>
+                <em></em>
+            </a>
+        </li>
+        <li class="item">
+            <a href="javascript:void(0);">
+                <if condition="empty($order)">
+                    <span id="str_e_node">选择排序</span>
+                    <elseif condition="$order eq 1"/>
+                    <span id="str_b_node" style="color:#f60;">时间排序</span>
+                    <elseif condition="$order eq 2"/>
+                    <span id="str_b_node" style="color:#f60;">销量排序</span>
+                    <elseif condition="$order eq 3"/>
+                    <span id="str_b_node" style="color:#f60;">价格最高</span>
+                    <elseif condition="$order eq 4"/>
+                    <span id="str_b_node" style="color:#f60;">价格最低</span>
+                </if>
+                <em></em>
+            </a>
+        </li>
+    </ul>
+
+    <div class="inner" style=" display:none">
+        <ul>
+            <li class="item">
+                <a class="rights" href="<{:U('mall/index')}>">全部分类</a>
+            </li>
+            <foreach name="goodscates" item="var">
+                <if condition="$var.parent_id eq 0">
+                    <li id="cat_<{$var['cate_id']}>"><a class="rights hasUlLink" title="<{$var.cate_name}>" href="javascript:void(0);>"><{$var.cate_name}><span class="num"></span></a>
+                        <ul id="items0">
+                            <foreach name="goodscates" item="product">
+                                <if condition="$product.parent_id eq $var['cate_id']">
+                                    <li><a title="<{$product.cate_name}>" href="<{:LinkTo('mall/index',array('car_id'=>$car_id,'cat'=>$product['cate_id'],'area'=>$area,'business'=>$var['business_id'],'order'=>$order))}>"><{$product.cate_name}></a>
+                                </if>
+                            </foreach>
+                        </ul>
+                    </li>
+                </if>
+            </foreach>
+
+        </ul><!--1级end-->
+
+    </div>
+
+    <div class="inner" style=" display:none">
+        <ul id="inner2">
+            <li class="item">
+                <a class="rights" href="<{:LinkTo('mall/index',array('car_id'=>$car_id,'cat'=>$cat))}>">全部地区</a>
+            </li>
+            <foreach name="areas" item="var">
+                <php>if($var['city_id'] == $city_id){</php>
+                <li id="cat_<{$var['cate_id']}>"><a  <if condition="$area eq $var['area_id']"> style="color:red;"</if>  class="rights hasUlLink" title="<{$var.cate_name}>" href="javascript:void(0);>"><{$var.area_name}></a>
+                    <ul id="items0">
+                        <li><a href="<{:LinkTo('mall/index',array('car_id'=>$car_id,'cat'=>$cat,'area'=>$area_id))}>" class="<if condition='empty($business_id)'>on</if>">全部商圈</a></li>
+                        <foreach name="bizs" item="product">
+                            <if condition="$product.area_id eq $var['area_id']">
+                                <li><a  <if condition="$business eq $product['business_id']"> style="color:red;"</if>   title="<{$product.business_name}>" href="<{:LinkTo('mall/index',array('car_id'=>$car_id,'cat'=>$var['cate_id'],'area'=>$var['area_id'],'business'=>$product['business_id'],'order'=>$order))}>"> <{$product.business_name}></a>
+
+                            </if>
+                        </foreach>
+                    </ul>
+                </li>
+                <php>}</php>
+            </foreach>
+        </ul><!--1级end-->
+    </div>
+
+    <div class="inner" style="display:none;">
+        <ul>
+            <li><a <if condition="empty($order)"> style="color:red;"</if> href="<{:U('mall/index')}>">默认排序</a></li>
+            <li><a <if condition="$order eq 1"> style="color:red;"</if> href="<{:U('mall/index',array('cat'=>$cat,'area'=>$area,'business'=>$var['business_id'],'order'=>'1'))}>">时间排序</a></li>
+            <li><a <if condition="$order eq 2">style="color:red;"</if> href="<{:U('mall/index',array('cat'=>$cat,'area'=>$area,'business'=>$var['business_id'],'order'=>'2'))}>">销量排序</a></li>
+            <li><a <if condition="$order eq 3">style="color:red;"</if> href="<{:U('mall/index',array('cat'=>$cat,'area'=>$area,'business'=>$var['business_id'],'order'=>'3'))}>">价格最高</a></li>
+            <li><a <if condition="$order eq 4">style="color:red;"</if> href="<{:U('mall/index',array('cat'=>$cat,'area'=>$area,'business'=>$var['business_id'],'order'=>'4'))}>">价格最低</a></li>
+
+        </ul>
+    </div>
+    <div id="parent_container" class="inner_parent" style="display:none;"><div class="innercontent"></div></div>
+    <div id="inner_container" class="inner_child" style="display:none;"><div class="innercontent"></div></div>
+</div>
+<!--end-->
+
+<div id="fullbg" class="fullbg" style="display: none; height: 250px;"><i class="pull2"></i></div>
+
+<div class="item-list" id="item-list">
+    <ul></ul>
+</div>
+
+<div class="mall-cart">
+    <a href="<{:U('mall/cart')}>">
+        <div class="round radius-circle"><div class="badge-corner"><i class="icon-shopping-cart"></i><span class="badge bg-red"><{$cartnum}></span></div></div>
+    </a>
+</div>
+
+<script>
+    $(document).ready(function () {
+        showFilter({ibox:'filter2',content1:'parent_container',content2:'inner_container',fullbg:'fullbg'});
+        loaddata('<{$nextpage}>', $("#item-list ul"), true);
+    });
+</script>
+
+<include  file='public:footer'/>

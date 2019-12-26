@@ -1,0 +1,68 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">当前位置>
+        <li class="li2"> 黄页</li>
+
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span> 过期7天的词语可以进行清零处理，清零后前台又可以让其他商家购买！</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                
+            </div>
+            <div class="right">
+                <form class="" method="post"  action="<{:U('pois/stick')}>"> 
+
+                    <div class="seleHidden" id="seleHidden">
+                        <span>关键字</span>
+                        <input type="text"  class="inptText" name="keyword" value="<{$keyword}>"  />
+
+                        <input type="submit" value=" 搜索"  class="inptButton" />
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" > 
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="pois_id" /></td>
+                        <td class="w50">ID</td>
+                        <td>词语</td>
+                        <td>黄页</td>
+                        <td>到期时间</td>
+                        <td>操作</td>
+                    <foreach name="list" item="var">
+					<php>$t = time() + 604800;</php>
+                        <tr>
+                            <td><input class="child_article_id" type="checkbox" name="pois_id[]" value="<{$var.pois_id}>" /> </td>
+							<td><{$var.word_id}></td>
+                            <td><{$var.text}></td>
+                            <td><{$poiss[$var[pois_id]][name]}></td>
+							<td>
+								<if condition = "$t gt $var[over_time]">
+								<span class="text-dot"><{$var.over_time|date='Y-m-d',###}></span>
+								<else />
+								<{$var.over_time|date='Y-m-d',###}>
+								</if>
+							</td>
+                            <td>
+								<if condition = "$t gt $var[over_time]">
+									<{:BA('pois/clean',array("word_id"=>$var["word_id"]),'清零','act','remberBtn')}>
+								</if>
+                            </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>  
+

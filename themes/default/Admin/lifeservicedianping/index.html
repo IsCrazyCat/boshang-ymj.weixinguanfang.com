@@ -1,0 +1,83 @@
+<include  file='public:header'/>
+
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">家政</li>
+        <li class="li2"> 家政点评</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>家政点评在这里可以删除编辑!</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('lifeservicedianping/create','','添加点评')}>
+            </div>
+            <div class="right">
+                <form action="<{:U('lifeservicedianping/index')}>" >  
+                    <div class="seleHidden" id="seleHidden">
+
+                        <span>评论ID：</span>
+                        <input type="text"  name="id" value="<{$id}>" class="inptText" /><input type="submit" value="   搜索"  class="inptButton" />
+                    </div> 
+                </form>
+
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form action="<{:U('lifeservicedianping/index')}>" >  
+            <div class="selectNr selectNr2">
+                <div class="left">
+                    
+
+                </div>
+                <div class="right">
+                    <input type="submit" value="   搜索"  class="inptButton" />
+                </div>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <th class="w50"><input type="checkbox" class="checkAll" rel="id" /></th>
+                    <td class="w50">ID</td>
+                    <td>姓名</td>
+                    <td>评分</td>
+                    <td>平均花费</td>
+                    <td>创建时间</td>
+                    <td>创建IP</td>
+                    <td>生效日期</td>
+                    <td>操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_id" type="checkbox" name="id[]" value="<{$var.id}>" /></td>
+                        <td><{$var.id}></td>
+                        <td><{$users[$var['user_id']]['account']}>(ID:<{$var.user_id}>)</td>
+                        <td><{$var.score}></td>
+                        <td><{$var.cost}></td>
+                        <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                        <td><{$var.create_ip}>(来自<{$var.create_ip_area}>)</td>
+                        <td><{$var.show_date}></td>
+                        <td>
+                            <{:BA('lifeservicedianping/edit',array("id"=>$var["id"]),'编辑','','remberBtn')}>
+                            <{:BA('lifeservicedianping/delete',array("id"=>$var["id"]),'删除','act','remberBtn')}>
+                        </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                <{:BA('lifeservicedianping/delete','','批量删除','list',' a2')}>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  

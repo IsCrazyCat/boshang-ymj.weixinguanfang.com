@@ -1,0 +1,35 @@
+<include file='public:header'/>  
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>  
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			资金记录
+		</div>
+		<div class="top-share">
+			<a href="javascript:void(0);" id="cate-btn"></a>
+		</div>
+	</header>
+<style>
+ul { padding-left: 0px;}
+.list-media-x{ margin-top:2.2rem}
+</style>
+<!-- 筛选TAB -->
+<ul id="shangjia_tab">
+        <li style="width:25%;"><a href="<{:U('money/index')}>" >商家资金</a></li>
+        <li style="width:25%;"><a href="<{:U('money/detail')}>" class="on">资金日志</a></li>
+         <li style="width:25%;"><a href="<{:U('money/cashlogs')}>">提现日志</a></li>
+        <li style="width:25%;"><a href="<{:U('money/cash')}>">申请提现</a></li>
+</ul>
+
+<div class="list-media-x" id="list-media">
+<div class="blank-10 bg"></div>
+	<ul></ul>
+</div>	    
+<script>
+	$(document).ready(function () {	 
+		loaddata('<{:U("money/load",array("t"=>$nowtime,"p"=>"0000"))}>', $("#list-media ul"), true);
+	});
+</script>
+<include file="public:footer"/>

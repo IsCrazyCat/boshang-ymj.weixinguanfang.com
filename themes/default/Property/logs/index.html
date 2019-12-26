@@ -1,0 +1,61 @@
+<include  file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="javascript:void(0);">物业账单日志--包括水、电、燃气、停车、物业费。</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <form method="post" action="<{:U('logs/index')}>">
+        <div class="radius5 tuan_top">
+            <div class="tuan_top_t">
+                <div class="left tuan_topser_l">
+                    开始时间：<input type="text" class="radius3 tuan_topser"  name="bg_date" value="<{$bg_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd'});"/>
+                    结束时间：<input type="text" class="radius3 tuan_topser"  name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd'});"/>
+                    户号：<input type="text" name="number" value="<{$number}>" class="radius3 tuan_topser" />
+                    状态：<select name="type" class="manageSelect w80">
+                        <option <eq name="type" value="$index">selected="selected"</eq> value="999">请选择</option>
+                        <volist name="types" id="item" key="index">
+                            <option <eq name="type" value="$index">selected="selected"</eq>  value="<{$index}>"><{$item}></option>
+                        </volist>
+                    </select>
+                    <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/>
+                </div>
+            </div>
+        </div>
+    </form>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>日志编号</td>
+            <td>用户</td>
+            <td>用户手机</td>
+            <td>类型</td>
+            <td>金额(单位：元)</td>
+            <td>账单时间</td>
+        </tr>
+        <tr>
+            <td colspan="6">总计：<{:round($sum/100,2)}>元</td>
+        </tr>
+        <foreach name="list" item="var">
+            <tr>
+                <td><{$var.log_id}></td>
+                <td><{$users[$var['user_id']]['nickname']}>(<{$var.user_id}>)</td>
+                <td><{$users[$var['user_id']]['mobile']}></td>
+                <td><{$types[$var['type']]}></td>
+                <td>
+                
+                 <if condition="$var['money'] eq 0">
+                 管理员设置已缴费或者账单金额为0
+                 <else/>
+                 <{:round($var['money']/100,2)}>
+                 </if>
+                
+                
+                </td>
+                <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+            </tr>
+        </foreach>
+    </table>
+</div>
+
+<include  file='public:footer'/>

@@ -1,0 +1,88 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">功能</li>
+        <li class="li2">短信管理</li>
+        <li class="li2 li3">短信宝发送记录</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span> 每页显示50条，可批量删除<if condition="empty($keyword)">，已请求<{$count}>次</if>，0代表成功，30密码错误，40账户不存在，41余额不足，42账户过期，43ip地址限制，50内容敏感词，51手机号码不正确</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('sms/index','','短信宝模板管理')}>
+                <{:BA('setting/sms','','短信配置')}>
+            </div>
+            <div class="right">
+                <form  method="post"  action="<{:U('smsbao/index')}>"> 
+                    <div class="seleHidden" id="seleHidden">
+                        <div class="seleK">
+                            <span>手机号码</span>
+                            <input type="text"  class="inptText" name="keyword" value="<{$keyword}>"  />
+                            <input type="submit" value=" 搜索"  class="inptButton" />
+                        </div>
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="sms_id" /></td>
+                        <td>短信记录ID</td>  
+                        <td>接收号码</td>
+                        <td>返回码</td>
+                        <td>状态说明</td>
+                        <td>内容</td>
+                        <td>创建时间</td>
+                        <td>创建IP</td>
+                        <td>操作</td>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_sms_id" type="checkbox" name="sms_id[]" value="<{$var.sms_id}>" /> </td>
+                            <td><{$var.sms_id}></td>
+                            <td><{$var.mobile}></td>
+                            <td><{$var['status']}></td>
+                            <td>
+                                <if condition="$var['status'] eq 0">
+                                成功
+                                <elseif condition="$var['status'] eq 30"/>
+                                密码错误
+                                <elseif condition="$var['status'] eq 40"/>
+                                账户不存在
+                                <elseif condition="$var['status'] eq 41"/>
+                                余额不足
+                                <elseif condition="$var['status'] eq 42"/>
+                                账户过期
+                                <elseif condition="$var['status'] eq 43"/>
+                                IP地址限制
+                                <elseif condition="$var['status'] eq 50"/>
+                                内容敏感词
+                                <elseif condition="$var['status'] eq 51"/>
+                                手机号码不正确
+                                </if>
+                            </td>
+                            <td><{$var.content}></td>
+                           <td><{$var.create_time|date="Y-m-d H:i:s",###}></td>
+                           <td><{$var.create_ip}><{$var.create_ip_area}></td>
+                        <td>
+                            <{:BA('smsbao/delete',array("sms_id"=>$var["sms_id"]),'删除','act','remberBtn')}>
+                        </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('smsbao/delete','','批量删除','list',' a2')}>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>  

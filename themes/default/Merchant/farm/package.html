@@ -1,0 +1,42 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">套餐</a> > <a>套餐房间</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <form method="post" action="<{:U('farm/package')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">
+           套餐名称：<input type="text" class="radius3 tuan_topser"  name="keyword" value="<{$keyword}>" />
+            <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/>
+            </div>
+            <div class="right tuan_topfb_r"><a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('farm/setpackage')}>">添加套餐+</a></div>
+        </div>
+    </div>
+    </form>
+    <include  file='farm:nav'/>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>套餐名称</td>
+            <td>套餐价格</td>
+            <td>结算价格</td>
+            <td>操作</td>
+        </tr>
+        <foreach name="list" item="var">
+            <tr>
+                <td><{$var.title}></td>
+                <td><{$var.price}></td>
+                <td><{$var.jiesuan_price}></td>
+                <td>
+                <a class="radius3 sy_c1an" href="<{:U('farm/editpackage',array('pid'=>$var['pid']))}>">编辑</a>
+                <a class="radius3 sy_c1an"  mini="confirm" href="<{:U('farm/deletepackage',array('pid'=>$var['pid']))}>">删除</a>
+            </td>
+            </tr>
+        </foreach>
+    </table>
+    <{$page}>
+</div>
+
+<include  file='public:footer'/>

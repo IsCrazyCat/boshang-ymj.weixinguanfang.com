@@ -1,0 +1,56 @@
+<foreach name="list" item="var">
+       <li class="line">
+        <dt>
+            <a class="x3">ID：<{$var.order_id}></a>
+            <a class="x9 text-right">下单时间：<{$var.create_time|date='Y-m-d H:i:s',###}></span> </a>
+        </dt>
+  		<dd class="zhong">
+            <div class="x3">
+               <img src="<{:config_img($crowd[$var['goods_id']]['photo'])}>" width="70" height="70">
+            </div>
+            <div class="x9">
+                <p><a href="<{:U('wap/crowd/detail',array('goods_id'=>$var['goods_id']))}>"><{$crowd[$var['goods_id']]['title']}></a></p>
+                <p class="text-small">
+                    <span class="text-dot1 margin-right">类别：<{$cates[$crowd[$var['goods_id']]['cate_id']]['cate_name']}></span>
+                    <span class="text-dot1 margin-right">进度：<{$crowd[$var['goods_id']]['have_price']/$crowd[$var['goods_id']]['all_price']*100}>%</span>
+                </p>
+                <p class="text-small">
+                    <span class="text-dot1 margin-right">众筹劵：<{$var['code']}></span>
+                </p>
+          </div>
+         </dd>
+
+         <dt>
+             <div class="x12">
+             <span class="margin-right"><a class="text-dot">众筹价&yen;<{:round($var['price']/100,2)}> + 运费&yen;<{:round($var['yunfei']/100,2)}> = 实付&yen;<{:round($var['need_pay']/100,2)}>元</a> </span>
+             </div>
+         </dt> 
+          
+          <dl>
+              <p class="text-right padding-top x12">
+                    <if condition="$var['status'] eq 0">
+                        <a class="button button-small bg-dot" href="<{:u('wap/crowd/pay',array('order_id'=>$var['order_id'],'address_id'=>$var['address_id']))}>">去付款</a>
+                    <elseif condition="$var['status'] eq 1" />
+                        <a class="button button-small bg-dot"  href="<{:U('crowd/qrcode',array('order_id'=>$var['order_id']))}>">二维码</a> 
+                    <elseif condition="$var['status'] eq 8" />
+                        <a class="button button-small bg-blue">已完成</a>
+                    </if>
+                    <foreach name="crowdlist" item="item"> 
+                        <eq name="item.order_id" value="$var.order_id">
+                            <if condition="$item['is_zhong'] eq 1">
+                                 <a class="button button-small bg-blue">已中奖</a>
+                            </if>
+                        </eq>
+                    </foreach>   
+                    <if condition="$var['is_check'] eq 0">
+                        <a class="button button-small bg-gray">未验证</a>
+                    <else/>
+                        <a class="button button-small bg-blue">已验证【验证时间：<{$var.check_time|date='Y-m-d H:i:s',###}>】</a>
+                    </if>
+                    <a class="button button-small bg-blue"  href="<{:U('crowd/detail',array('order_id'=>$var['order_id']))}>">详情</a>           
+              </p>
+          </dl>
+    </li>
+    <div class="blank-10 bg"></div>
+</foreach>
+

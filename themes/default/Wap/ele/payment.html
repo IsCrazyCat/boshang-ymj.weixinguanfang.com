@@ -1,0 +1,35 @@
+<include  file='public:header'/>    
+<body>
+    <header>
+        <div class="header_color">
+            <a class="back" href="<{:U('ele/index')}>"><img  src="__TMPL__statics/img/back_icon.png"></a>
+            支付订单
+        </div>
+    </header>
+        <div class="ui-content content">
+          
+                <ul class="list_tj">
+                    <li>订单编号:<{$order.order_id}></li>
+  
+                    <li>
+                        <span>总额：</span>
+                        <div class="fr">
+                            <{:round($order['total_price']/100,2)}>元
+                        </div>
+                    </li>
+                    
+                   <li>
+                        <span>还需支付：</span>
+                        <div class="fr">
+                          <{:round($order['total_price']/100,2)}>元
+                        </div>
+                    </li> 
+                </ul>
+
+                <div class="radius">
+                    <{$button}>
+                </div>
+          
+        </div>
+
+        <include  file='public:footer'/>    

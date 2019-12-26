@@ -1,0 +1,237 @@
+<php>$mobile_title = $detail['name'];</php>
+<include file='public:header'/>   
+ 
+	<script src="/static/default/wap/other/roll.js"></script>
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<{$detail.name}>
+		</div>
+		<div class="top-share">
+			<i class="icon-reorder"></i><a href="<{:U('village/index',array('change'=>1))}>" id="cate-btn">切换</a>
+		</div>
+	</header>
+           
+<div class="tuan-detail">
+<div class="line banner">
+	
+  <div id="focus" class="focus">
+		<div class="hd"><ul></ul></div>
+		<div class="bd">
+			<ul><li><a href="javascript:void(0);"><img src="<{:config_img($detail['pic'])}>" /></a></li>
+			</ul>
+		</div>
+	</div>
+    
+    
+			<div class="title">
+				<h1><{:bao_msubstr($detail['name'],0,10)}>
+                <php>
+                $count = D('Villagejoin')->where(array('village_id' => $detail['village_id']))->count();
+               </php>
+              <a style="color:#FFF; font-size:12px;">(<{:bao_msubstr($detail['name'],0,10)}>有社员<{$count}>人)</a>
+                </h1>
+				<p><a style="color:#FFF; font-size:12px;" href="<{:U('village/gps',array('village_id'=>$detail['village_id']))}>"><{$detail.addr}> &nbsp;<i class="icon icon-send"></i> </a>
+                
+                
+                </p>
+			</div>	
+		</div>
+</div>            
+            
+  
+	<script type="text/javascript">
+		TouchSlide({ 
+			slideCell:"#focus",
+			titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+			mainCell:".bd ul", 
+			effect:"left", 
+			autoPlay:true,//自动播放
+			autoPage:true, //自动分页
+			switchLoad:"_src" //切换加载，真实图片路径为"_src" 
+		});
+	</script>
+
+	<!--乡村广告结束-->           
+           
+  <div class="cite-title padding border-bottom">
+		<h5><i class="icon-building"></i><{$detail.name}> </h5>
+         <!--<a href="#"> <i class="icon-angle-right"></i></a>-->
+	</div>
+    
+             
+           
+<div class="xiaoqu-nav line">
+		<div class="x3 border-right">
+             <a href="<{:u('wap/biz/index',array('type'=>2))}>">
+    			<img src="/static/default/wap/image/index/app-community.png" />
+    			<p>乡村供应</p>
+    		</a>
+		</div>
+
+		<div class="x3 border-right">
+    		<a href="<{:u('wap/biz/index',array('type'=>2))}>">
+    			<img src="/static/default/wap/image/index/app-near.png" />
+    			<p>周边小店</p>
+    		</a>
+		</div>
+		<div class="x3 border-right">
+        <a href="<{:U('village/workerslist',array('village_id'=>$detail['village_id']))}>">
+				<img src="/static/default/wap/image/community/admin.png" />
+    			<p>乡村干部</p>
+    		</a> 
+		</div>
+        
+       
+     
+        <div class="x3">
+        <a href="<{:U('village/suggestion',array('village_id'=>$detail['village_id'],'type'=>'1'))}>">
+    			<img src="/static/default/wap/image/index/app-nearwork.png" />
+    			<p>意见反馈</p>
+    		</a> 
+		</div>
+     
+        
+		<div class="x3 border-right">
+         <a href="<{:U('village/noticelist',array('village_id'=>$detail['village_id'],'type'=>'1'))}>">
+    			<img src="/static/default/wap/image/index/app-life.png" />
+    			<p>乡村通知</p>
+    		</a>
+            
+    		
+		</div>
+		<div class="x3 border-right">
+    		<a href="<{:U('village/tieba',array('village_id'=>$detail['village_id']))}>">
+				<img src="/static/default/wap/image/community/feed.png" />
+    			<p>乡村贴吧</p>
+    		</a> 
+		</div>
+		<div class="x3 border-right">
+          <a href="<{:U('village/tuan',array('village_id'=>$detail['village_id']))}>">
+    			<img src="/static/default/wap/image/index/app-tuan.png" />
+    			<p>乡村套餐</p>
+    		</a>
+		</div>
+		<div class="x3">
+    		<a href="<{:U('village/noticelist',array('village_id'=>$detail['village_id'],'type'=>'2'))}>">
+    			<img src="/static/default/wap/image/index/app-mart.png" />
+    			<p>乡村活动</p>
+    	</a>
+		</div>
+	</div>
+    <div class="blank-30"></div>
+    <div class="blank-10 bg"></div>
+    
+ <!--意见反馈-->
+    
+        <div class="cite-title padding border-bottom">
+		<h5><i class="icon-calendar-minus-o"></i> 乡村意见反馈</h5>
+                <a href="<{:U('village/suggestion',array('village_id'=>$detail['village_id'],'type'=>'1'))}>">+ 意见反馈</a>
+	</div>
+	<div class="text-list">
+		<ul>
+			<foreach name="suggestion" item="item">
+			<li class="padding border-bottom">
+                            <a href="<{:U('village/suggestion',array('village_id'=>$detail['village_id'],'type'=>'1'))}>"><{:bao_Msubstr($item['title'],0,14,false)}><if condition="$item.person neq ''">--意见人：<{$item.person}></if><span><{$item.addtime|date='Y-m-d',###}></span></a>
+			</li>
+			</foreach>
+		</ul>
+	</div>
+    
+    
+       
+        
+	<div class="cite-title padding border-bottom">
+		<h5><i class="icon-bullhorn"></i> 乡村通知</h5>
+                <a href="<{:U('village/noticelist',array('village_id'=>$detail['village_id'],'type'=>'1'))}>">+ 更多</a>
+	</div>
+	<div class="text-list">
+		<ul>
+			<foreach name="notice" item="item">
+			<li class="padding border-bottom">
+				<a href="<{:U('village/notice',array('id'=>$item['id']))}>"><{:bao_Msubstr($item['title'],0,14,false)}><span><{$item.addtime|date='Y-m-d',###}></span></a>
+			</li>
+			</foreach>
+		</ul>
+	</div>
+	<div class="blank-10 bg"></div>
+        <div class="cite-title padding border-bottom">
+        	<h5><i class="icon-desktop"></i> 乡村活动展示</h5>
+                <a href="<{:U('village/noticelist',array('village_id'=>$detail['village_id'],'type'=>'2'))}>">+ 更多</a>
+	</div>
+	<div class="text-list">
+		<ul>
+			<foreach name="notice_2" item="item">
+			<li class="padding border-bottom">
+				<a href="<{:U('village/notice',array('id'=>$item['id']))}>"><{:bao_Msubstr($item['title'],0,14,false)}><span><{$item.addtime|date='Y-m-d',###}></span></a>
+			</li>
+			</foreach>
+		</ul>
+	</div>
+	<div class="blank-10 bg"></div>
+		
+	<div class="cite-title padding border-bottom">
+		<h5><i class="icon-phone"></i>  便民电话</h5>
+		
+	</div>
+	<div class="text-list">
+		<ul>
+			<volist name="phones" id="var" key="index">
+			<li class="padding border-bottom">
+				<a class="line" title="<{$var.name}>" href="tel:<{$var.phone}>">
+					<em class="x4"><{:bao_Msubstr($var['name'],0,4,false)}></em>
+					<em class="x8"><{$var.phone}> <span><i class="icon-angle-right"></i></span></em>
+				</a> 
+			</li>
+			</volist>
+		</ul>
+	</div>
+	<div class="blank-10 bg"></div>
+	<div class="cite-title padding border-bottom">
+		<h5><i class="icon-fire"></i>  身边套餐</h5>
+	</div>
+	<div class="mart-flush" id="flush">
+		<div class="bd">
+			<ul>
+				<volist name="keys" id="k">
+					<li class="padding">
+						<a class="line" href="<{:U('tuan/detail',array('tuan_id'=>$tuan[$k]['tuan_id']))}>">
+                        
+							<div class="x5"><img src="<{:config_img($tuan[$k]['photo'])}>"></div>
+							<div class="x7">
+								<p><{$tuan[$k]['title']}></p>
+								<p>
+								<span class="text-yellow margin-right">￥<{:round($tuan[$k]['tuan_price']/100,2)}></span>
+								<del class="text-gray text-small">￥<{:round($tuan[$k]['price']/100,2)}></del>
+								</p>
+							</div>
+						</a>
+					</li>
+				</volist>
+			</ul>
+		</div>
+	</div>
+
+
+	<div class="blank-10 bg"></div>
+   <!--村镇贴吧-->
+    <if condition="$detail['is_bbs'] eq 1">
+	<div class="cite-title padding border-bottom">
+		<h5><i class="icon-comments"></i> 乡村贴吧</h5>
+		<a href="<{:U('village/tieba',array('village_id'=>$detail['village_id']))}>">+ 进入</a>
+	</div>
+	<div id="tie-list" class="text-list">
+		<ul>
+                    <foreach name="bbs" item="item">
+	<li class="padding border-bottom">
+		<a href="<{:U('village/tie',array('post_id'=>$item['post_id']))}>"><{:bao_Msubstr($item['title'],0,14,false)}><span><{$item['username']}></span></a>
+	</li>
+</foreach>
+		</ul>
+	</div>
+    </if>
+    
+
+<include  file='public:footer'/>    

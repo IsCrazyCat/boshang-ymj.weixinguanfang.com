@@ -1,0 +1,53 @@
+<include  file='public:header'/>   
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		配送员资料设置
+	</div>
+</header>
+
+<style>
+.layui-layer-molv .layui-layer-title {background-color: #F8F8F8;border-bottom: 1px solid #eee;color: #333;}
+.container, .container-layout {padding: 5px;}
+</style>
+<div class="container">
+		<div class="blank-10"></div>
+		<p><span class="text-dot">小提示：</span> 如果需要接受微信通知，需要您绑定微信后才能接受，需要接受短信通知，请您绑定您的手机号！</p>
+	</div>
+<div class="panel-list border-top">
+	<ul>
+		<li><a href="javascript:void(0)">姓名<em><{$detail.name}> ID：<{$detail.id}></em></a></li>
+        <php>$mobile = substr_replace($detail['mobile'],'****',3,4);</php>
+        <li><a href="javascript:void(0)">手机<em><{$mobile}></em></a></li>
+        <li><a href="javascript:void(0)">地址<em><{$detail.addr}></em></a></li>
+        <li><a href="javascript:void(0)">入驻时间<em><{$detail.create_time|date="Y-m-d H:i:s",###}></em></a></li>
+	</ul>
+</div>
+<div class="blank-10 bg"></div>
+<div class="panel-list border-top">
+	<ul>
+		<li>
+            <a target="x-frame"  href="<{:U('set/sms',array('id'=>$detail['id']))}>">短信通知状态： &nbsp;&nbsp;<if condition="$detail['is_sms'] eq 1">开启<else/>关闭</if>
+            <i class="icon-angle-right"></i>
+            </a>
+        </li>
+		<li>
+            <a target="x-frame"  href="<{:U('set/weixin',array('id'=>$detail['id']))}>">微信通知状态：&nbsp;&nbsp;<if condition="$detail['is_weixin'] eq 1">开启<else/>关闭</if>
+            <i class="icon-angle-right"></i>
+            </a>
+        </li>
+        <li>
+            <a target="x-frame"  href="<{:U('set/music',array('id'=>$detail['id']))}>">语音通知状态：&nbsp;&nbsp;<if condition="$detail['is_music'] eq 1">开启<else/>关闭</if>
+            <i class="icon-angle-right"></i>
+            </a>
+        </li>
+	</ul>
+</div>
+<div class="blank-10"></div>  
+<div class="container text-center">
+	<a class="button button-block button-big bg-dot" href="<{:U('set/edit',array('id'=>$detail['id']))}>">修改资料</a>
+</div> 
+<div class="blank-10"></div>  
+<include  file='public:footer'/>

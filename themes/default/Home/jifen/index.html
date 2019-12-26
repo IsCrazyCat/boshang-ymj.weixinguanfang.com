@@ -1,0 +1,55 @@
+<include  file='public:header'/>  
+<include  file='public:top'/> 
+<include  file='public:nav2'/>  
+<div class="content"> 
+    <div class="jfsy_banner">
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.jfsy_flexslider').flexslider({
+                    directionNav: true,
+                    pauseOnAction: false,
+                });
+
+            });//首页轮播js
+        </script>
+        <div class="jfsy_flexslider">
+            <ul class="slides">
+                <calldata mdl="Ad" where=" bg_date ELT '{$today}' AND end_date EGT '{$today}' AND  city_id IN ({$city_ids})  AND closed=0 AND site_id=24" limit="0,3" cache="21600" order="orderby asc">
+                    <li class="sy_hotgzLi flex-active-slide" style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 1; display: block; z-index: 2;"><a href="<{:U('app/ad/click',array('ad_id'=>$item['ad_id'],'aready'=>1))}>" title="<{$item.title}>" target="_blank"><img width="1200" height="287" src="<{:config_img($item['photo'])}>" draggable="false"></a></li>
+                </calldata>
+
+
+            </ul>
+            <ol class="flex-control-nav flex-control-paging"></ol>
+
+        </div>
+    </div>
+    <if condition="!empty($MEMBER)"><p class="jfsy_wellcome">欢迎你，亲爱的「<{$MEMBER.nickname}>」，你在<{$CONFIG.site.sitename}>已经有了<span class="red"><{$MEMBER.integral}></span>个积分。</p>
+        <else/>
+        <p class="jfsy_wellcome">兑换积分商品，需要先<a href="<{:U('passport/login')}>" class="blue">登录</a>哦亲！</p>
+    </if>
+    <div class="jfsy_spList">
+        <ul>
+            <foreach name="list" item="item">
+                <li class="jfsy_spLi">
+                    <div class="jfsy_spImg"><a href="<{:U('jifen/detail',array('goods_id'=>$item['goods_id']))}>" target="_blank"><img width="230" height="176" src="<{:config_img($item['face_pic'])}>"></a></div>
+                    <p class="jfsy_spPt"><a href="<{:U('jifen/detail',array('goods_id'=>$item['goods_id']))}>" target="_blank"><{:bao_msubstr($item['title'],0,14,false)}></a></p>
+                    <p class="jfsy_spP">积分:<span class="jfsy_spjf"><{$item.integral}></span><span class="jfsy_spjfjz">价值:￥<{:round($item['price'],2)}></span></p>
+                    <div class="jfsy_spAk"><a href="<{:U('jifen/detail',array('goods_id'=>$item['goods_id']))}>" target="_blank" class="jfsy_spA">立即兑换</a></div>
+                </li>
+            </foreach>
+        </ul>
+    </div>
+    <div class="jfsy_jffz">
+        <div class="jfsy_jffzT">兑换积分方法</div>
+        <ul>
+            <li>1.用户通过关注商家会送取一定的积分。</li>
+            <li>2.用户在消费的过程中也会得到相应的积分。</li>
+            <li>3.用户获得积分可以在消费的过程中抵用现金。</li>
+        </ul>
+    </div>
+</div>
+
+
+
+<include file="public:footer"/>

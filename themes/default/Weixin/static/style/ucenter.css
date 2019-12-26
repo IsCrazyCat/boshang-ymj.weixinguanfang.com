@@ -1,0 +1,9 @@
+.ucenter_c ul.template_select{ float:left; width:100%;zoom:1; margin:0 0 20px;}
+.ucenter_c ul.template_select li{ float:left; position:relative; margin:0 25px; width:170px; height:410px; text-align:center; list-style:none; cursor:pointer}
+.ucenter_c .template_select li .phone{ width:170px; height:353px; position:relative; background:url(../images/m/iphone0.png) no-repeat;}
+.ucenter_c .template_select li .phone img{ position:absolute; width:144px; height:240px; top:55px;left:13.5px;}
+.ucenter_c .template_select li.selected .phone, .ucenter_c  .template_select li.hover .phone{ background:url(../images/m/iphone1.png) no-repeat;}
+.ucenter_c .template_item p{ padding-top:10px;}
+.ucenter_c .template_item input{ display:inline; vertical-align:middle; margin:0 5px 0 0 ;}
+.ucenter_c .template_item label{ display:inline;}
+.ucenter_c .template_item .use_tips{ position:absolute; top:50px; right:170px; background:#333; padding:10px; color:#fff; width:150px; border-radius:10px; text-align:left; display:none}

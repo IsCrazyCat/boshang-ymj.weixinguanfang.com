@@ -1,0 +1,92 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">营销管理</a> > <a href="">微信营销</a> > <a>自定义菜单</a></li>
+    </ul>
+</div>
+<js file='__PUBLIC__/js/uploadify/jquery.uploadify.min.js'/>
+<link rel="stylesheet" href="__PUBLIC__/js/uploadify/uploadify.css">
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">必须是服务号才能使用微信自定义菜单！暂时只支持URL连接</div>
+        </div>
+    </div> 
+    <div class="tuanfabu_tab">
+        <ul>
+                  <li class="tuanfabu_tabli tabli_change"><a href="<{:U('weixin/index')}>">绑定公众账号</a></li>
+            <li class="tuanfabu_tabli tabli_change on"><a href="<{:U('weixin/menu')}>">自定义菜单</a></li>
+            <li class="tuanfabu_tabli tabli_change"><a href="<{:U('weixinkeyword/index')}>">关键字回复</a></li>
+        </ul>
+    </div>
+    <div class="tabnr_change  show">
+    	<form method="post" class="password"  action="<{:U('weixin/menu')}>"  target="baocms_frm">
+    	<table class="tuanfabu_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="120"><p class="tuanfabu_t">BUTTON1：</p></td>
+                <td colspan="2"><div class="tuanfabu_nr">
+                <input type="text" name="data[button][1]" value="<{$weixin['button'][1]}>" class="tuanfabu_int tuanfabu_intw2" />
+                </div></td>
+            </tr>
+            <for start="1" end="6">
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">子菜单<{$i}>：</p></td>
+                    <td>
+                    <div class="tuanfabu_nr">
+                    <input name="data[child][1][<{$i}>][name]" type="text" value="<{$weixin['child'][1][$i]['name']}>" class="tuanfabu_int tuanfabu_intw2" />
+                    </div>
+                    <td>
+                    <div class="tuanfabu_nr">
+                    <input name="data[child][1][<{$i}>][url]" type="text" value="<{$weixin['child'][1][$i]['url']}>" class="tuanfabu_int tuanfabu_intw2" />
+                    </div>
+                    </td>
+                </tr>
+            </for>
+            <tr>
+                <td width="120"><p class="tuanfabu_t">BUTTON2：</p></td>
+                <td colspan="2"><div class="tuanfabu_nr">
+                <input name="data[button][2]" type="text" value="<{$weixin['button'][2]}>" class="tuanfabu_int tuanfabu_intw2" />
+                </div></td>
+            </tr>
+            <for start="1" end="6">
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">子菜单<{$i}>：</p></td>
+                    <td>
+                    <div class="tuanfabu_nr">
+                    <input name="data[child][2][<{$i}>][name]" type="text" value="<{$weixin['child'][2][$i]['name']}>" class="tuanfabu_int tuanfabu_intw2" />
+                    </div>
+                    <td>
+                    <div class="tuanfabu_nr">
+                    <input name="data[child][2][<{$i}>][url]" type="text" value="<{$weixin['child'][2][$i]['url']}>" class="tuanfabu_int tuanfabu_intw2" />
+                    </div>
+                    </td>
+                </tr>
+            </for>
+            <tr>
+                <td width="120"><p class="tuanfabu_t">BUTTON2：</p></td>
+                <td colspan="2"><div class="tuanfabu_nr">
+                <input name="data[button][3]" type="text" value="<{$weixin['button'][3]}>" class="tuanfabu_int tuanfabu_intw2" />
+                </div></td>
+            </tr>
+            <for start="1" end="6">
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">子菜单<{$i}>：</p></td>
+                    <td>
+                    <div class="tuanfabu_nr">
+                    <input name="data[child][3][<{$i}>][name]" type="text" value="<{$weixin['child'][3][$i]['name']}>" class="tuanfabu_int tuanfabu_intw2" />
+                    </div>
+                    <td>
+                    <div class="tuanfabu_nr">
+                    <input name="data[child][3][<{$i}>][url]" type="text" value="<{$weixin['child'][3][$i]['url']}>" class="tuanfabu_int tuanfabu_intw2" />
+                    </div>
+                    </td>
+                </tr>
+            </for>
+        </table>
+        <div class="tuanfabu_an">
+        <input type="submit" class="radius3 sjgl_an tuan_topbt" value="保存" />
+        </div>
+        </form>
+    </div> 
+</div>
+<include  file='public:footer'/>

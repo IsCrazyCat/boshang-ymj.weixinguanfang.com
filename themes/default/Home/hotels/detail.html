@@ -1,0 +1,543 @@
+<include file="public:header" /> 
+<include file="public:top"/>
+<include file="public:nav2"/>
+<script type="text/javascript" src="__TMPL__statics/js/jquery.jcarousel.min.js"></script>
+<script type="text/javascript" src="__TMPL__statics/js/jquery.pikachoose.min.js"></script>
+<script type="text/javascript" language="javascript" src="__PUBLIC__/js/layer/layer.js"></script>
+<script type="text/javascript" src="__TMPL__statics/js/dateRange.js"></script>
+<link rel="stylesheet" type="text/css" href="__TMPL__statics/css/dateRange.css"/>
+<!--主体内容-->
+<div class="content zy_content" style="position: relative; padding-top: 5px;">
+	<div class="spxq_xqT spxq_xqT2">
+        <ul>
+            <li class="jq_spxq_xqBt1 on"><code rel="spxq_xqBt1">房型预订</code><em></em></li>
+            <li class="jq_spxq_xqBt2"><code rel="spxq_xqBt2">酒店位置</code><em></em></li>
+            <li class="jq_spxq_xqBt3"><code rel="spxq_xqBt3">酒店详情</code><em></em></li>
+            <li class="jq_spxq_xqBt4"><code rel="spxq_xqBt4">设施服务</code><em></em></li>
+            <li class="jq_spxq_xqBt5"><code rel="spxq_xqBt5">用户评价</code><em></em></li>
+            <li class="jq_spxq_xqBt6"><code rel="spxq_xqBt6">酒店套餐</code><em></em></li>
+        </ul>
+    </div>
+    <script>
+        $(document).ready(function () {
+            var href = window.location.href;
+            var param = href.split('#');
+            if (param[1] != undefined && param[1] !=null && param[1] != "") {
+                var _targetTop2 = $('#' + param[1]).offset().top-50;//获取位置
+                jQuery("html,body").stop(true).animate({scrollTop: _targetTop2}, 300);//跳转
+            }
+            $(".spxq_xqT2 ul li").click(function () {
+                $(".spxq_xqT2 ul li").removeClass("on");
+                $(this).addClass("on");
+                var _targetTop = $('.' + $(this).find('code').attr('rel')).offset().top - 50;//获取位置
+                jQuery("html,body").stop(true).animate({scrollTop: _targetTop}, 300, function(){
+                });//跳转
+            });
+            $(window).scroll(function () {
+                $('.spxq_xqT2 ul li').each(function(i){                   
+                    if($("."+$(this).find('code').attr("rel")).offset().top - $(window).scrollTop() < 50){
+                        $(this).addClass('on').siblings().removeClass('on');
+                    }
+                });
+            });            
+        });
+    </script>
+
+    <div class="spxq_loca"><a href="<{:U('index/index')}>">首页</a>&gt;&gt;<a href="<{:U('hotels/index')}>">订酒店</a>&gt;&gt;<a href="javascript:void(0);"><{$detail.hotel_name}></a></div>
+	<!--定酒店简介-->
+    <div class="hotel_detl_box mb20">
+    	<div class="hotel_detl_infor_top">
+        	<h1 class="left"><{$detail.hotel_name}></h1>
+            <div class="FocAndShare2 right share bdsharebuttonbox" data-tag="share_1">
+                <ul>
+                    <li class="list"><a mini='act' href="<{:U('shop/favorites',array('shop_id'=>$detail['shop_id']))}>">
+                        <em class="ico ico_2"></em>收藏酒店</a>
+                    </li>
+                    <li class="list"><a data-cmd="more" href="javascript:void(0);">
+                        <em class="ico ico_3"></em>分享</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <script>window._bd_share_config = {share: [{"tag": "share_1", 'bdCustomStyle': '__TMPL__statics/empty.css'}]};
+                with (document)
+                    0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+            </script>
+        <div class="hotel_detl_infor">
+            <div class="img_box left" style="overflow: hidden; height: 300px;">
+                <!-- 轮播图片 Begin -->
+                <div class="pikachoose">
+                    <ul id="pikame" class="jcarousel-skin-pika">
+                        <foreach name="photos" item="item">
+                            <li><a href="javascript:void(0);" target="_blank"><img src="<{:config_img($item['photo'])}>"/></a></li>
+                        </foreach>
+                    </ul>
+                </div>
+                <script language="javascript">
+                    $(document).ready(function (){
+                        $("#pikame").PikaChoose({carousel:true, carouselVertical:true});
+                    });
+                </script>
+                <!-- 轮播图片 End -->
+            </div>
+            <div class="pub_wz">
+                <p class="addr"><span class="graycl">酒店地址：</span><{$detail.addr}><a href="javascript:void(0);" class="see map_icon"><em class="ico"></em>查看地图</a></p>
+                <div class="state_box mb20">
+                	<ul>
+                    	<li class="">已售 <b class="pointcl"><{$detail.sold_num}></b></li>
+                        <li class="mar">|</li>
+                        <li class="wd blackcl6"><{$detail.comments}>人已评价</li>
+                        <li class="mar">|</li>
+                        <php>$sc = round($detail['score']/$detail['comments'],1);$scs = $sc*20;</php>
+                    	<li class=""><span class="spxq_qgpstarBg mr10"><span class="spxq_qgpstar" style="width:<{$scs}>%;"></span></span><span class="fontcl1"><{$sc}></span>分</li>
+                    </ul>
+                </div>
+                <p class="mb20"><span class="graycl">酒店入住：</span><{$detail.in_time}>以后  <span class="ml10 graycl">离店时间：</span><{$detail.out_time}>以前</p>
+            </div>
+            <div class="clear"></div>
+        </div>
+	</div>
+    <!--定酒店简介结束-->
+    <div class="spxq_xqT">
+        <ul>
+            <li class="on"><code rel="spxq_xqBt1">房型预定</code><em></em></li>
+            <li><code rel="spxq_xqBt2">酒店位置</code><em></em></li>
+            <li><code rel="spxq_xqBt3">酒店详情</code><em></em></li>
+            <li><code rel="spxq_xqBt4">设施服务</code><em></em></li>
+            <li><code rel="spxq_xqBt5">用户评价</code><em></em></li>
+            <li><code rel="spxq_xqBt6">酒店套餐</code><em></em></li>
+        </ul>
+    </div>
+    <!--酒店房型-->
+    <script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+    <div class="hotel_detl_soso spxq_xqBt1" >
+    	<div class="hotel_soso">
+            <form>
+                 <div id="date_demo" style=" height: 44px; float: left; color: #fff;">
+                <div class="int_box time left"><span class="wz">入住</span><input type="text" value="<{$into_time}>" readonly="readonly" id="ft"/><em class="ico ico_2"></em></div>
+                <div class="int_box time left"><span class="wz">退房</span><input type="text" value="<{$out_time}>" readonly="readonly" id="tt"/><em class="ico ico_2"></em></div>
+                </div>
+                <p class="day left">共<span id="night_num"></span>晚</p>
+                <input type="button" value="保存" id="set_cookie" class="btn left"  />
+                <div class="clear"></div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7b92b3afff29988b6d4dbf9a00698ed8"></script>
+    <div class="map_fixed">
+        <div class="map_fixed_tit">
+                <span>查看地图</span>
+         <a href="javascript:void(0);" title="关闭" class="close">×</a> 
+        </div>
+        <div class="map_fixed_box">
+                <div id="allmap2" style="width:700px; height:430px;"></div>
+        </div>
+        <p class="zhu">注：地图位置坐标仅供参考，具体情况以实际道路标识信息为准</p>
+    </div>
+    <script>
+        function test() {
+            var stime = $("#ft").val();
+            var ltime = $("#tt").val();
+            if(ltime&&stime){
+                if(ltime <= stime){
+                    layer.msg('选择时间不正确');
+                    //return false;
+                }
+            }
+            var night_num =  get_night(stime,ltime)||0;
+            $("#night_num").html(night_num);
+        }
+        
+        $(document).ready(function(){
+            var dateRange = new pickerDateRange('date_demo', {
+            //aRecent90Days : 'aRecent7DaysDemo3', //最近7天
+            isTodayValid : true,
+            startDate : "<{$into_time}>",
+            endDate : "<{$out_time}>",
+            needCompare : true,
+            //isSingleDay : true,
+            shortOpr : false,
+            //dayRangeMax : 30,
+            defaultText : ' 至 ',
+            inputTrigger : 'input_trigger_demo3',
+            theme : 'ta',
+            success : function(obj) {
+                    $("#ft").val(obj.startDate);
+                    $("#tt").val(obj.endDate);
+                    var stime = $("#ft").val();
+            var ltime = $("#tt").val();
+            var night_num =  get_night(stime,ltime) ||0;
+            $("#night_num").html(night_num);
+            }
+        });
+        dateRange.setNextMonth();
+            
+            $("#set_cookie").click(function(){
+                var ft = $("#ft").val();
+                var tt = $("#tt").val();
+                SetCookie('into_time',ft);
+                SetCookie('out_time',tt);
+                layer.msg("设置成功");
+            })
+            
+            var stime = $("#ft").val();
+            var ltime = $("#tt").val();
+            var night_num =  get_night(stime,ltime) ||0;
+            $("#night_num").html(night_num);
+        })
+        
+        jQuery(document).ready(function($) {
+            $('.pub_wz .map_icon').click(function(){
+                $('.map_fixed').show();
+                   var map2 = new BMap.Map("allmap2");
+                    map2.centerAndZoom(new BMap.Point("<{$detail.lng}>", "<{$detail.lat}>"), 17);
+                    var point2 = new BMap.Point("<{$detail.lng}>", "<{$detail.lat}>");
+                    map2.centerAndZoom(point2, 17);
+                    var marker2 = new BMap.Marker(point2); // 创建标注
+                    map2.clearOverlays();
+                    map2.addOverlay(marker2); // 将标注添加到地图中
+                    marker2.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                    map2.addControl(new BMap.NavigationControl()); //添加默认缩放平移控件
+            })
+            $('.map_fixed .close').click(function(){
+                    $('.map_fixed').fadeOut(100);
+            })
+    })
+        
+         function SetCookie(name, value)//两个参数，一个是cookie的名子，一个是值
+            {
+                var Days = 30; //此 cookie 将被保存 30天
+                var exp = new Date();    //new Date("December 31, 9998");
+                exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+                document.cookie = name + "=" + value + ";expires=" + exp.toGMTString() +";path=/";
+            }
+    </script>
+	<div class="hotel_Ftype mb20">
+    	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <th width="260">房型</th>
+                <th>床型</th>
+                <th>早餐</th>
+                <th>宽带</th>
+                <th>政策</th>
+                <th>库存</th>
+                <th>房价（含服务费）</th>
+                <th></th>
+            </tr>
+            <if condition="empty($room_list)">
+                <tr>
+                    <td align="center" colspan="10">
+                        暂无房间
+                    </td>
+                </tr>
+            <else/>
+            <volist name="room_list" id="item">
+                <if condition="$i elt 3">
+                <tr>
+                    <td>
+                        <div class="img_wz">
+                            <img src="<{:config_img($item['photo'])}>" width="125" height="100" /><{$item.title}>
+                        </div>
+                    </td>
+                    <td><{$roomtype[$item['type']]}></td>
+                    <td><if condition="$item['is_zc'] eq 1">提供<else/>不提供</if></td>
+                    <td><if condition="$item['is_kd'] eq 1">提供<else/>不提供</if></td>
+                    <td><if condition="$item['is_cancel'] eq 1">可以取消<else/>不可取消</if></td>
+                    <td><{$item.sku}></td>
+                    <td><p><b class="fontcl1 price">￥<{$item.price}></b>/晚起</p></td>
+                    <td><a href="<{:U('hotels/order',array('room_id'=>$item['room_id']))}>" class="btn">预定</a></td>
+                </tr>
+                <else/>
+                <tr class="shide" style="display: none;">
+                    <td>
+                        <div class="img_wz">
+                            <img src="<{:config_img($item['photo'])}>" width="125" height="100" /><{$item.title}>
+                        </div>
+                    </td>
+                    <td><{$roomtype[$item['type']]}></td>
+                    <td><if condition="$item['is_zc'] eq 1">提供<else/>不提供</if></td>
+                    <td><if condition="$item['is_kd'] eq 1">提供<else/>不提供</if></td>
+                    <td><if condition="$item['is_cancel'] eq 1">可以取消<else/>不可取消</if></td>
+                    <td><{$item.sku}></td>
+                    <td><p><b class="fontcl1 price">￥<{$item.price}></b>/晚起</p></td>
+                    <td><a href="<{:U('hotels/order',array('room_id'=>$item['room_id']))}>" class="btn">预定</a></td>
+                </tr>
+                </if>
+            </volist>
+            </if>
+            <if condition="$room_count gt 3">
+            <tr>
+            	<td colspan="8">
+                    <div class="more_box"><a href="javascript:void(0);" class="more">展开全部房型（<{$room_count}>）</a></div>
+                </td>
+            </tr>
+            </if>
+        </table>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $(".more").click(function(){
+                $(".shide").toggle();
+            })
+        })
+    </script>
+    <!--酒店房型结束-->
+    <!--酒店地图-->
+    <div class="hotel_detl_box mb20 spxq_xqBt2">
+        <div class="hotel_detl_tit">酒店位置</div>
+        <div class="hotel_detl_nr">
+            <div class="hotel_map">
+                <div class="map_box left" id="allmap" style="width:1160px; height:430px;"></div>
+                <!--<div class="pub_wz">
+                    <h3>周边交通</h3>
+                    <p>饭店地处常州市中心，位于局前街与和平北路交汇处南侧，邻近常州汽车站和常州火车站，交通出行十分便利。</p>
+                    <p>- 距离常州汽车站约980米；</p>
+                    <p>- 距离常州火车站约820米；</p>
+                    <p>- 距离常州奔牛机场约31公里。</p>
+                </div>-->
+                <div class="clear"></div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            // 百度地图API功能
+            var map = new BMap.Map("allmap");
+            map.centerAndZoom(new BMap.Point("<{$detail.lng}>", "<{$detail.lat}>"), 15);
+            var point = new BMap.Point("<{$detail.lng}>", "<{$detail.lat}>");
+            map.centerAndZoom(point, 15);
+            var marker = new BMap.Marker(point); // 创建标注
+            map.clearOverlays();
+            map.addOverlay(marker); // 将标注添加到地图中
+            marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+            map.addControl(new BMap.NavigationControl()); //添加默认缩放平移控件
+        </script>
+    </div>
+    <!--酒店地图结束-->
+    <div class="hotel_detl_box mb20 spxq_xqBt3">
+        <div class="hotel_detl_tit">酒店详情</div>
+        <div class="hotel_detl_nr"><{$detail.details}></div>
+    </div>
+    
+    <div class="hotel_detl_box mb20 spxq_xqBt4">
+        <div class="hotel_detl_tit">设施服务</div>
+        <div class="hotel_detl_nr">
+        	<div class="hotel_serve">
+            	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <if condition="$detail['is_wifi'] eq 1">
+                        <tr>
+                            <th width="76">网络设施</th>
+                            <td>
+                                    <div class="list_box">
+                                    <ul>
+                                        <li class="list">
+                                            <img src="__TMPL__statics/images/hotel/serIco/serIco1.png" />
+                                            <p>免费wifi</p>
+                                        </li>
+                                    </ul>
+                                    <div class="clear"></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </if>
+                    <tr>
+                        <th width="76">停车场</th>
+                        <td>
+                        	<div class="list_box">
+                                <ul>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco2.png" />
+                                        <p>提供<span class="fontcl1">收费</span>停车位</p>
+                                    </li>
+                                </ul>
+                                <div class="clear"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th width="76">酒店服务</th>
+                        <td>
+                        	<div class="list_box">
+                                <ul>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco3.png" />
+                                        <p>宽带</p>
+                                    </li>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco4.png" />
+                                        <p>健身房</p>
+                                    </li>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco5.png" />
+                                        <p>商务中心</p>
+                                    </li>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco6.png" />
+                                        <p>会议室</p>
+                                    </li>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco7.png" />
+                                        <p>酒店餐厅</p>
+                                    </li>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco8.png" />
+                                        <p>游泳池</p>
+                                    </li>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco9.png" />
+                                        <p>接机服务</p>
+                                    </li>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco10.png" />
+                                        <p>桑拿</p>
+                                    </li>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco11.png" />
+                                        <p>SPA/按摩</p>
+                                    </li>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco12.png" />
+                                        <p>租/叫车服务</p>
+                                    </li>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco13.png" />
+                                        <p>行李寄存</p>
+                                    </li>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco14.png" />
+                                        <p>咖啡厅</p>
+                                    </li>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco15.png" />
+                                        <p>酒吧</p>
+                                    </li>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco16.png" />
+                                        <p>24小时热水</p>
+                                    </li>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco17.png" />
+                                        <p>残障人客房</p>
+                                    </li>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco18.png" />
+                                        <p>前台保险柜</p>
+                                    </li>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco19.png" />
+                                        <p>专职行李员</p>
+                                    </li>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco20.png" />
+                                        <p>送餐服务</p>
+                                    </li>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco21.png" />
+                                        <p>洗衣服务</p>
+                                    </li>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco22.png" />
+                                        <p>叫醒服务</p>
+                                    </li>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco23.png" />
+                                        <p>空调</p>
+                                    </li>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco24.png" />
+                                        <p>电冰箱</p>
+                                    </li>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco25.png" />
+                                        <p>吹风机</p>
+                                    </li>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco26.png" />
+                                        <p>国内长途电话</p>
+                                    </li>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco27.png" />
+                                        <p>国外长途电话</p>
+                                    </li>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco28.png" />
+                                        <p>淋浴</p>
+                                    </li>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco29.png" />
+                                        <p>早餐</p>
+                                    </li>
+                                    <li class="list">
+                                    	<img src="__TMPL__statics/images/hotel/serIco/serIco30.png" />
+                                        <p>独立卫生间</p>
+                                    </li>
+                                </ul>
+                                <div class="clear"></div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <div class="hotel_detl_box mb20 spxq_xqBt5">
+        <div class="hotel_detl_tit">用户评价<a target="_blank" href="<{:U('member/hotels/index')}>" class="right hotel_evlt">我也要评价<em class="ico"></em></a></div>
+        <div class="hotel_detl_nr">
+        	<div class="sjxq_tab">
+                <ul>
+                    <li class="sjxq_tabLi <if condition='!$have_photo'>on</if>"><a href="<{:U('hotels/detail',array('hotel_id'=>$detail['hotel_id']))}>">全部</a></li>
+                    <li class="sjxq_tabLi <eq name='have_photo' value='1'>on</eq> "><a href="<{:U('hotels/detail',array('hotel_id'=>$detail['hotel_id'],'have_photo'=>1))}>">晒图评价</a></li>
+                </ul>
+            </div>
+            <div class="spxq_pjListBox">
+                <ul>
+                    <volist name="list" id="var">
+                        <li class="spxq_pjList">
+                            <div class="left spxq_pjList_l">
+                                <div class="spxq_pjTx"><img src="<{:config_img($users[$var['user_id']]['face'])}>" width="75" height="75" /></div>
+                                <p class="spxq_pjYh"><{$users[$var['user_id']]['nickname']}></p>
+                            </div>
+                            <div class="left spxq_pjList_r sjxq_pjList_r">
+                                <div><span class="spxq_qgpstarBg"><span class="spxq_qgpstar spxq_qgpstar<{:round($var['score']*10,1)}>">&nbsp;</span></span><span class="spxq_pjTime"><{$var.create_time|date='Y-m-d H:i',###}></span>
+                                </div>
+                                <p class="spxq_pjP"><{$var.content}></p>
+                                <if condition="!empty($var['reply'])"><p class="spxq_pjP"><{$var.reply}></p></if>
+                                <ul class="spxq_pjUl">
+
+                                    <foreach name="pics" item="pic">
+                                        <if condition="$pic['comment_id'] eq $var['comment_id']">
+                                            <li class="spxq_pjLi"><a href="javascript:void(0);" rel="__ROOT__/attachs/<{$pic.photo}>" ><img src="__ROOT__/attachs/<{$pic.photo}>" width="100" height="100" /></a></li>
+                                        </if>
+                                    </foreach>
+                                </ul>
+                            </div>
+                        </li>
+                    </volist>
+                </ul>
+                <div class="x"><{$page}></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="hotel_detl_box mb20 spxq_xqBt6">
+        <div class="hotel_detl_tit">酒店套餐<a href="<{:U('tuan/index')}>" class="right">更多套餐&gt;&gt;</a></div>
+        <div class="hotel_list_box">
+            <ul>
+                <foreach name="tuan_list" item="item">
+                    <li class="hotel_list">
+                        <div class="pub_img"><a target="_blank" href="<{:U('tuan/detail',array('tuan_id'=>$item['tuan_id']))}>">
+                        <img src="<{:config_img($item['photo'])}>" width="380" height="300" /><span class="tag">团</span></a></div>
+                        <div class="pub_wz">
+                            <h3><a target="_blank" href="<{:U('tuan/detail',array('tuan_id'=>$item['tuan_id']))}>"><{$item.title}><p class="price fontcl1 right">￥<{$item.tuan_price}></p><div class="clear"></div></a></h3>
+                        </div>
+                    </li>
+                </foreach>
+            </ul>
+            <div class="clear"></div>
+        </div>
+    </div>
+<!--主体内容结束-->
+<div class="mask_bg mask_spxq_pjLi_img_mask">
+	<div class="mask_spxq_pjLi_img"><img src="" width="300" height="300" /></div>
+</div>
+<include file="public:footer"/>

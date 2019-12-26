@@ -1,0 +1,57 @@
+<include  file='public:header'/>
+
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+
+<div class="sjgl_lead">
+
+    <ul>
+
+        <li><a href="#">结算</a> > <a href="">资金记录</a> > <a>余额日志</a></li>
+
+    </ul>
+
+</div>
+
+<div class="tuan_content">
+
+
+
+    <include  file='money:nav'/>
+
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+
+        <tr style="background-color:#eee;">
+
+            <td>月份</td>
+
+            <td>金额</td>
+
+            
+
+        </tr>
+
+        <foreach name="list" item="var">
+
+            <tr>
+
+                <td><{$var.m}></td>
+
+                <td><{:round($var['money']/100,2)}></td>
+
+            </tr>
+
+        </foreach>
+
+    </table>
+
+    <div class="paging">
+
+        <{$page}>
+
+    </div>
+
+</div>
+
+
+
+<include  file='public:footer'/>

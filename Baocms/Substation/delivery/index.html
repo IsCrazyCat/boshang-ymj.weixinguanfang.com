@@ -1,0 +1,75 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">频道</li>
+        <li class="li2">配送员管理</li>
+        <li class="li2 li3">配送员列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('delivery/create','','添加配送员','load','',700,600)}>
+            </div>
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('user/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <label>
+                            <span>账户</span>
+                            <input type="text" name="account" value="<{$account}>" class="inptText" />
+                        </label>
+                        <label>
+                            <span>昵称</span>
+                            <input type="text" name="nickname" value="<{$nickname}>" class="inptText" />
+                            <input type="submit" value="搜索"  class="inptButton" />
+                        </label>
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+    <div class="selectNr selectNr2">
+
+        <div class="clear"></div>
+    </div>
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="user_id" /></td>
+                    <td class="w50">ID</td>
+                    <td>帐号</td>
+                    <td>名称</td>
+                    <td>手机</td>
+                    <td>添加时间</td>
+                    <td>配送记录</td>
+                    <td>操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_user_id" type="checkbox" name="id[]" value="<{$var.id}>" /></td>
+                        <td><{$var.id}></td>
+                        <td><a href="<{:U('lists',array('id'=>$var['id']))}>"><{$var.username}></a></td>
+                        <td><{$var.name}></td>
+                        <td><{$var.mobile}></td>
+                        <td><{$var.add_time|date='Y-m-d H:i:s',###}></td>
+                        <td><a href="<{:U('lists',array('id'=>$var['id']))}>">点击查看</a></td>
+                        <td><a href="<{:U('delivery/del',array('id'=>$var['id']))}>">删除</a></td>
+                    </tr>
+                </foreach>
+            </table>
+            
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <{$page}>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+
+

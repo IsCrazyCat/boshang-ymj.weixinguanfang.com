@@ -1,0 +1,329 @@
+<include  file='public:header'/>  
+<include  file='public:top'/>
+<include  file='public:nav2'/>  
+
+<style>
+.zy_content {padding-top: 0px;}
+.hdsy_LicjA2 {background-color: #000;padding: 0px 25px;line-height: 40px;color: #fff;font-size: 18px;display: inline-block;}
+.hdxq_qg_r {padding-top:0px;}
+.detail_spxq_qg_tit { width: 70px;}
+.zy_content_l{ width:1200px;}
+.activity_sign {background-color:#06C1AE;display: block;height: 100%;text-align: center;line-height: 50px;cursor: pointer; padding:0 10px; color:#fff; font-size:18px;}
+</style>
+   
+<div class="content zy_content">
+   
+   
+   <div class="content zy_content" style="position: relative;">
+    <div class="spxq_xqT spxq_xqT2">
+        <ul>
+            <li class="jq_spxq_xqBt1 on"><code rel="spxq_xqBt1">活动介绍</code><em></em></li>
+            <li class="jq_spxq_xqBt2"><code rel="spxq_xqBt2">活动详情</code><em></em></li>
+            <li class="jq_spxq_xqBt3"><code rel="spxq_xqBt3">报名列表</code><em></em></li>
+        </ul>
+        <div style="float:right;">
+            <if condition="$detail['sign_end'] lt $today"> <!--结束时间小于今天-->
+                <a href="javascript:void(0);" class="activity_sign">报名结束</a><!--显示报名结束-->
+            <else/><!--否则显示立即报名-->
+               <eq name="detail['sign']" value="0">
+                  <if condition="empty($MEMBER)">
+                    <a href="<{:u('home/passport/login')}>" class="activity_sign">登录后报名</a>
+                  <else/>
+                     <a href="javascript:void(0);" class="hdsy_LicjA activity_sign">立即报名</a>
+                  </if>
+               <else/>
+                  <a class="activity_sign" href="javascript:void(0);">已报名</a>
+               </eq>                 
+            </if><!--结束-->
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            var href = window.location.href;
+            var param = href.split('#');
+            if (param[1] != undefined && param[1] !=null && param[1] != "") {
+                var _targetTop2 = $('#' + param[1]).offset().top-50;//获取位置
+                jQuery("html,body").stop(true).animate({scrollTop: _targetTop2}, 300);//跳转
+            }
+            $(".spxq_xqT2 ul li").click(function () {
+                $(".spxq_xqT2 ul li").removeClass("on");
+                $(this).addClass("on");
+                var _targetTop = $('.' + $(this).find('code').attr('rel')).offset().top - 50;//获取位置
+                jQuery("html,body").stop(true).animate({scrollTop: _targetTop}, 300, function(){
+                    
+                });//跳转
+            });
+            $(window).scroll(function () {
+                $('.spxq_xqT2 ul li').each(function(i){                   
+                    if($("."+$(this).find('code').attr("rel")).offset().top - $(window).scrollTop() < 50){
+                        $(this).addClass('on').siblings().removeClass('on');
+                    }
+                });
+            });            
+        });
+    </script>
+    
+    
+    <div class="spxq_loca">
+        <a href="<{:U('index/index')}>" target="_blank">网站首页</a> &gt; 
+        <a href="<{:U('activity/index')}>" target="_blank">活动首页</a> &gt; 
+        <a href="<{:U('activity/index',array('cat'=>$detail['cate_id']))}>" target="_blank"><{$cate_name}></a> &gt;
+        <span><{$detail.title}></span>
+    </div>
+    
+    
+    <div class="spxq_xqgm">
+        <div class="left spxq_xqgm_l">
+            <h3><{$detail.title}></h3>
+            <div class="spxq_qg">
+                <div class="left spxq_qg_l">
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            $('.spxq_slider').flexslider({
+                                slideshow: false,
+                                controlNav: "thumbnails"
+                            });
+                        });
+                        $(function () {
+                            $(".sy_hotgzLi").hover(function () {
+                                $(".spxq_slider .flex-direction-nav").show();
+                            }, function () {
+                                $(".spxq_slider .flex-direction-nav").hide();
+                            });
+                            $(".spxq_slider .flex-direction-nav").hover(function () {
+                                $(".spxq_slider .flex-direction-nav").show();
+                            }, function () {
+                                $(".spxq_slider .flex-direction-nav").hide();
+                            });
+                        });
+                    </script>
+                    <div class="spxq_slider">
+                        <ul class="slides">
+                            <li class="sy_hotgzLi" data-thumb="<{:config_img($detail['photo'])}>"><img src="<{:config_img($detail['photo'])}>" width="470" height="285" /></li>
+                            <php>$i=0;</php>
+                            <foreach name="detail.thumb" item="item">
+                                <php>$i++;if($i<=3){</php>
+                                <li class="sy_hotgzLi" data-thumb="<{:config_img($item)}>"><img src="<{:config_img($item)}>" width="470" height="285" /></li>
+                                <php>}</php>
+                            </foreach>
+                        </ul>
+
+                        <if condition="empty($detail['thumb'])">
+                        <ol class="flex-control-nav flex-control-thumbs">
+                            <li class="sy_hotgzLi" data-thumb="<{:config_img($detail['photo'])}>"><img src="<{:config_img($detail['photo'])}>" width="108" height="68" /></li>
+                            <php>$i=0;</php>
+                            <foreach name="thumb" item="item">
+                                <php>$i++;if($i<=3){</php>
+                                <li class="sy_hotgzLi" data-thumb="<{:config_img($item)}>"><img src="<{:config_img($item)}>" width="108" height="68" /></li>
+                                <php>}</php>
+                            </foreach>
+                        </ol>
+                        </if>
+                    </div>
+                </div>
+                <div class="right spxq_qg_r hdxq_qg_r">
+                <div class="spxq_qgjgk">
+                <span class="detail_spxq_qg_tit">活动价格：</span>
+                <span class="spxq_qgjg"><small> &yen;</small><b><{$detail['price']}></b></span><span class="spxq_qgjgz"><{$cate_name}></span></div>
+
+                    <div class="spxq_qgjgk"><p class="hdxq_p"><span class="detail_spxq_qg_tit">商家地址：</span><{$detail.addr}></p></div>
+                    <div class="spxq_qgjgk"><p class="hdxq_p"><span class="detail_spxq_qg_tit">商家名称：</span><a target="_blank" href="<{:U('shop/detail',array('shop_id'=>$detail['shop_id']))}>#shop"><{$shop.shop_name}></a> 
+                    <if condition="$shop['is_renzheng'] eq 1">
+                    <span class="spxq_qgjgz">认证商家</span>
+                    </if>
+                    </p></div>
+                    <div class="spxq_qgjgk">
+                        <span class="detail_spxq_qg_tit">报名截止：</span><{$detail.sign_end}> &nbsp; 具体活动时间：<{$detail.time}>
+                    </div>
+                    <div class="spxq_qgjgk"> 
+                        <div class="left hdsy_Licj_l"><em class="radius100"></em><{$shop.tel}><if condition="$shop['extension']">转<{$shop['extension']}>分机</if></div>
+
+                    </div>
+                    <div class="hdsy_Licj hdxq_Licj">
+                        <div class="hdsy_Licj_r">
+
+                        <if condition="$detail['sign_end'] lt $today"> <!--结束时间小于今天-->
+                       		 <a href="javascript:void(0);" class="hdsy_LicjA1 bm_btn1">报名结束</a><!--显示报名结束-->
+                        <else/><!--否则显示立即报名-->
+
+                            <eq name="detail['sign']" value="0">
+                            <if condition="empty($MEMBER)">
+                            <a href="<{:u('home/passport/login')}>" class="hdsy_LicjA bm_btn">登录后报名</a>
+                            <else/>
+                            <a href="javascript:void(0);" class="hdsy_LicjA bm_btn">立即报名</a>
+                            </if>
+                            <else/>
+                            <a class="hdsy_LicjA" href="javascript:void(0);">已报名</a>
+                            </eq>                 
+                       </if><!--结束-->
+              <php>
+                $num = D('Activitysign') -> where('activity_id ='.$detail['activity_id']) -> sum(num);
+              </php> 
+                        <span class="hdsy_LiP"><span class="hdsy_Libms"><{$num}></span>人已报名</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right spxq_xqgm_r">
+            <php>
+                $sd = D('ShopDetails');
+                $wx = $sd -> where('shop_id ='.$shop['shop_id']) -> getField('wei_pic');
+            </php>
+            <div class="spxq_qgwx"><img width="120" height="120" src="<{:config_img($wx)}>">
+                <p>扫描商家微信</p>
+                <p>轻松购享优惠</p>
+            </div>
+
+            <div class="share bdsharebuttonbox spxq_qgFx" data-tag="share_1"><a mini='act' class="spxq_qgFxA" href="<{:U('shop/favorites',array('shop_id'=>$detail['shop_id']))}>"><em>&nbsp;</em>收藏本店</a><a class="spxq_qgFxA" data-cmd="more" href="javascript:void(0);"><em>&nbsp;</em>分享到</a></div>
+            <script>window._bd_share_config = {share: [{"tag": "share_1", 'bdCustomStyle': '__TMPL__statics/empty.css'}]};
+                with (document)
+                    0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+
+			</script>
+        </div>
+    </div>
+    <!--开始-->
+ 
+  <script>
+        $(document).ready(function () {
+            $(".spxq_xqT ul li").click(function () {
+                $(".spxq_xqT ul li").removeClass("on");
+                $(this).addClass("on");
+                var _targetTop = $('.' + $(this).find('code').attr('rel')).offset().top - 50;//获取位置
+                jQuery("html,body").stop(true).animate({scrollTop: _targetTop}, 300, function(){
+                    
+                });//跳转
+            });
+            $(window).scroll(function () {
+                $('.spxq_xqT ul li').each(function(i){                   
+                    if($("."+$(this).find('code').attr("rel")).offset().top - $(window).scrollTop() < 50){
+                        $(this).addClass('on').siblings().removeClass('on');
+                    }
+                });
+            });            
+        });
+    </script>  
+       
+    <div class="spxqBox">
+        <div class="left zy_content_l">
+            <div class="spxq_xqT">
+                <ul>
+                    <li class="on"><code rel="spxq_xqBt1">活动简介</code><em></em></li>
+                    <li><code rel="spxq_xqBt2">活动详情</code><em></em></li>
+                    <li><code rel="spxq_xqBt3">报名列表</code><em></em></li>
+                </ul>
+            </div>
+            <div class="spxq_xqBt1">
+                <div class="spxq_xqBt">活动介绍</div>
+                <div class="spxq_xqNr"><{$detail['intro']}></div>
+            </div>
+           
+            <div class="spxq_xqBt2">
+                <div class="spxq_xqBt">活动详情</div>
+                <div class="spxq_xqNr"><{$detail['details']}></div>
+            </div>
+            <div class="spxq_xqBt3">
+                <div class="spxq_xqBt">报名列表</div>
+                <div class="spxq_xqNr">
+                
+                <table width="100%" border="1" class="table_activity_sign">
+                  <tr>
+                    <td>报名ID</td>
+                    <td>姓名</td>
+                    <td>人数</td>
+                    <td>时间</td>
+                  </tr>
+                  <foreach name="list" item="var">
+                  <tr>
+                    <td><{$var['sign_id']}></td>
+                    <td><{:config_user_name($users[$var['user_id']]['nickname'])}></td>
+                    <td><{$var['num']}></td>
+                    <td><{$var.create_time|date="Y-m-d H:i:s",###}></td>
+                  </tr>
+                  </foreach>
+                </table>
+
+                
+                </div>
+            </div>
+            
+            
+            </div>
+        </div>
+    
+    <!--结束-->
+    
+    
+    
+    
+
+</div>
+
+<div class="mask_box dhPop_mask">
+    <div class="dhPop" style="height: 300px; margin-top: 16%;">
+        <h2><span class="bao_closed"></span>活动报名</h2>
+        <form method="post" id="huodong_form">
+            <table cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td align="right">联系人：</td>
+                    <td><input type="text" name="data[name]" class="dhInput" value="<if condition="$MEMBER.nickname neq null"><{$MEMBER.nickname}><else/></if>" /></td>
+                </tr>
+                <tr>
+                    <td align="right">手机号：</td>
+                    <td><input type="text" class="dhInput" name="data[mobile]" value="<if condition="$MEMBER.mobile neq null"><{$MEMBER.mobile}><else/></if>" /></td>
+
+                </tr>
+                <tr>
+                    <td align="right">人数：</td>
+                    <td>
+                        <select name="data[num]" class="dhSelect">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right"></td>
+                    <td><input style="cursor: pointer; margin-bottom: 20px;" class="subBtn" type="button" value="确认报名" /></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".bm_btn").click(function () {
+            var url = "<{:U('activity/sign',array('activity_id'=>$detail['activity_id']))}>";
+            $(".dhPop_mask").show();
+            $(".subBtn").click(function () {
+                var huodng_form = $("#huodong_form").serialize();
+                $.post(url, huodng_form, function (data) {
+                    if(data.status == 'login'){
+                        ajaxLogin();
+                        $(".dhPop_mask").hide();
+                    }else if (data.status == 'success') {
+                        $(".dhPop_mask").hide();
+                        layer.msg(data.msg, {icon: 1});
+                            window.location.reload(true);
+                    } else {
+                        layer.msg(data.msg, {icon: 2});
+                    }
+                }, 'json')
+            })
+        });
+        $(".bao_closed").click(function () {
+            $(".dhPop_mask").hide();
+        });
+    })
+</script>
+
+<include  file='public:footer'/>  

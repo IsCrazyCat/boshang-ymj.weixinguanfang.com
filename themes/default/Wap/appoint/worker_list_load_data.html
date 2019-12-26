@@ -1,0 +1,20 @@
+<volist name="list" id="item" key="index">
+	<a class="item" href="<{:U('appoint/worker',array('worker_id'=>$item['worker_id'],'appoint_id'=>$item['appoint_id']))}>">	
+		<img class="pic" src="<{:config_img($item['photo'])}>" />	
+		<div class="des">	
+			<h5><{:msubstr($item['name'],0,6,'utf-8',false)}> 
+				<span class="distance">职位：<{:msubstr($item['office'],0,6,'utf-8',false)}></span>	
+			</h5>	
+			<div class="info">	
+                <if condition="!empty($item['score'])"> <!--如果价格等于0-->
+					<span class="ui-starbar"><span style="width:<{:round($item['score']*20,2)}>%"></span></span>
+                <else/>
+                	暂无评价
+                </if>
+			</div>	
+			<span class="addr">	
+				服务价：&yen; <{:round($item['price']/100,2)}>元起，技师介绍：<{:msubstr($item['intro'],0,18,'utf-8',false)}>...
+			</span>
+		</div>	
+	</a>
+</volist>

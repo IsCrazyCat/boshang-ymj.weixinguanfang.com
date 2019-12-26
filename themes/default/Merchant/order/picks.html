@@ -1,0 +1,47 @@
+<include  file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">商城</a> > <a>捡货单</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    
+    <form method="post" action="<{:U('order/index')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">
+            开始时间：<input type="text"  placeholder="输入开始时间" class="radius3 seleFl"  name="bg_date" value="<{$bg_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"/>
+            结束时间：<input type="text"   placeholder="输入结束时间" class="radius3 seleFl"   name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"/>
+            订单编号：<input type="text"  placeholder="输入订单编号"  name="keyword" value="<{$keyword}>" class="radius3 seleFl" />
+            <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/>
+            </div>
+        </div>
+    </div>
+    </form>
+   <include file='order:nav'/><!--引入导航-->    
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>ID</td>
+            <td>捡货单</td>
+            <td>创建时间</td>
+            <td>创建IP</td>
+            <td>查看详情</td>
+        </tr>
+        <foreach name="list" item="item">
+            <tr>
+                <td> <{$item.pick_id}></td>
+                <td><{$item.name}></td>
+                <td><{$item.create_time|date='Y-m-d H:i:s',###}></td>
+                <td><{$item.create_ip}></td>
+                <td>                        
+                    <a href="<{:U('order/pickdetail',array('pick_id'=>$item['pick_id']))}>">打印捡货单</a>
+                    <a href="<{:U('order/send',array('pick_id'=>$item['pick_id']))}>">打印配送单</a>
+                </td>
+            </tr>
+        </foreach>
+    </table>
+    <{$page}>
+</div>
+
+<include  file='public:footer'/>

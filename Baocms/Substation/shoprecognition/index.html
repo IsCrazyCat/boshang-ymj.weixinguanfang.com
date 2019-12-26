@@ -1,0 +1,109 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">认领</li>
+        <li class="li2 li3">认领列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>新功能，只要后台审核后，会员自动登录，并收到邮件通知！</span></p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('shop/index','','全部商家')}>
+            </div>
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('shoprecognition/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <span>关键字(电话或商户名称)</span>
+                        <input type="text" name="keyword" value="<{$keyword}>" class="inptText" /><input type="submit" value="   搜索"  class="inptButton" />
+                    </div> 
+                </form>
+                <a href="javascript:void(0);" class="searchG">高级搜索</a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form method="post" action="<{:U('shoprecognition/index')}>">
+            <div class="selectNr selectNr2">
+                <div class="left">
+                    <div class="seleK">
+                        <label>
+                            <input type="hidden" id="user_id" name="user_id" value="<{$user_id|default=''}>"/>
+                            <input class="text" type="text"   name="nickname" id="nickname"  value="<{$nickname}>" />
+                            <a mini="select"  w="1000" h="800" href="<{:U('user/select')}>" class="sumit">选择用户</a>
+                        </label>
+                        <label>
+                            <input type="hidden" id="shop_id" name="shop_id" value="<{$shop_id|default=''}>"/>
+                            <input class="text" type="text"   id="shop_name" name="shop_name" value="<{$shop_name}>" />
+                            <a mini="select"  w="1000" h="800" href="<{:U('shop/select')}>" class="sumit">选择商家</a>
+                        </label>
+                        <label>
+                            <span>关键字:</span>
+                            <input type="text" name="keyword" value="<{$keyword}>" class="inptText" />
+                        </label>
+                    </div>
+                </div>
+                <div class="right">
+                    <input type="submit" value="   搜索"  class="inptButton" />
+                </div>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="yuyue_id" /></td>
+                    <td class="w50">ID</td>
+                    <td>用户</td>
+                    <td>商家</td>
+                    <td>姓名/手机</td>
+                    <td>申请时间</td>
+                    <td>理由</td>
+                    <td>管理员回复</td>
+                    <td>审核状态</td>
+                    <td>操作</td>
+
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_recognition_id" type="checkbox" name="recognition_id[]" value="<{$var.recognition_id}>" /></td>
+                        <td> <{$var.recognition_id}></td>
+                        <td><{$users[$var['user_id']]['account']|default='游客'}>(ID:<{$var.user_id}>)</td>
+                        <td><{$shops[$var['shop_id']]['shop_name']}></td>
+                        <td><{$var.name}>/<{$var.mobile}></td>
+                        <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                        <td><{$var.content}></td>
+                        <td><{$var.reply}></td>
+                    <td>
+                    <if condition="$var['audit'] eq 1">
+                    <a style="color:#F00">通过</a>
+                    <else/>
+                    <a style="color:#03F">未审核</a>
+                    </if>
+                    </td>
+                    
+                    
+               <td>
+               <eq name="var.audit" value="0"> <{:BA('shoprecognition/audit',array("recognition_id"=>$var["recognition_id"]),'同意认领','act','remberBtn')}></eq>
+               <{:BA('shoprecognition/edit',array("recognition_id"=>$var["recognition_id"]),'编辑','','remberBtn')}>
+               <{:BA('shoprecognition/delete',array("recognition_id"=>$var["recognition_id"]),'删除','act','remberBtn')}>
+               </td>
+               </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                <a href="<{:U('shop/recognition')}>"  class=" a2 ">添加商家</a>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+
+

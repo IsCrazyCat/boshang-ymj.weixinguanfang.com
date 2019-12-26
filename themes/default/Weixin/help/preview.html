@@ -1,0 +1,371 @@
+<include file="public:headerhelp"/>
+<link rel="stylesheet" type="text/css" href="__TMPL__help/static/css/Coupon.css?201150408">
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+<body style="background:#ae0009;">
+<div class="weiHelpPage"> <img src="__TMPL__help/static/img/help_img1.png" width="100%" height="" />
+	<div class="weiHelp_cont">
+		<div class="join_anniu"> <if condition = "!$my_sn_list"><a id="canjia" class="butn cjButn"><em></em>我要参加</a></if>
+			
+			<if condition = "$my_sn_list"><a href="javascript:" class="butn shareBtn"><em></em>找人助力</a></if>
+			<div class="share_pop"  style="display:none;"> <img src="__TMPL__help/static/img/sharePic.png"> </div>
+		</div>
+		<div class="weiHelp_mine"  <if condition = "!$my_sn_list"> style="display:none;" </if>>
+		<div class="img fl"><img src="<{$my_sn_list.img}>" width="100" height="100" /></div>
+		<div class="wz">
+			<div class="fl">
+				<p class="name"><{$my_sn_list.nickname}></p>
+			</div>
+			<div class="fr">
+				<div class="weiHelp_mine_num">
+					<p>转发数</p>
+					<span class="num" style="background:#efab00;"><{$my_sn_list.zhuanfa}></span> </div>
+				<div class="weiHelp_mine_num">
+					<p>助力值</p>
+					<span class="num" style="background:#a6a6a6;"><{$my_sn_list.zhuli}></span> </div>
+			</div>
+			<div class="clear"></div>
+		</div>
+		<div class="clear"></div>
+	</div>
+</div>
+<div class="shakePage_tab">
+	<ul>
+		<li class="shakePage_tab_list on"><a href="javascript:;"><em class="ico_1"></em>活动介绍</a></li>
+		<li class="shakePage_tab_list"><a href="javascript:;"><em class="ico_2"></em>奖项设置</a></li>
+		<li class="shakePage_tab_list"><a href="javascript:;"><em class="ico_3"></em>助力人</a></li>
+		<li class="shakePage_tab_list"><a href="javascript:;"><em class="ico_4"></em>TOP10</a></li>
+	</ul>
+	<div class="clear"></div>
+</div>
+<div class="shakePage_list_box">
+	<div class="shakePage_list" style="display:block;">
+		<div class="shakePage_intro"> <{$detail.use_tips|strip_tags}><br>
+			有效期:<{$detail.stime}>~<{$detail.ltime}> </div>
+	</div>
+	<div class="shakePage_list">
+		<div class="shakePage_intro">
+			<p>奖项设置：</p>
+			<volist name='prizes' id='item'>
+			<p><{$item.name}><{$item.num}>名，奖<{$item.title}>；</p>
+			 </volist>  </div>
+	</div>
+	<div class="shakePage_list">
+		<div class="winRecord_list_box">
+			<ul>
+				<volist name='list_sn' id='item'>
+				<li class="winRecord_list">
+					<div class="fl img"><img src="<{$item.img}>" width="100" height="100" /></div>
+					<div class="wz">
+						<p class="bt"><{$item.nickname}></p>
+						<p class="greycl"><{$item.dateline|date='Y m d H:i:s',###}></p>
+					</div>
+					<div class="clear"></div>
+				</li>
+				</volist>
+			</ul>
+		</div>
+	</div>
+	<div class="shakePage_list">
+		<div class="winRecord_list_box">
+			<ul>
+				<volist name='sn_list' id='item'>
+				<li class="winRecord_list">
+					<div class="fl img"><img src="<{$item.img}>" width="100" height="100" /></div>
+					<div class="wz">
+						<p class="bt"><{$item.nickname}></p>
+						<p class="bt">（助力：<{$item.zhuli}>）（转发：<{$item.zhuanfa}>）</p>
+						<p class="greycl"><{$item.dateline|date='Y m d H:i:s',###}>
+						
+						
+						</p>
+					</div>
+					<div class="clear"></div>
+				</li>
+				</volist>
+			</ul>
+		</div>
+	</div>
+</div>
+</div>
+<div id='error' style="display:none;"><{$error}></div>
+ <if condition="my_sn_list">
+<script type="text/javascript">
+
+	
+
+	  wx.config({
+
+		  debug: false,
+
+		  appId: '<{$wxjscfg.appId}>',
+
+		  timestamp: <{$wxjscfg.timestamp}>,
+
+		  nonceStr: '<{$wxjscfg.nonceStr}>',
+
+		  signature: '<{$wxjscfg.signature}>',
+
+		  jsApiList: [
+
+			'checkJsApi',
+
+			'onMenuShareTimeline',
+
+			'onMenuShareAppMessage',
+
+			'onMenuShareQQ',
+
+			'onMenuShareQZone',
+
+			'onMenuShareWeibo',
+
+		  ]
+
+	  });
+
+
+
+	wx.ready(function(){
+
+		wx.onMenuShareTimeline({
+
+			title: '<{$detail.title}>', 
+
+			link: '<{$url}>', // 分享链接
+
+			imgUrl: '__ROOT__/attachs/<{$pager.img}>/<{$detail.photo}>', // 分享图标
+
+			success: function () { 
+
+				fenxiang();
+
+			},
+
+			cancel: function () { 
+
+				// 用户取消分享后执行的回调函数
+
+			}
+
+		});
+
+		wx.onMenuShareAppMessage({
+
+			title: '<{$detail.title}>', // 分享标题
+
+			desc: '<{$detail.intro}>', // 分享描述
+
+			link: '<{$url}>', // 分享链接
+
+			imgUrl: '<{$pager.img}>/<{$detail.photo}>', // 分享图标
+
+			type: '', // 分享类型,music、video或link，不填默认为link
+
+			dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+
+			success: function () { 
+
+				fenxiang();
+
+			},
+
+			cancel: function () { 
+
+			}
+
+		});
+
+
+
+		wx.onMenuShareQQ({
+
+			title: '<{$detail.title}>', // 分享标题
+
+			desc: '<{$detail.intro}>', // 分享描述
+
+			link: '<{$url}>', // 分享链接
+
+			imgUrl: '__ROOT__/attachs/<{$detail.photo}>', // 分享图标
+
+			success: function () { 
+
+			   fenxiang();
+
+			},
+
+			cancel: function () { 
+
+			   // 用户取消分享后执行的回调函数
+
+			}
+
+		});
+
+		
+
+	});
+
+	
+
+	function fenxiang(){
+
+		 var link = "<{:U('help/fenxiang',array('sn_id'=>$my_sn_list['sn_id']))}>";
+
+		 $.getJSON(link, function(ret){
+
+			if(ret.error >0){	
+
+				ErrorDialog2(ret.message);
+
+			}else{
+
+				openSuccessDialog('分享成功');
+
+			}
+
+        });
+
+	}
+
+</script> 
+</if> 
+<script>
+
+	$(document).ready(function(e) {	
+
+		$('.shareBtn').click(function(){
+
+				$('.share_pop').show();
+
+		});
+
+		$('.share_pop').click(function(){
+
+			$(this).hide();
+
+			});
+
+		$('.shakePage_tab_list').each(function (e) {
+
+			$(this).click(function(){
+
+				$('.shakePage_tab_list').removeClass("on");
+
+				$(this).addClass("on");
+
+				$(".shakePage_list_box .shakePage_list").each(function(i){
+
+					if(e==i){
+
+						$(".shakePage_list_box .shakePage_list").hide();
+
+						$(this).show();
+
+					}
+
+					else{
+
+						$(this).hide();
+
+					}
+
+				});
+
+			});
+
+		});
+
+	});
+
+	
+
+	$('#canjia').click(function(){
+
+		<if condition = "$error">
+
+			ErrorDialog();
+
+		</if>
+
+		var link = "<{:U('help/sign',array('help_id'=>$detail['help_id'],'shop_id'=>$detail['shop_id']))}>";
+
+		 $.getJSON(link, function(ret){
+
+			if(ret.error >0){	
+
+				ErrorDialog2(ret.message);
+
+			}else{
+
+				openSuccessDialog('参加成功！')
+
+			}
+
+        });
+
+		
+
+	});
+
+	
+
+	function openSuccessDialog(msg){
+
+		var successHtml = "<div class='common_dialog lqcg'>"
+
+		+"<h6>"+msg+"</h6>"
+
+		+"<div class='tb'><a class='btn m_15 flex_1' href='###' onClick='on_devicemotion();'>确 定</a></div>"
+
+		+"</div>"
+
+		$.Dialog.open(successHtml);
+
+	}
+
+	function on_devicemotion(){
+
+		
+
+		location.reload();
+
+	}
+
+	
+
+	function ErrorDialog2(msg){
+
+		var successHtml = "<div class='common_dialog lqcg'>"
+
+		+"<h6>"+msg+"</h6>"
+
+		+"<div class='tb'><a class='btn m_15 flex_1' href='###' onClick='$.Dialog.close();'>确 定</a></div>"
+
+		+"</div>"
+
+		$.Dialog.open(successHtml);
+
+	}
+
+	
+
+	function ErrorDialog(){
+
+		var msg = $('#error').html();
+
+		var successHtml = "<div class='common_dialog lqcg'>"
+
+		+"<h6>"+msg+"</h6>"
+
+		+"<div class='tb'><a class='btn m_15 flex_1' href='###' onClick='$.Dialog.close();'>确 定</a></div>"
+
+		+"</div>"
+
+		$.Dialog.open(successHtml);
+
+	}
+
+</script>
+</body>
+</html>

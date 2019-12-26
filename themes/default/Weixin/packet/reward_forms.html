@@ -1,0 +1,49 @@
+<include file="public:headerpacket"/>
+<iframe id="miniframe" name="miniframe" style="display:none;"></iframe>
+<title>兑换红包</title>
+</head>
+<body>
+<div class="grayBg">
+	<div class="bagList">
+		<div class="duiForm">
+			<p>总额：<{$detail.prize_name}></p>
+			<form>
+			<input type="text" disabled  class="text" value="线下兑换">
+            <input type="text" name="mobile" id='mobile' class="text" placeholder="请输入手机号码">
+			<input type="password" name="pwd" id='pwd' class="text" placeholder="请输入密码">
+			<!--<select class="text">
+				<option>
+				单个红包
+				</option>
+			</select>-->
+			<input type="button" id='sub' class="btn" value="立即兑换">
+			</form>
+		</div>
+	</div>
+    
+</div>
+<script>
+jQuery(document).ready(function($) {
+	$('#sub').click(function(){;
+		var pwd = $('#pwd').val();
+		var mobile = $('#mobile').val();
+
+		var link = "<{:U('packet/reward_sub', array('sn_id'=>$detail['id'],'packet_id'=>$detail['packet_id'],'pwd'=>'11pwd','mobile'=>'11mobile'))}>";
+
+		 $.getJSON(link.replace("11pwd", pwd).replace("11mobile", mobile), function(ret){
+            $('#txt').html(ret.info)
+            alert(ret.info);
+        });
+
+		
+		$('.theme-popover-mask').fadeIn(100);
+		$('.theme-popover').slideDown(200);
+	})
+	$('.theme-poptit .close').click(function(){
+		$('.theme-popover-mask').fadeOut(100);
+		$('.theme-popover').slideUp(200);
+	})
+})
+</script> 
+</body>
+</html>

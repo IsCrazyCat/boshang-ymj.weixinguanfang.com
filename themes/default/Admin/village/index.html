@@ -1,0 +1,94 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">社区村设置</li>
+        <li class="li2">管理</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('village/create','','添加社区村')}>
+            </div>
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('village/index')}>"> 
+                    <div class="seleHidden" id="seleHidden">
+                        <span>社区村名称:</span>
+                        <input type="text" name="keyword" value="<{$keyword}>" class="inptText" /><input type="submit" value="   搜索"  class="inptButton" />
+                    </div> 
+                </form>
+                <a href="javascript:void(0);" class="searchG">高级搜索</a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form method="post" action="<{:U('village/index')}>">
+            <div class="selectNr selectNr2">
+                <div class="left">
+                    <div class="seleK">
+                        <label>
+                            <span>管理员</span>
+                            <input type="hidden" id="user_id" name="user_id" value="<{$user_id|default=''}>" />
+                            <input class="text" type="text" name="nickname" id="nickname"  value="<{$nickname}>" />
+                            <a mini="select"  w="800" h="600" href="<{:U('user/select')}>" class="sumit">选择用户</a>
+                        </label> 
+                        <label>
+                            <span>关键字:</span>
+                            <input type="text" name="keyword" value="<{$keyword}>" class="inptText" />
+                        </label>
+                    </div>
+                </div>
+                <div class="right">
+                    <input type="submit" value="   搜索"  class="inptButton" />
+                </div>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td><input type="checkbox" class="checkAll" rel="community_id" /></td>
+                    <td>ID</td>
+                    <td>管理员</td>
+                    <td>名称</td>
+                    <td>所在区域</td>
+                    <td>地址</td>
+                    <td>排序</td>
+                    <td>操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_community_id" type="checkbox" name="village_id[]" value="<{$var.village_id}>" /></td>
+                        <td><{$var.village_id}></td>
+                        <td><{$var.username}></td>
+                        <td><{$var.name}></td>
+                        <td><{$var.area_name}></td>
+                        <td><{$var.addr}></td>
+                        <td><{$var.orderby}></td>
+                        <td>
+                            <{:BA('village/edit',array("village_id"=>$var["village_id"]),'编辑','','remberBtn')}>
+                               <{:BA('village/notice',array("village_id"=>$var["village_id"]),'通知以及活动管理','','remberBtn')}>
+                              <{:BA('village/worker',array("village_id"=>$var["village_id"]),'工作人员管理','','remberBtn')}>
+                               <{:BA('village/suggestion',array("village_id"=>$var["village_id"]),'意见管理','','remberBtn')}>
+                                   <{:BA('village/bbs',array("village_id"=>$var["village_id"]),'帖子管理','','remberBtn')}>
+                            <{:BA('village/delete',array("village_id"=>$var["village_id"]),'删除','act','remberBtn')}>
+
+                        </td>
+
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                <{:BA('village/delete','','批量删除','list',' a2')}>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+

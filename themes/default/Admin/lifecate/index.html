@@ -1,0 +1,86 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">频道</li>
+        <li class="li2">分类信息</li>
+        <li class="li2 li3">分类管理</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>不需要启用的字段就不需要填写</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('lifecate/create','','添加内容')}>  
+            </div>
+            <div class="right">
+                <form method="post" action="<{:U('lifecate/index')}>">
+                    <input type="text"  class="inptText" name="keyword" value="<{$keyword}>"  /><input type="submit" value="   搜索"  class="inptButton" />
+                </form>
+            </div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="cate_id" /></td>
+                        <td class="w50">分类ID</td>
+                        <td>所属频道</td>
+                        <td>分类名称</td>
+                        <td>信息数</td>
+                        <td>文本字段1</td>
+                        <td>文本字段2</td>
+                        <td>文本字段3</td>
+                        <td>数字字段1</td>
+                        <td>数字字段2</td>
+                        <td>单选字段1</td>
+                        <td>单选字段2</td>
+                        <td>单选字段3</td>
+                        <td>单选字段4</td>
+                        <td>单选字段5</td>
+
+                        <td>操作</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_cate_id" type="checkbox" name="cate_id[]" value="<{$var.cate_id}>" /></td>
+                            <td><{$var.cate_id}></td>
+                            <td><{$channelmeans[$var['channel_id']]}></td>
+                            <td><{$var.cate_name}></td>
+                            <td><{$var.num}></td>
+                            <td><{$var.text1}></td>
+                            <td><{$var.text2}></td>
+                            <td><{$var.text3}></td>
+                            <td><{$var.num1}></td>
+                            <td><{$var.num2}></td>
+                            <td><{$var.select1}></td>
+                            <td><{$var.select2}></td>
+                            <td><{$var.select3}></td>
+                            <td><{$var.select4}></td>
+                            <td><{$var.select5}></td>
+
+                            <td>
+
+                                <eq name="var.is_hot" value="0">
+                                <{:BA('lifecate/hots',array("cate_id"=>$var["cate_id"],'p'=>$p),'设为热门','act','remberBtn')}>
+                        <else />
+                        <{:BA('lifecate/hots',array("cate_id"=>$var["cate_id"],'p'=>$p),'取消热门','act','remberBtn')}>
+                        </eq>
+                        <{:BA('lifecate/edit',array("cate_id"=>$var["cate_id"]),'编辑','','remberBtn')}>
+                        <{:BA('lifecate/delete',array("cate_id"=>$var["cate_id"]),'删除','act','remberBtn')}>
+                        <{:BA('lifecate/setting',array("cate_id"=>$var["cate_id"]),'配置分类','','remberBtn')}>
+                        </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('lifecate/delete','','批量删除','list','a2')}>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>       

@@ -1,0 +1,55 @@
+<include file="public:header" /> 
+
+<include file="public:topOne"/>
+
+<div class="topTwo">
+
+    <div class="left">
+
+         <if condition="!empty($CONFIG['site']['logo'])">
+          <if condition="!empty($city['photo'])">
+            <h1><a href="<{:u('home/index/index')}>"><img src="<{:config_img($city['photo'])}>" width="215" height="65" /></a></h1>
+            <else/>
+            <h1><a href="<{:u('home/index/index')}>"><img src="<{:config_img($CONFIG['site']['logo'])}>" /></a></h1>
+        </if> 
+        </if> 
+
+    </div>
+
+    <div class="right"><a href="<{:u('home/index/index')}>" class="APPbackHome"><em class="ico"></em>返回首页</a></div>
+
+    <div class="clear"></div>
+
+</div>
+
+<div class="APPdownloadPage">
+
+    <div class="banner"><img src="__TMPL__statics/images/images/appdloadAd.png" width="100%" /></div>
+
+    <div class="APPdownloadPage_nr">
+
+    	<div class="left">
+
+        	<img src="__TMPL__statics/images/images/appdloadImg1.png" />
+
+                <div class="btn_box"><a href="<{$CONFIG['site']['ios']}>" class="btn mr10" style="background-color:#ff9b28;"><em class="ico ico_1"></em>iPhone</a> <a href="<{$CONFIG['site']['android']}>" class="btn" style="background-color:#61c044;"><em class="ico ico_2"></em>Android</a></div>
+
+        </div>
+
+        <div class="right">
+
+        	<img src="<{:config_img($CONFIG['site']['wxcode'])}>" class="wx" width="162" height="162" />
+
+        	<p><img src="__TMPL__statics/images/images/appdloadImg2.png" /></p>
+
+        </div>
+
+        <div class="clear"></div>
+
+    </div>
+
+</div>
+
+
+
+<div class="footerCopy">copyright 2013-2113 <{$Think.SERVER.HTTP_HOST}> All Rights Reserved <{$CONFIG.site.sitename}>版权所有 - <{$CONFIG.site.icp}> <{$CONFIG.site.tongji}></div>

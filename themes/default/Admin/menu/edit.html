@@ -1,0 +1,36 @@
+<div class="listBox clfx">
+    <div class="menuManage">
+        <form target="baocms_frm" action="<{:U('menu/edit',array('menu_id'=>$detail['menu_id']))}>" method="post">
+            <div class="mainScAdd">
+                <div class="tableBox">
+                    <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                        <tr>
+                            <td class="lfTdBt">上级菜单：</td>
+                            <td class="rgTdBt">
+                                <select name="data[parent_id]" class="seleFl w200">
+                            <option value="0">一级菜单</option>
+                            <foreach name="datas" item="var">
+                                <if condition="($var.parent_id eq 0)">  
+                                    <option value="<{$var.menu_id}>"   <eq name="var.menu_id" value="$detail[parent_id]"> selected="selected" </eq> ><{$var.menu_name}></option>
+                                </if>
+                            </foreach>       
+                        </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lfTdBt">模块名称：</td>
+                            <td class="rgTdBt">
+                                <input name="data[menu_name]" type="text" class="scAddTextName w200" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="smtQr"><input type="submit" value="确认修改" class="smtQrIpt" /></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+

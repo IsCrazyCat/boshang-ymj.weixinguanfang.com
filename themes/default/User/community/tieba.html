@@ -1,0 +1,79 @@
+<include file="public:header"/>
+
+<header class="top-fixed bg-yellow bg-inverse">
+
+	<div class="top-back">
+
+		<a class="top-addr" href="<{:u('user/member/xiaoqu')}>"><i class="icon-angle-left"></i></a>
+
+	</div>
+
+		<div class="top-title">
+
+			我的小区贴吧
+
+		</div>
+
+	<div class="top-signed">
+
+		<include file="public:message"/>
+
+	</div>
+
+</header>
+
+<style>
+
+ul { padding-left: 0px !important;}
+
+</style>
+
+<!-- 筛选TAB -->
+
+<ul id="shangjia_tab">
+
+        <li style="width: 20%;"><a href="<{:LinkTo('community/index')}>">小区</a></li>
+
+        <li style="width: 20%;"><a href="<{:LinkTo('community/tongzhi')}>" >通知</a></li>
+
+        <li style="width: 20%;"><a href="<{:LinkTo('community/feedback')}>">报修</a></li>
+
+        <li style="width: 20%;"><a href="<{:LinkTo('community/order')}>">账单</a></li>
+
+        <li style="width: 20%;"><a href="<{:LinkTo('community/tieba')}>"   class="on">贴吧</a></li>
+
+</ul>
+
+
+
+
+
+<div class="list-media-x" id="list-media">
+
+	<ul></ul>
+
+</div>	
+
+
+
+    
+
+<script>
+
+	$(document).ready(function () {	 
+
+		loaddata('<{:U("community/tieba_load",array("t"=>$nowtime,"p"=>"0000"))}>', $("#list-media ul"), true);
+
+	});
+
+</script>
+
+<include  file='public:footer'/>
+
+
+
+
+
+    
+
+   

@@ -1,0 +1,60 @@
+<title>资金管理中心</title>
+<include file="public:header"/>
+<style>
+.index-top .top-a {background: #989898;}
+#shangjia_tab {border-bottom: 0.00rem #dedede solid !important;}
+.panel-list li i {margin-top: 15px;}
+</style>
+
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			资金管理中心
+		</div>
+	<div class="top-signed">
+		<a href="<{:U('delivery/login/logout')}>">退出</a>
+	</div>
+</header>
+
+<style>
+.index-top {margin-top: 0rem;}
+</style>
+
+<div class="index-top">
+	<div class="top-a">
+		<div class="user">	
+		
+			<div class="info">	
+				<p>欢迎：（<{$rdv.name}>），id（<{$rdv.id}>）</p>	
+                <p>手机：<{$rdv.mobile}></p>	
+				<p>您一共配送：<{$statistics}>单，单价<{$price}>元一单，一共收入<{$total}>元</p>	
+               
+                
+			</div>	
+		</div>	
+
+	</div>
+	
+
+    
+  
+
+<div class="blank-10 bg"></div>
+
+<div class="panel-list">
+<ul>
+<li><a href="<{:U('lists',array('id'=>$rdv['id']))}>">我的配送详情<i class="icon-angle-right"></i></a></li>
+<li><a href="#">申请提现（余额：<{$total}>元），请联系管理员<i class="icon-angle-right"></i></a></li>
+<li><a href="<{:U('delivery/login/logout')}>">退出系统<i class="icon-angle-right"></i></a></li>
+</ul>
+</div>
+	
+	
+
+</div>
+
+
+
+<include  file='public:footer'/>

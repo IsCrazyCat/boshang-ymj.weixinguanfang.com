@@ -1,0 +1,207 @@
+html, body, div, ul, ol, li, dl, dt, dd, h1, h2, h3, h4, h5, h6, pre, form, p, blockquote, fieldset, input {
+	padding: 0;
+	margin: 0;
+}
+h1, h2, h3, h4, h5, h6, pre, code, address, caption, cite, code, em, strong, table, th, td {
+	font-size: 1em;
+	font-style: normal;
+	font-weight: normal;
+}
+strong {
+	font-weight: bold;
+}
+ul, ol {
+	list-style: none outside none;
+}
+fieldset, img {
+	border: medium none;
+}
+caption, th {
+	text-align: left;
+}
+h1, h2, h3, h4, h5, h6 {
+	font-weight: bold;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+a{ text-decoration:none; font-family:"微软雅黑";}
+
+
+.shmenu{ width:100%; background:#fa510e; height:80px;}
+.shmenu .shmenubox{ width:1200px; margin:0px auto;}
+.shmenu .shmenubox .shcenter{ width:140px; height:80px; float:left; line-height:80px; font-size:32px; color:#fff;}
+.shmenu .shmenubox ul{ float:left; width:950px; height:80px; }
+.shmenu .shmenubox ul li{ float:left;text-align:center; height:50px; width:90px; line-height:50px; margin-top:15px;}
+.shmenu .shmenubox ul li a{font-size:18px; color:#fff; display:block; width:90px; height:20px; line-height:20px; margin-top:15px; border-left:1px solid #F13603; border-right:1px solid #FE6D2A;}
+.shmenu .shmenubox ul li.index{ background:#FC8215;  margin-left:10px;}
+.shmenu .shmenubox ul li.index a{border:none;}
+
+
+.shmenu .shmenubox .ucenter{ float:right; width:100px; text-align:center; background:#FD7028; height:80px; position:relative; z-index: 5;}
+.shmenu .shmenubox .ucenter .coin{ width:8px; height:8px; background:url(../images/coin.png) no-repeat ccenter center;}
+.shmenu .shmenubox .ucenter img{ margin: 10px auto;}
+.shmenu .shmenubox .ucenter .jInfo{ width:118px; border:1px solid #dedede; border-top:none; display: none; position:absolute; top:80px; left:-1px; transition:all 0.4s ease; background:#fff; height:165px;  z-index: 0;}
+.shmenu .shmenubox .ucenter:hover .jInfo{ display: block;}
+.shmenu .shmenubox .ucenter .jInfo div{ height:24px; line-height:24px; margin-left:0px; text-indent:25px; width:120px; margin-top:10px;}
+.shmenu .shmenubox .ucenter .jInfo div a{ color:#3C3C3C; font-size:14px; width:120px; border:none; margin-top:0px;}
+.shmenu .shmenubox .ucenter .jInfo div a:hover{ color:#FF621C;}
+.shmenu .shmenubox .ucenter .jInfo .setting{ margin-top:20px; background:url(../images/setting.png) 15px center no-repeat;}
+.shmenu .shmenubox .ucenter .jInfo .password{ background:url(../images/password.png) 15px center no-repeat;}
+.shmenu .shmenubox .ucenter .jInfo .recharge{ background:url(../images/recharge.png) 15px center no-repeat;}
+.shmenu .shmenubox .ucenter .jInfo .loginout{ background:url(../images/loginout.png) 15px center no-repeat;}
+
+
+.base{ width:1198px; margin:0px auto; border:1px solid #dedede; height:208px; margin-top:20px; font-size: 14px;}
+.base .top{ height:30px; background:#FB500B;}
+.base .top .data{ width:80px; height:30px; line-height:30px; float:left; text-align:center; font-size:16px; color:#fff; border-bottom:1px solid #dedede;}
+.base .contents{ height:177px; position:relative;}
+.base .contents .logo{ position:absolute; left:0px; top:20px; width:170px; height:150px; text-align:center;}
+.base .contents .logo img{ border:1px solid #dedede; margin-left: 30px; margin-bottom:5px;}
+.base .contents .logo p{font-size:14px;}
+.base .contents .shop{ float:left; margin-left:90px; height:110px; margin-top:30px; width: 500px;}
+.base .contents .shop div{ height:26px; line-height:26px;}
+.base .contents .shop img{ display: inline;}
+.base .contents .shop a{ color: blue;}
+.base .contents .shop a:hover{ color: #FA7548;}
+.base .contents .credit{ float:left; margin-left:10px; height:110px; margin-top:30px;}
+.base .contents .credit div{ height:26px; line-height:26px;}
+.base .contents .credit img{ display: inline;}
+.base .contents .credit a{ color: blue;}
+.base .contents .credit a:hover{ color: #FA7548;}
+
+
+#outer #content .items{ width:1198px; margin:0px auto; height:auto; font-size: 14px;}
+#outer #content .items .contents{ height:177px; position:relative;}
+#outer #content .items .contents .logo{ position:absolute; left:0px; top:20px; width:170px; height:150px; text-align:center;}
+#outer #content .items .contents .logo img{ border:1px solid #dedede; margin-left: 30px; margin-bottom:5px;}
+#outer #content .items .contents .logo p{font-size:14px;}
+#outer #content .items .contents .shop{ float:left; margin-left:165px; height:110px; margin-top:30px; width: 500px;}
+#outer #content .items .contents .shop div{ height:26px; line-height:26px;}
+#outer #content .items .contents .shop img{ display: inline;}
+#outer #content .items .contents .shop a{ color: blue;}
+#outer #content .items .contents .shop a:hover{ color: #FA7548;}
+#outer #content .items .contents .credit{ float:left; margin-left:10px; height:110px; margin-top:30px;}
+#outer #content .items .contents .credit div{ height:26px; line-height:26px;}
+#outer #content .items .contents .credit img{ display: inline;}
+#outer #content .items .contents .credit a{ color: blue;}
+#outer #content .items .contents .credit a:hover{ color: #FA7548;}
+
+
+
+.count{ width:1198px; margin:0px auto; border:1px solid #dedede; height:208px; margin-top:20px; font-size: 14px;}
+.count .countcenter{ height:40px; background:#FB500B;}
+.count .countcenter .c{ width:80px; height:40px; line-height:40px; float:left; text-align:center; font-size:16px; color:#fff; border-bottom:1px solid #dedede;}
+.count .orders{ position:relative;}
+.count .orders ul{ width:1180px; height:auto; overflow:hidden; position:absolute; left:18px; top:10px;}
+.count .orders ul li{ width:590px; float:left; height: 36px; line-height: 36px;}
+.count .orders ul li .sjtit{ width: 120px; height: 20px; line-height: 20px; border-radius: 2px; display:inline-block; text-align: center; background: #FACD8A; color: #FA7548;}
+.count .orders ul li .snum{ width: 240px; height: 36px; line-height: 36px; display: inline-block; text-align: center;}
+.count .orders ul li .snum em{color: #FA7548;}
+.count .orders ul li .ck{ width: 60px; text-align: center; height: 36px; line-height: 36px;}
+.count .orders ul li .ck a{color: #FA7548;}
+
+
+.shortcut{ width:1198px; margin:0px auto; border:1px solid #dedede; height:565px; margin-top:20px; font-size: 14px;}
+.shortcut .quick{ height:40px; background:#FB500B;}
+.shortcut .quick .t{ width:80px; height:40px; line-height:40px; float:left; text-align:center; font-size:16px; color:#fff; border-bottom:1px solid #dedede;}
+.shortcut .quickItem{ position:relative; }
+.shortcut .quickItem .items{ position:absolute; width: 1198px; height:auto; overflow: hidden; left: 0px; top: 20px;}
+.shortcut .quickItem .items .item{ float:left; margin-left: 64px; width: 218px; height: 250px; text-align: center; }
+.shortcut .quickItem .items .item .jPic{ width: 218px; height: 178px; border: 1px solid #dedede; border-radius: 3px; background: #F2F2F2; margin-bottom: 10px;}
+.shortcut .quickItem .items .item:hover .jPic{ background: #dedede;}
+.shortcut .quickItem .items .item p{ font-size: 20px; color: #7D7D7D;}
+.shortcut .quickItem .items .item:hover p{ font-size: 20px; color: #FA7548;}
+
+
+#outer {width:1200px;margin:20px auto; height: 770px;}
+#tab {overflow:hidden;zoom:1;background:#EAEAEA;border:1px solid #D4D4D4;}
+#tab li {float:left;color:#888888;height:30px;	cursor:pointer;	line-height:30px;padding:0 20px; border-top:2px solid #EAEAEA; border-right: 1px solid #dedede;}
+#tab li.current {color:#323232;background:#fff; border-top: 2px solid #FA7548;}
+#content {border:1px solid #D4D4D4;border-top-width:0; height: 760px;}
+#content .items {line-height:25px;display:none;	margin:0 30px;padding:10px 0;}
+#content .items .password{ width: 400px; margin-left: 120px;}
+#content .items .password .cjinput{ background: #f2f2f2;}
+#content .items em{ margin-right: 5px;}
+#content .items img{ display: inline-block;}
+
+
+.lists{ height: 60px; margin: 0px auto; width: 1198px; border: 1px solid #dedede; border-top: none; background:#EAEAEA; }
+.lists .item{ width: 160px; text-align:center; height: 40px; line-height: 40px; margin-top: 10px; float: left; font-size: 18px; border-right:1px solid #dedede; }
+.lists .item a{color: #333333; }
+.lists .item.current a{ color:#FA7548; }
+
+
+.tuan{ width: 1200px; margin: 0px auto; font-size: 16px; font-family:"微软雅黑"; height: auto;}
+.tuan .top{ height: 60px; line-height: 60px; padding-left: 40px; background: #ececec; border-bottom: 2px solid #dedede;}
+.tuan .top a {color: #FA7548; font-weight: bold;}
+.tuan .tuanList{ width: 1200px; margin: 0px auto;}
+.tuan .tuanList .search{ width: 1200px; height: 50px; background: #ececec;}
+.tuan .tuanList .search td{ height: 50px; line-height: 50px; text-align: center; font-size: 16px;}
+.tuan .tuanList .search td input{ height: 24px;}
+.tuan .tuanList .search td select{ width: 180px; height: 24px; font-size: 16px; font-family:"微软雅黑";}
+.tuan .tuanList .search .view{ width: 68px; height: 24px; text-indent: 10px; background: url("../images/button_bg.png") no-repeat center center; border: none; cursor: pointer; margin-left: 10px;}
+.tuan .tuanList td{ text-align: center; font-size: 14px;}
+.tuan .tuanList th{ font-size: 16px;}
+.tuan .tuanList .bottom{ height: 46px; background: #ececec; width: 1200px;}
+.tuan .tuanList .bottom .lt{ float: right; margin-right: 10px;}
+.tuan .tuanList .bottom .addtuan{ border: 1px solid #dedede; border-radius: 3px; width: 100px; height: 30px; background: url("../images/add.png") no-repeat 10px center; margin-left: 20px; line-height: 30px; text-indent: 30px; }
+.tuan .tuanList .bottom .addtuan a{font-size: 14px; color: #333333; display: block; width: 100px; height: 30px;}
+
+.items .shcenter td{ text-align: center;}
+.items .shcenter td img{ margin: 0px auto;}
+
+
+.coupon{width: 1200px; margin: 0px auto; font-size: 16px; font-family:"微软雅黑";}
+.coupon .shtable{ border: 1px solid #dedede; height: auto; border-top: none;}
+.coupon .shtable .inputData{ height: 24px; line-height: 24px;}
+.coupon .shtable th{ font-size: 16px;}
+.coupon .shtable td{ text-align: center; font-size: 14px;}
+.coupon .shtable .tl{ text-align: left;}
+.coupon .shcenter th{ font-size: 16px;}
+.coupon .shcenter td{ text-align: center; font-size: 14px;}
+.coupon .shcenter .notice{ color: #FA7548; text-align: left; padding-left: 20px; font-size: 16px;}
+.coupon .shcenter .bottom{ height: 46px; background: #ececec; width: 1200px;}
+.coupon .shcenter .bottom .lt{ float: right; margin-right: 10px;}
+
+
+.coupon{width: 1200px; margin: 0px auto; font-size: 16px; font-family:"微软雅黑";}
+.coupon .left { border: 1px solid #dedede; height: auto; border-top: none;}
+.coupon .left .notice{ color: #FA7548; text-align: left; padding-left: 20px; font-size: 16px;}
+.coupon .left .inputData{ height: 24px; line-height: 24px;}
+.coupon .left  th{ font-size: 16px;}
+.coupon .left  td{ text-align: left; font-size: 14px; height: 25px; line-height: 25px; padding: 10px 0px;}
+
+
+.expand{width: 1200px; margin: 0px auto; font-size: 16px; font-family:"微软雅黑";}
+.expand .shtable{ border: 1px solid #dedede; height: auto; border-top: none;}
+.expand .shtable .inputData{ height: 24px; line-height: 24px;}
+.expand .shtable th{ font-size: 16px;}
+.expand .shtable td{ text-align: center; font-size: 14px;}
+.expand .shtable .tl{ text-align: left;}
+
+
+.tuan{ width: 1200px; margin: 0px auto; font-size: 16px; font-family:"微软雅黑"; height: auto;}
+.tuan .order{ width: 1200px; margin: 0px auto;}
+.tuan .order .search{ width: 1200px; height: 50px; background: #ececec;}
+.tuan .order .search td{ height: 50px; line-height: 50px; text-align: center; font-size: 16px;}
+.tuan .order .search td input{ height: 24px;}
+.tuan .order .search td select{ width: 180px; height: 24px; font-size: 16px; font-family:"微软雅黑";}
+.tuan .order .search .view{ width: 68px; height: 24px; text-indent: 10px; background: url("../images/button_bg.png") no-repeat center center; border: none; cursor: pointer; margin-left: 10px;}
+.tuan .order td{ text-align: center; font-size: 14px;}
+.tuan .order th{ font-size: 16px;}
+
+
+.goods{width: 1200px; margin: 0px auto; font-size: 16px; font-family:"微软雅黑";}
+.goods .shtable{ border: 1px solid #dedede; height: auto; border-top: none;}
+.goods .shtable .inputData{ height: 24px; line-height: 24px;}
+.goods .shtable select{ width: 180px;}
+.goods .shtable th{ font-size: 16px;}
+.goods .shtable td{ font-size: 14px;}
+.goods .shtable .tl{ text-align: left;}
+.goods .shcenter th{ font-size: 16px;}
+.goods .shcenter td{ text-align: center; font-size: 14px;}
+.goods .shcenter .notice{ color: #FA7548; text-align: left; padding-left: 20px; font-size: 16px;}
+.goods .shcenter .bottom{ height: 46px; background: #ececec; width: 1200px;}
+.goods .shcenter .bottom .lt{ float: right; margin-right: 10px;}

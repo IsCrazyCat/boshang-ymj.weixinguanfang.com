@@ -1,0 +1,44 @@
+<style>.rgTdBt{min-width: 450px;}</style>
+<div class="listBox clfx">
+    <div class="menuManage">
+        <form target="baocms_frm" action="<{:U('porder/fahuo',array('id'=>$detail['id']))}>" method="post">
+            <div class="mainScAdd">
+                <div class="tableBox">
+                    <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+						<tr>
+                            <td class="lfTdBt">订单编号：</td>
+                            <td class="rgTdBt"><{$detail.order_no}></td>
+                        </tr>
+                        <tr>
+                            <td class="lfTdBt">订单类型：</td>
+                            <td class="rgTdBt"><{$tstatusArray[$detail['tstatus']]}></td>
+                        </tr>
+						<tr>
+                            <td class="lfTdBt">收件人：</td>
+                            <td class="rgTdBt"><{$detail.xm}> - <{$detail.tel}>
+                            </td>
+                        </tr>
+                        <tr>
+                    		<td class="lfTdBt">收货地址：</td>
+                			<td class="rgTdBt"><{$detail.address}></td>
+            			</tr>
+                        <tr>
+                            <td class="lfTdBt">配送方式：</td>
+                            <td class="rgTdBt"><{$detail.express_name}></td>
+                        </tr>
+                        <tr>
+                            <td class="lfTdBt">快递单号：</td>
+                            <td class="rgTdBt"><input type="text" name="express_no" value="<{$detail.express_no|default=''}>" class="scAddTextName w150" /></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="smtQr"><input type="submit" value="确定发货" class="smtQrIpt" /></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+

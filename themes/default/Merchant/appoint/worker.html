@@ -1,0 +1,55 @@
+<include file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">家政</a> > <a href="<{:U('appoint/index')}>">家政设置</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+
+    <div class="tuanfabu_tab">
+        <ul>
+            <li class="tuanfabu_tabli tabli_change on"><a href="<{:U('appoint/index')}>">家政项目</a></li>
+            <li class="tuanfabu_tabli tabli_change"><a href="<{:U('appoint/order')}>">家政订单</a></li>
+            <li class="radius3 sjgl_an tuan_topbt right tuan_topfb_r">
+            	<a style="color:#FFF" href="<{:U('appoint/worker_create',array('appoint_id'=>$detail['appoint_id']))}>">添加技师+</a>
+            </li>
+        </ul>
+    </div>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+          <td>技师ID</td>
+          <td>头像</td>
+          <td>预约价格</td>
+          <td>技师姓名</td>
+          <td>技师职务</td>
+          <td>技师简介</td>
+          <td>技师电话</td>
+          <td>审核状态</td>
+          <td>添加时间</td>
+          <td>操作</td>
+        </tr>
+        <foreach name="list" item="var">
+         <td><{$var.worker_id}></td>
+         <td><img src="<{:config_img($var['photo'])}>"  style="width:60px; margin: 0px auto;" /></td>
+         <td><{$var['price']/100}></td>
+         <td><{$var.name}></td>
+         <td><{$var.office}></td>
+         <td><{$var.intro}></td>
+         <td><{$var['mobile']}></td>
+         <td><eq name="var.audit" value="0">未审核<else/>已审核</eq></td>
+         <td><{$var.create_time|date="Y-m-d H:i:s",###}></td>
+                           
+         <td>
+            <a href="<{:U('appoint/worker_edit',array('worker_id'=>$var['worker_id']))}>">编辑</a>
+            <a href="<{:U('appoint/worker_delete',array('worker_id'=>$var['worker_id']))}>">删除</a>
+                       
+         </td>
+       
+            </tr>
+        </foreach>
+    </table>
+    <div class="paging">
+        <{$page}>
+    </div>
+</div>
+<include file='public:footer'/>

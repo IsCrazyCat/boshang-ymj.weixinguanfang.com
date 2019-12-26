@@ -1,0 +1,91 @@
+<php>$seo_title = $detail['title'];</php>
+<include file='public:header'/>    
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			热门资讯
+		</div>
+        <div class="top-search" style="display:none;">
+			<form method="post" action="<{:U('news/index')}>">
+				<input name="keyword" placeholder="输入新闻的关键字"  />
+				<button type="submit" class="icon-search"></button> 
+			</form>
+		</div>
+		<div class="top-signed">
+		</div>
+	</header>
+
+<style>
+.www_hatudou_com_ad { padding: 10px 10px !important;width: 100%;}
+.www_hatudou_com_ad a {display: block;overflow: hidden;width: 100%;margin: 0;padding: 0;height: auto;line-height: 0.8;}
+.www_hatudou_com_ad img {width: 100%;overflow: hidden;}
+.list-media-x li .pic{overflow:hidden;width:100%;padding:0 10px;margin-bottom:10px}
+.list-media-x li .pic span{float:left;width:33.33333% border: none;list-style:none}
+.list-media-x li .pic span img{max-width:90px;height:67px;overflow:hidden;float:left;display:inline;margin-right:10px;position:relative;z-index:1;width:auto}
+.select_wrapper .select_01 .active a {color: #ff9933;border-bottom: 2px solid #ff9933; padding: 5px 0;}
+</style>   
+	<div class="select_wrapper">
+        <div class="select_01" id="wrapper2">
+                <ul class="tab-hd" id="scroller2">
+                <li id="all_nwes" class="active item"><a href="<{:LinkTo('news/index')}>">全部资讯</a></li>
+                <php>$i=0;</php>
+                <foreach name="articlecates" item="item">
+					<eq name="item.parent_id" value="0"> 
+                    <php>$i++;</php>
+                        <eq name="i" value="1">
+                        	<li class="item" id="news-cate-<{$item.cate_id}>" data-rel="<{$item.cate_id}>">
+                        <a class="active" href="javascript:loadnews(<{$item.cate_id}>);"><{$item.cate_name}></a></li>
+                        	<else />
+                        <li class="item" id="news-cate-<{$item.cate_id}>" data-rel="<{$item.cate_id}>">
+                        	<a href="javascript:loadnews(<{$item.cate_id}>);"><{$item.cate_name}></a></li>
+                        </eq>
+					</eq>
+				</foreach>
+                </ul>
+                <div class="more" id="iscrollto"><span></span></div>
+            </div>
+		</div>	
+
+		<script>
+        (function($){
+            $('#scroller2').css('width',(90*$('#scroller2').find('li').length)+40+'px'); 
+            window['myScroll2'] = new IScroll('#wrapper2', {
+                scrollX: true,
+                scrollY: false,
+                click:true,
+                keyBindings: true
+            });
+            $('#iscrollto').click(function(){
+                window['myScroll2'].scrollBy(-100,0,500)
+            });
+        })(jQuery);
+        window.onload=function(){loaded_page();}
+		//获取cate_id下面的数据,来自哈土豆源码修改
+		
+		
+		
+		
+		loadnews(0);
+			function loadnews(cate){
+				link = '/wap/news/load/cat/'+cate+'.html';
+				$.get(link, function (data) {
+					$("#index-news").html(data);
+					//loaddata(link, $("#index-news").html(data));
+				}, 'html');
+
+				$('#scroller2 li').removeClass("current");
+				current = '#news-cate-' + cate;
+				$(current).addClass("current");
+				$('#all_nwes').removeClass("active");
+			}
+			$('#all_nwes').addClass("active");
+        </script>
+    
+	<div class="blank-10 bg"></div>
+        <div class="list-media-x" id="list-media">
+            <ul id="index-news" class="ui-list"></ul>
+        </div>
+	</div>
+<include file="public:footer"/>

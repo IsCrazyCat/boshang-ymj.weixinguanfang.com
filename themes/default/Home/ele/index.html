@@ -1,0 +1,130 @@
+<include file="public:header" /> 
+<include file="public:top"/>
+<script src="__TMPL__statics/js/baocms.js"></script>
+<style>
+    input[type="radio"],input[type="checkbox"]{border:0;position:absolute;left:-9999px;}
+    .radio{float: left; margin:8px 10px 0 0; border: 1px #BDBDBD solid; width: 100px; height: 30px; line-height: 30px; text-align: center; cursor: pointer; background: #FFF;}
+    .radio-disabled{border-color:#DDD; color:#CCC;}
+    .radio-active{border-color: #2FBCAC; border-width: 2px; width: 98px; height: 28px; background: url(__TMPL__statics/images/seat/icon.png) no-repeat 80px -427px #FFF;}
+    .checkbox{float: left; width: 20px; height: 20px; background-image:url(__TMPL__statics/images/seat/icon.png); background-repeat: no-repeat; background-position: -36px -43px; margin-right: 10px;}
+    .checkbox-active{background-position: -36px -75px;}
+</style>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.dcsy_flexslider').flexslider({
+            directionNav: true,
+            pauseOnAction: false,
+            /*slideshow: false,*/
+            /*manualControlEvent:"hover",*/
+        });
+         $.reset_input();
+    });//首页轮播js
+</script>
+<div class="nav">
+    <div class="navList">
+        <ul>
+            <li class="navListAll"><span class="navListAllt">全部套餐分类</span>
+                <div class="shadowy navAll">
+                    <include file="public:cate"/>
+                </div>
+            </li>
+            <li class="navLi"><a class="navA <if condition='$ctl eq ele and $act eq index'>on</if> " href="<{:U('ele/index')}>">首页</a></li>
+            <li class="navLi"><a class="navA <if condition='$ctl eq ele and $act eq takeout'>on</if>" href="<{:U('ele/takeout')}>">身边外卖</a></li>
+            <li class="navLi"><a class="navA " href="<{:U('ele/index',array('new'=>1))}>">今日新单</a></li>
+            <li class="navLi"><a class="navA" href="<{:U('ele/index',array('hot'=>1))}>">热门疯抢</a></li>
+        </ul>
+    </div>
+</div>
+<div class="content zy_content">
+    <div class="dcsy_top">
+        <div class="dcsy_banner">
+            <div class="dcsy_flexslider">
+                <ul class="slides">
+                    <calldata mdl="Ad" where=" closed=0 AND site_id=14 AND  city_id IN ({$city_ids}) and bg_date ELT '{$today}' AND end_date EGT '{$today}' " limit="0,3" cache="21600" order="orderby asc">
+                        <li class="sy_hotgzLi"><a target="_blank" href="<{:U('app/ad/click',array('ad_id'=>$item['ad_id'],'aready'=>1))}>"><img src="<{:config_img($item['photo'])}>" width="1182" height="105" /></a></li>
+                    </calldata>
+                </ul>
+            </div>
+        </div>
+        <div class="dcsy_topList">
+            <ul>
+                <li class="dcsy_topLi <if condition='$cate eq 0'>on</if>"><a href="<{:LinkTo('ele/index',$linkArr,array('cate'=>0))}>"><span class="radius10 dcsy_topLiTu"></span>全部</a></li>
+                <volist name="elecate" id="item" key="index">
+                    <php>$i = $index + 1;</php>
+                    <li class="dcsy_topLi <if condition='$cate eq $index'>on</if>"><a href="<{:LinkTo('ele/index',$linkArr,array('cate'=>$index))}>"><span class="radius10 dcsy_topLiTu dcsy_topLiTu<{$i}>"></span><{$item}></a></li>
+                </volist>
+            </ul>
+        </div>
+    </div>
+    <div class="dcsy_sx">
+        <div class="dcsy_sxC1">
+            <span><label><input type="checkbox" <eq name="fan" value="1"> checked="checked" </eq>  rel='<{:LinkTo('ele/index',$linkArr,array('fan'=>'1'))}>' data="<{:LinkTo('ele/index',$linkArr,array('fan'=>'0'))}>"  name="is_fan" /></label>下单立减</span>
+            <span><label><input type="checkbox" <eq name="new" value="1"> checked="checked" </eq>  rel='<{:LinkTo('ele/index',$linkArr,array('new'=>'1'))}>' data="<{:LinkTo('ele/index',$linkArr,array('new'=>'0'))}>"  name="is_new" /></label>新用户优惠</span>
+            <span><label><input type="checkbox" <eq name="pay" value="1"> checked="checked" </eq>  rel='<{:LinkTo('ele/index',$linkArr,array('pay'=>'1'))}>' data="<{:LinkTo('ele/index',$linkArr,array('pay'=>'0'))}>"  name="is_pay" /></label>在线支付</span>
+        </div>
+        <script>
+            $(document).ready(function () {
+                $(".dcsy_sxC1 input").click(function () {
+                    if ($(this).prop('checked') == true) {
+                        location.href = $(this).attr('rel');
+                    } else {
+                        location.href = $(this).attr('data');
+                    }
+                });
+            });
+        </script>
+        <div class="dcsy_sxC2">
+            <ul>
+                <li class="dcsy_sxLi <eq name='order' value='d'>on</eq>"><a class="dcsy_sxLiA" href="<{:LinkTo('ele/index',$linkArr,array('order'=>'d'))}>">默认排序</a></li>
+                <li class="dcsy_sxLi <eq name='order' value='s'>on</eq>"><a class="dcsy_sxLiA" href="<{:LinkTo('ele/index',$linkArr,array('order'=>'s'))}>">销量<em></em></a></li>
+                <li class="dcsy_sxLi <eq name='order' value='t'>on</eq>"><a class="dcsy_sxLiA" href="<{:LinkTo('ele/index',$linkArr,array('order'=>'t'))}>">送餐速度<em></em></a></li>
+                <li class="dcsy_sxLi dcsy_sxLixl"><a class="dcsy_sxLiA" href="javascript:void(0);">起送价筛选<em></em></a>
+                    <div class="nearbuy_sxkLi2Xl">
+                        <ul>
+                            <li><a href="<{:LinkTo('ele/index',$linkArr,array('price'=>1))}>">50元以下</a></li>
+                            <li><a href="<{:LinkTo('ele/index',$linkArr,array('price'=>2))}>">50-100元</a></li>
+                            <li><a href="<{:LinkTo('ele/index',$linkArr,array('price'=>3))}>">100-200元</a></li>
+                            <li><a href="<{:LinkTo('ele/index',$linkArr,array('price'=>4))}>">200元以上</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="dcsy_sxLi dcsy_sxLixl"><a class="dcsy_sxLiA" href="<{:LinkTo('ele/index')}>">全部商家<em></em></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="dcsy_spList">
+        <ul>
+            <foreach name="list" item="item">
+                <li class="dcsy_spLi">
+                
+            
+                     <php>if($item[bsti] == 0){</php>
+                    <a title="<{$item.shop_name}>" href="<{:U('ele/shop',array('shop_id'=>$item['shop_id']))}>" target="_blank"><div class="dcsy_spImg"><img src="<{:config_img($shops[$item['shop_id']]['photo'])}>" width="208" height="156" /></div>
+                        <p class="dcsy_spT"><{$item.shop_name}></p>
+                        <p class="dcsy_spPf"><span class="left"><span class="spxq_qgpstarBg"><span class="spxq_qgpstar spxq_qgpstar<{$shops[$item['shop_id']]['score']}>"></span></span><{:round($shops[$item['shop_id']]['score']/10,1)}>分</span><span class="right dcsy_spDd">月售<{$item.month_num}>单</span></p>
+                        <p class="dcsy_spPf"><span class="left">起送:￥<{:round($item['since_money']/100,2)}> <span class="dcsy_spPs">配送费:￥<{:round($item['logistics']/100,2)}></span></span><span class="right"><em class="em_time"></em><{$item.distribution}>分钟</span></p>
+                        <hr style=" border:none 0px; border-bottom: 1px solid #e0e0e0; margin-top:6px;" />
+                        <p class="dcsy_spBq"><eq name="item.is_pay" value="1"><span class="dcsy_spBq2">&nbsp;</span></eq><eq name="item.is_new" value="1"><span class="dcsy_spBq3">&nbsp;</span></eq><eq name="item.is_fan" value="1"><span class="dcsy_spBq4">&nbsp;</span></eq></p>
+                    </a>
+                       <php>}else{</php>
+                     
+                     <a title="<{$item.shop_name}>" href="javascript:;"><div class="dcsy_spImg"><img src="<{:config_img($shops[$item['shop_id']]['photo'])}>" width="208" height="156" /></div>
+                        <p class="dcsy_spT"><{$item.shop_name}></p>
+                        <p class="dcsy_spPf"><span class="left"><span class="spxq_qgpstarBg"><span class="spxq_qgpstar spxq_qgpstar<{$shops[$item['shop_id']]['score']}>"></span></span><{:round($shops[$item['shop_id']]['score']/10,1)}>分</span><span style=" color:#fff" class="right borderradius-2">休息中</span></p>
+                        <p class="dcsy_spPf"><span class="left">起送:￥<{:round($item['since_money']/100,2)}> <span class="dcsy_spPs">配送费:￥<{:round($item['logistics']/100,2)}></span></span><span class="right"><em class="em_time"></em><{$item.distribution}>分钟</span></p>
+                        <hr style=" border:none 0px; border-bottom: 1px solid #e0e0e0; margin-top:6px;" />
+                        <p class="dcsy_spBq"><eq name="item.is_pay" value="1"><span class="dcsy_spBq2">&nbsp;</span></eq><eq name="item.is_new" value="1"><span class="dcsy_spBq3">&nbsp;</span></eq><eq name="item.is_fan" value="1"><span class="dcsy_spBq4">&nbsp;</span></eq></p>
+                    </a>
+                    
+                    
+                        <php>}</php>
+                </li>
+            </foreach>
+        </ul>
+    </div>
+    <div class="x">
+        <{$page}>
+    </div>
+</div>
+<include file="public:footer"/>
+

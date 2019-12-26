@@ -1,0 +1,13 @@
+<foreach name="list" item="item">
+    <li class="cont_list border_b">
+        <div>
+            <div class="guantu fl"><img src="<{:config_img($tribes[$item['thread_id']]['photo'])}>"/></div>
+            <div class="guanzi">
+                <a href="<{:U('thread/detail',array('thread_id'=>$item['thread_id']))}>" class="zitit black3 overflow_clear"><{$tribes[$item['thread_id']]['thread_name']}></a>
+                <p class="duoshao black9 "><span>话题<{$tribes[$item['thread_id']]['posts']}></span>&nbsp;<span>关注<{$tribes[$item['thread_id']]['fans']}></span></p>
+            </div>
+            <div class="clear "></div>
+        </div>
+        <div ><a target="x-frame"   href="<{:U('thread/collect',array('thread_id'=>$item['thread_id']))}>" class="quxiao">取消关注</a></div>
+    </li>
+</foreach>

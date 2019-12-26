@@ -1,0 +1,76 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			小区财务
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+<div class="blank-10 bg"></div>
+
+<style>
+.panel-list li em { font-size:12px;}
+</style>
+<div class="container">
+		<div class="blank-30"></div>
+		<p><span>您的小区：<{$COMMUNITY.name}></span> 
+        
+                 <if condition="$counts['order'] gt 0">
+                应收<{:round($counts['order']/100,2)}>元
+                </if>
+                <if condition="$counts['order_1'] gt 0">
+                ，已收<{:round($counts['order_1']/100,2)}>元
+                </if>
+                <if condition="$counts['order_0'] gt 0">
+                ，还有<b style="font-size:16px; color:#F00"><{:round($counts['order_0']/100,2)}></b>元未缴。
+                </if>
+        
+        
+        </p>
+</div>
+
+	<div class="panel-list border-top">
+	<ul>
+		<li><a>水费合计：<{:round($counts['order_type_1']/100,2)}>元
+        <em class="text-dot">未缴：<{:round($counts['order_type_1_is_pay']/100,2)}>元</em>
+        <em class="text-blue">已缴：<{:round($counts['order_type_1_no_pay']/100,2)}>元 &nbsp;&nbsp;&nbsp;</em>
+        </a>
+        </li>
+        
+        <li><a>电费合计：<{:round($counts['order_type_2']/100,2)}>元
+        <em class="text-dot">未缴：<{:round($counts['order_type_2_is_pay']/100,2)}>元</em>
+        <em class="text-blue">已缴：<{:round($counts['order_type_2_no_pay']/100,2)}>元 &nbsp;&nbsp;&nbsp;</em>
+        </a>
+        </li>
+        
+        <li><a>燃气费合计：<{:round($counts['order_type_3']/100,2)}>元
+        <em class="text-dot">未缴：<{:round($counts['order_type_3_is_pay']/100,2)}>元</em>
+        <em class="text-blue">已缴：<{:round($counts['order_type_3_no_pay']/100,2)}>元 &nbsp;&nbsp;&nbsp;</em>
+        </a>
+        </li>
+        
+        <li><a>停车费合计：<{:round($counts['order_type_4']/100,2)}>元
+        <em class="text-dot">未缴：<{:round($counts['order_type_4_is_pay']/100,2)}>元</em>
+        <em class="text-blue">已缴：<{:round($counts['order_type_4_no_pay']/100,2)}>元 &nbsp;&nbsp;&nbsp;</em>
+        </a>
+        </li>
+        
+        <li><a>物业费合计：<{:round($counts['order_type_5']/100,2)}>元
+        <em class="text-dot ">未缴：<{:round($counts['order_type_5_is_pay']/100,2)}>元</em>
+        <em class="text-blue">已缴：<{:round($counts['order_type_5_no_pay']/100,2)}>元 &nbsp;&nbsp;&nbsp;</em>
+        </a>
+        </li>
+       
+	</ul>
+</div>
+
+
+
+
+      
+
+<include  file='public:footer'/>  

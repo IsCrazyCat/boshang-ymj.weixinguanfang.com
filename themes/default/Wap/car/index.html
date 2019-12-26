@@ -1,0 +1,109 @@
+<include file='public:header'/>
+
+<link rel="stylesheet" href="/static/default/wap/css/city.css?V=2"/>
+<header class="top-fixed bg-yellow bg-inverse">
+    <div class="top-back">
+        <a class="top-addr" href="<{:u('wap/index/index')}>"><i class="icon-angle-left"></i></a>
+    </div>
+    <div class="top-title">
+        车型切换
+    </div>
+</header>
+
+
+<style>
+    ul {
+        padding-left: 0px;
+    }
+
+    .xiaoqu-search {
+        padding: 15px;
+        background: #fafafa;
+        border-bottom: thin solid #eee;
+        padding-bottom: 5px
+    }
+
+    .xiaoqu-list p {
+        height: 20px;
+        line-height: 20px;
+        margin: 0;
+        color: #999;
+        font-size: 12px;
+        overflow: hidden;
+    }
+
+    p {
+        margin-bottom: 0px;
+    }
+
+    .list-media-x p {
+        margin-top: .01rem;
+        line-height: 20px;
+        font-size: 12px;
+    }
+
+    .list-media-x li dd.zhong {
+        display: block;
+        padding: 10px;
+        overflow: hidden;
+        width: 100%;
+        border-bottom: 1px #eee solid
+    }
+
+    .list-media-x li dd.zhong span.album {
+        font-size: 12px;
+        color: #FFF;
+        margin-right: 0px;
+        position: absolute;
+        right: 10%;
+        bottom: 0;
+        width: 45px;
+        height: 20px;
+        line-height: 20px;
+        text-align: center;
+        background: #06c1ae;
+    }
+
+    .list-media-x li dd.zhong a img {
+        padding-bottom: 0
+    }
+</style>
+
+
+<div class="line xiaoqu-search">
+    <form method="post" action="<{:U('car/index')}>" id="form1" class="form1">
+        <div class="form-group">
+            <div class="field">
+                <div class="input-group">
+                    <span class="addbtn"><button type="button" class="button icon-search"></button></span>
+                    <input type="hidden" name="parent_id" value="<{$parent_id}>"/>
+                    <input type="text" class="input" name="keyword2" size="50" value="<{$keyword2|default='请输入品牌名称'}>"
+                           onclick="if (value == defaultValue) {value = '';this.style.color = '#000'}"
+                           onBlur="if (!value) {value = defaultValue; this.style.color = '#999'}"/>
+                    <span class="addbtn"><button type="submit" class="button" style="background-color: #06c1ae;color: #FFFFFF;">搜索</button></span>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="more-service" style="padding-top: 10px">
+    <foreach name="carlists" item="item">
+        <p class="more-title">
+            <span><{$key}></span>
+        </p>
+        <volist name="item" id="var" key="i">
+            <div class="more-list">
+                <a href="<{:U('car/index',array('parent_id'=>$var['car_id']))}>" style="width:100%;text-align: left;padding-left: 3rem;">
+                    <p><{$var.name}></p>
+                </a>
+            </div>
+        </volist>
+    </foreach>
+
+</div>
+
+<include file='public:footer'/>  
+
+

@@ -1,0 +1,136 @@
+<include  file='public:header'/>
+
+<div class="mainBt">   
+ <ul>       
+  <li class="li1">当前位置</li>        
+  <li class="li2">黄页</li>       
+   <li class="li2 li3">编辑</li>    
+   </ul>
+   </div> 
+   
+          <form target="baocms_frm"  action="<{:U('pois/edit',array('pois_id'=>$detail['pois_id']))}>" method="post">  
+            <div class="mainScAdd">       
+             <div class="tableBox">           
+             
+              <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >             
+              
+              
+               <tr> <td class="lfTdBt">名称：</td>
+               <td class="rgTdBt"><input type="text" name="data[name]" value="<{$detail.name|default=''}>" class="manageInput" />                   
+               </td>                
+               </tr>
+               
+           <tr>
+            <td class="lfTdBt">所属城市：</td>
+            <td class="rgTdBt">
+                <select name="data[city_id]" class="manageSelect" style="display: inline-block;">
+                     <option value="0">请选择</option>
+                    <foreach name="citys" item="var">
+                        <option value="<{$var.city_id}>" <eq name="var.city_id" value="$detail['city_id']">selected="selected"</eq> ><{$var.name}></option>
+                    </foreach>
+                </select>
+                <code>必选</code>
+            </td>
+        </tr>
+               
+               
+               <tr>
+                    <td class="lfTdBt">缩略图：</td>
+                 <td class="rgTdBt">
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <input type="hidden" name="data[photo]" value="<{$detail.photo}>" id="data_photo" />
+                        <div id="fileToUpload" >上传缩略图</div>
+                    </div>
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <img id="photo_img" width="120" height="80"  src="<{:config_img($detail['photo'])}>" />
+                        <a href="<{:U('setting/attachs')}>">缩略图设置</a>
+                        <{$CONFIG.attachs.biz.thumb}>
+                    </div>
+                    <script>                                            
+						var width_biz = '<{:thumbSize($CONFIG[attachs][biz][thumb],0)}>';                         
+						var height_biz = '<{:thumbSize($CONFIG[attachs][biz][thumb],1)}>'; 
+						var pic_pc_quality = '<{$CONFIG[attachs][pic_pc_quality][thumb]}>';                          
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"biz"))}>',                             
+						pick: '#fileToUpload',                             
+						resize: true,  
+						accept: {
+							title: 'Images',
+							extensions: 'gif,jpg,jpeg,png',
+							mimeTypes: 'image/*'//只永许上传JPG格式文件
+						}, 
+						compress:{
+							width: width_biz,//宽度
+							height: height_biz,//高度
+							quality: pic_pc_quality,//压缩质量
+							allowMagnify: false,
+							crop: false,
+							preserveHeaders: true,
+							noCompressIfLarger: true,
+							compressSize:0
+						}                      
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_photo").val(resporse.url);                             
+						$("#photo_img").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+                </td>
+            </tr>
+            
+            
+        
+            
+            
+               
+               	<tr>                    
+                            <td class="lfTdBt">电话：</td>                  
+                            <td class="rgTdBt"><input type="text" name="data[telephone]" value="<{$detail.telephone|default=''}>" class="manageInput" />                    </td>                
+                </tr>	
+                            
+                            			<tr>                    <td class="lfTdBt">地址：</td>                  <td class="rgTdBt"><input type="text" name="data[address]" value="<{$detail.address|default=''}>" class="manageInput" />                    </td>               
+                                        
+                                         </tr>				
+                                         
+                                         <tr>                    <td class="lfTdBt">标记：</td>					<td class="rgTdBt"><input type="text" name="data[tag]" value="<{$detail.tag|default=''}>" class="manageInput" />					<code>多个关键字用;逗号分隔</code>                    </td>                </tr>												<tr>      
+                                         
+                                         
+                  <tr>                       
+                <td class="lfTdBt">选择分类：</td>
+                <td  class="rgTdBt"> 
+                    <select name="data[type]" id="cate__id" class="manageSelect w210">
+                        <option value="0">请选择...</option>
+                        <foreach name="getType" item="var" key="index">
+                            <option value="<{$index}>" <eq name='detail.type' value='$index'>selected="selected"</eq> ><{$var}></option>
+                        </foreach>   
+                    </select>
+                </td> 
+
+            </tr>         
+                                                         
+                                                                <tr>                    <td class="lfTdBt">地图坐标：</td>                    <td class="rgTdBt">                        <div class="lt">                            经度<input type="text" name="data[lng]" id="data_lng" value="<{$detail.lng|default=''}>" class="scAddTextName w120 input" />                            纬度 <input type="text" name="data[lat]" id="data_lat" value="<{$detail.lat|default=''}>" class="scAddTextName w120 input" />                        </div>                        <a style="margin-left: 10px;" mini="select"  w="600" h="600" href="<{:U('public/maps')}>" class="seleSj">百度地图</a>                </tr>		
+                                                                
+                                                                						<tr>                    <td class="lfTdBt">店铺编号：</td>					<td class="rgTdBt">						<input type="text" class="manageInput" id="lng" name="data[shop_id]" size="20"  value="<{$detail.shop_id}>"  />                    </td>                </tr>							
+                                                                                        
+                                                                                        
+                                                                                        	<tr>                    <td class="lfTdBt">是否锁定：</td>					<td class="rgTdBt">						<input type="radio" name="data[is_lock]"  value="1" <if condition="$detail[is_lock] eq 1">checked="checked"</if> />锁定，采集跳过更新						<input type="radio" name="data[is_lock]"  value="0" <if condition="$detail[is_lock] eq 0">checked="checked"</if> />不锁定，采集动态更新                    </td>                </tr>							
+                                                                                            
+                                                                                            
+                                                                                            	<tr>                    <td class="lfTdBt">黄页状态：</td>					<td class="rgTdBt">						<input type="radio" name="data[status]"  value="1" <if condition="$detail[status] eq 1">checked="checked"</if> />审核绑定商家						<input type="radio" name="data[status]"  value="0" <if condition="$detail[status] eq 0">checked="checked"</if> />审核未绑商家						<input type="radio" name="data[status]"  value="-1" <if condition="$detail[status] eq -1">checked="checked"</if> />等待审核						<input type="radio" name="data[status]"  value="-9" <if condition="$detail[status] eq -9">checked="checked"</if> />关闭状态                    </td>                </tr>	
+                                                                                                
+                                                                                                
+                                                                                                
+                                                                                                
+                                                                                                						</table>		</div>	</div>	
+
+<div class="smtQr"><input type="submit" value="确认编辑" class="smtQrIpt" /></div>
+
+
+</form></div></div>
+
+<include  file='public:footer'/>       

@@ -1,0 +1,30 @@
+.index-list-box{list-style:none;padding:0;width:845px;border:thin solid #DDD;}
+.index-list-box li{padding:10px;overflow:hidden;border-bottom:thin dashed #DDD;}
+.index-list-box li:last-child{border:none!important;}
+.index-list-box li .pic{float:left;width:120px;height:120px;}
+.index-list-box li .pic img{float:left;width:120px;height:120px;}
+.index-list-box li .des{float:left;margin-left:10px;width:690px;}
+.index-list-box li .des h3{font-size:14px;font-weight:bold;}
+.index-list-box li .des .des-txt{color:#999;height:40px;line-height:20px;overflow:hidden;margin-top:5px;}
+
+.side-list-coupon{list-style:none;padding:0;}
+.side-list-coupon li{border-bottom:thin dashed #DDD;padding-bottom:10px;}
+.side-list-coupon img{width:64px;height:64px;}
+.side-list-coupon .media-body{height:60px;overflow:hidden;}
+
+.news-detail,.news-comment{border:thin solid #DDD;padding:10px;width:845px;}
+.news-detail h1{font-family:"Microsoft YaHei";margin-top:10px;}
+.news-detail .text-center{color:#999;border-bottom:thin solid #DDD;padding:10px 0;}
+.news-detail .text-center span{margin:0 10px;}
+.news-detail {font-size:14px;line-height:25px;}
+.news-detail img{max-width:100%;}
+
+
+.news-comment h2{font-size:20px;font-family:"Microsoft YaHei";}
+.news-comment img{width:40px;height:40px;border-radius:40px!important;}
+.news-comment  .txt-reply{width:100%;height:60px;}
+.news-comment .level-1 p{border-bottom:thin solid #EEE;}
+.news-comment .level-2 p{border-bottom:thin dashed #EEE;}
+.news-comment  p{padding-bottom:15px!important;overflow:hidden;color:#999;}
+.news-comment  p a{margin-left:15px;color:#999;}
+.news-comment  p i{margin-right:2px;}

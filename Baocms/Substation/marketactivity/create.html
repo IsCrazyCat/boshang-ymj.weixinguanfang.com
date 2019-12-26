@@ -1,0 +1,60 @@
+ <include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">当前位置</li>
+        <li class="li2">商场活动</li>
+        <li class="li2 li3">新增</li>
+    </ul>
+</div>
+        <form  target="baocms_frm" action="<{:U('marketactivity/create')}>" method="post">
+          <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">商场：</td>
+                    <td class="rgTdBt">
+                        <div class="lt">
+                            <input type="hidden" id="market_id" name="data[market_id]" value="<{$detail.market_id|default=''}>"/>
+                            <input type="text" id="market_name" name="market_name" value="" class="manageInput" />
+                        </div>
+                        <a mini="select"  w="1000" h="600" href="<{:U('market/select')}>" class="remberBtn">选择商场</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">活动标题：</td>
+                    <td class="rgTdBt"><input type="text" name="data[title]" value="<{$detail.title|default=''}>" class="manageInput" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">浏览次数：</td>
+                    <td class="rgTdBt"><input type="text" name="data[views]" value="<{$detail.views|default=''}>" class="manageInput" />
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="lfTdBt">活动详情：</td>
+                    <td class="rgTdBt">
+                        <script type="text/plain" id="data_details" name="data[details]" style="width:800px;height:360px;"><{$detail.details}></script>
+                    </td>
+                </tr>
+                <link rel="stylesheet" href="__PUBLIC__/umeditor/themes/default/css/umeditor.min.css" type="text/css">
+                <script type="text/javascript" charset="utf-8" src="__PUBLIC__/umeditor/umeditor.config.js"></script>
+                <script type="text/javascript" charset="utf-8" src="__PUBLIC__/umeditor/umeditor.min.js"></script>
+                <script type="text/javascript" src="__PUBLIC__/umeditor/lang/zh-cn/zh-cn.js"></script>
+                <script>
+                    um = UM.getEditor('data_details', {
+                        imageUrl: "<{:U('app/upload/editor')}>",
+                        imagePath: '__ROOT__/attachs/editor/',
+                        lang: 'zh-cn',
+                        langPath: UMEDITOR_CONFIG.UMEDITOR_HOME_URL + "lang/",
+                        focus: false
+                    });
+                </script>
+       
+            </table>
+                  <div style="margin-left:140px;margin-top:20px">
+             
+                 <input type="submit" value="确认添加" class="smtQrIpt" />
+            </div> 
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>       

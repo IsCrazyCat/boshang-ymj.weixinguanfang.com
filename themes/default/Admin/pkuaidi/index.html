@@ -1,0 +1,55 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">拼团商家</li>
+        <li class="li2">配送管理</li>
+        <li class="li2 li3">快递列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>暂时1级分类</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="border-top: 1px solid #e1e6eb;">
+            <div class="left">
+                <{:BA('pkuaidi/create','','添加快递','load','',600,550)}>
+            </div>
+        </div>
+
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="id" /></td>
+                    <td class="w50">ID</td>
+                    <td>快递名称</td>
+                    <td>快递电话</td>
+                    <td class="w360">操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_id" type="checkbox" name="kuaidi_id[]" value="<{$var.id}>" /></td>
+                        <td><{$var.id}></td>
+                        <td><{$var.name}></td>
+                        <td><{$var.tel}></td>
+                    <td>       
+                    <{:BA('pkuaidi/lists',array("kuaidi_id"=>$var["id"]),'运费设置','','remberBtn')}>
+                    <{:BA('pkuaidi/edit',array("kuaidi_id"=>$var["id"]),'编辑','load','remberBtn',600,550)}>
+                    <{:BA('pkuaidi/delete',array("kuaidi_id"=>$var["id"]),'删除','act','remberBtn')}>
+                    </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+    </form>
+    </div>
+</div>
+<include  file='public:footer'/>
+
+
+
+
+
+
+

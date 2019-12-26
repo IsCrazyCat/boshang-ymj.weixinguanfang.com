@@ -1,0 +1,23 @@
+.work-list{list-style:none;padding:0;}
+.work-list li{padding:10px;border-bottom:thin solid #eee;}
+.work-list h2{font-size:14px;}
+.work-list span{float:right;color:#999;font-size:12px;}
+.work-list p{font-size:12px;color:#999;margin:0;}
+.work-list div{font-size:12px;color:#999;}
+.work-list em{color:#f60;}
+
+.tab-box .hd{height:40px;line-height:40px;font-size:16px;background:#F3F3F3; ;}
+.tab-box .hd ul{overflow:hidden;padding:0;list-style:none;}
+.tab-box .hd ul li{float:left;color:#515151;width:50%;text-align:center;height:40px;border-bottom:2px solid #eee;}
+.tab-box .hd ul .on{border-bottom:2px solid #E9553B;color:#E9553B;}
+.tab-box .hd ul .on a{display:block;}
+
+
+.desc h1{text-indent: 10px;font-size: 14px;font-weight: bold;color: #333;line-height:40px;background-color: #fff;border-bottom: 1px solid #eee;margin-top: 10px;}
+.desc ul{list-style:none;padding:0;}
+.desc li{border-bottom:thin solid #eee;padding:10px;}
+.desc li:last-child{border:none;}
+.desc li span{float:left;color:#999;}
+.intro {padding:10px;line-height:25px;}
+
+

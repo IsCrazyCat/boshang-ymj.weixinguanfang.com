@@ -1,0 +1,136 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">微信</li>
+        <li class="li2">微信O2O</li>
+        <li class="li2 li3">微信配置</li>
+    </ul>
+</div>
+<div class="main-cate">
+    <p class="attention"><span>注意：</span>这里配置是平台微信相关的， 当然 appid 和 appsecret 也影响商户的微信相关，需要微信发红包</p>
+</div>       
+<div class="mainScAdd">
+    <div class="tableBox">
+        <form  target="baocms_frm" action="<{:U('setting/weixin')}>" method="post">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt" width="160" >URL(服务器地址)：</td>
+                    <td class="rgTdBt">
+                        <{$CONFIG.site.host}>/weixin/index.php
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt" >TOKEN：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[token]" value="<{$CONFIG.weixin.token|default=''}>" class="scAddTextName " />
+                        <code>32位的MD5值最适合！但是一般不限制！可以随意填写！这个需要配置到微信公共帐号那边</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt" >APPID：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[appid]" value="<{$CONFIG.weixin.appid}>" class="scAddTextName " />
+
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="lfTdBt" >appsecret：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[appsecret]" value="<{$CONFIG.weixin.appsecret}>" class="scAddTextName " />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt" >原始ID：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[id]" value="<{$CONFIG.weixin.id}>" class="scAddTextName " />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt" >关注时回复内容形式：</td>
+                    <td class="rgTdBt">
+                        <select name="data[type]" class="seleFl  jq_type" style="display: inline-block;">
+                            <option <eq name="CONFIG.weixin.type" value="1">selected="selected"</eq> value="1">文字</option>
+                            <option  <eq name="CONFIG.weixin.type" value="2">selected="selected"</eq> value="2">图片</option>
+                        </select>
+                        <code>如果是文字的话就不需要填写标题和图片了</code>
+                    </td>
+                </tr>
+                <script>
+                    $(document).ready(function () {
+                        $(".jq_type").change(function () {
+                            if ($(this).val() == 1) {
+                                $(".jq_type_1").show();
+                                $(".jq_type_2").hide();
+                            } else {
+                                $(".jq_type_2").show();
+                                $(".jq_type_1").hide();
+                            }
+                        });
+                        $(".jq_type").change();
+                    });
+                </script>
+                <tr  class="jq_type_1">
+                    <td class="lfTdBt" >回复内容：</td>
+                    <td class="rgTdBt">
+                        <textarea name="data[description]" cols="50" rows="5"><{$CONFIG.weixin.description}></textarea>
+                    </td>
+                </tr>
+                <tr class="jq_type_2">
+                    <td >回复标题：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[title]" value="<{$CONFIG.weixin.title}>" class="scAddTextName " />
+                        <code>微信被用户关注后，主动向用户发送一条消息的标题</code>
+                    </td>
+                </tr>
+                <tr class="jq_type_2">
+                    <td class="lfTdBt" >链接地址：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[linkurl]" value="<{$CONFIG.weixin.linkurl}>" class="scAddTextName " />
+                        <code>回复的链接地址</code>
+                    </td>
+                </tr>
+                
+                  <tr class="jq_type_2">
+                    <td class="lfTdBt">回复图片：</td>
+                 <td class="rgTdBt">
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <input type="hidden" name="data[photo]" value="<{$CONFIG.weixin.photo}>" id="data_photo" />
+                        <div id="fileToUpload" >上传回复图片</div>
+                    </div>
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <img id="photo_img" width="120" height="80"  src="<{:config_img($CONFIG[weixin][photo])}>" />
+                        <a href="<{:U('setting/attachs')}>">缩略图设置</a>
+                        建议尺寸<{$CONFIG.attachs.weixin.thumb}>
+                    </div>
+                    <script>                                            
+						var width_weixin = '<{:thumbSize($CONFIG[attachs][weixin][thumb],0)}>';                         
+						var height_weixin = '<{:thumbSize($CONFIG[attachs][weixin][thumb],1)}>';                         
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"weixin"))}>',                             
+						pick: '#fileToUpload',                             
+						resize: true,  
+						compress : {width: width_weixin,height: height_weixin,quality: 80,allowMagnify: false,crop: true}                       
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_photo").val(resporse.url);                             
+						$("#photo_img").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+                </td>
+            </tr>
+        
+            
+              
+                </td>
+            </table>
+            <div class="smtQr"><input type="submit" value="确认添加" class="smtQrIpt" /></div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>       

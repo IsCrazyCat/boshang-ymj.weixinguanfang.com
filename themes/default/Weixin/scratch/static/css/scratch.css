@@ -1,0 +1,56 @@
+@charset "utf-8";
+/* CSS Document by jacy use in vipcard */
+body{ padding:0; margin:0;}
+.body{background:#cf2e4f;}
+.fl{ float:left;}
+.fr{ float:right;}
+.clear{ clear:both; line-height:0; font-size:0; height:0;}
+.container{ max-width:640px; min-width:320px; margin:0 auto;}
+.scr_top>img{ width:100%;}
+.area{ position:relative; margin:30px 0;}
+.area img{ width:100%;}
+.scratch_area{ position:absolute; top:0; left:50%; width:100%; min-height:100px;}
+.prize_text{position: absolute;
+height: 150px;
+width: 301px;
+font-size: 24px;
+left: 50%;
+margin-left: -150px;
+text-align: center;
+color:#bb400a; z-index:1;}
+.scratch_area canvas{z-index:10; position:absolute; left:50%; z-index:10}
+.block_out{ border-radius:10px; background-color:#e3effb; margin:10px; padding:3px;}
+.block_inner{ border:1px dashed #dc2804; border-radius:10px; background-color:#fff}
+.block_inner h6{ border-top-left-radius:10px; border-top-right-radius:10px; background-color:#dc2804; color:#fff; line-height:30px; text-align:center}
+.block_inner p{ padding:10px;}
+.gift_list{ overflow:hidden; zoom:1}
+.gift_list li{ float:left; width:50%; margin-bottom:10px; text-align:center}
+.gift_list li p{ font-weight:bold; white-space:nowrap}
+.gift_list li img{ width:80%;}
+.gift_list li span{ display:block; text-align:center}
+.gift_history li{ display:table; width:100%;border-bottom:1px dotted #eee}
+.gift_history li span{ display:table-cell; font-size:12px; padding:5px; }
+.gift_history li span.col_1{ width:55%}
+.gift_history li span.col_2{ width:20%}
+.gift_history li span.col_3{ width:25%}
+.gift_history li:last-child{ border:none}
+.block_inner .empty-tips{ padding:10px; text-align:center}
+.block_inner .repeat_tips{ background-color:#f9f1c9; text-align:center; border-radius:20px; padding:10px; margin:20px;}
+/******/
+.ggk_tab{ padding:0 5px;}
+.ggk_tab_list{ display:block; float:left; width:23.5%; margin-right:2%;}
+.ggk_tab_list:last-child{ margin-right:0;}
+.ggk_tab_list a{ display:block; background:#e14f6d; text-align:center; font-size:12px; line-height:24px; color:#fff;}
+.ggk_tab_list a em{ padding:8px; background:url(../img/tabIco_white.png) no-repeat center top; background-size:100% auto; font-size:0; line-height:0; vertical-align:middle; margin-right:2px;}
+.ggk_tab_list a em.ico_1{ background-position:center 0;}
+.ggk_tab_list a em.ico_2{ background-position:center -16px;}
+.ggk_tab_list a em.ico_3{ background-position:center -32px;}
+.ggk_tab_list a em.ico_4{ background-position:center -48px;}
+.ggk_tab_list.on a{background:#e4a01c;}
+.ggk_list_box{ background:#ede6c2; padding:10px; min-height:300px;}
+
+.zhuanpan_list{ display:block; margin-bottom:10px; background:#7e2d3c; overflow:hidden;}
+.zhuanpan_list .img{ width:80px; background:#ff9c11; padding:5px; text-align:center; font-size:14px; line-height:24px; color:#fff;}
+.zhuanpan_list .img img{ width:80px; height:58px;}
+.zhuanpan_list .wz{ margin:5px 5px 5px 95px; border:1px dashed #fff; padding:10px 5px; min-height:57px; font-size:14px; line-height:24px; color:#fff;}
+

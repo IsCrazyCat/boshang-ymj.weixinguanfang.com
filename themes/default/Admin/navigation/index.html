@@ -1,0 +1,74 @@
+<include  file='public:header'/>
+<style>
+.w20{ width:20px;}
+.main-cate .jsglNr .selectNr .left a.on{ background-color:#F00}
+.main-cate .jsglNr .tableBox table tr td a.remberBtn2{font-size: 12px;line-height: 20px;color: #FFF;background-color: #F00; display: inline-block;height: 20px;padding-right: 10px;padding-left: 10px;border-radius: 0px;margin: 0 3px;}
+.main-cate .jsglNr .tableBox table tr td a.remberBtn3{font-size: 12px;line-height: 20px;color: #FFF;background-color:#ccc; display: inline-block;height: 20px;padding-right: 10px;padding-left: 10px;border-radius: 0px;margin: 0 3px;}
+.main-cate .jsglNr .tableBox table tr td a.remberBtn4{font-size: 12px;line-height: 20px;color: #FFF;background-color:#AAADB8; display: inline-block;height: 20px;padding-right: 10px;padding-left: 10px;border-radius: 0px;margin: 0 3px;}
+</style>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">导航</li>
+        <li class="li2">手机导航</li>
+        <li class="li2 li3">导航列表</li>
+    </ul>
+</div>
+<div class="main-cate">
+    <p class="attention"><span>注意：</span>这里管理你的导航，添加菜单成功后无法编辑类型</p>
+    <div class="jsglNr">
+        <form id="cate_action" action="" target="baocms_frm" method="post">
+            <div class="selectNr" style="border-top: 1px solid #dbdbdb;">
+                <div class="left">
+                 <{:BA('navigation/create','','添加导航')}>
+                 <a <if condition="($aready eq '4') OR ($aready eq '')">class="on"</if> href="<{:U('navigation/index', array('aready' => 4))}>">电脑主导航</a>
+                 <a <eq name='aready' value='2'>class="on"</eq> href="<{:U('navigation/index', array('aready' => 2))}>">手机首页导航</a>
+                </div>
+                <div class="right">
+                    <{:BA('navigation/update','','更新','list','remberBtn')}>
+                </div>
+            </div>
+            <div class="tableBox">
+
+                <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF; text-align:center;">
+                    <tr bgcolor="#F5F6FA" height="48px;" style="color:#333; font-size:16px; line-height:48px;">
+                      <td>UID</td>
+                        <td>导航名称</td>
+                        <td>点击数量</td>
+                        <td>排序</td>
+                        <td>ioc图标/颜色</td>
+                        <td>url连接</td>
+                        <td>操作</td>
+                    </tr>
+
+                    <foreach name="list" item="var">
+                        <if condition="($var.parent_id eq 0)">  
+                            <tr bgcolor="#fff" height="48px" style="font-size:14px; color:#333; text-align:left; line-height:48px;">
+                              <td style="padding-left:20px;"><{$var.nav_id}></td>
+                                <td style="padding-left:10px;"><{$var.nav_name}>
+                                <eq name="var.closed" value="0"><a class="remberBtn2">显</a></eq>
+                                <eq name="var.closed" value="1"><a class="remberBtn3">隐</a></eq>
+                                <eq name="var.target" value="1"><a class="remberBtn4">新窗</a></eq>
+                                <eq name="var.is_new" value="1"><a class="remberBtn2">NEW</a></eq>
+                                <eq name="var.status" value="2"><a class="remberBtn4">手机导航</a></eq>
+                                <eq name="var.status" value="4"><a class="remberBtn4">电脑导航</a></eq>
+                                </td>
+                                 <td style="padding-left:10px;"><{$var.click}></td>
+                                <td style="padding-left:10px;"><input name="orderby[<{$var.nav_id}>]" value="<{$var.orderby}>" type="text" class="remberinput w20" /></td>				
+
+                                <td style="padding-left:10px;"><{$var.ioc}> <{$var.colour}></td>
+                                <td style="padding-left:10px;"><{$var.url}></td>
+                                <td style="text-align: center;">
+                                    <{:BA('navigation/edit',array("nav_id"=>$var["nav_id"],"status"=>$var["status"]),'编辑','','remberBtn')}>
+                                    <{:BA('navigation/delete',array("nav_id"=>$var["nav_id"],"status"=>$var["status"]),'删除','act','remberBtn')}>
+                                    <{:BA('navigation/reset',array("nav_id"=>$var["nav_id"],"status"=>$var["status"]),'重置点击量','act','remberBtn')}>
+                                </td>
+                            </tr>
+                    </if>
+                    </foreach>        
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>

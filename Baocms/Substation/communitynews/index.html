@@ -1,0 +1,96 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">小区</li>
+        <li class="li2">小区通知</li>
+        <li class="li2 li3">通知列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>物业管理员增加的通知需要在这里审核！否则不显示。</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('communitynews/create','','添加通知')}>  
+            </div>
+            <div class="right">
+                <form method="post" action="<{:U('communitynews/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                       
+                      
+                        <span>  关键字：</span>   <input type="text" name="keyword" value="<{$keyword|default=''}>" class="inptText" /><input type="submit" class="inptButton" value="  搜索" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="news_id" /></td>
+                        <td class="w50">ID</td>
+                        <td style="background-color: #F8F8F8;">所属小区</td>
+                        <td>标题</td>
+                        <td>用户</td>
+                        <td>简介</td>
+                        <td>内容</td>
+                        <td>创建时间</td>
+                        
+                        <td>操作</td>
+                    </tr>
+					
+                    <foreach name="list" item="var">
+                    <php>
+                    $community_id = $var['community_id'];
+                    $communitys = D('Community')->find($community_id);
+					$user_id = $communitys['user_id'];
+                    $user = D('Users')->find($user_id);
+      
+                    </php>
+					
+                        <tr>
+                            <td><input class="child_news_id" type="checkbox" name="news_id[]" value="<{$var.news_id}>" /></td>
+                            <td><{$var.news_id}></td>
+                             <td style="background-color: #F8F8F8;"><{$communitys['name']}></td>
+                            <td> <{$var.title}></td>
+                           
+                            <td><{$user['nickname']}>(<{$user['user_id']}>)</td>
+                            <td><a class="tips" rel="<{$var.intro}>" style="color: #fff; background: #1ca290; padding: 0px 5px; border-radius:0px; margin-left: 10px; display: inline-block;  height: 20px; line-height: 20px;" href="javascript:void(0)">查看内容</a></td>
+                            <td><a class="tips" rel="<{$var.details}>" style="color: #fff; background: #1ca290; padding: 0px 5px; border-radius:0px; margin-left: 10px; display: inline-block; height: 20px; line-height: 20px;" href="javascript:void(0)">查看回复</a></td>
+                            <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                            
+                           
+                        <td>
+                           <eq name="var.audit" value="0"> <{:BA('communitynews/audit',array("news_id"=>$var["news_id"]),'审核','act','remberBtn')}> </eq>
+                            <{:BA('communitynews/edit',array("news_id"=>$var["news_id"]),'编辑','','remberBtn')}>
+                            <{:BA('communitynews/delete',array("news_id"=>$var["news_id"]),'删除','act','remberBtn')}>
+                           
+
+                        </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('communitynews/delete','','批量删除','list','a2')}>
+         
+                </div>
+            </div>
+        </form>
+    </div>
+      <script>
+       $(document).ready(function (e) {
+    
+			$(".tips").click(function () {
+				var tipnr = $(this).attr('rel');
+				layer.tips(tipnr, $(this), {
+					tips: [4, '#1ca290'],
+					time: 4000
+				});
+			})
+		});
+    </script>
+    <include  file='public:footer'/>       

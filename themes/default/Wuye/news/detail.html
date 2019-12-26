@@ -1,0 +1,31 @@
+
+<include file='public:header'/>    
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('wuye/news/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			通知详情
+		</div>
+	</header>
+	
+	<div class="container">
+		<div class="blank-20"></div>
+		<h4 class="text-center"><{$detail.title}></h4>
+		<p class="text-center border-bottom padding text-small text-gray">
+			<span>时间：<{$detail.create_time|date='Y-m-d',###}></span>
+			<span class="margin-left">浏览：<{$detail[views]}></span>
+		</p>
+        
+        <div class="padding border-bottom">
+			<{$detail.intro}>
+		</div>
+        
+        
+		<div class="padding">
+			<{$detail.details}>
+		</div>
+	</div>
+
+	
+<include  file='public:footer'/>

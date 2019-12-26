@@ -1,0 +1,39 @@
+<{include file="weixin/block/mheader.html"}>
+<link href="%THEME%/weixin/msite/tmpl/index/V15/index.css" rel="stylesheet" type="text/css">
+<body id="weisite">
+<div class="container">
+    <{if $banner_list}>
+    <section class="banner">
+    	<ul>
+            <{foreach $banner_list as $v}>
+        	<li>
+            	<a href="<{$v.url}>"><img src="<{$pager.img}>/<{$v.photo}>"/></a>
+            	<span class="title"><{$v.title}></span>
+            </li>
+         <{/foreach}>
+        </ul>
+        <span class="identify"><{foreach $banner_list as $v}><em></em><{/foreach}></span>
+    </section>
+    <{/if}>
+    <{if $cate_list}>
+    <section>
+    	<ul class="icon_lists">
+            <{foreach $cate_list as $v}>
+            <li class="single_item m_15">
+                <a class="item p_10 arrow_icon mr_10" href="<{$v.url}>"><span class="icon random_color"><img src="<{$pager.img}>/<{$v.icon}>"/></span><span class="click_item_txt"><{$v.title}></span></a>
+            </li>
+            <{/foreach}>
+        </ul>
+    </section>
+    <{/if}>
+</div>
+<!-- 统计代码 -->
+<p class="hide bdtongji"><{$MSITE.tongji}></p>
+<script type="text/javascript">
+$(function(){
+	<{if $banner_list}>$.KT.initBanner(true,5000);<{/if}>
+	$.KT.setRandomColor('.random_color');
+})
+</script>
+</body>
+</html>

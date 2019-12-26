@@ -1,0 +1,21 @@
+<include  file='public:header'/>  
+<body>
+    <header>
+            <div class="header_color">
+                <a class="back" href="<{:u('members/index')}>"><img  src="__TMPL__statics/img/back_icon.png"></a>
+                我的会员卡
+            </div>
+        </header>
+ 
+
+        <ul class="list_img" style="background: #fff;">
+           
+         
+        </ul>
+         <script>
+            $(document).ready(function(){        
+                loaddata('<{:U("member/cardloading",array("p"=>"0000"))}>',  $(".list_img"),true);
+            });
+        </script>
+
+        <include  file='public:footer'/>    

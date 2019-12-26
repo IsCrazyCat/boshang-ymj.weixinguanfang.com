@@ -1,0 +1,59 @@
+<include file="public:header"/>
+<style>
+ul { padding-left: 0px}
+.list-media-x li { border-bottom: 0px solid #eee;border-top: 0px  solid #eee;}
+.list-media-x li dd.zhong {border-bottom:0px #eee solid;}
+.card{background-color:#2f2e2e;margin:0 10px;}
+.card .card_top{padding:12px;position:relative;background-color:#fff;border-top-left-radius:10px;border-top-right-radius:10px}
+.card .card_top .heart{position:absolute;top:12px;right:0;width:40px;height:40px;text-align:center;line-height:40px}
+.card .card_top .heart img{width:19px;height:19px;background-position:-27px -347px}
+.card .card_top .zanheart img{background-position:-49px -347px}
+.card .card_top .top_title{font-size:19px;line-height:30px;color:#000;width:93%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;margin-top:1px}
+.card .card_top .top_title i.xf{color:#fff;margin-left:8px;background-position:-33px -535px;width:41px;height:14px;display:inline-block;margin-left:1px;position:absolute;top:22px}
+.card .card_top .top_title i.ct{color:#fff;margin-left:8px;background-position:-79px -535px;width:41px;height:14px;display:inline-block;position:absolute;top:22px}
+.card .card_top .sub_tit{color:#999;font-size:14px;margin-top:-2px;font-weight:400; }
+.card .card_con{position:relative}
+.card .card_con i{position:absolute;top:18px;left:20px;color:#f06}
+.card .card_con img{width:100%}
+.card .card_foot{color:#aaa;padding:10px 0}
+.card .card_foot .jine{margin:-15px 10px 10px 10px;padding:9px 0;border-bottom:1px dotted #676767;position:relative}
+.card .card_foot .jine span{font-size:22px;padding-left:5px;letter-spacing:-1px}
+.card .card_foot .jine em{font-size:12px;padding-left:5px;margin-right:-10px}
+.card .card_foot .jine .yure_rest{position:absolute;top:10px;right:10px}
+.card .card_foot ul{padding:0;margin:0 0 8px 0;display:box;display:-webkit-box;display:-moz-box;display:-moz-box}
+.card .card_foot ul li{box-flex:1;-webkit-box-flex:1;-moz-box-flex:1;text-align:center}
+.card .card_foot ul li span{font-size:20px;font-family:gotham;font-weight:400;padding:0 3px;letter-spacing:-1px}
+.card .card_foot ul li i{color:#999;font-size:12px}
+.card .progress_container{background-color:#616161;height:4px;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;font-size:0;margin:10px}
+.card .progress_bar{background-color:#e13045;display:block;height:4px;border-radius:10px;width:0}
+</style>
+</style>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('member/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			我发布的众筹
+		</div>
+	<div class="top-signed">
+    	<a href="<{:U('crowd/create')}>" class="top-addr icon-plus"> 添加</a>
+	</div>
+</header>
+
+<!-- 筛选TAB -->
+<ul id="shangjia_tab">
+  <li class="x6"><a href="<{:LinkTo('crowd/crowd_list',array('aready'=>1))}>" <if condition="($aready eq '') || ($aready eq 1)">class="on"</if>>进行中</a></li>
+  <li class="x6"><a href="<{:LinkTo('crowd/crowd_list',array('aready'=>2))}>" <eq name='aready' value='2'>class="on"</eq>>往期众筹</a></li>
+</ul>
+
+
+<div class="list-media-x" id="list-media">
+<div class="blank-10 bg"></div>
+	<ul></ul>
+</div>	
+
+<script>
+	$(document).ready(function () {
+		loaddata('<{:U("crowd/crowd_listdata",array("aready"=>$aready,"t"=>$nowtime,"p"=>"0000"))}>', $("#list-media ul"), true);
+	});
+</script>

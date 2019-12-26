@@ -1,0 +1,99 @@
+<include file='public:header'/>  
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('hotels/index',array('st'=>1))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			酒店订单详情
+		</div>
+		<div class="top-share">
+			<a href="#" id="cate-btn"></a>
+		</div>
+	</header>
+<body>   
+
+<style>
+.panel-list li.padding10 { padding:0 10px;}
+.panel-list li a.button-small { margin:10px 0; padding:0 10px; text-align:center; font-size:14px;}
+</style>
+
+<div class="panel-list">
+	<ul>
+        <li class="padding10">
+          <eq name="detail.online_pay" value="1">
+            <if condition="!$detail['order_status']">
+                <a href="javascript:;">等待支付：<em>(订单30分钟内未支付自动取消)</em></a>
+                <a href="<{:U('hotels/cancel',array('order_id'=>$detail['order_id']))}>" class="button button-small bg-blue">取消订单</a>
+            <elseif condition="$detail['order_status'] eq 1"/>
+                <a class="button button-small bg-dot">订单已支付</a> 
+                <if condition="$detail['room']['is_cancel'] eq 1">
+                    <a href="<{:U('hotels/cancel',array('order_id'=>$detail['order_id']))}>" class="button button-small bg-dot">取消订单</a>
+                </if>
+            <elseif condition="$detail['order_status'] eq -1"/>
+                <a class="button button-small bg-gray">订单已取消</a>
+            <else/>
+                <a class="button button-small bg-blue">订单完成</a>
+                <eq name="detail.comment_status" value="0">
+                    <a href="<{:U('hotels/comment',array('order_id'=>$detail['order_id']))}>" class="button button-small bg-blue">去评价</a>
+                <else/>
+                    <a class="button button-small bg-yellow">已评价</a>
+                </eq>
+            </if>
+        <else/>
+            <a class="button button-small bg-blue">到店付</a>
+            <if condition="$detail['order_status'] eq -1">
+                <a class="button button-small bg-gray">订单已取消</a>
+            <elseif condition="$detail['order_status'] eq 2" />
+                 <a class="button button-small bg-blue">订单完成</a>
+                 <eq name="detail.comment_status" value="0">
+                    <a href="<{:U('mcenter/hotel/comment',array('order_id'=>$detail['order_id']))}>" class="button button-small bg-blue">去评价</a>
+                <else/>
+                    <a class="button button-small bg-yellow">订单已完成</a>
+                </eq>
+            <else/>
+            <if condition="$detail['room']['is_cancel'] eq 1">
+                <a href="<{:U('hotels/cancel',array('order_id'=>$detail['order_id']))}>" class="button button-small bg-yellow">取消订单</a>
+            </if>
+            </if>
+        </eq>
+        </li>
+	</ul>
+</div>
+<div class="blank-10 bg"></div>
+<div class="panel-list">
+	<ul>
+		<li><a href="javascript:;">商家：<em><{$detail.hotel.hotel_name}></em></a></li>
+		<li><a href="javascript:;">入驻时间：<{$detail.stime}>离店：<{$detail.ltime}></a></li>
+		<li><a href="javascript:;">酒店房型：<em><{$roomtype[$detail['room']['type']]}><if condition="$room['is_zc'] eq 1">-有早餐</if></em></a></li>
+		<li><a href="javascript:;">酒店地址：<em><{$detail.hotel.addr}></em></a></li>
+		<li><a href="javascript:;">单价：<em>￥<{$detail['room']['price']}></em></a></li>
+        <li><a href="javascript:;">房间数：<em> <{$detail.num}></em></a></li>
+        <li><a href="javascript:;">订单总额：<{$detail.amount}></a></li>
+        <li><a href="javascript:;">到店时间：<{$detail.last_time}></a></li>
+        <li><a href="javascript:;">入住人：<{$detail.name}></a></li>
+        <li><a href="javascript:;">手机号：<{$detail.mobile}></a></li>
+  	    <li><a href="javascript:;">住宿偏好：<{$detail.note}></a></li>
+	</ul>
+</div>
+
+
+<div class="blank-30"></div>
+<style>
+.container a{ text-align:center}
+</style>
+<div class="container login-open">
+
+<if condition="!$detail['order_status']">
+   <a class="button button-block button-big bg-dot"  id="pay_btn">立即在线支付:￥<{$detail.amount}></a>
+ </if>
+<script>
+    $(document).ready(function(){
+        $("#pay_btn").click(function(){
+            var url = "<{:U('wap/hotels/pay',array('order_id'=>$detail['order_id']))}>";
+            window.location.href = url;
+        })
+    })
+</script>
+
+<div class="blank-20"></div>
+<include file="public:footer"/>

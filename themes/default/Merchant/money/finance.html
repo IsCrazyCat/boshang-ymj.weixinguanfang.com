@@ -1,0 +1,81 @@
+<include  file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家</a> > <a href="">财务管理</a> </li>
+    </ul>
+</div>
+<style>
+.tuan_table td span{ font-size:14px;}
+.tuan_table td p{ font-size:18px;}
+.tuan_table td p span.red{ font-size:26px; color:#F00; font-weight:bold}
+.tuan_table td li a{ font-size:16px;}
+</style>
+<div class="tuan_content">
+    <include  file='money:nav'/>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td colspan="5"><span>商铺名称：<{$SHOP.shop_name}>&nbsp;&nbsp;&nbsp;商铺ID：（<{$SHOP.shop_id}>） &nbsp;&nbsp;&nbsp;
+            商铺类别：<{$shopcates[$SHOP['cate_id']]['cate_name']}></span> </td>
+        </tr>
+         <tr style="background-color:#FFF0F0;">
+            <td colspan="5">
+            
+            <p>
+               <if condition="$counts['money'] gt 0">
+               您总收入：<{:round($counts['money']/100,2)}>元，
+               </if>
+               当前余额：<span class="red"><{:round($MEMBER['gold']/100,2)}></span>元。
+               <if condition="!empty($MEMBER['frozen'])">
+               冻结金：<{:round($MEMBER['frozen']/100,2)}>元。
+               </if>
+        </p>
+         </td>
+       </tr>
+        
+      <tr>
+         <td colspan="5"><li><a>今日总收入：<{:round($counts['money_day']/100,2)}>元，昨日总收入：<{:round($counts['money_day_yesterday']/100,2)}>元。</a></li></td>
+      </tr>
+     <!-- <tr>
+         <td colspan="5"><li><a>今日商城收入：<{:round($counts['money_day_goods']/100,2)}>元，昨日商城收入：<{:round($counts['money_day_goods_yesterday']/100,2)}>元。</a></li>
+
+</td>
+      </tr>
+      <tr>
+         <td colspan="5"><li><a>今日团购收入：<{:round($counts['money_day_tuan']/100,2)}>元，昨日团购收入：<{:round($counts['money_day_tuan_yesterday']/100,2)}>元。</a></li></td>
+      </tr>
+      <tr>
+     
+</td>    <td colspan="5"><li><a>今日外卖收入：<{:round($counts['money_day_ele']/100,2)}>元，昨日外卖收入：<{:round($counts['money_day_ele_yesterday']/100,2)}>元。</a></li>
+      </tr>
+      <tr>
+     
+</td>    <td colspan="5"><li><a>今日酒店收入：<{:round($counts['money_day_hotel']/100,2)}>元，昨日酒店收入：<{:round($counts['money_day_hotel_yesterday']/100,2)}>元。</a></li>
+      </tr>
+      
+       <tr>
+     
+</td>    <td colspan="5"><li><a>今日家政收入：<{:round($counts['money_day_appoint']/100,2)}>元，昨日家政收入：<{:round($counts['money_day_appoint_yesterday']/100,2)}>元。</a></li>
+      </tr>
+      
+
+    <tr style="background-color:#FFF0F0;"><td colspan="5"> <p>单项总收入列表</p></td></tr>
+   <tr>
+   	  <td colspan="5">
+          <li><a>商城（总）：<{:round($counts['money_goods']/100,2)}>元。</a></li>
+          <li><a>外卖（总）：<{:round($counts['money_ele']/100,2)}>元。</a></li>
+          <li><a>商城（总）：<{:round($counts['money_goods']/100,2)}>元。</a></li>
+      </td> 
+   </tr>
+   <tr>
+   	  <td colspan="5">
+          <li><a>订座（总）：<{:round($counts['money_booking']/100,2)}>元。</a></li>
+          <li><a>酒店（总）：<{:round($counts['money_hotel']/100,2)}>元。</a></li>
+          <li><a>家政（总）：<{:round($counts['money_appoint']/100,2)}>元。</a></li>	
+      </td> 
+   </tr>-->
+
+ </table>
+<div class="paging"> </div>
+</div>
+<include  file='public:footer'/>

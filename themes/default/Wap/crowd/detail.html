@@ -1,0 +1,189 @@
+<php>$mobile_title = $detail['title'];</php>
+<include  file='public:header'/>   
+<script src="/static/default/wap/other/roll.js"></script> 
+<link rel="stylesheet" type="text/css" href="/static/default/wap/css/crowd_detail.css">
+	<header class="top-fixed bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('crowd/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<{:bao_msubstr($detail['title'],0,8)}>
+		</div>
+		<div class="top-search" style="display:none;">
+			<form method="post" action="<{:U('crowd/index')}>">
+				<input name="keyword" placeholder="输入众筹的关键字"  />
+				<button type="submit" class="icon-search"></button> 
+			</form>
+		</div>
+       <div class="top-signed">
+			<a id="search-btn" href="javascript:void(0);"><i class="icon-search"></i></a>
+		</div>
+	</header>  
+	<script type="text/javascript">
+	$(function(){
+		$("#search-btn").click(function(){
+			if($(".top-search").css("display")=='block'){
+				$(".top-search").hide();
+				$(".top-title").show(200);
+			}
+			else{
+				$(".top-search").show();
+				$(".top-title").hide(200);
+			}
+		});
+		
+		$(".zhankai").click(function(){
+			 var t = $(this).parent().siblings(".huibao");
+			 if(t.hasClass("hide")){
+				 t.removeClass("hide");
+			 }else{
+				 t.addClass("hide");
+			 }
+		});
+		
+		$("#search-bar li").each(function(e){
+			$(this).click(function(){
+				if($(this).hasClass("on")){
+					$(this).parent().find("li").removeClass("on");
+					$(this).removeClass("on");
+					$(".serch-bar-mask").hide();
+				}
+				else{
+					$(this).parent().find("li").removeClass("on");
+					$(this).addClass("on");
+					$(".serch-bar-mask").show();
+				}
+				$(".serch-bar-mask .serch-bar-mask-list").each(function(i){
+					
+					if(e==i){
+						$(this).parent().find(".serch-bar-mask-list").hide();
+						$(this).show();
+					}
+					else{
+						$(this).hide();
+					}
+					$(this).find("li").click(function(){
+						$(this).parent().find("li").removeClass("on");
+						$(this).addClass("on");
+					});
+				});
+			});
+		});
+	});
+	
+	
+	
+	
+	</script>
+    
+    <ul id="shangjia_tab">
+        <li class="x3"><a href="<{:U('crowd/detail',array('goods_id'=>$detail['goods_id']))}>" <if condition="$act eq 'detail'">class="on"</if> >首页</a></li>
+        <li class="x3"><a href="<{:U('crowd/details',array('goods_id'=>$detail['goods_id']))}>" <if condition="$act eq 'details'">class="on"</if> >详情</a></li>
+        <li class="x3"><a href="<{:U('crowd/projectprogress',array('goods_id'=>$detail['goods_id']))}>" <if condition="$act eq 'projectprogress'">class="on"</if> >进展</a></li>
+        <li class="x3"><a href="<{:U('crowd/ask_list',array('goods_id'=>$detail['goods_id']))}>" <if condition="$act eq 'ask_list'">class="on"</if> >话题</a></li>
+    </ul>  
+    
+    
+    
+<div class="tuan-detail detail_card detail_z_card">   
+        <div class="line banner">	
+            <div id="focus" class="focus">
+            <div class="hd"><ul></ul></div>
+            <div class="bd">
+                <ul>
+                    <li><a href="javascript:void(0);"><img src="<{:config_img($detail['photo'])}>" /></a></li>
+                    <php>$i=0;</php>
+                    <foreach name="crowdphoto" item="item">
+                    <php>$i++;if($i<=3){</php>
+                    <li><a href="javascript:void(0);"><img src="<{:config_img($item['photo'])}>" /></a></li>
+                    <php>}</php>
+                    </foreach>
+                </ul>
+            </div>
+        </div>
+            <div class="title"><h1><{:bao_msubstr($detail['title'],0,16)}></h1></div>	
+      </div>
+        
+        <div class="card_foot">
+         <div class="jine"> 筹集金额<em></em><span class="gotham"><{$detail['all_price']/100}> 元</span>/<em>已筹</em>
+         <span class="gotham"> <{$detail['have_price']/100}></span>元</div>
+              <ul>
+                  <li>支持人数<br><span class="gotham"> <{$detail['have_num']}></span></li>
+                  <li>项目进度<br><span class="gotham"><{$detail['have_price']/$detail['all_price']*100}>%</span></li>
+                  <li>剩余天数<br><span><{$crowd_time}></span>天</li>
+             </ul>
+          <div class="progress_container">
+          	<div class="progress_bar finished" progress="<{$detail['have_price']/$detail['all_price']*100|ceil}>" style="width:<{$detail['have_price']/$detail['all_price']*100|ceil}>%;"></div>
+          </div>
+          <div class="exp_text"><a href="javascript:void(0);"><{:bao_msubstr($detail['intro'],0,28)}></a></div>
+          <div class="btn-waper">
+              <a href="<{:U('crowd/details',array('goods_id'=>$detail['goods_id']))}>"></a>
+              <a href="<{:U('crowd/details',array('goods_id'=>$detail['goods_id']))}>" class="btn-detail-1">查看项目详情&gt;</a>
+		</div>
+   </div>
+   
+</div>            
+            
+  
+	<script type="text/javascript">
+		TouchSlide({ 
+			slideCell:"#focus",
+			titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+			mainCell:".bd ul", 
+			effect:"left", 
+			autoPlay:true,//自动播放
+			autoPage:true, //自动分页
+			switchLoad:"_src" //切换加载，真实图片路径为"_src" 
+		});
+	</script>
+    
+	<if condition="!empty($goodstype)">
+    <volist name='goodstype' id='item'>
+    <if condition="$item[have_num] egt $item[max_num]">
+   	 	  <div id="coupon-list" class="coupon-list">
+           <a target="x-frame" href="<{:U('crowd/buy',array('goods_id'=>$detail['goods_id'],'type_id'=>$item['type_id']))}>" class="item">	
+               <div class="line">
+                  <div class="x4"><img class="pic" src="<{:config_img($item['img'])}>" style="width:90%"></div>
+                  <div class="x8">
+                    <h3>支持：&yen; <em class="text-dot"><{$item['price']/100}></em>&nbsp;&nbsp;<{$item[have_num]}> </i>位支持者</h3>
+                      <p class="intro"><{$item[content]}></p>
+                      <p class="info">
+                         <span class="float-left">
+                             限额：<em class="text-yellow"><{$item[max_num]}></em> 位 &nbsp;
+                             剩余<{$item[max_num]-$item[have_num]}>位 &nbsp;
+                             运费：&yen;<{$item[yunfei]/100}>元
+                         </span>	
+                      </p>
+                      <p class="info">
+                         <span class="float-left">回报时间：项目成功结束后<{$item.fahuo}>天内</span>	
+                      </p>
+                   </div>
+                </div>
+            </a>           
+     	</div>
+        <else/><!-- 如果 -->
+       <div id="coupon-list" class="coupon-list">
+           <a target="x-frame" href="<{:U('crowd/buy',array('goods_id'=>$detail['goods_id'],'type_id'=>$item['type_id']))}>" class="item">	
+               <div class="line">
+                  <div class="x4"><img class="pic" src="<{:config_img($item['img'])}>" style="width:90%"></div>
+                  <div class="x8">
+                    <h3><{$item[have_num]}></i>位支持者 &nbsp;&nbsp;<em class="button button-little bg-dot">支持：&yen; <{$item['price']/100}>元</em></h3>
+                      <p class="intro"><{$item[content]}></p>
+                      <p class="info">
+                         <span class="float-left">
+                             限额：<em class="text-yellow"><{$item[max_num]}></em> 位 &nbsp;
+                             剩余<{$item[max_num]-$item[have_num]}>位 &nbsp;
+                             运费：&yen;<{$item[yunfei]/100}>元
+                         </span>	
+                      </p>
+                      <p class="info">
+                         <span class="float-left">回报时间：项目成功结束后<{$item.fahuo}>天内</span>	
+                      </p>
+                   </div>
+                </div>
+            </a>           
+     	</div>
+        </if> 
+       </volist>   
+	</if>
+<include  file='public:footer'/>   

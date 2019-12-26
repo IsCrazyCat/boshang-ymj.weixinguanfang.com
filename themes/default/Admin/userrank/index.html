@@ -1,0 +1,59 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">会员</li>
+        <li class="li2">会员管理</li>
+        <li class="li2 li3">会员等级</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>会员的等级图标建议写成样式！有序的从0到你要的等级；这配置好了一般无需修改</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('userrank/create','','添加内容','load','',800,550)}>
+            </div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="rank_id" /></td>
+                        <td class="w50">ID</td>
+                        <td>等级名称</td>
+                        <td>等级样式1</td>
+                        <td>等级样式2</td>
+                        <td>等级图标</td>
+                        <td>需要<{$CONFIG.prestige.name|default='威望'}></td> 
+                        <td>操作</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_rank_id" type="checkbox" name="rank_id[]" value="<{$var.rank_id}>" /></td>
+                            <td><{$var.rank_id}></td>
+                            <td><{$var.rank_name}></td>
+                            <td><{$var.icon}></td>
+                            <td><{$var.icon1}></td>
+                            <td><img src="<{:config_img($var['photo'])}>" class="w80" /></td>
+                            <td><{$var.prestige}></td>
+                            <td>
+                                <{:BA('userrank/edit',array("rank_id"=>$var["rank_id"]),'编辑','load','remberBtn',800,550)}>
+                                <{:BA('userrank/delete',array("rank_id"=>$var["rank_id"]),'删除','act','remberBtn')}>
+                            </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('userrank/delete','','批量删除','list',' a2')}>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>  
+
+
+

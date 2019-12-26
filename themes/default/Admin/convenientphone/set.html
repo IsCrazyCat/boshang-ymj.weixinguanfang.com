@@ -1,0 +1,88 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">便民电话</li>
+        <li class="li2">设置</li>
+    </ul>
+</div>
+<form target="baocms_frm" action="<{:U('convenientphone/set',array('phone_id'=>$phone_id))}>" method="post">
+    <div class="mainScAdd ">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">选择区域：</td>
+                    <td class="rgTdBt">
+                        <select name="data[area_id]" id="area_id" class="manageSelect">
+                            <option value="0">请选择...</option>
+                            <foreach name="areas" item="var">
+                                <option value="<{$var.area_id}>"><{$var.area_name}></option>
+                            </foreach>   
+                        </select>
+
+                    <code>请先选择区域</code></td>
+                </tr>
+                <script>
+                    $(document).ready(function (e) {
+                        $("#area_id").change(function () {
+                            var url = '<{:U("community/child",array("area_id"=>"0000"))}>';
+                            if ($(this).val() > 0) {
+                                var url2 = url.replace('0000', $(this).val());
+                                $.get(url2, function (data) {
+                                    $("#community_id").html(data);
+                                }, 'html');
+                            }
+
+                        });
+                    });
+                </script>
+                <tr>
+                    <td class="lfTdBt">选择小区：</td>
+                    <td class="rgTdBt">
+                        <select name="community_id" id="community_id" class="manageSelect">
+                            <option value="0">请选择...</option>
+                            <foreach name="communitys" item="var">
+                                <option value="<{$var.community_id}>"><{$var.name}></option>
+                            </foreach>   
+                        </select>
+                     <code>请先选择小区，没有出现小区请清理缓存</code></td>
+                </tr>
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认添加" class="smtQrIpt" /></div>
+    </div>
+</form> 
+
+
+<div class="main-jsgl main-sc">
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <h2>已经入驻的小区</h2>
+            </div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="phone_id" /></td>
+                        <td class="w50">ID</td>
+                        <td>小区名称</td>
+                        <td>操作</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_phone_id" type="checkbox" name="phone_id[]" value="<{$var.phone_id}>" /></td>
+                            <td><{$var.community_id}></td>
+                          <php>$communitys = D('Community') -> where('community_id ='.$var['community_id']) -> find();</php> 
+                            <td><{$communitys['name']}></td>
+                            <td>
+                                <{:BA('convenientphone/cancel',array("phone_id"=>$phone_id,"community_id"=>$var['community_id']),'取消入驻','act','remberBtn')}>
+                            </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+        </form>
+    </div>
+    <include  file='public:footer'/>

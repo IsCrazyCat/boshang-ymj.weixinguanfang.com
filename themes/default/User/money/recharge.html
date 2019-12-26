@@ -1,0 +1,49 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('user/member/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			代金券充值
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+
+ <!-- 筛选TAB -->
+<style>ul{ padding-left:0px;}</style>
+<ul id="shangjia_tab">
+		<li style="width:33.3333333367%;"><a href="<{:u('user/money/index')}>"  class="on">余额充值</a></li>
+        <li style="width:33.3333333367%;"><a href="<{:u('user/cash/index')}>" >申请提现</a></li>
+        <li style="width:33.3333333367%;"><a href="<{:u('user/logs/moneylogs')}>" >日志管理</a></li>
+</ul>
+
+<div class="blank-40 bg"></div>
+
+
+<!-- 筛选TAB -->
+<div class="line tab-bar">
+	<div class="button-toolbar">
+		<div class="button-group">
+			<a class="block button" href="<{:U('money/index')}>">余额充值</a>
+			<a class="block button bg-dot active" href="<{:U('money/recharge')}>">代金券充值</a>
+		</div>
+	</div>
+</div>
+
+
+<form method="post"  action="<{:U('money/recharge')}>" target="x-frame">
+	<div class="line padding border-bottom">
+		<span class="x3">充值卡密</span>
+		<span class="x9">
+			<input class="text-input" type="text" name="card_key" placeholder="输入代金券卡密" />
+		</span>
+	</div>
+
+	<div class="blank-30"></div>
+	<div class="container"><button type="submit" class="button button-block button-big bg-dot">提交充值</button></div>
+	<div class="blank-30"></div>
+
+</form>
+<include file="public:footer"/>

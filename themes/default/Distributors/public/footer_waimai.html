@@ -1,0 +1,31 @@
+<style>
+footer {height: inherit;}
+</style>
+    <footer class="foot-fixed">		
+    <a class="foot-item  <eq name="act" value="gears">active</eq>" href="<{:u('distributors/ele/gears')}>">		
+    	<span class="icon icon-gears"></span>		
+        	<span class="foot-label">设置</span>		
+            </a>
+            <a class="foot-item <eq name="act" value="create2">active</eq>" href="<{:u('distributors/ele/create2')}>">		
+            	<span class="icon icon-plus"></span>			
+                <span class="foot-label">上菜</span>
+            </a>	
+            <a class="foot-item <eq name="act" value="index">active</eq>" href="<{:u('distributors/ele/index')}>">			
+            <span class="icon icon-paw"></span>			
+            <span class="foot-label">菜品</span>		
+            </a>	
+
+            <a class="foot-item <eq name="act" value="elecate">active</eq>" href="<{:U('ele/elecate')}>">		
+            	<span class="icon icon-bars"></span>			
+            <span class="foot-label">分类</span>		
+            </a>		
+
+            <a class="foot-item <eq name="act" value="eleorder">active</eq>" href="<{:U('ele/eleorder',array('status'=>1))}>">			
+            <span class="icon icon-check-square-o"></span>			
+            <span class="foot-label">订单</span>		
+            </a>	
+
+            </footer>	
+           <iframe id="x-frame" name="x-frame" style="display:none;"></iframe>
+          </body>
+      </html>

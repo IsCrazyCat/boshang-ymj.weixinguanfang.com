@@ -1,0 +1,16 @@
+<foreach name="list" item="var">
+	<div class="line padding border-bottom">
+		<div class="x12">
+			<p>结算说明：<{$var.intro}></p>
+            <p class="text-gray" style="font-size:12px;">发布时间：<{$var.create_time|date='Y-m-d H:i:s',###}></p>
+		</div>
+	</div>
+	<div class="line padding">
+		<span class="x12 text-right">
+        	<a class="button button-little bg-dot"><{$var.type}></a>
+            <a class="button button-little bg-blue">资金：<{:round($var['money']/100,2)}></a>
+            <a class="button button-little bg-yellow">原始订单：<{$var.order_id}></a>
+        </span>
+	</div>
+	<div class="blank-10 bg"></div>
+</foreach>

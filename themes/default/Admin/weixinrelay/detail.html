@@ -1,0 +1,114 @@
+<include  file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<div class="mainBt">
+    <ul>
+        <li class="li1">微信</li>
+        <li class="li2">微接力</li>
+        <li class="li2 li3">详情</li>
+    </ul>
+</div>
+<div class="mainScAdd">
+    <div class="tabnr_change  show">
+    	<table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;">
+            <tr>
+                <td class="lfTdBt">商家：</td>
+                <td class="rgTdBt"><{$detail.shop_name}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">关键字：</td>
+                <td class="rgTdBt"><{$detail.keyword|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">标题：</td>
+                <td class="rgTdBt"><{$detail.title|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">封面简介：</td>
+                <td class="rgTdBt"><{$detail.intro|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">封面图片：</td>
+                <td class="rgTdBt"><div class="tuanfabu_nr">
+                <div style="width: 300px;height: 100px; float: left;">
+                    <img id="photo_img" width="80" height="80"  src="<{:config_img($detail['photo'])}>" />
+                </div>
+                </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">简介：</td>
+                <td class="rgTdBt"><div class="tuanfabu_nr"><{$detail.use_tips|default=''}></div></td>
+            </tr>
+
+            <tr>
+                <td class="lfTdBt">活动开始时间：</td>
+                <td class="rgTdBt"><{$detail.stime|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">活动结束时间：</td>
+                <td class="rgTdBt"><{$detail.ltime|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">活动说明：</td>
+                <td class="rgTdBt"><{$detail.use_tips|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">分享后接力次数：</td>
+                <td class="rgTdBt"><{$detail.relay_num|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">每人限制接力次数：</td>
+                <td class="rgTdBt"><{$detail.max_num|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">每次金币数：</td>
+                <td class="rgTdBt"><{$detail.min_gold|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">每次接力时间：</td>
+                <td class="rgTdBt"><{$detail.time|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">过期说明：</td>
+                <td class="rgTdBt"><{$detail.end_tips|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">浏览人数：</td>
+                <td class="rgTdBt"><{$detail.views|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">关键字回复图片：</td>
+                <td class="rgTdBt"><div class="tuanfabu_nr">
+                <div style="width: 300px;height: 100px; float: left;">
+                    <img id="photo_img1" width="80" height="80"  src="<{:config_img($detail['end_photo'])}>" />
+                </div>
+                </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="lfTdBt">粉丝状态</td>
+                <td class="rgTdBt">
+                    <div class="tuanfabu_nr">
+                    <if condition="$detail['follower_condtion'] eq 0">不</if>关注
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="lfTdBt">粉丝状态</td>
+                <td class="rgTdBt">
+                	<if condition="$detail['member_condtion'] eq 1">会员</if>
+                	<if condition="$detail['member_condtion'] eq 0">不限</if>
+                </td>
+            </tr>
+        </table>
+        <div class="tuanfabu_an">
+        	<div class="smtQr">
+        		<a class="remberBtn " href="<{:U('weixinlottery/index',array('id'=>$var['id']))}>">返回列表页</a>
+        		<!-- <input type="submit" value="确认发布" class="smtQrIpt" /> -->
+	        </div>
+        </div>
+    </div> 
+</div>
+<include  file='public:footer'/>

@@ -1,0 +1,149 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">主题</li>
+        <li class="li2">主题管理</li>
+        <li class="li2 li3">新增主题</li>
+    </ul>
+</div>
+<form  target="baocms_frm" action="<{:U('thread/create')}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+            
+             <tr>
+                    <td class="lfTdBt">主题管理员：</td>
+                    <td class="rgTdBt">
+                        <div class="lt">
+                            <input type="hidden" id="user_id" name="data[user_id]" value="<{$detail.user_id|default=''}>" />
+                            <input class="scAddTextName w210 sj" type="text" name="nickname" id="nickname"  value="<{$user.nickname}>" />
+                        </div>
+                        <a mini="select"  w="800" h="600" href="<{:U('user/select')}>" class="seleSj">选择用户</a>
+                    </td>
+                </tr>  
+                
+                <tr>
+                    <td class="lfTdBt">主题分类：</td>
+                    <td class="rgTdBt">
+                        <select id="cate_id" name="data[cate_id]" class="seleFl w210">
+                            <option value="">=选择=</option>
+                            <volist name="cates" id="var">
+                                    <option value="<{$var.cate_id}>"  <eq name="var.cate_id" value="$detail.cate_id">selected="selected"</eq> ><{$var.cate_name}></option>
+                            </volist>
+                        </select>
+
+                    </td>
+                </tr>    
+                
+                <tr>
+                    <td class="lfTdBt">主题名称：</td>
+                    <td class="rgTdBt"><input type="text" name="data[thread_name]" value="<{$detail.thread_name|default=''}>" class="scAddTextName w210" />
+
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="lfTdBt">主题图片：</td>
+                 <td class="rgTdBt">
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <input type="hidden" name="data[photo]" value="<{$detail.photo}>" id="data_photo" />
+                        <div id="fileToUpload" >上传主题图片</div>
+                    </div>
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <img id="photo_img" width="120" height="80"  src="<{:config_img($detail['logo'])}>" />
+                        <a href="<{:U('setting/attachs')}>">缩略图设置</a>
+                        <{$CONFIG.attachs.thread_logo.thumb}>
+                    </div>
+                    <script>                                            
+						var width_thread_logo = '<{:thumbSize($CONFIG[attachs][thread_logo][thumb],0)}>';                         
+						var height_thread_logo = '<{:thumbSize($CONFIG[attachs][thread_logo][thumb],1)}>';                         
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"thread_logo"))}>',                             
+						pick: '#fileToUpload',                             
+						resize: true,  
+						compress : {width: width_thread_logo,height: height_thread_logo,quality: 80,allowMagnify: false,crop: true}                       
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_photo").val(resporse.url);                             
+						$("#photo_img").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+                </td>
+            </tr> 
+            
+            
+              <tr>
+                    <td class="lfTdBt">主题BANAER：</td>
+                 <td class="rgTdBt">
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <input type="hidden" name="data[banner]" value="<{$detail.banner}>" id="data_banner" />
+                        <div id="fileToUpload1" >上传主题BANAER</div>
+                    </div>
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <img id="banner_img" width="120" height="80"  src="<{:config_img($detail['banner'])}>" />
+                        <a href="<{:U('setting/attachs')}>">缩略图设置</a>
+                        <{$CONFIG.attachs.thread_banner.thumb}>
+                    </div>
+                    <script>                                            
+						var width_thread_banner = '<{:thumbSize($CONFIG[attachs][thread_banner][thumb],0)}>';                         
+						var height_thread_banner = '<{:thumbSize($CONFIG[attachs][thread_banner][thumb],1)}>';                         
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"thread_banner"))}>',                             
+						pick: '#fileToUpload1',                             
+						resize: true,  
+						compress : {width: width_thread_banner,height: height_thread_banner,quality: 80,allowMagnify: false,crop: true}                       
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_banner").val(resporse.url);                             
+						$("#banner_img").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+                </td>
+            </tr>   
+        <tr>
+            <td class="lfTdBt">是否热门：</td>
+            <td class="rgTdBt">
+                <label style="margin-right: 20px;"><input style="width: 20px; height: 20px;" type="radio" name="data[is_hot]" value="1" <if condition="$detail['is_hot'] eq 1">checked="checked"</if> />是</label>
+                <label><input style="width: 20px; height: 20px;" type="radio" name="data[is_hot]" value="0" <if condition="$detail['is_hot'] eq 0">checked="checked"</if> />否</label>
+            </td>
+        </tr>
+        
+         <tr>
+            <td class="lfTdBt">是否精华：</td>
+            <td class="rgTdBt">
+                <label style="margin-right: 20px;"><input style="width: 20px; height: 20px;" type="radio" name="data[is_essence]" value="1" <if condition="$detail['is_essence'] eq 1">checked="checked"</if> />是</label>
+                <label><input style="width: 20px; height: 20px;" type="radio" name="data[is_essence]" value="0" <if condition="$detail['is_essence'] eq 0">checked="checked"</if> />否</label>
+            </td>
+        </tr>
+        
+        
+         <tr>
+            <td class="lfTdBt">主题排序：</td>
+             <td class="rgTdBt"><input type="text" name="data[orderby]" value="<{$detail.orderby|default=''}>" class="scAddTextName w210" />
+            </td>
+        </tr>
+                
+                
+        <tr>
+            <td class="lfTdBt">详情：</td>
+            <td class="rgTdBt">
+                <textarea name="data[intro]" cols="50" rows="5"><{$detail.intro}></textarea>
+            </td>
+        </tr>
+    </table>
+       
+</div>
+<div class="smtQr"><input type="submit" value="确认添加" class="smtQrIpt" /></div>
+</div>
+</form>
+<include  file='public:footer'/>       

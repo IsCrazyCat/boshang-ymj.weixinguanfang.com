@@ -1,0 +1,93 @@
+<include file="public:header" /><include file="public:topOne" />
+<div class="between">
+	<div class="middle">
+		<div class="all">
+			<div class="all_2">
+				<ul>
+					<li class="on">1.提交订单<em>&nbsp;</em></li>
+					<li class="on">2.去支付<em>&nbsp;</em></li>
+					<li>3.完成<em>&nbsp;</em></li>
+				</ul>
+			</div>
+			<div class="all_3">
+				<ul class="ul_3">
+					<li><img src="__TMPL__statics/images/tp_5.png">
+						<p>随时退</p>
+					</li>
+					<li><img src="__TMPL__statics/images/tp_6.png">
+						<p>不满意免单</p>
+					</li>
+					<li><img src="__TMPL__statics/images/tp_7.png">
+						<p>过期退</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<form action="<{:U('tuan/pay2',array('order_id'=>$order['order_id']))}>" method="post" target="baocms_frm">
+			<div class="mode_dingdan">
+				<table class="order" width="100%">
+					<tr>
+						<th>订单</th>
+						<th>数量</th>
+						<th>单价</th>
+						<th>应付金额</th>
+					</tr>
+					<tr>
+						<td><{$tuan.title}></td>
+						<td><{$order['num']}>份</td>
+						<td>￥<{:round($tuan['tuan_price']/100,2)}></td>
+						<td><span class="order_2">￥<{:round($order['total_price']/100,2)}>
+							<if condition="!empty($order['use_integral'])">(使用积分<{$order.use_integral}>)</if>
+							</span></td>
+					</tr>
+				</table>
+				<div class="mode left">选择支付方式</div>
+				<div class="clear"></div>
+				<ul class="mode_zx">
+					<li  class="on">在线付款</li>
+				</ul>
+				<div class="order_type table1">
+					<div class="order_style">
+						<ul class="zfList">
+							<php>$i = 0;</php>
+							<foreach name="payment" item="var">
+								<if condition="$var['code'] neq 'weixin'">
+									<?php $i++; ?>
+									<li>
+										<label class="block">
+										<label class="seat-check-radio">
+											<input id="code" value="<{$var.code}>" name="code" type="radio" />
+										</label>
+										<img src="__PUBLIC__/images/<{$var.logo}>">
+										</label>
+									</li>
+								</if>
+							</foreach>
+						</ul>
+						<div class="clear"></div>
+					</div>
+					<script>
+						$(function(){
+							$(".seat-check-radio").click(function(){
+								$(".seat-check-radio").removeClass("on");
+								$(this).addClass("on");
+							});
+							$(".order_style ul.zfList li").click(function(){
+								$(".order_style ul.zfList li").removeClass("current");
+								$(this).addClass("current");
+							});
+						});
+                    </script>
+					<div class="order_p1">
+						<div class=" order_s3"> <span class="">需支付：<span class="order_s4">￥<{:round($order['need_pay']/100,2)}></span></span> </div>
+						<div class=""> <a href="<{:U('tuan/buy',array('tuan_id'=>$order['tuan_id'],'num'=>$order['num'],'order'=>$order['order_id']))}>">返回修改订单</a>
+							<input type="submit" name="sub" value="去支付" >
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+<include file="public:footer"/> 

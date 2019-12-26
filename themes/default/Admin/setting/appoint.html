@@ -1,0 +1,26 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">基本设置</li>
+        <li class="li2 li3">家政配置</li>
+    </ul>
+</div>
+<p class="attention"><span>注意：</span>家政的功能暂时是：需求这发布了，然后商家购买查看需求者的联系方式！</p>
+<form  target="baocms_frm" action="<{:U('setting/appoint')}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <!--<tr>
+                    <td class="lfTdBt">查看家政服务：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[money]" value="<{$CONFIG.appoint.money}>" class="scAddTextName w150" />
+                        <code>查看家政服务需要扣多少费用：单位余额</code>
+                    </td>
+                </tr>-->
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>   

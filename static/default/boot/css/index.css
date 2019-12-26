@@ -1,0 +1,316 @@
+/*图片轮播下方三块样式表*/
+.hot-nav{width:740px;margin-left:13px;}
+.hot-nav .focus-pic{width:740px;height:135px;margin-top:15px;}
+.hot-nav ul{padding:0;margin:0;width:740px;}
+.hot-nav .focus-pic ul li{height:135px;width:230px; margin-right:15px;}
+.hot-nav .focus-pic ul li img{width:230px;height:135px;border:1px solid #e4e4e4; }
+	  
+	  
+/*首页右侧模块*/
+#focus .pull-left{width:734px; margin-top:15px;margin-left:225px;overflow:hidden;}
+#focus .pull-right{width:228px; margin-top:15px;}
+
+
+/*首页右侧登录*/
+.index-login{background:#F5F5F5;}
+.index-login .login-top {
+    padding: 25px 10px;
+    height: 95px;
+    overflow: hidden;
+}
+.index-login .login-top .avatar {
+    float: left;
+    width: 70px;
+    height: 50px;
+    margin: 0px;
+}
+.index-login .login-top .avatar img{
+    width: 50px;
+    height: 50px;
+    border-radius:50%;
+}
+.index-login .login-top .info p {
+    margin-top: 5px;
+	font-size:12px;
+}
+
+.index-login .login-btm {
+    height: 50px;
+    width: 100%;
+    background: #20C67C;
+    overflow: hidden;
+}
+.index-login .login-btm a {
+    display: block;
+    float: left;
+    font-size: 16px;
+    color: #FFF;
+    text-align: center;
+    line-height: 50px;
+    width: 76px;
+    border-right:1px solid rgba(255, 255, 255, 0.3);
+}
+
+
+.index-tools{border:1px solid #eee;margin-top:15px;}
+.index-tools h4{height:45px;line-height:45px;border-bottom:1px solid #eee;margin:0;font-size:16px;padding:0 10px;}
+.index-tools .tools-list {height:210px;overflow:hidden;}
+.index-tools .tools-list ul{width:230px;}
+.index-tools .tools-list li{float:left;width:76px;border-right:1px solid #eee;border-bottom:1px solid #eee;text-align:center;}
+.index-tools .tools-list li i{font-size:30px;height:42px;line-height:42px;padding:0 8px;display:block;color:#196;}
+.index-tools .tools-list li:hover{background:#f5f5f5;}
+
+
+
+.index-notice {height:48px;background: url(../../image/index/notice.gif) no-repeat 10px center;border:1px solid #eee;border-top:none;}
+.index-notice a{height:48px;line-height:48px;width:100px;overflow:hidden;margin-left:28px;padding:0 10px;font-size:14px;}
+
+
+
+
+
+/*家政预约*/
+.house-hd{height:44px;line-height:44px;margin:20px 0;}
+.house-hd h3{font-size:30px;float:left;margin:0;height:44px;line-height:44px;}
+.house-hd small{font-size:14px;margin-left:20px;}
+.house-bd {width:1200px;overflow:hidden;}
+.house-hd ul{float:right;padding:0;list-style:none;}
+.house-bd ul{padding:0;list-style:none;width:1210px;}
+.house-hd a{border:1px solid #ddd;width:30px;height:30px;line-height:30px;border-radius:50%;display:inline-block;text-align:center;color:#ccc;}
+.house-hd i{font-size:12px;}
+.house-hd a:hover{color:#f40;border:1px solid #f40;}
+.detail-house{width:1200px;overflow:hidden;}
+.detail-house .house-bd li{width:285px;display:inline-block;margin-right:15px;background:#fff;border:1px solid #eee;position:relative;overflow:hidden;height:110px;}
+.detail-house .house-bd li:last-child{margin:0!important;}
+.detail-house .house-bd .icon{width:80px;height:110px;padding:30px 10px;display:block;float:left;text-align:center;}
+.detail-house .house-bd .icon img{width:50px;height:50px;}
+.detail-house .house-bd .info{display:block;float:left;width:100px;margin:0!important;border-right:1px solid #eee;height:110px;padding:30px 0;}
+.detail-house .house-bd .info dt{font-size:14px;padding:5px 0;}
+.detail-house .house-bd .ctrl{float:left;width:96px;text-align:center;padding:30px 0;}
+.detail-house .house-bd .ctrl em{display:block;margin-bottom:5px;font-size:14px;}
+.detail-house .house-bd .btn{color:#fff;}
+
+
+
+
+/*楼层navs选项样式*/
+.floor{margin-top:15px;}
+        .floor-header{padding:0;height:40px;}
+            .floor-header ul li{height:40px; line-height:40px;float:left;list-style: none;}
+                .floor-header ul li a{font-size:14px; color:#333333;padding:2px 15px;display:block;height:40px;}
+                .floor-header ul li.active a{border:2px solid #7cbb2e; border-bottom:0; background:#ffffff;padding:0 13px;height:40px;}
+            .floor-header h2{width:190px; height:40px; line-height:40px; font-size:16px; color:#333333;float:left;margin:0;}
+            .floor-header .nav-li{ height:40px;float:left;margin:0;padding:0;}
+            .floor-header .nav-li li{float:left;}
+/*楼层主体部分样式*/
+ .floor-body .pull-left,.floor-body .pull-left img{width:190px; height:535px; float:left;}
+ .floor-body .pull-right{width:1010px; height:535px;}
+
+
+
+
+
+.index-recom{margin-top:15px;}
+.index-recom .floor-header{border-color:#ff3300; }
+.index-recom .floor-header ul{padding:0px;margin:0px;}
+.index-recom .floor-header ul li a{border-color:#ff3300;padding:2px 34px;}
+.index-recom .floor-header ul li.active a{background:#ff3300;color:#ffffff;border-color:#ff3300;padding:0 30px;}
+.index-recom .floor-header{height:40px; border-bottom:2px solid #ff3300;position:relative;margin-bottom:15px;}
+.index-recom .items-rows .items .items-thumb{height:224px;width:224px;}
+
+
+
+
+
+
+/*主页标题*/
+.home-title{padding:20px 0;height: 80px;line-height: 44px;}
+.home-title .sub-tit{float:left;width:500px;}
+.home-title .sub-tit h3{float:left;margin:0 40px 0 0;line-height:44px;font-size:30px;}
+.home-title .sub-tit small{font-size:14px;margin-left:20px;}
+.home-title .sub-tip{float:right;width:450px;font-size:13px;padding-left:20px;padding-right:20px;background: #FFEDC7;border-radius:2px;height:38px;line-height:38px;margin:3px 0;}
+.home-title .sub-tip a{color:#6B3612;}
+.home-title .sub-btn{float: right;margin-left:20px;}
+
+.home-title .sub-link{float: right;margin-left:20px;}
+.home-title .sub-link a{display:block;width:36px;height:36px;text-align:center;line-height:36px;border-radius:50%;border:1px solid #ccc;color:#ccc;float:left;margin-left:15px;}
+.home-title .sub-link i{font-size:18px;}
+.home-title .sub-link a.yellow:hover{background:#F39C12;color:#fff;border:1px solid #F39C12;}
+.home-title .sub-link a.green:hover{background:#00BB77;color:#fff;border:1px solid #00BB77;}
+.home-title .sub-link a.purple:hover{background:#8E44AD;color:#fff;border:1px solid #8E44AD;}
+.home-title .sub-link a.red:hover{background:#ff4466;color:#fff;border:1px solid #ff4466;}
+
+
+
+
+/*推荐商家*/
+.floor-rlist{overflow:hidden;width:900px;}
+.floor-rlist li{float:left;width:435px;height:124px;margin-bottom:14px;border:1px solid #eee;margin-right:15px;overflow:hidden;}
+.floor-rlist .rlist-photo{float:left;margin:22px 12px;}
+.floor-rlist .rlist-photo img{width:100px;height:80px;}
+.floor-rlist .rlist-desc{width:180px;height:100px;margin:22px 0;float:left;}
+.floor-rlist .rlist-desc h4{height:30px;line-height:30px;font-size:16px;margin:0;font-weight:500;overflow:hidden;}
+.floor-rlist .rlist-desc p{color:#999;margin:5px 0;}
+.floor-rlist .rlist-ctrl{width:125px;height:124px;float:right;border-left:1px solid #eee;background:#fafafa;}
+.floor-rlist .rlist-ctrl a{display:block;width:80px;height:30px;line-height:30px;text-align:center;margin:45px 22px;background:#f60;color:#fff;}
+
+
+/*新闻列表*/
+.floor-slist{border:1px solid #eee;height:400px;}
+.floor-slist .slist-title{margin-top:15px;height:36px;line-height:36px;color:#fff;float:left;}
+.floor-slist .slist-title span{display:block;position:relative;height:36px;line-height:36px;padding:0 6px 0 20px;}
+.floor-slist .slist-title i{width:20px;height:36px;position:absolute;right:-20px;background:url("../../image/index/fl-st.png") no-repeat;}
+.floor-slist .slist-title .title-yellow{background:#F39C12;}
+.floor-slist .slist-title .title-purple{background:#8E44AD;}
+.floor-slist .slist-title .title-purple i{background-position:0 -36px;}
+.floor-slist .slist-title .title-green{background:#00BB77;}
+.floor-slist .slist-title .title-green i{background-position:0 -72px;}
+.floor-slist .slist-title .title-red{background:#FF4466;}
+.floor-slist .slist-title .title-red i{background-position:0 -108px;}
+.floor-slist .slist-title .title-blue{background:#3498DB;}
+.floor-slist .slist-title .title-blue i{background-position:0 -144px;}
+.floor-slist ul{overflow:hidden;padding:10px 15px;}
+.floor-slist li{height:40px;line-height:40px;overflow:hidden;}
+.floor-slist li i{float:left;font-style:normal;display:block;height:20px;width:20px;line-height:20px;text-align:center;margin:12px 8px 0 0;}
+.floor-slist li i.no-1{color:#fff;background:#FF4466;}
+.floor-slist li i.no-2{color:#fff;background:#F39C12;}
+.floor-slist li i.no-3{color:#fff;background:#00BB77;}
+.floor-slist li a{float:left;width:210px;overflow:hidden;}
+ 
+ 
+/*合作品牌*/
+.main-brand {margin-top:30px;}
+.main-brand h3{font-size:24px;text-align:center;height:50px;line-height:50px;margin:15px 0;}
+.main-brand .brand-list{width:1200px;overflow:hidden;}
+.main-brand .brand-list ul{width:1250px;margin:0 -10px 20px -10px;overflow:hidden;padding:0;}
+.main-brand .brand-list li{float:left;width:220px;border:1px solid #eee;margin:12px;}
+
+ 
+    
+/**************
+    @name：倒计时样式
+    @author:gaohansheng
+    @desc:倒计时样式
+***************/
+.countdown{height:36px; line-height:36px; border-top:1px solid #e4e4e4;}
+.countdown i{font-size:18px;color:#B71C1C;margin:0 10px;font-weight:bold;}
+.time-clr span{color:#e4393c; font-weight:bold;margin:0 2px;}
+
+
+
+/**************
+    @name：商品标题
+    @author:gaohansheng
+    @desc:商品标题
+***************/
+h4 a{color:#666666; line-height:20px;font-size:14px;}
+h5 a{color:#666666; line-height:20px;font-size:12px;}
+
+
+/**************
+    @name：已卖出商品件数
+    @author:gaohansheng
+    @desc:已卖出商品件数
+***************/
+.sold{color:#999999;margin-left:20px;font-size:12px; text-decoration:none;}
+    .sold b{color:#73b754;margin: 0 2px;}
+    
+    
+/**************
+    @name：整屏显示5个商品
+    @author:gaohansheng
+    @desc:整屏一行显示5个商品
+***************/
+.line-five-items{padding:0;width:1215px;margin:0;}
+    .line-five-items li{width:226px; height:320px;margin-right:17px;border:1px solid #e4e4e4; list-style: none;float:left;}
+        .line-five-items li .goods{margin:15px;width:195px;height:185px;}
+        .line-five-items li h5{margin:0 15px 15px 15px;}
+         .line-five-items li .price{margin:0 15px 10px 15px;}
+        .line-five-items li.active{border:1px solid #e4393c;}
+
+/********
+    @name 商品列表：横屏的商品五个 
+    @date 15/12/1
+    @author macnie
+****/
+.items-rows{margin-left:-17px;}
+    .items-rows .items{width:226px;height:340px;margin-left:17px;list-style: none;float:left;}
+    .items-rows-bordered .items{border:1px solid #e4e4e4;}
+ 
+    
+/********
+    @name 商品基础列表
+    @author macnie
+    @date 15/12/1
+    @desc 基础的列表样式，请在此基础上进行扩展,heading主要用来展示商品图片，body用来展示商品标题、价格等信息，可以灵活实现上下、左右等布局
+    @example 
+    <dl class="items">
+        <dt class="items-heading"><img class="items-thumb" src="" /></dt>
+        <dd class="items-body">
+            <h3 class="items-title">一头猪</h3>
+            <div class="items-sale">
+                <div class="items-price"><span class="price delete">￥88.00</span><span class="price">￥33.00</span></div>
+                <div class="items-sale-count">总销量 222件</div>
+            </div>
+            <div class="items-shop">
+                <div class="items-shop-info"></div>
+                <div class="items-shop-location"></div>
+            </div>
+        </dd>
+    </dl>
+********/
+.items{}
+    .items-heading{width:100%;overflow:hidden}
+        .items-thumb{width:100%}
+        /*鼠标滑过商品图片颜色变淡效果*/
+        .items-thumb:hover{-webkit-transition: opacity 0.2s ease-in-out; -moz-transition: opacity 0.2s ease-in-out;-ms-transition: opacity 0.2s ease-in-out;-o-transition: opacity 0.2s ease-in-out;transition: opacity 0.2s ease-in-out;opacity: 0.8; -moz-opacity: 0.8;filter: alpha(opacity=80);}
+    .items-body{}
+        .items-title{margin:0;padding:0;line-height: 25px;font-size:12px;height:30px;overflow:hidden}
+            .items-title a{color:#666666;}
+            .items-title a:hover{color:#ff6600}
+        .items-summary{color:#999999;}
+        .items-rowstitle{height:50px;}
+        .items-sale{height:30px;line-height:30px}
+            .items-price{float:left;}
+            .items-sale-count{float:right;color:#999}
+        /*可选的组件，如果使用这个，则是特价商品倒计时的样式*/
+        .items-countdown{background: url(../../img/timer_ico.jpg) no-repeat 10px center;padding-left: 30px;height: 36px;line-height: 36px;border-top: 1px solid #e4e4e4;}
+        .items-shop{}
+            .items-shop a{color:#888;text-decoration: underline}
+                .items-shop-info{float:left;}
+                .items-location{float:right;color:#999}
+    .items-footer{}
+ 
+ 
+ /********
+    @name 价格
+    @author macnie
+    @desc 基础价格命名空间
+********/
+.price{font-size:14px;color:#e4393c;}
+    .price em{font-style:normal}
+    .price-delete,.delete,delete{font-size:12px;text-decoration: line-through;color:#999;font-weight: normal}
+    .price-lg{font-size:21px;}
+    .price-md{font-size:18px;}
+    .price-sm{font-size:16px;}
+    .price-xs{font-size:12px;}
+	
+	
+	
+/********
+    @name 区域
+********/
+.section{background:#fff;}
+    .section-heading{height:30px;border-bottom:#eee 1px solid;line-height:30px;padding:0px 0px;margin-bottom: 10px;}
+        .section-title{float:left;margin:0px;padding:0px 0px 0px 10px;line-height:30px;font-size:16px;}
+        .section-more{float:right;color:#ccc}
+    .section-body{padding:10px;}
+    .section-footer{}
+.section-bordered{border:#ccc 1px solid;}
+.section-filter{border:#eee}
+.section-green .section-heading{border-bottom:#669900 2px solid;}
+.section-green .section-title{color:#669900}
+
+	
+	
+	

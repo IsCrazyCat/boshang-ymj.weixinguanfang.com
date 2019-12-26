@@ -1,0 +1,53 @@
+<include  file='public:header'/>  
+<include  file='public:top'/>   
+<style>
+.main {float: none;width: 1200px;margin: auto;}
+</style>
+<div class="cl"></div>
+<div class="main">
+    <div class="fbMain">
+        <h3>请如实填写</h3>
+        <form method="post" action="<{:U('public/apply_link')}>" target="baocms_frm">
+            <table cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <th><span class="color_r">*</span>链接名称：</th>
+                    <td><input type="text" name="data[link_name]"  class="but"  /><p>请填写贵站的友情链接名称</p></td>
+                </tr>
+
+				<tr>
+                    <th><span class="color_r">*</span>链接地址：</th>
+                    <td><input type="text" name="data[link_url]"  class="but"  /><p>请填写贵站的连接</p></td>
+                </tr>
+                
+                <tr>
+                    <th><span class="color_r">*</span>申请邮箱：</th>
+                    <td><input type="text" name="data[link_email]"  class="but"  /><p>邮箱用来接受审核信息</p></td>
+                </tr>  
+
+                <tr>
+                    <th><span class="color_r">*</span>友情链接说明：</th>
+                    <td>
+                        <textarea name="data[link_intro]" cols="100" rows="5" style="border:1px #dddddd solid;"></textarea>
+                        <p style="float: none;">填写申请说明，30字以内</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th>验证码：</th>
+                    <td>
+                        <input type="text" name="yzm" class="yz" value="" />
+                        <span class="yzm_code" rel="apply_code"><img  id="apply_code" src="__ROOT__/index.php?g=app&m=verify&a=index&mt=<{:time()}>" /></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <div class="btn_box"><input type="submit" class="aniu" value="立即申请"/></div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+</div>
+<div class="cl"></div>
+<include  file='public:footer'/>  

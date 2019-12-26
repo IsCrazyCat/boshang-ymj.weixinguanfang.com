@@ -1,0 +1,84 @@
+<div class="listBox clfx">
+    <div class="menuManage">
+        <form  target="baocms_frm" action="<if condition="$detail"><{:U('bill/edittype',array('id'=>$detail['bill_type_id']))}><else/><{:U('bill/createtype')}></if>" method="post">
+            <div class="mainScAdd">
+                <div class="tableBox">
+                    <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                        <tr>
+                            <td class="lfTdBt">缴费类型：</td>
+                            <td class="rgTdBt">
+                                <input name="data[bill_type_name]" type="text" class="scAddTextName w200" maxlength="20" value="<{$detail.bill_type_name|default=''}>" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lfTdBt">输入字段：</td>
+                            <td class="rgTdBt">
+                                <php>
+                                    $fieldNames = array('mobile' => '手机', 'realname' => '户名', 'account' => '编号');
+									$fieldLabels = explode(',', $detail['bill_fields_label']);
+                                </php>
+                                <label><input name="data[bill_fields][]" type="checkbox" value="realname" <if condition="stristr(',' . $detail.bill_fields . ',', 'realname,')">checked="checked"</if> /> 户主 标签:<input type="text" style="width:95px" name="data[bill_fields_label][]" value="<{$fieldLabels[0]}>" /></label>
+                                <label><input name="data[bill_fields][]" type="checkbox" value="mobile" <if condition="stristr(',' . $detail.bill_fields . ',', 'mobile,')">checked="checked"</if> /> 手机 标签:<input type="text" style="width:95px" name="data[bill_fields_label][]" value="<{$fieldLabels[1]}>" /></label>
+                                <label><input name="data[bill_fields][]" type="checkbox" value="account" <if condition="stristr(',' . $detail.bill_fields . ',', 'account,')">checked="checked"</if> /> 编号  标签:<input type="text" style="width:95px" name="data[bill_fields_label][]" value="<{$fieldLabels[2]}>" /></label>
+                            </td>
+                        </tr>
+						<tr>
+                            <td class="lfTdBt">支持地区：</td>
+                            <td class="rgTdBt">
+							<volist name="citys" id="c">
+								<label><input type="checkbox" class="chkcities" title="全选/反选该城市所有地区" value="<{$c['city_id']}>" /><strong><{$c['name']}>:</strong></label>
+								<volist name="areas" id="v">
+									<if condition="$v['city_id'] eq $c['city_id']">
+									<label><input class="area_<{$c['city_id']}>" name="data[areas][]" type="checkbox" value="<{$v['area_id']}>" <if condition="stristr(',' . $detail.areas . ',', $v.area_id . ',')">checked="checked"</if> /><{$v['area_name']}></label>
+									</if>
+								</volist>
+							</volist>
+							<script type="text/javascript">
+							$('.chkcities').click(function(){
+								var cityid = $(this).val();
+								$(".area_" + cityid).attr("checked", this.checked);
+							});
+							</script>
+                            </td>
+                        </tr>
+						<tr>
+                            <td class="lfTdBt">缴费备注：</td>
+                            <td class="rgTdBt">
+                                <input name="data[memo]" type="text" class="scAddTextName" style="width:100%" maxlength="255" value="<{$detail.memo|default=''}>" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lfTdBt">手续费率：</td>
+                            <td class="rgTdBt">
+                                <input name="data[fee_rate]" type="text" class="scAddTextName w200" maxlength="5" value="<{$detail.fee_rate|default=''}>" />% (请填写百分数，最多2位小数，设置为0则不扣除手续费)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lfTdBt">奖励积分：</td>
+                            <td class="rgTdBt">
+                                <input name="data[integral]" type="number" min="0" class="scAddTextName w200" maxlength="9" value="<{$detail.integral|default=''}>" /> (请填写整数，设置为0则不奖励积分)
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lfTdBt">是否短信通知：</td>
+                            <td class="rgTdBt">
+                                <label><input name="data[sms_notify]" type="checkbox" value="1" <eq name="detail.sms_notify" value="1">checked="checked"</eq> /></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lfTdBt">是否启用：</td>
+                            <td class="rgTdBt">
+                                <label><input name="data[enable]" type="checkbox" value="1" <eq name="detail.enable" value="1">checked="checked"</eq> /></label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="smtQr"><input type="submit" value="确认<if condition="$detail">修改<else/>添加</if>" class="smtQrIpt" /></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,410 @@
+<{include file="weixin/shake/block/header.html"}>
+
+<link rel="stylesheet" type="text/css" href="%THEME%/weixin/shake/static/css/Coupon.css?201150408">
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<body style="background:#539a2f;">
+
+<div class="shakePage">
+
+	<img src="%THEME%/weixin/shake/static/img/shake_img1.png" width="100%" height="" />
+
+    <div class="shakePage_pointer">
+
+        <div class="shakePage_pointer_posit">
+
+            <img src="%THEME%/weixin/shake/static/img/shake_img3.png" width="100%" height="" />
+
+        </div>
+
+    	<img src="%THEME%/weixin/shake/static/img/shake_img2.png" width="100%" height="" />
+
+    </div>    
+
+    <div class="shakePage_tab">
+
+        <ul>
+
+            <li class="shakePage_tab_list on"><a href="javascript:;"><em class="ico_1"></em>活动介绍</a></li>
+
+            <li class="shakePage_tab_list"><a href="javascript:;"><em class="ico_2"></em>奖项设置</a></li>
+
+            <li class="shakePage_tab_list"><a href="javascript:;"><em class="ico_3"></em>中奖记录</a></li>
+
+            <li class="shakePage_tab_list"><a href="javascript:;"><em class="ico_4"></em>我的中奖</a></li>
+
+        </ul>
+
+        <div class="clear"></div>
+
+    </div>
+
+    <div class="shakePage_list_box">
+
+        <div class="shakePage_list" style="display:block;">
+
+            <div class="shakePage_intro">
+
+            	<{$detail.use_tips|unescape}><br>
+
+                有效期:<{$detail.stime|format:'Y-m-d'}>~<{$detail.ltime|format:'Y-m-d'}>
+
+            </div>
+
+        </div>
+
+        <div class="shakePage_list">
+
+        	<div class="shakePage_intro">
+
+            	<p>奖项设置：</p>
+
+                <{foreach $prizes as $k => $item}>
+
+                	<p><{$item.name}><{$item.num}>名，奖<{$item.title}>；</p>
+
+                <{/foreach}>
+
+            </div>
+
+        </div>
+
+        <div class="shakePage_list">
+
+        	<div class="winRecord_list_box">
+
+                <ul>
+					<{foreach $all_prizes as $k => $item}>
+
+						<li class="winRecord_list">
+
+							<div class="fl img"><img src="<{$pager.img}>/<{$prizes_list[$item.prize_id].photo}>" width="100" height="100" /></div>
+
+							<div class="wz">
+								<p class="bt"><{$item.nickname}></p>
+								<p class="bt"><{$prizes_list[$item.prize_id].name}>:<{$item.prize_title}></p>
+
+								<p class="greycl"><{$item.dateline|format}></p>
+
+							</div>
+
+							<div class="clear"></div>
+
+						</li>
+
+					<{/foreach}>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+        <div class="shakePage_list">
+
+        	<div class="winRecord_list_box">
+
+                <ul>
+
+                    <{foreach $shakesn as $k => $item}>
+
+						<li class="winRecord_list">
+
+							<div class="fl img"><img src="<{$pager.img}>/<{$prizes_list[$item.prize_id].photo}>" width="100" height="100" /></div>
+
+							<div class="wz">
+
+								<p class="bt"><{$prizes_list[$item.prize_id].name}>:<{$item.prize_title}></p>
+								<p class="bt">sn码：<{$item.sn}></p>
+								<p class="greycl"><{$item.dateline|format}></p>
+
+							</div>
+
+							<div class="clear"></div>
+
+						</li>
+
+					<{/foreach}>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<audio id='test1' src="%THEME%/weixin/shake/static/mp3/5018.mp3"></audio>
+
+<audio id='test2' src="%THEME%/weixin/shake/static/mp3/5012.mp3"></audio>
+
+
+
+<!--弹出层开始-->
+
+<style>
+
+.theme-popover {z-index: 999; position: fixed; top: 100px; left: 50%; width: 80%; min-height: 120px; margin: 0px 0 0 -40%; display: none; font-family: "Microsoft YaHei"; overflow: hidden;  text-align: center;}
+
+.theme-popover .articleBox {padding: 10px 20px; border-radius: 5px; background-color: #ffedc3; overflow: hidden; display: inline-block;}
+
+.theme-popover-mask {z-index: 998; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); filter: progid:DXImageTransform.Microsoft.gradient(startcolorstr=#BF000000,endcolorstr=#BF000000); display: none;}
+
+</style>
+
+<div class="theme-popover" id="theme-popover" style="display:none;">
+
+    <div class="articleBox" id="txt"></div>
+
+</div>
+
+<div class="theme-popover-mask" id="theme-popover-mask" style="display:none;"></div>
+
+<!--弹出层结束-->
+<div id='error' style="display:none;"><{$error}></div>
+<script type="text/javascript">
+	  wx.config({
+		  debug: false,
+		  appId: '<{$wxjscfg.appId}>',
+		  timestamp: <{$wxjscfg.timestamp}>,
+		  nonceStr: '<{$wxjscfg.nonceStr}>',
+		  signature: '<{$wxjscfg.signature}>',
+		  jsApiList: [
+			'checkJsApi',
+			'onMenuShareTimeline',
+			'onMenuShareAppMessage',
+			'onMenuShareQQ',
+			'onMenuShareQZone',
+			'onMenuShareWeibo',
+		  ]
+	  });
+
+	wx.ready(function(){
+		wx.onMenuShareTimeline({
+			title: '<{$detail.title}>', 
+			link: 'h', // 分享链接
+			imgUrl: '<{$pager.img}>/<{$detail.photo}>', // 分享图标
+			success: function () { 
+				// 用户确认分享后执行的回调函数
+			},
+			cancel: function () { 
+				// 用户取消分享后执行的回调函数
+			}
+		});
+		wx.onMenuShareAppMessage({
+			title: '<{$detail.title}>', // 分享标题
+			desc: '<{$detail.intro}>', // 分享描述
+			link: '', // 分享链接
+			imgUrl: '<{$pager.img}>/<{$detail.photo}>', // 分享图标
+			type: '', // 分享类型,music、video或link，不填默认为link
+			dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+			success: function () { 
+				// 用户确认分享后执行的回调函数
+			},
+			cancel: function () { 
+			}
+		});
+
+		wx.onMenuShareQQ({
+			title: '<{$detail.title}>', // 分享标题
+			desc: '<{$detail.intro}>', // 分享描述
+			link: '', // 分享链接
+			imgUrl: '<{$pager.img}>/<{$detail.photo}>', // 分享图标
+			success: function () { 
+			   // 用户确认分享后执行的回调函数
+			},
+			cancel: function () { 
+			   // 用户取消分享后执行的回调函数
+			}
+		});
+		
+	});
+	
+</script>
+<script>
+function ErrorDialog(){
+	var msg = $('#error').html();
+	var successHtml = "<div class='common_dialog lqcg'>"
+	+"<h6>"+msg+"</h6>"
+	+"<div class='tb'><a class='btn m_15 flex_1' href='###' onClick='$.Dialog.close();'>确 定</a></div>"
+	+"</div>"
+	$.Dialog.open(successHtml);
+}
+
+	$(document).ready(function(e) {
+		<{if $error}>
+			ErrorDialog();
+		<{/if}>
+		$('.shakePage_tab_list').each(function (e) {
+
+			$(this).click(function(){
+
+				$('.shakePage_tab_list').removeClass("on");
+
+				$(this).addClass("on");
+
+				$(".shakePage_list_box .shakePage_list").each(function(i){
+
+					if(e==i){
+
+						$(".shakePage_list_box .shakePage_list").hide();
+
+						$(this).show();
+
+					}
+
+					else{
+
+						$(this).hide();
+
+					}
+
+				});
+
+			});
+
+		});
+
+	});
+
+	
+
+	function codefans(){
+
+	var box=document.getElementById("theme-popover");
+
+	var boxbg=document.getElementById("theme-popover-mask");
+
+	box.style.display="none"; 
+
+	boxbg.style.display="none"; 
+
+	}
+
+	setTimeout("codefans()",3000);
+
+</script>
+
+<script>
+	if (window.DeviceMotionEvent) {
+		window.addEventListener('devicemotion',deviceMotionHandler, false);
+    }
+
+
+
+    window.curTimeshaked = false;    
+
+    var SHAKE_THRESHOLD = 2000;
+
+    var last_update = 0;
+
+    var x, y, z, last_x, last_y, last_z;
+
+	window.player1 = document.querySelector('#test1');
+
+    window.player2 = document.querySelector('#test2');
+
+    
+
+	function deviceMotionHandler(eventData){
+
+		var acceleration =eventData.accelerationIncludingGravity;
+
+		//alert(newDate().getTime());
+
+		var curTime = new Date().getTime();	
+
+		if ((curTime - last_update)> 100) {
+
+			var diffTime = curTime -last_update;
+
+			last_update = curTime;       
+
+			x = acceleration.x;
+
+			y = acceleration.y;
+
+			z = acceleration.z;
+
+			var speed = (Math.abs(x-last_x)+ Math.abs(y-last_y)+ Math.abs(z-last_z)) / diffTime * 10000;
+
+			if (speed > SHAKE_THRESHOLD && (!player1.currentTime || player1.ended)) {
+
+				player1.play();
+
+				$('.shakePage_pointer_posit').addClass("on");
+
+				window.curTimeshaked = false;
+
+				setTimeout(function(){
+
+					if(window.player1.ended){window.curTimeshaked = true;}
+
+				}, 2000);			
+
+			}else if(speed < SHAKE_THRESHOLD && window.curTimeshaked === true){
+
+				player2.play(); 
+
+				$('.shakePage_pointer_posit').removeClass("on");
+				
+				set_sn_code();
+				var prize_id = <{$prize.id|default:'0'}>;
+				window.removeEventListener('devicemotion', deviceMotionHandler); 
+				if(prize_id>0){
+					openSuccessDialog();
+				}else{
+					openErrorDialog();
+				}
+				window.curTimeshaked = false;
+
+			}
+
+			last_x = x;
+
+			last_y = y;
+
+			last_z = z;
+
+		}
+
+	}
+
+	function openSuccessDialog(){
+		var successHtml = "<div class='common_dialog lqcg'>"
+		+"<h6>你的运气太好了！</h6><p class='p_10'>你获得了<{$prize.title}>,奖品是<{$prize.name}>，请联系客服领取。</p>"
+		+"<div class='tb'><a class='btn m_15 flex_1' href='###' onClick='on_devicemotion();'>去领取</a></div>"
+		+"</div>"
+		$.Dialog.open(successHtml);
+	}
+	function openErrorDialog(){
+		var successHtml = "<div class='common_dialog lqcg'>"
+		+"<h6>很抱歉！没有中奖，还需继续努力</h6><{if $detail.max_num}><p class='p_10'>你还有<{$prize.count|intval}>次机会。</p><{/if}>"
+		+"<div class='tb'><a class='btn m_15 flex_1' href='###' onClick='on_devicemotion();'>确 定</a></div>"
+		+"</div>"
+		$.Dialog.open(successHtml);
+	}
+
+	
+
+	function set_sn_code(){
+		var url = "<{link ctl='weixin/shake/set_sn_code'}>";
+		var id = "<{$detail.shake_id}>";
+		var prize_id = "<{$prize.id|intval}>";
+		$.post(url, {id:id, prize_id:prize_id});	
+	}
+
+	function on_devicemotion(){
+		/*$.Dialog.close();
+		if (window.DeviceMotionEvent) {
+			window.addEventListener('devicemotion',deviceMotionHandler, false);
+		}*/
+		location.reload();
+	}
+
+</script>
+
+</body>
+
+</html>

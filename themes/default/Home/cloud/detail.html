@@ -1,0 +1,273 @@
+<include  file='public:header'/>
+<include  file='public:top'/>
+<include  file='public:nav'/>
+<script>
+    $(document).ready(function (e) {
+        /*图片缩略查看*/
+        $('.min-box-list li img').hover(function () {
+            $('#product_img_slider .show-box li img').attr('src', $(this).data('mpic'));
+            $(this).closest('li').addClass('on').siblings('li').removeClass('on');
+        });
+        /*图片缩略查看*/
+        $(".cloudBuy_cont_tab ul li").each(function (e) {
+            $(this).click(function () {
+                $(this).parent().find("li").removeClass("on");
+                $(this).addClass("on");
+                $(".cloudBuy_nr_box .cloudBuy_nr").each(function (i) {
+                    if (e == i) {
+                        $(this).parent().find(".cloudBuy_nr").hide();
+                        $(this).show();
+                    }
+                    else {
+                        $(this).hide();
+                    }
+                });
+            });
+        });
+
+        $(".suoyou").click(function () {
+            var rightDiv = $(this).closest('.jion_right_div');
+            rightDiv.toggleClass('tanchu');
+            if ($.trim(rightDiv.find('.number_list').html()) == '') {
+                $.post(get_number_list, {id: rightDiv.data('id')}, function (result) {
+                    if (result.status == 1) {
+                        var numberHtml = '';
+                        $.each(result.number, function (i, item) {
+                            numberHtml += '<dd>' + item + '</dd>';
+                        });
+                        $('.number_list_' + rightDiv.data('id')).html(numberHtml);
+                    } else {
+                        alert(result.info);
+                    }
+                });
+            }
+        });
+        $(".jion_close").click(function () {
+            $(this).closest('.jion_right_div').removeClass('tanchu');
+        });
+    });
+</script>
+<style> img{max-width: 100%;}</style>
+<div class="content zy_content">
+    <div class="spxq_loca"><a href="<{:U('index/index')}>">首页</a>&gt;&gt;<a href="<{:U('cloud/index')}>">拼吧</a>&gt;&gt;<a href="javascript:void(0);"><{$detail.title}></a></div>
+    <!--内容部分开始-->
+    <div class="cloudBuy_detail">
+        <div class="left cloudBuy_detail_l">
+            <div class="product_table mb20">
+                <div class="product_img left">
+                    <div id="product_img_slider">
+                        <div class="show-box">
+                            <ul>
+                                <li><img src="<{:config_img($detail['photo'])}>" width="360" height="344"/></li>
+                            </ul>
+                        </div>
+                        <div class="minImgs">
+                            <ul class="min-box-list">
+
+                                <li class="on"> <img src="<{:config_img($detail['photo'])}>" data-mpic="<{:config_img($detail['photo'])}>" width="64" height="64"/> </li>
+                                <php>$a=1;</php>
+                                <foreach name="thumb" item="item">
+                                    <if condition="$a elt 4">
+                                        <li class=""><img src="<{:config_img($item)}>" data-mpic="<{:config_img($item)}>" width="64" height="64"/> </li>
+                                    </if>
+                                    <php>$a++;</php>
+                                </foreach>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="product_infor">
+                    <p class="bt"><{$detail.title}></p>
+                    <p><{$detail.intro}></p>
+                    <php>$lefts = $detail['price'] - $detail['join']; $tt = round($detail['join']/$detail['price']*100,2);</php>
+                    <div class="product_number">
+                        <div class="total">总需人次<span><{$detail.price}></span></div>
+                        <div class="progress">
+                            <div class="progress_img" style="width:<{$tt}>%;"></div>
+                        </div>
+                        <div class="attend_num">
+                            <div class="attend_num_l">
+                                <div class="num"><{$detail.join}></div>
+                                <div class="txt">已参与</div>
+                            </div>
+                            <div class="attend_num_r">
+                                <div class="num"><{$lefts}></div>
+                                <div class="txt">剩余</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product_attend">
+                        <div class="left">
+                            <div class="left">参与：</div>
+                            <ul class="left">
+                                <li>
+                                    <button class="minus" type="button">－</button>
+                                </li>
+                                <li>
+                                    <input class="inp" type="text"  value="<{$types[$detail['type']]['num']}>">
+                                </li>
+                                <li>
+                                    <button class="add" type="button">＋</button>
+                                </li>
+                            </ul>
+                            <div class="left">&nbsp;&nbsp;人次</div>
+                        </div>
+                        <span class="tip left">一人次等于一元，人数越高，获奖机会越大！</span> </div>
+                    <div >
+                        <input type="button" class="btn" id="jq_join" value="立即夺宝"/>
+                    </div>
+                </div>
+            </div>
+            <script>
+                $(document).ready(function () {
+                    var left = parseInt("<{$left}>");
+                    var lefts = parseInt("<{$lefts}>");
+                    var limit = 0;
+                    (left <= lefts) ? limit = left : limit = lefts;
+
+                    var num = parseInt("<{$types[$detail['type']]['num']}>");
+                    $(".minus").click(function () {
+                        var v = parseInt($(".inp").val());
+                        if (v > num) {
+                            v = v - num;
+                            $(".inp").val(v);
+                        } else {
+                            layer.msg('不能再少了');
+                        }
+                    });
+                    $(".add").click(function () {
+                        var v = parseInt($(".inp").val());
+                        if (v < limit) {
+                            v = v + num;
+                            $(".inp").val(v);
+                        } else {
+                            layer.msg('您最多还能购买' + limit + '人次');
+                        }
+                    });
+                    $(".inp").keyup(function () {
+                        var v = parseInt($(this).val());
+                       
+                        if(isNaN(v)){
+                            $(this).val(num);
+                        }else{
+                            if (v < num) {
+                                $(this).val(num);
+                                layer.msg('最少为' + num + '人次');
+                            }else if (v > limit) {
+                                $(this).val(limit);
+                                layer.msg('您最多还能购买' + limit + '人次');
+                            }else{
+                                var n = v - v%num;
+                                $(this).val(n);
+                            }
+                        }
+                    });
+
+                    $("#jq_join").click(function () {
+                        var goods_id = "<{$detail.goods_id}>";
+                        var num = $(".inp").val();
+                        layer.confirm('您确定要云购该商品？', {
+                            area: ['200px', '150px'], //宽高
+                            btn: ['是的', '不'], //按钮
+                            shade: false //不显示遮罩
+                        }, function () {
+                            $.post("<{:U('cloud/cloudbuy')}>", {goods_id: goods_id, num: num}, function (result) {
+                                if (result.status == "login") {
+                                    ajaxLogin();
+                                } else if (result.status == "success") {
+                                    layer.msg(result.msg);
+                                    setTimeout(function () {
+                                        location.reload();
+                                    }, 1000);
+                                } else {
+                                    layer.msg(result.msg);
+                                    if (result.url) {
+                                        setTimeout(function () {
+                                            window.location.href = result.url;
+                                        }, 1000);
+                                    }
+                                }
+                            }, 'json');
+                        });
+                        $('.layui-layer-btn0').css('background', '#2fbdaa');
+                    });
+
+                });
+            </script>
+            <div class="cloudBuy_cont">
+                <div class="cloudBuy_cont_tab">
+                    <ul>
+                        <li class="on">奖品详情</li>
+                        <li>所有参与记录</li>
+                    </ul>
+                </div>
+                <div class="cloudBuy_nr_box">
+                    <div class="cloudBuy_nr" style="display:block;"><{$detail.details}></div>
+                    <div class="cloudBuy_nr">
+                        <div class="cloudBuy_jion">
+                            <ul class="jion">
+                                <li>
+                                    <div class="jion_left big"><span></span></div>
+                                    <div class="jion_right" style="height:80px;"></div>
+                                    <div class="clear"></div>
+                                </li>
+                                <php>foreach($list as $k=>$item){</php>
+                                <li>
+                                    <div class="jion_left day"><{$k}><span></span></div>
+                                    <div class="jion_right"></div>
+                                </li>
+                                <php>foreach($item as $aa=>$var){</php>
+                                <li>
+                                    <div class="jion_left time"><{$aa}><span></span></div>
+                                    <div class="jion_right">
+                                        <div class="jion_right_div">
+                                            <div>
+                                                <div class="jion_right_icon">
+                                                <img src=" <{:config_img($users[$var[0]['user_id']]['face'])}>" width="20" height="20"></div>
+                                                <div class="jion_right_txt">
+                                                    <div class="jion_right_txt_name"><{:config_user_name($users[$var[0]['user_id']]['nickname'])}></div>
+                                                    <div class="jion_right_txt_ip">参与了</div>
+                                                    <span><{$var[0].num}>人次</span> </div>
+                                                <div class="suoyou">所有夺宝号码<span></span></div>
+                                            </div>
+                                            <dl class="number_list_197">
+                                                <php>shuffle($var);foreach($var as $val){</php>
+                                                <if condition="$detail['win_number'] eq $val['number']"><dd style="color:red;" title="中奖人：<{:config_user_name($users[$detail['win_user_id']]['nickname'])}>"><{$val.number}></dd><else/><dd><{$val.number}></dd></if>
+                                                <php>}</php>
+                                            </dl>
+                                            <div class="jion_close"></div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <php>}</php>
+                                <php>}</php>
+                                <li>
+                                    <div class="jion_left bottom" style="border:0;"><span></span></div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right cloudBuy_detail_r">
+            <div class="cloudBuy_record">
+                <h3>看了又看</h3>
+                <ul>
+                    <calldata mdl="Cloudgoods" where="audit =1 AND closed=0 AND city_id = $city_id AND goods_id != '{$detail['goods_id']}' " order="goods_id desc" limit="0,5">
+                        <li class="list"> <a href="<{:U('cloud/detail',array('goods_id'=>$item['goods_id']))}>">
+                         <img src=" <{:config_img($item['photo'])}>" />
+                                <p class="bt"><{$item.title}> </p>
+                                <p class="graycl">已有<span class="pointcl"><{$item.join}></span>人参与<span style="float:right; display: inline-block;">总需人数：<span class="pointcl"><{$item.price}></span></span></p>
+                            </a> </li>
+                    </calldata>
+                </ul>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!--内容部分结束--> 
+</div>
+
+<!--main end--> 
+<include  file='public:footer'/> 

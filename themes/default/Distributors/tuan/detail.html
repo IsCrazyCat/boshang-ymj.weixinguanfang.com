@@ -1,0 +1,142 @@
+<include  file='public:header'/>   
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:u('tuan/order')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			套餐订单详情
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+
+<php>
+$Users = D('Users') -> where('user_id ='.$detail['user_id']) -> find();
+</php>
+
+
+<div class="panel-list">
+	<ul>
+		<li>
+			<a href="javascript:;">
+				订单编号
+				<em><{$detail.order_id}></em>
+			</a>
+		</li>
+
+		<li>
+
+			<a href="javascript:;">
+				下单时间
+				<em><{$detail.create_time|date='Y-m-d H:i',###}></em>
+			</a>
+		</li>
+	</ul>
+</div>
+<div class="blank-10 bg"></div>
+<div class="panel-list">
+	<ul>
+		<li><a href="javascript:;">用户昵称：<em><{$Users.nickname}></em></a></li>
+		<li><a href="javascript:;">用户手机<em><{$Users.mobile}></em></a></li>
+	</ul>
+</div>
+
+
+<div class="blank-10 bg"></div>
+<div class="panel-list">
+	<ul>
+		<li>
+			<a href="javascript:;">
+				团购名称
+				<em><{$tuans['title']}></em>
+			</a>
+		</li>
+		<li>
+			<a href="javascript:;">
+				团购单价
+				<em>&yen; <{:round($tuans['tuan_price']/100,2)}> 元</em>
+			</a>
+		</li>
+		<li>
+			<a href="javascript:;">
+				团购数量
+				<em><{$detail.num}></em>
+			</a>
+		</li>
+
+		<li>
+			<a href="javascript:;">
+				团购总价
+				<em>&yen; <{:round($detail['total_price']/100,2)}> 元</em>
+			</a>
+		</li>
+        <if condition="$detail['mobile_fan'] gt 0">
+        <li>
+			<a href="javascript:;">
+				手机下单立减：
+				<em  class="text-dot">&nbsp; &nbsp;&nbsp;减：&yen; <{:round($detail['mobile_fan']/100,2)}> 元</em>
+			</a>
+		</li>
+
+        </if>
+        <if condition="$detail['use_integral'] gt 0">
+		<li>
+			<a href="javascript:;">
+				使用积分：<{$detail['use_integral']}> 分
+				<em  class="text-dot">&nbsp; &nbsp;&nbsp;抵现：&yen; <{:round($detail['use_integral']/100,2)}> 元</em>
+			</a>
+		</li>
+        </if>
+        <li>
+			<a href="javascript:;">
+				实际支付金额
+				<em class="text-dot">¥ <{:round($detail['need_pay']/100,2)}> 元</em>
+			</a>
+		</li>
+
+        
+	</ul>
+
+</div>
+
+
+
+
+
+
+
+
+
+<div class="blank-30"></div>
+
+	<div class="container text-center">
+		<eq name="detail.status" value="0">
+            	<a class="button button-block button-big bg-gray">未付款</a>
+           		<div class="blank-10"></div>
+            <eq name="detail.status" value="-1"> 
+                <a class="button button-block button-big bg-dot">到店付</a> 
+            </eq>
+        </eq>
+         <a class="button button-block button-big bg-blue" href="<{:u('tuan/order')}>">返回</a> 
+       <php>
+       $tc = D('TuanCode');
+       $rtc = $tc -> where('order_id ='.$detail['order_id']) -> find();
+       </php>
+
+       <eq name="rtc.is_used" value="1">
+         <if condition="$detail['dianping_id'] eq 1"> 
+            <a class="button text-green" href="javascript:void(0)">已评价</a>
+         </if>
+       </eq>
+       <div class="blank-20"></div>
+       <eq name="detail.status" value="3"><a class="button button-block button-big bg-blue">正在退款</a></eq>
+       <eq name="detail.status" value="4"><a class="button button-block button-big bg-gray">已退款</a></eq>         
+
+	</div>
+
+<div class="blank-20"></div>
+
+
+
+<include  file='public:footer'/>   

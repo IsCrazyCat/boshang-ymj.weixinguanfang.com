@@ -1,0 +1,47 @@
+<include file="public:header"/>
+<div class="content_right">
+    <div class="tgdd">
+        <include file="set:nav"/>
+        <form method="post"  action="<{:U('set/face')}>"  target="baocms_frm">
+            <div class="HeadPort_nr">
+                <div class="HeadPort_sc">
+                    <div class="left HeadPort_sc_img"> <img id="face_img" width="110" height="110"  src="<{:config_img($MEMBER['face'])}>" /> </div>
+                    <div class="left HeadPort_sc_txt">
+                        <div style="margin:30px 0px;">
+                            <input type="hidden" name="face" value="<{$MEMBER.face}>" id="data_face" />
+                            <div id="fileToUpload" >上传缩略图</div>
+                        </div>
+                        <p class="head_mc"> 建议尺寸:<{$CONFIG.attachs.user.thumb.thumb}></p>
+                        <div class="headPort_subm">
+                            <input type="submit" class="headPort_bc" value="保存头像" />
+                        </div>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </form>
+    </div>
+    
+   					 <script>                                            
+						var width_user_face = '<{:thumbSize($CONFIG[attachs][user][thumb],0)}>';                         
+						var height_user_face = '<{:thumbSize($CONFIG[attachs][user][thumb],1)}>';                         
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"user"))}>',                             
+						pick: '#fileToUpload',                             
+						resize: true,  
+						compress : {width: width_user_face,height: height_user_face,quality: 80,allowMagnify:false,crop:true}                                         
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_face").val(resporse.url);                             
+						$("#face_img").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+
+</div>
+</div>
+<include file="public:footer"/>

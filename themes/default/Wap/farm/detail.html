@@ -1,0 +1,307 @@
+<include file="public:header_baocms"/>
+<body>
+<?php if(!$is_app){?>
+<header>
+    <a href="<{:U('farm/index')}>"><i class="icon-goback"></i></a>
+    <div class="title"><{$detail.farm_name}></div>
+    <i class="icon-menu3"><a class="mall-fen" id="foucsIco" href="<{:U('farm/favorites/',array('farm_id'=>$detail['farm_id']))}>" ></a><a href="#" id="shareIco" class="ml10"></a></i>
+</header>
+<?php }?>
+    <div class="bdcolor">
+        <div class="bdcolor_bg"></div>
+        <div class="bdsharebuttonbox" data-tag="share_1">
+            <a class="bds_weixin" data-cmd="weixin">微信</a>
+            <a class="bds_qzone" data-cmd="qzone" href="#">QQ空间</a>
+            <a class="bds_sqq" data-cmd="sqq">腾讯QQ</a>
+            <a class="bds_tqq" data-cmd="tqq">腾讯微博</a>
+            <a class="bds_tsina" data-cmd="tsina">新浪微博</a>
+            <div class="bd-share-popup-footer">
+                <a class="bd-share-popup-close" onClick="$('.bdcolor').hide();" href="javascript:void(0);">取消</a>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#shareIco").click(function () {
+                $(".bdcolor").show();
+            });
+        });
+        window._bd_share_config = {
+            common: {
+                bdText: '<{$detail.farm_name}>',
+                bdDesc: '<{$detail.farm_name}>',
+                bdUrl: location.href,
+                bdPic: 'http://<{$Think.SERVER.HTTP_HOST}>__ROOT__/attachs/<{$detail.photo|default='default.jpg'}>'
+            },
+            share: [{
+                "bdSize": 32,
+            }],
+        }
+        with (document)
+            0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?cdnversion=' + ~(-new Date() / 36e5)];
+    </script>
+<div class="page-center-box">
+    <!--图片轮播-->
+    <div class="banner" style="height:auto; max-height:none;">
+        <div class="flexslider"> 
+            <ul class="slides">
+                <volist name="pics" id="p">
+                <li><a href="javascript:void(0);"><img src="<{:config_img($p['photo'])}>"  width="100%"/></a></li>
+                </volist>
+            </ul>  
+        </div>
+    </div>
+    <!--图片轮播end-->
+    <!--btn-->
+    <div class="seatDelt_btn_box">
+        <p class="fl black9"><span class="mr10 border_r pad_r10">已售<span class="fontcl2"><{$detail.orders}></span></span><span class="mr10 border_r pad_r10"><span class="fontcl2"><{$detail.comments}></span>评价</span></p>
+        <notempty name="package">
+            <a href="javascript:void(0);" class="pub_btn bgcl1 fr" id="yy_btn">立即预约</a>
+            <else/>
+            <a href="javascript:void(0);" class="pub_btn bgcl1 fr" style="background:#cccccc;">无法预约</a>
+        </notempty>
+    </div>
+    <!--btn结束-->
+    <!--适合人群-->
+    <div class="farmDelt_fit mb10">
+    	<p class="black9">适合人群：<span class="fontcl2"><volist name='groupid' id='gp'><span class="bq"><php>echo $group[$gp].'、';</php></span></volist></span></p>
+        <p class="black9">能玩什么：<span class="fontcl2"><volist name='playid' id='pp'><span class="bq"><php>echo $cate[$pp].'、';</php></span></volist></span></p>
+    </div>
+    <!--适合人群end-->
+    <!--商家详细-->
+    <div class="seatDelt_infor border_t border_b">
+        <em class="ico ico_1 fl"></em>
+        <div class="pub_wz"><{$detail.addr}><span class="black9">（距离<span class="fontcl2"><{$detail.d}></span>）</span><em class="linkIco"></em></div>
+        <div class="clear"></div>
+    </div>
+    <div class="seatDelt_infor border_b">
+        <em class="ico ico_2 fl"></em>
+        <div class="pub_wz"><{$detail.tel}></div>
+        <div class="clear"></div>
+    </div>
+    <!--商家详细end-->
+    
+    <notempty name="package">
+    <!--相关套餐-->
+    <div class="seatDelt_tit border_t border_b mt10">
+        <h2 class="fl">相关套餐</h2>
+    </div>
+    <div class="farmDelt_taocan mb10 border_b">
+        <ul id='chk_pid'>
+            <volist name="package" id="pa">
+                <li class="list" val='<{$pa.pid}>'><{$pa.title}>￥<{$pa.price}><em class="ico"></em></li>
+            </volist>
+        </ul>
+        <input type='hidden' name='pid' id='pid_val' value='0'>
+        <script>
+                $(document).ready(function() {
+                    $('#chk_pid li').click(function(){
+                        $('#chk_pid li').removeClass('on');
+                        $(this).addClass('on');
+                        var val = $(this).attr('val');
+                        $('#pid_val').val(val);
+                    })
+                    
+                    $('#yy_btn').click(function(){
+                        var pid = $('#pid_val').val();
+                        var farm_id = "<{$detail.farm_id}>";
+                        if(!pid || pid == 0){
+                            alert('没有选择套餐！');
+                        }else{
+                             var link = "<{:U('farm/order',array('farm_id'=>__farm_id,'pid'=>__pid))}>";
+                             window.location.href = link.replace('__farm_id',farm_id).replace('__pid',pid);
+                        }
+                    })
+ 
+                    $(".farmDelt_taocan .list").each(function(e){
+                        $(this).click(function(){
+                            $(".farmDelt_taocan .list").removeClass("on");
+                            $(this).addClass("on");
+                            $(".farmDelt_taocanList").each(function(i){
+                                if(e==i){
+                                    $(".farmDelt_taocanList").hide();
+                                    $(this).show();
+                                }else{
+                                    $(this).hide();
+                                }
+                            });
+                        });
+                    });
+                });
+        </script>
+    </div>
+    </notempty>
+    <!--相关套餐end-->
+    
+    
+    <!--商家活动-->
+    <div class="seatDelt_tit border_t border_b">
+        <h2 class="fl">商家团购</h2>
+    </div>
+    <div class="seatDelt_hd mb10">
+        <ul>
+            <volist name="tuan_list" id="item">
+            <li class="list">
+                <div class="pub_img fl"><a href="<{:U('tuan/detail',array('tuan_id'=>$item['tuan_id']))}>">
+                <img src="<{:config_img($item['photo'])}>"><span class="tag">团</span></a></div>
+                <div class="pub_wz">
+                    <h3 class="overflow_clear"><a href="<{:U('tuan/detail',array('tuan_id'=>$item['tuan_id']))}>"><{$item.title}></a></h3>
+                    <p class="black9"><{:bao_msubstr($item['intro'],0,20,true)}></p>
+                    <p class="price fontcl2">￥<big><{$item.tuan_price}></big><del class="black9 ml10">￥<{$item.price}></del><span class="black9 ml10">(<{$item.tao_num}>人套餐)</span><span class="fr black9">已售<{$item.sold_num}></span></p>
+                </div>
+                <em class="linkIco"></em>
+            </li>
+            </volist>
+        </ul>
+        <a href="#" class="seatDelt_more border_b black9">更多团购&gt;&gt;</a>
+    </div>
+    <!--商家活动end-->
+    <!--详情内容切换标签-->
+    <div class="mall_crowdDetl_tab">
+    	<script>
+            $(document).ready(function() {
+                $(".mall_crowdDetl_tab .list").each(function(e) {
+                    $(this).click(function(){
+                        $(".mall_crowdDetl_tab .list").removeClass("on");
+                        $(this).addClass("on");
+                        $(".mall_crowdDetl_tab_cont .list_box").each(function(i){
+                            if(e==i){
+                                $(".mall_crowdDetl_tab_cont .list_box").hide();
+                                $(this).show();
+                            }else{
+                                $(this).hide();
+                            }
+                        });
+                    });
+                });
+            });
+        </script>
+    	<ul>
+    	    <li class="list on">预约须知</li>
+            <li class="list">商家详情</li>
+            <li class="list">评价</li>
+	    </ul>
+        <div class="clear"></div>
+    </div>
+    <!--详情内容切换标签end-->
+	<!--详情内容-->
+    <div class="mall_crowdDetl_tab_cont">
+    	<div class="list_box">
+        	<!--须知内容-->
+            <div class="farmDelt_notice mb10">
+            	<{$detail.notice}>
+            </div>
+            <!--须知内容end-->
+        	<!--其它商家-->
+            <div class="seatDelt_tit border_b">
+                <h2 class="fl">其它农家</h2>
+                <a href="<{:U('wap/farm/lists')}>" class="black9 fr">更多</a>
+            </div>
+            <div class="seat_list_box mb10">
+                <ul>
+                    <volist name="other_farm" id="of">
+                    <li class="seat_list farm_list">
+                        <div class="pub_img fl"><a href="<{:U('wap/farm/detail',array('farm_id'=>$of['farm_id']))}>">
+                        <img src="<{:config_img($of['photo'])}>"></a></div>
+                        <div class="pub_wz">
+                            <h3><a href="<{:U('wap/farm/detail',array('farm_id'=>$of['farm_id']))}>" class="overflow_clear fl"><{$of.farm_name}></a>
+                             <small class="fr maincl"><{$of.d}></small></h3>
+                            <p class="black6"><{$of.addr}></p>
+                            <p class="price fontcl2">￥<big><{$of.price}></big></p>
+                            <p class="black9">已售 <span class="fontcl1">10</span><span class="ml10 mr10">|</span><span class="fontcl1">0</span> 评价</p>
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                    </volist>
+                </ul>
+            </div>
+            <!--更多商家end-->
+        </div>
+        <div class="list_box" style="display:none;">
+        	<!--更多服务-->
+            <div class="seatDelt_tit border_b">
+                <h2 class="fl">特色服务</h2>
+            </div>
+            <div class="seatDelt_serv">
+                <div class="list black9"><em class="ico ico_1"></em>提供免费wifi</div>
+                <div class="list black9"><em class="ico ico_2"></em>有停车场</div>
+            </div>
+            <!--更多服务end-->
+            <!--套餐清单-->
+            <div class="seatDelt_tit border_t mt10">
+                <h2 class="fl">套餐清单</h2>
+            </div>
+            <div class="farmDelt_taocanList_box">
+                <div class="farmDelt_taocanList">
+                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                        <tr>
+                            <th>套餐</th>
+                            <th>价格</th>
+                            <th>说明</th>
+                        </tr>
+                        <volist name="package" id="pka">
+                            <tr>
+                                <td><{$pka.title}></td>
+                                <td class="txt_center"><{$pka.price}></td>
+                                <td><{$pka.intro}></td>
+                            </tr>
+                        </volist>
+                        
+                    </table>
+
+                </div>
+          
+            </div>
+            <!--套餐清单end-->
+            <!--店铺展示-->
+            <div class="seatDelt_tit border_b border_t mt10">
+                <h2 class="fl">商家简介</h2>
+            </div>
+            <div class="mall_crowdDetl_infor">
+                <div class="pad10"><{$detail.details}></div>
+            </div>
+            <!--店铺展示end-->
+        </div>
+        <div class="list_box" style="display:none;">
+        	<!--评价-->
+            <div class="seatDelt_tit border_b">
+                <h2 class="fl">总体评价：</h2>
+                <div class="fl"><span class="spxq_qgpstarBg"><span class="spxq_qgpstar" style="width:<{$detail.score*20}>%;"></span></span><span class="fontcl1 ml10"><{$detail.score}>分</span><span class="black9 ml10">高于<{$bl}>%的同行</span></div>
+            </div>
+            <div>
+                <volist name="comment" id="c">
+                <div class="guest-box" style="margin:0; padding:0.1rem; background:#fff;">
+                    <div class="icon" style="background-image: url(<{:config_img($users[$var['user_id']]['face'])}>);"></div>
+                    <div class="guest-box-content">
+                        <p><{$c.u.nickname}><span><{$c.create_time|date='Y-m-d H:i:s',###}></span></p>
+                        <div class="point-star">
+                        <div style="<{$c['score']*20}>%;"></div></div>
+                        <p class="c_h"><{$c.content}></p>
+                        <p class="img">
+                            <img class="fst"  src="<{:config_img($c['pic']['photo'])}>">
+                        </p>
+                    </div>
+                </div>
+                </volist>
+            </div>
+
+            <!--评价end-->
+        </div>
+    </div>
+    <!--详情内容end-->
+</div>
+<script src="__TMPL__statics/js/jquery.flexslider-min.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    $(document).ready(function () {
+        /*轮播幻灯图开始*/
+        $('.flexslider').flexslider({
+            directionNav: true,
+            pauseOnAction: false,
+            /*slideshow: false,*/
+            /*touch:true,*/
+        });
+        /*轮播幻灯图结束*/
+    });
+</script>   
+</body>
+</html>

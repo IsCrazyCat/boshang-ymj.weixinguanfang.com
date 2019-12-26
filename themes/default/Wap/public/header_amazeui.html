@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml" class="am-touch js cssanimations">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Cache-control" content="no-cache">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<title><if condition="!empty($mobile_title)"><{$mobile_title}>_</if><{$CONFIG.site.sitename}></title>
+<meta name="keywords" content="<{$mobile_keywords}>" />
+<meta name="description" content="<{$mobile_description}>" />
+<link rel="stylesheet" href="/static/default/amazeui/css/amazeui.min.css">
+<link rel="stylesheet" href="/static/default/amazeui/css/style.css"/>
+<link rel="stylesheet" href="/static/default/amazeui/css/<{$ctl}>.css"/>
+<script src="/static/default/amazeui/js/jquery.min.js"></script>
+<script src="/static/default/amazeui/js/amazeui.min.js" type="text/javascript"></script>
+<script src="/static/default/wap/other/layer.js"></script>
+<script src="/static/default/wap/js/public.js"></script>
+<style type="text/css">
+   header.homeHeader {background-color: #06c1ae}
+</style>
+<script>
+      function bd_encrypt(gg_lat, gg_lon)   {
+			var page =  "/wap/near/dingwei/lat/"+gg_lat+"/lng/"+gg_lon+".html";
+				$.get(page, function (data) {
+				}, 'html');
+            }
+            navigator.geolocation.getCurrentPosition(function (position) {
+                bd_encrypt(position.coords.latitude, position.coords.longitude);
+            });
+        </script>
+</head>

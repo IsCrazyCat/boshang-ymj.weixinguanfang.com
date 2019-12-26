@@ -1,0 +1,24 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('distribution/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			我的海报
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+<style>
+.list-media-x { margin-top:0rem;}
+#divAvatar{ width:100%; height:100%;background:url(<{:config_img($MEMBER['face'])}>)center no-repeat;background-size:cover; }
+</style>
+<div class="list-media-x" id="list-media">
+	<div id="divAvatar" style="position: absolute;">
+		<div style="text-align:center;font-size: 18px;"><{$MEMBER.nickname}></div>
+	</div>
+	<div id="divQrcode" style="margin-top: 33%;margin-left: 25%;width: 50%;position:absolute;"><img src="__ROOT__/attachs/<{$file}>" width="100%" /></div>
+	<img src="__PUBLIC__/images/poster.jpg" style="width:100%;" />
+</div>
+<include  file='distribution:footer'/>

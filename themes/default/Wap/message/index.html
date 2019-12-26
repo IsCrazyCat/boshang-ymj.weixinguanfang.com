@@ -1,0 +1,39 @@
+<include file='public:header'/>    
+	<script src="/static/default/wap/other/roll.js"></script>
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:u('user/message/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			我的小区发件箱
+		</div>
+	</header>
+    
+ 
+<!-- 筛选TAB -->
+<style>ul{ padding-left:0px;}.msg-list{ margin-top:2.2rem;}</style>
+<ul id="shangjia_tab">
+        <li style="width: 50%;"><a href="<{:U('message/index')}>" <if condition="$act eq index">class="on"</if>>我收到的信件</a></li>
+        <li style="width: 50%;"><a href="<{:U('message/famessage')}>" <if condition="$act eq famessage">class="on"</if>>我发出的信件</a></li>
+     
+</ul>
+
+	
+	<div class="msg-list">
+    
+    
+    
+    <ul id="msg-list">
+		</ul>
+ 
+    
+    
+    
+	</div>
+	<script>
+		$(document).ready(function () {
+			loaddata('<{$nextpage}>', $("#msg-list"), true);
+		});
+	</script>
+
+<include file='public:footer'/>  

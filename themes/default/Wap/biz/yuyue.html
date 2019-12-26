@@ -1,0 +1,54 @@
+<include file='public:head_frozen'/>
+	<header class="ui-header ui-header-stable ui-header-red ui-border-b">
+		<a class="ui-icon-return" href="<{:U('biz/index')}>"></a>
+		<h1>预约<{$detail['name']}></h1>
+	</header> 
+	<section class="ui-container">
+		<div class="ui-form">
+		    <form method="post" action="<{:U('biz/yuyue',array('pois_id'=>$detail['pois_id']))}>" target="niu-frame">
+		        <div class="ui-form-item ui-border-b">
+		            <label>姓名称呼</label>
+		            <input type="text" name="data[name]"  placeholder="请输入称呼或姓名" value="<if condition="$MEMBER.nickname neq null"><{$MEMBER.nickname}><else/></if>">
+		        </div>
+		        <div class="ui-form-item ui-border-b">
+		            <label>中国 +86</label>
+		            <input type="text" name="data[mobile]"  placeholder="请输入真实的手机号码" value="<if condition="$MEMBER.mobile neq null"><{$MEMBER.mobile}><else/></if>">
+		        </div>
+                
+               
+
+		        <div class="ui-form-item ui-border-b">
+		            <label>预约日期</label>
+		            <input id="pickdate" name="data[yuyue_date]" placeholder="选择日期">
+		        </div>
+				<script src="/static/default/mobile/js/mdater.js"></script>
+				<link rel="stylesheet" href="/static/default/mobile/css/mdater.css">
+				<script type="text/javascript">
+					$('#pickdate').mdater();
+				</script>
+                
+                  <div class="ui-form-item ui-border-b">
+		            <label>预约人数</label>
+		            <input type="text" name="data[number]"  placeholder="您需要预约的人数" >
+		        </div>
+
+
+
+		        <div class="ui-form-item ui-form-item-textarea ui-border-b">
+		            <label>备注说明</label>
+		            <textarea name="data[content]" placeholder="我要留言"></textarea>
+		        </div>
+
+		       
+				<div class="ui-btn-wrap m-y-3">
+				    <button type="submit" class="ui-btn-lg ui-btn-primary">
+				        提交申请
+				    </button>
+				</div>
+		    </form>
+		</div>
+
+	</section>
+
+	</body>
+</html>

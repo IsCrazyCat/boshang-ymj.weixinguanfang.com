@@ -1,0 +1,133 @@
+<include  file='public:header'/>   
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('eleorder/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			订单详情
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+
+
+<div class="panel-sub">
+	<ul>
+		<li>
+			<div>
+				订单编号
+				<em><{$detail.order_id}></em>
+			</div>
+		</li>
+		<li>
+			<div>
+				订单金额
+				<em class="text-dot">¥ <{:round($detail['need_pay']/100,2)}> 元</em>
+			</div>
+		</li>
+		<li>
+			<div>
+				下单时间：
+				<em class="text-dot">¥ <{$detail.create_time|date='Y-m-d H:i',###}></em>
+			</div>
+		</li>
+		<li>
+			<div>
+				订单状态
+				<em class="text-dot">
+					<eq name="detail.is_pay" value="1">
+                        <eq name="detail.status" value="0">
+                        	<a class="button button-small bg-dot" href="<{:u('wap/ele/pay',array('order_id'=>$detail['order_id']))}>">去付款</a>
+                        <else />
+                            <a class="button button-small bg-blue"><{$cfg[$detail['status']]}> </a>
+                            <if condition="$detail['status'] eq 1">
+                            <!--<a class="button button-small bg-gray" href="<{:u('user/eleorder/del',array('order_id'=>$detail['order_id']))}>">取消订单</a>-->
+                            </if>
+                        </eq>
+                        <else />
+                            <eq name="detail.status" value="0">
+                            <a class="button button-small bg-dot" href="<{:u('wap/ele/pay',array('order_id'=>$detail['order_id']))}>" >去付款</a>
+                            <else />
+                            <a class="button button-small bg-blue">餐到付款&nbsp;&nbsp;<{$cfg[$detail['status']]}></a>
+                            
+                            </eq>
+                        </eq>
+                    </eq>
+				</em>
+			</div>
+		</li>
+	</ul>
+</div>
+<div class="blank-10 bg"></div>
+<table class="table">
+	<tr>
+		<th>商品</th>
+		<th>单价</th>
+		<th>数量</th>
+		<th>总价</th>
+	</tr>
+	<foreach name="eleproducts" item="item">
+	<tr>
+		<td><{$products[$item['product_id']]['product_name']}></td>
+		<td>&yen;<{:round($products[$item['product_id']]['price']/100,2)}></td>
+		<td><{$item.num}></td>
+		<td>&yen;<{:round($item['total_price']/100,2)}></td>
+	</tr>
+	</foreach>                    
+</table>
+<div class="blank-10 bg"></div>
+<div class="panel-sub">
+	<ul>
+		<li>
+			<div>
+				配送费用：
+				<em>&yen;<{:round($detail['logistics']/100,2)}></em>
+			</div>
+		</li>
+		<if condition="!empty($detail['new_money'])">
+		<li>
+			<div>
+				新单立减：
+				<em>&yen; <{:round($detail['new_money']/100,2)}></em>
+			</div>
+		</li>
+		</if>
+		 <if condition="!empty($detail['fan_money'])">
+		<li>
+			<div>
+				下单返利：
+				<em>&yen; <{:round($detail['fan_money']/100,2)}></em>
+			</div>
+		</li>
+		</if>
+        <eq name="detail.status" value="0">
+        <else/>
+		<li>
+			<div>
+				收货人：
+				<em><{$addr['name']}>  (<{$addr.mobile}>)</em>
+			</div>
+		</li>
+		<li>
+			<div>
+				地址：
+				<em><{$areas[$addr['area_id']]['area_name']}> <{$bizs[$addr['business_id']]['business_name']}> <{$addr.addr}></em>
+			</div>
+		</li>
+        </eq>
+        
+        <if condition="!empty($detail['message'])">
+		<li>
+			<div>
+				留言：
+				<em><{$detail['message']}></em>
+			</div>
+		</li>
+		</if>
+        
+        
+	</ul>
+</div>
+
+<include file='public:footer'/>   

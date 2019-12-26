@@ -1,0 +1,78 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">基本设置</li>
+        <li class="li2 li3">短信设置</li>
+    </ul>
+</div>
+<style>
+.profit {text-align: center;color: #333;font-weight: bold; background: #F5F5FB;}
+.sogn{ width:120px; margin:5px 0;height: 30px;}
+</style>
+<p class="attention"><span>注意：</span>万能短信接口，不知道怎么使用可以询问技术售后！</p>
+<form  target="baocms_frm" action="<{:U('setting/sms')}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">短信接口选择：</td>
+                    <td class="rgTdBt">
+                        <select name="data[dxapi]"  class="scAddTextName sogn">
+                            <option value="dy" <if condition="$CONFIG['sms']['dxapi'] eq dy">selected='selected'</if>>大于短信</option>
+                            <option value="bo" <if condition="$CONFIG['sms']['dxapi'] eq bo">selected='selected'</if>>万能短信接口</option>
+                        </select>
+                        <code>接口选择，选择后保存，清理缓存方可生效</code></td>
+                </tr>
+              
+                <tr class="jq_type_bo">
+                    <td class="lfTdBt">万能短信接口URL：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[url]" value="<{$CONFIG.sms.url}>" style="width: 700px;" class="scAddTextName " />
+                        <code>填写短信服务商的HTTP请求接口，需要将发送给的人的参数替换成{mobile}，内容替换成{content}，记住前面不能留空格！</code>
+                    </td>
+                </tr>
+
+                <tr class="jq_type_bo">
+                    <td class="lfTdBt">内容编码：</td>
+                    <td class="rgTdBt">
+                        <label><input type="radio" name="data[charset]" <eq name="CONFIG.sms.charset" value="1">checked="checked"</eq> value="1"  />GBK</label>
+                        <label><input type="radio" name="data[charset]"  <eq name="CONFIG.sms.charset" value="0">checked="checked"</eq>  value="0"  />UTF-8</label>
+                        <code>如果短信那边编码是GBK 就需要选择GBK！</code>
+                    </td>
+                </tr>
+                <tr class="jq_type_dy">
+                 <td class="lfTdBt">短信宝信息：</td>
+                 <td class="rgTdBt">短信宝账户： <input type="text" name="data[sms_bao_account]" value="<{$CONFIG.sms.sms_bao_account}>" class="scAddTextName sogn" />
+                 &nbsp;&nbsp;短信宝密码：  <input type="text" name="data[sms_bao_password]" value="<{$CONFIG.sms.sms_bao_password}>" class="scAddTextName sogn" />
+                 <code>这里写短信宝的账户密码，记得不要有空格哦！填写这里的原因是可以查询短信宝账户的余额，非短信宝用户不要填写，记住这里跟上面的万能短信接口没有关联！</code></td>
+                </tr>
+                <tr class="jq_type_bo">
+                    <td class="lfTdBt">成功状态值：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[code]" value="<{$CONFIG.sms.code}>"  class="scAddTextName sogn" />
+                        <code>填写对方HTTP接口请求的正确返回值，<a style="color:#F00;font-weight:bold;font-size:18px;">当前短信宝剩余短信数量：<{$number}></a></code>
+                    </td>
+                </tr>
+                <tr>
+                	<td class="rgTdBt profit" colspan="2"> 下面是大于短信配置，注意，签名要跟站点名称一致</td>
+                </tr>
+                <tr class="jq_type_bo">
+                    <td class="lfTdBt">大于短信签名：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[sign]" value="<{$CONFIG.sms.sign}>"  class="scAddTextName " />
+                        <code>填写您在大鱼官方申请的短信签名，建议跟站点名称一致</code>
+                    </td>
+                </tr>
+                <tr class="jq_type_dy">
+                    <td class="lfTdBt">大于短信</td>
+                    <td class="rgTdBt">Key: <input type="text" name="data[dykey]" value="<{$CONFIG.sms.dykey}>" class="scAddTextName " />
+                    &nbsp;&nbsp;Secret: <input type="text" name="data[dysecret]" value="<{$CONFIG.sms.dysecret}>" class="scAddTextName " />
+                    <code>大于短信配置</code></td>
+                </tr>
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>       

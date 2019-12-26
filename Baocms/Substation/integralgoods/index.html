@@ -1,0 +1,100 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1"> 当前位置</li>
+        <li class="li2">积分商品</li>
+
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <div class="jsglNr">
+         <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('integralgoods/create','','添加内容')}>
+            </div>
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('integralgoods/index')}>"> 
+                    <div class="seleHidden" id="seleHidden">
+                        <span>关键字:</span>
+                        <input type="text" name="keyword" value="<{$keyword|default=''}>" class="inptText" /><input type="submit" value="   搜索"  class="inptButton" />
+                    </div> 
+                </form>
+                <a href="javascript:void(0);" class="searchG">高级搜索</a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form method="post" action="<{:U('integralgoods/index')}>">
+            <div class="selectNr selectNr2">
+                <div class="left">
+                    <div class="seleK">
+                        <span>状态</span>
+                        <select name="audit" class="select">
+                            <option value="0"  >全部</option>
+                            <option value="-1" <eq name="audit" value="-1">selected="selected"</eq> >等待审核</option>
+                            <option value="1" <eq name="audit" value="1">selected="selected"</eq>>正常</option>
+                        </select>
+                        <span>商家</span>
+                        <input type="hidden" id="shop_id" name="shop_id" value="<{$shop_id|default=''}>"/>
+                        <input type="text"   id="shop_name" name="shop_name" value="<{$shop_name}>" class="text" />
+                        <a  href="<{:U('shop/select')}>" mini='select' w='800' h='600' class="sumit lt ">选择商家</a>
+                        <span>关键字:</span>
+                        <input type="text" name="keyword" value="<{$keyword|default=''}>" class="inptText" />
+                    </div>
+                </div>
+                <div class="right">
+                    <input type="submit" value="   搜索"  class="inptButton" />
+                </div>
+                <div class="clear"></div>
+            </div></form>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="goods_id" /></td>           
+                        <td class="w50">ID</td>
+                        <td>产品名称</td>
+                        <td>产品图片</td>
+                        <td>兑换积分</td>
+                        <td>市场价格</td>
+                        <td>库存数量</td>
+                        <td>兑换数量</td>
+                        <td>创建时间</td>
+                        <td>创建IP</td>
+                        <td>是否审核</td>
+                        <td>操作</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_goods_id" type="checkbox" name="goods_id[]" value="<{$var.goods_id}>" /> </td>
+                            <td><{$var.goods_id}></td>
+                            <td><{$var.title}></td>
+                            <td><img src="<{:config_img($var['face_pic'])}>" class="w80" /></td>
+
+                            <td><{$var.integral}></td>
+                            <td><{$var.price}></td>
+                            <td><{$var.num}></td>
+                            <td><{$var.exchange_num}></td>
+                            <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                            <td><{$var.create_ip_area}><{$var.create_ip}></td>
+                            <td><eq name="var.audit" value="0">等待审核<else/>正常</eq></td>
+                        <td>
+                            <{:BA('integralgoods/edit',array("goods_id"=>$var["goods_id"]),'编辑','','remberBtn')}>
+                            <{:BA('integralgoods/delete',array("goods_id"=>$var["goods_id"]),'删除','act','remberBtn')}>
+                            <eq name="var.audit" value="0"> <{:BA('integralgoods/audit',array("goods_id"=>$var["goods_id"]),'审核','act','remberBtn')}> </eq>
+                        </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('integralgoods/delete','','批量删除','list',' a2')}>
+                    <{:BA('integralgoods/audit','','批量审核','list',' remberBtn')}>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>  

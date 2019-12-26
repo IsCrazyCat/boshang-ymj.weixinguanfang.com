@@ -1,0 +1,77 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商城</li>
+        <li class="li2">优惠券</li>
+        <li class="li2 li3">优惠券下载</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>优惠券下载历史，商家将优惠券标成使用后可以更新排名！一天内只更新一次！如果当天用金块更新排名后也不再更新排名！</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none; padding-bottom: 0px;">
+            <div class="right">
+                <form  action="<{:U('coupondownload/index')}>" method="post">  
+                    <div class="seleHidden" id="seleHidden">
+                        <div class="seleK"> 
+                            <label>
+                                <span>状态</span>
+                                <select name="audit" class="select">
+                                    <option value="0"  >全部</option>
+                                    <option value="-1" <eq name="audit" value="-1">selected="selected"</eq> >等待审核</option>
+                                    <option value="1" <eq name="audit" value="1">selected="selected"</eq>>正常</option>
+                                </select>
+                            </label>
+                            <label>
+                                <span>商家</span>
+                                <input type="hidden" id="shop_id" name="shop_id" value="<{$shop_id|default=''}>"/>
+                                <input type="text" id="shop_name" name="shop_name" value="<{$shop_name}>" class="text" />
+                                <a  href="<{:U('shop/select')}>" mini='select' w='800' h='600' class="sumit">选择商家</a>
+                            </label>
+                            <label>
+                                <span>手机</span>
+                                <input type="text"  class="inptText"   name="keyword" value="<{$keyword|default=''}>" /><input type="submit" value="   搜索"  class="inptButton" />
+                            </label>
+                        </div>
+                    </div> 
+                </form>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form>
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="download_id" /></td>
+                        <td class="w50">ID</td>
+                        <td>优惠券ID</td>
+                        <td>商家ID</td>
+                        <td>用户手机</td>
+                        <td>优惠券代码</td>
+                        <td>创建时间</td>
+                        <td>创建IP</td>
+                        <td>是否使用</td>
+                        <td>使用时间</td>
+                        <td>使用IP</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_download_id" type="checkbox" name="download_id[]" value="<{$var.download_id}>" /></td>
+                            <td><{$var.download_id}></td>
+                            <td><{$coupons[$var['coupon_id']]['title']}></td>
+                            <td><{$shops[$var['shop_id']]['shop_name']}></td>
+                            <td><{$var.mobile}></td>
+                            <td><{$var.code}></td>
+                            <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                            <td><{$var.create_ip_area}><{$var.create_ip}></td>
+                            <td><eq name="var.is_used" value="0">未使用<else/>已使用</eq></td>
+                            <td><if condition="!empty($var['user_time'])"><{$var.used_time|date='Y-m-d H:i:s',###}></if></td>
+                            <td><if condition="!empty($var['used_ip'])"><{$var.used_ip}></if></td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+    </div>
+</div>
+<include  file='public:footer'/>  

@@ -1,0 +1,18 @@
+<foreach name="list" item="item">
+    <li class="line padding border-bottom">
+		<div class="x3">
+			<a href="<{:u('wap/jifen/detail',array('goods_id'=>$item['goods_id']))}>">
+			   <img src="<{:config_img($goods[$item['goods_id']]['face_pic'])}>" width="90%" />
+			</a>
+		</div>
+        <div class="x9">
+        	<h5><a href="<{:u('wap/jifen/detail',array('goods_id'=>$item['goods_id']))}>"><{$goods[$item['goods_id']]['title']}></a><h5>
+            <p class="text-gray text-small">
+            	<span>积分：<em class="text-dot"><{$goods[$item['goods_id']]['integral']}></em></span> &nbsp;&nbsp;<span>价格：<em class="text-dot"><{:round($goods[$item['goods_id']]['price']/100,2)}>元</em></span>
+            </p>
+			<p class="text-gray text-small">兑换时间：<{$item.create_time|date="Y-m-d H:i",###}></p>
+            <p class="text-gray text-small">收货地址：<{$areas[$addrs[$item['addr_id']]['area_id']]['area_name']}><{$business[$addrs[$item['addr_id']]['business_id']]['business_name']}><{$addrs[$item['addr_id']]['addr']}>,<{$addrs[$item['addr_id']]['name']}>,<{$addrs[$item['addr_id']]['mobile']}></p>
+        </div>
+    </li>
+     <div class="blank-10 bg"></div>
+</foreach>

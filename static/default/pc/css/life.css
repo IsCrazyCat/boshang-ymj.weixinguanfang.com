@@ -1,0 +1,111 @@
+.index-box{background:#FFF;box-shadow:1px 1px 2px #EEE;padding:10px;}
+.index-box .box-hd{height:40px;line-height:40px;overflow:hidden;padding:0 10px;}
+.index-box .box-hd h4{font-size:15px;font-weight:bold;float:left;}
+.index-box .box-hd span{float:right;margin-left:20px;}
+.index-box .box-hd a{float:right;margin-left:20px;}
+.index-box .box-bd {width:100%;overflow:hidden;padding:10px;}
+
+.index-l{width:760px;overflow:hidden;} 
+.index-r{width:370px;overflow:hidden;float:right;} 
+
+
+/*竞价信息*/
+.index-bid{list-style:none;padding:0;width:1160px;}
+.index-bid li{float:left;width:114px;height:114px;margin-right:10px;}
+.index-bid img{width:114px;height:114px;}
+
+
+/*两列列表*/
+.index-list-two{width:780px;list-style:none;padding:0;}
+.index-list-two li{float:left;width:370px;overflow:hidden;padding-right:20px;height:30px;line-height:30px;font-size:14px;}
+.index-list-two li a{float:left;display:block;width:310px;}
+.index-list-two li em{float:right;display:block;color:#999;}
+
+/*单列图片*/
+.index-list-pic{width:370px;list-style:none;padding:0;}
+.index-list-pic li{overflow:hidden;padding-bottom:15px;}
+.index-list-pic li .pic{width:50px;height:50px;float:left;margin-right:10px;}
+.index-list-pic li .pic img{width:50px;height:50px;border:thin solid #DDD;padding:1px;}
+.index-list-pic li .des{float:left;width:275px;}
+.index-list-pic li .des h4{font-size:14px;height:25px;line-height:25px;overflow:hidden;}
+.index-list-pic li .des p{margin:0;height:25px;line-height:25px;}
+.index-list-pic li .des span{float:left;}
+.index-list-pic li .des em{float:right;color:#999;}
+.index-list-pic li .des .price{font-family:"Arial";font-size:14px;color:#F60;}
+
+/*信息列表*/
+.main-list{margin-top:10px;border:thin solid #DDD;}
+.life-list dt,.life-list dd{font-size: 14px;height: 46px;line-height: 46px;overflow: hidden; border-bottom: 1px dotted #DDD;}
+.life-list .a{float:left;width:700px;display:block;}
+.life-list .b{float:left;width:120px;margin-left:20px;display:block;}
+.life-list .c{float:right;width:120px;display:block;text-align:center;}
+.life-list dd .c{font-size:12px;}
+.life-list dd .a{font-size:13px;}
+.life-list dt{text-align:center;background:#F5F5F5;}
+.life-list dd{padding:0 10px;}
+.life-list dd a{color:#36C;float:left;}
+.life-list dd .b{font-size:12px;}
+.life-list dd.odd{background:#FAFAFA;}
+.life-list dd:hover{background:#FFFEE5;}
+.life-list dd .a cite{float:left;color:#999;margin-right:10px;font-style:normal;}
+.life-list dd .a  a{margin-right:10px;}
+.life-list dd .a em {float:left;display:block;padding:0px 4px;color:#FFF;font-size:12px;height:20px;line-height:20px;overflow:hidden;margin:13px 2px;border-radius:3px;}
+.life-list dd .a em.p{background:#390;}
+.life-list dd .a em.s{background:#EA695A;}
+.life-list dd .a em.g{background:#999;}
+.life-list dd .a em.m{background:#36C;}
+.life-list dd .a em.q{background:#F40;}
+.life-list dd .a em.d{background:#F1C40D;}
+
+/*信息内容*/
+.v-box{border:1px solid #FDD79D;overflow:hidden;background:#FFFAF1}
+.v-box .box-l{float:left;width:100%;background:#FFF;border-right:1px solid #FDD79D;}
+.v-box .box-r{float:right;width:100%;}
+
+.detail-block{padding: 20px 15px 15px 20px;}
+.detail-block .block-hd {border-bottom:1px dashed #EEE;position:relative;}
+.detail-block .block-hd h1{font-size:20px;font-family:"Microsoft YaHei";color:#F54100;}
+.detail-block .block-hd p{color:#999;height:30px;line-height:30px;margin:5px 0;}
+.detail-block .block-bd{margin:15px 0;overflow:hidden;}
+.detail-block .block-bd .v-l {float:left;width:320px;margin-right:20px;}
+.detail-block .block-bd .banner {width:320px;height:220px;overflow:hidden;position: relative;z-index: 0;}
+.detail-block .block-bd .banner img{width:320px;height:220px;}
+.detail-block .block-bd .v-r {float:right;width:450px;float:right;font-size:14px;}
+.detail-block .block-bd .v-info {padding:0;overflow:hidden;font-size:13px;}
+.detail-block .block-bd .v-info li{height:30px;line-height:30px;width:50%;float:left;}
+.detail-block .block-bd .v-info li span{float:left;margin-right:10px;color:#999;}
+.detail-block .block-bd .v-tel {margin-top:30px;border:1px solid #F60;overflow:hidden;width:330px}
+.detail-block .block-bd .v-tel span{display:block;width:60px;height:60px;line-height:60px;background:#F60;color:#FFF;float:left;text-align:center;}
+.detail-block .block-bd .v-tel i{font-size:30px;}
+.detail-block .block-bd .v-tel span .iconfont{font-size:25px;}
+.detail-block .block-bd .v-tel em{display:block;height:60px;line-height:60px;color:#E22;float:left;text-align:center;width:250px;float:right;font-size:25px;}
+.detail-block .block-hd .detail-tag{position:absolute;right:50px;top:-20px;width:200px;}
+.detail-block .block-hd .detail-tag span{float:left;padding:5px 10px;width:45px;text-align:center;color:#FFF;}
+.detail-block .block-hd .detail-tag span.mob{background:#32D3C3;}
+.detail-block .block-hd .detail-tag span.mail{background:#BA26C0;}
+.detail-block .block-hd .detail-tag span.shop{background:#FF6F4C;}
+.text-block {margin-top:10px;padding:20px;}
+.text-block .block-hd{border-bottom:1px dashed #EEE;height:35px;line-height:35px;}
+.text-block .block-hd h3{font-size:14px;font-weight:bold;}
+.text-block .block-bd {margin-top:10px;line-height:30px;font-size:14px;min-height:400px;}
+.text-block .block-bd .tell{color:#F00;}
+.text-block .block-bd .allmap{width:500px;height:300px;margin-top:30px;}
+
+.side-block {width:100%;padding:10px;}
+.side-block .block-hd{border-bottom:1px solid #EEE;height:35px;line-height:35px;}
+.side-block .block-hd h3{font-size:14px;}
+.side-block .block-bd {line-height:30px;font-size:14px;min-height:400px;}
+.side-block .block-bd ul{padding:0;}
+.side-block .block-bd li{overflow:hidden;border-bottom:1px dashed #EEE;padding:10px 0;}
+.side-block .block-bd li .pic{width:60px;height:60px;float:left;}
+.side-block .block-bd li .pic img{width:60px;height:60px;}
+.side-block .block-bd li .des {float:right;width:180px;height:60px;overflow:hidden;}
+.side-block .block-bd li .des a{width:180px;height:30px;line-height:30px;overflow:hidden;display:block;}
+.side-block .block-bd li .des p{font-size:12px;}
+
+/*发布页面*/
+.fabu-cate{padding:0;overflow:hidden;}
+.fabu-cate li{width:10%;float:left;height:40px;line-height:40px;}
+.fabu-panel h4 span{font-size:12px;color:#999;margin-left:20px;}
+.fabu-panel .active h4 span{display:none;}
+.fabu-post{width:600px;}

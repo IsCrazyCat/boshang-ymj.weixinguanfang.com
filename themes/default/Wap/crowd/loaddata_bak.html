@@ -1,0 +1,30 @@
+<foreach name='list' item='item'>
+	<div class="card">
+       <div class="card_top">
+          <div class="heart dianzanInit">
+              <i class="icon-thumbs-up"></i>
+          </div>
+        <div class="top_title"><{$item.title}></div>
+        </div>
+        <div class="card_con">
+             <span class="icon status_com status_zhongchouzhong status_pos" data-desc="预热中"></span>
+             <a href="<{:U('crowd/detail',array('goods_id'=>$item['goods_id']))}>">
+             <img src="<{:config_img($item['photo'])}>" class="loaded"></a>
+         </div>
+         <div class="card_foot">
+         <div class="jine"> 筹集金额<em>￥</em><span class="gotham"> <{$item['have_price']/100}>元</span>/<em>￥</em>
+         <span class="gotham"> <{$item['all_price']/100}> </span>元</div>
+              <ul>
+                  <li>支持人数<br><span class="gotham"> <{$item['have_num']}></span></li>
+                  <li>项目进度<br><span class="gotham"><{$item['have_price']/$item['all_price']*100|ceil}>%</span></li>
+                  <li>剩余天数<br><span><{$item['crowd_time']}></span>天</li>
+             </ul>
+             
+         
+          <div class="progress_container">
+          	<div class="progress_bar finished" progress="<{$item['have_price']/$item['all_price']*100|ceil}>" style="width:<{$item['have_price']/$item['all_price']*100|ceil}>%;"></div>
+          </div>
+          <div class="exp_text"><a href="javascript:void(0);" ><{$item['intro']}></a></div>
+         </div>
+    </div>
+</foreach>

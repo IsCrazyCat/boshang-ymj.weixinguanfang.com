@@ -1,0 +1,132 @@
+<include  file='public:header'/>   
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		积分兑换
+	</div>
+</header>
+<script src="<{:U('app/datas/cab',array('name'=>'cityareas'))}>"></script>  <!-- 获取下拉 -->
+<script>
+	$(document).ready(function(){
+		//添加收货地址
+		$('.add_addr').click(function(){
+			var index = layer.open({
+				type: 1,
+				title:'新增收货地址',
+				skin: 'layer-ext-demo', //加上边框
+				area: ['90%', '340px'], //宽高
+				content: '<div class="form-x form-auto"><div class="line margin-top"><div class="x2 label"><label>联系人</label></div><div class="x10 field"><input type="text" class="input input-auto" id="name" name="name" size="10"  value=""></div></div>   <div class="line margin-top"><div class="x2 label"><label>地区</label></div><div class="x10 field form-inline"><select id="city_id" name="city_id"  class="input margin-small-right input-auto"><option value="0">请选择...</option></select><select id="area_id" name="area_id" class="input  margin-small-right input-auto"><option value="0">请选择...</option></select><select id="business_id" name="business_id" class="input input-auto"><option value="0">请选择...</option></select></div></div><div class="line margin-top"><div class="x2 label"><label>手机</label></div><div class="x10 field"><input type="text" class="input input-auto" name="mobile" id="mobile" value=""></div></div><div class="line margin-top"><div class="x2 label"><label>地址</label></div><div class="x10 field"><input type="text" class="input input-auto" size="25" name="addr" id="addr" value="" /></div></div><div class="line margin-top"><div class="x10 float-right"><input class="button addr_post" type="submit" value="添加地址" /></div></div></div>'
+			});
+			get_option();
+			$('.layui-layer-content').css('padding','15px');
+			$('.layui-layer-title').css('color','#ffffff').css('background','#2fbdaa');
+			$('.addr_post').click(function(){
+				var name = $('#name').val();
+				var city_id = $('#city_id').val();
+				var area_id = $('#area_id').val();
+				var business_id = $('#business_id').val();
+				var mobile = $('#mobile').val();
+				var addr = $('#addr').val();
+				$.post('<{:U("addr/add_addr")}>',{name:name,city_id:city_id,area_id:area_id,business_id:business_id,mobile:mobile,addr:addr},function(result){										
+					if(result.status == 'success'){
+						layer.msg(result.msg,{icon:1});
+						setTimeout(function(){
+							location.reload(true);
+						},2000);
+					}else{
+						layer.msg(result.msg,{icon:2});
+					}														
+				},'json');
+			})
+		});
+
+
+
+		//修改
+		$('.edit_addr').click(function(){
+			var val = $(this).attr('val');
+			var a = $(this).attr('a');
+			var b = $(this).attr('b');
+			var c = $(this).attr('c');
+			var n = $(this).attr('n');
+			var m = $(this).attr('m');
+			var addr = $(this).attr('addr');
+			var index = layer.open({
+				type: 1,
+				title:'修改收货地址',
+				skin: 'layer-ext-demo', //加上边框
+				area: ['90%', '340px'], //宽高
+				content: '<div class="form-x form-auto"><div class="line margin-top"><div class="x2 label"><label>联系人</label></div><div class="x10 field"><input type="text" class="input input-auto" id="name" name="name" size="10"  value="'+n+'"></div></div>   <div class="line margin-top"><div class="x2 label"><label>地区</label></div><div class="x10 field form-inline"><select id="city_ids" name="city_id"  class="input margin-small-right input-auto"><option value="0">请选择...</option></select><select id="area_ids" name="area_id" class="input  margin-small-right input-auto"><option value="0">请选择...</option></select><select id="business_ids" name="business_id" class="input input-auto"><option value="0">请选择...</option></select></div></div><div class="line margin-top"><div class="x2 label"><label>手机</label></div><div class="x10 field"><input type="text" class="input input-auto" name="mobile" id="mobile" value="'+m+'"></div></div><div class="line margin-top"><div class="x2 label"><label>地址</label></div><div class="x10 field"><input type="text" class="input input-auto" size="25" name="addr" id="addr" value="'+addr+'" /></div></div><div class="line margin-top"><div class="x10 float-right"><input class="button edit_post" type="submit" value="立即修改"  val="'+val+'" /></div></div></div>'
+			});
+			$('.layui-layer-content').css('padding','15px');
+			get_option();
+			changeCAB(c,a,b);
+			$('.edit_post').click(function(){
+				var addr_id = $(this).attr('val');
+				var name = $('#name').val();
+				var city_id = $('#city_ids').val();
+				var area_id = $('#area_ids').val();
+				var business_id = $('#business_ids').val();
+				var mobile = $('#mobile').val();
+				var addr = $('#addr').val();
+				$.post('<{:U("addr/edit_addr")}>',{name:name,city_id:city_id,area_id:area_id,business_id:business_id,mobile:mobile,addr:addr,addr_id:addr_id},function(result){										
+					if(result.status == 'success'){
+						layer.msg(result.msg,{icon:1});
+						setTimeout(function(){
+							location.reload(true);
+						},2000);
+					}else{
+						layer.msg(result.msg,{icon:2});
+					}														
+				},'json');
+			});
+			$('.layui-layer-title').css('color','#ffffff').css('background','#2fbdaa');
+		})
+		$("#pay-method li").click(function(){
+			var code = $(this).attr("data-rel");
+			$("#code").val(code);
+			$("#pay-method li").each(function(){
+				$(this).removeClass("active");
+			});
+			$(this).addClass("active");
+		});
+	});
+</script>
+
+<div class="item-detail padding border-bottom">
+	<div class="line">
+		<div class="x3">
+			<div class="item"><img src="__ROOT__/attachs/<{:config_img($detail['face_pic'])}>" width='90%' /></div>
+		</div>
+		<div class="x9">
+			<h5><{$detail.title}></h5>
+			<p>需要积分：<span class="text-dot"><{$detail.integral}></span></p>
+			<p>市场价：<span class="text-dot margin-small-right"><{$detail.price}></span>  / <span class="margin-small-left">剩余 <em class="text-dot"><{$detail.num}></em>个</span></p>
+		</div>
+	</div>
+</div>
+<div class="blank-10 bg"></div>
+<div class="line padding border-bottom">
+	<span class="float-left">请选择收货地址</span>
+	<span class="float-right"><a class="text-dot add_addr" href="javascript:void(0);" >新增收货地址</a></span>
+</div>
+<form  action="<{:U('jifen/exchange',array('goods_id'=>$detail['goods_id']))}>" method="post">
+	<foreach name="useraddr" item="item">
+	<div class="line padding border-bottom">
+		<input type="radio" <eq name="item.is_default" value="1">checked="checked"</eq> name="addr_id" value="<{$item['addr_id']}>"/> <{$item.name}>,<{$item.mobile}>,<{$item.addr}>
+		<p class="line">
+			<eq name="item.is_default" value="0"><a class="text-main margin-right" href="<{:u('wap/addr/update_addr',array('addr_id'=>$item['addr_id']))}>">设为默认</a></eq> 
+			<a class="text-dot edit_addr" href="#" val="<{$item.addr_id}>" a="<{$item.area_id}>" b="<{$item.business_id}>" c="<{$item.city_id}>" n="<{$item.name}>" m="<{$item.mobile}>" addr="<{$item.addr}>">修改地址</a>
+		</p>
+	</div>
+	</foreach>
+	<div class="blank-40"></div>
+	<div class="container">
+		<button type="submit" class="button button-block button-big bg-dot">确认兑换</button>
+	</div>
+	<div class="blank-30"></div>
+</form>
+<include file="public:footer"/>
+

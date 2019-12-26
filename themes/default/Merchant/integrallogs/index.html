@@ -1,0 +1,30 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">一卡通</a> > <a href="">积分日志</a> > <a>积分日志</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t tuanfabu_top">
+            <div class="left tuan_topser_l">积分变更日志</div>
+        </div>
+    </div>
+    <include  file='money:nav'/>
+        <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>积分</td>
+            <td>说明</td>
+            <td>时间</td>
+        </tr>
+        <foreach name="list" item="var">
+                        <tr>
+                            <td><b style="color: red;"><{$var.integral}></b></td>
+                            <td><{$var.intro}></td>
+                            <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                        </tr>
+        </foreach>
+    </table>
+    <{$page}>
+</div>
+<include  file='public:footer'/>

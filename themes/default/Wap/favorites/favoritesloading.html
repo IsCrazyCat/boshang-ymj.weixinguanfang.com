@@ -1,0 +1,23 @@
+<foreach name="shops" item="var">
+<li>
+	<a class="line" title="<{$var.shop_name}>" href="<{:U('shop/detail',array('shop_id'=>$var['shop_id']))}>">
+    
+		<div class="x2"><img src="<{:config_img($var['logo'])}>" /></div>
+		<div class="x10 padding-left">
+			<h5>
+				<{:msubstr($var['shop_name'],0,6,'utf-8',false)}>
+			</h5>
+			<?php if(!empty($news[$var['shop_id']])){?>
+			<p <?php if(isset($read_ids[$news[$var['shop_id']]['news_id']])){?> style="color:#cccccc;" <?php }?>>
+			  <{:msubstr($news[$var['shop_id']]['title'],0,15)}>
+			</p>
+			 <?php }else{?>
+			 <p>
+			 该商家比较懒什么都没写....
+			 </p>
+			<?php }?>
+		</div>
+	</a>
+</li>
+<div class="blank-10 bg"></div>
+</foreach>

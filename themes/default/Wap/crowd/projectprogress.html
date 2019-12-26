@@ -1,0 +1,49 @@
+<php>$mobile_title = $detail['title'];</php>
+<include  file='public:header'/>  
+<style>
+body {background-color: #f0efed;}
+.single_list {margin-top: 2rem;}
+.single_list .list_box .box_con .message .mes_con {margin-top: 15px !important;}
+.single_list .list_box .box_con .message .mes_con .board .text_area_la {font-size: 12px;}
+</style> 
+<link rel="stylesheet" type="text/css" href="/static/default/wap/css/crowd_detail.css">
+	<header class="top-fixed bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('crowd/detail',array('goods_id'=>$detail['goods_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<{:bao_msubstr($detail['title'],0,8)}>
+		</div>
+       <div class="top-signed">
+		</div>
+	</header>  
+    
+      <ul id="shangjia_tab">
+        <li class="x3"><a href="<{:U('crowd/detail',array('goods_id'=>$detail['goods_id']))}>" <if condition="$act eq 'detail'">class="on"</if> >首页</a></li>
+        <li class="x3"><a href="<{:U('crowd/details',array('goods_id'=>$detail['goods_id']))}>" <if condition="$act eq 'details'">class="on"</if> >详情</a></li>
+        <li class="x3"><a href="<{:U('crowd/projectprogress',array('goods_id'=>$detail['goods_id']))}>" <if condition="$act eq 'projectprogress'">class="on"</if> >进展</a></li>
+        <li class="x3"><a href="<{:U('crowd/ask_list',array('goods_id'=>$detail['goods_id']))}>" <if condition="$act eq 'ask_list'">class="on"</if> >话题</a></li>
+    </ul>  
+    
+    
+    <div class="single_list">
+	<div class="list_box">
+		<div class="box_title">
+			<span><em class="icon xmjz"></em><i>项目进展</i></span>
+		</div>
+		<div class="box_con">
+			<div class="box_con_title">
+				<span class="title_head"><img src="<{:config_img($users[$detail['user_id']]['face'])}>"></span>
+                <span class="title_text"><{:config_user_name($users[$detail['user_id']]['nickname'])}></span>
+			</div>
+			<div class="message">
+              <foreach name="list" item="var">
+                   <div class="mes_con" style="border-left:1px solid #e4e4e4">
+                      <div class="time_line"><{$var.dateline|date="m-d",###}></div>
+                      <div class="board"><i class="sanjiao"></i><span class="board_con text_area_la"><{$var.content}></span></div>
+                  </div>
+              </foreach>  
+			</div>
+		</div>
+	</div>
+</div>

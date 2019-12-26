@@ -1,0 +1,73 @@
+
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">拼团管理</li>
+        <li class="li2">拼团订单</li>
+        <li class="li2 li3">成团管理</li>
+    </ul>
+</div>
+<style>
+.dingdan{background:#eeeeee}
+.seleK{height: 30px;}
+.main-sc .jsglNr .selectNr .right span{line-height:30px; height: 30px; padding-right: 0;}
+.seleK .text{height: 28px; width:120px !important;}
+.seleK .sumit{height:30px;padding-left:27px;background-position:6px center;padding-right:10px;line-height:30px}
+.main-sc .jsglNr .selectNr .right .select{height: 30px; line-height: 30px;width: 80px;margin-right:5px}
+.inptText{width: 120px; height: 28px; line-height: 30px;}
+.inptButton{height: 30px;line-height: 30px;background:rgb(0, 153, 204); width: 70px; margin:0 10px 10px;text-align: center;}
+.attention{margin: 0 0 6px 10px; line-height: 30px;}
+.btn-success{color: #fff;background-color: #5cb85c;border-color: #4cae4c;line-height: 30px; height: 30px;float: left; margin-left: 5px;}
+</style>
+<div class="main-jsgl main-sc">
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none; padding-bottom: 0px;">
+            <div class="right" style="float: left;">
+                <form class="search_form" method="post" action="<{:U('porder/tuan')}>"> 
+                    <div class="seleHidden" id="seleHidden">
+                        <div class="seleK">
+                            <span>开始时间</span>
+                            <input type="text" name="bg_date" value="<{$bg_date|default=''}>"  onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w150" />
+                        </label>
+                        <label>
+                            <span>结束时间</span>
+                            <input type="text" name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w150" />
+                        </label>
+                            <label>
+                                <span>快递</span>
+                                <select name="ktt" class="select">
+                                    <option value="999">请选择</option>
+                                    <option <eq name="ktt" value="1">selected="selected"</eq>  value="1">顺丰快递</option>
+                                    <option <eq name="ktt" value="2">selected="selected"</eq>  value="2">申通快递</option>
+                                    <option <eq name="ktt" value="3">selected="selected"</eq>  value="3">同城配送</option>
+                                </select>
+                            </label>                            <label>                                <span>订单类型</span>                                <select name="ddt" class="select">                                    <option value="999">请选择</option>                                    <foreach name="tstatusArray" key="key" item="item">                                        <option <eq name="ddt" value="$key">selected="selected"</eq>  value="<{$key}>"><{$item}></option>                                    </foreach>                                </select>                            </label>                            <label>                                <span>订单状态</span>                                <select name="tst" class="select">                                    <option value="999">请选择</option>                                    <foreach name="orderStatusArray" key="key" item="item">                                        <option <eq name="tst" value="$key">selected="selected"</eq>  value="<{$key}>"><{$item}></option>                                    </foreach>                                </select>                            </label>
+                            <label>
+                                <input type="submit" value="搜索"  class="inptButton" />
+                                <a href="<{:U('export')}>" class="inptButton">导出</a>
+                            </label>
+                        </div>
+                    </div> 
+                </form>
+            <div class="clear"></div></div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="id" /></td>
+                        <td>订单编号</td>                        <td>会员名</td>                        <td>收货人</td>                        <td>联系电话</td>                        <td>订单类型</td>                        <td>商品名</td>                        <td>支付金额</td>                        <td>团ID</td>                        <td>订单状态</td>                        <td>配送方式</td>                        <td>下单时间</td>                        <td>操作</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_id" type="checkbox" name="id[]" value="<{$var.id}>" /></td>                            <td><eq name="var.order_no" value="">未支付订单<else/><{$var.order_no}></eq></td>                            <td><{$users[$var['user_id']]['nickname']}>(<{$var.user_id}>)</td>                            <td><{$var.xm}></td>                            <td><{$var.tel}></td>                            <td><{$tstatusArray[$var['tstatus']]}></td>                            <td><{$var.goods_name}></td>                            <td><{:round($var['pay_price']/100,2)}>(商品:<{:round($var['goods_price']/100,2)}>运费:<{:round($var['express_price']/100,2)}>)<br><if condition="$var['pay_name'] eq weixin">微信支付<elseif condition="$var['pay_name'] eq alipay" />支付宝支付<elseif condition="$var['pay_name'] eq wxapp" />微信APP支付<else />等待支付</if></td>                            <td><eq name="var.tuan_id" value="0">单独购买<else/><{$var.tuan_id}></eq></td>                            <td><{$orderStatusArray[$var['order_status']]}><eq name="var.tuan_status" value="3">                            	<br>(<font color="#359606"><{$tuanStatusArray[$var['tuan_status']]}></font>)</eq>                            	<eq name="var.tuan_status" value="4">                            	<br>(<font color="#fc2009"><{$tuanStatusArray[$var['tuan_status']]}></font>)</eq></td>                            <td><{$var.express_name}></td>                            <td><{$var.order_time|date='Y-m-d H:i:s',###}></td>
+
+                        <td>                            <if condition="$var.order_status eq 3">							    <if condition="$var.tstatus eq 0">							    	<{:BA('porder/order',array("id"=>$var["id"]),'详情','load','remberBtn',600,550)}>								    <{:BA('porder/dayin',array("id"=>$var["id"]),'打印订单','','remberBtn')}>							    <else />							    <{:BA('porder/dayin',array("tuan_id"=>$var["tuan_id"]),'打印订单','','remberBtn')}>							    	<{:BA('porder/tuanorder',array("tuan_id"=>$var["tuan_id"]),'团详情','load','remberBtn',600,550)}>							    </if>							<else />                            <if condition="$var.tstatus eq 0">							    	<{:BA('porder/order',array("id"=>$var["id"]),'详情','load','remberBtn',600,550)}>							    <else />							    	<{:BA('porder/tuanorder',array("tuan_id"=>$var["tuan_id"]),'团详情','load','remberBtn',600,550)}>							    </if></if>
+                        </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+        </form>
+        <include  file='public:footer'/>       

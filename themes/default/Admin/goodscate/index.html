@@ -1,0 +1,83 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商城</li>
+        <li class="li2">商家产品</li>
+        <li class="li2 li3">商品类别</li>
+    </ul>
+</div>
+<div class="main-cate">
+     <p class="attention" style="height:50px;"><span>注意：修改完提点后请更新缓存！</span>暂时2级分类,分类名称后面（）内的是分类的ID，每个分类要设定一个默认的结算汇率，汇率只能是千分之几，不能再有小数，比如千分之6，比如填写100就相当于10%，就代表商家要扣除平台的千分之六的佣金！</p>
+    <div class="jsglNr">
+        <form id="cate_action" action="" target="baocms_frm" method="post">
+            <div class="selectNr" style="border-top: 1px solid #dbdbdb;">
+                <div class="left">
+                    <{:BA('goodscate/create','','添加一级分类','load','',600,300)}>
+                </div>
+                <div class="right">
+                    <{:BA('goodscate/update','','更新','list','remberBtn')}>
+                </div>
+            </div>
+            <div class="tableBox">
+                <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF; text-align:center;">
+                    <tr bgcolor="#dbdbdb" height="48px;" style="color:#333; font-size:16px; line-height:48px;">
+                        <td>分类</td>
+                        <td>排序</td>
+                        <td>图标</td>
+                        <td>费率</td>
+                        <td>操作</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <if condition="($var.parent_id eq 0)">  
+                            <tr bgcolor="#f1f1f1" height="48px" style="font-size:14px; color:#545454; text-align:left; line-height:48px;">
+                                <td style="padding-left:20px;"><{$var.cate_name}>(<{$var.cate_id}>)</td>
+                                <td style="padding-left:70px;"><input name="orderby[<{$var.cate_id}>]" value="<{$var.orderby}>" type="text" class="remberinput w80" /></td> 
+                                <td>
+                                    <if condition="!empty($var['photo'])">  
+                                        <img style="padding:5px;width:60px;" src="<{:config_img($var['photo'])}>" />
+                                    <else/>
+                                        无图标
+                                    </if>
+                                </td>
+                                <td><{$var.rate}>‰（千分）</td>
+                                <td style="text-align: center;">
+                                    <{:BA('goodscate/create',array("parent_id"=>$var["cate_id"]),'添加子分类','load','remberBtn',600,300)}>
+                                    <{:BA('goodscate/edit',array("cate_id"=>$var["cate_id"]),'编辑','load','remberBtn',600,300)}>
+                                    <{:BA('goodscate/delete',array("cate_id"=>$var["cate_id"]),'删除','act','remberBtn')}>
+                                </td>
+                            </tr>
+                            <foreach name="list" item="var2">
+                                <eq name="var2.parent_id" value="$var.cate_id">
+                                <tr height="48px" style="font-size:14px; color:#545454; text-align:center; line-height:48px;">
+                                    <td><{$var2.cate_name}>(<{$var2.cate_id}>)</td>
+                                    <td><input name="orderby[<{$var2.cate_id}>]" value="<{$var2.orderby}>" type="text" class="remberinput w80" /></td>
+                                    <td>
+                                        <if condition="!empty($var2['photo'])">  
+                                            <img style="padding:5px;width:60px;" src="<{:config_img($var2['photo'])}>" />
+                                        <else/>
+                                            无图标
+                                        </if>
+                                    </td>
+                          			<td><{$var2.rate}>‰（千分）</td>
+                                    <td>
+                                        <{:BA('goodscate/edit',array("cate_id"=>$var2["cate_id"]),'编辑','load','remberBtn',600,300)}>
+                                        <{:BA('goodscate/delete',array("cate_id"=>$var2["cate_id"]),'删除','act','remberBtn')}>
+                                    </td>
+                                </tr>
+                                </eq>
+                            </foreach>
+                        </if>
+                    </foreach>        
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>
+
+
+
+
+
+
+

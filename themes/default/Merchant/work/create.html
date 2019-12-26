@@ -1,0 +1,61 @@
+<include  file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">其他</a> > <a href="">人才招聘</a> > <a>发布招聘</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">发布招聘后，后台审核才能显示！</div>
+        </div>
+    </div> 
+    <div class="tabnr_change  show">
+    	<form method="post" action="<{:U('work/create')}>"  target="baocms_frm">
+    	<table class="tuanfabu_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="120"><p class="tuanfabu_t"><em>·</em>标题：</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[title]" value="<{$detail.title|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+                </div></td>
+            </tr>
+            <tr>
+                <td><p class="tuanfabu_t">招聘人数：</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[num]" value="<{$detail.num|default='0'}>" class="tuanfabu_int tuanfabu_intw2" />
+                </div></td>
+            </tr>
+            <tr>
+                <td><p class="tuanfabu_t">薪资：</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[money1]" value="<{$detail.money1|default='0'}>" class="tuanfabu_int tuanfabu_intw2" />-
+                <input type="text" name="data[money2]" value="<{$detail.money2|default='0'}>" class="tuanfabu_int tuanfabu_intw2" />
+                </div></td>
+            </tr>
+            <tr>
+                <td><p class="tuanfabu_t">工作时间：</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[work_time]" value="<{$detail.work_time|default='早九晚五'}>" class="tuanfabu_int tuanfabu_intw2" />
+                </div></td>
+            </tr>
+            <tr>
+                <td><p class="tuanfabu_t">招聘有效期：</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[expir_date]" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd'});" value="<{$detail.expir_date|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+                </div></td>
+            </tr>
+            <tr>
+                <td><p class="tuanfabu_t">岗位说明：</p></td>
+                <td><div class="tuanfabu_nr">
+                <textarea name="data[intro]" cols="50" rows="10"></textarea>
+                </div></td>
+            </tr>
+        </table>
+        <div class="tuanfabu_an">
+        <input type="submit" class="radius3 sjgl_an tuan_topbt" value="确认发布" />
+        </div>
+        </form>
+    </div> 
+</div>
+<include  file='public:footer'/>

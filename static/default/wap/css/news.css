@@ -1,0 +1,69 @@
+
+
+
+
+/*幻灯新闻*/
+.roll{ position:relative;width:100%;max-height:200px;overflow:hidden;}
+.roll ul{padding:0;list-style:none;}
+.roll .hd{ position:absolute; height:28px; line-height:28px; bottom:0; right:0; z-index:1; }
+.roll .hd li{ display:inline-block; width:5px; height:5px; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px; background:#333; text-indent:-9999px; overflow:hidden; margin:0 6px;   }
+.roll .hd li.on{ background:#fff;  }
+.roll .bd{ position:relative; z-index:0; }
+.roll .bd li{ position:relative;  }
+.roll .bd li img{ width:100%;max-height:200px; display:block;   }
+.roll .bd li a{ -webkit-tap-highlight-color:rgba(0, 0, 0, 0); }
+.roll .bd li .tit{ display:block; width:100%;  position:absolute; bottom:0; text-indent:10px; height:28px; line-height:28px; background:rgba(0,0,0,0.5);color:#fff;}
+
+.list-media-x ul{padding:0;list-style:none}
+.list-media-x li{border-top:thin solid #eee}
+.list-media-x p{margin:0}
+.list-media-x li dt{display:block;padding:5px 10px;overflow: hidden;width:100%;border-bottom:1px #eee solid}
+.list-media-x li dl{display:block;padding:0 10px;height:50px;line-height:350px;width:100%}
+.list-media-x li dl i{float:right;color:#999}
+.list-media-x li dd.zhong{display:block;padding:10px;overflow:hidden;width:100%;}
+.list-media-x li dd.zhong span.album{ font-size:12px; color:#FFF;margin-right: 0px;position:absolute;right:10%;bottom:0;width:45px;height:20px;line-height:20px;text-align:center;background: #06c1ae;}
+.list-media-x li dd.zhong a img{padding-bottom:0}
+.list-media-x li dt a i{font-style:normal;float:right}
+.list-media-x li dt a{font-weight:400;font-size: 12px;}
+.list-media-x li dt span{font-weight:400; font-size:12px;}
+.text-dot1{color:#999}
+
+/*全局标题*/
+.sec-title{width:100%;height:2em;line-height: 2em;font-size: 1.12em;position:relative;overflow:hidden;}
+.sec-title .divider{display: inline-block;height: 1.12em;width: 3px;vertical-align: top;background-color: #D43C33;margin-top: 0.44em;margin-left: 0.3em;margin-right:0.3em;}	
+
+/*精彩图文*/
+.row {width:100%;}	
+.col {float:left;width:31%;display:block;margin:1.15%;}	
+.col .cover {background:#FFF;width:100%;}
+.col .title {height:30px;line-height:15px;overflow:hidden;text-overflow: ellipsis;margin:3px 5px;font-size:12px;}
+
+/*新闻列表*/
+.news-list ul{padding:0;list-style:none;}
+.news-list .item{display:block;padding:10px 5px;border-bottom:thin solid #EEE;margin:0 5px;}
+.news-list .item img{width:130px;height:90px;}
+.news-list .item strong{height:20px;line-height:20px;overflow:hidden;}
+.news-list .item .desc{margin:5px 0;font-size:12px;height:40px;line-height:20px;overflow:hidden;color:#999;}
+.news-list .item .info{font-size:12px;color:#999;margin:0;}
+.news-list .item .info em{margin-right:10px;}
+
+/*新闻内容*/
+.detail{width:100%;padding:10px;}
+.detail h1{font-size:18px;font-weight:700;}
+.detail .detail-des{height:30px;line-height:30px;text-align:center;color:#999;}
+.detail .detail-des span{margin-right:10px;}
+.detail .detail-read{font-size:14px;line-height:20px;background:#FFF;width:100%;word-break:break-all;}
+.detail .detail-read img{max-width:100%!important;}
+.detail .detail-read p{text-indent:0;margin:5px 0;}
+
+/*回复列表*/
+.comm-list{padding:10px;}
+.comm-list h2{font-size:20px;font-family:"Microsoft YaHei";}
+.comm-list img{width:40px;height:40px;border-radius:40px!important;}
+.comm-list  .txt-reply{width:100%;height:60px;}
+.comm-list .level-1 p{border-bottom:thin solid #EEE;}
+.comm-list .level-2 p{border-bottom:thin dashed #EEE;}
+.media-body{ font-size:12px;}
+.comm-list  p{padding-bottom:5px!important;overflow:hidden;color:#999;font-size: 12px;}
+.comm-list  p a{margin-left:15px;color:#999;}
+.comm-list  p i{margin-right:2px;}

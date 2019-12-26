@@ -1,0 +1,132 @@
+<include file='public:header'/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('ding/menu',array('shop_id'=>$shop_id,'yuyue_id'=>$yuyue_id))}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		点餐结算
+	</div>
+</header>
+<if condition="$cartnum gt 0">	
+<div class="line padding border-bottom">
+	<span class="text-gray">菜品来自：</span><{$detail.shop_name}> 
+</div>
+
+<php>$tt = $detail['since_money']-$total['money'];</php>
+	
+<form method="post" id="ding-form" action="<{:U('ding/order',array('t'=>$nowtime))}>">	
+    <php>$total_money = 0;</php>
+    <div class="cart-list">
+		<ul>
+			<foreach name="cartgoods" item="item">
+			<li class="line">
+				<div class="x3">
+                
+					<img src="<{:config_img($item['photo'])}>" />
+				</div>
+				<div class="x9">
+					<h5><{$item.product_name}></h5>
+					<p><span class="margin-right">单价：￥<{:round($item['ding_price']/100,2)}> <del class="text-small margin-left text-gray">￥<{:round($item['price']/100,2)}></del></span> 合计：<span class="text-dot jquery-total-<{$item.menu_id}>">￥<{:round($item['ding_price'] *  $item['cart_num']/100,2)}></span></p>
+					<div class="num-input" rel="<{$item.menu_id}>">
+						<div class="txt txt-small radius-small bg-gray jian" data="<{$item.menu_id}>" >-</div>
+						<input rel="<{:round($item['ding_price']/100,2)}>" value="<{$item['cart_num']}>" name="num[<{$item['menu_id']}>]" class="txt txt-small num" type="text"  readonly="true" />
+						<div class="txt txt-small radius-small bg-red jia" data="<{$item.menu_id}>">+</div>
+					</div>
+					<div class="del float-right" ><a href="<{:U('ding/delete2',array('menu_id'=>$item['menu_id'],'shop_id'=>$item['shop_id'],'yuyue_id'=>$yuyue_id,'t'=>$nowtime))}>"><i class="icon-remove text-dot"></i></a></div>
+				</div>
+			</li>
+			<php> $total_money+= $item['ding_price'] *  $item['cart_num'];</php>
+			</foreach>
+		</ul>
+	</div>
+	<input type="hidden" name="shop_id" value="<{$shop_id}>">
+	<input type="hidden" name="yuyue_id" value="<{$yuyue_id}>">
+	<script>
+	function changetotal(obj) {
+		var money = obj.parent().find('.num').attr('rel');
+		var num = obj.parent().find('.num').val();
+		var total = money * num;
+		$(".jquery-total-" + obj.attr('data')).html('￥' + total);
+		changealltotal();
+		var rel = obj.parent().attr('rel');
+		var link = '<{:U("ele/changenum",array("product_id"=>"0000","num"=>1111))}>';
+		var url = link.replace('0000',rel);
+			url = url.replace('1111',num);
+			$.get(url,function(){},'html');
+	}
+
+	function changealltotal() {
+		var last = <{:round($detail['since_money']/100,2)}> ;
+		var total_price = 0;
+		var total_num = 0;
+		$(".num").each(function () {
+			total_num += $(this).val()*1;
+			total_price += $(this).val() * $(this).attr('rel');
+			last -= $(this).val() * $(this).attr('rel');
+		});
+		$("#cart-num").html(total_num);
+		$("#jquery-total").html('（点餐：￥' + total_price+')');
+	}
+	$(document).ready(function (e) {
+		$(".jian").click(function () {
+			var v = $(this).parent().find(".num").val();
+			if (v > 1) {
+				v--;
+				$(this).parent().find(".num").val(v);
+			   
+			}
+			changetotal($(this));
+		});
+		$(".jia").click(function () {
+			var v = $(this).parent().find(".num").val();
+			if (v < 99) {
+				v++;
+				$(this).parent().find(".num").val(v);
+			}
+			changetotal($(this));
+		});
+		$(".num").change(function () {
+			if ($(this).val() < 1) {
+				$(this).val('1');
+			}
+			if ($(this).val() > 99) {
+				$(this).val('99');
+			}
+			changetotal($(this));
+		});
+	});
+    </script>
+
+	<nav class="cart-bar">
+		<div class="cart">
+			<i class="icon-shopping-cart"></i> 
+			已点 <span class="cart-num" id="cart-num"><{$cartnum}></span> 
+			<span class="margin-left text-dot text-small">
+				定金<{:round($setting['money']/100,2)}>元<span id="jquery-total">（点餐：￥<{:round($total_money/100,2)}>）</span>
+			</span>
+		</div>
+		<div class="result">
+        
+        <button class="button bg-dot" onClick="$('#ding-form').submit();">结算</a>
+           
+            
+            
+		</div>
+	</nav>
+</form>
+<else/>
+<style>
+.container a {text-align: center;}
+</style>
+
+<div class="line padding border-bottom">
+<span class="text-gray">尊敬的客官：您还未点餐！</span>
+</div>
+<div class="blank-40"></div>
+<div class="container login-open">
+<a href="<{:U('ding/menu',array('shop_id'=>$shop_id,'yuyue_id'=>$yuyue_id))}>" class="button button-block button-big bg-dot">返回点菜</a>                                 
+</div>
+    
+</if>
+<body>
+</html>

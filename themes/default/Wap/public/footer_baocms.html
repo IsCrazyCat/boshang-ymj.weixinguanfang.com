@@ -1,0 +1,83 @@
+<div id="loading">
+    <div class="bao_loading">正在加载中....</div>
+</div>
+<div class="blank">&nbsp;</div>
+<?php if(!$is_app||($ctl =='index'&&$is_app)){?>
+<footer>
+    <div>
+        <a href="<{:U('mobile/index/index')}>"> 
+            <div <if condition="$ctl eq  'index'"> class="icon i-1 on"<else/>class="icon i-1"</if> ></div>
+            <p>首页</p>
+        </a>
+    </div>
+    <div>
+        <a href="<{:U('mobile/tuan/index')}>"> 
+        <div <if condition="$ctl eq  'tuan'"> class="icon i-2 on"<else/>class="icon i-2"</if> ></div>
+        <p>套餐</p>
+        </a>
+    </div>
+    <div>
+        <a href="<{:U('mobile/favorites/index')}>"> 
+        <div <if condition="$ctl eq  'favorites'"> class="icon i-3 on"<else/>class="icon i-3"</if> ></div>
+        <p>关注</p>
+        </a>
+    </div>
+    <div>
+        <a href="<{:U('mcenter/index/index')}>"> 
+        <div <if condition="$ctl eq  'mcenter/index'"> class="icon i-4 on"<else/>class="icon i-4"</if> ></div>
+        <p>我的</p>
+        </a>
+    </div>
+    <div class="foot_more">
+        <!--<a href="<{:U('mcenter/member/index')}>"> </a>-->
+        <div class="icon i-5"></div>
+        <p>更多</p>
+        <div class="foot_more_pull">
+        	<i></i>
+        	<ul>
+        	    <li><a href="<{:U('store/index/index')}>" class="on">商户管理</a></li>
+                    <li><a href="<{:U('wuye/index/index')}>">物业后台</a></li>
+                    <li><a href="<{:U('delivery/index/index')}>">物流后台</a></li>
+                     <li><a href="<{:U('mobile/community/index')}>">小区O2O</a></li>
+                     <li><a href="<{:U('mobile/market/index')}>">商圈O2O</a></li>
+                    <li><a href="<{:U('mobile/index/more')}>">更多服务</a></li>
+    	    </ul>
+        </div>
+    </div>
+</footer>
+<?php }?>
+<div style="display: none;" class="topUp"></div>
+<script>
+    $(document).ready(function () {
+        $(window).scroll(function () {
+            if ($(window).scrollTop() > 100) {
+                $(".topUp").show();
+            } else {
+                $(".topUp").hide();
+            }
+        });
+        $(".topUp").click(function () {
+            $("html,body").animate({scrollTop: 0}, 200);
+        });
+		$(".foot_more").click(function () {
+            $(this).find(".foot_more_pull").toggle();
+        });
+    });
+</script>
+<iframe id="baocms_frm" name="baocms_frm" style="display:none;"></iframe>
+<!--定义编辑器里的table属性开始-请勿删除！！！！-->
+<style>
+.li_table table{ width:100%; text-align:center;}
+footer #jq_total{width:auto;}
+.foot_more{ position:relative; cursor:pointer;}
+.foot_more_pull{display:none; position:absolute; bottom:0.48rem; right:0; width:100%; min-width:0.9rem; background:#fff none; box-shadow:0 0 0.03rem #999;}
+.foot_more_pull ul{position:relative; z-index:1000; background:#fff none;}
+.foot_more_pull i{ position:absolute; z-index:999; bottom:-0.04rem; left:50%; display:inline-block; width:0; height:0; content:''; background:#fff none; width:0.08rem; height:0.08rem; transform:rotate(-45deg);-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);-webkit-transform:rotate(-45deg);-o-transform:rotate(-45deg); box-shadow:0 0 0.03rem #999;}
+.foot_more_pull li{ display:block;}
+.foot_more_pull li a{ display:block; border-bottom:1px solid #dedede; font-size:0.14rem; line-height:0.4rem; color:#333; text-align:center;}
+.foot_more_pull li a.on{ background:#eee none;}
+.foot_more_pull li:last-child a{border-bottom:none 0px;}
+</style>
+<!--定义编辑器里的table属性结束-请勿删除！！！！-->
+</body>
+</html>

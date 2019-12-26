@@ -1,0 +1,154 @@
+<include  file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<div class="mainBt">
+    <ul>
+        <li class="li1">微信</li>
+        <li class="li2">砸金蛋</li>
+        <li class="li2 li3">详情</li>
+    </ul>
+</div>
+<div class="mainScAdd">
+    <div class="tabnr_change  show">
+    	<table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;">
+            <tr>
+                <td class="lfTdBt">商家：</td>
+                <td class="rgTdBt"><{$detail.shop_name}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">关键字：</td>
+                <td class="rgTdBt"><{$detail.keyword|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">封面图片：</td>
+                <td class="rgTdBt"><div class="tuanfabu_nr">
+                <div style="width: 300px;height: 100px; float: left;">
+                    <img id="photo_img" width="80" height="80"  src="<{:config_img($detail['photo'])}>" />
+                </div>
+                </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">活动名称：</td>
+                <td class="rgTdBt"><{$detail.title|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">简介：</td>
+                <td class="rgTdBt"><div class="tuanfabu_nr"><{$detail.use_tips|default=''}></div></td>
+            </tr>
+
+            <tr>
+                <td class="lfTdBt">活动开始时间：</td>
+                <td class="rgTdBt"><{$detail.stime|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">活动结束时间：</td>
+                <td class="rgTdBt"><{$detail.ltime|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">活动说明：</td>
+                <td class="rgTdBt"><{$detail.info|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">没有中奖回复：</td>
+                <td class="rgTdBt"><{$detail.aginfo|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">活动结束公告主题：</td>
+                <td class="rgTdBt"><{$detail.end_tips|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">关键字回复图片：</td>
+                <td class="rgTdBt"><div class="tuanfabu_nr">
+                <div style="width: 300px;height: 100px; float: left;">
+                    <img id="photo_img1" width="80" height="80"  src="<{:config_img($detail['photo'])}>" />
+                </div>
+                </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">一等奖奖品设置：</td>
+                <td class="rgTdBt"><{$detail.fist|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">一等奖奖品数量：</td>
+                <td class="rgTdBt"><{$detail.fistnums|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">二等奖奖品设置：</td>
+                <td class="rgTdBt"><{$detail.second|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">二等奖奖品数量：</td>
+                <td class="rgTdBt"><{$detail.secondnums|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">三等奖奖品设置：</td>
+                <td class="rgTdBt"><{$detail.third|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">三等奖奖品数量：</td>
+                <td class="rgTdBt"><{$detail.thirdnums|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">四等奖中奖设置：</td>
+                <td class="rgTdBt"><{$detail.four|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">四等奖中奖数量：</td>
+                <td class="rgTdBt"><{$detail.fournums|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">五等奖中奖设置：</td>
+                <td class="rgTdBt"><{$detail.five|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">五等奖中奖数量：</td>
+                <td class="rgTdBt"><{$detail.fivenums|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">六等奖中奖设置：</td>
+                <td class="rgTdBt"><{$detail.six|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">六等奖中奖数量：</td>
+                <td class="rgTdBt"><{$detail.sixnums|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">个人限制抽奖次数：</td>
+                <td class="rgTdBt"><{$detail.max_num|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">预计参与人数：</td>
+                <td class="rgTdBt"><{$detail.predict_num|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">每天最多抽奖次数：</td>
+                <td class="rgTdBt"><{$detail.daynums|default=''}></td>
+            </tr>
+
+            <tr>
+                <td class="lfTdBt">粉丝状态</td>
+                <td class="rgTdBt">
+                    <div class="tuanfabu_nr">
+                    <if condition="$detail['follower_condtion'] eq 0">不</if>关注
+                    </div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="lfTdBt">粉丝状态</td>
+                <td class="rgTdBt">
+                	<if condition="$detail['member_condtion'] eq 1">会员</if>
+                	<if condition="$detail['member_condtion'] eq 0">不限</if>
+                </td>
+            </tr>
+        </table>
+        <div class="tuanfabu_an">
+        	<div class="smtQr">
+        		<a class="remberBtn " href="<{:U('weixinlottery/index',array('id'=>$var['id']))}>">返回列表页</a>
+        		<!-- <input type="submit" value="确认发布" class="smtQrIpt" /> -->
+	        </div>
+        </div>
+    </div> 
+</div>
+<include  file='public:footer'/>

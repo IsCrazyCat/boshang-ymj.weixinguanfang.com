@@ -1,0 +1,77 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">微信</li>
+        <li class="li2">商家微信</li>
+        <li class="li2 li3">微信关键字</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <div class="jsglNr">
+        <div class="selectNr" style="border-top: none; margin-top: 0px;">
+            <div class="left">
+                <{:BA('shopweixinkeyword/create','','添加内容')}>  
+            </div>
+            <div class="right">
+                <div class="seleHidden" id="seleHidden">
+                    <form class="search_form" method="post" action="<{:U('shopweixinkeyword/index')}>">
+                        <input type="text"  name="keyword" value="<{$keyword}>" class="inptText"  /><input type="submit" value="   搜索"  class="inptButton" />
+                    </form>
+                </div> 
+                <a href="#" class="searchG">高级搜索</a>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="selectNr selectNr2">
+            <form method="post" action="<{:U('shopweixinkeyword/index')}>">
+                <div class="left">
+                    <div class="seleK">
+                        <span>商家</span>
+                        <input type="hidden" id="shop_id" name="shop_id" value="<{$shop_id|default=''}>"/>
+                        <input type="text"   id="shop_name" name="shop_name" value="<{$shop_name}>" class="text" />
+                        <a class="sumit lt" mini="select"  w="1000" h="600" href="<{:U('shop/select')}>">选择商家</a>
+                        <span class="spanOne">关键词</span>
+                        <input type="text" name="keyword" value="<{$keyword}>"  class="text" />
+                        <input type="submit" value="   搜索"  class="inptButton" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td><input type="checkbox" class="checkAll" rel="keyword_id" /></td>
+                        <td>ID</td>
+                        <td>商家</td>
+                        <td>关键字</td>
+                        <td>类型</td>
+                        <td>内容</td>
+                        <td>操作</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_keyword_id" type="checkbox" name="keyword_id[]" value="<{$var.keyword_id}>" /></td>
+                            <td><{$var.keyword_id}></td>
+                            <td><{$shops[$var['shop_id']]['shop_name']}></td>
+                            <td><{$var.keyword}></td>
+                            <td><{$var.type}></td>
+                            <td><{$var.contents}></td>
+                            <td>
+                                <{:BA('shopweixinkeyword/edit',array("keyword_id"=>$var["keyword_id"]),'编辑','','remberBtn')}>
+                                <{:BA('shopweixinkeyword/delete',array("keyword_id"=>$var["keyword_id"]),'删除','act','remberBtn')}>
+                            </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('shopweixinkeyword/delete','','批量删除','list','a2')}>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>       

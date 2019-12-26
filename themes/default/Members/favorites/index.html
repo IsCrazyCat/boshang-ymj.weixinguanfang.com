@@ -1,0 +1,94 @@
+<include file="public:header"/>
+<style>
+.gray {background: #A5A5A5;}
+</style>
+<div class="content_right">  
+    <div class="tgdd">
+        <div class="tgdd_nr">
+           <div class="blank-20"></div>
+     <table class="tuan_table3" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#F9F9F9;">
+            <td width="35%">商家信息</td>
+            <td width="20%">人均消费（评论数）</td>
+            <td width="45%">操作</td>
+     </table>
+     <div class="blank-10"></div>
+  <volist name="list" id="item">  
+  <table class="tuan_table1" width="100%" border="0">
+  <tbody><tr class="tr_left_2">
+    <td class="left10" colspan="3">
+    收藏编号：<span class="mallorder_jg"><{$item.favorites_id}></span>
+    <span class="td_top_1">收藏时间：<{$item.create_time|date='Y-m-d H:i',###}>  </span></td>
+  </tr>
+  <tr>
+    <td> 
+    
+    <table class="tuan_table2" width="100%" border="0">
+      <tbody>
+      <tr>
+        <td class="left1">
+        
+       <div class="index__production___yfP3y">
+        <a target="_blank" href="<{:u('home/shop/detail',array('shop_id'=>$item['shop_id']))}>" class="index__pic___TScfk">
+        
+        
+        
+        
+        <img src="<{:config_img($shops[$item['shop_id']]['logo'])}>"><span></span></a>
+        <div class="index__infos___A6XLq">
+            <p><a href="<{:u('home/shop/detail',array('shop_id'=>$item['shop_id']))}>" target="_blank"><span></span><span><{$shops[$item['shop_id']]['shop_name']}></span><span></span></a><span></span><span></span></p>
+            <span></span>
+            <p>收藏时间：<{$item.create_time|date='Y-m-d H:i',###}></p>
+            <p>商家电话：<{$shops[$item['shop_id']]['mobile']}></p>
+            <span></span>
+        	</a></div>
+        </div>
+        
+
+        
+        </td>
+
+        <td class="left3"></td>
+       
+      </tr>
+     
+    </tbody></table>    
+    </td>
+    <td class="left7" width="10%">￥<{$prices[$item['shop_id']]['price']}>（<{:round($shops[$item['shop_id']]['score']/10,1)}>）
+     </td>
+
+    <td class="left9" width="50%">
+       <if condition="!empty($item['is_sms'])">
+      	 <a class="myInfor_sx_fk gray" mini='confirm' href="<{:U('favorites/sms',array('favorites_id'=>$item['favorites_id']))}>">取消短信推送</a>
+       <else/>
+       	<a class="myInfor_sx_fk" mini='confirm' href="<{:U('favorites/sms',array('favorites_id'=>$item['favorites_id']))}>">接受短信推送</a>
+       </if>
+       
+       <if condition="!empty($item['is_weixin'])">
+      	 <a class="myInfor_sx_fk gray" mini='confirm' href="<{:U('favorites/weixin',array('favorites_id'=>$item['favorites_id']))}>">取消微信推送</a>
+       <else/>
+       	<a class="myInfor_sx_fk" mini='confirm' href="<{:U('favorites/weixin',array('favorites_id'=>$item['favorites_id']))}>">接受微信推送</a>
+       </if>
+       
+       <if condition="!empty($item['is_msg'])">
+      	 <a class="myInfor_sx_fk gray" mini='confirm' href="<{:U('favorites/msg',array('favorites_id'=>$item['favorites_id']))}>">取消站内信推送</a>
+       <else/>
+       	<a class="myInfor_sx_fk" mini='confirm' href="<{:U('favorites/msg',array('favorites_id'=>$item['favorites_id']))}>">接受站内信推送</a>
+       </if>
+       
+       <a class="myInfor_sx_fk" mini='confirm' href="<{:U('favorites/deletefavo',array('favorites_id'=>$item['favorites_id']))}>">取消关注</a>
+       <a class="myInfor_sx_fk" href="<{:u('home/shop/detail',array('shop_id'=>$item['shop_id']))}>#huodong">查看活动</a>
+    </td>
+  </tr>
+ 
+</tbody>
+</table>
+<br/> 
+</volist>
+            <div class="x"><{$page}></div>
+        </div>
+    </div> 
+</div>
+</div>
+<include file="public:footer"/>
+

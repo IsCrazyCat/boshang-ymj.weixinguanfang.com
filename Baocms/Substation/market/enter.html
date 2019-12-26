@@ -1,0 +1,48 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">当前位置</li>
+        <li class="li2">商场管理</li>
+        <li class="li2 li3">商家入驻</li>
+    </ul>
+</div>
+        <form  target="baocms_frm" action="<{:U('market/enter',array('market_id'=>$detail['market_id']))}>" method="post">
+               <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                   <td class="lfTdBt">商家：</td>
+                 <td  class="rgTdBt">
+                        <div class="lt">
+                            <input type="hidden" id="shop_id" name="shop_id" value="<{$detail.shop_id|default=''}>"/>
+                            <input type="text" id="shop_name" name="shop_name" value="" class="manageInput w150" />
+                        </div>
+                        <a mini="select"  w="1000" h="600" href="<{:U('shop/select')}>" class="remberBtn">选择商家</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">入驻类型：</td>
+                    <td class="rgTdBt"> 
+                        <select id="cate_id" name="cate_id" class="manageSelect w150">
+                            <volist name="types" id="var" key="index">
+                                <option value="<{$index}>" ><{$var}></option>                
+                            </volist>
+                        </select>
+                    </td> 
+                </tr>
+                <tr>
+                    <td class="lfTdBt">入驻楼层：</td>
+                    <td class="rgTdBt"> 
+                        <select id="floor" name="floor" class="manageSelect w150">
+                            <foreach name="floors" item="var">
+                                <option value="<{$var.floor_id}>" ><{$var.floor_name}></option>                
+                            </foreach>
+                        </select>
+                    </td> 
+                </tr>
+            </table>
+                   <div style="margin-left:140px;margin-top:20px">
+             
+                 <input type="submit" value="确认入驻" class="smtQrIpt" />
+            </div> 
+        </form>
+ 
+<include  file='public:footer'/>       

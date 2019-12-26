@@ -1,0 +1,54 @@
+<include file='public:header'/>    
+	<script src="/static/default/wap/other/roll.js"></script>
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('village/detail',array('village_id'=>$detail['village_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<{$detail.name}>意见反馈
+		</div>
+	</header>
+
+	
+    <form class="post-form"  method="post"  action="<{:U('village/suggestion',array('village_id'=>$detail['village_id']))}>"  target="x-frame" >
+		<div class="line border-bottom">
+			<div class="x9 form-title">
+				<input type="text" name="data[title]" value="" placeholder="请输入标题"  />
+			</div>
+                    <div class="x9 form-title">
+				<input type="text" name="data[person]" value="" placeholder="请输入姓名"  />
+			</div>
+                     <div class="x9 form-title">
+				<input type="text" name="data[tel]" value="" placeholder="请输入联系方式"  />
+			</div>
+			
+		</div>
+        
+		<div class="line border-bottom">
+			<textarea class="form-content" name="data[context]" placeholder="填写反馈内容"></textarea>
+                        <br/>
+                        <div class="x3 text-right">
+				<button class="button bg-green margin-small-right" type="submit">提交</button>
+			</div>
+		</div>
+        <div class="text-list">
+		<ul>
+		</ul>
+	</div>
+
+    <script>
+        $(document).ready(function () {
+            loaddata('<{$next}>', $(".text-list ul"), true);
+        });
+    </script>
+    </form>
+	
+
+	<div class="container">
+		<div class="blank-30"></div>
+		<span class="tag bg-dot">小提示</span>
+		<p class="text-small text-gray">在这里您可以向"<{$detail.name}>"反馈问题、提交意见等，还可以故障保修，如果时间紧急您可以拨打电话 <a href="tel:<{$detail.tel}>"><{$detail.tel}></a>！
+		</p>
+	</div>
+	
+<include file='public:footer'/>  

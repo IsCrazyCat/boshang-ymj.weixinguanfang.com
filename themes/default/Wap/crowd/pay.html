@@ -1,0 +1,90 @@
+<include file='public:header'/>    
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('crowd/detail',array('goods_id'=>$order['goods_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			众筹支付订单
+		</div>
+	</header>
+
+<style>
+.icon-angle-right{ float:right; font-size:20px;}
+.padding-top {padding-top: 20px;}
+</style> 
+
+	<form class="pay-form" action="<{:U('crowd/pay2',array('order_id'=>$order['order_id']))}>" method="post"  target="x-frame">
+    <div class="blank-10"></div>
+		<div class="row">
+			<span class="float-left">订单编号：</span>
+			<span class="float-right"><{$order.order_id}></span>
+		</div>
+		<hr />
+		<div class="row">
+			<span class="float-left">付款金额：</span>
+			<span class="float-right">&yen;<{:round($order['need_pay']/100,2)}>元</span>
+		</div>
+		<hr />
+        <div class="row">
+			<span class="float-left">配送费：</span>
+			<span class="float-right"><{:round($order['yunfei']/100,2)}>元</span>
+		</div>
+        <div class="blank-10"></div>
+
+        <if condition="!empty($useraddr)">
+            <div class="blank-10 bg"></div>
+            <div class="row address_bg">
+            <span class="x10">
+                <input type="hidden" name="id" id="id" value="<{$useraddr['id']}>" checked="checked"/><!--应该查找默认地址-->
+                <i class="icon-user"></i> <{:bao_msubstr($useraddr['xm'],0,3,false)}> &nbsp; <i class="icon-mobile"></i> <{$useraddr.tel}> 
+                <p onclick="location='<{:U('address/addlist',array('type'=>crowd,'order_id'=>$order['order_id']))}>'">
+                <{$useraddr.area_str}> <{$useraddr.info}></p>
+             </span>
+              <span class="x2" onclick="location='<{:U('address/addlist',array('type'=>crowd,'order_id'=>$order['order_id']))}>'"><i class="icon-angle-right padding-top"></i></span>
+            </div>
+            <div class="blank-10 bg"></div>
+        </if>
+
+   
+        
+       <!--填写END-->
+
+		<ul id="pay-method" class="pay-method">
+			<foreach name="payment" item="var">
+			<li data-rel="<{$var.code}>" class="media media-x payment">
+				<a class="float-left"  href="javascript:;">
+					<img src="/static/default/wap/image/pay/<{$var.mobile_logo}>">
+				</a>
+				<div class="media-body">
+					<div class="line">
+						<div class="x10">
+						<{$var.name}><p>推荐已安装<{$var.name}><{$var.id}>客户端的用户使用</p>
+						</div>
+						<div class="x2">
+							<span class="radio txt txt-small radius-circle bg-green"><i class="icon-check"></i></span>
+						</div>
+					</div>
+				</div>
+			</li>
+			</foreach>
+		</ul>
+		<input id="code" type="hidden" name="code" value="" />
+		
+		<div class="text-center padding-left padding-right margin-large-top">
+			<button type="submit" class="button button-big button-block bg-yellow  submit">提交订单</button>
+		</div>
+		
+		<div class="blank-20"></div>
+	</form>
+</div>
+<script>
+		$("#pay-method li").click(function(){
+				var code = $(this).attr("data-rel");
+				$("#code").val(code);
+				$("#pay-method li").each(function(){
+					$(this).removeClass("active");
+				});
+				$(this).addClass("active");
+			});
+    </script>
+<iframe id="x-frame" name="x-frame" style="display:none;"></iframe>

@@ -1,0 +1,92 @@
+<include file='public:header'/>  
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('member/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			提现申请
+		</div>
+	</header>
+
+ <!-- 筛选TAB -->
+<style>ul{ padding-left:0px;}</style>
+<ul id="shangjia_tab">
+	<li class="x4"><a href="<{:U('money/index')}>">余额充值</a></li>
+    <li class="x4"><a href="<{:U('cash/index')}>" class="on">申请提现</a></li>
+    <li class="x4"><a href="<{:U('logs/moneylogs')}>" >日志管理</a></li>
+</ul>
+<div class="blank-40 bg"></div>
+
+<!-- 筛选TAB -->
+<div class="line tab-bar">
+	<div class="button-toolbar">
+		<div class="button-group">
+			<a class="block button bg-dot active">申请提现</a>
+			<a class="block button <eq name='aready' value='1'>bg-dot active</eq>" href="<{:LinkTo('cash/cashlog')}>">提现记录</a>
+		</div>
+	</div>
+</div>
+
+    <div class="line padding border-bottom">
+        <span class="x12 text-gray">当前用户：<{$MEMBER['account']}>（<{$MEMBER['nickname']}>）</span>
+		<span class="x12 text-gray">您当前余额：<{$money}>元</span>
+        <if condition="!empty($CONFIG[cash][user_cash_commission])">
+        <span class="x12 text-dot">当前提现手续费：<{$CONFIG[cash][user_cash_commission]}>%</span>
+        </if>
+        
+	</div>
+
+    <form action="<{:U('cash/index')}>" method="post" target="x-frame">
+	<div class="line padding border-bottom">
+		<span class="x3 text-gray">提现金额：</span>
+		<span class="x5"><input type="text" name="money" id="money" class="text-input" ></span>
+		<span class="x4"><em class="text-small text-gray">
+        <if condition="!empty($cash_money)">
+        单笔最少<{$cash_money}>元<br/>
+        </if>
+        <if condition="!empty($cash_money_big)">
+        单笔最多<{$cash_money_big}>元
+        </if>
+        <em></span>
+	</div>
+<!--	<div class="line padding border-bottom">-->
+<!--		<span class="x3 text-gray">开户银行：</span>-->
+<!--		<span class="x9"><input type="text" name="bank_name" id="bank_name" class="text-input"  value="<{$info.bank_name}>"  placeholder="请输入开户银行" ></span>-->
+
+<!--	</div>-->
+<!--    <div class="line padding border-bottom">-->
+<!--		<span class="x3 text-gray">银行账号：</span>-->
+<!--		<span class="x9"><input type="text" name="bank_num" id="bank_num" class="text-input"  value="<{$info.bank_num}>"   placeholder="请输入银行账户" ></span>-->
+
+<!--	</div>-->
+<!--    <div class="line padding border-bottom">-->
+<!--		<span class="x3 text-gray">具体支行：</span>-->
+<!--		<span class="x9"><input type="text" name="bank_branch" id="bank_branch" class="text-input"   value="<{$info.bank_branch}>"  placeholder="请输入具体支行名字" ></span>-->
+
+<!--	</div>-->
+<!--    <div class="line padding border-bottom">-->
+<!--		<span class="x3 text-gray">开户名：</span>-->
+<!--		<span class="x9"><input type="text" name="bank_realname" id="bank_realname" class="text-input"  value="<{$info.bank_realname}>"  placeholder="输入开户名" ></span>-->
+
+<!--	</div>-->
+<!--    -->
+<!--	<div class="container">-->
+<!--		<div class="blank-30"></div>-->
+<!--		<p><span class="text-dot">小提示：</span> 请您仔细核对您的提现信息!</p>-->
+<!--	</div>-->
+	<div class="container">
+		<div class="blank-30"></div>
+            <eq name="money" value="0">
+            <button class="button button-big button-block bg-gray">您的余额不足</button>                                     
+            <else/>
+            <button class="button button-big button-block bg-dot">确认申请</button>
+            </eq>   
+		
+		<div class="blank-30"></div>
+	</div>
+</form>
+
+
+	
+<include file='public:footer'/>  
+

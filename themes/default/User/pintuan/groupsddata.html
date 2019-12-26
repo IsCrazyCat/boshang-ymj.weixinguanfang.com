@@ -1,0 +1,89 @@
+<foreach name="list" item="var">
+
+<li class="line ">
+        <dt>
+        <a class="x3">
+        <if condition="$var['order_status'] eq 1">
+        待支付订单
+		<elseif condition="$var['order_status'] eq 6" />
+        已取消订单
+		<else />
+		<{$Tstatus[$var['tstatus']]}>：<{$var.order_no}>
+        </if>
+        </a>
+        <a class="x9 text-right">下单时间：<{$var.order_time|date='Y-m-d H:i:s',###}></span> </a>
+        </dt>
+        
+
+      
+  		<dd class="zhong">
+            <div class="x4">
+               <img src="<{:config_img($Pgoods[$var['goods_id']]['goods_pic'])}>" width="70" height="70">
+            </div>
+            <div class="x8">
+                <p><a href="<{:u('wap/pintuan/detail',array('id'=>$var['goods_id']))}>"><{$Pgoods[$var['goods_id']]['name']}></a></p>
+                <p class="text-small">
+                <span class="text-dot1 margin-right">成团价：￥<{:round($var['goods_price']/100,2)}>/<{$Pgoods[$var['goods_id']]['goods_unit']}> </span></span>
+                </p>
+                
+            <p class="text-small">
+            <if condition="$good['mobile_fan'] gt 0">
+		    <span class="text-dot1 margin-right">手机下单立减：<span class="text-dot"><{:round($good['mobile_fan']/100,2)}>元</span>
+            </if>
+			</p>
+
+         
+          </div>
+         </dd>
+       
+    
+         <!--<dt>
+             <div class="x12">
+             <span class="margin-right"><eq name="order.is_daofu" value="1">金额：<{:round($need_pay/100,2)}>（到付）<else/>
+             实际支付：
+             <eq name="order.status" value="0">
+             未支付
+             <else/>
+             <a class="text-dot">￥<{:round($order['need_pay']/100,2)}></a> 元
+             </eq>
+             </eq></span>
+          
+             <span>运费：
+             <if condition="$order['total_express'] eq 0">
+             免邮
+             <else/>
+             ￥<{:round($order['total_express']/100,2)}>元
+             </if>
+             </span>
+             </div>
+         </dt> -->  
+			
+        
+      
+      <dl>
+          <p class="text-right padding-top x12">
+          <if condition="$var['order_status'] eq 1">
+             <a class="button button-small bg-dot">待支付(<{$var.renshu|default='1'}>人团)</a>
+             <a class="button button-small bg-dot" href="<{:u('wap/pintuan/buy', array('tstatus' => $var['tstatus'], 'tuan_id' => $var['tuan_id'], 'tlevel' => $tlevel, 'id' => $var['goods_id'], 'order_id' => $var['id']))}>">去支付</a>
+             <a target="x-frame" class="button button-small bg-gray" href="<{:U('pintuan/quxiao',array('id'=>$var['id']))}>">取消订单</a>
+             
+             
+          <else />
+          	<if condition="$var['tstatus'] eq 0">
+              <a class="button button-small bg-blue"><{$orderStatus[$var['order_status']]}></a> 
+              <a class="button button-small bg-blue" href="<{:U('pintuan/order',array('id'=>$var['id']))}>">订单详情</a>  
+            <else /> 
+            <a class="button button-small bg-blue"><{$orderStatus[$var['order_status']]}>(<{$var.renshu|default='1'}>人团)</a>
+            <a class="button button-small bg-blue" href="<{:U('pintuan/order',array('id'=>$var['id']))}>">订单详情</a>   
+            <a class="button button-small bg-blue" href="<{:u('wap/pintuan/detail',array('id'=>$var['goods_id']))}>">拼团详情</a>     
+          </p>
+          </if>
+        </if>
+    </dl>
+    </li>
+    <div class="blank-10 bg"></div>
+
+
+</foreach>
+
+		

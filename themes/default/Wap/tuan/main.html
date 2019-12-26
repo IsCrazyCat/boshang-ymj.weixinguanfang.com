@@ -1,0 +1,88 @@
+<include file="public:header"/>
+
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			在线套餐
+		</div>
+		<div class="top-search" style="display:none;">
+			<form method="post" action="<{:U('tuan/index')}>">
+				<input name="keyword" placeholder="输入团购的关键字"  />
+				<button type="submit" class="icon-search"></button> 
+			</form>
+		</div>
+		<div class="top-signed">
+			<a id="search-btn" href="javascript:void(0);"><i class="icon-search"></i></a>
+		</div>
+	</header>
+	<script>
+	$(function(){
+		$("#search-btn").click(function(){
+			if($(".top-search").css("display")=='block'){
+				$(".top-search").hide();
+				$(".top-title").show(200);
+			}
+			else{
+				$(".top-search").show();
+				$(".top-title").hide(200);
+			}
+		});
+	});
+	</script>
+
+<style>
+.main-cate{overflow:auto}
+.main-cate td{padding:0}
+.main-cate a{display:block;width:100%;text-align:center;padding:10px 0}
+.main-cate p{margin:0;padding:5px 0}
+.main-cate img{width:40%}
+.table-bordered li{width:25%;float:left;list-style-type:none; border-right:1px solid #eee; border-bottom:1px solid #eee;}
+.wap_tuan_main_ad_padding{padding:10px 10px!important}
+.wap_tuan_main_ad{width:100%}
+.wap_tuan_main_ad a{display:block;overflow:hidden;width:100%;margin:0;padding:0;height:auto;line-height:.8}
+.wap_tuan_main_ad img{width:100%;overflow:hidden}
+</style>
+    <div class="blank-10 bg"></div>
+    <div class="main-cate">
+		<div class="table table-bordered border-x-none">
+            <php>$a = 0;$b = 60;</php>
+            <volist name="tuancates" id="item">
+                <eq name="item.parent_id" value="0">
+                <php>$a++;$b++;</php>    
+                <if condition="$a lt 9"> 
+                    <li class="border-top-none">
+                    <a href="<{:U('tuan/index',array('cat'=>$item['cate_id']))}>">
+                        <img src="/static/default/wap/image/mall/cate-<{$b}>.png" /><p><{:bao_Msubstr($item['cate_name'],0,2,false)}></p>
+                    </a>
+                    </li>
+				</if>
+                </eq>
+            </volist> 
+		</div>
+	</div>
+	<div class="blank-10 bg"></div>
+        
+        <div class="wap_tuan_main_ad wap_tuan_main_ad_padding">
+        <calldata mdl="Ad" where="closed=0 AND site_id=68 and bg_date ELT '{$today}' AND end_date EGT '{$today}' " limit="0,1" cache="43200" order="orderby asc">
+	      <a class="external" href="<{:U('app/ad/click',array('ad_id'=>$item['ad_id'],'aready'=>2))}>" title="banner1"><img src="<{:config_img($item['photo'])}>"></a>	
+	   </calldata>
+              
+		</div>
+	
+    
+
+	<div class="line-title bg">
+		<h5>精选团购</h5>
+	</div>
+
+    <div class="main-tuan">
+		<ul id="tuan-list"></ul>
+	</div>
+    <script>
+        $(document).ready(function () {
+            loaddata('<{:U("tuan/push",array("t"=>$nowtime))}>', $("#tuan-list"));
+        });
+    </script>
+<include file='public:footer'/>      		

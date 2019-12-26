@@ -1,0 +1,16 @@
+<!doctype html>
+<html>
+<head>
+<{include file="block/sheader.html"}>
+<link href="/themes/default/weixin/static/style/leaflets.css" rel="stylesheet" type="text/css">
+</head>	
+<body id="leaflets">
+	<div class="container body">
+    	<h1><{$weixin.addon.leaflets.title}></h1>
+        <div class="qrcode"><img src="<{$pager.img}>/<{$weixin.addon.leaflets.photo}>"/></div>
+        <div class="qr_tips">请使用微信扫描二维码关注此公众号</div>
+        <div class="desc"><{$weixin.addon.leaflets.content}></div>
+        <p class="copyright">©<{$weixin.addon.leaflets.copyright}></p>
+    </div>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">功能</li>
+        <li class="li2">商场管理</li>
+        <li class="li2 li3">添加商场</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span></p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('market/create','','新增商场')}>
+            </div>
+            <div class="right">
+                <form class="" method="post"  action="<{:U('market/index')}>"> 
+                    <div class="seleHidden" id="seleHidden">
+                       
+                        <span> 关键字(电话或商场名称) </span>
+                        <input type="text"  class="inptText" name="keyword" value="<{$keyword}>"  />
+
+                        <input type="submit" value=" 搜索"  class="inptButton" />
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="market_id" /></td>
+                        <td class="w50">ID</td>
+                        <td>所在区域商圈</td>
+                        <td>商场名称</td>
+                        <td>商场标签</td>
+                        <td>商场LOGO</td>
+                        <td>商场电话</td>
+                        <td>入住时间</td>
+                        <td>操作</td>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_market_id" type="checkbox" name="market_id[]" value="<{$var.market_id}>" /></td>
+                            <td> <{$var.market_id}></td>
+                            <td><{$areas[$var['area_id']]['area_name']}>-<{$business[$var['business_id']]['business_name']}></td>
+                            <td><{$var.market_name}></td>
+                            <td><{$var.tags}></td>
+                            <td><img src="__ROOT__/attachs/<{$var.logo}>" class="w80" /></td>
+                            <td><{$var.tel}></td>
+                            <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                            <td>
+                                <{:BA('market/edit',array("market_id"=>$var["market_id"]),'编辑','','remberBtn')}>
+                                <{:BA('market/delete',array("market_id"=>$var["market_id"]),'删除','act','remberBtn')}>
+                                <{:BA('market/floor',array("market_id"=>$var["market_id"]),'楼层设置','','remberBtn')}>
+                                <{:BA('market/enter',array("market_id"=>$var["market_id"]),'商家入驻','','remberBtn')}>
+                                <{:BA('market/enterlist',array("market_id"=>$var["market_id"]),'查看入驻','','remberBtn')}>
+                            </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('market/delete','','批量删除','list','a2')}>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>  
+

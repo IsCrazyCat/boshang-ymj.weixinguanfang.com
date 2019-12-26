@@ -1,0 +1,70 @@
+<{assign var="tpl_title" value="绑定帐号"}>
+<{include file="weixin/block/header.html"}>
+<div class="ui-form ui-border-t loginBForm">
+    <form action="<{link ctl='weixin/zxpm/site:bind'}>" method="post">         
+        <div class="ui-form-item ui-form-item-pure ui-border-b">
+            <input type="tel" name="mobile" id="account_mobile" placeholder="请输入手机号">
+        </div>       
+        <div class="ui-form-item ui-form-item-r ui-border-b">
+            <input type="tel" name="verify_code" pattern="[0-9]*" placeholder="请输入验证码" id='verify'>
+            <button type="button" class="ui-border-l fontcl2" onclick="checkVerify()" id='vtxt'>发送验证码</button>
+        </div>
+        <div class="ui-btn-wrap">
+            <button type="button" class="ui-btn-lg greenBtn" style="color:#FFFFFF" onclick="check()">绑定手机</button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+var phone,verify,regExp =/^(1[3|5|8|7][0-9]{9})$/,regExp1= /^(\d{6})$/,delay=60,data={};
+function check(){
+    phone  = document.querySelector('#account_mobile').value,
+    verify = document.querySelector('#verify').value;
+    if(!regExp.test(phone)){
+        alert('手机号码不正确');
+    }else if(!regExp1.test(verify)){
+        alert('验证码不合法');
+    }else{ 
+        data['mobile'] = phone;
+        data['verify'] = verify;
+        $.post("<{link ctl='weixin/zxpm/site:bind' http='base'}>",{data:data},function(respone){
+            if(ret.error){
+                alert(ret.message.join(","));
+            }else{
+                alert("绑定帐号成功");
+                window.location.href = "<{link ctl='weixin/zxpm/site:index'}>";                
+            }
+        },'json');
+    }
+}
+var is_send = true;
+function checkVerify(){
+    if(!is_send)return false;
+    phone = document.querySelector('#account_mobile').value;
+    if(!regExp.test(phone)){
+        alert('手机号码不正确');
+        return false;
+    }
+    $.post("<{link ctl='weixin/zxpm/site:sendverify' http="base"}>",{mobile:phone},function(ret){
+        interval();
+        if(ret.error){
+            alert(ret.message.join(','));
+        }
+    },'json');
+}
+function interval(){
+    delay = 60;
+    var vtxt = document.querySelector('#vtxt');
+    window.interval = setInterval(function(){
+        if(delay>0){
+            is_send=false;
+            vtxt.innerHTML = '剩余'+delay+'秒';
+        }else{
+            is_send = true;
+            vtxt.innerHTML = '发送验证码';
+            window.clearInterval(window.interval);
+        }
+        delay--;
+    },1000);
+}   
+</script>
+<{include file="weixin/block/footer.html"}>

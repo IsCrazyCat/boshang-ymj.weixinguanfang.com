@@ -1,0 +1,64 @@
+<php>$mobile_title = $detail['title'];</php>
+<include  file='public:header'/>  
+<style>
+body{background-color:#f0efed;}
+#topic{ margin-top:2rem;}
+.single_list .list_box .box_con .message .mes_con {margin-top: 15px !important;}
+.single_list .list_box .box_con .message .mes_con .board .text_area_la {font-size: 12px;}
+.icon {background-size: 1000px auto;}
+</style> 
+<link rel="stylesheet" type="text/css" href="/static/default/wap/css/crowd_detail.css">
+	<header class="top-fixed bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('crowd/detail',array('goods_id'=>$detail['goods_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<{:bao_msubstr($detail['title'],0,8)}>
+		</div>
+       <div class="top-signed">
+		</div>
+	</header>  
+    
+    
+      <ul id="shangjia_tab">
+        <li class="x3"><a href="<{:U('crowd/detail',array('goods_id'=>$detail['goods_id']))}>" <if condition="$act eq 'detail'">class="on"</if> >首页</a></li>
+        <li class="x3"><a href="<{:U('crowd/details',array('goods_id'=>$detail['goods_id']))}>" <if condition="$act eq 'details'">class="on"</if> >详情</a></li>
+        <li class="x3"><a href="<{:U('crowd/projectprogress',array('goods_id'=>$detail['goods_id']))}>" <if condition="$act eq 'projectprogress'">class="on"</if> >进展</a></li>
+        <li class="x3"><a href="<{:U('crowd/ask_list',array('goods_id'=>$detail['goods_id']))}>" <if condition="$act eq 'ask_list'">class="on"</if> >话题</a></li>
+    </ul>  
+    
+   
+<div id="topic">
+<div id="anchor"></div>
+    <foreach name="list" item="var">
+        <div class="crowd_dialog">
+            <div class="dialog_con">
+                <div class="head">
+                    <span class="head_img"><img src="<{:config_img($userss[$var['uid']]['face'])}>"></span>
+                    <span class="head_tit"><{:config_user_name($userss[$var['uid']]['nickname'])}></span>
+                </div>
+                <div class="exp"><span name="topicContent"><{$var.ask_c}></span></div>
+                <div class="icon_area">
+                    <div class="time"><span><i class="icon pl"></i> <{:formatTime($var['dateline'])}></span></div>
+                </div>
+                <if condition="!empty($var['answer_c'])">
+                    <div class="con_line"><i></i></div>
+                    <div class="con_return">
+                        <span class="return_tit"><{:config_user_name($users[$detail['user_id']]['nickname'])}></span>
+                        <span class="return_con"><{$var.answer_c}> <i class="date"><{:formatTime($var['answer_time'])}></i><em></em></span>
+                    </div>
+                </if>
+            </div>
+        </div>
+    	</div>
+    </foreach> 
+<div class="topic">
+    <div class="topic_con">
+         <form class="chat-form padding" method="post" target="x-frame" action="<{:U('crowd/ask',array('goods_id'=>$detail['goods_id']))}>" />
+             <span class="icon shuru"></span>
+             <span><input name="ask_c" id="ask_c" type="text" class="ask_c"></span>
+             <span><input type="submit" id="jquery-send" class="start" value="发起话题" /></span>
+         </form>
+    </div>
+</div>
+<iframe id="x-frame" name="x-frame" style="display:none;"></iframe>

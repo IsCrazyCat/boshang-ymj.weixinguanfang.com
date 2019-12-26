@@ -1,0 +1,34 @@
+<include  file='public:header'/>
+
+  
+     
+     
+<div class="main">
+    <div class="mainBt">
+        <ul>
+        <li class="li1">消息</li>
+        <li class="li2">分站通知</li>
+        <li class="li2 li3">消息详情</li>
+    </ul>
+    </div>
+    <div class="mainNr">
+        
+        <div class="center">
+            <div class="mainC1">
+                <div class="title"><{$detail.title}></div>
+                <div class="nr">
+                    <div class="cen">
+                        消息描述： <{$detail.intro}>
+                        消息详情：<{$detail.details}>
+                        发布时间：<{$detail.create_time|date='Y-m-d H:i',###}>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+<include  file='public:footer'/>
+

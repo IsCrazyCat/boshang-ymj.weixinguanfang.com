@@ -1,0 +1,192 @@
+<include file="public:header" /> 
+<include file="public:topOne" />
+<style>
+.layui-layer-rim{ width:90% !important}
+.layui-layer-page .layui-layer-content{ padding:20px;}
+.layui-layer-page .layui-layer-content input[type='password']{ width:100%; height:36px; border:1px solid #ccc; background:#fff; margin-bottom:10px; text-indent:10px; font-size:14px;}
+.layui-layer-page .layui-layer-content input[type='button']{ width:100%; height:40px; border:none; background:#656565; color:#fff; font-size:16px;cursor:pointer}
+.reset_password{cursor:pointer}
+.layui-layer-page .layui-layer-content input.blue{background:#33b095;}
+.layui-layer-page .layui-layer-content p{ line-height:28px; color:#999;}
+.layui-layer-page .layui-layer-content .check_box{ overflow:hidden; margin-bottom:5px;}
+.layui-layer-page .layui-layer-content .check_box label{ display:block; float:left; margin-right:20px; margin-bottom:10px;}
+</style>
+<div class="between">
+    <div class="middle">
+        <div class="all">
+            <div class="all_2">
+                <ul>
+                    <li class="on">1.提交订单<em>&nbsp;</em></li>
+                    <li class="on">2.去支付<em>&nbsp;</em></li>
+                    <li>3.完成<em>&nbsp;</em></li>
+                </ul>               
+            </div>
+            <div class="all_3">
+                <ul class="ul_3">
+                    <li><img src="__TMPL__statics/images/tp_5.png"><p>随时退</p></li>
+                    <li><img src="__TMPL__statics/images/tp_6.png"><p>不满意免单</p></li>
+                    <li><img src="__TMPL__statics/images/tp_7.png"><p>过期退</p></li>
+                </ul>
+            </div>               
+        </div>
+        <div class="clear"></div>
+        <div class="mode_dingdan">
+            <table class="order" width="100%">
+                <tr>
+                    <th>订单编号</th>
+                    <th>支付类型</th>
+                    <th>支付方式</th>
+                    <th>需要支付</th>
+                </tr>
+                <tr>
+                    <td><{$logs.log_id}></td>
+                    <td><{$types[$logs['type']]}></td>
+                    <td><{$paytype[$logs['code']]['name']}></td>
+                    <td>￥<{:round($logs['need_pay']/100,2)}></td>
+                </tr>
+            </table>
+            <div class="rights payButton">
+                <input id="type" type="hidden" name="log_id" id="log_id" value="<{$logs.log_id}>" />
+                <if condition = "$paytype[$logs['code']]['code'] != money"><{$button}></if>
+                <if condition = "$paytype[$logs['code']]['code'] == money">
+                	<if condition = "!empty($user_pay_password)">
+                		<input type="button" class="payment check_new_password" value="立刻支付">
+                    <else/>
+                    	<input type="button" class="payment add_pay_password" value="设置支付密码">
+                    </if>
+                </if>
+                
+                <input type="button" value="更换支付方式" class="change"/>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        var url = "<{$url}>";
+        $(".change").click(function () {
+            layer.msg("正在跳转，请稍候", {shift:0}, function () {
+                setTimeout(function () {
+                    window.location.href = url;
+                }, 500)
+            });
+        })
+    })
+</script>
+<if condition = "$paytype[$logs['code']]['code'] == money">
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        var user_pay_password = "<{$user_pay_password}>";
+        if (user_pay_password == '' || user_pay_password == null) {
+             add_pay_password();
+         }else{
+			 check_pay_password();
+		 }
+		 
+		 
+	    $(".check_new_password").click(function () {
+             check_pay_password();
+        });
+		$(".add_pay_password").click(function () {
+             add_pay_password();
+        });
+    })
+	
+	
+	
+		function check_pay_password() {
+			layer.open({
+						type: 1,
+						title:'请输入支付密码1',
+						skin: 'layui-layer-rim', //加上边框
+						area: ['90%', '280px'], //宽高
+						content: '<input type="password" class="pay_password" name="pay_password" placeholder="请输入支付密码" value=""/><input type="button" class="sure_das" value="确认支付"/><p>请先输入支付密码后操作</p><a class="reset_password">忘记密码？</a>',
+					  });
+			$('.layui-layer-title').css('color', '#ffffff').css('background', '#2fbdaa');
+		
+		}
+		
+		$(document).on('click','.reset_password',function(){
+                layer.msg('正在带您去修改密码，请稍后', function(){
+					setTimeout(function () {
+						window.location.href = "<{:U('user/info/pay_password')}>";
+					}, 1000);
+				});
+          })
+			
+			
+
+            $(document).on('click','.sure_das',function(){
+                var url = "<{:U('payment/check_pay_password')}>";
+                var user_id = "<{$MEMBER['user_id']}>";
+                var pay_password = $(".pay_password").val();
+				
+                    $.post(url,{user_id:user_id,pay_password:pay_password},function(data){
+                        if(data.status == 'error'){
+                            layer.msg(data.msg);
+							$('.sure_das').removeClass("blue");
+                        }else{
+							$('.sure_das').addClass("blue");
+							layer.msg('支付密码验证成功，正在为您跳转支付', function(){
+								setTimeout(function () {
+								   window.location.href = "<{:U('members/pay/pay',array('logs_id'=>$logs['log_id']))}>";
+								}, 1000);
+							});
+                        }
+                    },'json')
+
+            })
+
+	
+		function add_pay_password() {
+			layer.open({
+						type: 1,
+						title:'设置支付密码',
+						skin: 'layui-layer-rim', //加上边框
+						area: ['90%', 'auto'], //宽高
+						content: '<input type="password" class="pay_password" name="pay_password" placeholder="设置支付密码" value=""/><input type="button" class="sure_pay_password blue" value="确认设置"/><p>您还没有支付密码，请先设置支付密码</p>',
+					  });
+			$('.layui-layer-title').css('color', '#ffffff').css('background', '#2fbdaa');
+		}
+		
+		 $(document).on('click','.sure_pay_password',function(){
+                var url = "<{:U('payment/set_pay_password')}>";
+                var user_id = "<{$MEMBER['user_id']}>";
+                var pay_password = $(".pay_password").val();
+                    $.post(url,{user_id:user_id,pay_password:pay_password},function(data){
+                        if(data.status == 'error'){
+                            layer.msg(data.msg);
+                        }else{
+							layer.msg('支付密码设置成功', function(){
+								setTimeout(function () {
+								    window.location.reload();
+								}, 1000);
+							});
+                        }
+                    },'json')
+
+            })
+	
+		
+</script>
+</if>
+<if condition = "$paytype[$logs['code']]['code'] == native">
+<script type="text/javascript" language="javascript">
+$(document).ready(function(){
+    function check(){
+        $.post('<{:U("payment/check",array("log_id"=>$logs["log_id"]))}>',{is_post:1},function(result){
+            if (result.status == 'success') {
+				layer.msg(result.msg);
+					   window.location.href = "<{:U('members/index/index')}>";
+				} else {
+					 layer.msg(result.msg);
+				}
+              },'json');
+            }
+   setInterval(function(){
+       check();
+   },5000);//自动查询有问题的
+})
+</script>
+</if>
+<include file="public:footer"/>

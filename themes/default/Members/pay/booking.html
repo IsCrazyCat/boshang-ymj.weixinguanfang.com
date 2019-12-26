@@ -1,0 +1,72 @@
+<include file="pay:top"/>  
+            <div class="between">
+                <div class="middle" style="margin-bottom: 40px;">
+                    <div class="all">
+                        <div class="all_2">
+                            <ul>
+                                <li>1.提交订单<em>&nbsp;</em></li>
+                                <li>2.去支付<em>&nbsp;</em></li>
+                                <li class="on">3.完成<em>&nbsp;</em></li>
+                            </ul>               
+                        </div>
+                        <div class="all_3">
+                            <ul class="ul_3">
+                                <li><img src="__TMPL__statics/images/tp_5.png"><p>随时退</p></li>
+                                <li><img src="__TMPL__statics/images/tp_6.png"><p>不满意免单</p></li>
+                                <li><img src="__TMPL__statics/images/tp_7.png"><p>过期退</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <table  class="tab_bor">
+                        <tr>
+                            <td><p class="tab_p1"><img src="__TMPL__statics/images/tp_15.png"></p></td>
+                            <td><p class="tab_p2"><{$message}><a href="<{:U('home/booking/index')}>"> &nbsp再去逛逛>></a></p></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><div class="tab_p4"><a href="<{:U('members/booking/index')}>">查看已订订单</a></div></td>
+                        </tr>
+                    </table>
+                    <table class="tab_xx" width="100%">
+                        <tr>
+                            <th colspan="5">订单信息</th>
+                        </tr>
+                        <tr>
+                            <td>订单编号：<{$order.order_id}></td>
+                            <td>地点:<{$shop.addr}></td>
+                            <td>付款方式：<{$paytype[$detail['code']]['name']}></td>
+                            <td>预约时间：<{$order.ding_date}>&nbsp;&nbsp;<{$order.ding_time}></td>
+                        </tr>
+                        
+                          <tr>
+                            <td>预计人数：<{$order.ding_num}> </td>
+                             <td>支付定金： <{:round($detail['need_pay']/100,2)}> 元 &nbsp;&nbsp; (<if condition="$order['order_status'] eq 1"> 未消费 <elseif condition="$order['order_status'] eq 2"/> 已消费 <elseif condition="$order['order_status'] eq -1"/> 已退款 <else/>未支付</if>) </td>
+                             <td>联系人: <{$order.name}> &nbsp;（<if condition="$order['sex'] eq 2">女士<else/>先生</if>） </td>
+                              <td>电话：<{$order.mobile}>  </td>
+                        </tr>
+                     </table>
+                     <table class="tab_xx" width="100%">
+                        <tr>
+                            <td width="20%"><p class="tuanfabu_nr">菜名</p></td>
+                            <td width="20%"><div class="tuanfabu_nr">缩略图</div></td>
+                            <td width="20%"><p class="tuanfabu_nr">单价</p></td>
+                            <td width="20%"><p class="tuanfabu_nr">数量</p></td>
+                             <td width="20%"><p class="tuanfabu_nr">总价</p></td>
+                        </tr>
+                        <volist name="dingmenu" id="item">
+                            <tr>
+                                <td width="20%"><{$item['menu_name']}></td>
+                                <td width="20%"><img style="margin: 10px auto; width: 120px;" src="<{:config_img($menus[$item['menu_id']]['photo'])}>" /></td>
+                                <td width="20%">￥<{:round($item['price']/100,1)}></td>
+                                <td width="20%"><{$item.num}></td>
+                                 <td width="20%">￥<{:round($item['amount']/100,1)}></td>
+                            </tr>
+                        </volist>
+                       
+                        <tr>
+                            <td colspan="4">&nbsp;</td>
+                            <td><p class="pay_total_p">支付定金：<span>￥<{:round($detail['need_pay']/100,2)}></span></p></td>
+                        </tr>
+                    </table>      
+                </div>
+            </div>
+            <include file="public:footer"/>

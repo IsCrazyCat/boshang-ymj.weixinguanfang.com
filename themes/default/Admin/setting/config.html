@@ -1,0 +1,36 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">常用功能</li>
+        <li class="li2 li3">功能设置</li>
+    </ul>
+</div>
+<div class="main-cate">
+    <p class="attention"><span>注意：</span>这里配置的是网站常用API，以及其他的设置，以后不知道分来的尽量写在这里</p>
+</div>       
+<div class="mainScAdd">
+    <div class="tableBox">
+        <form  target="baocms_frm" action="<{:U('setting/config')}>" method="post">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+              
+                <tr>
+                    <td class="lfTdBt" >快递100API：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[express_api]" value="<{$CONFIG.config.express_api}>" class="scAddTextName " />
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="lfTdBt" >百度LBS地图API：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[baidu_map_api]" value="<{$CONFIG.config.baidu_map_api}>" class="scAddTextName " />
+                    </td>
+                </tr>
+               
+            </table>
+            <div class="smtQr"><input type="submit" value="确认添加" class="smtQrIpt" /></div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>       

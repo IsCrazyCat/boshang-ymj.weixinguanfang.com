@@ -1,0 +1,42 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:u('community/detail',array('community_id'=>$detail['community_id']))}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			入驻（<{$detail.name}>）小区
+		</div>
+	<div class="top-signed">
+		<!--<a href="<{:u('wap/message/index')}>"><i class="icon-envelope"></i></a>-->
+	</div>
+</header>
+
+
+<form action="<{:u('community/owner',array('community_id'=>$detail['community_id']))}>" method="post" target="x-frame">
+	<div class="line padding border-bottom">
+		<span class="x3 text-gray">当前用户</span>
+		<span class="x9"><{$MEMBER['account']}>（<{$MEMBER['nickname']}>）</span>
+	</div>
+	<div class="line padding border-bottom">
+		<span class="x3 text-gray">具体地址</span>
+		<span class="x9"><input type="text" name="location" id="location" class="text-input"></span>
+	</div>
+	<div class="line padding border-bottom">
+		<span class="x3 text-gray">姓名</span>
+		<span class="x6"><input type="text" name="name" id="name" class="text-input"></span>
+		<span class="x3"><em class="text-small text-gray">输入您的称呼<em></span>
+	</div>
+	<div class="container">
+		<div class="blank-30"></div>
+		<p><span class="text-dot">重要提示：</span> 请您一定要认真填写相关信息哦~地址范例：13栋1号楼204</p>
+	</div>
+	<div class="container">
+		<div class="blank-30"></div>
+		<button class="button button-big button-block bg-dot">提交修改</button>
+		<div class="blank-30"></div>
+	</div>
+</form>
+
+      
+
+<include  file='public:footer'/> 

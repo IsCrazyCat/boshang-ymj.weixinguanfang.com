@@ -1,0 +1,47 @@
+<include  file='public:header'/>    
+<link rel="stylesheet" href="/static/default/wap/css/mcenter.css">
+<body>
+   <header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="javascript:history.back();"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			恭喜！完成支付 
+		</div>
+	</header>  
+
+  
+  
+  
+  
+ <div class="blank-10 bg"></div>
+<div class="panel-list">
+	<ul>
+		<li><a href="javascript:;">付款编号：<{$detail.order_id}></a></li>
+		<li><a href="javascript:;">付款时间：<{$detail.create_time|date='Y-m-d H:i',###}></a></li>
+		<li><a href="javascript:;">付款方式：<{$paytype[$detail['code']]['name']}></a></li>
+        <li><a href="javascript:;">结算价格：<em>￥<{:round($detail['need_pay']/100,2)}></em></a></li>
+        
+        <li><a href="javascript:;">地址：<{$citys[$addr['city_id']]['name']}>&nbsp;<{$areas[$addr['area_id']]['area_name']}>&nbsp;<{$bizs[$addr['business_id']]['business_name']}>&nbsp;<{$addr['addr']}></a></li>
+       
+	</ul>
+</div>
+
+
+<div class="blank-30"></div>
+<div class="line text-center">
+	<a class="button bg-dot" href="<{:u('user/goods/detail',array('order_id'=>$detail['order_id']))}>">查看详情</a>
+	<a class="button bg-main" href="<{:u('wap/mall/index')}>">继续逛逛</a>
+</div>
+<div class="blank-20"></div>     
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+<include  file='public:footer'/>    

@@ -1,0 +1,102 @@
+<include  file='public:header'/>
+<style>.lfTdBt {width: 200px;}</style>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">模板设置</li>
+        <li class="li2 立li3">其他配置</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>以后手机上面需要配置的，都尽量在这里写！ </p>
+    <form  target="baocms_frm" action="<{:U('setting/mobile')}>" method="post">
+        <div class="tableBox">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+            
+                 <tr>
+                    <td class="lfTdBt">手机版妹子UI是否开启cnd：</td>
+                    <td class="rgTdBt">
+                        <label><input type="radio" name="data[amazeui]" <eq name="CONFIG.mobile.amazeui" value="1">checked="checked"</eq> value="1"  />开启</label>
+                        <label><input type="radio" name="data[amazeui]"  <eq name="CONFIG.mobile.amazeui" value="0">checked="checked"</eq>  value="0"  />不开启</label>
+                        <code>开启之后加载又拍云上的css,js,不开启加载本地！针对新模板有效！</code>
+                    </td>
+                </tr>
+                
+                
+                 <tr>
+                    <td class="lfTdBt">物流抢单单价：</td>
+                    <td class="rgTdBt">
+                       <input type="text" name="data[delivery_price]" value="<{$CONFIG.mobile.delivery_price}>" class="manageInput  w80" />
+                        <code>其实没卵用，简单算一下配送员赚了多少钱</code>
+                    </td>
+                </tr>
+                
+                 <tr>
+                    <td class="lfTdBt">商家点评后多少天显示：</td>
+                    <td class="rgTdBt">
+                       <input type="text" name="data[data_shop_dianping]" value="<{$CONFIG.mobile.data_shop_dianping}>" class="manageInput  w80" />
+                       <code>防止户乱评价，一般建议填写7-15天后生效。</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="lfTdBt">套餐点评后多少天显示：</td>
+                    <td class="rgTdBt">
+                       <input type="text" name="data[data_tuan_dianping]" value="<{$CONFIG.mobile.data_tuan_dianping}>" class="manageInput  w80" />
+                       <code>防止户乱评价，一般建议填写7-15天后生效。</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="lfTdBt">外卖点评后多少天显示：</td>
+                    <td class="rgTdBt">
+                       <input type="text" name="data[data_waimai_dianping]" value="<{$CONFIG.mobile.data_waimai_dianping}>" class="manageInput  w80" />
+                       <code>防止户乱评价，一般建议填写7-15天后生效。</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="lfTdBt">订座点评后多少天显示：</td>
+                    <td class="rgTdBt">
+                       <input type="text" name="data[data_booking_dianping]" value="<{$CONFIG.mobile.data_booking_dianping}>" class="manageInput  w80" />
+                       <code>防止户乱评价，一般建议填写7-15天后生效。</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="lfTdBt">商城点评后多少天显示：</td>
+                    <td class="rgTdBt">
+                       <input type="text" name="data[data_mall_dianping]" value="<{$CONFIG.mobile.data_mall_dianping}>" class="manageInput  w80" />
+                       <code>防止户乱评价，一般建议填写7-15天后生效。</code>
+                    </td>
+                </tr>
+                
+                 <tr>
+                    <td class="lfTdBt">家政点评后多少天显示：</td>
+                    <td class="rgTdBt">
+                       <input type="text" name="data[data_appoint_dianping]" value="<{$CONFIG.mobile.data_appoint_dianping}>" class="manageInput  w80" />
+                       <code>防止户乱评价，一般建议填写7-15天后生效。</code>
+                    </td>
+                </tr>
+                
+				<tr>
+                    <td class="lfTdBt">酒店点评后多少天显示：</td>
+                    <td class="rgTdBt">
+                       <input type="text" name="data[data_hotel_dianping]" value="<{$CONFIG.mobile.data_hotel_dianping}>" class="manageInput  w80" />
+                       <code>防止户乱评价，一般建议填写7-15天后生效。</code>
+                    </td>
+                </tr>
+               <tr>
+                    <td class="lfTdBt">农家乐点评后多少天显示：</td>
+                    <td class="rgTdBt">
+                       <input type="text" name="data[data_farm_dianping]" value="<{$CONFIG.mobile.data_farm_dianping}>" class="manageInput  w80" />
+                        <code>防止户乱评价，一般建议填写7-15天后生效。</code>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+    </form>
+</div>
+<include  file='public:footer'/>       

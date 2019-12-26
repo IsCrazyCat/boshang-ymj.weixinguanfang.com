@@ -1,0 +1,348 @@
+<php>$mobile_title = '我正在参加【'.$goods['name'].'】拼团，还缺'.$shengyu.'人，赶紧的来一起拼~~';</php>
+<include file='public:header'/>   
+<link rel="stylesheet" href="/static/pintuan/style.css">
+<style>
+.pp_list_item img {background-clip: padding-box;border-radius: 30px;display: block;height: 30px;left: 10px; position: absolute;width: 30px;margin-top: -3px;}
+</style>
+<script src="/static/pintuan/jquery.min-2.1.3.js"></script>
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="javascript:history.go(-1)"><i class="icon-angle-left"></i></a>
+		</div>
+        <div class="top-title">
+			邀请好友拼团
+		</div>
+		<div class="top-search" style="display:none;">
+			<form method="post" action="<{:U('pintuan/index')}>">
+				<input name="keyword" placeholder="输入拼团的关键字"  />
+				<button type="submit" class="icon-search"></button> 
+			</form>
+		</div>
+		<div class="top-signed">
+			<a id="search-btn" href="javascript:void(0);"><i class="icon-search"></i></a>
+		</div>
+	</header>
+	
+	 <script>
+		$(function(){
+			$("#search-btn").click(function(){
+				if($(".top-search").css("display")=='block'){
+					$(".top-search").hide();
+					$(".top-title").show(200);
+				}
+				else{
+					$(".top-search").show();
+					$(".top-title").hide(200);
+				}
+			});
+			$("#search-bar li").each(function(e){
+				$(this).click(function(){
+					if($(this).hasClass("on")){
+						$(this).parent().find("li").removeClass("on");
+						$(this).removeClass("on");
+						$(".serch-bar-mask").hide();
+					}
+					else{
+						$(this).parent().find("li").removeClass("on");
+						$(this).addClass("on");
+						$(".serch-bar-mask").show();
+					}
+					$(".serch-bar-mask .serch-bar-mask-list").each(function(i){
+						
+						if(e==i){
+							$(this).parent().find(".serch-bar-mask-list").hide();
+							$(this).show();
+						}
+						else{
+							$(this).hide();
+						}
+						$(this).find("li").click(function(){
+							$(this).parent().find("li").removeClass("on");
+							$(this).addClass("on");
+						});
+					});
+				});
+			});
+		});
+	</script>
+
+
+</head>
+<body id="group">
+	
+    <div class="explain_modal" >
+        <i class="explain_tuan explain_icon"></i>
+        <div id="showExplain">
+            <div class="showBg">
+            </div>
+        </div>
+    </div>
+    
+    <div class="content" style="padding-top: 43px;">
+        <div class="H5_con" id="group_title">
+            
+            <if condition="$tuanInfo['tuan_status'] eq 1">
+            <div class="tips topStateWrap tips_err">
+                <div class="tips_ico"></div>
+                <div class="tips_tit">团长未支付</div>
+            </div>
+            <elseif condition="$tuanInfo['tuan_status'] eq 2"/>
+            <div class="cardtips" >
+                <p class="cardtips_txt"><{$tusers.nickname}>正在拼团<br>小伙伴们快来参加吧</p>
+            </div>
+            <elseif condition="$tuanInfo['tuan_status'] eq 3"/>
+            <div class="tips topStateWrap tips_succ tips_succ2">
+                <div class="tips_ico"></div>
+                <div class="tips_tit">你来晚了一步，该团已经被挤爆了<br/>求人不如求己，自己当团长吧！</div>
+            </div>
+            <else />
+            <div class="tips topStateWrap tips_err">
+                <div class="tips_ico"></div>
+                <div class="tips_tit">拼团失败</div>
+            </div>
+            </if>
+        </div>
+        
+        <div class="H5_con">
+            <div id="group_detail" class="tm <if condition="$tuanInfo['tuan_status'] eq 3">tm_succ<elseif condition="$tuanInfo['tuan_status'] eq 4"/>tm_err</if>">
+				<a class="goItemPage" href="<{:U('pintuan/detail',array('id'=>$goods['id']))}>">
+					<div class="td tuanDetailWrap">
+                    
+						<div class="td_img"><img alt="" src="<{:config_img($goods['goods_pic'])}>"></div>
+						<div class="td_info margin_height">
+							<p class="td_name"><{$goods.name}></p>
+							<p class="td_mprice"><span class="tuanTotal"><{$tuan_num}></span>人团<i>￥</i><b><{:round($tuan_price/100,2)}></b><i> /<{$goods.goods_unit}></i></p>
+							<p class="td_num"><{$goods.describe|msubstr=0,40,'utf-8',true}></p>
+						</div>
+					</div>
+				</a>
+            </div>
+            
+            <div class="pp">
+            
+                <div class="pp_users" id="pp_users">
+					<a class="pp_users_item pp_users_normal">
+                    
+                    <img src="<{:config_img($tusers['face'])}>" />
+                    </a>
+                    <foreach name="lists" item="var">
+					<a class="pp_users_item ">
+                   <img src="<{:config_img($users[$var['user_id']]['face'])}>" />
+                    </a>
+                    </foreach>
+                </div>
+                <if condition="$tuanInfo['tuan_status'] eq 3">
+                <div class="pp_tips" id="flag_1_a">对于诸位大侠的相助，团长感激涕零</div>
+                <else />
+                <div class="pp_tips" id="flag_0_a">还差最少<b><{$shengyu}></b>人，盼你如北方人盼暖气</div>
+                </if>
+                <if condition="$tuanInfo['tuan_status'] eq 2">
+                <div class="pp_state" id="flag_0_b">
+                    <div class="pp_time">
+                        剩余<span id="ti_time_hour">--</span>:<span id="ti_time_min">--</span>:<span id="ti_time_sec">--</span>结束
+                    </div>
+                </div>
+                </if>
+            </div>
+            <div class="pp_list">
+                <div id="showYaoheList">
+					<div class="pp_list_item">
+                   		<img src="<{:config_img($tusers['face'])}>" />
+						<div class="pp_list_info" id="pp_list_info">
+							<span class="pp_list_name">团长<b><{$tusers.nickname}></b></span>
+							<span class="pp_list_time"><{$tuanInfo.tuan_time|date='Y-m-d H:i:s',###}>开团</span>
+						</div>
+					</div>
+                    <foreach name="lists" item="var">
+                    <div class="pp_list_item">
+                    
+                    <img src="<{:config_img($users[$var['user_id']]['face'])}>" />
+                    
+                        
+                        
+						<div class="pp_list_info" id="pp_list_info">
+							<span class="pp_list_name"><b><{:bao_msubstr($users[$var['user_id']]['nickname'],0,8,false)}> </b></span>
+							<span class="pp_list_time"><{$var.add_time|date='Y-m-d H:i:s',###}>参团</span>
+						</div>
+					</div>
+                    </foreach>
+                </div>
+                <if condition="$tuanInfo['tuan_status'] eq 1">
+                <div id="chamemeber" class="pp_list_blank">
+                    还差<span><{$shengyu}></span> 人，让小伙伴们都来组团吧！
+                </div>
+                </if>
+            </div>
+        </div>
+        <div id="shareit">
+            <img class="arrow" src="/static/pintuan/sharetips.png">
+        </div>
+        <div class="step2">
+            <div class="step_hd">拼团玩法<a class="step_more" href="<{$CONFIG.site.host}>/wap/news/detail/article_id/1.html">查看详情</a>
+            </div>
+            <div id="footItem" class="step_list">
+                <div class="step_item">
+                    <div class="step_num">1</div>
+                    <div class="step_detail">
+                        <p class="step_tit">选择
+                            <br>心仪商品</p>
+                    </div>
+                </div>
+                <div class="step_item ">
+                    <div class="step_num">2</div>
+                    <div class="step_detail">
+                        <p class="step_tit">支付开团
+                            <br>或参团</p>
+                    </div>
+                </div>
+                <div class="step_item step_item_on" id="step_3">
+                    <div class="step_num">3</div>
+                    <div class="step_detail">
+                        <p class="step_tit">邀请好友
+                            <br>参团支付</p>
+                    </div>
+                </div>
+                <div class="step_item" id="step_4">
+                    <div class="step_num">4</div>
+                    <div class="step_detail">
+                        <p class="step_tit">达到人数
+                            <br>拼团成功</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <div class="H5_con fixopt" id="fixopt" style="display: block;">
+            <if condition="$showBtnBox eq 1">
+            <div class="fixopt_item fixopt_item2">
+            	<a class="fixopt_home" href="<{:U('pintuan/index')}>" >更多拼团</a>
+            	<a class="fixopt_btn bottomBtn" href="<{:U('pintuan/detail',array('id'=>$goods['id']))}>">我自己来开个团</a>
+            </div>
+            </if>
+            <if condition="$showBtnBox eq 2">
+            <div class="fixopt_item fixopt_item2">
+            	<a class="fixopt_home" href="<{:U('pintuan/index')}>" >更多拼团</a>
+                <a class="fixopt_btn bottomBtn" id="share_button">邀请好友右上角</a>
+            </div>
+            </if>
+            <if condition="$showBtnBox eq 3">
+            <div class="fixopt_item fixopt_item2">
+            	<a class="fixopt_home" href="<{:U('pintuan/index')}>" >更多拼团</a>
+                <a class="fixopt_btn bottomBtn" id="share_button">邀请好友右上角</a>
+            </div>
+            </if>
+            <if condition="$showBtnBox eq 4">
+            <div class="fixopt_item fixopt_item2">
+            	<a class="fixopt_home" href="<{:U('pintuan/index')}>" >更多拼团</a>
+                <a class="fixopt_btn bottomBtn"  href="<{:U('pintuan/buy',array('tstatus' => 2, 'tuan_id' => $tuanInfo['id'], 'tlevel' => $tuanInfo['tlevel'], 'id'=>$goods['id']))}>">报名参团</a>
+            </div>
+            </if>
+            <if condition="$showBtnBox eq 5">
+            <div class="fixopt_item fixopt_item2">
+            	<a class="fixopt_home" href="<{:U('pintuan/index')}>" >更多拼团</a>
+            	<a class="fixopt_btn bottomBtn" href="<{:U('pintuan/detail',array('id'=>$goods['id']))}>">我自己来开个团</a>
+            </div>
+            </if>
+            <if condition="$showBtnBox eq 6">
+            <div class="fixopt_item fixopt_item2">
+                <a class="fixopt_home" href="<{:U('pintuan/index')}>" >更多拼团</a>
+            	<a class="fixopt_btn bottomBtn" href="<{:U('pintuan/detail',array('id'=>$goods['id']))}>">拼团失败，已经过期</a>
+            </div>
+            </if>
+        </div>
+    </div>
+    <div style="display: none;"><{$CONFIG.site.tongji}></div>
+</body>
+<script src="/static/pintuan/modernizer.js"></script>
+<script src="/static/pintuan/lefttime.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+<script>
+var intDiff = parseInt(<{$daojishiTimes}>);
+$(".explain_icon").on("click",
+function() {
+    $("#showExplain").css({
+        display: "block"
+    });
+    $(".showBg").css({
+        "background-image": "url(/static/pintuan/tuang_new.jpg)"
+    });
+});
+$(".showBg").on("click",
+function() {
+    $("#showExplain").css({
+        display: "none"
+    });
+});
+$("#share_button").on("click",
+    function() {
+        $("#shareit").show()
+    });
+$("#shareit").on("click",
+    function() {
+        $("#shareit").hide()
+    });
+    
+<!--{if $showTemplateSmsAjax == 1}-->   
+$(document).ready(function(){
+  $.get("{$templateSmsAjaxUrl}");
+});
+<!--{/if}-->
+    
+wx.config({
+    debug: false,
+    appId: '<{$signPackage.appId}>',
+    timestamp: '<{$signPackage.timestamp}>',
+    nonceStr: '<{$signPackage.nonceStr}>',
+    signature: '<{$signPackage.signature}>',
+    jsApiList: [
+       "onMenuShareTimeline", "onMenuShareAppMessage", "onMenuShareQQ", "onMenuShareWeibo"
+    ]
+});
+wx.ready(function () {
+    wx.onMenuShareTimeline({
+            title: '我正在参加【<{$goods.name}>】拼团，还缺<{$shengyu}>人，赶紧的来一起拼~~',
+        	link: '<{$CONFIG.site.host}><{:U('pintuan/tuan',array('id'=>$tuanInfo['id']))}>', 
+        	imgUrl: '<{:config_img($detail['goods_pic'])}>, 
+            success: function () { },
+            cancel: function () { }
+        });
+        //分享给朋友
+        wx.onMenuShareAppMessage({
+            title: '【<{$goods.name}>】拼团中，还缺<{$shengyu}>人，赶紧的来一起拼~~',
+            desc: '我正在参加的【<{$goods.name}>】拼团，就缺<{$shengyu}>个人啦~~亲你也一起吧~',
+        	link: '<{$CONFIG.site.host}><{:U('pintuan/tuan',array('id'=>$tuanInfo['id']))}>', 
+        	imgUrl: '<{:config_img($detail['goods_pic'])}>', 
+            type: '',
+            dataUrl: '',
+            success: function () { },
+            cancel: function () { }
+        });
+        //分享到QQ
+        wx.onMenuShareQQ({
+            title: '我正在参加【<{$goods.name}>】拼团，还缺<{$shengyu}>人，赶紧的来一起拼~~',
+            desc: '<{$goods.describe|msubstr=0,60,'utf-8',true}>',
+        	link: '<{$CONFIG.site.host}><{:U('pintuan/tuan',array('id'=>$tuanInfo['id']))}>', 
+        	imgUrl: '<{:config_img($detail['goods_pic'])}>', 
+            success: function () {
+            },
+            cancel: function () {
+            }
+        });
+        //分享到腾讯微博
+        wx.onMenuShareWeibo({
+            title: '我正在参加【<{$goods.name}>】拼团，还缺<{$shengyu}>人，赶紧的来一起拼~~',
+            desc: '<{$goods.describe|msubstr=0,60,'utf-8',true}>',
+        	link: '<{$CONFIG.site.host}><{:U('pintuan/tuan',array('id'=>$tuanInfo['id']))}>', 
+        	imgUrl: '<{:config_img($detail['goods_pic'])}>', 
+            success: function () {
+            },
+            cancel: function () {
+            }
+        });
+});
+</script>
+
+</html>

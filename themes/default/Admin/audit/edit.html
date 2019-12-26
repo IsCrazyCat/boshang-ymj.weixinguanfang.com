@@ -1,0 +1,185 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">认证</li>
+        <li class="li2">商家认证</li>
+        <li class="li2 li3">编辑商家资质</li>
+    </ul>
+</div>
+<form target="baocms_frm" action="<{:U('audit/edit',array('audit_id'=>$detail['audit_id']))}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+            
+            
+                <tr>
+                    <td class="lfTdBt">商家：</td>
+                    <td class="rgTdBt"> <div class="lt">
+                            <input type="hidden" id="shop_id" name="data[shop_id]" value="<{$detail.shop_id|default=''}>"/>
+                            <input type="text" id="shop_name" name="shop_name" value="<{$shop.shop_name}>" class="scAddTextName w150 sj" />
+                        </div>
+                        <a mini="select"  w="1000" h="600" href="<{:U('shop/select')}>" class="seleSj">选择商家</a>
+                    </td>
+                </tr>
+                
+                
+              <tr>
+                    <td class="lfTdBt">缩略图：</td>
+                 <td class="rgTdBt">
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <input type="hidden" name="data[photo]" value="<{$detail.photo}>" id="data_photo" />
+                        <div id="fileToUpload" >上传缩略图</div>
+                    </div>
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <img id="photo_img" width="120" height="80"  src="<{:config_img($detail['photo'])}>" />
+                        <a href="<{:U('setting/attachs')}>">缩略图设置</a>
+                        <{$CONFIG.attachs.shop_audit.thumb}>
+                    </div>
+                    <script>                                            
+						var width_shop_audit = '<{:thumbSize($CONFIG[attachs][shop_audit][thumb],0)}>';                         
+						var height_shop_audit = '<{:thumbSize($CONFIG[attachs][shop_audit][thumb],1)}>';
+						var pic_pc_quality = '<{$CONFIG[attachs][pic_pc_quality][thumb]}>';                          
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"shop_audit"))}>',                             
+						pick: '#fileToUpload',                             
+						resize: true,  
+						accept: {
+							title: 'Images',
+							extensions: 'gif,jpg,jpeg,png',
+							mimeTypes: 'image/*'//只永许上传JPG格式文件
+						}, 
+						compress:{
+							width: width_shop_audit,//宽度
+							height: height_shop_audit,//高度
+							quality: pic_pc_quality,//压缩质量
+							allowMagnify: false,
+							crop: false,
+							preserveHeaders: true,
+							noCompressIfLarger: true,
+							compressSize:0
+						}          
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_photo").val(resporse.url);                             
+						$("#photo_img").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+                </td>
+            </tr>
+            
+                
+                <tr>
+                    <td class="lfTdBt">企业名称：</td>
+                    <td class="rgTdBt"><input type="text" name="data[name]" value="<{$detail.name|default=''}>" class="scAddTextName w260" />
+
+                    </td>
+                </tr>
+                
+                 <tr>
+                    <td class="lfTdBt">注册号：</td>
+                    <td class="rgTdBt"><input type="text" name="data[zhucehao]" value="<{$detail.zhucehao|default=''}>" class="scAddTextName w260" />
+
+                    </td>
+                </tr>
+                
+                 <tr>
+                    <td class="lfTdBt">营业地址：</td>
+                    <td class="rgTdBt"><input type="text" name="data[addr]" value="<{$detail.addr|default=''}>" class="scAddTextName w260" />
+
+                    </td>
+                </tr>
+                
+                 <tr>
+                    <td class="lfTdBt">营业期限：</td>
+                    <td class="rgTdBt">  <input type="text" name="data[end_date]" value="<{$detail.end_date|default=''}>" onfocus="WdatePicker();" class="scAddTextName w260" />
+
+                    </td>
+                </tr>
+                
+                 <tr>
+                    <td class="lfTdBt">组织机构代码证：</td>
+                    <td class="rgTdBt">  <input type="text" name="data[zuzhidaima]" value="<{$detail.zuzhidaima|default=''}>" onfocus="WdatePicker();" class="scAddTextName w260" />
+
+                    </td>
+                </tr>
+                
+                
+                 <tr>
+                    <td class="lfTdBt">员工姓名：</td>
+                    <td class="rgTdBt">  <input type="text" name="data[user_name]" value="<{$detail.user_name|default=''}>" onfocus="WdatePicker();" class="scAddTextName w260" />
+
+                    </td>
+                </tr>
+                
+                
+                
+               <tr>
+                    <td class="lfTdBt">员工身份证：</td>
+                 <td class="rgTdBt">
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <input type="hidden" name="data[pic]" value="<{$detail.photo}>" id="data_pic" />
+                        <div id="fileToUpload" >上传缩略图</div>
+                    </div>
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <img id="pic_img" width="120" height="80"  src="<{:config_img($detail['photo'])}>" />
+                        <a href="<{:U('setting/attachs')}>">缩略图设置</a>
+                        <{$CONFIG.attachs.shop_audit.thumb}>
+                    </div>
+                    <script>                                            
+						var width_shop_audit = '<{:thumbSize($CONFIG[attachs][shop_audit][thumb],0)}>';                         
+						var height_shop_audit = '<{:thumbSize($CONFIG[attachs][shop_audit][thumb],1)}>'; 
+						var pic_pc_quality = '<{$CONFIG[attachs][pic_pc_quality][thumb]}>';                            
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"shop_audit"))}>',                             
+						pick: '#fileToUpload',                             
+						resize: true,  
+						accept: {
+							title: 'Images',
+							extensions: 'gif,jpg,jpeg,png',
+							mimeTypes: 'image/*'//只永许上传JPG格式文件
+						}, 
+						compress:{
+							width: width_shop_audit,//宽度
+							height: height_shop_audit,//高度
+							quality: pic_pc_quality,//压缩质量
+							allowMagnify: false,
+							crop: false,
+							preserveHeaders: true,
+							noCompressIfLarger: true,
+							compressSize:0
+						}                           
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_pic").val(resporse.url);                             
+						$("#pic_img").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+                </td>
+            </tr>
+            
+            
+                
+                <tr>
+                    <td class="lfTdBt">员工手机号：</td>
+                    <td class="rgTdBt">  <input type="text" name="data[mobile]" value="<{$detail.mobile|default=''}>" onfocus="WdatePicker();" class="scAddTextName w260" />
+
+                    </td>
+                </tr>
+                
+
+    </table>
+</div>
+<div class="smtQr"><input type="submit" value="确定编辑" class="smtQrIpt" /></div>
+</div>
+</form>
+<include  file='public:footer'/>       

@@ -1,0 +1,159 @@
+<include file="public:header" />
+<style>
+.header--mini{border-bottom:2px solid <{$color}>!important;color:#666;display:block;min-width:980px}
+.header--mini .wrapper{margin:0 auto;padding:20px 0;width:980px}
+.header--mini .site-logo{width:128px;width:54px;height:36px;background-position:-262px -165px}
+.header--mini .login-block{float:right;line-height:36px}
+.header--mini .login-block .tip{margin-right:10px;vertical-align:sub}
+.header--mini .login-block{float:right;line-height:36px}
+.header--mini .login-block .login{padding:3px 10px}
+.btn-small{padding:3px 20px;font-size:12px}
+.btn{background-color:<{$color}>!important;background-size:100%;background-image:-webkit-linear-gradient(top,<{$color}>!important,<{$color}>!important);background-image:linear-gradient(to bottom,<{$color}>!important,<{$color}>!important)}
+.btn,.btn-hot,.btn-normal{display:inline-block;vertical-align:middle;padding:8px 20px;font-size:14px;font-weight:700;-webkit-font-smoothing:antialiased;line-height:1.5;letter-spacing:.1em;text-align:center;text-decoration:none;border-width:0 0 1px;border-style:solid;background-repeat:repeat-x;border-radius:2px;-moz-user-select:-moz-none;-ms-user-select:none;-webkit-user-select:none;user-select:none;cursor:pointer}
+.btn,.btn.hover,.btn:focus,.btn:hover{border-color:#0B8074;color:#fff;zoom:1}
+.loginInput7{width:320px}
+.loginInput8{margin-left:20px}
+.loginInput2016{width: 270px;}
+.loginInput2017{width:120px;float: left;}
+.loginInput2016, .loginInput2017{height:38px; line-height:38px;color: #888;font-size: 15px;padding-left: 10px;border: 1px solid #aaa;}
+.footer--mini{border-top:1px solid #EEE;padding-top:20px;text-align:center;margin-top:20px}
+.footer--mini p span{font-size:12px}
+.qqlink .qqlink_wz{width:120px;}
+.footer--mini .copyright{font-size:12px;font-family:initial}
+.footer--mini .copyright a,.footer--mini .copyright span{color:#999}
+.loginTable tr td span{color:#888}
+.loginTable tr td span.error{color:red!important}
+
+.register_tabLi {width: 140px;}
+.register_tabLi.on span a {color:<{$color}>;}
+.register_tabLi.on span{ background:#fff;color:<{$color}>;padding:3px 15px; }
+.register_tabLi span .icon {float: left;margin-right:-5px;font-size: 0;margin-top: 15px;}
+.register_tabLi span .icon--email {width: 14px;height: 11px;background-position: -846px -677px;}
+.register_tabLi span .icon--phone { width: 9px;height: 13px; background-position: -373px -706px;}
+.register_tabLi span .icon--email, .register_tabLi span .icon--phone {background-image: url(/themes/default/Pchome/statics/images/login.png);}
+
+</style>
+
+<div class="header--mini">
+    <div class="wrapper cf">
+        <a class="site-logo" href="/"><{$CONFIG['site']['sitename']}>密码找回</a>
+        <div class="login-block">
+            <span class="tip">想起来密码了</span>
+            <a class="btn btn-small login" href="<{:U('passport/login')}>">点击登录</a>
+        </div>
+    </div>
+</div>
+	<div class="main"> 
+		<script>
+                var mobile_timeout;
+                var mobile_count = 100;
+                var mobile_lock = 0;
+                $(function () {
+                    $("#m_zcyz").click(function () {
+                        if (mobile_lock == 0) {
+                            mobile_lock = 1;
+                            $.ajax({
+                                url: '<{:U("passport/findsms")}>',
+                                data: 'mobile=' + $("#mobile").val() + '&account=' + $("#account").val(),
+                                type: 'post',
+                                success: function (data) {
+                                    if (data == 1) {
+                                        mobile_count = 60;
+                                        BtnCount();
+                                    } else {
+                                        mobile_lock = 0;
+                                        error(data);
+                                    }
+                                }
+                            });
+                        }
+                    });
+                });
+
+                BtnCount = function () {
+                    if (mobile_count == 0) {
+                        $('#m_zcyz').html("重新发送");
+                        mobile_lock = 0;
+                        clearTimeout(mobile_timeout);
+                    }
+                    else {
+                        mobile_count--;
+                        $('#m_zcyz').html("获取(" + mobile_count.toString() + ")秒");
+                        mobile_timeout = setTimeout(BtnCount, 1000);
+                    }
+                };
+            </script>
+		<div class="loginBox">
+			<div class="loginMid2">
+				<div class="loginMidNr">
+					<div class="register_tab"> 
+						<script>
+								$(function () {
+									$(".register_tabLi").each(function (i) {
+										$(this).click(function () {
+											$(".register_tabLi").removeClass("on");
+											$(this).addClass("on");
+											$(".loginTableBox").each(function (e) {
+												if (i == e) {
+													$(".loginTableBox").removeClass("on");
+													$(this).addClass("on");
+												}
+												else {
+													$(this).removeClass("on");
+												}
+											});
+										});
+									});
+								});
+
+							</script>
+						<ul>
+              
+                            
+<li class="register_tabLi <if condition='$way eq 2'>on</if>"><span><a href="<{:U('passport/forget',array('way'=>2))}>"><i class="icon icon--phone"></i>通过手机找回</a></span></li>							<li class="register_tabLi <if condition='$way eq 1'>on</if>"><span><a href="<{:U('passport/forget',array('way'=>1))}>"><i class="icon icon--email"></i>通过邮箱找回</a></span></li>
+						</ul>
+
+					</div>
+
+ 
+
+			<form  action="<{:U('passport/newpwd')}>" method="post" target="baocms_frm" >
+                <div class="loginTableBox on">    
+                <if condition="$way eq 2">
+				
+				<table cellpadding="0" cellspacing="0" width="100%" class="loginTable">
+                    <input type="hidden" name="way" id="way" value="2" />
+                    <tr><td><input  class="loginInput2016"  name="account" id="account"  type="text"  placeholder="用户名"  /><span>请输入用户名</span></td></tr>
+                    <tr><td><input  class="loginInput2016"  name="mobile" id="mobile"  type="text"  placeholder="手机号"  /><span>请输入您绑定的手机号码</span></td></tr>
+                    <tr><td><input  class="loginInput2017 register_input" name="scode"  type="text"  value="" placeholder="短信验证码" /><a href="javascript:void(0);" class="btn loginInput8" id="m_zcyz" style="text-decoration: none;">发送验证码</a></td></tr>
+			
+
+			
+			<elseif condition="$way eq 1"/> 
+		
+			<table cellpadding="0" cellspacing="0" width="100%" class="loginTable">
+            <input type="hidden" name="way" id="way" value="1" />
+            <tr><td><input  class="loginInput2016"  name="email"   id="email" type="text"  placeholder="邮箱地址"  /><span>请输入电子邮件</span></td></tr>            <tr><td><input  class="loginInput2016"  name="account" id="account"  type="text"  placeholder="用户名"  /><span>请输入用户名</span></td></tr>
+<tr><td><input  class="loginInput2017" name="yzm"  type="text"  value="" placeholder="输入验证码" />
+<img id="bao_img_code" src="__ROOT__/index.php?g=app&m=verify&a=index&mt=<{:time()}>" /><em><a rel="bao_img_code" class="yzm_code" href="javascript:void(0);">换一张</a></em></td></tr>
+		
+            </if> 
+                        
+             <tr><td><input type="submit" value="获取新密码" class="btn loginInput7"/></td></tr>             
+           </table>
+                        
+				    </form>
+				</div>
+			</div>   
+		</div>
+
+	</div>
+
+</div>
+
+<div class="footer--mini">
+    <p class="copyright">
+       <span>copyright 2013-2113 <{$Think.SERVER.HTTP_HOST}> All Rights Reserved <{$CONFIG.site.sitename}>版权所有 - <{$CONFIG.site.tongji}></span>
+        <span class="f1"><{$CONFIG.site.icp}> </span>
+    </p>
+</div>

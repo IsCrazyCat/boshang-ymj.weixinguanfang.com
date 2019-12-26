@@ -1,0 +1,194 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('member/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			转账给好友
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+<style>
+.button-small { padding: 7px 10px;}
+</style>
+<php>$mobile = substr_replace($MEMBER['mobile'],'****',3,4);</php>
+<div class="panel-list">
+	<ul>
+		<li>
+			<a <if condition="!empty($MEMBER['mobile'])">id="change_mobile"<else/>id="bind_mobile"</if> href="javascript:void(0);">
+				绑定手机
+                <notempty name="MEMBER.mobile">
+                	<em class="text-green"><{$mobile}></em>
+                <else/>
+                	<em class="text-gray">未绑定无法获取手机验证码</em>
+                </notempty>
+			</a>
+		</li>
+	</ul>
+</div>
+<div class="container">
+	<div class="blank-10"></div>
+	<p class="text-small text-dot">
+    	<if condition="!empty($CONFIG[cash][is_transfer_small])">
+           单笔最少转账：&yen; <{$CONFIG[cash][is_transfer_small]}>元
+        </if>
+        <if condition="!empty($CONFIG[cash][is_transfer_big])">
+           单笔最多转账：&yen; <{$CONFIG[cash][is_transfer_big]}>元
+        </if>
+        <if condition="!empty($MEMBER['money'])">
+            您当前有余额：&yen; <{:round($MEMBER['money']/100,2)}>元
+            <php>$cha = round($MEMBER['money']/100,2) - $this->_CONFIG['cash']['is_transfer_small'] ; </php>
+            <if condition="$cha elt 0">
+            您的余额太少，赶快去充值一点吧！~~
+            </if>
+            <else/>
+            抱歉，您当前没有余额，请先<a class="button button-small bg-dot" href="<{:U('money/money')}>"> 充值</a>
+        </if>
+       <if condition="!empty($CONFIG[cash][is_transfer_commission])">
+          当前转账手续费：<{$CONFIG[cash][is_transfer_commission]}>%
+        </if>
+    </p>
+	<form target="x-frame" id="nick-form" method="post" action="<{:U('money/transfer')}>">
+	<input type="hidden" id="status" value="0" />
+	<div class="form-group">
+		<div class="field">
+			<div class="input-group">
+				<span class="x8"><input type="text" id="mobile" class="input" name="mobile" size="50" value="" placeholder="请输入手机号" /></span>
+				<span id="check-nick" class="addbtn x4"><button type="button" class="button button-small bg-dot">检测手机号</button></span>
+			</div>
+		</div>
+	</div>
+    
+    <div class="form-group">
+		<div class="field">
+			<div class="input-group">
+				<span id="user_data" class="x12"></span>
+			</div>
+		</div>
+	</div>
+    
+    
+    <div class="form-group">
+		<div class="field">
+			<div class="input-group">
+				<span class="x11"><input type="text" id="money" class="input" name="money" size="50" value="" placeholder="请输入金额" /></span>
+                
+			</div>
+		</div>
+	</div>
+    
+    <div class="form-group">
+		<div class="field">
+			<div class="input-group">
+				<span class="x8"><input type="text" id="yzm" class="input" name="yzm" size="50" value="" placeholder="请输入短信验证码" /></span>
+				<span id="check-nick" class="addbtn x4">
+               	   <button type="button" class="button button-small bg-dot" id="jq_mobile_send" value="获取验证码">获取验证码</button>
+                </span>
+		</div>
+	</div>
+
+    
+	<div class="blank-30"></div>
+	<button id="check-form" type="button" class="button button-block button-big bg-gray text-center">立即转账</button>
+	</form>
+</div>
+</div>
+<script>
+	$(document).ready(function () {
+		$("#check-nick").click(function () {
+			var mobile = $("#mobile").val();
+			var page = "/user/money/check_mobile/mobile/"+mobile+".html";
+			if(mobile=="" || mobile=="请输入手机号"){
+				layer.msg("手机号不能为空！",{icon:2});
+				$("#status").val("0");
+			}else{
+				$.get(page, function (data) {
+					if(data == "0"){
+						layer.msg("检测到对方账户不合法！",{icon:2});
+						$("#user_data").html( "" );
+						$('#check-form').removeClass("bg-dot");
+						$("#status").val("0");
+					}else{
+						layer.msg("可以转账到该用户！",{icon:1});
+						$("#user_data").html(data);
+						$('#check-form').addClass("bg-dot");
+						$("#status").val("1");
+					}
+				
+				}, 'html')
+			}
+		});
+
+		$("#check-form").click(function () {
+			var status = $("#status").val();
+			if( status == '0'){
+				layer.msg("手机没有检测通过！",{icon:2});
+			}else{
+				$("#nick-form").submit();
+			}
+		});
+	});
+</script>
+
+<script type="text/javascript">
+        var mobile_timeout;
+        var mobile_count = 100;
+        var mobile_lock = 0;
+		var user_mobile = "<{$MEMBER['mobile']}>";
+        $(function () {
+            $("#jq_mobile_send").click(function () {
+                if (mobile_lock == 0) {
+                    mobile_lock = 1;
+					if(user_mobile=="" || user_mobile==0){
+						layer.msg('对不起，您还没绑定手机号，请绑定后重试', function(){
+							setTimeout(function () {
+							   window.location.href = "<{:U('money/transfer')}>";
+							}, 1000);
+						});
+						exit;//如果没绑定手机，不执行下面的代码
+					}else{
+						$.post("<{:U('money/sendsms')}>",{mobile:user_mobile},function(data){
+							if(data.status == 'success'){
+								mobile_count = 60;
+								layer.msg(data.msg,{icon:1});
+								BtnCount();
+							}else{
+								mobile_lock = 0;
+								layer.msg(data.msg,{icon:2});
+							}
+						},'json');
+					}
+                }
+            });
+        });
+        BtnCount = function () {
+            if (mobile_count == 0) {
+                $('#jq_send').val("重新发送");
+                mobile_lock = 0;
+                clearTimeout(mobile_timeout);
+            }
+            else {
+                mobile_count--;
+				$('#jq_send').html("重新发送(" + mobile_count.toString() + ")秒");
+                mobile_timeout = setTimeout(BtnCount, 1000);
+            }
+        };
+    </script>
+    
+<notempty name="MEMBER.mobile">
+<script>
+	$('#change_mobile').click(function(){
+		change_user_mobile('<{:U("wap/tuan/tuan_sendsms")}>','<{:U("wap/tuan/tuan_mobile")}>');
+	})
+</script>
+<else/>
+<script>
+	check_user_mobile('<{:U("wap/tuan/tuan_sendsms")}>','<{:U("wap/tuan/tuan_mobile")}>');
+	$('#bind_mobile').click(function(){
+		check_user_mobile('<{:U("wap/tuan/tuan_sendsms")}>','<{:U("wap/tuan/tuan_mobile")}>');
+	})
+</script>
+</notempty>
+<include file='public:footer'/> 

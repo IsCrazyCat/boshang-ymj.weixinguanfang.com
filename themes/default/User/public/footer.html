@@ -1,0 +1,63 @@
+<div class="blank-20"></div>
+ <footer class="foot-fixed">
+  <if condition="($ctl eq 'member') AND ($act eq 'index')">
+    <a class="foot-item <if condition="($ctl eq 'member') AND ($act neq 'fabu')">active</if>" href="<{:u('wap/index/index')}>">		
+    <span class="icon icon-home"></span>
+    <span class="foot-label">首页</span>
+    </a>
+  <else/>
+  <a class="foot-item" href="<{:u('member/index')}>">		
+    <span class="icon icon-home"></span>
+    <span class="foot-label">首页</span>
+    </a>
+  
+  </if>
+    
+    <a class="foot-item" href="<{:LinkTo('user/money/index')}>">
+    <span class="icon icon-plus"></span><span class="foot-label">充值</span></a>
+    
+     <a class="foot-item" href="<{:LinkTo('goods/index',array('aready'=>1))}>">
+    <span class="icon icon-money"></span><span class="foot-label">订单</span></a>
+    
+    <a class="foot-item  <if condition="($ctl eq 'message') ||($act eq 'xiaoxizhongxin')">active</if>" href="<{:u('message/index')}>">			
+    <span class="icon icon-volume-up"></span><span class="foot-label">消息</span></a>
+    
+    <a class="foot-item  <if condition="$ctl eq 'information'">active</if>" href="<{:u('information/index')}>">			
+    <span class="icon icon-gear"></span><span class="foot-label">设置</span></a>
+    
+   
+    </footer>
+
+
+<iframe id="x-frame" name="x-frame" style="display:none;"></iframe>
+<style>
+.add-message {margin-top: 30px;}
+.add-button{ text-align:center;}
+.layui-layer-title {border-bottom: 0px solid #eee;}
+</style>
+<if condition="$is_weixin"><!--首先是在微信里面-->
+    <if condition="!empty($CONFIG[other][check_connect_uid])">
+    <script>
+        $(document).ready(function () {
+            var check_connect_uid = "<{$check_connect_uid}>";
+            if (check_connect_uid == '' || check_connect_uid == null) {
+               check_connect_uid_wap();//如果等于空
+             }
+        })
+        
+        function check_connect_uid_wap(url) {
+            layer.open({
+                type: 1,
+                title: '是否绑定微信？',
+                skin: 'layui-layer-demo', //加上边框
+                area: ['90%', '150px'], //宽高
+                content: '<div class="add-message"><div class="add-button"><a href="<{:U('wap/passport/wxlogin')}>" id="go_mobile" class="button button-small bg-yellow">立即绑定微信</a></div></div>',
+            });
+            $('.layui-layer-title').css('color', '#ffffff').css('background', '#2fbdaa');
+        
+        }
+    </script> 
+    </if>
+</if>
+</body>
+</html>

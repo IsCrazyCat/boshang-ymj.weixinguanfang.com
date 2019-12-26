@@ -1,0 +1,118 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">套餐</li>
+        <li class="li2">套餐点评</li>
+        <li class="li2 li3">新增</li>
+    </ul>
+</div>
+<form  target="baocms_frm" action="<{:U('tuandianping/create')}>" method="post">
+    <div class="mainScAdd ">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td  class="lfTdBt">套餐订单：</td>
+                    <td class="rgTdBt"><input type="text" name="data[order_id]" value="<{$detail.order_id|default=''}>" class="manageInput w200" />
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="lfTdBt">用户：</td>
+                    <td class="rgTdBt">
+                        <div class="lt">
+                            <input type="hidden" id="user_id" name="data[user_id]" value="<{$detail.user_id|default=''}>"  />
+                            <input type="text" name="nickname" id="nickname" class="scAddTextName sj" value="" />
+                        </div>
+                        <a mini="select"  w="800" h="600" href="<{:U('user/select')}>" class="seleSj">选择用户</a>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="lfTdBt">商家：</td>
+                    <td class="rgTdBt">
+                        <div class="lt">
+                            <input type="hidden" id="shop_id" name="data[shop_id]" value="<{$detail.shop_id|default=''}>"/>
+                            <input type="text" id="shop_name" name="shop_name" value="" class="scAddTextName sj" />
+                        </div>
+                        <a mini="select"  w="1000" h="600" href="<{:U('shop/select')}>" class="seleSj">选择商家</a>
+                    </td>
+                </tr>
+                
+                
+                <tr>
+                    <td  class="lfTdBt">评分：</td>
+                    <td class="rgTdBt"><input type="text" name="data[score]" value="<{$detail.score|default=''}>" class="manageInput w200" />
+                        <code>最高5分</code>
+                    </td>
+                </tr><tr>
+                    <td  class="lfTdBt">花费：</td>
+                    <td class="rgTdBt"><input type="text" name="data[cost]" value="<{$detail.cost|default=''}>" class="manageInput w200" />
+
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="lfTdBt">评价内容：</td>
+                    <td class="rgTdBt">
+                        <textarea name="data[contents]" rows="5" cols="40"><{$detail.contents|default=''}></textarea>
+                    </td>
+                </tr>
+               
+               
+                  <tr>
+                  <td class="lfTdBt">更多点评图片：</td>
+                        <td class="rgTdBt">
+                            <div>
+                                <div id="moreToUpload" >上传点评图片</div>
+                            </div>							
+							<script>                                
+									var width_shopdianping = '<{:thumbSize($CONFIG[attachs][shopdianping][thumb],0)}>';  //获取宽度                              
+									var height_shopdianping = '<{:thumbSize($CONFIG[attachs][shopdianping][thumb],1)}>'; //获取高度 
+									var uploader = WebUploader.create({                                    
+									auto: true,                                    
+									swf: '/static/default/webuploader/Uploader.swf',                                    
+									server: '<{:U("app/upload/uploadify",array("model"=>"shopdianping"))}>',                                    
+									pick: '#moreToUpload',                                    
+									fileNumberLimit:10,                                    
+									resize: true, 
+									crop: false,  
+									compress : {width:width_shopdianping,height:height_shopdianping,quality: 80,allowMagnify: false,crop: true},														
+								});                                                               
+								uploader.on( 'uploadSuccess', function( file,resporse) {                                    
+								var str = '<span style="width: 120px; height: 120px; float: left; margin-left: 5px; margin-top: 10px;">  <img width="200" height="100" src="' + resporse.url + '">  <input type="hidden" name="photos[]" value="' + resporse.url + '" />    <a href="javascript:void(0);">取消</a>  </span>';                                   
+								 $(".jq_uploads_img").append(str);                                
+									 });                                                            
+								 uploader.on( 'uploadError', function( file ) {                                    
+									alert('上传出错');                                
+								 });                                
+								 $(document).on("click", ".jq_uploads_img a", function () {                                    
+									 $(this).parent().remove();                                
+								 });                            
+                             </script>
+                            <div class="jq_uploads_img">
+                                <foreach  name="photos" item="item">
+                                    <span style="width: 200px; height: 120px; float: left; margin-left: 5px; margin-top: 10px;"> 
+                                        <img width="100" height="100" src="<{:config_img($item['photo'])}>">  
+                                        <input type="hidden" name="photos[]" value="<{$item.photo}>" />  
+                                        <a href="javascript:void(0);">取消</a>  
+                                    </span>
+                                </foreach>
+                            </div>					
+                        </td>
+                    </tr>
+                    
+                    
+                <tr>
+                    <td  class="lfTdBt">商家回复：</td>
+                    <td class="rgTdBt">
+                        <textarea name="data[reply]" rows="5" cols="40"><{$detail.reply|default=''}></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="lfTdBt">生效日期：</td>
+                    <td class="rgTdBt"><input type="text" name="data[show_date]" value="<{$detail.show_date|default=''}>" onfocus="WdatePicker();"  class="inputData" />
+                    </td>
+                </tr> 
+            </table>
+        </div>
+        <div><div class="smtQr"><input type="submit" value="确认添加" class="smtQrIpt" /></div></div>
+</form>
+<include  file='public:footer'/>       

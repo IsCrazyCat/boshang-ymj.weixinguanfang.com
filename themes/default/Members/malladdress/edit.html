@@ -1,0 +1,112 @@
+<include file="public:header"/>
+<div class="content_right">  
+<div class="tgdd">
+    <form  target="baocms_frm" action="<{:U('malladdress/edit',array('type'=>$type,'id'=>$id))}>" method="post">
+    <input id="type" type="hidden" name="data[type]" value="<{$type}>" />
+    <input id="type" type="hidden" name="data[category]" value="<{$category}>" />
+    <input id="type" type="hidden" name="data[pc_order]" value="<{$pc_order}>" />
+    <input id="type" type="hidden" name="data[order_id]" value="<{$order_id}>" />
+    <input id="type" type="hidden" name="data[goods_id]" value="<{$goods_id}>" />
+        <div class="addAddress_nr">
+            <p class="addAddress_t">添加地址：</p>
+            <ul>
+            
+             <li>
+                <div class="left"><span>是否默认：</span></div>
+                <div class="lef">
+                <input  style="width: 20px; height: 20px;" type="radio" name="data[defaults]" id="defaults1" <eq name="detail.default" value="0">checked</eq> value="0">否&nbsp;&nbsp;&nbsp;&nbsp;
+           <input  style="width: 20px; height: 20px;" type="radio" name="data[defaults]" id="defaults2" <eq name="detail.default" value="1">checked</eq> value="1">是&nbsp;&nbsp;&nbsp;&nbsp;
+            </li>
+    
+    
+                <li>
+                    <div class="left"><span>所在地区：</span></div>
+                    <div class="lef">
+                        <select name="data[province]" id="province" class="manageSelect" onchange="getCity();">
+                            <option value="0">选择省</option>
+                          <foreach name="provinceList" item="var">
+                            <option value="<{$var.id}>"<if condition="$detail.province_id eq $var['id']">selected</if>><{$var.name}></option>
+                            </foreach>
+                        </select>
+                        <select  name="data[city]" id="city"  class="manageSelectt"onchange="javascript:getArea();">
+                            <option value="0">请选择...</option>
+                            <foreach name="cityList" item="var">
+                            <option value="<{$var.id}>"<if condition="$detail.city_id eq $var['id']">selected</if>><{$var.name}></option>
+                            </foreach>
+                        </select>
+                        <select name="data[areas]" id="area" class="manageSelectt">
+                            <option value="0">请选择...</option>
+                             <foreach name="areaList" item="var">
+                            <option value="<{$var.id}>"<if condition="$detail.area_id eq $var['id']">selected</if>><{$var.name}></option>
+                            </foreach>
+                        </select>
+                    </div>
+                </li>
+           
+                <li>
+                    <div class="left"><span>收货人姓名：</span></div>
+                    <div class="lef">
+                        <input type="text" name="data[addxm]" value="<{$detail.xm|default=''}>" class="addAddress_jd addAddress_wz" />
+                </li>
+                <li>
+                    <div class="left"><span>电话号码：</span></div>
+                    <div class="lef">
+                        <input class="addAddress_jd addAddress_wz" type="text" name="data[addtel]" value="<{$detail.tel|default=''}>" />
+                </li>
+                <li>
+                    <div class="left"><span>具体地址：</span></div>
+                    <div class="lef">
+                        <input type="text" name="data[addinfo]" value="<{$detail.info|default=''}>" class="addAddress_jd" />
+                </li>
+
+            </ul>
+            <div class="addAddress_bcqx"><input class="bc" type="submit" value="保存" /></div>
+        </div>
+    </form>
+</div>
+</div>
+</div>
+
+
+<script>
+
+function getCity(){
+  var province = $("#province").val();
+  $.ajax({
+        type: "GET",
+        url: "<{$CONFIG.site.host}>/wap/address/city/upid/"+province,
+        dataType : "jsonp",
+        jsonpCallback:"jsonpCallback",
+        cache : false,
+        success: function(json){
+            var cityHtml = '<option value="0">选择城市</option>';
+            $.each(json,function(k,v){
+                cityHtml+= '<option value="'+v.id+'">'+v.name+'</option>';
+            })
+            $("#city").html(cityHtml);
+            $("#city").show();
+        }
+    });
+}   
+
+function getArea(){
+  var city = $("#city").val();
+  $.ajax({
+        type: "GET",
+        url: "<{$CONFIG.site.host}>/wap/address/city/upid/"+city,
+        dataType : "jsonp",
+        jsonpCallback:"jsonpCallback",
+        cache : false,
+        success: function(json){
+            var areaHtml = '<option value="0">选择区/县</option>';
+            $.each(json,function(k,v){
+                areaHtml+= '<option value="'+v.id+'">'+v.name+'</option>';
+            })
+            $("#area").html(areaHtml);
+            $("#area").show();
+        }
+    });
+}
+
+</script>
+<include file="public:footer"/>

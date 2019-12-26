@@ -1,0 +1,14 @@
+<volist name="list" id="g">
+    <li class="seat_list farm_list">
+        <div class="pub_img fl"><a href="<{:U('farm/detail',array('farm_id'=>$g['farm_id']))}>">
+        <img src="<{:config_img($g['photo'])}>"></a></div>
+        <div class="pub_wz">
+            <h3><a href="<{:U('farm/detail',array('farm_id'=>$g['farm_id']))}>" class="overflow_clear fl"><{$g.farm_name}></a> 
+            <small class="fr maincl"><{$g.d}></small></h3>
+            <p class="black6"><notempty name="g.package.title"><{$g.package.title}><else/>该农家暂无套餐</notempty></p>
+            <p class="price fontcl2">起步价：￥<big><{$g.price}></big><del class="black9"></del><span class="black9 ml10"></span></p>
+        <p class="black9">已售 <span class="fontcl1"><{$g.orders}></span><span class="ml10 mr10">|</span><span class="fontcl1"><{$g.comments}></span> 评价</p>
+        </div>
+        <div class="clear"></div>
+    </li>
+</volist>

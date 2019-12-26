@@ -1,0 +1,193 @@
+<include file="public:header"/>
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<div class="line tab-bar">
+                <div class="button-toolbar">
+                    <div class="button-group">
+                        <a class="block button bg-dot active" href="<{:U('lists/scraped')}>">抢新单</a>
+                        <a class="block button" href="<{:U('lists/distribution')}>">配送中</a>
+                        <a class="block button" href="<{:U('lists/finished')}>">已完成</a>
+                    </div>
+                </div>
+           </div>
+		</div>
+		<div class="top-search" style="display:none;">
+			<form method="post" action="<{:U('lists/scraped')}>">
+				<input name="keyword" placeholder="输入商家的关键字"  />
+				<button type="submit" class="icon-search"></button> 
+			</form>
+		</div>
+		<div class="top-signed">
+			<a id="search-btn" href="javascript:void(0);"><i class="icon-search"></i></a>
+		</div>
+	</header>
+
+<div id="filter2" class="filter2">
+
+    <ul class="tab clearfix">
+      <li class="item">
+        <a href="javascript:void(0);"> 
+        <if condition="empty($type)">
+        <span id="str_e_node">全部订单</span>
+        <elseif condition="$type eq 1"/>
+        <span id="str_b_node" style="color:#f60;">外卖订单</span>
+        <elseif condition="$type eq 2"/>
+        <span id="str_b_node" style="color:#f60;">商城订单</span>
+        <elseif condition="$type eq 3"/>
+        <span id="str_b_node" style="color:#f60;">全部订单</span>
+        </if>
+        <em></em>
+        </a>
+      </li>
+      <li class="item">
+        <a href="javascript:void(0);"> 
+        <if condition="!empty($business_id)">
+            <span id="str_b_node" style="color:#f60;"><{$bizs[$business_id]['business_name']}></span>
+            <else/>
+                <if condition="!empty($area_id)">
+               <span id="str_b_node" style="color:#f60;"><{$areass[$area_id]['area_name']}></span>
+                <else/>
+                <span id="str_d_node">选择地区</span>
+                </if>
+            </if><em></em>
+        </a>
+      </li>
+      <li class="item">
+        <a href="javascript:void(0);">
+        <if condition="empty($order)">
+        <span id="str_e_node">选择排序</span>
+        <elseif condition="$order eq 1"/>
+        <span id="str_b_node" style="color:#f60;">距离排序</span>
+        <elseif condition="$order eq 2"/>
+        <span id="str_b_node" style="color:#f60;">时间排序</span>
+        <elseif condition="$order eq 3"/>
+        <span id="str_b_node" style="color:#f60;">默认排序</span>
+        </if>
+        <em></em>
+        </a>
+      </li>
+    </ul>
+    
+     <div class="inner" style="display:none;">
+              <ul>
+              <li><a <if condition="empty($type)"> style="color:red;"</if> href="<{:LinkTo('lists/scraped')}>">全部订单</a></li>
+                <li><a <if condition="$type eq 1"> style="color:red;"</if> href="<{:LinkTo('lists/scraped',array('type'=>1,'area_id'=>$area_id,'business_id'=>$business_id,'order'=>$order))}>">外卖订单</a></li>
+                <li><a <if condition="$type eq 2">style="color:red;"</if> href="<{:LinkTo('lists/scraped',array('type'=>2,'area_id'=>$area_id,'business_id'=>$business_id,'order'=>$order))}>">商城订单</a></li>
+            </ul>
+      </div>
+    
+    <div class="inner" style=" display:none">
+      <ul id="inner2">
+        <li class="item">
+        <a class="rights" href="<{:LinkTo('lists/scraped',array('type'=>$type))}>">全部地区</a>
+        </li>
+       <foreach name="areas" item="var">
+               <php>if($var['city_id'] == $city_id){</php>         
+            <li id="cat_<{$var['cate_id']}>"><a class="rights hasUlLink" title="<{$var.cate_name}>" href="javascript:void(0);>"><{$var.area_name}></a>
+             
+               <ul id="items0">  
+               <li><a href="<{:LinkTo('lists/scraped',array('type'=>$type,'area_id'=>$area_id,'business_id'=>$product['business_id'],'order'=>$order))}>" class="<if condition='empty($business_id)'>on</if>">全部商圈</a></li>
+                <foreach name="bizs" item="product">
+                   <if condition="$product.area_id eq $var['area_id']"> 
+                       <li><a title="<{$product.business_name}>" href="<{:LinkTo('lists/scraped',array('type'=>$type,'area_id'=>$var['area_id'],'business_id'=>$product['business_id'],'order'=>$order))}>"> <{$product.business_name}></a>
+                            
+                   </if>
+                </foreach>
+               </ul>
+                       
+             </li>
+                <php>}</php>      
+        </foreach>
+       
+      </ul><!--1级end-->
+    
+    </div>
+    
+    <div class="inner" style="display:none;">
+              <ul>
+             	<li><a <if condition="$order eq 3">style="color:red;"</if> href="<{:LinkTo('lists/scraped',array('type'=>$type,'area_id'=>$area_id,'business_id'=>$business_id,'order'=>3))}>">默认</a></li>
+                <li><a <if condition="$order eq 1"> style="color:red;"</if> href="<{:LinkTo('lists/scraped',array('type'=>$type,'area_id'=>$area_id,'business_id'=>$business_id,'order'=>1))}>">距离优先</a></li>
+                <li><a <if condition="$order eq 2">style="color:red;"</if> href="<{:LinkTo('lists/scraped',array('type'=>$type,'area_id'=>$area_id,'business_id'=>$business_id,'order'=>2))}>">时间排序</a></li>
+                 
+            </ul>
+      </div>
+      
+      <div id="parent_container" class="inner_parent" style="display:none;">
+        <div class="innercontent"></div>
+      </div>
+      <div id="inner_container" class="inner_child" style="display:none;">
+        <div class="innercontent"></div>
+      </div>
+    
+</div>
+<!--end-->    
+
+<div id="fullbg" class="fullbg" style="display: none; height: 250px;">
+<i class="pull2"></i>
+</div>
+
+    <style>
+	.container {
+    margin-top: 0rem;
+}
+	</style>
+    
+    <script type="text/javascript">
+	$(function(){
+		$("#search-btn").click(function(){
+			if($(".top-search").css("display")=='block'){
+				$(".top-search").hide();
+				$(".top-title").show(200);
+			}
+			else{
+				$(".top-search").show();
+				$(".top-title").hide(200);
+			}
+		});
+		$("#search-bar li").each(function(e){
+			$(this).click(function(){
+				if($(this).hasClass("on")){
+					$(this).parent().find("li").removeClass("on");
+					$(this).removeClass("on");
+					$(".serch-bar-mask").hide();
+				}
+				else{
+					$(this).parent().find("li").removeClass("on");
+					$(this).addClass("on");
+					$(".serch-bar-mask").show();
+				}
+				$(".serch-bar-mask .serch-bar-mask-list").each(function(i){
+					
+					if(e==i){
+						$(this).parent().find(".serch-bar-mask-list").hide();
+						$(this).show();
+					}
+					else{
+						$(this).hide();
+					}
+					$(this).find("li").click(function(){
+						$(this).parent().find("li").removeClass("on");
+						$(this).addClass("on");
+					});
+				});
+			});
+		});
+	});
+	</script>
+    
+	<div class="container">
+        <div class="blank-10 bg"></div>
+		<div id="shop-list" class="shop-list"></div>
+	</div>
+	<script>
+		$(document).ready(function () {
+				showFilter({ibox:'filter2',content1:'parent_container',content2:'inner_container',fullbg:'fullbg'});
+			loaddata('<{$nextpage}>', $("#shop-list"), true);
+		});
+	</script>
+
+
+<include file="public:footer"/>

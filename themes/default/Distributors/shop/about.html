@@ -1,0 +1,216 @@
+<include  file='public:header'/>   
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:u('distributors/index/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		基本设置
+	</div>
+</header>
+
+<style>
+ul { padding-left: 0px;}
+.xiaoqu-search { margin-top:2rem;}
+</style>
+<!-- 筛选TAB -->
+<ul id="shangjia_tab">
+<!--        <li style="width: 25%;"><a href="<{:u('distributors/branch/index')}>">分店管理</a></li>-->
+        <li style="width: 25%;"><a href="<{:u('distributors/worker/index')}>">员工管理</a></li>
+        <li style="width: 25%;"><a href="<{:u('distributors/shop/about')}>" class="on" >基本设置</a></li>
+<!--        <li style="width: 25%;"><a href="<{:u('distributors/shop/photo/')}>">环境图</a></li>-->
+</ul>	
+
+
+<style>
+.fabu-form .form-content {border: none;resize: none;width: 100%;height: 80px;padding: 10px;font-size: 12px;}
+.fabu-form .form-content1 {border: none;resize: none;width: 100%;height: 150px;padding: 10px;font-size: 12px;}
+.shuxing{width: 20px; height: 20px;margin-bottom: 10px;}
+</style>
+<div class="blank-40"></div>
+<form class="fabu-form" method="post"  target="x-frame" action="<{:U('shop/about')}>">
+<div class="row">
+	<div class="line">
+		<span class="x3">店铺地址：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[addr]" value="<{$SHOP.addr|default=''}>" />
+		</span>
+	</div>
+</div>
+
+<div class="row">
+	<div class="line">
+		<span class="x3">联系人：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[contact]" value="<{$SHOP.contact|default=''}>" />
+		</span>
+	</div>
+</div>
+
+<div class="row">
+	<div class="line">
+		<span class="x3">店铺电话：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[tel]" value="<{$SHOP.tel|default=''}>" />
+		</span>
+	</div>
+</div>
+
+<div class="row">
+	<div class="line">
+		<span class="x3">店铺手机号码：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[mobile]" value="<{$SHOP.mobile|default=''}>" />
+		</span>
+	</div>
+</div>
+
+<div class="row">
+	<div class="line">
+		<span class="x3">营业时间：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[business_time]" value="<{$ex.business_time|default=''}>" />
+		</span>
+	</div>
+</div>
+
+<!--<div class="row">-->
+<!--	<div class="line">-->
+<!--		<span class="x3">配送时间：</span>-->
+<!--		<span class="x9">-->
+<!--			<input type="text" class="text-input" name="data[delivery_time]" value="<{$ex.delivery_time|default='30'}>" />-->
+<!--		</span>-->
+<!--	</div>-->
+<!--</div>-->
+<div class="blank-10 bg"></div>
+
+
+<!--<em class="text-small text-gray"><em>-->
+<!--	<div class="container">-->
+<!--		<div class="blank-10"></div>-->
+<!--		<p><span class="text-dot">小提示：</span> 下面内容选填，如需打印机联系电话：<{$CONFIG.site.tel}>购买</p>-->
+<!--    </div>   -->
+
+
+
+<!--  <div class="row">-->
+<!--    <div class="line">-->
+<!--       <span class="x3">外卖打印：</span>-->
+<!--       <span class="x9">-->
+<!--           <label><span>开启</span>-->
+<!--            <input style="width: 20px; height: 20px;"  type="radio" <eq name="SHOP.is_ele_print" value="1"> checked="checked" </eq>  name="is_ele_print" id="is_open" value="1"/>-->
+<!--           </label>-->
+<!--           <label><span style="margin-left: 20px;">关闭</span>-->
+<!--            <input style="width: 20px; height: 20px;"  type="radio" <eq name="SHOP.is_ele_print" value="0"> checked="checked" </eq>    name="is_ele_print" id="is_open" value="0"/>-->
+<!--           </label>-->
+<!--       </span>-->
+<!--    </div>-->
+<!-- </div>-->
+<!-- -->
+<!--   <div class="row">-->
+<!--    <div class="line">-->
+<!--       <span class="x3">套餐打印：</span>-->
+<!--       <span class="x9">-->
+<!--           <label><span>开启</span>-->
+<!--            <input style="width: 20px; height: 20px;"  type="radio" <eq name="SHOP.is_tuan_print" value="1"> checked="checked" </eq>  name="is_tuan_print" id="is_open" value="1"/>-->
+<!--           </label>-->
+<!--           <label><span style="margin-left: 20px;">关闭</span>-->
+<!--            <input style="width: 20px; height: 20px;"  type="radio" <eq name="SHOP.is_tuan_print" value="0"> checked="checked" </eq>    name="is_tuan_print" id="is_open" value="0"/>-->
+<!--           </label>-->
+<!--       </span>-->
+<!--    </div>-->
+<!-- </div>-->
+<!-- -->
+<!--    <div class="row">-->
+<!--    <div class="line">-->
+<!--       <span class="x3">商城打印：</span>-->
+<!--       <span class="x9">-->
+<!--           <label><span>开启</span>-->
+<!--            <input style="width: 20px; height: 20px;"  type="radio" <eq name="SHOP.is_goods_print" value="1"> checked="checked" </eq>  name="is_goods_print" id="is_open" value="1"/>-->
+<!--           </label>-->
+<!--           <label><span style="margin-left: 20px;">关闭</span>-->
+<!--            <input style="width: 20px; height: 20px;"  type="radio" <eq name="SHOP.is_goods_print" value="0"> checked="checked" </eq>    name="is_goods_print" id="is_open" value="0"/>-->
+<!--           </label>-->
+<!--       </span>-->
+<!--    </div>-->
+<!-- </div>-->
+<!-- -->
+<!--    <div class="row">-->
+<!--    <div class="line">-->
+<!--       <span class="x3">订座打印：</span>-->
+<!--       <span class="x9">-->
+<!--           <label><span>开启</span>-->
+<!--            <input style="width: 20px; height: 20px;"  type="radio" <eq name="SHOP.is_ding_print" value="1"> checked="checked" </eq>  name="is_ding_print" id="is_open" value="1"/>-->
+<!--           </label>-->
+<!--           <label><span style="margin-left: 20px;">关闭</span>-->
+<!--            <input style="width: 20px; height: 20px;"  type="radio" <eq name="SHOP.is_ding_print" value="0"> checked="checked" </eq>    name="is_ding_print" id="is_open" value="0"/>-->
+<!--           </label>-->
+<!--       </span>-->
+<!--    </div>-->
+<!-- </div>-->
+
+
+
+
+<!--<div class="row">-->
+<!--	<div class="line">-->
+<!--		<span class="x5">打印标识(apiKey)：</span>-->
+<!--		<span class="x7">-->
+<!--			<input type="text" class="text-input" name="data[apiKey]" value="<{$SHOP.apiKey|default=''}>" />-->
+<!--		</span>-->
+<!--	</div>-->
+<!--</div>-->
+
+<!--<div class="row">-->
+<!--	<div class="line">-->
+<!--		<span class="x5">密钥(mKey)：</span>-->
+<!--		<span class="x7">-->
+<!--			<input type="text" class="text-input" name="data[mKey]" value="<{$SHOP.apiKey|default=''}>" />-->
+<!--		</span>-->
+<!--	</div>-->
+<!--</div>-->
+
+<!--<div class="row">-->
+<!--	<div class="line">-->
+<!--		<span class="x5">密钥(mKey)：</span>-->
+<!--		<span class="x7">-->
+<!--			<input type="text" class="text-input" name="data[mKey]" value="<{$SHOP.mKey|default=''}>" />-->
+<!--		</span>-->
+<!--	</div>-->
+<!--</div>-->
+
+<!--<div class="row">-->
+<!--	<div class="line">-->
+<!--		<span class="x5">用户id(partner)：</span>-->
+<!--		<span class="x7">-->
+<!--			<input type="text" class="text-input" name="data[partner]" value="<{$SHOP.partner|default=''}>" />-->
+<!--		</span>-->
+<!--	</div>-->
+<!--</div>-->
+
+<!--<div class="row">-->
+<!--	<div class="line">-->
+<!--		<span class="x5">打印机终端号：</span>-->
+<!--		<span class="x7">-->
+<!--			<input type="text" class="text-input" name="data[machine_code]" value="<{$SHOP.machine_code|default=''}>" />-->
+<!--		</span>-->
+<!--	</div>-->
+<!--</div>-->
+
+
+<div class="line border-bottom">
+	<textarea class="form-content1" name="details" placeholder="店铺介绍，建议不超过200字！"><{:cleanhtml($ex['details'])}></textarea>
+</div> 
+<div class="blank-10 bg"></div>  
+
+
+  
+
+
+	<div class="container">
+		<div class="blank-30"></div>
+		<button  type="submit" class="button button-block button-big bg-dot">确认编辑</button>
+		<div class="blank-30"></div>
+	</div>
+</form>
+   
+<include  file='public:footer'/>

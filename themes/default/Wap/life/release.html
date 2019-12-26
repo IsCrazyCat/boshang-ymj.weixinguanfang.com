@@ -1,0 +1,56 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('life/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		发布生活信息
+	</div>
+	<div class="top-signed"></div>
+</header>
+
+<div class="container">
+		<div class="blank-10"></div>
+		<p><span class="text-dot">小提示：</span> 选择下面的分类即可发布信息！</p>
+</div>
+<div class="blank-10 bg"></div>   
+ <style>
+ .index-cate .cate-name span { margin-left:0px;}
+ </style>  
+<div id="index-cate" class="index-cate">
+	<php>$ii = 0;</php>
+	<volist name="list" id="arr">
+	<php>$ii++;</php>
+	<ul>
+		<li class="cate-name">
+				<span><{$arr['channel']}></span>
+		</li>
+		<li class="cate-list">
+			<php>$on=false;$num=count($arr['cate']);</php>
+			<volist name="arr['cate']" id="cate">
+				<if condition="$key lt 12">
+				<a href="<{:U('life/fabu',array('cat'=>$cate['cate_id']))}>"><{$cate.cate_name}></a>
+				<else/>
+					<if condition="!$on">
+						<span class="more-content" style="display:none;">
+						<php>$on=true;</php>
+					</if>
+					<a href="<{:U('life/fabu',array('cat'=>$cate['cate_id']))}>"><{$cate.cate_name}></a>
+					<if condition="count($arr['cate']) eq $key+1">
+						</span>
+					</if>
+				</if>
+			</volist>
+		</li>
+		<if condition="($key gt 12) AND ($num gt 12)">
+		<li class="cate-more"><a href="javascript:;"><span>展开更多</span><i class="down icon-angle-down"></i><i class="up icon-angle-up"></i></a></li>
+		</if>
+		<li class="blank-10 bg"></li>
+	</ul>
+	</volist>
+</div>
+
+
+    
+    
+<include file="public:footer"/>

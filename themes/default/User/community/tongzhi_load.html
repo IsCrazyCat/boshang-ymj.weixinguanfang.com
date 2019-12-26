@@ -1,0 +1,19 @@
+<volist name="news" id="var">
+	<div class="line padding border-bottom">
+		
+		<div class="x12">
+			<p>
+				<a class="title" href="<{:u('user/community/newsdetail',array('news_id'=>$var['news_id']))}>">
+				
+					<{:bao_Msubstr($var['title'],0,30,true )}>
+				</a>
+			</p>
+			<p class="text-gray">所属小区：<{$communitys[$var['community_id']]['name']}></p>
+		</div>
+	</div>
+	<div class="line padding">
+		<span class="x8">通知时间：<{$var.create_time|date='Y-m-d',###}></span>
+		<span class="x4 text-right"><a class="button button-small bg-dot" href="<{:u('user/community/newsdetail',array('news_id'=>$var['news_id']))}>">通知详情</a></span>
+	</div>
+	<div class="blank-10 bg"></div>
+</volist>

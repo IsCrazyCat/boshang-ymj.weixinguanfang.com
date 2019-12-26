@@ -1,0 +1,48 @@
+<volist name="list" id="item">
+	<li class="reply-item">
+		<div class="line">
+			<div class="x2">
+				<span class="avatar">
+              		<img src="<{:config_img($users[$item['user_id']]['face'])}>" />
+				</span>
+			</div>
+			<div class="x10">
+				<div class="content">
+					<em><{:config_user_name($users[$item['user_id']]['nickname'])}></em> 
+					<p class="ctrl" style="float:right; position:inherit">
+						<span class="time"><{:formatTime($item['create_time'])}>
+                            <if condition="$item['user_id'] neq $MEMBER['user_id']">
+                            <a class="comment_id" href="<{:U('thread/reply',array('post_id'=>$item['post_id'],'comment_id'=>$item['comment_id']))}>">回复</a>
+                            </if>
+                        </span>
+					</p>
+                    <p class="thread_contents"><{$item['contents']}></p>
+                    <volist name="item.pics" id="pic">
+                        <a class="thread_pics"><img src="<{:config_img($pic['photo'])}>"></a>
+                    </volist>
+				</div>
+			</div>
+		</div>
+        <!--回复列表开始-->
+        <div class="line">
+            <div class="x2">
+                    <span class="avatar"></span>
+                </div>
+                <div class="x10">
+                    <volist name="item.replys" id="var">
+                        <div class="reply_content ">
+                                <span class="avatar x2">
+                                    <img class="content_avatar" src="<{:config_img($var[users][face])}>" />
+                                </span>
+                                <em><{:config_user_name($var[users][nickname])}><span class="time"><{:formatTime($var['create_time'])}></span></em> 
+                                <p class="thread_contents"><{$var['contents']}></p>
+                                   <!-- <volist name="var.pics" id="p">
+                                        <a class="content_pics"><img src="<{:config_img($p['photo'])}>"></a>
+                                    </volist>-->
+                        </div>
+                    </volist>
+                </div>
+         <!--回复列表结束-->
+        </div>
+	</li>
+</volist>

@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <{$CONFIG['site']['headinfo']}>
+        <title><{$seo_title}></title>
+        <meta name="keywords" content="<{$seo_keywords}>" />
+        <meta name="description" content="<{$seo_description}>" />
+        <link href="__TMPL__statics/css/style.css?v=20150718" rel="stylesheet" type="text/css">
+            <script> var BAO_PUBLIC = '__PUBLIC__';
+                var BAO_ROOT = '__ROOT__';</script>
+            <script src="__TMPL__statics/js/jquery.js?v=20150718"></script>
+            <script src="__TMPL__statics/js/jquery.flexslider-min.js?v=20150718"></script>
+            <script src="__TMPL__statics/js/js.js?v=20150718"></script>
+            <script src="__PUBLIC__/js/web.js?v=20150718"></script>
+    </head>
+    <body style="background-color:transparent;">
+        <div style="min-height:1000px;">
+            <div class="test-tab">
+                <script>
+                $(function () {
+                    $(".test-tab li").each(function (e) {
+                        $(this).click(function () {
+                            $(".test-tab li").removeClass("on");
+                            $(this).addClass("on");
+                            $(".test-tab-list").each(function (i) {
+                                if (e == i) {
+                                    $(".test-tab-list").hide();
+                                    $(this).show();
+                                }
+                                else {
+                                    $(this).hide();
+                                }
+                            });
+                        });
+                    });
+
+                });
+                </script>
+                <ul>
+                    <li class="on"><a href="#">套餐码验证</a></li>
+                    <li><a href="#">套餐码批量验证</a></li>
+                    <li><a href="#">超级验证</a></li>
+                </ul>
+            </div>
+            <div class="test-tab-list" style="display:block;">
+                <p class="test-tab-list-ts">亲，您还没有输入口令，请先输入口令 </p>
+                <div><input type="text" value="请输入口令" onblur="if (!value) {
+                            value = defaultValue;
+                            this.style.color = '#999'
+                        }" onclick="if (value == defaultValue) {
+                                    value = '';
+                                    this.style.color = '#000'
+                                }" /><input class="test-tab-list-sub" type="submit" value="验证套餐码" /></div>
+            </div>
+            <div class="test-tab-list">
+                <p class="test-tab-list-ts">亲，您还没有输入口令，请先输入口令 </p>
+                <div class="test-tab-list-int"><input type="text" value="请输入口令" onblur="if (!value) {
+                            value = defaultValue;
+                            this.style.color = '#999'
+                        }" onclick="if (value == defaultValue) {
+                                    value = '';
+                                    this.style.color = '#000'
+                                }" /></div>
+                <div class="test-tab-list-int"><input type="text" value="请输入口令" onblur="if (!value) {
+                            value = defaultValue;
+                            this.style.color = '#999'
+                        }" onclick="if (value == defaultValue) {
+                                    value = '';
+                                    this.style.color = '#000'
+                                }" /></div>
+                <div class="test-tab-list-int"><input type="text" value="请输入口令" onblur="if (!value) {
+                            value = defaultValue;
+                            this.style.color = '#999'
+                        }" onclick="if (value == defaultValue) {
+                                    value = '';
+                                    this.style.color = '#000'
+                                }" /></div>
+                <div class="test-tab-list-int"><input type="text" value="请输入口令" onblur="if (!value) {
+                            value = defaultValue;
+                            this.style.color = '#999'
+                        }" onclick="if (value == defaultValue) {
+                                    value = '';
+                                    this.style.color = '#000'
+                                }" /></div>
+                <div class="test-tab-list-int"><input type="text" value="请输入口令" onblur="if (!value) {
+                            value = defaultValue;
+                            this.style.color = '#999'
+                        }" onclick="if (value == defaultValue) {
+                                    value = '';
+                                    this.style.color = '#000'
+                                }" /><span><input class="test-tab-list-sub" type="submit" value="新增一行+" /></span></div>
+                <div class="test-tab-list-intTop"><input class="test-tab-list-sub" type="submit" value="验证套餐码" /></div>
+
+            </div>
+            <div class="test-tab-list">
+                <p class="test-tab-list-ts">亲，您还没有输入口令，请先输入口令 </p>
+                <div class="test-tab-list-int"><input type="text" value="请输入口令" onblur="if (!value) {
+                            value = defaultValue;
+                            this.style.color = '#999'
+                        }" onclick="if (value == defaultValue) {
+                                    value = '';
+                                    this.style.color = '#000'
+                                }" /><input class="test-tab-list-sub" type="submit" value="验证套餐码" /></div>
+                <div class="test-tab-list-tsk">
+                    <h3>温馨提示</h3>
+                    <p>超级验证，输入其中一个密码可以查询出该订单下所有可用套餐码;</p>
+                    <p>根据输入的张数随机抽取你要使用的套餐码，但必须是同一款商品;</p>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

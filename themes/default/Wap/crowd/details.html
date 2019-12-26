@@ -1,0 +1,64 @@
+<php>$seo_title = $detail['title'].'众筹详情';</php>
+<include file='public:head_am'/>  
+<body >
+<style>
+body{background: #fff;}
+#focus p{}
+.x3 {width: 25%;}
+ul, ol {padding-left: 0em;}
+#shangjia_tab{ display:block; width:100%; height:3rem; background-color:#fff; border-bottom:0.2rem #dedede solid; position:fixed; z-index:999; top:4.1rem;}
+#shangjia_tab li{ display:block; float:left;}
+#shangjia_tab li a{ display:block; text-align:center; line-height:3rem; height:3rem; color:#999; font-size: 14px;}
+#shangjia_tab li a.on{border-bottom:0.22rem solid #2fbdaa;margin-top: 0.01rem;}
+#shangjia_tab li em{ display:inline-block; margin-left:0.05rem; margin-bottom:0.02rem; width:0.07rem; height:0.07rem; border-bottom:0.02rem solid #666;border-left:0.02rem solid #666;transform:rotate(-45deg);-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);-webkit-transform:rotate(-45deg);-o-transform:rotate(-45deg);}
+
+.am-gallery {margin-top:2rem;}
+.am-header-default {background: #06c1ae;}
+.am-header-default .am-header-nav a.back{position: absolute;left: 0;top: 0;width: 50px; bottom: 0;}	
+.am-header-default .am-header-nav a.back:after {content: '';display: inline-block;width: 10px;height: 10px;border-top: 2px solid #fff;border-left: 2px solid #fff;-webkit-transform: rotate(-45deg);transform: rotate(-45deg);}
+.am-header-default .am-header-title a{ font-size:14px;}
+.container{ padding:10px;}
+.container li {padding: 5px;}
+*+p, *+hr, *+ul, *+ol, *+dl, *+blockquote, *+pre, *+address, *+fieldset, *+figure {margin-top: 0.1rem;}
+p, hr, ul, ol, dl, blockquote, pre, address, fieldset, figure {margin: 0 0 0.0rem 0;}
+.am-gotop-fixed .am-active {opacity: .7;}
+.am-gotop-fixed {z-index: 1;border-radius: 50%;right: 24px; bottom: 60px;width: 40px; min-height: 40px;}
+.am-gotop-fixed .am-gotop-icon {line-height: 40px;background-color: #FF5500;}
+.am-icon-chevron-up:before { color: #FFFFFF;}
+</style>
+<header data-am-widget="header" class="am-header am-header-default am-badge-danger am-text-nowrap  am-no-layout">
+    <div class="am-header-left am-header-nav">
+        <a href="<{:U('crowd/detail',array('goods_id'=>$detail['goods_id']))}>" class="back">
+            <i class="am-header-icon am-iocn-reply am-icon-sm"></i>
+        </a>  
+    </div>
+    <h1 class="am-header-title">
+        <a href="#title-link" class=""><{:bao_msubstr($detail['title'],0,8)}></a>
+    </h1>
+    <div class="am-header-right am-header-nav">
+    </div>
+</header>
+  <ul id="shangjia_tab">
+        <li class="x3"><a href="<{:U('crowd/detail',array('goods_id'=>$detail['goods_id']))}>" <if condition="$act eq 'detail'">class="on"</if> >首页</a></li>
+        <li class="x3"><a href="<{:U('crowd/details',array('goods_id'=>$detail['goods_id']))}>" <if condition="$act eq 'details'">class="on"</if> >详情</a></li>
+        <li class="x3"><a href="<{:U('crowd/projectprogress',array('goods_id'=>$detail['goods_id']))}>" <if condition="$act eq 'projectprogress'">class="on"</if> >进展</a></li>
+        <li class="x3"><a href="<{:U('crowd/ask_list',array('goods_id'=>$detail['goods_id']))}>" <if condition="$act eq 'ask_list'">class="on"</if> >话题</a></li>
+    </ul>  
+
+	<div data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-3 am-avg-lg-4 am-gallery-overlay" data-am-gallery="{ pureview: true }">
+		<div class="container">
+            <div class="global">
+                <div class="line banner">	
+                    <div id="focus" class="global_focus">
+                    <{$detail.details}> 
+                    </div>
+                </div>
+        </div>
+		</div>
+	</div>
+
+  
+<div data-am-widget="gotop" class="am-gotop am-gotop-fixed am-no-layout am-active">
+	<a href="#top"><span class="am-gotop-title"></span><i class="am-gotop-icon am-icon-chevron-up"></i></a>
+</div> 
+<script src="http://images2.5maiche.cn/static/assets/js/amazeui.min.js" type="text/javascript"></script>

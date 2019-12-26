@@ -1,0 +1,32 @@
+<include  file='public:header'/>   
+
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('wuye/feedback/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		回复报修
+	</div>
+</header>
+
+<style>
+.fabu-form .form-content {border: none;resize: none;width: 100%;height: 80px;padding: 10px;font-size: 12px;}
+.fabu-form .form-content1 {border: none;resize: none;width: 100%;height: 150px;padding: 10px;font-size: 12px;}
+</style>
+
+<form class="fabu-form" method="post"  target="x-frame" action="<{:U('feedback/reply',array('feed_id'=>$detail['feed_id']))}>">
+
+
+<div class="line border-bottom">
+	<textarea class="form-content" name="reply"></textarea>
+</div>
+
+	<div class="container">
+		<div class="blank-30"></div>
+		<button  type="submit" class="button button-block button-big bg-dot">确认回复</button>
+		<div class="blank-30"></div>
+	</div>
+</form>
+
+
+<include  file='public:footer'/>

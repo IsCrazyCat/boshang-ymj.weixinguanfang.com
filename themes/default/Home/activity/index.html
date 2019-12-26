@@ -1,0 +1,88 @@
+<include  file='public:header'/>  
+<include  file='public:top'/>
+<include  file='public:nav2'/>  
+<php>
+    $get_cat = $_GET['cat'];
+    if(!$get_cat || empty($get_cat)){$get_cat = 1;}
+</php>
+<div class="content"> 
+    <div class="hdsy_banner">
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.hdsy_flexslider').flexslider({
+                    directionNav: true,
+                    pauseOnAction: false,
+                    /*slideshow: false,*/
+                    /*manualControlEvent:"hover",*/
+                });
+
+            });//首页轮播js
+        </script>
+        <div class="hdsy_flexslider">
+            <ul class="slides">
+
+                <calldata mdl="Ad" where=" bg_date ELT '{$today}' AND  city_id IN ({$city_ids}) AND end_date EGT '{$today}' AND closed=0 AND site_id=3" limit="0,3" cache="21600" order="orderby asc">
+                    <li class="sy_hotgzLi flex-active-slide" style="width: 100%; float: left; margin-right: -100%; position: relative; opacity: 1; display: block; z-index: 2;"><a href="<{:U('app/ad/click',array('ad_id'=>$item['ad_id'],'aready'=>1))}>" title="<{$item.title}>" target="_blank">
+                    
+                    <img width="1200" height="272" src="<{:config_img($item['photo'])}>" draggable="false"></a></li>
+                </calldata>
+            </ul>
+            <ol class="flex-control-nav flex-control-paging"></ol>
+
+        </div>
+    </div>
+    <div class="hdsy_tab">
+        <ul>
+            <volist name="activitycates" id="item" key="index">
+                <li class="hdsy_tabLi <php>if($get_cat == $item['cate_id']){echo 'on';}</php>"><a href="<{:U('activity/index',array('cat'=>$item['cate_id']))}>"><{$item.cate_name}></a></li>
+            </volist>
+        </ul>
+    </div>
+    
+    
+    
+    <div class="hdsy_tabList">
+        <ul>
+        <volist name="list" id="item">
+        <div class="hdxq_tgList">
+            <div class="left hdxq_tgList_l">
+                <div class="hdxq_tjj">
+                    <div class="hdsy_LiT"><{$item.title}></div>
+                    <p class="hdsy_LiP"><{$item.intro}></p>
+                </div>
+                <div class="hdxq_ljct">
+                <php>
+                $num = D('Activitysign') -> where('activity_id ='.$item['activity_id']) -> sum(num);
+               </php> 
+                <{$num}>人已报名
+                
+                <if condition="$item['sign_end'] lt $today">
+                <a href="<{:U('activity/detail',array('activity_id'=>$item['activity_id']))}>" class="hdxq_ctAn" target="_blank">历史报名详情</a>
+                <else/>
+                 <a href="<{:U('activity/detail',array('activity_id'=>$item['activity_id']))}>" class="hdxq_ctAn" target="_blank">立即报名</a>
+                </if>   
+                
+                
+                </div>
+                <div class="hdxq_LiTime">
+                    有效期：至<{$item.sign_end}><a target="_blank" style="font-size:12px;" href="<{:U('shop/detail',array('shop_id'=>$item['shop_id']))}>">
+                    商家：<{$shops[$item['shop_id']]['shop_name']}> <{$shops[$item['shop_id']]['tel']}><if condition="$shops[$item['shop_id']]['extension'] neq null">转<{$shops[$item['shop_id']]['extension']}>分机</if></a>
+                </div>
+            </div>
+           <div class="right hdxq_tgList_r"><a href="<{:U('activity/detail',array('activity_id'=>$item['activity_id']))}>"><img width="639" height="293" src="<{:config_img($item['photo'])}>"></a></div>
+      </div>
+      </volist>
+      
+            
+        </ul>
+        <div class="x">
+            <{$page}>
+        </div>
+    </div>
+    
+    
+    
+    
+    
+</div>
+<include file="public:footer"/>

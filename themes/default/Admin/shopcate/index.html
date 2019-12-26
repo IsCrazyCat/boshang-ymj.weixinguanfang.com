@@ -1,0 +1,80 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">商家分类</li>
+        <li class="li2 li3">分类列表</li>
+    </ul>
+</div>
+<div class="main-cate">
+    <p class="attention"><span>注意：</span>暂时2级分类</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="border-top: 1px solid #dbdbdb;">
+            <div class="left">
+                <{:BA('shopcate/create','','添加一级分类','load','',600,550)}>
+            </div>
+        </div>
+
+        <div class="tableBox">
+            <form  target="baocms_frm" method="post">
+                <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF; text-align:center;">
+                    <tr bgcolor="#FAE2E2" height="48px;" style="color:#333; font-size:16px; line-height:48px;">
+                        <td>分类</td>
+                        <td>排序</td>
+                        <td>操作</td>
+                    </tr>
+
+                    <foreach name="list" item="var">
+                        <eq name="var.parent_id" value="0">
+                        <tr bgcolor="#f1f1f1" height="48px" style="font-size:14px; color:#545454; text-align:left; line-height:48px;">
+                            <td style="padding-left:20px;"><{$var.cate_name}>(<{$var.cate_id}>)</td>
+                            <td style="padding-left:70px;"><input name="orderby[<{$var.cate_id}>]" value="<{$var.orderby}>" type="text" class="remberinput w80" /></td>
+                            <td style="text-align:center;">
+                                <{:BA('shopcate/create',array("parent_id"=>$var['cate_id']),'添加子分类','load','remberBtn',600,550)}>
+                                <eq name="var.is_hot" value="0">
+                                <{:BA('shopcate/hots',array("cate_id"=>$var["cate_id"]),'设为热门','act','remberBtn')}>
+                        <else />
+                        <{:BA('shopcate/hots',array("cate_id"=>$var["cate_id"]),'取消热门','act','remberBtn')}>
+                        </eq>
+                        <{:BA('shopcate/edit',array("cate_id"=>$var["cate_id"]),'编辑','load','remberBtn',600,550)}>
+                        <{:BA('shopcate/delete',array("cate_id"=>$var["cate_id"]),'删除','act','remberBtn')}>
+                        </td>
+                        </tr>
+                        <foreach name="list" item="var2">
+                            <eq name="var2.parent_id" value="$var.cate_id">
+                            <tr height="48px" style="font-size:14px; color:#545454; text-align:center; line-height:48px;">
+                                <td><{$var2.cate_name}>(<{$var2.cate_id}>)</td>
+                                <td><input name="orderby[<{$var2.cate_id}>]" value="<{$var2.orderby}>" type="text" class="remberinput w80" /></td>
+                                <td>
+                                    <eq name="var2.is_hot" value="0">
+                                    <{:BA('shopcate/hots',array("cate_id"=>$var2["cate_id"]),'设为热门','act','remberBtn')}>
+                            <else />
+                            <{:BA('shopcate/hots',array("cate_id"=>$var2["cate_id"]),'取消热门','act','remberBtn')}>
+                            </eq>
+                            <{:BA('shopcate/edit',array("cate_id"=>$var2["cate_id"]),'编辑','load','remberBtn',600,550)}>
+                            <{:BA('shopcate/delete',array("cate_id"=>$var2["cate_id"]),'删除','act','remberBtn')}>
+                            </td>
+                            </tr>
+                            </eq>
+                        </foreach>
+                        </eq>
+                    </foreach>     
+                </table>
+                <div class="selectNr">
+                    <div class="left">
+                        <{:BA('shopcate/update','','更新','list','remberBtn')}>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<include  file='public:footer'/>
+
+
+
+
+
+
+

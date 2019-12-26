@@ -1,0 +1,72 @@
+<include  file='public:header'/>
+<style>.lfTdBt {width:150px;}</style>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">基本设置</li>
+        <li class="li2 li3">跑腿设置</li>
+    </ul>
+</div>
+<p class="attention"><span>注意：</span>跑腿设置写在这里</p>
+<form  target="baocms_frm" action="<{:U('setting/running')}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+            
+                <tr>
+                    <td class="lfTdBt">跑腿基础费用：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[freight]" value="<{$CONFIG.running.freight}>" class="scAddTextName w150" />
+						<code>每一次跑腿的基本费用，会员发布的时候收取，支持在线支付</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="lfTdBt">发布跑腿间隔时间：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[interval_time]" value="<{$CONFIG.running.interval_time}>" class="scAddTextName w150" />
+						<code>秒为单位，建议填写60-900秒</code>
+                    </td>
+                </tr>
+                
+               <tr>
+                    <td class="lfTdBt">会员发布跑腿小提示：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[prompt]" value="<{$CONFIG.running.prompt}>" class="manageInput manageInput2" />
+						<code>会员中心发布跑腿的时候的小提示，不超过30字！</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="lfTdBt">是否开启自动定位：</td>
+                    <td class="rgTdBt">
+                        <label><input type="radio" name="data[local_addr]" <eq name="CONFIG.running.local_addr" value="1">checked="checked"</eq> value="1"  />开启</label>
+                        <label><input type="radio" name="data[local_addr]"  <eq name="CONFIG.running.local_addr" value="0">checked="checked"</eq>  value="0"  />不开启</label>
+                        <code>就是发布页面是否开启自动定位，默认建议开启</code>
+                    </td>
+                </tr>
+                
+                 <tr>
+                    <td class="lfTdBt">开启上传图片功能：</td>
+                    <td class="rgTdBt">
+                        <label><input type="radio" name="data[thumb]" <eq name="CONFIG.running.thumb" value="1">checked="checked"</eq> value="1"  />开启</label>
+                        <label><input type="radio" name="data[thumb]"  <eq name="CONFIG.running.thumb" value="0">checked="checked"</eq>  value="0"  />不开启</label>
+                        <code>开启后用户发布跑腿的时候可以上传图片，图片大小设置移驾，设置》》》基本设置》》附件设置</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="lfTdBt">永许发布几张图片：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[thumb_limt]" value="<{$CONFIG.running.thumb_limt}>" class="scAddTextName w150" />
+						<code>首先开启图片上传功能后才有效，建议设置2-4张，已节约服务区空间，一般填写2或者3最好</code>
+                    </td>
+                </tr>
+              
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>       
+

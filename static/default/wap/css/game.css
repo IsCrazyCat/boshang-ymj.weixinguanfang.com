@@ -1,0 +1,14 @@
+/*弹窗样式*/  
+.overlay {background-color:rgba(0,0,0,0.8); bottom: 0; cursor: default; left: 0; opacity: 0; position: fixed; right: 0; top: 0; visibility: hidden; z-index:99999;width:100%;} 
+.overlay .tips{display:block;width:301px;height:222px;background:url("/static/default/wap/image/wei-share.png") no-repeat;position:absolute;right:0;top:0;}
+.overlay:target{ visibility: visible; opacity: 1; }   
+.overlay:target+.popup { top: 45%; opacity: 1; visibility:visible; }
+
+/*分享样式*/
+.share .item{width:20%;float:left;}
+.share .item img{width:90%;float:left;} 
+
+
+/*游戏列表*/
+.game-list{padding:0;list-style:none;}
+.game-list a{display:block;width:100%;}

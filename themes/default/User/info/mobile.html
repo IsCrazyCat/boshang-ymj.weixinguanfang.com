@@ -1,0 +1,59 @@
+<include  file='public:header'/>  
+<body style="background: #fff;">
+    <header>
+        <div class="header_color">
+            <a class="back" href="<{:u('members/index')}>"><img  src="__TMPL__statics/img/back_icon.png"></a>
+            手机号绑定
+        </div>
+    </header>
+    <div class="ui-content">
+        <form action="<{:U('info/mobile')}>" method="post" class="register">
+            <ul >
+                <li><span class="icon_ip"></span><input type="text" name="mobile" id="mobile"  placeholder="请输入11位手机号"><div id="phone_code"><a id="jq_send" href="javascript:void(0);">验证</a></div></li>
+                <li><span class="icon_trans"></span><input type="text" name="yzm" id="yzm"  placeholder="验证码"></li>
+            </ul>
+            <div class="radius">
+                <input type="submit" value="立刻绑定" class="aniu">
+            </div>
+        </form>
+    </div>
+
+    <script type="text/javascript">
+        var mobile_timeout;
+        var mobile_count = 100;
+        var mobile_lock = 0;
+        $(function () {
+            $("#jq_send").click(function () {
+
+                if (mobile_lock == 0) {
+                    $.ajax({
+                        url: '<{:U("info/sendsms")}>',
+                        data: 'mobile=' + $("#mobile").val(),
+                        type: 'post'
+                    });
+                    mobile_count = 100;
+                    BtnCount();
+                    mobile_lock = 1;
+                }
+
+            });
+        });
+        BtnCount = function () {
+            if (mobile_count == 0) {
+                $('#jq_send').html("重新发送");
+                mobile_lock = 0;
+                clearTimeout(mobile_timeout);
+            }
+            else {
+                mobile_count--;
+                $('#jq_send').html("重新发送(" + mobile_count.toString() + ")秒");
+                mobile_timeout = setTimeout(BtnCount, 1000);
+            }
+        };
+    </script>       
+
+</div>
+</body>
+</html>
+
+<include  file='public:footer'/>  

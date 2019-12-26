@@ -1,0 +1,47 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">频道</li>
+        <li class="li2">一元云购</li>
+        <li class="li2 li3">用户详情</li>
+    </ul>
+</div>
+<div class="mainScAdd ">
+
+    <div class="tableBox">
+        <form target="baocms_frm" action="<{:U('cloudgoods/look',array('goods_id'=>$detail['goods_id']))}>" method="post">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">产品名称：</td>
+					<td class="rgTdBt"><{$detail['title']}></td>
+                </tr> 
+				
+				<tr>
+                    <td class="lfTdBt">商品号：</td>
+                    <td class="rgTdBt"><{$detail['win_number']}></td>
+                </tr> 
+				
+				<tr>
+                    <td class="lfTdBt">购买用户：</td>
+                    <td class="rgTdBt"><{$detail['nickname']}></td>
+                </tr>
+				
+				<tr>
+                    <td class="lfTdBt">联系号码：</td>
+                    <td class="rgTdBt"><{$detail['mobile']}></td>
+                </tr>
+				<tr>
+                    <td class="lfTdBt">地址：</td>
+                    <td class="rgTdBt"><input type="textarea" name="data[adress]" value="<{$detail.adress|default=''}>" class="manageInput" />
+
+                    </td>
+                </tr>
+            </table>
+            <div style="margin-left:140px;margin-top:20px">
+                <input type="submit" value="确认编辑" class="smtQrIpt" />
+                <div>
+                    </form>
+                </div>
+            </div>
+            <include  file='public:footer'/>       

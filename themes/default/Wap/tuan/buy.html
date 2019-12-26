@@ -1,0 +1,168 @@
+<include file='public:header'/>   
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('tuan/detail',array('tuan_id'=>$detail['tuan_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			提交订单
+		</div>
+	</header>  
+	
+	<div class="tuan-order">
+		<form  action="<{:U('tuan/order',array('tuan_id'=>$detail['tuan_id']))}>" method="post" target="x-frame">
+		<div class="blank-10 bg"></div>
+		<div class="line border-top border-bottom">
+			<div class="container">
+				<div class="x12 row border-bottom">
+					<span class="float-left">
+						<{$detail.title}>
+					</span>
+					<span class="float-right">
+						单价：￥<{$detail.tuan_price}>元
+					</span>
+				</div>
+				<div class="x12 row border-bottom">
+					<span class="float-left">
+						数量：<span class="text-small text-gray"></span>
+					</span>
+					<span class="float-right">
+						<span class="txt txt-small radius-small bg-main jq_jian">-</span>
+						<span class="txt-border txt-small radius-small border-gray"><span class="txt txt-small radius-small  bg-white jq_num">1</span></span>
+						<span class="txt txt-small radius-small bg-main jq_jia">+</span>
+					</span>
+				</div>
+				<div class="x12 row">
+					<span class="float-left">
+						原价
+					</span>
+					<span class="float-right">
+						<del class="text-gray"><span class="rush-price"><{$detail.price}></span>元</del>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="blank-10 bg"></div>
+		<div class="line border-top border-bottom">
+			<div class="container">
+				<div class="x12 row border-bottom">
+					<span class="float-left">
+						可使用积分
+					</span>
+                        <if condition="!empty($detail['use_integral'])">
+                        	<span class="float-right"><{$detail.use_integral|default='0'}>积分
+                        <else/>
+                        	<span class="float-right">该套餐不支持积分抵扣
+                        </if>
+					</span>
+				</div>
+				<!--使用优惠劵逻辑开始-->
+				<if condition="!empty($coupon)">
+					<div class="x12 row border-bottom">
+						<span class="float-left">
+							优惠劵使用
+						</span>
+							<input type="hidden" name="download_id" id="download_id" value="<{$coupon['download_id']}>"
+								   checked="checked"/>
+							<span class="float-right"> 优惠劵ID：<{$coupon['download_id']}>，抵现 &yen;<{:round($coupon['reduce_price']/100,2)}>元</span>
+						</span>
+					</div>
+					<elseif condition="!empty($download_id)"/>
+					<div class="x12 row border-bottom">
+						<span class="float-left">
+							优惠劵使用
+						</span>
+						<input type="hidden" name="download_id" id="download_id" value="$download_id" checked="checked"/>
+						<span class="float-right"> 当前使用的优惠劵ID：<{$download_id}></span>
+						</span>
+					</div>
+					<else/>
+				</if>
+				<!--使用优惠劵逻辑结束-->
+				<div class="x12 row border-bottom">
+					<span class="float-left">
+						总金额
+					</span>
+					<span class="float-right">
+						<em>￥<span id="all_price"><{$detail.tuan_price}></span>元</em>
+					</span>
+				</div>
+				<div class="x12 row">
+					<span class="float-left">
+						手机
+					</span>
+					<span class="float-right">
+						<em>
+						<eq name="mobile_open" value="0">
+						<a href="javascript:;" class="text-dot" id="mobile_btn">还未绑定手机，立即绑定</a>
+						<else />
+						<{$MEMBER['mobile']}>
+						</eq>
+						</em>
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="blank-10 bg"></div>
+
+		
+		<div class="blank-40"></div>
+		<div class="container">
+			<button class="button button-block button-big bg-yellow submit" type="submit">确定提交</button>
+		</div>
+		<input type="hidden" value="1"  id="hidden_num" name="num">
+		</form>
+	</div>
+	
+	<script>
+		function changetotal(num) {
+			var price = <{$detail.tuan_price}> ;
+			var tuan_num = <{$detail.num}> ;
+			
+			$("#all_price").html((price * num).toFixed(1));
+		}
+		$(document).ready(function() {
+			$(".jq_jia").click(function() {
+				var xiangou = <{$detail.xiangou}> ;
+				var num = parseInt($(".jq_num").text());
+				if (num < 99) {
+					num++;
+				}
+				<if condition="!empty($detail['xiangou'])">
+				if (num > xiangou) {
+					 layer.msg("您购买的套餐不能大于：" + xiangou + "份", function () {
+                            setTimeout(function () {
+                                window.location.reload(true);
+                            }, 1000)
+                        });
+				}
+				</if>
+				$(".jq_num").text(num);
+				$("#hidden_num").val(num);
+				changetotal(num);
+			});
+			$(".jq_jian").click(function() {
+				var num = parseInt($(".jq_num").text());
+				if (num > 1) {
+					num--;
+				}
+				$(".jq_num").text(num);
+				$("#hidden_num").val(num);
+				changetotal(num);
+			});
+			$(".jq_num").focusout(function() {
+				changetotal($(this).text());
+			});
+			// <eq name="mobile_open" value="0">
+			// $('.submit').click(function(){
+			// 	check_user_mobile('<{:U("mobile/tuan/tuan_sendsms")}>','<{:U("mobile/tuan/tuan_mobile")}>');
+			// 	return false;
+			// });
+			// check_user_mobile('<{:U("mobile/tuan/tuan_sendsms")}>','<{:U("mobile/tuan/tuan_mobile")}>');
+			// $('#mobile_btn').click(function(){
+			// 	check_user_mobile('<{:U("mobile/tuan/tuan_sendsms")}>','<{:U("mobile/tuan/tuan_mobile")}>');
+			// });
+			// </eq>
+		});
+	</script>
+    
+<include file='public:footer'/>

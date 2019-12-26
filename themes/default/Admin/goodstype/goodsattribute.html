@@ -1,0 +1,58 @@
+<include file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">添加属性</li>
+    </ul>
+</div>
+<form target="baocms_frm" action="<{:U('goodstype/addEditGoodsAttribute')}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px" style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#fff;">
+            
+             <tr>
+                <td align="right" class="lfTdBt"> 属性名称</td>
+                <td class="rgTdBt">
+                    <input type="text" id="attr_name" name="attr_name" value="<{$goodsAttribute.attr_name}>" class="scAddTextName w160"/>
+                </td>
+            </tr>
+             <tr>
+                <td align="right" class="lfTdBt">商品类型</td>
+                <td class="rgTdBt">                
+                  <select name="type_id" id="type_id">
+                     <option value="">请选择</option>
+                     <volist name="goodsTypeList" id="vo">
+                     <option value="<{$vo[id]}>" <if condition="$vo[id] eq $goodsAttribute[type_id]">selected="selected"</if>><{$vo[name]}></option>
+                     </volist>                                        
+                  </select>
+                </td>
+            </tr>     
+            
+            <tr>
+                <td class="lfTdBt">该属性值的录入方式：</td>
+                <td class="rgTdBt">
+                          <input type="radio" value="0" name="attr_input_type" <if condition="($goodsAttribute[attr_input_type] eq 0) or ($goodsAttribute[attr_input_type] eq NULL)">checked="checked"</if> />手工录入
+                                        
+           <input type="radio" value="1" name="attr_input_type" <if condition="$goodsAttribute[attr_input_type] eq 1">checked="checked"</if>  />从下面的列表中选择（一行代表一个可选值）
+                                        
+           <input type="radio" value="2" name="attr_input_type" <if condition="$goodsAttribute[attr_input_type] eq 2">checked="checked"</if>  />多行文本框
+                </td>
+            </tr>
+            
+              <tr>
+                <td class="lfTdBt">可选值列表：</td>
+                <td class="rgTdBt">
+                   <textarea rows="5" cols="30" name="attr_values"><{$goodsAttribute.attr_values}></textarea>
+                </td>
+            </tr>
+                
+            </table>
+        </div>
+        <div class="smtQr">
+            <input type="hidden" name="attr_id" value="<{$goodsAttribute.attr_id}>">
+            <input type="submit" value="确认保存" class="smtQrIpt"/>
+        </div>
+    </div>
+</form>
+<include file='public:footer'/>
+

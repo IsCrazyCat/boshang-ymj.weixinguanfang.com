@@ -1,0 +1,74 @@
+<foreach name="list" item="item">
+<li class="line ">
+        <dt>
+            <a class="x4">订单编号：<{$item.order_id}></a>
+            <a class="x8 text-right" href="<{:U('appoint/detail',array('order_id'=>$item['order_id']))}>">  
+                <{:bao_msubstr($appoints[$item['appoint_id']]['title'],0,12,false)}> <span class=" icon-angle-right"></span> 
+            </a>
+        </dt>
+  <dd class="zhong">
+        <div class="x3">
+            <a href="<{:U('wap/appoint/detail',array('appoint_id'=>$item['appoint_id']))}>">
+            	<img src="<{:config_img($appoints[$item['appoint_id']]['photo'])}>" width="70" height="70" style="width:90%;">
+            </a>
+        </div>
+        <div class="x9">
+            <p><{$appoints[$item['appoint_id']]['title']}></p>
+            <p class="text-small">
+				<span class="text-dot1 margin-right">预订时间：<{$item.svctime}></span>
+			</p>
+            
+            <p class="text-small">
+				<span class="text-dot1 margin-right">
+                 服务地址：<{$item.addr}></span>
+                </span>
+			</p>
+            <if condition="!empty($item['worker_id'])">
+            <p class="text-small">
+				<span class="text-dot1 margin-right"> 技师信息：<{$worker[$item['worker_id']]['name']}>/<{$worker[$item['worker_id']]['mobile']}></span></span>
+			</p>
+            <else/>
+            <p class="text-small">
+				<span class="text-dot1 margin-right"> 预约信息：<{$appoint[$item['appoint_id']]['user_name']}>/<{$appoint[$item['appoint_id']]['user_mobile']}></span></span>
+			</p>
+            </if>
+            
+            <p class="text-small">
+				<span class="text-dot1 margin-right">
+                 订单总额：&yen;<{:round($item['need_pay']/100,2)}></span>
+                </span>
+			</p>
+      </div>
+    </dd>
+        
+      
+      <dl>
+      <p class="text-right padding-top">
+          <a class="button button-little bg-dot"  href="<{:U('appoint/detail',array('order_id'=>$item['order_id']))}>">查看详情</a>
+             <if condition="$item['status'] eq 0">
+                  <a class="button button-little bg-dot"  href="<{:U('wap/appoint/pay',array('order_id'=>$item['order_id']))}>">去付款</a>
+                  <a target="x-frame" class="button button-little bg-gray" href="<{:U('appoint/orderdel',array('order_id'=>$item['order_id']))}>">取消订单</a>
+             <elseif condition="$item[status] eq 1" />
+                  <a class="button button-little bg-dot" >已付款</a>
+                  <a target="x-frame"  class="button button-little bg-dot"  href="<{:U('appoint/refund',array('order_id'=>$item['order_id']))}>">申请退款</a>
+             <elseif condition="$item[status] eq 2" />
+                  <a target="x-frame" class="button button-little bg-yellow" href="<{:U('appoint/confirm_complete',array('order_id'=>$item['order_id']))}>">确认完成</a>
+             <elseif condition="$item[status] eq 3" />
+                  <a class="button button-little bg-blue" >已付款</a>
+                  <a target="x-frame"  class="button button-little bg-dot"  href="<{:U('appoint/cancel_refund',array('order_id'=>$item['order_id']))}>">取消退款</a>
+             <elseif condition="$item[status] eq 4" />
+                  <a class="button button-little bg-gray" >已退款</a>
+                  <a target="x-frame" class="button button-little bg-gray" href="<{:U('appoint/orderdel',array('order_id'=>$item['order_id']))}>">删除订单</a>
+             <elseif condition="$item[status] eq 8" />
+                  <a class="button button-little bg-blue" >完成</a>
+                  <if condition="$item['comment_status'] eq 1">
+                      <a class="button button-little bg-blue" >已点评</a>
+                  <else/>
+                      <a class="button button-little bg-dot" href="<{:U('appoint/comment',array('order_id'=>$item['order_id']))}>">去点评</a>
+                  </if>
+             </if>       
+       </p>     
+      </dl>
+    </li>
+	<div class="blank-10 bg"></div>
+</foreach>

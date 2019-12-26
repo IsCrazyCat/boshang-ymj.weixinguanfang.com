@@ -1,0 +1,129 @@
+<include  file='public:header'/> 
+<include  file='public:top'/> 
+<include  file='public:nav2'/>
+<style>
+.seat_banner { height: 200px !important;}
+.seat_flexslider .list img {height: 200px !important;}
+.tribe_topic_cont {padding: 0 10px;}
+.tribe_topic_tab .list a{ font-size:18px;}
+.mob-author .qr-moments-box,.mod-info-flow,.span-mark-author{display:inline-block}
+.mod-b{position:relative}
+.mod-b{padding:10px 0;border-bottom:1px solid #f0f0f0;width:800px}
+.column-link{position:absolute;width:80px;border:1px solid #3CA5F6;right:0;border-radius:4px;font-size:12px;color:#3CA5F6;text-align:center;line-height:18px;z-index:90}
+.mod-thumb{width:220px;height:124px;overflow:hidden}
+.big-pic img,.big2-pic img,.hot-article-img img,.mod-thumb img,.topic-content img{width:100%;-webkit-transition:all .5s ease-out;-moz-transition:all .5s ease-out;-ms-transition:all .5s ease-out;-o-transition:all .5s ease-out;transition:all .5s ease-out}
+.mob-ctt{position:relative;float:right;margin:-120px 30px 0;width:520px}
+.mob-ctt h3{margin-top:-5px}
+.mob-ctt h3 a{font-size:18px}
+.mob-author{margin:15px 0}
+.mob-author .author-face{position:absolute;width:25px;height:25px}
+.mob-author .author-face img{width:100%;overflow:hidden;border-radius:25px}
+.mob-author .author-name{margin-left:0px}
+.mob-author .author-name,.mob-author .time,.mob-author em{color:#bbb;line-height:24px;font-style:normal}
+.icon-auth4{background-position:-325px -364px}
+.i-icon,.icon-article,.icon-big-phone,.icon-footer,.icon-sm-phone{position:relative}
+.i-icon,.icon{display:inline-block;background-image:url(/themes/default/Home/statics/images/icon/icon.png);width:20px;height:20px;background-repeat:no-repeat;vertical-align:text-bottom}
+.icon-auth1,.icon-auth2,.icon-auth3,.icon-auth4,.icon-auth5,.icon-team-auth{margin-left:10px}
+.mob-author .time{margin-left:20px}
+.icon-cmt{background-position:-67px -1px}
+.mob-author .icon-Qzone,.mob-author .icon-cmt,.mob-author .icon-moments,.mob-author .icon-share,.mob-author .icon-weibo{margin-left:20px}
+.mob-author em{margin-left:5px}
+.icon-fvr{background-position:-106px -3px;margin-left:15px}
+.mob-sub{font-size:14px;color:#999;line-height:24px}
+.mob-ctt{position:relative;float:right;margin:-120px 30px 0;width:520px}
+
+
+</style>
+<div class="pagewd">
+    <div class="seat_banner mt10">
+        <!--banner-->
+        <div class="flexslider seat_flexslider">
+            <ul class="slides">
+                <calldata mdl="Ad" where=" bg_date ELT '{$today}' AND  city_id IN ({$city_ids}) AND end_date EGT '{$today}' AND closed=0 AND site_id=66" limit="0,5" cache="21600" order="orderby asc">
+                    <li class="list"><a target="_blank" href="<{:U('app/ad/click',array('ad_id'=>$item['ad_id'],'aready'=>1))}>"><img src="<{:config_img($item['photo'])}>" width="1200" height="200" /></a></li></calldata>
+            </ul>
+        </div>
+        <!--banner结束-->
+    </div>
+    <!--内容-->
+    <div class="tribeCont mt10">
+    	<div class="left tribeCont_l">
+        	<!--全部分类-->
+        	<div class="tribe_cate">
+            
+            <foreach name="cates" item="item">
+           	 <eq name="item.parent_id" value="0"> 
+            	<h3><{$item.cate_name}></h3>
+                <div>
+                  <ul>
+                   <foreach name="cates" item="item2">
+                    <eq name="item2.parent_id" value="$item.cate_id">
+                            <li class="list"><a href="<{:U('news/index',array('cat'=>$item2['cate_id']))}>"><{$item2.cate_name}></a></li>
+                     </eq>
+                    </foreach>  
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+              </eq>
+            </foreach>    
+            </div>
+            <!--全部分类end-->
+        </div>
+        <div class="right tribeCont_r">
+        
+            <!--话题动态-->
+            <div class="tribe_topic_box">
+            	<div class="tribe_topic_tab">
+                	<ul>
+                     <li class="list <if condition='$act eq index'>on</if> "><a href="<{:U('news/index')}>">本地新闻</a></li>
+            	    </ul>
+                </div>
+                <div class="tribe_topic_cont">
+                    <div class="list_box mod-info-flow">
+                    
+                    <foreach name="list" item="item">
+                     <div class="mod-b mod-art " data-aid="$item['article_id']">
+                            <a href="<{:U('news/index',array('cat'=>$item['cate_id']))}>" class="column-link" ><{$cates[$item['cate_id']]['cate_name']}></a>
+                               <div class="mod-thumb">
+                                <a class="transition" href="<{:U('news/detail',array('article_id'=>$item['article_id']))}>" >
+                                    <img alt="<{$item.title}>" src="<{:config_img($item['photo'])}>" style="display: inline;">
+                                </a>
+                            </div>
+                            <div class="mob-ctt">
+                                <h3><a href="<{:U('news/detail',array('article_id'=>$item['article_id']))}>" class="transition" ><{$item.title}></a></h3>
+                                <div class="mob-author">
+                                        <a href="<{:U('news/detail',array('article_id'=>$item['article_id']))}>">
+                                            <span class="author-name ">作者：<{$item.source}></span><i class="i-icon icon-auth4" title="<{$item.source}>"></i>
+                                        </a>
+                                     <span class="time"><{:formatTime($item['create_time'])}></span>
+                                    <i class="icon icon-cmt"></i><em><{$item.zan}></em>
+                                    <i class="icon icon-fvr"></i><em><{$item.views}></em>
+                                </div>
+                                <div class="mob-sub"><{:bao_msubstr($item['profiles'],0,62,false)}></div>
+                            </div>
+                        </div>
+                  </foreach>    
+    
+                        <!--页码-->
+                        <div class="x">
+                            <{$page}>
+            		</div>
+            			<!--页码end-->
+                    </div>
+                </div>
+            </div>
+            <!--话题动态end-->
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!--内容end-->
+</div>
+<script>
+$(document).ready(function () {
+	$('.flexslider').flexslider({
+		directionNav: false,
+		pauseOnAction: false
+	});
+});
+</script>
+<include file="public:footer"/>

@@ -1,0 +1,125 @@
+<{assign var="tpl_title" value="上报施工进度"}>
+<{include file="weixin/block/header.html"}>
+<link rel="stylesheet" href="/themes/default/weixin/static/css/common.css">
+<style type="text/css">
+.center{width:100%;height:auto;text-align:center;}	
+input[type='submit']{width:80%;height:50px;text-align:center;line-height:50px;color:#FFFFFF;font-size:16px;background:#00AD28;border:none;outline:none;}
+textarea{width:100%;height:80px;line-height:20px;border:none;font-size:15px;}
+	.imgGroup{width:100%;min-height:60px;overflow:hidden;}
+	.imgGroup .item{float:left;width:60px;height:60px;padding:0px;margin:0px 2px 2px 0px;}
+	.imgGroup .item img{width:100%;height:100%;}
+	input[type='file']{width:0px;height:0px;}
+	.loading{display:none;}
+	.textarea{width:79.5%;height:60px;line-height:20px;overflow-y:auto;outline:none;border:0px;margin:-8% 0 0 15%;padding:2px; }
+	#pm_site_status{appearnce:none;font-size:15px;border:none;}
+</style>
+<header class="ui-header ui-header-stable ui-border-b ucenterTit">
+	<i class="ui-icon-return ucenterIcon_lt" onClick="history.back()"></i>
+	<h1>我的装修</h1>
+</header>
+<div class="h45"></div>
+<div class="managerTit">
+	<h2><{$detail['home_name']}></h2>
+	<p>
+		<{foreach $type as $key=>$tp}>
+			<span <{if $key==$detail['type_id']}>class="fontcl1"<{/if}> ><{$tp}></span>
+		<{/foreach}>
+	</p>
+	<p class="gray"><span>面积：103㎡</span><span>地址：<{$detail['addr']}></span></p>
+                
+</div>
+<form action="<{link ctl='weixin/zxpm/site:additem' arg0=$detail['site_id']}>" method="post" enctype="multipart/form-data">			
+<input type="hidden" name="data[site_id]" value="<{$detail['site_id']}>"/>			
+<ul class="ui-list ui-list-link ui-list-function ui-border-tb managerCont">
+	<li class="ui-border-t">
+		<div class="ui-list-info">
+			<h4 class="ui-nowrap">报告类型 <span class='select'></span>
+				<select onchange='g()' name="data[step]">
+					<{foreach $steps as $k=>$sp}>
+						<option value="<{$k}>"><{$sp}></option>	
+					<{/foreach}>
+				</select>
+		</h4>
+		</div>
+	</li>
+	<li class="ui-border-t noIcon">
+		<div class="ui-list-info">
+			<h4 class="ui-nowrap">报告时间 <span><{date('Y/m/d H:i:s')}></span></h4>
+				<input type="hidden" name="data[dateline]" value="<{time()}>"/>
+		</div>
+	</li>
+	<li class="ui-border-t noIcon">
+		<div class="ui-list-info">
+			<h4>报告内容 <span><textarea name="data[content]"></textarea>
+</span></h4>
+		</div>
+	</li>
+	<li class="ui-border-t noIcon managerCont_pic">
+		
+		<div class="imgGroup" id="imgGroup">
+			<div class="item loading"><img src="/themes/default/weixin/static/images/uploading.gif" /></div>
+			<div class="item picIcon" onclick="upload.trigger(this)"></div>
+			<!--<input type="file" name="imgFile[]" id="imgFile" onchange="upload.fileSelected(this);" />-->
+		</div>
+
+	</li>
+</ul>
+<p class="center">		
+		<input type="submit" value="提交"/>
+</p>
+</form>		
+<script>
+void(function(){
+	g();
+})();	
+function g(){
+	var v = document.querySelector('select');
+	document.querySelector('.select').innerHTML=v.options[v.selectedIndex].text;
+}		
+</script>
+	
+
+<script type="text/javascript">
+
+$(function(){
+	if (!window.applicationCache) {
+		alert("不支持HTML5");
+	}
+});
+
+var upload=
+{
+	k:0,
+	trigger:function(obj){
+		upload.k++;
+		var input = "<input type='file' name='img[]' id='imgFile_"+upload.k+"' onchange='upload.fileSelected(this);'/>";
+		$("#imgGroup").append(input);
+		$("#imgFile_"+upload.k).click();
+	},
+	fileSelected:function(obj){
+		var files = obj.files;
+		for(var i=0;i<files.length;i++){
+			var tag = '';
+			var rFilter = /^(image\/gif|image\/jpeg|image\/jpg|image\/png)$/i;
+    		if (! rFilter.test(files[i].type)) {
+        		$("#imgFile_"+upload.k).remove();
+        		upload.k--;
+        		alert("只允许上传JPG、PNG、GIF格式图片");
+       			continue;
+    		}
+			var reader = new FileReader();
+				reader.onloadstart = function(e){
+					$(".loading").show();
+				}
+				reader.onload = function(e){
+					$(".loading").hide();
+					tag  = "<div class='item'><img src='"+e.target.result+"'/></div>";
+					$("#imgGroup").prepend(tag);
+				}
+				reader.readAsDataURL(files[i]);
+		}
+	}
+}
+
+</script>	
+<{include file="weixin/block/footer.html"}>

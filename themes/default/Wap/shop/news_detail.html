@@ -1,0 +1,36 @@
+<include file="public:header"/>
+<style>
+.detail{width:100%;padding:10px;}
+.detail h1{font-size:18px;font-weight:700;}
+.detail .detail-des{height:30px;line-height:30px;text-align:center;color:#999;}
+.detail .detail-des span{margin-right:10px;}
+.detail .detail-read{font-size:14px;line-height:20px;background:#FFF;width:100%;word-break:break-all;}
+.detail .detail-read img{max-width:100%!important;}
+.detail .detail-read p{text-indent:0;margin:5px 0;}
+</style>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('shop/detail',array('shop_id'=>$detail['shop_id']))}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			新闻
+		</div>
+	<div class="top-signed">
+	</div>
+</header>
+	
+	
+<div class="detail">
+		<div class="blank-10"></div>
+		<h1><{$detail.title}></h1>
+        <p class="detail-des" id="pay-video"></p>
+		 <p class="detail-des">
+			<span>发布日期：<{$detail.create_time|date='Y-m-d',###}></span>
+			<span>总浏览：<{$detail.views}></span>
+		</p>
+		<div class="detail-read">
+			<{$detail.details}> 
+		</div>
+	</div>
+
+<include  file='public:footer'/>  

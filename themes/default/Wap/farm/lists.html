@@ -1,0 +1,115 @@
+<include file="public:header_baocms"/>
+<script>
+    $(function () {
+        $("#search-bar li").each(function (e) {
+            $(this).click(function () {
+                if ($(this).hasClass("on")) {
+                    $(this).parent().find("li").removeClass("on");
+                    $(this).removeClass("on");
+                    $(".serch-bar-mask").hide();
+                }
+                else {
+                    $(this).parent().find("li").removeClass("on");
+                    $(this).addClass("on");
+                    $(".serch-bar-mask").show();
+                }
+                $(".serch-bar-mask .serch-farm-list").each(function (i) {
+
+                    if (e == i) {
+                        $(this).parent().find(".serch-farm-list").hide();
+                        $(this).show();
+                    }
+                    else {
+                        $(this).hide();
+                    }
+                    $(this).find("li").click(function () {
+                        $(this).parent().find("li").removeClass("on");
+                        $(this).addClass("on");
+                    });
+                });
+            });
+        });
+    });
+</script>
+<body>
+<?php if(!$is_app){?>
+<header>
+    <a href="<{:U('farm/index')}>"><i class="icon-goback"></i></a>
+    <div class="title">
+    	农家列表
+    </div>
+    <i class="icon-menu"></i>
+</header>
+<?php }?>
+<!-- 筛选TAB -->
+<div id="search-bar">
+    <ul>
+        <li><span>地区选择</span><i style="right:0.02rem;"></i></li>
+        <li><span>人群选择</span><i style="right:0.02rem;"></i></li>
+        <li><span>消费选择</span><i style="right:0.02rem;"></i></li>
+        <li><span>项目选择</span><i style="right:0.02rem;"></i></li>
+    </ul>
+</div>
+
+<div class="serch-bar-mask" style="display:none;">
+    <div class="serch-farm-list">
+        <div class="box border_t">
+        <p class="bt">区域</p>
+            <ul>
+                <li <if condition='empty($scity_id)'>class="on"</if>><a href="<{:LinkTo('farm/lists',array('group_id'=>$group_id,'fp'=>$fp,'tp'=>$tp,'cate_id'=>$cate_id))}>">全部</a></li>
+                <volist name='citys' id='c'>
+                    <li <eq name="c.city_id" value="$scity_id">class="on"</eq>><a href="<{:LinkTo('farm/lists',array('scity_id'=>$c['city_id'],'group_id'=>$group_id,'fp'=>$fp,'tp'=>$tp,'cate_id'=>$cate_id))}>"><{$c.name}></a></li>
+                </volist>
+            </ul>
+
+        </div>
+    </div>
+    <div class="serch-farm-list">
+		<div class="box border_t">
+        	<p class="bt">适合人群</p>
+            <ul>
+                <li <if condition='empty($group_id)'>class="on"</if>><a href="<{:LinkTo('farm/lists',array('scity_id'=>$scity_id,'fp'=>$fp,'tp'=>$tp,'cate_id'=>$cate_id))}>">全部</a></li>
+                <volist name="group" id="gp">
+                    <li <eq name="key" value="$group_id">class="on"</eq>><a href="<{:LinkTo('farm/lists',array('scity_id'=>$scity_id,'group_id'=>$key,'fp'=>$fp,'tp'=>$tp,'cate_id'=>$cate_id))}>"><{$gp}></a></li>
+                </volist>
+            </ul>
+        </div>
+    </div>
+    <div class="serch-farm-list">
+	<div class="box border_t">
+            <p class="bt">费用</p>
+            <ul>
+                <li <if condition='empty($fp)&&empty($tp)'>class="on"</if>><a href="<{:LinkTo('farm/lists',array('scity_id'=>$scity_id,'group_id'=>$group_id,'cate_id'=>$cate_id))}>">全部</a></li>
+                <li <if condition='$fp eq 0 && $tp eq 200'>class="on"</if>><a href="<{:LinkTo('farm/lists',array('scity_id'=>$scity_id,'group_id'=>$group_id,'fp'=>0,'tp'=>200,'cate_id'=>$cate_id))}>">200元以下</a></li>
+                <li <if condition='$fp eq 200 && $tp eq 300'>class="on"</if>><a href="<{:LinkTo('farm/lists',array('scity_id'=>$scity_id,'group_id'=>$group_id,'fp'=>200,'tp'=>300,'cate_id'=>$cate_id))}>">200-300元</a></li>
+                <li <if condition='$fp eq 300 && $tp eq 500'>class="on"</if>><a href="<{:LinkTo('farm/lists',array('scity_id'=>$scity_id,'group_id'=>$group_id,'fp'=>300,'tp'=>500,'cate_id'=>$cate_id))}>">300-500元</a></li>
+                <li <if condition='$fp eq 500 && $tp eq 0'>class="on"</if>><a href="<{:LinkTo('farm/lists',array('scity_id'=>$scity_id,'group_id'=>$group_id,'fp'=>500,'tp'=>0,'cate_id'=>$cate_id))}>">500元以上</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="serch-farm-list">
+            <div class="box border_t">
+            <p class="bt">游玩项目</p>
+            <ul>
+                <li <if condition='empty($cate_id)'>class="on"</if>><a href="<{:LinkTo('farm/lists',array('scity_id'=>$scity_id,'group_id'=>$group_id,'fp'=>$fp,'tp'=>$tp))}>">全部</a></li>
+                <volist name="cate" id="ct">
+                    <li <eq name="key" value="$cate_id">class="on"</eq>><a href="<{:LinkTo('farm/lists',array('scity_id'=>$scity_id,'group_id'=>$group_id,'fp'=>$fp,'tp'=>$tp,'cate_id'=>$key))}>"><{$ct}></a></li>
+                </volist>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="page-center-box">
+    <div class="seat_list_box">
+        <div id="scroll">
+        <ul class='list-have-pic'>
+        </ul>
+            <script>
+                $(document).ready(function () {
+                    loaddata('<{$nextpage}>', $(".list-have-pic"), true);
+                });
+            </script>
+        </div>
+    </div>
+</div>
+<include file="public:footer_baocms"/>

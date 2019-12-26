@@ -1,0 +1,31 @@
+<foreach name='list' item='item'>
+<li class="mod-1">
+		<a href="<{:u('wap/pinche/detail',array('pinche_id'=>$item['pinche_id']))}>">
+			<div class="des flex">
+				<h4>
+                <if condition="$item['cate_id'] eq 1">
+                车找人
+                <elseif condition="$item['cate_id'] eq 2"/>
+                人找车
+                <elseif condition="$item['cate_id'] eq 3"/>
+                车找货
+                <elseif condition="$item['cate_id'] eq 4"/>
+                货找车
+                </if>
+                <php>
+                $start_time = strtotime($item['start_time']);
+                </php>
+               （<{:pincheTime($start_time)}>/<{$item['start_time_more']}>）<span><{$item['d']}></span></h4>
+                <if condition="!empty($item['details'])">
+				<p>备注：<{$item['details']}></p>
+                </if>
+                <p>电话：<{$item['mobile']}></p>
+                <p>发布时间：<{$item.create_time|date='Y-m-d ',###}></p>
+				<p><em><{$areass[$item['area_id']]['area_name']}>-<{$item['toplace']}> 
+                <if condition="!empty($item['middleplace'])">
+                -途经（<{$item['middleplace']}>）
+                </if>
+                / <{$item['num']}>空位</em> <i></i></p></div>
+		</a>
+</li>
+</foreach>

@@ -1,0 +1,114 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">商家新闻</li>
+        <li class="li2 li3">新闻列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>商家新闻发布</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('shopnews/create','','添加内容')}>
+            </div>
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('shopnews/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <span>关键字</span>
+                        <input type="text" name="keyword" value="<{$keyword}>" class="inptText" /><input type="submit" value="   搜索"  class="inptButton" />
+                    </div> 
+                </form>
+                <a href="javascript:void(0);" class="searchG">高级搜索</a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form method="post" action="<{:U('shopnews/index')}>">
+            <div class="selectNr selectNr2">
+                <div class="left">
+                    <div class="seleK">
+                        <label>
+                            <span>分类：</span>
+                            <select id="cate_id" name="cate_id" class="select w100">
+                                <option value="0">请选择...</option>
+                                <foreach name="cates" item="var">
+                                    <eq name="var.parent_id" value="0">
+                                    <option value="<{$var.cate_id}>"  <eq name="var.cate_id" value="$cate_id">selected="selected"</eq> ><{$var.cate_name}></option>                
+                                    <foreach name="cates" item="var2">
+                                        <eq name="var2.parent_id" value="$var.cate_id">
+                                        <option value="<{$var2.cate_id}>"  <eq name="var2.cate_id" value="$cate_id">selected="selected"</eq> > &nbsp;&nbsp;<{$var2.cate_name}></option>
+                                        </eq>
+                                    </foreach>
+                                    </eq>
+                                </foreach>
+                            </select>
+                        </label>
+                       
+                        <label>
+                            <input type="hidden" id="shop_id" name="shop_id" value="<{$shop_id|default=''}>"/>
+                            <input class="text" type="text"   id="shop_name" name="shop_name" value="<{$shop_name}>"/>
+                            <a mini="select"  w="1000" h="800" href="<{:U('shop/select')}>" class="sumit">选择商家</a>
+                        </label>
+                        <label>
+                            <span>关键字:</span>
+                            <input type="text" name="keyword" value="<{$keyword}>" class="inptText" />
+                        </label>
+                    </div>
+                </div>
+                <div class="right">
+                    <input type="submit" value="   搜索"  class="inptButton" />
+                </div>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="news_id" /></td>
+                    <td class="w50">ID</td>
+                    <td>商家</td>
+                    <td>分类</td>
+                    <td>标题</td>
+                    <td>创建时间</td>
+                    <td>创建IP</td>
+                    <td>浏览量</td>
+                    <td>状态</td>
+                    <td>操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_news_id" type="checkbox" name="news_id[]" value="<{$var.news_id}>" /></td>
+                        <td><{$var.news_id}></td>
+                        <td><{$shops[$var['shop_id']]['shop_name']}></td>
+                        <td><{$cates[$var['cate_id']]['cate_name']}></td>
+                        <td><{$var.title}></td>
+                        <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                        <td><{$var.create_ip_area}><{$var.create_ip}></td>
+                        <td><{$var.views}></td>
+                        <td><eq name="var.audit" value="0">等待审核<else/>正常</eq></td>
+                    <td>
+                        <{:BA('shopnews/edit',array("news_id"=>$var["news_id"]),'编辑','','remberBtn')}>
+                        <{:BA('shopnews/delete',array("news_id"=>$var["news_id"]),'删除','act','remberBtn')}>
+                        <eq name="var.audit" value="0"> <{:BA('shopnews/audit',array("news_id"=>$var["news_id"]),'审核','act','remberBtn')}> </eq>
+
+                    </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                <{:BA('shopnews/audit','','批量审核','list','remberBtn')}>
+                <{:BA('shopnews/delete','','批量删除','list',' a2')}>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+
+

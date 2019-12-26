@@ -1,0 +1,56 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">基本设置</li>
+        <li class="li2 li3">邮件设置</li>
+    </ul>
+</div>
+<p class="attention"><span>注意：</span>邮件采用的是SMTP发送方式，我是用的163，如果没有的用我的，不收费，但是我会定期修改密码，163一定要旧版的，开通SMTP</p>
+<form  target="baocms_frm" action="<{:U('setting/mail')}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+
+                <tr>
+                    <td class="lfTdBt">SMTP服务器：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[smtp]" value="<{$CONFIG.mail.smtp}>" class="scAddTextName w150 " />
+						<code>smtp.163.com</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">端口：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[port]" value="<{$CONFIG.mail.port}>" class="scAddTextName w150 " />
+                        <code>一般是25</code>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="lfTdBt">用户名：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[username]" value="<{$CONFIG.mail.username}>" class="scAddTextName w150 " />
+                      <code>填写您的邮箱账户</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">密码：</td>
+                    <td class="rgTdBt">
+                        <input type="password" name="data[password]" value="<{$CONFIG.mail.password}>" class="scAddTextName w150 " />
+                     <code>填写您的邮箱密码</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">发件人：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[from]" value="<{$CONFIG.mail.from}>" class="scAddTextName w150 " />
+                        <code>填写您的邮箱账户</code>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>       

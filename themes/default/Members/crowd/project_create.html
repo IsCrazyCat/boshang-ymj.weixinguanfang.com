@@ -1,0 +1,22 @@
+<include  file='public:header'/>
+<div class="content_right">   
+    <div class="tgdd">
+        <form  target="baocms_frm" action="<{:U('crowd/project_create',array('goods_id'=>$detail['goods_id']))}>" method="post">
+            <div class="addAddress_nr">
+                <p class="addAddress_t">新增项目进展</p>
+                <ul>
+                     <li>
+                        <div class="left"><span>进展：</span></div>
+                        <div class="lef">
+                            <textarea cols='50' rows='5' name="data[content]"><{$type.content|default=''}></textarea>
+                        </div>
+                    </li>
+                </ul>
+                <div class="addAddress_bcqx"><input class="bc" type="submit" value="确认增加进展" /></div>
+            </div>
+
+        </form>
+    </div>
+</div>
+</div>
+<include file="public:footer"/>

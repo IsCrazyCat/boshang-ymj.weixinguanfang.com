@@ -1,0 +1,35 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">运营</li>
+        <li class="li2">关键字管理</li>
+        <li class="li2 li3">添加关键字</li>
+    </ul>
+</div>
+<form  target="baocms_frm" action="<{:U('keyword/create')}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">关键字：</td>
+                    <td class="rgTdBt"><input type="text" name="data[keyword]" value="<{$detail.keyword|default=''}>" class="manageInput w200" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">类型：</td>
+                    <td class="rgTdBt"><select name="data[type]" id="type" class="manageSelect w200">
+                            <foreach name="types" item="item" key="i">
+                                <option value="<{$i}>">
+                                    <{$item}>
+                                </option>
+                            </foreach> 
+                        </select>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认添加" class="smtQrIpt" /></div>
+    </div>
+</form>
+
+<include  file='public:footer'/>       

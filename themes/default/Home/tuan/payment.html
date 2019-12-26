@@ -1,0 +1,41 @@
+<include  file='public:header'/>
+<include  file='public:topOne'/>  
+<!--top END-->
+<div class="cl"></div>
+<form action="<{:U('tuan/pay2',array('order_id'=>$order['order_id']))}>" method="post" target="baocms_frm">
+    <div class="main">
+        <div class="tjbox">
+            <h3 class="tjLocal" style="margin-top:20px;">购买仅需三步<code>套餐成功后，密码将发送到手机：<em> 填写手机号</em> ，凭套餐密码去商家消费。</code></h3>
+            <h3 class="biaot"><img src="__TMPL__statics/images/tj2.jpg" /></h3>
+            <h3 class="paytit">确认支付金额 </h3>
+            <table cellpadding="0" cellspacing="0" width="100%" class="itemSub">
+                <tr>
+                    <th width="50%">项目</th>
+                    <th width="11%">订单编号</th>
+                    <th width="10%">订单总额</th>
+                    <th width="15%">积分抵用</th>
+                    <th width="14%">还需支付</th>
+                </tr>
+                <tr>
+                    <td class="td1"><a href="<{:U('tuan/detail',array('tuan_id'=>$tuan['tuan_id']))}>" title="<{$tuan.title}>" target="_blank"><img src="<{:config_img($tuan['photo'])}>" width="71" height="48" /></a><a href="<{:U('tuan/detail',array('tuan_id'=>$tuan['tuan_id']))}>" title="<{$tuan.intro}>" target="_blank"><{:bao_msubstr($tuan['intro'],0,50,true)}></a>
+                        <p><a href="<{:U('tuan/detail',array('tuan_id'=>$tuan['tuan_id']))}>" title="<{$tuan.title}>" target="_blank"><{$tuan.title}></a></p>
+                    </td>
+                    <td><{$order.order_id}></td>
+                    <td style="color: red;"><{:round($order['total_price']/100,2)}>元</td>
+                    <td style="color: blue;"><{$order.use_integral}>积分</td>
+                    <td style="color: green"><{:round($order['need_pay']/100,2)}>元</td>
+                </tr>
+            </table>  
+            <div class="subTj">
+                <{$button}>
+            </div>
+        </div>
+        <div class="cl"></div>
+    </div>
+    <div class="cl"></div>
+    <!--内容结束-->
+</form>
+
+<div class="cl"></div>
+<!--main end-->
+<include file="public:footer;"/>

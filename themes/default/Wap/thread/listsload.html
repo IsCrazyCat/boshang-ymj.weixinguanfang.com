@@ -1,0 +1,23 @@
+<foreach name="list" item="item">
+    <li class="cont-rig_list border_b">
+        <div >
+        	<div class="clear"></div>
+            <div class="guantu x4"><a href="<{:U('thread/detail',array('thread_id'=>$item['thread_id']))}>">
+            <img src="<{:config_img($item['photo'])}>"/></a></div>
+            <div class="guanzi x4">
+                <a href="<{:U('thread/detail',array('thread_id'=>$item['thread_id']))}>" class="zitit black3 overflow_clear"><{$item.thread_name}></a>
+                <p class="duoshao black9 "><span>话题<{$item.posts}></span>&nbsp;<span>关注<{$item.fans}></span></p>
+            </div>
+            <div class="guanzi x4">
+                <a target="x-frame"  href="<{:U('thread/collect',array('thread_id'=>$item['thread_id']))}>" class="zhu">
+                    <if condition="$item['collect'] eq 1">
+                        取消
+                    <else/>
+                        关注
+                    </if>
+                </a>
+            </div>
+        </div>
+        <div class="clear "></div>
+    </li>
+</foreach>

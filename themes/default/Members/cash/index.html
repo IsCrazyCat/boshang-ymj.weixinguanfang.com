@@ -1,0 +1,77 @@
+<include file="public:header"/>
+<div class="content_right"> 
+
+  
+    <div class="tgdd">
+        <form method="post"  action="<{:U('cash/index')}>" target="baocms_frm" >
+            <div class="password_nr">
+                <div class="password_input" style="line-height: 30px;">
+                    <div class="left">账户余额：</div>
+                    <php>$cha = $cash_money - $money;  </php>
+                    <div class="lef" id="price-color">￥<{$money}> 元
+                    <if condition="$money lt $cash_money ">
+                    	您的余额不足已提现哦,还差<a style="color:red;"><{$cha}></a>元就可以提现了！
+                    </if>
+                    <if condition="!empty($CONFIG[cash][user_cash_commission])">
+                    	当前提现手续费：<a style="color:red;"><{$CONFIG[cash][user_cash_commission]}>%</a>
+                    </if>
+                    
+                    </div>
+                </div>
+                <div class="password_input">
+                    <div class="left">提现金额：</div>
+                    <div class="lef"> 
+                        <input type="text" name="money" class="manageInput" />
+                        <span>
+                        
+                        <if condition="!empty($cash_money)">
+                        满<a style="color:red;"><{$cash_money}></a>元才可以提现哦
+                         </if>
+                        
+                        <if condition="!empty($cash_money_big)">
+                        ，单笔不超过<a style="color:red;"><{$cash_money_big}></a>元！
+                         </if>
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="password_input">
+                    <div class="left">开户银行：</div>
+                    <div class="lef"> 
+                        <input type="text" name="bank_name" value="<{$info.bank_name}>" class="manageInput" />
+                    </div>
+                </div>
+                     <div class="password_input">
+                    <div class="left">开户账号：</div>
+                    <div class="lef"> 
+                        <input type="text" name="bank_num" value="<{$info.bank_num}>"  class="manageInput" />
+                    </div>
+                </div>
+                     <div class="password_input">
+                    <div class="left">具体支行：</div>
+                    <div class="lef"> 
+                        <input type="text" name="bank_branch" value="<{$info.bank_branch}>"  class="manageInput" />
+                    </div>
+                </div>
+                     <div class="password_input">
+                    <div class="left">开户名：</div>
+                    <div class="lef"> 
+                        <input type="text" name="bank_realname" value="<{$info.bank_realname}>"  class="manageInput" />
+                    </div>
+                </div>
+                <div class="password_subm">
+                    <?php
+                    if ($money == 0)
+                    {
+                    ?>
+                    <input type="submit" class="submit" value="余额不足" disabled="disabled" />
+                    <?php }else{?>
+                    <input type="submit" class="submit" value="确认申请" />
+                    <?php }?>
+                </div>
+        </form>
+    </div>
+</div>
+</div>
+</div>
+<include file="public:footer"/>

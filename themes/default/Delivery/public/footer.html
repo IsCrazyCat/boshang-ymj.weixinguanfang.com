@@ -1,0 +1,65 @@
+    <footer class="foot-fixed">		
+    <a class="foot-item   <if condition="($act eq 'index') AND ($ctl eq 'index')">active</if>" href="<{:U('index/index')}>">		
+    	<span class="icon icon-home"></span>		
+        	<span class="foot-label">首页</span>		
+            </a>
+            		
+            <if condition="$open_running eq '1' ">
+            
+            <a class="foot-item  <if condition="($ctl eq 'lists') AND ($act neq 'express')">active</if>" href="<{:U('lists/scraped')}>">		
+            <span class="icon icon-cloud-download"></span><span class="foot-label">配送</span></a>		
+            
+            <a class="foot-item <eq name="ctl" value="running">active</eq>" href="<{:U('running/index',array('aready'=>1))}>">			
+            <span class="icon icon-truck"></span><span class="foot-label">跑腿</span></a>	
+            
+            <a class="foot-item <eq name="act" value="money">active</eq>" href="<{:U('money/index')}>">			
+            <span class="icon icon-money"></span><span class="foot-label">资金</span></a>
+            
+            <else/>
+            
+            
+            <a class="foot-item <eq name="ctl" value="scraped">active</eq>" href="<{:U('lists/scraped')}>">		
+            <span class="icon icon-cloud-download"></span><span class="foot-label">抢新单</span></a>		
+            
+            <a class="foot-item <eq name="ctl" value="distribution">active</eq>" href="<{:U('lists/distribution')}>">			
+            <span class="icon icon-truck"></span><span class="foot-label">配送中</span></a>	
+            
+            <a class="foot-item <eq name="ctl" value="finished">active</eq>" href="<{:U('lists/finished')}>">			
+            <span class="icon icon-check-square"></span><span class="foot-label">已完成</span></a>
+            	
+            </if>
+            	
+            
+            <a class="foot-item <eq name="act" value="set">active</eq>" href="<{:U('set/index')}>">			
+            <span class="icon icon-gear"></span><span class="foot-label">设置</span></a>
+          
+            
+            </footer>	
+        <iframe id="x-frame" name="x-frame" style="display:none;"></iframe>
+        
+        <script type="text/javascript" language="javascript">
+   		$(document).ready(function(){
+			
+            <if condition="$delivery['is_music'] eq 1">
+                $('<audio id="chatAudio"><source src="/static/default/images/new.mp3" type="audio/mpeg"></audio>').appendTo('body');
+                function musicOrder(){
+                    $.post('<{:U("lists/get_message")}>',{is_post:1},function(result){
+                            if(result.status == '0'){
+                                layer.msg(result.message,{icon:6});
+                            }
+                            if(result.status == '2'){
+                                layer.msg(result.message,{icon:6});
+                                $('#chatAudio')[0].play();
+                            }
+                    },'json');
+                }
+                setInterval(function(){
+                    musicOrder();
+                }
+                ,3000);//自动查询提醒
+           </if>    
+			
+		})
+   </script>
+      </body>
+   </html>

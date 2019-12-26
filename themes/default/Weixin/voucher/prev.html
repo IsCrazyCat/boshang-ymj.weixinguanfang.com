@@ -1,0 +1,107 @@
+<include file="public:headercard"/>
+<link rel="stylesheet" type="text/css" href="__TMPL__voucher/static/css/Coupon.css?201150408">
+<body style="background:#feee82;">
+<div class="voucherPage">
+	<img src="__TMPL__voucher/static/img/voucher_img1.png" width="100%" height="" />
+    <div class="voucherPage_cont">
+    	<div class="voucherPage_tab">
+            <ul>
+                <li class="voucherPage_tab_list on"><a href="javascript:;">所有的</a></li>
+                <li class="voucherPage_tab_list"><a href="javascript:;">未使用</a></li>
+                <li class="voucherPage_tab_list"><a href="javascript:;">已使用</a></li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="voucherPage_list_box">
+        <div class="voucherPage_list" style="display:block;">
+            <ul>
+                <li class="list">
+                    <div class="fl">
+                        <div class="wz" style=" padding-left:15px;">
+                           <p class="bt">中秋月饼优惠券</p>
+                           <p>卡券类型：通用券</p>
+                           <p>销券方式：二维码</p>
+                           <div class="intro">使用说明：一次交易只能使用一次卡券；每个人最多使用一次。</div>
+                           <div><a href="#" class="butn">已经使用</a></div>
+                           <p class="time">有效期:2013.08.21-2013.08.31</p>
+                        </div>
+                    </div>
+                    <div class="fr"><img src="__TMPL__voucher/static/img/voucher_img2.png" /></div>
+                    <div class="clear"></div>
+                </li>
+                <li class="list grey">
+                    <div class="fl">
+                        <div class="wz" style=" padding-left:15px;">
+                           <p class="bt">中秋月饼优惠券</p>
+                           <p>卡券类型：通用券</p>
+                           <p>销券方式：二维码</p>
+                           <div class="intro">使用说明：一次交易只能使用一次卡券；每个人最多使用一次。</div>
+                           <div><a href="#" class="butn">已经使用</a></div>
+                           <p class="time">有效期:2013.08.21-2013.08.31</p>
+                        </div>
+                    </div>
+                    <div class="fr"><img src="__TMPL__voucher/static/img/voucher_img3.png" /></div>
+                    <div class="clear"></div>
+                </li>
+            </ul>
+        </div>
+        <div class="voucherPage_list">
+            <ul>
+                <li class="list">
+                    <div class="fl">
+                        <div class="wz" style=" padding-left:15px;">
+                           <p class="bt">中秋月饼优惠券</p>
+                           <p>卡券类型：通用券</p>
+                           <p>销券方式：二维码</p>
+                           <div class="intro">使用说明：一次交易只能使用一次卡券；每个人最多使用一次。</div>
+                           <div><a href="#" class="butn">已经使用</a></div>
+                           <p class="time">有效期:2013.08.21-2013.08.31</p>
+                        </div>
+                    </div>
+                    <div class="fr"><img src="__TMPL__voucher/static/img/voucher_img2.png" /></div>
+                    <div class="clear"></div>
+                </li>
+            </ul>
+        </div>
+        <div class="voucherPage_list">
+            <ul>
+                <li class="list grey">
+                    <div class="fl">
+                        <div class="wz" style=" padding-left:15px;">
+                           <p class="bt">中秋月饼优惠券</p>
+                           <p>卡券类型：通用券</p>
+                           <p>销券方式：二维码</p>
+                           <div class="intro">使用说明：一次交易只能使用一次卡券；每个人最多使用一次。</div>
+                           <div><a href="#" class="butn">已经使用</a></div>
+                           <p class="time">有效期:2013.08.21-2013.08.31</p>
+                        </div>
+                    </div>
+                    <div class="fr"><img src="__TMPL__voucher/static/img/voucher_img3.png" /></div>
+                    <div class="clear"></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+	$(document).ready(function(e) {	
+		$('.voucherPage_tab_list').each(function (e) {
+			$(this).click(function(){
+				$('.voucherPage_tab_list').removeClass("on");
+				$(this).addClass("on");
+				$(".voucherPage_list_box .voucherPage_list").each(function(i){
+					if(e==i){
+						$(".voucherPage_list_box .voucherPage_list").hide();
+						$(this).show();
+					}
+					else{
+						$(this).hide();
+					}
+				});
+			});
+		});
+	});
+</script>
+</body>
+</html>

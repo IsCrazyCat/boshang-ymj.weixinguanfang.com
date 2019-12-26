@@ -1,0 +1,74 @@
+@charset "utf-8";
+.line {
+    overflow: hidden;
+}
+.tab-bar{text-align:center;padding:10px 0;background:#fafafa;border-bottom:thin solid #eee;}
+
+.tab-bar a{background:#fff;padding:8px 20px;}
+
+.tab-bar a:focus{border:none;border: 1px solid #EEE;}
+
+.tab-bar a.active{background:#E9553B;}
+
+
+.panel-list ul{padding:0;list-style:none;}
+.panel-list li{overflow:hidden;  border-bottom: thin solid #D7E4ED;background-color: #fff}
+.panel-list li i{float:right;color:#999;}
+.panel-list li span{float:left;width:30px;text-align:center;color:#999;font-size:16px;}
+.panel-list li a{display:block;padding:0 10px;height:50px;line-height:50px;width:100%;}
+.panel-list li em{float:right}
+
+#shangjia_tab{ display:block; width:100%; height:2.2rem; background-color:#fff; border-bottom:0.11rem #dedede solid; position:fixed; z-index:999; top:3.15rem;}
+
+#shangjia_tab li{ display:block; float:left;}
+
+#shangjia_tab li a{ display:block; text-align:center; line-height:2.2rem; height:2.2rem;  color:#999;}
+
+#shangjia_tab li a.on{border-bottom:0.22rem solid #2fbdaa; margin-top:-0.00rem;}
+
+#shangjia_tab li em{ display:inline-block; margin-left:0.05rem; margin-bottom:0.02rem; content:''; width:0.07rem; height:0.07rem; border-bottom:0.02rem solid #666;border-left:0.02rem solid #666;transform:rotate(-45deg);-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);-webkit-transform:rotate(-45deg);-o-transform:rotate(-45deg);}
+
+.list-media-x{ margin-top:2.2rem;}
+
+.list-media-x ul{padding:0;list-style:none;}
+
+.list-media-x li{border-bottom:thin solid #eee;border-top:thin solid #eee;}
+
+.list-media-x p{margin:0;}
+
+.msg-list {padding:0;}
+.msg-list ul{list-style:none;padding:0;}
+.msg-list li{width:100%;}
+.msg-list li .item-left{position:relative;}
+.msg-list li .item-left .tline{position:absolute;right:15%;top:0;}
+.msg-list li .item-left .time{text-align:center;line-height:60px;font-size:10px;width:85%;display:block;color:#999;position:absolute;left:0;}
+.msg-list li .item-right{border-bottom:thin solid #D7E4ED;padding:10px;position:relative;}
+.msg-list li .item-right p{font-size:12px;margin:0;height:25px;line-height:25px;overflow:hidden;width:100%;}
+.msg-list li .item-right p.send{font-size:14px;}
+.msg-list li .item-right p.send span.fa{background: #55830A; width: 20px;height: 20px;text-align: center;line-height: 20px;color: #fff;font-size: 12px!important;cursor: pointer;padding: 0 5px;}
+.msg-list li .item-right p.send span.shou{background: #ff2121;width: 20px;height: 20px;text-align: center;line-height: 20px;color: #fff;font-size: 12px!important;cursor: pointer;padding: 0 5px;}
+.msg-list li .item-right p.desc{color:#888;}
+.msg-list li .item-right i{margin-right:5px;}
+.msg-list li .item-right .status{position:absolute;right:10px;top:10px;height:20px;line-height:20px;font-size:10px;}
+
+
+
+.detail-list ul{padding:0;list-style:none;}
+.detail-list li{padding:10px;}
+.detail-list li .avatar{width:80%!important;display:block;}
+.detail-list li .chat-ta{box-shadow: 0px 3px 0px #D7E4ED;width:100%;background:#fff;padding:10px;border-radius: 0.25em;min-height:80px;position:relative;}
+.detail-list li .chat-ta .time{color:#999;position:absolute;right:10px;bottom:10px;font-size:10px;}
+.detail-list li .chat-ta::before {content: '';position:absolute;border-width:7px;border-style:solid;left:18px;height:10px;width:5px;top:10px;left:auto;right:100%;border-color: transparent #FFF transparent transparent;}
+.detail-list li .chat-wo{box-shadow: 0px 3px 0px #D7E4ED;width:100%;background:#fff;padding:10px;border-radius: 0.25em;min-height:80px;position:relative;}
+.detail-list li .chat-wo .time{color:#999;position:absolute;right:10px;bottom:10px;font-size:10px;}
+.detail-list li .chat-wo::after {content:'';left:100%;top:10px;border-color:transparent transparent transparent #FFF;position:absolute;border-width:7px;border-style:solid;}
+
+
+.chat-form textarea{box-shadow: 0px 3px 0px #D7E4ED;width:98%;background:#fff;padding:10px;border-radius: 0.25em;min-height:80px;position:relative;border:none;border:thin solid #D7E4ED;}
+
+
+/*浮动底栏*/
+.chat-bar{bottom:0px;display:table;width:100%;height:50px;padding:0px;table-layout:fixed;position:fixed;z-index:10;right:0px;left:0px;background: #FAFAFA;box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.55);backface-visibility:hidden;overflow:hidden;line-height:50px;}
+.chat-bar i{color:#aaa;font-size:16px;margin-right:5px;}
+.chat-bar a{width:100%;height:50px;display:block;}
+.chat-bar em{font-size:20px;color:#ccc;}

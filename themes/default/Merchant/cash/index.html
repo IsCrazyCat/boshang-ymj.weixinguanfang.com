@@ -1,0 +1,50 @@
+<include  file='public:header'/>
+<div class="local">
+    当前位置：基本资料 > 申请提现
+</div>
+
+<div class="search">
+        <table cellpadding="0" cellspacing="0" width="100%" >
+            <tr>
+                <td><a class="add" href="<{:U('cash/create')}>">+&nbsp;申请提现</a></td>
+            </tr> 
+        </table>
+</div>
+<div class="tlist">
+    <form method="post" target="baocms_frm">
+    <table cellpadding="0"  cellspacing="0" width="100%" >
+        <tr>
+            <th width="50">ID</th>
+            <th width="120">提现金额</th>
+            <th width="130">申请日期</th>
+            <th width="150">状态</th>
+        </tr>
+        <foreach name="list" item="var">
+            <tr>
+                <td><{$var.cash_id}></td>
+                <td><{$var['money'] / 100}> 元</td>
+                <td><{$var['addtime']|date='Y-m-d', ###}></td>
+                <td>
+                <if condition="$var.status eq 0">
+                            未审
+                            <elseif condition="$var.status eq 1" />
+                            <font color="green">通过</font>
+                            <else />
+                            <font color="red">拒绝</font>
+                        </if>
+                </td>
+            </tr>
+        </foreach>
+        <tr class="bottom">
+            <td colspan="4">
+                <div class="pages">
+                    <{$page}>
+                </div>
+            </td>
+        </tr>
+    </table>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,74 @@
+@charset "utf-8";
+/* CSS Document by jacy use in vipcard */
+body{ padding:0; margin:0; max-width:640px; margin:0 auto;}
+img{ font-size:0;}
+.fl{float:left;}
+.fr{float:right;}
+.clear{ height:0; line-height:0; font-size:0; clear:both;}
+/*优惠接力开始*/
+.youhuiRelay_relu{ position:relative;}
+.youhuiRelay_relu .btn{ position:absolute; top:14%; right:6%; display:inline-block; width:80px; height:30px; padding:0; line-height:30px;}
+.youhuiRelay_infor{ position:relative;}
+.youhuiRelay_infor_posit{ position:absolute; top:12%; left:0; width:100%;}
+.youhuiRelay_infor_posit #daojishi{text-align:center; font-size:10px; color:#023b35;}
+.youhuiRelay_infor_event{ width:60%; margin:0 auto; margin-top:5px; text-align:center; font-size:16px; line-height:24px; color:#fff;}
+.youhuiRelay_infor_event .bt{ color:#ffd512;}
+.youhuiRelay_relu_mask{ position:fixed; z-index:1000; width:100%; height:100%; left:0; top:0; overflow-y:scroll; background: rgba(0, 0, 0, 0.8); filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#BF000000,endColorstr=#BF000000);}
+.youhuiRelay_relu_mask .cont{ width:70%; margin:15% auto 0; border-radius:5px; background:#ede6c2; padding:30px 0 20px; position:relative;}
+.youhuiRelay_relu_mask .cont p{ font-size:12px; line-height:24px; color:#910201; text-indent:2em; padding:0px 20px;}
+.youhuiRelay_relu_mask .cont h3{ font-size:16px; line-height:24px; color:#910201; text-align:center; margin-bottom:5px;}
+.youhuiRelay_relu_mask .cont .closs{ position:absolute; right:10px; top:4px; font-size:20px; line-height:24px; color:#333;}
+
+
+
+
+
+
+
+.youhuiRelay_jinbi{position:absolute; bottom:25%; left:50%; width:38%; margin-left:-19%;}
+
+
+.youhuiRelay_prompt_posit{position:absolute; bottom:5%; left:50%; width:44%; margin-left:-22%; height:20%;}
+.youhuiRelay_prompt_posit table tr td{text-align:center; font-size:12px; line-height:18px; color:#fff; vertical-align:middle; height:100%;}
+.youhuiRelay_anniu{ position:relative;}
+.youhuiRelay_anniu_posit{ position:absolute; top:-2%; left:50%; margin-left:-35%; width:70%; overflow:hidden;}
+.youhuiRelay_anniu_posit>a{ display:inline-block; width:45%;}
+.anniu_fenx,.anniu_qiang{ position:relative;}
+.anniu_fenx .state,.anniu_qiang .state{ position:absolute; text-align:center; width:100%; height:90%; display:inline-block; font-size:16px; color:#fff; line-height:30px; font-weight:bold; padding-top:10%;}
+
+
+
+
+.youhuiRelay_prompt_posit table i{ margin:0px 5px; font-style:normal;}
+.youhuiRelay_tab{ padding:0 5px; margin:30px 0 0;}
+.youhuiRelay_tab ul{ display:block; overflow:hidden;}
+.youhuiRelay_tab_list{ display:block; width:24%; float:left; margin-right:1%;}
+.youhuiRelay_tab_list a{ display:block; padding:0 8px; background:#047372; text-align:center; font-size:14px; line-height:30px; color:#fff;}
+.youhuiRelay_tab_list a em{ padding:8px; background:url(../images/tabIco_white.png) no-repeat center top; background-size:100% auto; font-size:0; line-height:0; vertical-align:middle; margin-right:2px;}
+.youhuiRelay_tab_list a em.ico_1{ background-position:center 0;}
+.youhuiRelay_tab_list a em.ico_2{ background-position:center -16px;}
+.youhuiRelay_tab_list.on a{background:#025251;}
+.youhuiRelay_list_box{ background:#ede6c2; padding:10px; min-height:300px;}
+.youhuiRelay_list{ display:none;}
+.youhuiRelay_mine_infor{  margin-bottom:10px;}
+.youhuiRelay_mine_infor .img{ width:50px; height:50px; padding:5px; border-radius:100%; overflow:hidden; background:#60c2ca;}
+.youhuiRelay_mine_infor .img img{ width:100%; height:100%;}
+.youhuiRelay_mine_infor .wz{ margin-left:70px;}
+.youhuiRelay_mine_infor .wz p{font-size:14px; line-height:20px; color:#a12a23;}
+.youhuiRelay_mine_infor .wz .name{ color:#005c5b;}
+.youhuiRelay_mine_list li{ display:block; overflow:hidden;}
+.youhuiRelay_mine_list li span{font-size:12px; line-height:24px; color:#a12a23;}
+.youhuiRelay_mine_list li .long{ width:40%; text-align:center;}
+
+.winRecord_list{ display:block; padding:10px; background:#fff; margin-bottom:10px;}
+.winRecord_list .img{ width:50px; height:50px;}
+.winRecord_list .img img{ width:100%; height:100%;}
+.winRecord_list .wz{ margin-left:60px;}
+.winRecord_list .wz p{font-size:12px; line-height:20px; color:#999;}
+.winRecord_list .wz .bt{font-size:14px; color:#333;}
+
+
+
+
+.share_pop{ position:fixed; z-index:1000; left:0px; top:0px; text-align:center; padding-top:20%; width:100%; height:100%;background:rgba(0,0,0,0.8);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#BF000000,endColorstr=#BF000000);}
+/*优惠接力结束*/

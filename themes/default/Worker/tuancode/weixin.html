@@ -1,0 +1,42 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('worker/tuan/order')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			用户的套餐劵信息
+		</div>
+	<div class="top-signed">
+		<a href="<{:u('wap/message/index')}>"><i class="icon-envelope"></i></a>
+	</div>
+</header>
+<div class="panel-list">
+	<ul><li><a href="javascript:;">用户消费码：<em><{$detail['code']}></em></a></li></ul>
+</div>
+
+ <div class="container">           
+	<div class="padding-large">
+          
+          
+            <img width="100%" src="<{:config_img($file)}>" />
+            <p>
+                 <neq name="detail.price" value="0"> 该套餐码价值为: <span class="text-dot"><{:round($detail['price']/100,2)}> 元</span><else />该套餐码为到付券只作为服务预定！需要额外到店支付相关费用才可以进行消费！</neq>
+            </p>
+	</div>
+</div>
+
+<div class="container text-center">
+		         
+                <php>
+                $code_ids = D('TuanCode') -> where('order_id ='.$detail['order_id']) -> find();
+                $order = $code_ids['order_id'];
+               </php> 
+                  
+              <a class="button bg-green" href="<{:U('worker/tuan/detail',array('order_id'=>$order))}>">订单详情</a>  
+                          
+                 
+	</div>
+
+
+
+<include  file='public:footer'/>

@@ -1,0 +1,345 @@
+<include  file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<div class="content_right">   
+    <div class="tgdd">
+        <form  target="baocms_frm" action="<{:U('crowd/edit',array('goods_id'=>$detail['goods_id']))}>" method="post">
+            <div class="addAddress_nr">
+                <p class="addAddress_t">编辑后会进入未审核状态</p>
+                <ul>
+                    <li>
+                        <div class="left"><span>众筹名称：</span></div>
+                        <div class="lef">
+                            <input type="text" name="data[title]" value="<{$detail.title|default=''}>" class="manageInput w300" />
+                        </div>
+                    </li>
+           
+                   <li>
+                        <div class="left"><span>众筹副标题：</span></div>
+                        <div class="lef">
+                            <input type="text" name="data[intro]" value="<{$detail.intro|default=''}>" class="manageInput w300" />
+                        </div>
+                    </li>
+                
+                    <li>
+                        <div class="left"><span>选择分类：</span></div>
+                        <div class="lef">
+                        
+                        <select id="cate_id" name="data[cate_id]" class="manageSelect">
+                            <foreach name="cates" item="var">
+                                <eq name="var.parent_id" value="0">
+                                <option value="<{$var.cate_id}>"  <eq name="var.cate_id" value="$detail.cate_id">selected="selected"</eq> ><{$var.cate_name}></option>                
+                                <foreach name="cates" item="var2">
+                                    <eq name="var2.parent_id" value="$var.cate_id">
+                                    <option value="<{$var2.cate_id}>"  <eq name="var2.cate_id" value="$detail.cate_id">selected="selected"</eq> > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<{$var2.cate_name}></option>
+                                    </eq>
+                                </foreach>
+                                </eq>
+                            </foreach>
+                        </select>
+                        </div>
+                    </li>
+                    
+                   
+                    <li>
+                        <div class="left"><span>所在区域：</span></div>
+                        <div class="lef">
+                            <select name="data[city_id]" id="city_id" class="manageSelect">
+                                <option value="0">请选择...</option>
+                            </select>
+                            <select name="data[area_id]" id="area_id" class="manageSelect">
+                                <option value="0">请选择...</option>
+                            </select>
+                        </div>
+                    </li>
+                    <script src="<{:U('app/datas/cab',array('name'=>'cityareas'))}>"></script>
+                    <script>
+                        var city_id = "<{$detail.city_id}>";
+                        var area_id = "<{$detail.area_id}>";
+                        $(document).ready(function () {
+                            var city_str = ' <option value="0">请选择...</option>';
+                            for (a in cityareas.city) {
+                                if (city_id == cityareas.city[a].city_id) {
+                                    city_str += '<option selected="selected" value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+                                } else {
+                                    city_str += '<option value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+                                }
+                            }
+                            $("#city_id").html(city_str);
+
+                            $("#city_id").change(function () {
+                                if ($("#city_id").val() > 0) {
+                                    city_id = $("#city_id").val();
+                                    var area_str = ' <option value="0">请选择...</option>';
+                                    for (a in cityareas.area) {
+                                        if (cityareas.area[a].city_id == city_id) {
+                                            if (area_id == cityareas.area[a].area_id) {
+                                                area_str += '<option selected="selected" value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                            } else {
+                                                area_str += '<option value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                            }
+                                        }
+                                    }
+                                    $("#area_id").html(area_str);
+                                    $("#business_id").html('<option value="0">请选择...</option>');
+                                } else {
+                                    $("#area_id").html('<option value="0">请选择...</option>');
+                                    $("#business_id").html('<option value="0">请选择...</option>');
+                                }
+
+                            });
+
+                            if (city_id > 0) {
+                                var area_str = ' <option value="0">请选择...</option>';
+                                for (a in cityareas.area) {
+                                    if (cityareas.area[a].city_id == city_id) {
+                                        if (area_id == cityareas.area[a].area_id) {
+                                            area_str += '<option selected="selected" value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                        } else {
+                                            area_str += '<option value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                        }
+                                    }
+                                }
+                                $("#area_id").html(area_str);
+                            }
+
+
+                            $("#area_id").change(function () {
+                                if ($("#area_id").val() > 0) {
+                                    area_id = $("#area_id").val();
+                                    var business_str = ' <option value="0">请选择...</option>';
+                                    for (a in cityareas.business) {
+                                        if (cityareas.business[a].area_id == area_id) {
+                                            if (business_id == cityareas.business[a].business_id) {
+                                                business_str += '<option selected="selected" value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                            } else {
+                                                business_str += '<option value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                            }
+                                        }
+                                    }
+                                    $("#business_id").html(business_str);
+                                } else {
+                                    $("#business_id").html('<option value="0">请选择...</option>');
+                                }
+
+                            });
+                        });
+                    </script>
+                    <li>
+                    
+                            
+              <li>
+                 <div class="tuanfabu_nr">
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <input type="hidden" name="data[photo]" value="<{$detail.photo}>" id="data_photo" />
+                        <div id="fileToUpload" >上传主图</div>
+                    </div>
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <img id="photo_img" width="80" height="80"  src="<{:config_img($detail['photo'])}>" />
+                        <a href="<{:U('setting/attachs')}>">缩略图设置</a>
+                        <{$CONFIG.attachs.goods.thumb}>
+                    </div>
+                    <script>                                            
+						var width_goods = '<{:thumbSize($CONFIG[attachs][goods][thumb],0)}>';                         
+						var height_goods = '<{:thumbSize($CONFIG[attachs][goods][thumb],1)}>';                         
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"goods"))}>',                             
+						pick: '#fileToUpload',                             
+						resize: true,  
+						compress : {width: width_goods,height: height_goods,quality: 80,allowMagnify: false,crop: true}                       
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_photo").val(resporse.url);                             
+						$("#photo_img").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+                    </div>
+                    </li>
+                    
+                    <li>
+                    <div class="left">
+                        	<div id="moreToUpload" >更多图片</div>
+                         </div>
+							<script>                                
+									var width_goods_pic = '<{:thumbSize($CONFIG[attachs][goods][thumb],0)}>';  //获取宽度                              
+									var height_goods_pic = '<{:thumbSize($CONFIG[attachs][goods][thumb],1)}>'; //获取高度 
+									var uploader = WebUploader.create({                                    
+									auto: true,                                    
+									swf: '/static/default/webuploader/Uploader.swf',                                    
+									server: '<{:U("app/upload/uploadify",array("model"=>"goods"))}>',                                    
+									pick: '#moreToUpload',                                    
+									fileNumberLimit:10,                                    
+									resize: true, 
+									crop: false,  
+									compress : {width:width_goods_pic,height:height_goods_pic,quality: 80,allowMagnify: false,crop: true},														                        
+								});                                                               
+								uploader.on( 'uploadSuccess', function( file,resporse) {                                    
+								var str = '<span style="width: 120px; height: 120px; float: left; margin:0 10px 0 10px; overflow: hidden;">  <img width="200" height="100" src="' + resporse.url + '">  <input type="hidden" name="photos[]" value="' + resporse.url + '" />    <a href="javascript:void(0);">取消</a>  </span>';                                   
+								 $(".jq_uploads_img").append(str);                                
+									 });                                                            
+								 uploader.on( 'uploadError', function( file ) {                                    
+									alert('上传出错');                                
+								 });                                
+								 $(document).on("click", ".jq_uploads_img a", function () {                                    
+									 $(this).parent().remove();                                
+								 });                            
+                             </script>
+                            <div class="jq_uploads_img">
+                                <foreach  name="photos" item="item">
+                                    <span style="width: 120px; height: 120px; float: left; margin-left: 5px; margin-top: 10px;"> 
+                                        <img width="100" height="100" src="<{:config_img($item['photo'])}>">  
+                                        <input type="hidden" name="photos[]" value="<{$item.photo}>" />  
+                                        <a href="javascript:void(0);">取消</a>  
+                                    </span>
+                                </foreach>
+                            </div>		
+                    </li>        
+                    
+                    
+                    
+                    <li>
+                        <div class="left"><span>众筹总金额：</span></div>
+                        <div class="lef">
+                            <input type="text" name="data[all_price]" value="<{$detail['all_price']}>" class="manageInput w300" />
+                        </div>
+                    </li>
+                    
+                     <li>
+                        <div class="left"><span>众筹佣金：</span></div>
+                        <div class="lef">
+                            <input type="text" name="data[commission]" value="<{$detail['commission']}>" class="manageInput w300" />
+                        </div>
+                    </li>
+                    
+          <li>
+            <div class="left"><span>选择坐标：</span></div>
+            <div class="lef">
+             <span class="mr10"><input type="text" name="data[lng]" id="lng" value="<{$detail.lng|default=''}>" class="mapinputs manageInput w100" />经度</span>
+             <span><input type="text" name="data[lat]" id="lat" value="<{$detail.lat|default=''}>" class="w100 manageInput mapinputs" />纬度</span>
+             <span><input type="text" placeholder="输入地址搜索" id="suggestId" class="mapinputs manageInput w300" size="20" value="合肥" /></span>
+           </div>
+        </li>
+          
+                        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7b92b3afff29988b6d4dbf9a00698ed8"></script>
+                        <div class="top" style="width:700px; margin:30px;"></div>
+                        <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+                        <div id="allmap" style="width:500px;height:300px; margin-left:200px; border:1px #ccc solid;"></div>
+                        <script type="text/javascript">
+                            var map = new BMap.Map("allmap");
+                            var lng = "<{$detail['lng']}>";
+                            var lat = "<{$detail['lat']}>";
+                            if (!lng && !lat) {
+                                map.centerAndZoom("合肥");
+                                var point = new BMap.Point(117.260852, 31.825717);
+                            } else {
+                                map.centerAndZoom(new BMap.Point(lng, lat), 15);
+                                var point = new BMap.Point(lng, lat);
+                            }
+                            map.centerAndZoom(point, 15);
+                            var marker = new BMap.Marker(point); 
+                            map.clearOverlays();
+                            map.addOverlay(marker);            
+                            marker.setAnimation(BMAP_ANIMATION_BOUNCE); 
+                            function showPoint(e) {
+                                document.getElementById('lat').value = e.point.lat;
+                                document.getElementById('lng').value = e.point.lng;
+                                var p = new BMap.Point(e.point.lng, e.point.lat);
+                                var mk = new BMap.Marker(p);
+                                map.clearOverlays();
+                                map.addOverlay(mk);
+                                mk.setAnimation(BMAP_ANIMATION_BOUNCE); 
+                            }
+                            map.enableScrollWheelZoom(true);
+                            map.addControl(new BMap.NavigationControl());  
+                            map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}));  
+                            map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT, type: BMAP_NAVIGATION_CONTROL_PAN})); 
+                            map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, type: BMAP_NAVIGATION_CONTROL_ZOOM})); 
+                            map.addEventListener("click", showPoint);
+                            function G(id) {
+                                return document.getElementById(id);
+                            }
+                            var ac = new BMap.Autocomplete(
+                                    {"input": "suggestId"
+                                        , "location": map
+                                    });
+                            ac.addEventListener("onhighlight", function (e) { 
+                                var str = "";
+                                var _value = e.fromitem.value;
+                                var value = "";
+                                if (e.fromitem.index > -1) {
+                                    value = _value.province + _value.city + _value.district + _value.street + _value.business;
+                                }
+                                str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+
+                                value = "";
+                                if (e.toitem.index > -1) {
+                                    _value = e.toitem.value;
+                                    value = _value.province + _value.city + _value.district + _value.street + _value.business;
+                                }
+                                str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+                                G("searchResultPanel").innerHTML = str;
+                            });
+
+                            var myValue;
+                            ac.addEventListener("onconfirm", function (e) { 
+                                var _value = e.item.value;
+                                myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+                                G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+
+                                setPlace();
+                            });
+                            function setPlace() {
+                                map.clearOverlays();  
+                                function myFun() {
+                                    var pp = local.getResults().getPoi(0).point;   
+                                    map.centerAndZoom(pp, 18);
+                                    map.addOverlay(new BMap.Marker(pp)); 
+                                }
+                                var local = new BMap.LocalSearch(map, {
+                                    onSearchComplete: myFun
+                                });
+                                local.search(myValue);
+                            }
+                        </script>
+              
+                
+             <li>
+               <!--详情开始--> 
+                <div class="lef lt">
+					<script type="text/plain" id="details" name="data[details]" style="width:800px;height:360px;"><{$detail.details}></script>
+                    <link rel="stylesheet" href="/Public/qiniu_ueditor/themes/default/css/ueditor.min.css" type="text/css">
+                    <script type="text/javascript" charset="utf-8" src="/Public/qiniu_ueditor/ueditor.config.js"></script>
+                    <script type="text/javascript" charset="utf-8" src="/Public/qiniu_ueditor/ueditor.all.min.js"></script>
+                    <script type="text/javascript" src="/Public/qiniu_ueditor/lang/zh-cn/zh-cn.js"></script>
+                    <script>
+                        um = UE.getEditor('details', {
+                            lang: 'zh-cn',
+                            toolbars:[['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'backcolor', 'fontsize', 'fontfamily', 'justifyleft', 'justifyright', 'justifycenter', 'justifyjustify', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', 'link', 'unlink', 'map', 'template', 'background','inserttable','print','attachment',  'emotion',  'snapscreen','insertimage', 'music', 'insertvideo']],  
+                            });
+                    </script>
+                </div>
+                <!--详情结束--> 
+           </li>
+                   
+                   
+           <li>
+             <div class="left"><span>过期时间：</span></div>
+               <div class="lef">
+                  <input type="text" name="data[ltime]" value="<{$detail.ltime|default=''}>" onfocus="WdatePicker();" class="manageInput w300" />
+             </div>
+           </li>
+                    
+                    
+                </ul>
+                <div class="addAddress_bcqx"><input class="bc" type="submit" value="确认修改" /></div>
+            </div>
+
+        </form>
+    </div>
+</div>
+</div>
+<include file="public:footer"/>

@@ -1,0 +1,46 @@
+<include  file='public:header'/>    
+<div class="mainBt">
+    <ul>
+        <li class="li1">系统</li>
+        <li class="li2">管理员管理</li>
+        <li class="li2 li3">角色管理</li>
+    </ul>
+</div>
+<div class="main-jsgl">
+    <p class="attention"><span>注意：</span>每个角色有对应的权限，默认超级管理员角色不能删除！</p>
+    <div class="jsglNr" style="  border-top: 1px solid #e1e6eb;">
+        <div class="selectNr">
+            <div class="left">
+                <{:BA('role/create','','添加角色','load','',600,220)}>
+            </div>
+            <form method="post" action="<{:U('role/index')}>">
+                <div class="right">
+                    <input type="text" name="keyword" value="<{$keyword}>" class="inptText" /><input type="submit" value="  搜索"  class="inptButton" />
+                </div>
+            </form>
+        </div>
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td>用户ID</td>
+                    <td>用户名</td>
+                    <td>操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><{$var.role_id}></td>
+                        <td><{$var.role_name}></td>
+                        <td><eq name='var.role_id' value="1">
+                            没有可操作的
+                    <else/>
+                    <{:BA('role/auth',array("role_id"=>$var['role_id']),'角色权限','','remberBtn')}>
+                    <{:BA('role/delete',array("role_id"=>$var['role_id']),'删除','act','remberBtn')}>
+                    </eq></td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+    </div>
+</div>
+<include  file='public:footer'/>       

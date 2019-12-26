@@ -1,0 +1,320 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">当前位置</li>
+        <li class="li2">文章</li>
+        <li class="li2 li3">编辑</li>
+    </ul>
+</div>
+        <form target="baocms_frm" action="<{:U('article/edit',array('article_id'=>$detail['article_id']))}>" method="post">
+           <div class="mainScAdd">
+        <div class="tableBox"> 
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+            
+            <tr>
+                    <td class="lfTdBt">所在区域：</td>
+                    <td class="rgTdBt">
+                        
+                        <select name="data[city_id]" id="city_id" style="float: left;" class="seleFl w210"></select>
+                       <select name="data[area_id]" id="area_id" style="float: left;"  class="seleFl w210"></select>
+
+                    </td>
+                </tr>
+                 <script src="<{:U('app/datas/cityarea')}>"></script>
+                <script>
+                    var city_id = <?php echo (int)$detail['city_id'];?>;
+                    var area_id = <?php echo (int)$detail['area_id'];?>;
+                    function changeCity(cid){
+                        var area_str = '<option value="0">请选择.....</option>';
+                        for(a in cityareas.area){
+                           if(cityareas.area[a].city_id ==cid){
+                                if(area_id == cityareas.area[a].area_id){
+                                    area_str += '<option selected="selected" value="'+cityareas.area[a].area_id+'">'+cityareas.area[a].area_name+'</option>';
+                                }else{
+                                     area_str += '<option value="'+cityareas.area[a].area_id+'">'+cityareas.area[a].area_name+'</option>';
+                                }  
+                            }
+                        }
+                        $("#area_id").html(area_str);
+                    }
+                    $(document).ready(function(){
+                        var city_str = '<option value="0">请选择.....</option>';
+                        for(a in cityareas.city){
+                           if(city_id == cityareas.city[a].city_id){
+                               city_str += '<option selected="selected" value="'+cityareas.city[a].city_id+'">'+cityareas.city[a].name+'</option>';
+                           }else{
+                                city_str += '<option value="'+cityareas.city[a].city_id+'">'+cityareas.city[a].name+'</option>';
+                           }  
+                        }
+                        $("#city_id").html(city_str);
+                        if(city_id){
+                            changeCity(city_id);
+                        }
+                        $("#city_id").change(function(){
+                            city_id = $(this).val();
+                            changeCity($(this).val());
+                        });
+                        
+                        $("#area_id").change(function () {
+                            var url = '<{:U("business/child",array("area_id"=>"0000"))}>';
+                            if ($(this).val() > 0) {
+                                var url2 = url.replace('0000', $(this).val());
+                                $.get(url2, function (data) {
+                                    $("#business_id").html(data);
+                                }, 'html');
+                            }
+
+                        });
+                    });
+                </script>
+            <tr>
+                    <td class="lfTdBt">文章所属商家：</td>
+                    <td class="rgTdBt">
+                        <div class="lt">
+                            <input type="hidden" id="shop_id" name="data[shop_id]" value="<{$detail.shop_id|default=''}>" class="manageInput" />
+                            <input type="text" name="shop_name" id="shop_name"   value="<{$shops.shop_name}>" class="scAddTextName w150 sj"/>
+                        </div>
+                        <a mini="select"  w="800" h="600" href="<{:U('shop/select')}>" class="seleSj">选择商家</a>
+                        <code>可选，可以文章关联商家哦！</code>
+                    </td>
+                </tr>
+                    
+                
+
+                <tr>
+                    <td class="lfTdBt">分类：</td>
+                    <td class="rgTdBt">
+
+                        <select name="parent_id" id="parent_id" class="seleFl w100"  style="display: inline-block; margin-right: 10px;">
+                            <option value="0">请选择...</option>
+                            <foreach name="cates" item="var">
+                                <eq name="var.parent_id" value="0">
+                                <option value="<{$var.cate_id}>"  <eq name="var.cate_id" value="$parent_id">selected="selected"</eq> ><{$var.cate_name}></option>
+                                </eq>
+                            </foreach>
+                        </select>
+                        <select id="cate_id" name="data[cate_id]" class="seleFl w100" style="display: inline-block; margin-right: 10px;">
+                            <option value="0">请选择...</option>
+                            <foreach name="cates" item="var">
+                                <eq name="var.parent_id" value="0">
+                                <eq name="var.cate_id" value="$parent_id">
+                                <foreach name="cates" item="var2">
+                                    <eq name="var2.parent_id" value="$var.cate_id">
+                                    <option value="<{$var2.cate_id}>"  <eq name="var2.cate_id" value="$detail.cate_id">selected="selected"</eq> ><{$var2.cate_name}></option>
+                                    <foreach name="cates" item="var3">
+                                        <eq name="var3.parent_id" value="$var2.cate_id">
+                                        <option value="<{$var3.cate_id}>"  <eq name="var3.cate_id" value="$detail.cate_id">selected="selected"</eq> >&nbsp;&nbsp;-<{$var3.cate_name}></option>
+                                        </eq>
+                                    </foreach>
+                                    </eq>
+                                </foreach>
+                                </eq>
+                                </eq>
+                            </foreach>
+                        </select>
+                        <script>
+                            $(document).ready(function(e){
+                                $("#parent_id").change(function(){
+                                    var url = '<{:U("articlecate/child",array("parent_id"=>"0000"))}>';
+                                    if($(this).val() > 0){
+                                        var url2 = url.replace('0000',$(this).val());
+                                        $.get(url2,function(data){
+                                            $("#cate_id").html(data);
+                                        },'html');
+                                    }
+                                });
+                                
+                            });
+                        </script>
+                        <code>必选哦</code>
+                    </td>
+                    
+                </tr>    
+                <tr>
+                    <td class="lfTdBt">标题：</td>
+                    <td class="rgTdBt"><input type="text" name="data[title]" value="<{$detail.title|default=''}>" class="manageInput" />
+					<code>输入文章标题</code>
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">来源：</td>
+                  <td class="rgTdBt"><input type="text" name="data[source]" value="<{$detail.source|default=''}>" class="manageInput" />
+					<code>文章来源地，建议不要去抄别人有版权的文章~！</code>
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">关键字：</td>
+                  <td class="rgTdBt"><input type="text" name="data[keywords]" value="<{$detail.keywords|default=''}>" class="manageInput" />
+                        <code>多个关键字用,逗号分隔</code>
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">简介：</td>
+             <td class="rgTdBt"><textarea  name="data[profiles]" cols="50" rows="10" ><{$detail.profiles|default=''}></textarea>
+                        <code>简单的文章简介</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="lfTdBt">缩略图：</td>
+                 <td class="rgTdBt">
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <input type="hidden" name="data[photo]" value="<{$detail.photo}>" id="data_photo" />
+                        <div id="fileToUpload" >上传缩略图</div>
+                    </div>
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <img id="photo_img" width="80" height="80"  src="<{:config_img($detail['photo'])}>" />
+                        <a href="<{:U('setting/attachs')}>">缩略图设置</a>
+                        <{$CONFIG.attachs.article.thumb}>
+                    </div>
+                    <script>                                            
+						var width_article = '<{:thumbSize($CONFIG[attachs][article][thumb],0)}>';                         
+						var height_article = '<{:thumbSize($CONFIG[attachs][article][thumb],1)}>'; 
+						var pic_pc_quality = '<{$CONFIG[attachs][pic_pc_quality][thumb]}>';                         
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"article"))}>',                             
+						pick: '#fileToUpload',                             
+						resize: true,  
+						accept: {
+							title: 'Images',
+							extensions: 'gif,jpg,jpeg,png',
+							mimeTypes: 'image/*'//只永许上传JPG格式文件
+						}, 
+						compress:{
+							width: width_article,//宽度
+							height: height_article,//高度
+							quality: pic_pc_quality,//压缩质量
+							allowMagnify: false,
+							crop: false,
+							preserveHeaders: true,
+							noCompressIfLarger: true,
+							compressSize:0
+						}                    
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_photo").val(resporse.url);                             
+						$("#photo_img").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+                </td>
+            </tr> 
+            
+            
+                
+           
+            
+            <tr>
+                    <td class="lfTdBt">详细内容：</td>
+                    <td class="rgTdBt">
+                        <script type="text/plain" id="data_details" name="data[details]" style="width:800px;height:360px;"><{$detail.details}></script>
+                    </td>
+                </tr><link rel="stylesheet" href="__PUBLIC__/qiniu_ueditor/themes/default/css/ueditor.min.css" type="text/css">
+                    <script type="text/javascript" charset="utf-8" src="__PUBLIC__/qiniu_ueditor/ueditor.config.js"></script>
+                    <script type="text/javascript" charset="utf-8" src="__PUBLIC__/qiniu_ueditor/ueditor.all.min.js"></script>
+                    <script type="text/javascript" src="__PUBLIC__/qiniu_ueditor/lang/zh-cn/zh-cn.js"></script>
+                <script>
+                    um = UE.getEditor('data_details', {
+                        lang: 'zh-cn',
+						toolbars:[['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'backcolor', 'fontsize', 'fontfamily', 'justifyleft', 'justifyright', 'justifycenter', 'justifyjustify', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', 'link', 'unlink', 'map', 'template', 'background','inserttable','print','attachment',  'emotion',  'snapscreen','insertimage', 'music', 'insertvideo']],  
+                        });
+                </script>
+            <td class="lfTdBt">浏览量：</td>
+         <td class="rgTdBt"><input type="text" name="data[views]" value="<{$detail.views|default=''}>" class="manageInput" />
+		<code>可以不填写，前台展示。</code>
+            </td>
+        </tr>
+        
+        
+        <tr>
+            <td class="lfTdBt">视频播放连接：</td>
+            <td class="rgTdBt"><input type="text" name="data[video]" value="<{$detail.video|default=''}>" class="manageInput manageInput2" />
+            <code>必须带上http://还有必须mp4格式才能播放，默认不要填写，填写后自动播放，还有暂时不开放会员添加视频，只能管理员后台编辑。</code>
+            </td>
+        </tr>
+        
+        <tr>
+				<td class="lfTdBt">
+					视频播放封面：
+				</td>
+				<td class="rgTdBt">
+					<div style="width: 300px;height: 100px; float: left;">
+						<input type="hidden" name="data[video_photo]" value="<{:config_img($detail['video_photo'])}>" id="data_video_photo" />
+						<div id="video_fileToUpload">上传视频封面</div>
+					</div>
+					<div style="width: 300px;height: 100px; float: left;">
+						<img id="video_photo_img" width="120" height="80" src="<{:config_img($detail['video_photo'])}>" />
+						<a href="<{:U('setting/attachs')}>">缩略图设置</a> <{$CONFIG.attachs.article.thumb}>
+					</div>
+					<script>                                            
+						var width_video_photo= '<{:thumbSize($CONFIG[attachs][article][thumb],0)}>';                         
+						var height_video_photo = '<{:thumbSize($CONFIG[attachs][article][thumb],1)}>';                         
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"article"))}>',                             
+						pick: '#video_fileToUpload',                             
+						resize: true,  
+						compress : {width: width_video_photo,height: height_video_photo,quality: 80,allowMagnify: false,crop: true}                       
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_video_photo").val(resporse.url);                             
+						$("#video_photo_img").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+				</td>
+			</tr>
+        
+         <tr>
+            <td class="lfTdBt">排序：</td>
+         <td class="rgTdBt"><input type="text" name="data[orderby]" value="<{$detail.orderby|default=''}>" class="manageInput" />
+		<code>默认100，可以不修改，数字越小，排名越前面！</code>
+            </td>
+        </tr>
+        
+        
+        
+        
+        <!--增加开始-->
+        <tr>
+                    <td class="lfTdBt">是否头条：：</td>
+                    <td class="rgTdBt">
+                   <input type="radio" name="data[istop]" value="0" <if condition="$detail[istop] eq 0">checked="checked"</if> />不加头条
+				<input type="radio" name="data[istop]" value="1" <if condition="$detail[istop] eq 1">checked="checked"</if> />加入头条
+
+                    </td>
+                </tr>
+                
+       <tr>
+                    <td class="lfTdBt">是否加入幻灯：</td>
+                    <td class="rgTdBt">
+                  <input type="radio" name="data[isroll]" value="0" <if condition="$detail[isroll] eq 0">checked="checked"</if> />不加幻灯
+				<input type="radio" name="data[isroll]" value="1" <if condition="$detail[isroll] eq 1">checked="checked"</if> />加入幻灯
+                    </td>
+       </tr>
+       <!--增加结束-->     
+       
+       <tr>
+                    <td class="lfTdBt">是否开启评论：</td>
+                    <td class="rgTdBt">
+                  <input type="radio" name="data[valuate]" value="0" <if condition="$detail[valuate] eq 0">checked="checked"</if> />开启
+				<input type="radio" name="data[valuate]" value="1" <if condition="$detail[valuate] eq 1">checked="checked"</if> />不开启
+                <code>默认开启，关闭后不显示评论！</code>
+                    </td>
+       </tr>
+        <tr>
+        
+        
+        
+        
+       
+    </table>
+            <div class="smtQr"><input type="submit" value="确认编辑" class="smtQrIpt" /></div>
+</form>
+</div>
+</div>
+<include  file='public:footer'/>       

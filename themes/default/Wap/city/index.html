@@ -1,0 +1,63 @@
+<include  file='public:header'/>  
+  
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:u('wap/index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			城市切换
+		</div>
+	</header>
+	
+    
+    <style>
+ul { padding-left: 0px;}
+.xiaoqu-search{padding:15px;background:#fafafa;border-bottom:thin solid #eee;padding-bottom:5px}
+.xiaoqu-list p {height: 20px;line-height: 20px; margin: 0;color: #999;font-size: 12px;overflow: hidden;}
+p{margin-bottom:0px;}
+.list-media-x{ margin-top:0rem;}
+.list-media-x p {margin-top: .01rem; line-height:20px;font-size: 12px;}
+.list-media-x li dd.zhong{display:block;padding:10px;overflow:hidden;width:100%;border-bottom:1px #eee solid}
+.list-media-x li dd.zhong span.album{ font-size:12px; color:#FFF;margin-right: 0px;position:absolute;right:10%;bottom:0;width:45px;height:20px;line-height:20px;text-align:center;background: #06c1ae;}
+.list-media-x li dd.zhong a img{padding-bottom:0}
+</style>
+
+
+	<div class="line xiaoqu-search">
+		<form method="post"  action="<{:U('city/index')}>" id="form1" class="form1">
+			<div class="form-group">
+				<div class="field">
+					<div class="input-group">
+						<span class="addbtn"><button type="button" class="button icon-search"></button></span>
+						<input type="text" class="input" name="keyword2" size="50" value="<{$keyword2|default='请输入城市名称'}>" onclick="if (value == defaultValue) {value = '';this.style.color = '#000'}"  onBlur="if (!value) {value = defaultValue; this.style.color = '#999'}" /> 
+						<span class="addbtn"><button type="submit" class="button">搜索</button></span>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+    
+    
+    <div class="more-service">
+    	<p class="more-title">
+    		<span>当前城市：<a href="<{:U('index/index')}>"><{$city_name}></a></span>
+    	</p>   
+          <foreach name="citylists" item="item"> 
+        <p class="more-title">
+    		<span><{$key}></span>
+    	</p>
+    	<div class="more-list">
+         <volist name="item" id="var" key="i">
+    		<a href="<{:U('city/change',array('city_id'=>$var['city_id']))}>">
+    			<p><{$var.name}></p>
+    		</a>
+    		 </volist>
+    	</div>
+    	
+        </foreach>      
+		
+    </div>
+
+<include file='public:footer'/>  
+
+

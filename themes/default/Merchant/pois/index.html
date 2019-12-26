@@ -1,0 +1,51 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">黄页</a> > <a>黄页列表</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+	<form method="post" action="<{:U('pois/index')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">名称：
+            <input type="text" class="radius3 tuan_topser"  name="keyword" value="<{$keyword}>"/>
+            <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/></div>
+        </div>
+    </div>
+    </form>
+    <include  file='pois:nav'/>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td width="250">名称</td>
+            <td width="120">关键词</td>
+            <td width="130">地址</td>
+            <td width="150">电话</td>
+            <td width="70">创建时间</td>
+            <td width="80">状态</td>
+            <td width="70">操作</td>
+        </tr>
+        <foreach name="list" item="var">
+        <tr>
+            <tr>
+                <td><{$var.name}></td>
+                <td><{$var.tag}></td>
+                <td><{$var.address}></td>
+                <td><if condition="!empty($var[telephone])"><{$var.telephone}><else /> 未提交 </if></td>
+                <td><{$var.create_time|date='Y-m-d',###}></td>
+                <td> <if condition="$var[status] eq 0">未认领</if>
+				<if condition="$var[status] eq 1"><span class="text-green">正常</span></if>
+				<if condition="$var[status] eq -1"><span class="text-dot">审核中</span></if></td>
+                <td>
+                  <if condition="empty($var[shop_id]) AND $var[status] eq 0"><a class="text-dot" mini="act" href="<{:U('pois/lead',array('pois_id'=>$var[pois_id]))}>">认领</a></if>
+                </td>
+            </tr>
+        </tr>
+        </foreach>
+    </table>
+    <div class="paging">
+        <{$page}>
+    </div>
+</div>
+
+<include  file='public:footer'/>

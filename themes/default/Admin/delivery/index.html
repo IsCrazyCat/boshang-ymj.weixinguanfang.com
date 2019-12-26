@@ -1,0 +1,82 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">频道</li>
+        <li class="li2">配送员管理</li>
+        <li class="li2 li3">配送员列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+           	 <{:BA('delivery/create','','添加配送员')}>  
+            </div>
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('delivery/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+          
+                        <label>
+                            <span>会员UID或者用户名</span>
+                            <input type="text" name="keyword" value="<{$keyword}>" class="inptText" />
+                            <input type="submit" value="搜索"  class="inptButton" />
+                        </label>
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+    <div class="selectNr selectNr2">
+
+        <div class="clear"></div>
+    </div>
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="user_id" /></td>
+                    <td class="w50">ID</td>
+                    <td>登录帐号</td>
+                    <td>姓名</td>
+                    <td>手机</td>
+                    <td>地址</td>
+                    <td>身份证</td>
+                    <td>申请时间</td>
+                    <td>操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_id" type="checkbox" name="id[]" value="<{$var.id}>" /></td>
+                        <td><{$var.id}></td>
+                        <td><a href="<{:U('delivery/lists',array('id'=>$var['id']))}>"><{$users[$var['user_id']]['nickname']}> (<{$var.user_id}>)</a></td>
+                        <td><{$var.name}></td>
+                        <td><{$var.mobile}></td>
+                        <td><{$var.addr}></td>
+                        <td><img src="<{:config_img($var['photo'])}>" class="w80" /></td>
+                        <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                        <td>
+                        	<eq name="var.audit" value="0"> <{:BA('delivery/audit',array("id"=>$var["id"]),'审核','act','remberBtn')}> </eq>
+                            <eq name="var.audit" value="1"><{:BA('delivery/lists',array("id"=>$var["id"]),'配送记录','','remberBtn')}></eq>
+                            <{:BA('delivery/edit',array("id"=>$var["id"]),'编辑','','remberBtn')}>
+                       	 	<{:BA('delivery/delete',array("id"=>$var["id"]),'删除','act','remberBtn')}>
+                            
+                        </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('delivery/audit','','批量审核','list','remberBtn')}>
+                </div>
+            </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+
+

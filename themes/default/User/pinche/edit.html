@@ -1,0 +1,352 @@
+<include file="public:header"/>
+<link href="/static/default/wap/other/jquery-ui.css" rel="stylesheet" />
+<script src="/static/default/wap/other/jquery-ui.js"></script> 
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:u('user/pinche/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		编辑拼车
+	</div>
+</header>
+
+
+<form method="post" id="fa-from" class="fabu-form "  target="x-frame" action="<{:u('user/pinche/edit',array('pinche_id'=>$detail['pinche_id']))}>"   >
+
+<div class="blank-10 bg border-top"></div>
+
+    <div class="row">
+        <div class="line">
+            <span class="x3">类型</span>
+            <span class="x9">
+              <select name="data[cate_id]" class="text-select jq_type">
+                    <foreach name="getPincheCate" item="var" key="index">   
+                    <option value="<{$index}>" <eq name='detail.cate_id' value='$index'>selected="selected"</eq> ><{$var}></option>
+                    </foreach>
+                </select>
+            </span>
+        </div>
+    </div>
+   
+    <script>
+                    $(document).ready(function () {
+                        $(".jq_type").change(function () {
+                            if ($(this).val() == 1) {
+                                $(".jq_type_1").show();
+                                $(".jq_type_2").hide();
+								$(".jq_type_3").hide();
+								$(".jq_type_4").hide();
+                            }else if ($(this).val() == 2){
+                                $(".jq_type_1").hide();
+                                $(".jq_type_2").show();
+								$(".jq_type_3").hide();
+								$(".jq_type_4").hide();
+                            }else if ($(this).val() == 3){
+                                $(".jq_type_1").hide();
+                                $(".jq_type_2").hide();
+								$(".jq_type_3").show();
+								$(".jq_type_4").hide();
+                            }else {
+                                $(".jq_type_1").hide();
+                                $(".jq_type_2").hide();
+								$(".jq_type_3").hide();
+								$(".jq_type_4").show();
+                            }
+                        });
+                        $(".jq_type").change();
+                    });
+                </script>
+   
+   <div class="row">
+	<div class="line">
+		<span class="x3">地区</span>
+		<span class="x3">
+			<select name="data[city_id]" id="city_id" class="text-select">
+				<option value="0" selected="selected">城市</option>
+			</select>
+		</span>
+		<span class="x3">
+			<select name="data[area_id]" id="area_id" class="text-select">
+				<option value="0" selected="selected">← 地区</option>
+			</select>
+		</span>
+        
+        <span class="x3">
+			 <select name="data[community_id]" id="community_id" class="text-select">
+				 <option value="0">请选择...</option>
+                    <foreach name="communitys" item="var">
+                        <option value="<{$var.community_id}>" <eq name="var.community_id" value="$detail.community_id">selected="selected"</eq> ><{$var.name}></option>
+                    </foreach>   
+			    </select>
+		</span>
+        
+        
+	</div>
+    
+     <script>
+                    $(document).ready(function (e) {
+                        $("#area_id").change(function () {
+                            var url = '<{:U("pinche/child",array("area_id"=>"0000"))}>';
+                            if ($(this).val() > 0) {
+                                var url2 = url.replace('0000', $(this).val());
+                                $.get(url2, function (data) {
+                                    $("#community_id").html(data);
+                                }, 'html');
+                            }
+
+                        });
+                    });
+                </script>
+                
+                
+    <script src="<{:U('app/datas/cab',array('name'=>'cityareas'))}>"></script>
+                <script>
+                                var city_id = <?php echo (int)$detail['city_id'];?>;
+                   				var area_id = <?php echo (int)$detail['area_id'];?>;
+                                $(document).ready(function () {
+                                    var city_str = ' <option value="0">请选择...</option>';
+                                    for (a in cityareas.city) {
+                                        if (city_id == cityareas.city[a].city_id) {
+                                            city_str += '<option selected="selected" value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+                                        } else {
+                                            city_str += '<option value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+                                        }
+                                    }
+                                    $("#city_id").html(city_str);
+
+                                    $("#city_id").change(function () {
+                                        if ($("#city_id").val() > 0) {
+                                            city_id = $("#city_id").val();
+                                            var area_str = ' <option value="0">请选择...</option>';
+                                            for (a in cityareas.area) {
+                                                if (cityareas.area[a].city_id == city_id) {
+                                                    if (area_id == cityareas.area[a].area_id) {
+                                                        area_str += '<option selected="selected" value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                                    } else {
+                                                        area_str += '<option value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                                    }
+                                                }
+                                            }
+                                            $("#area_id").html(area_str);
+                                            $("#business_id").html('<option value="0">请选择...</option>');
+                                        } else {
+                                            $("#area_id").html('<option value="0">请选择...</option>');
+                                            $("#business_id").html('<option value="0">请选择...</option>');
+                                        }
+
+                                    });
+
+                                    if (city_id > 0) {
+                                        var area_str = ' <option value="0">请选择...</option>';
+                                        for (a in cityareas.area) {
+                                            if (cityareas.area[a].city_id == city_id) {
+                                                if (area_id == cityareas.area[a].area_id) {
+                                                    area_str += '<option selected="selected" value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                                } else {
+                                                    area_str += '<option value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                                }
+                                            }
+                                        }
+                                        $("#area_id").html(area_str);
+                                    }
+
+
+                                    $("#area_id").change(function () {
+                                        if ($("#area_id").val() > 0) {
+                                            area_id = $("#area_id").val();
+                                            var business_str = ' <option value="0">请选择...</option>';
+                                            for (a in cityareas.business) {
+                                                if (cityareas.business[a].area_id == area_id) {
+                                                    if (business_id == cityareas.business[a].business_id) {
+                                                        business_str += '<option selected="selected" value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                                    } else {
+                                                        business_str += '<option value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                                    }
+                                                }
+                                            }
+                                            $("#business_id").html(business_str);
+                                        } else {
+                                            $("#business_id").html('<option value="0">请选择...</option>');
+                                        }
+
+                                    });
+                                   
+                                });
+                </script> 
+                
+  </div>              
+                 
+    
+
+
+                
+ <div class="line padding border-bottom">
+		<div class="x4">
+			出发时间：
+		</div>
+		<div class="x8">
+        <input type="text" class="text-input datepicker" id="date" name="data[start_time]" size="30"  value="<{$detail.start_time|default=''}>"   placeholder="预约日期" />
+		</div>
+	</div>
+    
+   <div class="line padding border-bottom">
+		<div class="x4">
+			时间补充：
+		</div>
+		<div class="x8">
+			 <input data-role="none" class="text-input" type="text" name="data[start_time_more]" value="<{$detail.start_time_more|default=''}>"  >
+		</div>
+	</div>
+    
+    <div class="line padding border-bottom">
+		<div class="x4">
+			目的地：
+		</div>
+		<div class="x8">
+			 <input data-role="none" class="text-input" type="text" name="data[toplace]" value="<{$detail.toplace|default=''}>"  >
+		</div>
+	</div>
+    
+    <div class="line padding border-bottom">
+		<div class="x4">
+			途径：
+		</div>
+		<div class="x8">
+			 <input data-role="none" class="text-input" type="text" name="data[middleplace]" value="<{$detail.middleplace|default=''}>"  >
+		</div>
+	</div>
+    
+      <!--判断开始-->
+     <div class="line padding border-bottom jq_type_1">
+		<div class="x4">
+			空位人数：
+		</div>
+		<div class="x8">
+			 <input data-role="none" class="text-input" type="text" name="data[num_1]" value="<{$detail.num_1|default=''}>"  >
+		</div>
+	</div>
+    
+      <div class="line padding border-bottom jq_type_2">
+		<div class="x4">
+			需求人数：
+		</div>
+		<div class="x8">
+			 <input data-role="none" class="text-input" type="text" name="data[num_2]" value="<{$detail.num_2|default=''}>"  >
+		</div>
+	</div>
+    
+      <div class="line padding border-bottom jq_type_3">
+		<div class="x4">
+			可装吨数：
+		</div>
+		<div class="x8">
+			 <input data-role="none" class="text-input" type="text" name="data[num_3]" value="<{$detail.num_3|default=''}>"  >
+		</div>
+	</div>
+    
+      <div class="line padding border-bottom jq_type_4">
+		<div class="x4">
+			货物吨数：
+		</div>
+		<div class="x8">
+			 <input data-role="none" class="text-input" type="text" name="data[num_4]" value="<{$detail.num_4|default=''}>"  >
+		</div>
+	</div>
+    <!--判断结束-->
+    
+      <div class="line padding border-bottom">
+		<div class="x4">
+			联系方式：
+		</div>
+		<div class="x8">
+			 <input data-role="none" class="text-input" type="text" name="data[mobile]" value="<{$detail.mobile|default=''}>"  >
+		</div>
+	</div>
+    <div class="blank-10"></div>
+    <div class="line">
+        <div class="container">
+            <textarea rows="5" name="data[details]" class="text-area" placeholder="详细说明"><{$detail.details|default=''}></textarea>
+        </div>
+    </div>
+
+
+    
+    <div class="blank-10 bg"></div>
+    <div class="line padding border-bottom">
+		
+        <div class="life-infor-float" >
+                             <p class="life-infor-p">所在坐标</p>
+                            <div id="login-input" class="life-infor-float">
+                                <div class="left"><span>经度：</span><input type="text" name="data[lng]"  value="<{$details['lng']}>" id="data_lng"/></div>
+                                <div class="right"><span>纬度：</span><input type="text" name="data[lat]" value="<{$details['lat']}>"  id="data_lat"/></div>
+                            </div>
+                            <div class="life-infor-float" >
+                               <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7b92b3afff29988b6d4dbf9a00698ed8"></script>
+                                <div id="allmap" style="width: 100%; height:300px;"></div>
+                                <script type="text/javascript">
+
+                                // 百度地图API功能
+								
+								
+                                var map = new BMap.Map("allmap");
+                                map.centerAndZoom(new BMap.Point("<if condition="$details['lng']"><{$details['lng']}><else/><{$lng}></if>", "<if condition="$details['lng']"><{$details['lat']}><else/><{$lat}></if>"), 16);
+                                function selectCallBack(id, name, v1, v2) {
+                                    $("#" + id).val(v1);
+                                    $("#" + name).val(v2);
+                                    var point = new BMap.Point(v1, v2);
+                                    var marker = new BMap.Marker(point);  // 创建标注
+                                    map.clearOverlays();
+                                    map.addOverlay(marker);              // 将标注添加到地图中
+
+                                }
+                                function showInfo(e) {
+                                    selectCallBack('data_lng', 'data_lat', e.point.lng, e.point.lat);
+                                }
+                                map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+                                map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}));  //右上角，仅包含平移和缩放按钮
+                                map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT, type: BMAP_NAVIGATION_CONTROL_PAN}));  //左下角，仅包含平移按钮
+                                map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, type: BMAP_NAVIGATION_CONTROL_ZOOM}));  //右下角，仅包含缩放按钮
+                                map.addEventListener("click", showInfo);
+                                </script>
+                            </div>
+                        </div>
+                    
+	</div>
+
+	
+    
+	
+
+    <div class="blank-30"></div>
+    <div class="container"><button type="submit" class="button button-block button-big bg-dot">确认编辑</button></div>
+	<div class="blank-30"></div>
+
+</form>
+
+<script>
+		jQuery(function($){
+			$.datepicker.regional['zh-CN'] = {
+				closeText: '关闭',
+				prevText: '&#x3c;上月',
+				nextText: '下月&#x3e;',
+				currentText: '今天',
+				monthNames: ['一月','二月','三月','四月','五月','六月',
+				'七月','八月','九月','十月','十一月','十二月'],
+				monthNamesShort: ['一','二','三','四','五','六',
+				'七','八','九','十','十一','十二'],
+				dayNames: ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],
+				dayNamesShort: ['周日','周一','周二','周三','周四','周五','周六'],
+				dayNamesMin: ['日','一','二','三','四','五','六'],
+				weekHeader: '周',
+				dateFormat: 'yy-mm-dd',
+				firstDay: 1,
+				isRTL: false,
+				showMonthAfterYear: true,
+				yearSuffix: '年'};
+			$.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+		});
+		$(function() {
+			$( ".datepicker" ).datepicker();
+		});
+	</script>
+<include file="public:footer"/>

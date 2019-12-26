@@ -1,0 +1,35 @@
+<include file="public:header"/>
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<div class="line tab-bar">
+                <div class="button-toolbar">
+                    <div class="button-group">
+                        <a class="block button" href="<{:U('lists/scraped')}>">抢新单</a>
+                        <a class="block button" href="<{:U('lists/distribution')}>">配送中</a>
+                        <a class="block button bg-dot active" href="<{:U('lists/finished')}>">已完成</a>
+                    </div>
+                </div>
+           </div>
+		</div>
+		<div class="top-signed">
+		</div>
+	</header>
+
+    <style>
+	.container { margin-top: 0rem;}
+	</style>
+	<div class="container">
+        <div class="blank-10 bg"></div>
+		<div id="shop-list" class="shop-list"></div>
+	</div>
+	<script>
+		$(document).ready(function () {
+			loaddata('<{$nextpage}>', $("#shop-list"), true);
+		});
+	</script>
+
+
+<include file="public:footer"/>

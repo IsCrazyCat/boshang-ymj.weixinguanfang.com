@@ -1,0 +1,195 @@
+<include file="public:header"/>
+
+
+
+<header class="top-fixed bg-yellow bg-inverse">
+
+	<div class="top-back">
+
+		<a class="top-addr" href="<{:u('user/index/index')}>"><i class="icon-angle-left"></i></a>
+
+	</div>
+
+		<div class="top-title">
+
+			完成支付
+
+		</div>
+
+	<div class="top-signed">
+
+		<include file="public:message"/>
+
+	</div>
+
+</header>
+
+
+
+<div class="panel-list">
+
+	<ul>
+
+		<li>
+
+			<a href="javascript:;">
+
+				订单编号：
+
+				<em class="text-gray"><{$detail.order_id}></em>
+
+			</a>
+
+		</li>
+
+		<li>
+
+			<a href="javascript:;">
+
+				付款时间：<em><{$detail.create_time|date='Y-m-d H:i',###}></em>
+
+			</a>
+
+		</li>
+
+	</ul>
+
+</div>
+
+<div class="blank-10 bg"></div>
+
+
+
+
+
+ <foreach name="ele_goods" item="item">
+
+<div class="line padding border-bottom">
+
+	<div class="x3">
+
+		<img src="<{:config_img($products[$item['product_id']]['photo'])}>" width="90%" />
+
+	</div>
+
+	<div class="x9">
+
+		<p class="margin-small"><{$products[$item['product_id']]['product_name']}></p>
+
+		<p class="margin-small">
+
+			<{$item.num}><span class="margin-left">x</span><span class="margin-left">￥<{:round($products[$item['product_id']]['price']/100,2)}></span><span class="margin-left text-dot">=￥<{:round($item['total_price']/100,2)}></span>
+
+		</p>
+
+	</div>
+
+</div>
+
+</foreach>
+
+<div class="blank-10 bg"></div>
+
+
+
+
+
+<div class="panel-list">
+
+	<ul>
+
+		<if condition="!empty($detail['new_money'])">
+
+		<li>
+
+			<a href="javascript:;">
+
+				新单立减：
+
+				<em class="text-gray"><{:round($detail['new_money']/100,2)}></em>
+
+			</a>
+
+		</li>
+
+		</if>
+
+		<if condition="!empty($detail['fan_money'])">
+
+		<li>
+
+			<a href="javascript:;">
+
+				下单返利：<em><{:round($detail['fan_money']/100,2)}></em>
+
+			</a>
+
+		</li>
+
+		</if>
+
+		<li>
+
+			<a href="javascript:;">
+
+				付款方式：<em><{$paytype[$detail['code']]['name']}></em>
+
+			</a>
+
+		</li>
+
+		<li>
+
+			<a href="javascript:;">
+
+				结算价格：<em class="text-dot">￥<{:round($detail['need_pay']/100,2)}></em>
+
+			</a>
+
+		</li>
+
+		<li>
+
+			<a href="javascript:;">
+
+				配送地址：<em><{$areas[$addr['area_id']]['area_name']}>&nbsp;<{$bizs[$addr['business_id']]['business_name']}>&nbsp;<{$addr['addr']}></em>
+
+			</a>
+
+		</li>
+
+		<li>
+
+			<a href="javascript:;">
+
+				下单时间：<em><{$detail.single_time|date='Y-m-d H:i',###}></em>
+
+			</a>
+
+		</li>
+
+	</ul>
+
+</div>
+
+<div class="blank-10 bg"></div>
+
+
+
+<div class="blank-20"></div>
+
+<div class="line text-center">
+
+	<a class="button bg-dot" href="<{:u('user/eleorder/detail',array('order_id'=>$detail['order_id']))}>">查看详情</a>
+
+	<a class="button bg-main" href="<{:u('wap/ele/index')}>">继续逛逛</a>
+
+</div>
+
+<div class="blank-20"></div>
+
+
+
+
+
+<include  file='public:footer'/>    

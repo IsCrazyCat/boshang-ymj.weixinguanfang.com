@@ -1,0 +1,63 @@
+<include file='public:header'/>    
+<style>
+body { background: #e9f0f5;}
+</style>
+	<script src="/static/default/wap/other/roll.js"></script>
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('message/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			查看信息
+		</div>
+	</header>
+	<div class="blank-10"></div>
+	<div class="detail-list">
+		<ul>
+			<li class="line">
+				<div class="x2">
+            <img  class="radius-big avatar"  src="<{:config_img($user['face'])}>" />
+            
+        
+                
+                </div>
+				<div class="x10">
+					<div class="chat-ta">
+						<{$detail['content']}>
+						<span class="time"><{$detail.create_time|date="Y-m-d H:i:s",###}></span>
+					</div>
+				</div>
+			</li>
+		</ul>
+		<ul id="detail-list">
+		</ul>
+	</div>
+
+	<script>
+		$(document).ready(function () {
+			loaddata('<{$nextpage}>', $("#detail-list"), true);
+		});
+	</script>
+
+	<nav class="chat-bar">
+		<div class="line">
+			<if condition="$detail['send_id'] gt 0">
+			<div class="x6 text-center">
+				<a href="<{:U('message/post',array('msg_id'=>$detail['msg_id']))}>"><i class="icon-pencil-square"></i> 回复</a>
+			</div>
+			<div class="x1 text-center">
+				<em>|</em>
+			</div>
+			<div class="x5 text-center">
+				<a href="<{:U('message/delete',array('msg_id'=>$detail['msg_id']))}>"><i class="icon-close"></i> 删除</a>
+			</div>
+			<else />
+			<div class="x12 text-center">
+				<a href="<{:U('message/delete',array('msg_id'=>$detail['msg_id']))}>"><i class="icon-close"></i> 删除</a>
+			</div>
+			</if>
+		</div>
+	</nav>	
+	
+</body>
+</html>

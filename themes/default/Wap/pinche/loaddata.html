@@ -1,0 +1,89 @@
+<foreach name='list' item='item'>
+<if condition="$item['cate_id'] eq 1">
+<li class="mod-1" onclick="location='<{:u('pinche/detail',array('pinche_id'=>$item['pinche_id']))}>'">
+         <if condition="!empty($item['photo'])">
+        <img class="pic flex" src="<{:config_img($item['photo'])}>" />
+        </if>
+			<div class="des flex">
+				<h4>
+             车找人 <{$areass[$item['area_id']]['area_name']}>-><{$item['toplace']}> 
+                <if condition="!empty($item['middleplace'])">
+                -途经（<{$item['middleplace']}>）
+                </if>
+                 </h4>    
+                <php>
+                $start_time = strtotime($item['start_time']);
+                </php>
+				<p>时间：<{:pincheTime($start_time)}>/<{$item['start_time_more']}><span><{$item['d']}></span></p>
+                <p>发布于：<{$item.create_time|date='Y-m-d ',###}> <a href="tel:<{$item['mobile']}>" class="icon-mobile"></a> <{$item['num_1']}>空位 </p>
+				</div>
+
+</li>
+
+
+ <elseif condition="$item['cate_id'] eq 2"/>
+
+<li class="mod-2" onclick="location='<{:u('pinche/detail',array('pinche_id'=>$item['pinche_id']))}>'">
+          <if condition="!empty($item['photo'])">
+        <img class="pic flex" src="<{:config_img($item['photo'])}>" />
+        </if>
+			<div class="des flex">
+				<h4>
+             人找车 <{$areass[$item['area_id']]['area_name']}>-><{$item['toplace']}> 
+                <if condition="!empty($item['middleplace'])">
+                -途经（<{$item['middleplace']}>）
+                </if>
+                 </h4>    
+                <php>
+                $start_time = strtotime($item['start_time']);
+                </php>
+				<p>时间：<{:pincheTime($start_time)}>/<{$item['start_time_more']}><span><{$item['d']}></span></p>
+                <p>发布于：<{$item.create_time|date='Y-m-d ',###}> <a href="tel:<{$item['mobile']}>" class="icon-mobile"></a> 需要<{$item['num_2']}>空位 </p>
+				</div>
+
+</li>
+
+
+
+<elseif condition="$item['cate_id'] eq 3"/>
+  <li class="mod-3" onclick="location='<{:u('pinche/detail',array('pinche_id'=>$item['pinche_id']))}>'">
+        <if condition="!empty($item['photo'])">
+        <img class="pic flex" src="<{:config_img($item['photo'])}>" />
+        </if>
+			<div class="des flex">
+				<h4>
+             车找货 <{$areass[$item['area_id']]['area_name']}>-><{$item['toplace']}> 
+                <if condition="!empty($item['middleplace'])">
+                -途经（<{$item['middleplace']}>）
+                </if>
+                 </h4>    
+                <php>
+                $start_time = strtotime($item['start_time']);
+                </php>
+				<p>时间：<{:pincheTime($start_time)}>/<{$item['start_time_more']}><span><{$item['d']}></span></p>
+                <p>发布于：<{$item.create_time|date='Y-m-d ',###}> <a href="tel:<{$item['mobile']}>" class="icon-mobile"></a> <{$item['num_3']}></p>
+				</div>
+</li>
+
+<elseif condition="$item['cate_id'] eq 4"/>
+  <li class="mod-4" onclick="location='<{:u('pinche/detail',array('pinche_id'=>$item['pinche_id']))}>'">
+          <if condition="!empty($item['photo'])">
+        <img class="pic flex" src="<{:config_img($item['photo'])}>" />
+        </if>
+			<div class="des flex">
+				<h4>
+             货找人 <{$areass[$item['area_id']]['area_name']}>-><{$item['toplace']}> 
+                <if condition="!empty($item['middleplace'])">
+                -途经（<{$item['middleplace']}>）
+                </if>
+                 </h4>    
+                <php>
+                $start_time = strtotime($item['start_time']);
+                </php>
+				<p>时间：<{:pincheTime($start_time)}>/<{$item['start_time_more']}><span><{$item['d']}></span></p>
+                <p>发布于：<{$item.create_time|date='Y-m-d ',###}> <a href="tel:<{$item['mobile']}>" class="icon-mobile"></a> <{$item['num_4']}> </p>
+				</div>
+</li>
+</if>
+</foreach>
+

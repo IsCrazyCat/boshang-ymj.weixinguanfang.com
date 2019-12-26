@@ -1,0 +1,54 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+	<ul>
+		<li><a href="#">商家管理</a> > <a href="">优惠买单</a> > <a>买单列表</a></li>
+	</ul>
+</div>
+<div class="tuan_content">
+	<include  file='shop:nav'/>
+	<table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr style="background-color:#eee;">
+		<td>订单ID</td>
+        <td>用户昵称ID</td>
+		<td>买单金额</td>
+		<td>未参与优惠金额</td>
+		<td>优惠金额</td>
+		<td>实际付款金额</td>
+        <td>买单时间</td>
+		<td>状态</td>
+	</tr>
+	<foreach name="list" item="var">
+	<tr>
+		<td>
+			<{$var.order_id}>
+		</td>
+        <td>
+			<{$users[$var['user_id']]['nickname']}>：<{$var.user_id}>
+		</td>
+		<td>
+			<{$var.amount}>
+		</td>
+		<td>
+			<{$var.exception}>
+		</td>
+		<td> 
+        <php>$yh_money = $var['amount']-$var['need_pay'];</php>
+			<{$yh_money}>
+		</td>
+		<td>
+        
+        <{$var.need_pay}>
+			</td>
+
+        
+        <td><{$var.create_time|date="Y-m-d H:i:s",###}></td>
+
+		<td>
+			<if condition="$var.status eq 1"><span class="text-green">已支付</span><else/>未支付</if>
+		</td>
+		
+	</tr>
+	</foreach>
+	</table>
+	<{$page}>
+</div>

@@ -1,0 +1,200 @@
+<include file='public:header'/>    
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			云购列表
+		</div>
+        <div class="top-share">
+			<a href="javascript:void(0);" id="share-btn"><i class="icon-share"></i></a>
+		</div>
+        
+	</header>
+	
+<style>
+.button-big {padding:3px;  font-size: 12px;line-height: 12px;}
+.x6 {padding: 0 15px;}
+.detail-base span.album {font-size: 12px;color: #FFF; margin-right: 1px;position: absolute;right: 10%;bottom: 0;width:90%;height: 20px;line-height: 20px;text-align: center;background: #06c1ae;}
+</style>     
+<div id="share-box" class="share-box">
+		<div class="dialog-mask"></div>
+			<ul class="line">
+				<li class="-mob-share-weibo x3"><img src="/static/default/wap/image/share/share-weibo.png" /><p>新浪微博</p></li>
+				<li class="-mob-share-tencentweibo x3"><img src="/static/default/wap/image/share/share-twb.png" /><p>腾讯微博</p></li>
+				<li class="-mob-share-qzone x3"><img src="/static/default/wap/image/share/share-qzone.png" /><p>QQ空间</p></li>
+				
+				<li class="-mob-share-qq x3"><img src="/static/default/wap/image/share/share-py.png" /><p>QQ好友</p></li>
+				<li class="-mob-share-weixin x3"><img src="/static/default/wap/image/share/share-weixin.png" /><p>微信</p></li>
+				<li class="-mob-share-renren x3"><img src="/static/default/wap/image/share/share-renren.png" /><p>人人网</p></li>
+				<li class="-mob-share-kaixin x3"><img src="/static/default/wap/image/share/share-kaixin.png" /><p>开心网</p></li>
+				<li id="mui-card-close" class="mui-card-close x3"><img src="/static/default/wap/image/share/share-close.png" /><p>关闭</p></li>
+			</ul>
+		<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=890ab8bbdb3c"></script>
+	</div>
+	<script>
+		$(document).ready(function () {
+			$("#share-box").hide();
+			$("#share-btn").click(function () {
+				$("#share-box").toggle();
+				$('html,body').animate({scrollTop:0}, 'slow');
+			});
+			$("#mui-card-close").click(function () {
+				$("#share-box").hide();
+			});
+		});
+	</script>
+    
+    
+    
+    
+   <div id="filter2" class="filter2">
+    <ul class="tab clearfix">
+      <li class="item">
+        <a href="javascript:void(0);">
+        <if condition="!empty($type)">
+            <volist name="types" id="item" key="index">
+                <if condition='$type eq $index'>
+                	<span  id="str_b_node" style="color:#f60"> <{$item.type_name}></span>
+                </if>
+            </volist>
+        <else/>
+        <span id="str_b_node">选择分类</span>
+        </if>
+        <em></em>
+        </a>
+      </li>
+     <li class="item">
+        <a href="javascript:void(0);"> 
+         <if condition="!empty($area_id)">
+            <span id="str_b_node" style="color:#f60;"><{$areass[$area_id]['area_name']}></span>
+         <else/>
+            <span id="str_d_node">选择地区</span>
+         </if>
+        <em></em>
+        </a>
+      </li>
+      <li class="item">
+        <a href="javascript:void(0);">
+        <if condition="empty($order)">
+        <span id="str_e_node">选择排序</span>
+        <elseif condition="$order eq s"/>
+        <span id="str_b_node" style="color:#f60;">人气排序</span>
+        <elseif condition="$order eq v"/>
+        <span id="str_b_node" style="color:#f60;">价格排序</span>
+        <elseif condition="$order eq p"/>
+        <span id="str_b_node" style="color:#f60;">发布时间</span>
+        </if>
+        <em></em>
+        </a>
+      </li>
+    </ul>
+    
+    <div class="inner" style=" display:none">
+        <ul>
+         <li class="<if condition="empty($type)">style="color:red;"</if> "><a href="<{:U('cloud/index')}>" >全部</a></li>
+				<volist name="types" id="item" key="index">
+				<li><a <if condition='$type eq $index'>style="color:red;"</if> href="<{:U('cloud/index',array('type'=>$index,'area_id'=>$area_id,'order'=>$order))}>"><{$item.type_name}></a></li>
+				</volist>
+               
+
+            </ul>
+    
+    </div>
+    
+     <div class="inner" style=" display:none">
+        <ul>
+         <li class="<if condition="empty($area_id)">style="color:red;"</if> "><a href="<{:U('cloud/index')}>" >全部地区</a></li>
+				<foreach name="areas" item="var">
+                <php>if($var['city_id'] == $city_id){</php>    
+				<li><a <if condition="$area_id eq $var['area_id']"> style="color:red;"</if>  href="<{:U('cloud/index',array('type'=>$index,'area_id'=>$var['area_id'],'order'=>$order))}>"><{$var.area_name}></a></li>
+                <php>}</php> 
+				</foreach>
+               
+
+            </ul>
+    
+    </div>
+    
+    
+    
+   
+    
+    <div class="inner" style="display:none;">
+              <ul>
+              
+               <li><a href="<{:U('cloud/index')}>">默认排序</a></li>            
+                <li <if condition="$order eq s">style="color:red;"</if>><a href="<{:LinkTo('cloud/index',array('type'=>$type,'area_id'=>$area_id,'order'=>s))}>">人气排行</a></li>
+                <li <if condition="$order eq v">style="color:red;"</if>><a href="<{:LinkTo('cloud/index',array('type'=>$type,'area_id'=>$area_id,'order'=>v))}>">价格排行</a></li>
+                <li <if condition="$order eq p">style="color:red;"</if>><a href="<{:LinkTo('cloud/index',array('type'=>$type,'area_id'=>$area_id,'order'=>p))}>">发布时间</a></li>
+                
+           
+
+          
+
+            </ul>
+      </div>
+      
+      <div id="parent_container" class="inner_parent" style="display:none;">
+        <div class="innercontent"></div>
+      </div>
+      <div id="inner_container" class="inner_child" style="display:none;">
+        <div class="innercontent"></div>
+      </div>
+    
+</div>
+<!--end-->    
+
+<div id="fullbg" class="fullbg" style="display: none; height: 250px;">
+<i class="pull2"></i>
+</div>
+
+
+    
+    
+    <script>
+		$("#search-bar li").each(function(e){
+			$(this).click(function(){
+				if($(this).hasClass("on")){
+					$(this).parent().find("li").removeClass("on");
+					$(this).removeClass("on");
+					$(".serch-bar-mask").hide();
+				}
+				else{
+					$(this).parent().find("li").removeClass("on");
+					$(this).addClass("on");
+					$(".serch-bar-mask").show();
+				}
+				$(".serch-bar-mask .serch-bar-mask-list").each(function(i){
+					
+					if(e==i){
+						$(this).parent().find(".serch-bar-mask-list").hide();
+						$(this).show();
+					}
+					else{
+						$(this).hide();
+					}
+					$(this).find("li").click(function(){
+						$(this).parent().find("li").removeClass("on");
+						$(this).addClass("on");
+					});
+				});
+			});
+		});
+	</script>  
+
+    <div class="xiaoqu-list">
+
+
+		<ul id="xiaoqu-list">
+        </ul>  
+	</div>
+
+	<script>
+		$(document).ready(function () {
+			showFilter({ibox:'filter2',content1:'parent_container',content2:'inner_container',fullbg:'fullbg'});
+			loaddata('<{$nextpage}>', $("#xiaoqu-list"), true);
+		});
+	</script>
+	
+<include file="public:footer"/>

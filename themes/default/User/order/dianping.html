@@ -1,0 +1,190 @@
+<include file="public:header"/>
+<body>
+    <header>
+        <div class="header_color">
+            <a class="back" href="<{:u('members/index')}>"><img  src="__TMPL__statics/img/back_icon.png"></a>
+            添加点评
+        </div>
+    </header>
+
+    <section>
+        <form method="post" action="<{:u('members/dianping',array('shop_id'=>$detail['shop_id']))}>" id="sc_form" target="baocms_frm">
+            <div class="dianping_box">
+                <img style="width: 35%;" src="<{:config_img($detail['photo'])}>"/>
+                <div class="dianping_jianjie">
+                    <h1><{$detail.shop_name}></h1> 
+                    <p><{$detail.addr}></p>
+                    <p><{$detail.tel}></p>
+                </div>
+            </div>
+
+            <ul class="dianping_box">
+                <p>
+                    <span style="float: left"> 评价：</span>
+                <style>
+                    #jq_star img{ float: left;}
+                </style>
+                <span id="jq_star"></span>
+                <script type="text/javascript" src="__PUBLIC__/js/jquery.raty.min.js"></script>
+                <script>
+                    $(document).ready(function () {
+
+                        $("#jq_star").raty({
+                            numberMax: 5,
+                            path: '__PUBLIC__/js/img/',
+                            starOff: 'star-off.png',
+                            starOn: 'star-on.png',
+                            scoreName: 'data[score]'
+                        });
+
+                    });
+                </script>
+                </p>
+                <p>
+                    <span style="float: left"> <{$cate['d1']}>：</span>
+                <style>
+                    #jq_star1 img{ float: left;}
+                </style>
+                <span id="jq_star1"></span>
+                <script>
+                    $(document).ready(function () {
+
+                        $("#jq_star1").raty({
+                            numberMax: 5,
+                            path: '__PUBLIC__/js/img/',
+                            starOff: 'star-off.png',
+                            starOn: 'star-on.png',
+                            scoreName: 'data[d1]'
+                        });
+
+                    });
+                </script>
+                </p>
+                <p>
+                    <span style="float: left"> <{$cate['d2']}>：</span>
+                <style>
+                    #jq_star1 img{ float: left;}
+                </style>
+                <span id="jq_star2"></span>
+                <script>
+                    $(document).ready(function () {
+
+                        $("#jq_star2").raty({
+                            numberMax: 5,
+                            path: '__PUBLIC__/js/img/',
+                            starOff: 'star-off.png',
+                            starOn: 'star-on.png',
+                            scoreName: 'data[d2]'
+                        });
+
+                    });
+                </script>
+                </p>
+
+                <p>
+                    <span style="float: left"> <{$cate['d3']}>：</span>
+                <style>
+                    #jq_star3 img{ float: left;}
+                </style>
+                <span id="jq_star3"></span>
+                <script>
+                    $(document).ready(function () {
+
+                        $("#jq_star3").raty({
+                            numberMax: 5,
+                            path: '__PUBLIC__/js/img/',
+                            starOff: 'star-off.png',
+                            starOn: 'star-on.png',
+                            scoreName: 'data[d3]'
+                        });
+
+                    });
+                </script>
+                </p>
+                <li class="section">
+                    <span class="tit">消费:</span>
+                    <input type="text"  name="data[cost]"  style="width: 80px;" />元(平均消费为准)
+                </li>
+                <li class="section">
+                    <span class="tit">说点:</span>
+                    <textarea  cols="33" rows="5" name="data[contents]" placeholder="还记得这家店吗？写点评记录生活、分享体验"></textarea>
+                </li>
+                <li class="camera">
+                    <input type="file" id="fileToUpload" name="fileToUpload" >
+                </li>
+
+               <link rel="stylesheet" type="text/css" href="/static/default/wap/other/webuploader.css"> 
+<script src="/static/default/wap/other/webuploader.js"></script> 
+   <div class="Upload-img-box">
+       <div  id="fileToUpload">上传图片</div>
+           <div class="Upload-img">
+           	<div class="list-img loading" style="display:none;"><img src=""></div>
+           <div class="list-img jq_photo" style="display:none;"></div>
+       <div class="jq_photo1">
+       </div>
+      </div>
+  </div>
+    <script>
+    	var width_dianping = '<{:thumbSize($CONFIG[attachs][dianping][thumb],0)}>';                     
+		var height_dianping = '<{:thumbSize($CONFIG[attachs][dianping][thumb],1)}>';
+		var pic_wap_quality = '<{$CONFIG[attachs][pic_wap_quality][thumb]}>';    
+        var uploader = WebUploader.create({                 
+			auto: true,                             
+			swf: '/static/default/webuploader/Uploader.swf',                             
+			server: '<{:U("app/upload/uploadify",array("model"=>"dianping"))}>',                             
+			pick: '#fileToUpload',                             
+			resize: true,    
+			accept: {
+				title: 'Images',
+				extensions: 'gif,jpg,jpeg,png',
+				mimeTypes: 'image/*'//只永许上传JPG格式文件
+			}, 
+			compress:{
+				width: width_dianping,//宽度
+				height: height_dianping,//高度
+				quality: pic_wap_quality,//压缩质量
+				allowMagnify: false,
+				crop: false,
+				preserveHeaders: true,
+				noCompressIfLarger: true,
+				compressSize:0
+			}     
+        });
+        uploader.on( 'beforeFileQueued', function( file ) {
+            $(".loading").show();
+            if(file.size > 1024000){
+                uploader.option( 'compress', {
+                    width:width_dianping,//这里裁剪长度
+                    quality:60
+                });
+            }
+        });
+        uploader.on( 'uploadSuccess', function( file,resporse) {
+            $(".loading").hide();
+            var str = '<img src="'+resporse.url+'"><input type="hidden" name="photos[]" value="' + resporse.url + '" />';
+            $(".jq_photo1").append(str);
+        });
+        uploader.on( 'uploadError', function( file ) {
+            alert('上传出错');
+        });
+
+        $(document).ready(function () {
+            $(document).on("click", ".photo img", function () {
+                $(this).parent().remove();
+            });
+        });
+    </script>
+            </ul>
+            <div class="radius">
+                <input id="total_scole" class="aniu" type="submit" value="提交">
+            </div>
+            <p class="light small" style="text-align:center; margin: 20px 0px;">
+                宝贝不满意，我要
+                <a href="<{:u('members/index')}>">申请退款>></a>
+            </p>
+        </form>
+    </section>
+
+
+
+<include  file='public:footer'/>   

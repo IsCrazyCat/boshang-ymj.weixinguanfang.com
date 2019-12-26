@@ -1,0 +1,165 @@
+<include file="public:headerpacket"/>
+<title>查看红包</title>
+</head>
+<body>
+<div class="redBg">
+	<div class="redBg_cont">
+    	<div class="redBag"> 
+        	<img src="__TMPL__packet/static/images/bagBg.png" width="100%" height="auto">
+            <div class="redBagCont">
+                <div class="redBagChai">
+                    <div class="nr">
+                        <div class="bagOpen" style="display:none;">
+                            <p class="big"><{$detail.title}></p>
+                            <p id='show'></p>
+                            <a href="#" class="btn theme-login">抢红包</a>
+                        </div>
+                        <div class="bagOpen_no">
+                        <p class="big"><{$detail.title}></p>
+                            <p>多抢多得，红包多多</p>
+                            <a href="#" class="btn theme-login">抢红包</a>
+                        </div>
+                    </div>
+                    <img src="__TMPL__packet/static/images/bag.png" width="100%" height="auto">
+                </div>
+                <img src="__TMPL__packet/static/images/bagimg1.png" width="100%" height="auto">
+            </div>
+        </div>
+        <!--列表-->
+        <div class="ggk_tab">
+            <ul>
+                <li class="ggk_tab_list on"><a href="javascript:;"><em class="ico_1"></em>活动介绍</a></li>
+                <li class="ggk_tab_list"><a href="javascript:;"><em class="ico_2"></em>兑奖记录</a></li>
+                <li class="ggk_tab_list"><a href="javascript:;"><em class="ico_3"></em>中奖记录</a></li>
+                <li class="ggk_tab_list"><a href="javascript:;"><em class="ico_4"></em>我的中奖</a></li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+        <div class="ggk_list_box">
+            <div class="ggk_list" id='info' style="display:block;">
+                <div class="ggk_intro">
+                    <div class="intro"><p><{$detail.desc}></p></div>
+                    <div class="title"><span class="bt">活动规则说明</span></div>
+                    <div class="nr"><{$detail.info}></div>
+                </div>
+                <div>
+        </div>
+            </div>
+            <div class="ggk_list">
+            	<div class="bagList" id='is_packet'>
+                	
+                </div>
+            </div>
+            <div class="ggk_list" id='packet'>
+   				<div class="bagList"  id='all_packet'>
+                </div>
+            </div>
+            <div class="ggk_list" >
+                <div class="bagList" id='my_packet'>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+	<div class="theme-popover" id="theme-popover">
+		<div class="articleBox" id = 'txt'></div>
+	</div>
+	<div class="theme-popover-mask" id="theme-popover-mask"></div>
+</div>
+
+<div class="footer_copy" style="font-size: 14px; line-height: 40px; color: #fff; text-align: center; margin: 20px 0 0; background-color: #6c6c6c;">&copy;<{$CONFIG.site.title}></div>
+<script language="javascript">
+
+
+$(document).ready(function(e) {
+	getResult();
+	get_is_packet();
+	<if condition = "$page eq 0">
+		get_all_packet('1');
+	<else/>
+		get_all_packet('<{$page}>','1');
+	</if>
+	$('.ggk_tab_list').each(function (e) {
+		$(this).click(function(){
+			$('.ggk_tab_list').removeClass("on");
+			$(this).addClass("on");
+			$(".ggk_list_box .ggk_list").each(function(i){
+				if(e==i){
+					$(".ggk_list_box .ggk_list").hide();
+					$(this).show();
+				}
+				else{
+					$(this).hide();
+				}
+			});
+		});
+	});
+	$('.duiForm .btn').click(function(){
+		$(this).parents(".grayBg").find(".duiForm").hide();
+	});
+});
+jQuery(document).ready(function($) {
+	$('.theme-login').click(function(){
+		var link = '<{:U('packet/show', array('id'=>$detail['id'],'shop_id'=>$detail['shop_id']))}>';
+		 $.getJSON(link, function(ret){
+			if(ret.err == 0){	
+				$('.redBagChai img').attr('src', '__TMPL__packet/static/images/bagOpen.png');
+            	$('#show').html(ret.msg);
+				$('.bagOpen').show();
+				$('.bagOpen_no').hide();
+			}else{
+					$('#txt').html(ret.msg);
+				$('.theme-popover-mask').fadeIn(100);
+				$('.theme-popover').slideDown(200);
+			
+			}
+        });
+		
+	});
+	//3秒，可以改动
+	/*$('.theme-poptit .close').click(function(){
+		$('.theme-popover-mask').fadeOut(100);
+		$('.theme-popover').slideUp(200);
+	})*/
+});
+function get_all_packet(page,n){
+	var link = '<{:U('packet/all_packet', array('id'=>$detail['id'],'shop_id'=>$detail['shop_id']))}>';
+	$("#all_packet").load(link.replace("#page", page));
+	if(n >0){
+		$(".ggk_tab li").eq(2).addClass("on");
+		$(".ggk_tab li").eq(0).removeClass("on");
+		$("#packet").css('display','block'); 
+		$("#info").css('display','none'); 
+	}
+	
+	
+}
+
+function get_is_packet(){
+	var link = '<{:U('packet/is_packet', array('id'=>$detail['id'],'shop_id'=>$detail['shop_id']))}>';
+	
+	$("#is_packet").load(link);
+	
+}
+
+
+function getResult(){
+	var link = '<{:U('packet/my_packet', array('id'=>$detail['id'],'shop_id'=>$detail['shop_id']))}>';
+	
+	$("#my_packet").load(link);
+	
+}
+
+function codefans(){
+	var box=document.getElementById("theme-popover");
+	var boxbg=document.getElementById("theme-popover-mask");
+	box.style.display="none"; 
+	boxbg.style.display="none"; 
+	}
+	setTimeout("codefans()",3000);
+</script> 
+
+</body>
+</html>

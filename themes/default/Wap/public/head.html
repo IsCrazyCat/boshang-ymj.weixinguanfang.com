@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<title><if condition="!empty($seo_title)"><{$seo_title}>_</if><{$CONFIG.site.sitename}></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+		<if condition="$CONFIG[site][concat] neq 1">
+		<link rel="stylesheet" href="/static/default/wap/css/base.css">
+		<link rel="stylesheet" href="/static/default/wap/css/<{$ctl}>.css"/>
+		<script src="/static/default/wap/js/jquery.js"></script>
+		<script src="/static/default/wap/js/base.js"></script>
+		<script src="/static/default/wap/other/layer.js"></script>
+		<script src="/static/default/wap/other/roll.js"></script>
+		<script src="/static/default/wap/js/public.js"></script>
+		<else />
+		<link rel="stylesheet" href="/static/default/wap/css/??base.css,<{$ctl}>.css" />
+		<script src="/static/default/wap/js/??jquery.js,base.js,roll.js,layer.js,public.js"></script>
+		</if>
+        <script src="__TMPL__statics/js/baocms.js?v=20150801"></script>
+        
+		<script>
+            function bd_encrypt(gg_lat, gg_lon)   // 百度地图测距偏差 问题修复
+            {
+				var page =  "/mobile/near/dingwei/lat/"+gg_lat+"/lng/"+gg_lon+".html";
+				$.get(page, function (data) {
+					
+				}, 'html');
+            }
+            navigator.geolocation.getCurrentPosition(function (position) {
+                bd_encrypt(position.coords.latitude, position.coords.longitude);
+            });
+        </script>
+        
+	</head>
+	<body>

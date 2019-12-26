@@ -1,0 +1,40 @@
+<include  file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="javascript:void(0);">小区业主</a> > <a href="javascript:void(0);">设置账单</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">设置账单，包括水、电、燃气、停车、物业费,如果本期没有物流费默认为0就行，账单时间不要重复选择，账单日期必须填写。</div>
+        </div>
+    </div> 
+    <div class="tabnr_change  show">
+        <form method="post"  action="<{:U('order/create',array('user_id'=>$detail['user_id']))}>"  target="baocms_frm">
+            <table class="tuanfabu_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">账单时间（年、月）：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" class="radius3 tuan_topser"  name="order_date" value="<{$detail.order_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM'});"/>
+                        </div><code>必选，不要重复</code></td>
+                </tr>
+                <volist name="types" id="item" key="index">
+                    <tr>
+                    <td width="120"><p class="tuanfabu_t"><{$item}>：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[<{$index}>][money]" value="0" class="tuanfabu_int tuanfabu_intw2" />
+                            开始时间：<input type="text" class="radius3 tuan_topser"  name="data[<{$index}>][bg_date]" value="" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd'});"/>
+                            截止时间：<input type="text" class="radius3 tuan_topser"  name="data[<{$index}>][end_date]" value="" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd'});"/>
+                        </div></td>
+                </tr>
+                </volist>
+            </table>
+            <div class="tuanfabu_an">
+                <input type="submit" class="radius3 sjgl_an tuan_topbt" value="确认添加" />
+            </div>
+        </form>
+    </div> 
+</div>
+<include  file='public:footer'/>

@@ -1,0 +1,39 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">微信</li>
+        <li class="li2">微信消息</li>
+    </ul>
+</div>
+<div class="main-jsgl"> 
+    <p class="attention"><span>注意：</span>后期会开发</p>
+    <div class="jsglNr">
+        <div class="tableBox" style="margin: 10px 20px;">
+            <form  target="baocms_frm" method="post">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                    <tr>
+                        <td><input type="checkbox" class="checkAll" rel="msg_id" />ID</td>
+                        <td>来源用户</td>
+                        <td>接受用户</td>
+                        <td>内容</td>
+                        <td>创建时间</td>
+                        <td>操作</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_msg_id" type="checkbox" name="msg_id[]" value="<{$var.msg_id}>" /> <{$var.msg_id}></td>
+                            <td><{$var.FromUserName}></td>
+                            <td><{$var.ToUserName}></td>
+                            <td><{$var.Content}></td>
+                            <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                            <td>
+                            </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </form>
+        </div>
+    </div>
+</div>
+<include  file='public:footer'/>       

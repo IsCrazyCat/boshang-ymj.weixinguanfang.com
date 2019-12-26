@@ -1,0 +1,47 @@
+<include file="public:header" /> 
+<include file="public:top"/>
+<include file="public:nav2"/>
+<style>
+.faNav li a{ font-size:16px; font-weight:bold; color:#fff;}
+.faNav { border: none; background: #06C1AE;}
+.faNav li{border-bottom: 1px solid #1BA798;}
+</style>
+<div class="content">
+
+    <div class="main">
+        <ul class="fbMenu">
+            <li class="cur">选择类目</li>
+            <li>填写信息</li>
+            <li>完成发布</li>
+        </ul>
+        <ul class="faNav">
+            <foreach name="channelmeans" key="key" item="item">
+                <li class="fa<{$key}>" rel="<{$key}>"><a href="javascript:void(0);"><{$item}> <em> ></em></a></li>
+            </foreach>
+        </ul>
+        <script>
+            $(document).ready(function () {
+                $(".faNav li").mouseover(function () {
+                    $(".faNav li a").removeClass('cur');
+                    $(this).find('a').addClass('cur');
+                    $(".faBox ul").hide();
+                    $(".jq_fabu_" + $(this).attr('rel')).show();
+                });
+                $(".faNav li").eq(0).mouseover();
+            });
+        </script>
+        <div class="faBox">
+            <foreach name="channelmeans" key="key1" item="item">
+                <ul class="jq_fabu_<{$key1}>">
+                    <foreach name="cates" item="cat">
+                        <eq name="key1" value="$cat.channel_id">   
+                        <li><a href="<{:U('life/create',array('cat'=>$cat['cate_id']))}>"><{$cat.cate_name}> </a></li>
+                        </eq>
+                    </foreach>
+                </ul>
+            </foreach>
+        </div> 
+    </div>
+
+</div>
+<include file="public:footer" /> 

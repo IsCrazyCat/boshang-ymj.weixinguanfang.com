@@ -1,0 +1,25 @@
+@charset "utf-8";
+
+/*----------------------------------------------------------------------------商品详情-开始------------------------------------------------------------------------------------------------------------*/
+
+.fo-si-24{font-size:24px}
+.fo-si-12{font-size:12px}
+
+.pro-promotions-area{padding:6px 0 6px 10px}
+.sku{position:relative;cursor: pointer;}
+.sku a{border:1px solid #b2b2b2; display:block}
+.choice-colol li{ float:left; margin-right:10px;}
+.he40-tr-td tr td{height:40px;}
+.sku-bo-blo a{border:1px solid #ca141d;}
+.sku-bo-blo s{display:block}
+.color-sku-fant{ text-align:center}
+.choice-size{ padding:3px 8px; border:1px solid #b2b2b2; display:block; white-space:nowrap}
+.choice-number:hover{border-color:#DDD; color:#ddd}
+
+.join-a-shopping-cart{ position:absolute; bottom:20px}
+
+
+
+
+/*----------------------------------------------------------------------------商品详情-结束------------------------------------------------------------------------------------------------------------*/
+

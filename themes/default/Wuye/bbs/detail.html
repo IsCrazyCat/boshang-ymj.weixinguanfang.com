@@ -1,0 +1,107 @@
+<include  file='public:header'/>    
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('bbs/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			小区贴吧详情
+		</div>
+		<div class="top-share">
+	
+		</div>
+	</header>
+	
+	
+	
+	<div class="tie-from"><span class="text-gray">话题来自：</span><{$detail.name}>贴吧</div>
+	
+	<div class="tie-detail">
+		<div class="tie-item">
+			<div class="item-head">
+				<span class="avatar">
+                
+                 <!--手机贴吧头像调用-->
+            <?php if(strstr($puser['face'],"http")){ ?>
+            <img  src="<{$puser['face']}>" />
+            <?php }else{ ?>
+            <img  src="__ROOT__/attachs/<{$puser['face']|default='default.jpg'}>" />
+            <?php }?>
+                    
+                    
+                    
+                    
+				</span>
+				<span class="info">
+					<em><{$puser['nickname']}></em>
+					<p><{$tie.create_time|date="Y-m-d",###}></p>
+				</span>
+				<span class="title">
+					<{:msubstr($tie['title'],0,15)}>
+				</span>
+				<span class="coner"></span>
+			</div>
+			<div class="item-body">
+				<p><{$tie['details']}></p>
+				<php>
+					if($tie['gallery'] ==''){
+						$pic = getImgs($tie['details']);
+					}else{
+						$pic = explode(',',$tie['gallery']);
+					}
+				</php>
+				
+				<if condition="!empty($tie['gallery'])">
+					<div class="pics">
+					<foreach name="pic" item="var"> 
+						<span><img src="__ROOT__/attachs/<{$var}>" /></span>
+					</foreach>
+					</div>
+				<else />
+					<if condition="$pic neq ''">
+					<div class="pics">
+					<foreach name="pic" item="var"> 
+						<span><img src="<{$var}>" /></span>
+					</foreach>
+					</div>
+					</if>
+				</if>
+			
+			</div>
+		</div>
+	</div>
+	<div class="blank-10"></div>
+	<div class="reply-title">
+		<h3><i class="icon-commenting-o"></i> 全部回复</h3>
+	</div>
+	<ul id="reply-list" class="reply-list"></ul>
+	<script>
+		$(document).ready(function () {
+			loaddata('<{$nextpage}>', $("#reply-list"), true);
+			//点击"赞"按钮
+			$("body").delegate(".ctrl-zan","click",function(){
+				var postid = $(this).attr("data");
+				var url = "/mobile/community/zantie/post_id/" + postid + ".html";
+			    $.get(url,function(data){
+					if( data == '-1'){
+						alert("你已经赞过该帖了！");
+					}else if( data == '-2'){
+						alert("您还没有登录！");
+					}else{
+						$("#zan-" + postid).find("em").html(data);
+					}
+				},'html');
+				
+			});
+		});
+	</script>
+<nav class="foot-bar">
+	<div class="line">
+		<div class="x12">
+			<a class="button bg-dot dibu" href="<{:U('bbs/delete',array('post_id'=>$tie['post_id']))}>">
+				删除此贴吧
+			</a>
+		</div>
+	</div>
+</nav>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">智慧小区</li>
+        <li class="li2">小区帖子</li>
+        <li class="li2 li3">编辑</li>
+    </ul>
+</div>
+<div class="mainScAdd ">
+
+    <div class="tableBox">
+        <form target="baocms_frm" action="<{:U('communityposts/edit',array('post_id'=>$detail['post_id']))}>" method="post">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">标题：</td>
+                    <td class="rgTdBt"><input type="text" name="data[title]" value="<{$detail.title|default=''}>" class="manageInput" />
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">用户：</td>
+                    <td class="rgTdBt">
+                        <div class="lt">
+                            <input type="hidden" id="user_id" name="data[user_id]" value="<{$detail.user_id|default=''}>" class="manageInput manageInput2" />
+                            <input type="text" name="nickname" id="nickname"  class="manageInput"  value="<{$user.nickname}>" />
+                        </div>
+                        <a mini="select"  w="800" h="600" href="<{:U('user/select')}>" class="remberBtn">选择用户</a>
+                    </td>
+                </tr> 
+                
+                
+                 <tr>
+                    <td class="lfTdBt">小区：</td>
+                    <td class="rgTdBt">
+                        <div class="lt">
+                            <input type="hidden" id="community_id" name="data[community_id]" value="<{$detail.community_id|default=''}>" class="manageInput manageInput2" />
+                            <input type="text" name="community" id="community"  class="manageInput"  value="<{$community.name}>" />
+                        </div>
+                        <a mini="select"  w="800" h="600" href="<{:U('community/select')}>" class="remberBtn">选择小区</a>
+                    </td>
+                </tr> 
+                
+                
+                <tr>
+                  <td class="lfTdBt">小区贴吧图片：</td>
+                        <td class="rgTdBt">
+                            <div>
+                                <div id="moreToUpload" >编辑图片</div>
+                            </div>							
+							<script>                                
+									var width_tieba_pic = '<{:thumbSize($CONFIG[attachs][tieba][thumb],0)}>';  //获取宽度                              
+									var height_tieba_pic = '<{:thumbSize($CONFIG[attachs][tieba][thumb],1)}>'; //获取高度 
+									var pic_pc_quality = '<{$CONFIG[attachs][pic_pc_quality][thumb]}>';  
+									var uploader = WebUploader.create({                                    
+									auto: true,                                    
+									swf: '/static/default/webuploader/Uploader.swf',                                    
+									server: '<{:U("app/upload/uploadify",array("model"=>"tieba"))}>',                                    
+									pick: '#moreToUpload',                                    
+									fileNumberLimit:10,                                    
+									resize: true, 
+									crop: false,  
+									accept: {
+										title: 'Images',
+										extensions: 'gif,jpg,jpeg,png',
+										mimeTypes: 'image/*'//只永许上传JPG格式文件
+									}, 
+									compress : {width: width_tieba_pic,height: height_tieba_pic,quality: pic_pc_quality,allowMagnify: false,crop: true}    													
+								});                                                               
+								uploader.on( 'uploadSuccess', function( file,resporse) {                                    
+								var str = '<span style="width: 150px; height: 100px; float: left; margin-left: 5px; margin-top: 10px;">  <img width="150" height="100" src="' + resporse.url + '">  <input type="hidden" name="photos[]" value="' + resporse.url + '" />    <a href="javascript:void(0);">取消</a>  </span>';                                   
+								 $(".jq_uploads_img").append(str);                                
+									 });                                                            
+								 uploader.on( 'uploadError', function( file ) {                                    
+									alert('上传出错');                                
+								 });                                
+								 $(document).on("click", ".jq_uploads_img a", function () {                                    
+									 $(this).parent().remove();                                
+								 });                            
+                             </script>
+                            <div class="jq_uploads_img">
+                                <foreach  name="photos" item="item">
+                                    <span style="width: 150px; height: 100px; float: left; margin-left: 5px; margin-top: 10px;"> 
+                                        <img width="150" height="100" src="<{:config_img($item)}>">  
+                                        <input type="hidden" name="photos[]" value="<{$item}>" />  
+                                        <a href="javascript:void(0);">取消</a>  
+                                    </span>
+                                </foreach>
+                            </div>					
+                        </td>
+                    </tr>
+             <tr>
+                
+                
+                
+               
+                 <tr><td class="lfTdBt"> 详细介绍：</td><td class="rgTdBt">
+                  <script type="text/plain" id="data_details" name="data[details]" style="width:800px;height:360px;"><{$detail.details}></script>
+					</td>
+             </tr><link rel="stylesheet" href="__PUBLIC__/qiniu_ueditor/themes/default/css/ueditor.min.css" type="text/css">
+                  <script type="text/javascript" charset="utf-8" src="__PUBLIC__/qiniu_ueditor/ueditor.config.js"></script>
+                  <script type="text/javascript" charset="utf-8" src="__PUBLIC__/qiniu_ueditor/ueditor.all.min.js"></script>
+                  <script type="text/javascript" src="__PUBLIC__/qiniu_ueditor/lang/zh-cn/zh-cn.js"></script>
+				  <script>
+                        um = UE.getEditor('data_details', {
+                            lang: 'zh-cn',
+                            toolbars:[['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'backcolor', 'fontsize', 'fontfamily', 'justifyleft', 'justifyright', 'justifycenter', 'justifyjustify', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', 'link', 'unlink', 'map', 'template', 'background','inserttable','print','attachment',  'emotion',  'snapscreen','insertimage', 'music', 'insertvideo']],  
+                            });
+                   </script> 
+                <tr>
+                    <td class="lfTdBt">浏览量：</td>
+                    <td class="rgTdBt"><input type="text" name="data[views]" value="<{$detail.views|default=''}>" class="manageInput" />
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">赞：</td>
+                    <td class="rgTdBt"><input type="text" name="data[zan_num]" value="<{$detail.zan_num|default=''}>" class="manageInput" />
+
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>       

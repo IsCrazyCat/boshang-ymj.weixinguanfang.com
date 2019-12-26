@@ -1,0 +1,19 @@
+
+<foreach name='list' item='item'>
+<a href="<{:U('coupon/detail',array('coupon_id'=>$item['coupon_id']))}>" class="item">	
+	<div class="line">
+		<div class="x4"><img class="pic" src="<{:config_img($item['photo'])}>"  style="width:90%"></div>
+		<div class="x8">
+			<h3><{$item['title']}></h3>
+			<p class="intro"><{$item['intro']}></p>
+			<p class="info">
+            <php>
+                            $cha = $item['num']-$item['downloads'];
+                            </php>
+				<span class="float-left">下载：<em class="text-yellow"><{$item.downloads}></em>人，还剩余：<{$cha}>张</span>	
+				<span class="float-right">有效期至：<em class="text-yellow"><{$item['expire_date']}></em></span>
+			</p>
+		</div>
+	</div>
+</a>
+</foreach>

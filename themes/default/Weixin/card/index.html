@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width" />
+<meta content="telephone=no" name="format-detection" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<link rel="apple-touch-icon-precomposed" href="__TMPL__static/images/apple114.png" />
+<link rel="stylesheet" type="text/css" href="__TMPL__static/style/tenders.css" />
+<script type="text/javascript" src="__TMPL__static/script/jq.2.0.3.min.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<title>卡劵列表</title>
+</head>
+
+<body>
+<div id="content"> 
+	<script type="text/javascript">
+
+  document.addEventListener('WeixinJSBridgeReady', function onBridgeReady() {
+
+  // 通过下面这个API隐藏右上角按钮
+
+  WeixinJSBridge.call('hideOptionMenu');
+
+  });
+
+</script> 
+	<foreach name="card" item="item" key="k">
+	<if condition="$item['status'] neq 'CARD_STATUS_DELETE'">
+	<div class="cardCont">
+		<div class="cardCont_top">
+			<h3><{$item.title}></h3>
+			<p>卡劵类型：
+			<if condition="$item['card_type'] eq 'DISCOUNT'">
+				
+				折扣券
+				<elseif  condition="$item['card_type'] eq 'GIFT'"/>
+				
+				礼品券
+				<elseif  condition="$item['card_type'] eq 'CASH'"/>
+				
+				代金券
+				<elseif  condition="$item['card_type'] eq 'GENERAL_COUPON'"/>
+
+				
+				通用券
+				<elseif  condition="$item['card_type'] eq 'GROUPON'"/>
+				
+				团购券
+				
+				<else />
+				
+				其他
+				
+				</if></p>
+				<p> 销券方式：
+				<if condition="$item['code_type'] eq 'CODE_TYPE_TEXT'">
+				
+				文本
+				<elseif  condition="$item['code_type'] eq 'CODE_TYPE_BARCODE'"/>
+				
+				一维码
+				<elseif  condition="$item['code_type'] eq 'CODE_TYPE_QRCODE'"/>
+				
+				二维码
+				<elseif  condition="$item['code_type'] eq 'CODE_TYPE_ONLY_QRCODE'"/>
+				
+				二维码无code显示
+				<elseif  condition="$item['code_type'] eq 'CODE_TYPE_ONLY_BARCODE'"/>
+				
+				一维码无code显示
+				
+				</if> 
+				</p>
+			<div class="">
+			使用说明：<font class="pointcl"><{$item.description}></font>
+			</div>
+		</div>
+		<input type = 'hidden' id='<{$k}>ext' value='<{$item["wxjscfg"]["ext"]}>'>
+		<div class="cardCont_bottom">
+			<p><u>剩余<{$item.sku.quantity}></u></p>
+			<!-- a href = "<{link ctl='weixin/card:get_card' arg0=$wx_id arg1=$item.iid}>">立即领取</a -->
+			<a onclick="addCard('<{$item.id}>','<{$k}>')">立即领取</a>
+		</div>
+		<div class="cl"></div>
+	</div>
+	</if>
+	</foreach>
+	<script type="text/javascript">
+	  wx.config({
+		  debug: false,
+		  appId: '<{$wxjscfg.appId}>',
+		  timestamp: <{$wxjscfg.timestamp}>,
+		  nonceStr: '<{$wxjscfg.nonceStr}>',
+		  signature: '<{$wxjscfg.signature}>',
+		  jsApiList: [
+			'checkJsApi',
+			'addCard',
+			'chooseCard',
+			'openCard'
+		  ]
+	  });
+
+function addCard(card_id,ext){
+	var e = $('#'+ext+'ext').val();
+    wx.addCard({
+        cardList: [{
+            cardId: card_id,
+            cardExt: e,
+        }], // 需要添加的卡券列表
+        success: function (res) {
+            var cardList = res.cardList; // 添加的卡券列表信息
+        }
+    });
+}
+	</script>
+</div>
+</body>
+</html>

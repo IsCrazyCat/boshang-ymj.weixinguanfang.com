@@ -1,0 +1,43 @@
+<include file="public:header"/>
+<div class="content_right">   
+<div class="tgdd">
+    <div class="tgdd_t">
+        <ul>
+            <li class="on"><a href="<{:U('distribution/poster')}>">我的海报</a></li>
+        </ul>
+    </div>
+    <div class="tgdd_nr">
+        <table border="0" cellspacing="0" width="100%"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; text-align:center;">
+            <tr class="tgdd_nrC">
+                <td class="tgdd_nrCtd bullionLog_td" id="tdRigtht">
+					<div id="divAvatar" style="position:absolute;width:220px;">
+						<div>
+							<span class="avatar" style="width:100%">
+                            <img src="<{:config_img($MEMBER['face'])}>" style="width:100%;border-radius: 50%;" />
+							</span>
+						</div>
+						<div style="text-align:center;font-size:30px;margin-top:10px;"><{$MEMBER.nickname}></div>
+					</div>
+					<div id="divQrcode" style="position:absolute;width:500px;"><img src="__ROOT__/attachs/<{$file}>" width="100%" /></div>
+					<img src="__PUBLIC__/images/poster.jpg" style="width:100%;" />				
+				</td>
+            </tr>
+        </table>
+    </div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	var of = $('#tdRigtht').offset();
+	var w = $('#tdRigtht').width();
+	var lAvatar = of.left + 80;
+	var tAvatar = of.top + 40;
+	$('#divAvatar').css({left: lAvatar + 'px', top: tAvatar + 'px'});
+	var wQrcode = $('#divQrcode').width();
+	var lQrcode = of.left + (w - wQrcode) / 2;
+	var tQrcode = of.top + 360;
+	$('#divQrcode').css({left: lQrcode + 'px', top: tQrcode + 'px'});
+});
+</script>
+<include file="public:footer"/>

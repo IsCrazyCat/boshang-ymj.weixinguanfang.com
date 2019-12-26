@@ -1,0 +1,87 @@
+﻿<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">系统</li>
+        <li class="li2">数据库</li>
+        <li class="li2 li3">数据库还原</li>
+    </ul>
+</div>
+<div class="main-jsgl">
+    <p class="attention"><span>注意：</span>谨慎操作！</p>
+    <div class="jsglNr">
+        <div class="selectNr">
+            <div class="left">
+                <a href="<{:U('database/index')}>">备份数据库</a>
+            </div>
+            <div class="right">
+               
+            </div>
+        </div>
+        <form  id="export-form" target="baocms_frm" method="post" action="<{:U('export')}>">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td>备份名称</td>
+                        <td>卷数</td>
+                        <td>压缩</td>
+                        <td>数据大小</td>
+                        <td>备份时间</td>
+                        <td>状态</th>
+                        <td>操作</td>
+                    </tr>
+                    <volist name="list" id="data">
+                        <tr>
+                            <td><{$data.time|date='Ymd-His',###}></td>
+                        <td><{$data.part}></td>
+                        <td><{$data.compress}></td>
+                        <td><{$data.size|format_bytes}></td>
+                        <td><{$key}></td>
+                        <td>-</td>
+                        <td class="action">
+                            <a class="db-import" href="<{:U('import?time='.$data['time'])}>">还原</a>&nbsp;
+                            <a class="ajax-get confirm" href="<{:U('del?time='.$data['time'])}>">删除</a>
+                        </td>
+                        </tr>
+                    </volist>
+
+                </table>
+                <{$page}>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+        $(".db-import").click(function(){
+            var self = this, status = ".";
+            $.get(self.href, success, "json");
+            window.onbeforeunload = function(){ return "正在还原数据库，请不要关闭！" }
+            return false;
+        
+            function success(data){
+                if(data.status){
+                    if(data.gz){
+                        data.info += status;
+                        if(status.length === 5){
+                            status = ".";
+                        } else {
+                            status += ".";
+                        }
+                    }
+                    $(self).parent().prev().text(data.info);
+                    if(data.part){
+                        $.get(self.href, 
+                            {"part" : data.part, "start" : data.start}, 
+                            success, 
+                            "json"
+                        );
+                    }  else {
+                        window.onbeforeunload = function(){ return null; }
+                    }
+                } else {
+                    alert(data.info);
+                }
+            }
+        });
+    </script>

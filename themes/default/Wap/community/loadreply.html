@@ -1,0 +1,21 @@
+<volist name="list" id="item">
+	<li class="reply-item">
+		<div class="line">
+			<div class="x2">
+				<span class="avatar">
+               <img  class="radius"  src="<{:config_img($users[$item['user_id']]['face'])}>" />
+            
+            
+				</span>
+			</div>
+			<div class="x10">
+				<div class="content">
+					<em><{$users[$item['user_id']]['nickname']}> :</em> <{$item['details']}>
+					<p class="ctrl">
+						<span class="time"><{$item.create_time|date="Y-m-d",###}></span>
+					</p>
+				</div>
+			</div>
+		</div>
+	</li>
+</volist>

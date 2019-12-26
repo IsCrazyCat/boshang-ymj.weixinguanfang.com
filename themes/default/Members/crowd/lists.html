@@ -1,0 +1,53 @@
+<include file="public:header"/>
+<style>
+.tuan_table {border-bottom: solid 1px #ececec;}
+.tuan_table tr {border-top: solid 1px #ececec;}
+.tuan_table td {background-color:#fff;}
+</style>
+<div class="content_right">
+<div class="tgdd">
+       
+    <div class="tgdd_t password_t">
+            <ul>
+                <li> <a href="<{:U('crowd/index')}>">我参加的众筹</a></li>
+                <li> <a href="<{:U('crowd/crowd_list')}>">我发布的众筹</a></li>
+                <li class="on"> <a>”<{$detail.title}>“ 的支持列表</a></li>
+            </ul>
+    </div>
+    <div class="tgdd_nr">
+        <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+           <td width="50">ID</td>
+            <td width="500">用户名</td>
+            <td width="500">价格</td>
+            <td width="100">姓名</td>
+            <td width="100">电话</td>
+            <td width="100">地址</td>
+            <td width="100">购买时间</td>
+            <td width="200">操作</td>
+        </tr>
+        <foreach name="meals" item="var">
+        <tr>
+              <td ><{$var.list_id}></td>
+                <td><{$users[$var['uid']]['nickname']}></td>
+                <td><{$var['price']/100}>元</td>
+                <td><{$var.name|default=''}></td>
+                <td><{$var.mobile|default=''}></td>
+                <td><{$var.addr|default=''}></td>
+                <td><{$var.dateline|date='Y-m-d H:i:s',###}></td>
+                <td>
+                	<if condition="$var[is_zhong] EQ '0'">
+                    <a mini='act' href="<{:U('crowd/zhong',array('list_id'=>$var['list_id']))}>">设为中奖</a>
+                    <else/>
+                    已中奖
+                    </if>
+                </td>
+        </tr>
+        </foreach>
+    </table>
+    </div>
+    </div>
+</div>
+</div>
+</div></div>
+<include file="public:footer"/>

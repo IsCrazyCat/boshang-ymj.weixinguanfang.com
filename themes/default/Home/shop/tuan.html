@@ -1,0 +1,119 @@
+<include file="public:header" /> 
+<include file="public:top"/>
+<include file="public:nav2"/>
+<script src="/static/default/pc/js/mod/shop.js"></script>
+<style>
+.zy_content { padding-top: 5px;}
+.mn {overflow: hidden;}
+.layui-layer-page .layui-layer-content{ padding:20px;}
+.layui-layer-page .layui-layer-content input[type='text']{ width:100%; height:36px; border:1px solid #ccc; background:#fff; margin-bottom:10px; text-indent:10px; font-size:14px;}
+.layui-layer-page .layui-layer-content input[type='button']{ width:100%; height:40px; border:none; background:#33b095; color:#fff; font-size:16px;}
+.layui-layer-page .layui-layer-content p{ line-height:28px; color:#999;}
+.layui-layer-page .layui-layer-content .check_box{ overflow:hidden; margin-bottom:5px;}
+.layui-layer-page .layui-layer-content .check_box label{ display:block; float:left; margin-right:20px; margin-bottom:10px;}
+.z {float: left;}
+.tuan .tuan_list .price-wrap .price .discount {margin-left: 20px;}
+</style>
+
+<div class="content zy_content">
+
+	<div class="spxq_loca">
+     <a href="<{:U('shop/index')}>">商家 ></a>
+     <a><{$detail.shop_name}></a>
+    </div>
+    
+
+        <div class="body-content c2016">
+        <div class="shop-type c2016">
+            <ul>
+                <li><a href="<{:U('shop/detail',array('shop_id'=>$detail['shop_id']))}>">首页</a></li>
+                <li><a href="<{:U('shop/about',array('shop_id'=>$detail['shop_id']))}>">商家介绍</a></li>
+                <li><a href="<{:U('shop/photo',array('shop_id'=>$detail['shop_id']))}>">相册</a></li>
+                <li><a href="<{:U('shop/goods',array('shop_id'=>$detail['shop_id']))}>">商品</a></li>
+                <li class="a"><a href="<{:U('shop/tuan',array('shop_id'=>$detail['shop_id']))}>">套餐</a></li>
+                <li><a href="<{:U('shop/coupon',array('shop_id'=>$detail['shop_id']))}>">优惠劵</a></li>
+                <li><a href="<{:U('shop/news',array('shop_id'=>$detail['shop_id']))}>">新闻</a></li>
+                <li><a href="<{:U('shop/ping',array('shop_id'=>$detail['shop_id']))}>">点评</a></li>
+            </ul>
+        </div>
+        
+        <!--4-->
+        <div class="banner2016 c2016">
+            
+            <include file="shop:shop_top"/>
+            
+            
+            
+            
+            <div id="aside" class="aside">
+                <div class="photos-container">
+                    <div class="photos">
+                        <a href="<{:U('shop/photo',array('shop_id'=>$detail['shop_id']))}>" target="_blank">
+                        <div style="background: #ddd url(<{:config_img($detail['photo'])}>) no-repeat 0 0; height: 180px; left: -1px; position: absolute; top: -1px; width: 180px; background-size: 100% auto;">
+                        </div>
+                        </a>
+                        <p>
+                            <a class="upload-photo" href="<{:U('shop/photo',array('shop_id'=>$detail['shop_id']))}>" target="_blank">更多商家图片</a><a class="icon"></a><a id="pic-count"> <{$pic}> </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!--4-->
+   
+       <div class="wp ct2 c2016">
+       
+    <div class="mn">
+	   <div class="mod sales-promotion c2016">
+          <h2 class="mod-title c2016"><a class="item current"><span>商家</span>套餐</a></h2>
+            
+            <div class="tuan">
+            
+            <foreach name="list" item="item">
+                 <div class="tuan_list">
+            <p class="pic z"><a class="block-link" href="<{:U('tuan/detail',array('tuan_id'=>$item['tuan_id']))}>" target="_blank"><img src="<{:config_img($item['photo'])}>" title="<{$item['title']}>"></a></p>
+            <div class="tian_info">
+            <p class="title"><a class="block-link" href="<{:U('tuan/detail',array('tuan_id'=>$item['tuan_id']))}>" target="_blank">
+          <{$item['title']}></a></p>
+            <p class="description"><{$item['intro']}></p>
+            <div class="price-wrap">
+            <h3 class="price">
+            <span class="price-display"><em>&yen;</em><{:round($item['tuan_price']/100,2)}></span>
+            <span class="discount">
+             <php>
+                    $discount = round(($item['tuan_price']/$item['price'])*10,1);
+                </php>
+            <span class="price-discount"><{$discount}><em>折</em></span>
+            <span class="price-original">价值&nbsp;<em>&yen;</em><{:round($item['price']/100,2)}></span>
+            </span>
+            </h3>
+            <div class="Toe-promo-box">
+            <a href="<{:U('tuan/detail',array('tuan_id'=>$item['tuan_id']))}>"><span>立即购买</span></a>
+            </div>
+            </div>				
+            <p class="endtime">
+            <span class="sold-count y"><{$item['sold_num']}> 人购买</span>
+            结束时间 : <{$item['end_date']}></p>
+            </div>
+           
+            </div>
+            </foreach> 
+            </div>
+
+
+            
+     
+
+
+        </div>
+    </div>
+
+
+        
+        
+        
+        
+       
+<include file="shop:shop_footer"/>  
+<include file="public:footer"/>

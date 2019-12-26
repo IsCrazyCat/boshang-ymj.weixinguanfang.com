@@ -1,0 +1,50 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">砸金蛋</a> > <a>中奖</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <form method="post" action="<{:U('goods/index')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">
+            砸金蛋管理
+            
+            </div>
+            <div class="right tuan_topfb_r"><a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('goldegg/create')}>">发布商品+</a></div>
+        </div>
+    </div>
+    </form>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>砸金蛋</td>
+            <td>用户昵称</td>
+            <td>sn号</td>
+            <td>中奖奖项</td>
+            <td>是否发奖</td>
+            <td>发奖时间</td>
+            <td>创建时间</td>
+            <td>操作</td>
+        </tr>
+
+        <foreach name="list" item="var">
+            <tr>
+                <td><{$detail.title}></td>
+                <td><{$var.nickname}></td>
+                <td><{$var.sn}></td>
+                <td><{$var.prizes}></td>
+                <td><if condition='$var["is_use"] eq 1'> 已发奖<else />未发奖</if></td>
+                <td><{$var.use_time}></td>
+                <td><{$var.dateline|date='Y-m-d H:i:s',###}></td>
+                <td>
+                    <a mini='confirm' class="radius3 sjgl_an tuan_topbt" href="<{:U('goldegg/snedit',array('sn_id'=>$var['sn_id']))}>">改变发奖状态</a>
+                    <a mini='confirm' class="radius3 sjgl_an tuan_topbt" href="<{:U('goldegg/sndelete',array('sn_id'=>$var['sn_id']))}>">删除</a>
+                </td>
+            </tr>
+        </foreach>
+    </table>
+    <{$page}>
+</div>
+
+<include  file='public:footer'/>

@@ -1,0 +1,23 @@
+<foreach name="list" item="var">
+<li class="line">
+	<a href="<{:u('community/detail',array('community_id'=>$var['community_id']))}>" class="item fix hightitem">	
+		<div class="x3">
+
+			<img src="<{:config_img($var['pic'])}>">
+		</div>
+		<div class="x9">	
+			<h5><{$var.name}></h5>	
+			<p>	<if condition="!empty($var['property'])">
+				<span>物业：<{$var.property}></span>	
+                <else/>
+                <span>暂无物业公司</span>	
+                </if>
+				<span class="float-right"><i class="icon-map-marker"></i> <{$var.d}></span>	
+			</p>	
+			<p class="addr">	
+				<{$var.addr}>
+			</p>
+		</div>
+	</a>
+</li>
+</foreach>

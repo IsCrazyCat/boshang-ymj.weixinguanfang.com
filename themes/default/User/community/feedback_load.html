@@ -1,0 +1,18 @@
+<foreach name="list" item="item">
+	<div class="line padding border-bottom border-top">
+		<div class="x12">
+			<p>
+		<a class="title" href="<{:U('community/feedbackdetail',array('feed_id'=>$item['feed_id']))}>"><{:bao_msubstr($item['title'],0,40,false)}></a>
+			</p>
+			<p class="text-gray x10">反馈时间：<{$item.create_time|date='Y-m-d',###}></p>
+            <p class="text-gray x10">所属小区：<{$communitys[$item['community_id']]['name']}> </p>
+            <if condition="$item['reply'] eq null">
+            <a class="button button-small bg-blue text-right " href="Javascript: void(0)">等待回复</a>
+			<else/>
+            <a class="button button-small bg-dot text-right " href="<{:U('community/feedbackdetail',array('feed_id'=>$item['feed_id']))}>">查看回复</a>
+            </if>
+		</div>
+	</div>
+	
+	<div class="blank-10 bg"></div>
+</foreach>

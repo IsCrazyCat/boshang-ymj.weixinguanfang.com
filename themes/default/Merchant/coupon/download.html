@@ -1,0 +1,41 @@
+<include  file='public:header'/>
+
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">商城</a> > <a>商城商品列表</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t tuanfabu_top">
+            <div class="left tuan_topser_l">商品没有被审核不能在前台展示 </div>
+        </div>
+    </div>
+    <div class="tuanfabu_tab">
+        <ul>
+            <li class="tuanfabu_tabli"><a href="<{:U('coupon/index')}>">优惠券列表</a></li>
+            <li class="tuanfabu_tabli on"><a href="<{:U('coupon/download')}>">优惠券下载</a></li>
+            <li class="tuanfabu_tabli"><a href="<{:U('coupon/used')}>">优惠券消费</a></li>
+        </ul>
+    </div> 
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>优惠券</td>
+            <td>用户手机</td>
+            <td>创建时间</td>
+            <td>创建IP</td>
+            <td>是否使用</td>
+        </tr>
+        <foreach name="list" item="var">
+            <tr>
+                <td style="height: 36px;"><{$coupons[$var['coupon_id']]['title']}></td>
+                <td><{$var.mobile}></td>
+                <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                <td><{$var.create_ip_area}><{$var.create_ip}></td>
+                <td><eq name="var.is_used" value="0">未使用<else/>已使用</eq></td>
+            </tr>
+        </foreach>
+    </table>
+    <{$page}>
+</div>
+<include  file='public:footer'/>

@@ -1,0 +1,144 @@
+<include file="public:header"/>
+<div class="content_right">  
+<div class="tgdd">
+    <if condition="!empty($default)">
+    <div class="address_mr">
+        <ul>
+            <li>默认地址：<{$areas[$default['area_id']]['area_name']}>区<{$business[$default['business_id']]['business_name']}>商圈<{$default.addr}><a class="address_del right" mini="confirm" href="<{:U('Address/addressdel',array('addr_id'=>$default['addr_id']))}>">删除</a></li>
+        </ul>
+    </div>
+    </if>
+    <form  target="baocms_frm" action="<{:U('address/addressadd')}>" method="post">
+        <div class="addAddress_nr">
+            <p class="addAddress_t">添加地址：</p>
+            <ul>
+                <li>
+                    <div class="left"><span>所在地区：</span></div>
+                    <div class="lef">
+                        <select name="data[city_id]" id="city_id" class="manageSelect">
+                            <option value="0">请选择...</option>
+                        </select>
+                        <select name="data[area_id]" id="area_id" class="manageSelect">
+                            <option value="0">请选择...</option>
+                        </select>
+                        <select name="data[business_id]" id="business_id" class="manageSelect">
+                            <option value="0">请选择...</option>
+                        </select>
+                    </div>
+                </li>
+                <script src="<{:U('app/datas/cab',array('name'=>'cityareas'))}>"></script>
+                <script>
+                    var city_id = "<{$city_id}>";
+                    var area_id = 0;
+                    var business_id = 0;
+                    $(document).ready(function () {
+                        var city_str = ' <option value="0">请选择...</option>';
+                        for (a in cityareas.city) {
+                            if (city_id == cityareas.city[a].city_id) {
+                                city_str += '<option selected="selected" value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+                            } else {
+                                city_str += '<option value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+                            }
+                        }
+                        $("#city_id").html(city_str);
+
+                        $("#city_id").change(function () {
+                            if ($("#city_id").val() > 0) {
+                                city_id = $("#city_id").val();
+                                var area_str = ' <option value="0">请选择...</option>';
+                                for (a in cityareas.area) {
+                                    if (cityareas.area[a].city_id == city_id) {
+                                        if (area_id == cityareas.area[a].area_id) {
+                                            area_str += '<option selected="selected" value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                        } else {
+                                            area_str += '<option value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                        }
+                                    }
+                                }
+                                $("#area_id").html(area_str);
+                                $("#business_id").html('<option value="0">请选择...</option>');
+                            } else {
+                                $("#area_id").html('<option value="0">请选择...</option>');
+                                $("#business_id").html('<option value="0">请选择...</option>');
+                            }
+
+                        });
+
+                        if (city_id > 0) {
+                            var area_str = ' <option value="0">请选择...</option>';
+                            for (a in cityareas.area) {
+                                if (cityareas.area[a].city_id == city_id) {
+                                    if (area_id == cityareas.area[a].area_id) {
+                                        area_str += '<option selected="selected" value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                    } else {
+                                        area_str += '<option value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                    }
+                                }
+                            }
+                            $("#area_id").html(area_str);
+                        }
+
+
+                        $("#area_id").change(function () {
+                            if ($("#area_id").val() > 0) {
+                                area_id = $("#area_id").val();
+                                var business_str = ' <option value="0">请选择...</option>';
+                                for (a in cityareas.business) {
+                                    if (cityareas.business[a].area_id == area_id) {
+                                        if (business_id == cityareas.business[a].business_id) {
+                                            business_str += '<option selected="selected" value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                        } else {
+                                            business_str += '<option value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                        }
+                                    }
+                                }
+                                $("#business_id").html(business_str);
+                            } else {
+                                $("#business_id").html('<option value="0">请选择...</option>');
+                            }
+
+                        });
+
+                        if (area_id > 0) {
+                            var business_str = ' <option value="0">请选择...</option>';
+                            for (a in cityareas.business) {
+                                if (cityareas.business[a].area_id == area_id) {
+                                    if (business_id == cityareas.business[a].business_id) {
+                                        business_str += '<option selected="selected" value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                    } else {
+                                        business_str += '<option value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                    }
+                                }
+                            }
+                            $("#business_id").html(business_str);
+                        }
+                        $("#business_id").change(function () {
+                            business_id = $(this).val();
+                        });
+                    });
+                </script> 
+                <li>
+                    <div class="left"><span>收货人姓名：</span></div>
+                    <div class="lef">
+                        <input type="text" name="data[name]" value="<{$detail.name|default=''}>" class="addAddress_jd addAddress_wz" />
+                </li>
+                <li>
+                    <div class="left"><span>电话号码：</span></div>
+                    <div class="lef">
+                        <input class="addAddress_jd addAddress_wz" type="text" name="data[mobile]" value="<{$detail.mobile|default=''}>" />
+                </li>
+                <li>
+                    <div class="left"><span>具体地址：</span></div>
+                    <div class="lef">
+                        <input type="text" name="data[addr]" value="<{$detail.addr|default=''}>" class="addAddress_jd" />
+                        <input type="hidden" value="<{$backurl}>" name="backurl" id="backurl" />
+                </li>
+
+            </ul>
+            <div class="addAddress_bcqx"><input class="bc" type="submit" value="保存" /></div>
+        </div>
+    </form>
+</div>
+</div>
+</div>
+<include file="public:footer"/>

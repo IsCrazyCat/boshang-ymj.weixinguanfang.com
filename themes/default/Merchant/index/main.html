@@ -1,0 +1,189 @@
+<include file='public:header'/>
+<script src="__PUBLIC__/js/highcharts/highcharts.js"></script>
+<style>
+.sy_c1Li {width: 1000px;}
+.sy_content { padding: 20px 0 40px 20px;}
+.tuan_topser_2016 span.red, .tuan_topser_l {font-size: 18px;}
+.tuan_topser_l strong.green, .tuan_topser_l a{ font-size:16px;}
+.tuan_table td { font-size:14px;}
+.tuan_topser_2016 span.red{ color:#F00}
+.tuan_topser_2016{color: #000;line-height: 30px;text-indent: 15px; font-size:18px;}
+.tuan_table td span.red{ color:#F00; font-size:14px;}
+</style>
+<div class="sjgl_lead">
+	<ul>
+		<li><a href="#">商家中心首页</a>
+		</li>
+	</ul>
+</div>
+<div class="sy_content">
+	<div class="radius5 tuan_top">
+		<div class="tuan_top_t">
+			<div class="left tuan_topser_l">
+				欢迎使用<strong class="green"><{$config.site.title}>商户中心</strong> , 为您的营销插上翅膀!	
+<!--				<if condition="empty($MEMBER['email'])">-->
+<!--				<i class="icon-remove red"></i> 您还没有通过邮箱认证，<a target="_blank" href="<{:u('members/set/email')}>">立刻认证</a>-->
+<!--				</if>-->
+				<if condition="empty($MEMBER['mobile'])">
+				<i class="icon-remove red"></i> 您还没有通过手机认证，<a target="_blank" href="<{:u('members/set/mobile')}>">立刻认证</a>
+				</if>
+			</div>
+		</div>
+        <div class="tuan_top_t">
+			<div class="left tuan_topser_2016">
+				您管理的店铺：<{$SHOP.shop_name}>
+				<if condition="$counts['money'] gt 0">
+                您总收入：<{:round($counts['money']/100,2)}>元，
+                </if>
+                当前余额：<span class="red"><{:round($MEMBER['gold']/100,2)}></span>元。
+                <if condition="!empty($MEMBER['frozen'])">
+                冻结金：<{:round($MEMBER['frozen']/100,2)}>元。
+                </if>
+			</div>
+		</div>
+	</div>
+	<div class="sy_c1">
+		<ul>
+			<li class="left sy_c1Li">
+			<table class="tuan_table" width="100%" border="1" cellspacing="0" cellpadding="0">
+			<tbody>
+			<tr style="background-color:#eee;">
+				<td>项目</td>
+				<td>总数据</td>
+				<td>今日数据</td>
+				<td width="70">操作</td>
+			</tr>
+			<tr>
+			</tr>
+			<tr>
+				<td>套餐</td>
+				<td>
+					<{$counts['tuan']}>条套餐，<span class="red"><{$counts['tuan_audit']}></span>条待审核,总<{$counts['tuan_order']}>订单
+				</td>
+				<td>
+					今日<span class="red"><{$counts['totay_tuan_order']}></span>单 ，<{$counts['tuan_order_code_is_used']}>单未验证 <{$counts['tuan_order_code_status']}>单退款中
+				</td>
+				<td>
+					<a target="main_frm" href="<{:U('tuan/index')}>">详情</a>
+				</td>
+			</tr>
+			<tr>
+				<td>优惠劵</td>
+				<td>
+					<{$counts['coupon']}>条优惠劵，<span class="red"><{$counts['coupon_audit']}></span>条待审核
+				</td>
+				<td>
+					今日<span class="red"><{$counts['totay_coupon_download']}></span>人下载，总下载：<{$counts['coupon_download']}>次，<{$counts['coupon_is_used']}>人未验证。
+				</td>
+				<td>
+					<a target="main_frm" href="<{:U('coupon/index')}>">详情</a>
+				</td>
+			</tr>
+			<if condition="$open_mall eq '1' ">
+			<if condition="!empty($wd)"><!--如果商户开通商城-->
+			<tr>
+				<td>商城</td>
+				<td>
+					<{$counts['goods']}>个商品，<span class="red"><{$counts['goods_audit']}></span>个待审核，总<{$counts['goods_order']}>个商城订单
+				</td>
+				<td>
+					今日<span class="red"><{$counts['totay_goods_order']}></span>人下单，正在配送<{$counts['goods_order_two']}>单，已完成<{$counts['goods_order_three']}>单
+				</td>
+				<td>
+					<a target="main_frm" href="<{:U('order/index')}>">详情</a>
+				</td>
+			</tr>
+			</if>
+			</if>
+<!--&lt;!&ndash;			<if condition="!empty($waimai)">&lt;!&ndash;如果商户开通外卖&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;			<tr>&ndash;&gt;-->
+<!--&lt;!&ndash;				<td>外卖</td>&ndash;&gt;-->
+<!--&lt;!&ndash;				<td>&ndash;&gt;-->
+<!--&lt;!&ndash;					<{$counts['ele']}>条外卖，<span class="red"><{$counts['ele_audit']}></span>菜品未审核&ndash;&gt;-->
+<!--&lt;!&ndash;				</td>&ndash;&gt;-->
+<!--&lt;!&ndash;				<td>&ndash;&gt;-->
+<!--&lt;!&ndash;					今日<span class="red"><{$counts['totay_ele_order']}></span>人点餐，<{$counts['ele_order']}>总外卖订单<br/>&ndash;&gt;-->
+<!--&lt;!&ndash;					<{$counts['totay_ele_order']}>单等待处理，<{$counts['totay_ele_order']}>单配送中，<{$counts['totay_ele_order']}>单配送完成。&ndash;&gt;-->
+<!--&lt;!&ndash;				</td>&ndash;&gt;-->
+<!--&lt;!&ndash;				<td>&ndash;&gt;-->
+<!--&lt;!&ndash;					<a target="main_frm" href="<{:U('order/index')}>">详情</a>&ndash;&gt;-->
+<!--&lt;!&ndash;				</td>&ndash;&gt;-->
+<!--&lt;!&ndash;			</tr>&ndash;&gt;-->
+<!--&lt;!&ndash;			</if>&ndash;&gt;-->
+<!--&lt;!&ndash;            &ndash;&gt;-->
+<!--&lt;!&ndash;            <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;				<td>酒店</td>&ndash;&gt;-->
+<!--&lt;!&ndash;				<td>&ndash;&gt;-->
+<!--&lt;!&ndash;					总<{$counts['hotel_room']}>房间&ndash;&gt;-->
+<!--&lt;!&ndash;				</td>&ndash;&gt;-->
+<!--&lt;!&ndash;				<td>&ndash;&gt;-->
+<!--&lt;!&ndash;					今日订单<span class="red"><{$counts['totay_hotel_order']}></span>单。&ndash;&gt;-->
+<!--&lt;!&ndash;				</td>&ndash;&gt;-->
+<!--&lt;!&ndash;				<td>&ndash;&gt;-->
+<!--&lt;!&ndash;					<a target="main_frm" href="<{:U('hotel/index')}>">详情</a>&ndash;&gt;-->
+<!--&lt;!&ndash;				</td>&ndash;&gt;-->
+<!--&lt;!&ndash;			</tr>&ndash;&gt;-->
+<!--&lt;!&ndash;            &ndash;&gt;-->
+<!--&lt;!&ndash;            <tr>&ndash;&gt;-->
+<!--&lt;!&ndash;				<td>订座</td>&ndash;&gt;-->
+<!--&lt;!&ndash;				<td>&ndash;&gt;-->
+<!--&lt;!&ndash;					总<{$counts['booking_menu']}>菜单&ndash;&gt;-->
+<!--&lt;!&ndash;				</td>&ndash;&gt;-->
+<!--&lt;!&ndash;				<td>&ndash;&gt;-->
+<!--&lt;!&ndash;					今日订座订单<span class="red"><{$counts['totay_booking_order']}></span>单。&ndash;&gt;-->
+<!--&lt;!&ndash;				</td>&ndash;&gt;-->
+<!--&lt;!&ndash;				<td>&ndash;&gt;-->
+<!--&lt;!&ndash;					<a target="main_frm" href="<{:U('booking/index')}>">详情</a>&ndash;&gt;-->
+<!--&lt;!&ndash;				</td>&ndash;&gt;-->
+<!--&lt;!&ndash;			</tr>&ndash;&gt;-->
+<!--&lt;!&ndash;            &ndash;&gt;-->
+<!--&lt;!&ndash;			&ndash;&gt;-->
+<!--&lt;!&ndash;			<if condition="$ding['is_biz'] neq 0">&lt;!&ndash;如果后台开通黄页&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;			<tr>&ndash;&gt;-->
+<!--&lt;!&ndash;				<td>黄页</td>&ndash;&gt;-->
+<!--&lt;!&ndash;				<td>&ndash;&gt;-->
+<!--&lt;!&ndash;					共<{$counts['biz']}>条黄页信息，<span class="red"><{$counts['biz_audit']}></span>条未审核&ndash;&gt;-->
+<!--&lt;!&ndash;				</td>&ndash;&gt;-->
+<!--&lt;!&ndash;				<td>&ndash;&gt;-->
+<!--&lt;!&ndash;				</td>&ndash;&gt;-->
+<!--&lt;!&ndash;				<td>&ndash;&gt;-->
+<!--&lt;!&ndash;					<a target="main_frm" href="<{:U('pois/index')}>">详情</a>&ndash;&gt;-->
+<!--&lt;!&ndash;				</td>&ndash;&gt;-->
+<!--&lt;!&ndash;			</tr>&ndash;&gt;-->
+<!--&lt;!&ndash;		   </if>&ndash;&gt;-->
+<!--&lt;!&ndash;			<tr>&ndash;&gt;-->
+<!--&lt;!&ndash;				<td>粉丝</td>&ndash;&gt;-->
+<!--&lt;!&ndash;				<td>&ndash;&gt;-->
+<!--&lt;!&ndash;					总<{$counts['favorites']}>粉丝&ndash;&gt;-->
+<!--&lt;!&ndash;				</td>&ndash;&gt;-->
+<!--&lt;!&ndash;				<td>&ndash;&gt;-->
+<!--&lt;!&ndash;					今日新增粉丝<span class="red"><{$counts['totay_favorites']}></span>条&ndash;&gt;-->
+<!--&lt;!&ndash;				</td>&ndash;&gt;-->
+<!--&lt;!&ndash;				<td>&ndash;&gt;-->
+<!--&lt;!&ndash;					<a target="main_frm" href="<{:U('order/index')}>">详情</a>&ndash;&gt;-->
+<!--&lt;!&ndash;				</td>&ndash;&gt;-->
+<!--&lt;!&ndash;			</tr>&ndash;&gt;-->
+<!--			<tr>-->
+<!--				<td>评价</td>-->
+<!--				<td>-->
+<!--					<if condition="$open_mall eq '1' ">商城<{$counts['goods_dianping']}>条评价，</if>外卖<{$counts['ele_dianping']}>条评价<br/>-->
+<!--                    套餐-->
+<!--					<{$counts['tuan_dianping']}>条评价<if condition="$open_ding eq '1' ">，订座<{$counts['booking_dianping']}>条评价</if>-->
+<!--				</td>-->
+<!--				<td>-->
+<!--					<if condition="$open_mall eq '1' ">今日商城<span class="red"><{$counts['totay_goods_dianping']}></span>条评价，</if>今日外卖<span class="red"><{$counts['totay_ele_dianping']}></span>条评价<br/>-->
+<!--                	今日套餐-->
+<!--					<span class="red"><{$counts['totay_tuan_dianping']}></span>条评价<if condition="$open_ding eq '1' ">，今日订座<span class="red"><{$counts['totay_booking_dianping']}></span>条评价</if>-->
+<!--				</td>-->
+<!--				<td>-->
+<!--					<a target="main_frm" href="<{:U('dianping/index')}>">详情</a>-->
+<!--				</td>-->
+<!--			</tr>-->
+			
+			</tbody>
+			</table>
+			</li>
+		</ul>
+	</div>
+</div>
+<include file='public:footer'/>

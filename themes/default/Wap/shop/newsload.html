@@ -1,0 +1,19 @@
+<foreach name="list" item="var"> 
+<li class="line" onclick="location='<{:U('shop/news_detail',array('news_id'=>$var['news_id']))}>'">
+          <dd class="zhong">
+          <if condition="!empty($var['photo'])">
+            <div class="x3">
+                <img src="<{:config_img($var['photo'])}>" style="width:90%;">
+            </div>
+          </if>
+             <div class="x9">
+                <p class="text-small"><{$var.title}></p>
+                <p class="text-gray"><{:bao_Msubstr($var['details'],0,30)}></p>     
+                <p class="text-small">
+                  <i class="icon-commenting-o"></i> <em><{$var.views}></em>
+				  <i class="icon-clock-o"></i> <em><{$var.create_time|date='Y-m-d',###}></em>
+                </p>
+             </div>
+          </dd>
+</li>  
+</foreach>

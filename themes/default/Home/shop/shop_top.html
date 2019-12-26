@@ -1,0 +1,100 @@
+<div class="main">
+                <div id="basic-info" class="basic-info default nug_shop_ab_pv-a default">
+                    <s class="cover J_cover"></s>
+                    <h1 class="shop-name"><{$detail.shop_name}>
+                    
+                        <if condition="$detail['recognition'] eq 0">
+                        	<a href="javascript:void(0);" class="branch das"  >认领商家
+                            <i class="icon i-arrow"></i></a>
+                        </if>
+                    </h1>
+      <!--商家认领-->              
+      <script>
+        $(document).ready(function(){
+            $(".das").click(function(){
+                layer.open({
+                    type: 1,
+                    title:'请选择认领理由',
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['360px', 'auto'], //宽高
+                    content: '<input type="text" class="donate2" name="name" placeholder="姓名" value=""><input type="text" class="donate3" name="mobil]" placeholder="手机号" value=""><input type="text" class="donate4" name="conten" placeholder="申请理由" value=""><input type="button" class="sure_das" value="确认举报"><p>认领不可取消，请慎重操作</p>',
+                  });
+            })
+            
+            $(document).on('click','.sure_das',function(){
+               var url = "<{:U('shop/recognition')}>";
+                var shop_id = "<{$detail.shop_id}>";
+                var name = $(".donate2").val();
+				var name = $(".donate3").val();
+				var name = $(".donate4").val();
+                layer.confirm('您确认要认领吗？', {
+                    btn: ['是的','不了'] //按钮
+                  }, function(){
+                    $.post(url,{shop_id:shop_id,name:name,mobile:mobile,content:content},function(data){
+                        if(data.status == 'login'){
+                            ajaxLogin();
+                        }else if(data.status == 'error'){
+                            layer.msg(data.msg);
+                        }else{
+                            layer.msg(data.msg);
+                            setTimeout(function(){
+                                window.location.reload(true);
+                            },1000)
+                        }
+                    },'json')
+                  });
+            })
+            
+        })
+    </script>
+    
+                    <php>
+                    $Shopgrade = D('Shopgrade')->where(array('grade_id'=>$detail['grade_id']))->find();
+                    $Users = D('Users')->where(array('user_id'=>$detail['user_id']))->find();
+                    </php>
+                    <div class="brief-info">
+                        <span class="mid-rank-stars mid-str<{:round($detail['score']*1,2)}>"></span>
+                        <span class="item">人均 : &yen;<{$ex.price}>元</span>
+                        <if condition="!empty($Users['frozen_gold'])">
+                        	<span class="item" style="color:#F30">保证金 : &yen;<{:round($Users['frozen_gold']/100,2)}>元</span>
+                        </if>
+                        <if condition="!empty($Shopgrade)">
+                        	<span class="item">商家等级 : <{$Shopgrade.grade_name}> <img width="18" height="18" class="shop_grade_pic" src="<{:config_img($Shopgrade['photo'])}>"></span>
+                        </if>
+                        
+                    </div>
+                    
+                    
+                    <div class="expand-info address2" itemprop="street-address">
+                        <span class="info-name">地址 :</span><span class="item" itemprop="street-address" title="<{$detail.addr}>"> <{$detail.addr}></span>
+                    </div>
+                    <p class="expand-info tel">
+                        <span class="info-name">电话：</span><span class="item mr10" itemprop="tel"><{$detail.tel}></span>
+                        <span class="item">营业时间 : <{$ex.business_time}></span>
+                    </p>
+                    <p class="expand-info J-service info-indent">
+                        <span class="info-name">商家详情 :</span><span class="item" itemprop="intro"><{:bao_msubstr(cleanhtml($ex['details']),0,108,false)}>...</span>
+                        <a href="<{:U('shop/about',array('shop_id'=>$detail['shop_id']))}>"><i class="icon shop_view"></i>商家详情 >></a>
+                    </p>
+                    <div class="action">
+                        <if condition="!empty($detail['qq'])">
+                            <a class="write left-action" href="http://wpa.qq.com/msgrd?v=3&uin=<{$detail.qq}>&menu=yes" target="_blank" rel="nofollow">
+                            <i class="qq"></i>商家QQ客服</a>
+                        </if>
+                        
+                        <a class="write left-action" href="<{:U('shop/ping',array('shop_id'=>$detail['shop_id']))}>" target="_blank" rel="nofollow">
+                        <i class="icon"></i>我要点评</a>
+                        
+                        <a class="write left-action sjsy_ljzx2" rel="<{:U('shop/yuyue2',array('shop_id'=>$detail['shop_id']))}>" >
+                        <i class="icon"></i>我要预约</a>
+                        
+                        <a id="reservation" class="act-mod reservation nug_shop_ab_booking-a" href="<{:U('shop/ping',array('shop_id'=>$detail['shop_id']))}>"><i class="icon book"></i><span class="hd">已有 <{$totalnum}> 条评论</span><i class="icon hot"></i></a>
+                        <div class="act-mod reservation nug_shop_ab_booking-a">
+                            <i class="icon_eye"></i><span class="hd"><{$detail.view}> </span>
+                        </div>
+                        <span class="right-action">
+                        <a id="favoritemod"  target="baocms_frm"  href="<{:U('shop/favorites',array('shop_id'=>$detail['shop_id']))}>" class="favorite J-favorite" title="加入收藏"><i class="icon"></i></a>
+                        </span>
+                    </div>
+                </div>
+            </div>

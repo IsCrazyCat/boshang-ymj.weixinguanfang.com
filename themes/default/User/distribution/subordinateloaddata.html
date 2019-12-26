@@ -1,0 +1,26 @@
+<foreach name="list" item="item">
+       <li class="line">
+        <dt>
+            <a class="x3">ID：<{$item['user_id']}></a>
+            <a class="x9 text-right">注册时间：<{$item.reg_time|date='Y-m-d H:i',###}> </a>
+        </dt>
+        
+          <dd class="zhong">
+                <div class="x12">
+                    <p> 账户：<{$item['account']}></p>
+                    <p> 昵称：<{$item['nickname']}></p>
+                    <p class="text-small">
+                    <span class="text-dot1 margin-right"> EMAIL：
+                      <if condition="!empty($item['email'])">
+                        <span class="text-dot"><{$item['email']}></span> 
+                      <else/>
+                        暂未设置
+                      </if>  
+                    </span>    
+                    </p>
+              </div>
+          </dd>
+    </li>
+    <div class="blank-10 bg"></div>
+</foreach>
+

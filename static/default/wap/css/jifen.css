@@ -1,0 +1,24 @@
+/*分类选择*/
+.line-cate{list-style:none;text-align:center;height:40px;line-height:40px;position:fixed;width:100%;background:#fff;}
+.line-cate a{height:40px;line-height:40px;border-bottom:thin solid #eee;display:block;width:100%;}
+.line-cate a.active{border-bottom:thin solid #E9553B!important;color:#E9553B;}
+
+/*礼品列表*/
+.item-list{list-style:none;margin-top:40px;padding:0;}
+.item-list li{padding:10px;border-bottom:thin solid #eee;position:relative;}
+.item-list img{width:90%;}
+.item-list p{margin:0;height:30px;line-height:30px;font-size:12px;}
+.item-list .button{position:absolute;right:0;bottom:10px;}
+
+/*积分详情*/
+.item-detail{position:relative;}
+.item-detail h5{margin-bottom:5px;}
+.item-detail p{height:25px;line-height:25px;margin:0;font-size:12px;}
+.item-detail .button{position:absolute;right:10px;bottom:15px;}
+.item-intro img{max-width:100%;}
+
+/*通栏标题*/
+.main-title {text-align:center;padding:10px 0;}
+.main-title h2{height:20px;line-height:20px;font-size:16px;}
+.main-title p{margin:0;font-size:12px;color:#999;}
+.main-title hr{margin:20px 0;}

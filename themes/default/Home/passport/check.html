@@ -1,0 +1,5 @@
+<if condition="empty($MEMBER)">
+    您好，欢迎访问<{$CONFIG.site.sitename}><a href="<{:U('passport/login')}>">登陆</a>|<a href="<{:U('passport/register')}>">注册</a>
+    <else/>
+    欢迎<b style="color: red;"><{$MEMBER.nickname}></b>来到<{$CONFIG.site.sitename}>&nbsp;&nbsp; <a href="<{:u('members/index')}>" >个人中心</a>|<a href="<{:U('passport/logout')}>" >退出登录</a>
+</if>

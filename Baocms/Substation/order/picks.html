@@ -1,0 +1,61 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">商城</li>
+        <li class="li2">商城订单</li>
+        <li class="li2 li3">捡货单管理</li>
+    </ul>
+</div>
+<div class="main-jsgl  main-sc">
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="right">
+                <form method="post" action="<{:U('order/picks')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <div class="seleK">
+                            <label>
+                                <span>开始时间</span>
+                                <input type="text" name="bg_date" value="<{$bg_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="inptText" /></label>
+                            <label>
+                                <span>  结束时间</span>
+                                <input type="text" name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="inptText" /></label>
+                            <label>
+                                <span>捡货单</span> 
+                                <input type="text"  class="inptText" name="keyword" value="<{$keyword}>"  />
+
+                                <input type="submit" value="   搜索"  class="inptButton" />
+                            </label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr class="no">
+                    <td>ID</td>
+                    <td>捡货单</td>
+                    <td>创建时间</td>
+                    <td>创建IP</td>
+                    <td>查看详情</td>
+                </tr>
+                <foreach name="list" item="item">
+                    <tr class="no">
+                        <td> <{$item.pick_id}></td>
+                        <td><{$item.name}></td>
+                        <td><{$item.create_time|date='Y-m-d H:i:s',###}></td>
+                        <td><{$item.create_ip}></td>
+                        <td>                        
+                            <{:BA('order/pickdetail',array('pick_id'=>$item['pick_id']),'打印捡货单','','remberBtn')}>
+                            <{:BA('order/send',array('pick_id'=>$item['pick_id']),'打印配送单','','remberBtn')}>
+                        </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+            </div>
+        </form>
+    </div>
+    <include  file='public:footer'/>       

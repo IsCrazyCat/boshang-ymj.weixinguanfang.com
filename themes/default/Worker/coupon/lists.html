@@ -1,0 +1,40 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('worker/index/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			我的优惠券
+		</div>
+	<div class="top-signed">
+	</div>
+</header>
+
+<style>
+ul{ padding-left:0px!important;}
+.list-media-x p {margin: 0;margin-top: .0rem;}
+</style>
+	
+<!-- 筛选TAB -->
+<!-- 筛选TAB -->
+<ul id="shangjia_tab">
+        <li style="width:25%;"><a href="<{:LinkTo('worker/coupon/lists')}>" <eq name='aready' value=''>class="on"</eq>>全部</a></li>
+        <li style="width:25%;"><a href="<{:LinkTo('worker/coupon/lists',array('aready'=>1))}>" <eq name='aready' value='1'>class="on"</eq>>未使用</a></li>
+        <li style="width:25%;"><a href="<{:LinkTo('worker/coupon/lists',array('aready'=>2))}>" <eq name='aready' value='2'>class="on"</eq>>已使用</a></li>
+        <li style="width:25%;"><a href="<{:LinkTo('worker/coupon/index')}>" <eq name='aready' value='2'>class="on"</eq>>优惠劵验证</a></li>
+     
+</ul>
+
+	
+<div class="list-media-x" id="list-media">
+	<ul></ul>
+</div>	
+
+
+<script>
+	$(document).ready(function () {
+		loaddata('<{:U("/worker/coupon/couponloading",array("t"=>$nowtime,"p"=>"0000","aready"=>$aready))}>', $("#list-media ul"), true);
+	});
+</script>
+
+<include  file='public:footer'/>

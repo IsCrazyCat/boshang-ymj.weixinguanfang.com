@@ -1,0 +1,82 @@
+
+<foreach name='list' item='var'>
+<div class="item">	
+	<div class="line">
+		<div class="x2">
+        
+        	<img class="pic"  src="<{:config_img($users[$var['user_id']]['face'])}>" />
+        </div>
+        
+		<div class="x10">
+			<h5><{:config_user_name($users[$var['user_id']]['nickname'])}></h5> 
+            <p class="intro"><{$var.contents}></p>
+            <php>$stars= intval(($var['score'])*20);</php>
+			<p class="intro ui-starbar" ><span style="width:<{$stars}>%"></span></p><span class="intro intro1 float-right "><{$var.create_time|date='Y-m-d H:i',###}></span>
+			<p class="info7 x12" >
+				<volist name="pics" id="pic" key="index"> 
+                <eq name="pic.order_id" value="$var['order_id']"> 
+                    <div class="pics" class="ac" onclick="liclick(this);" href="javascript:;">
+                    
+                    
+                    
+                    
+                        <img style="width:60px; height:50px;float:left;padding-right:5px"  url="<{:config_img($pic['pic'])}>" src="<{:config_img($pic['pic'])}>" >
+                    </div>
+                    
+                    <div id="menuDetail" class="menu_detail">
+                    <img style="display: none;">
+               		</div>
+
+					
+
+                </eq>
+            </volist> 
+			</p><br/>
+            <if condition="!empty($var['reply'])">
+            <p class="intro x12">商家回复：<a style="color:#FF6430"><{$var.reply}></a></p>
+            <else/>
+            </if>
+		</div>
+	</div>
+</div>
+<div class="blank-10 bg"></div>
+</foreach>
+
+<script>
+                    var _wraper = $('#menuDetail');
+                    var dialogTarget;
+                    function liclick(l){
+                            var _this = $(l),
+                                F = function(str){return _this.parent().find(str);},
+                                title = F('h5').text(),
+                                imgUrl = F('img').attr('url'),
+                                val = _this.parent().find('.jq_jian').attr('val'),
+                                did = _this.parent().find('.jq_jian').attr('did'),
+                                price = F('.unit_price').text(),
+                                sales = F('.sales strong').attr('class'),
+                                saleNum = F('.sale_num').text(),
+                                info = F('.intro1').text(),
+                                saleDesc = F('.salenum').html(),
+                                unit=F('.theunit').text(),
+                                _detailImg = _wraper.find('img');
+                                _wraper.find('.price').text(price).end()
+                                .find('.sales strong').attr('class', sales).end()
+                                .find('.info').text(info);
+                                _wraper.parents('.dialog').find('.dialog_tt').text(title);
+                                $('#detailBtn').removeClass('disabled').text('来一份');
+                                $('#detailBtn').attr('val',val);
+                                $('#detailBtn').attr('did',did);
+                            if(imgUrl){
+                                _detailImg.attr('src', imgUrl).show().next().hide();
+                            }else{
+                                _detailImg.hide().next().show();
+                            }
+                            dialogTarget = _this;
+                            _wraper.dialog({title: title, closeBtn: true});
+                    }
+                    </script>
+
+
+
+   
+   

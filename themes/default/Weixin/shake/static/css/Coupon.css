@@ -1,0 +1,42 @@
+/* CSS Document by jacy use in vipcard */
+body{ padding:0; margin:0; max-width:640px; margin:0 auto;}
+img{ font-size:0;}
+.fl{float:left;}
+.fr{float:right;}
+.clear{ height:0; line-height:0; font-size:0; clear:both;}
+/*摇一摇开始*/
+.shakePage_pointer{ position:relative; width:100%;}
+.shakePage_pointer_posit{ position:absolute; top:0; left:0; width:100%;}
+.shakePage_pointer_posit.on img{-webkit-animation:page6Shake 0.8s linear 0.8s infinite; animation:page6Shake 0.8s linear 0.8s infinite;}
+@-webkit-keyframes page6Shake {
+	from { transform:rotate(-6deg); -webkit-transform:rotate(-6deg);}
+	to {transform:rotate(6deg); -webkit-transform:rotate(6deg);}
+}
+@keyframes page6Shake {
+	from { transform:rotate(-6deg); -webkit-transform:rotate(-6deg);}
+	to {transform:rotate(6deg); -webkit-transform:rotate(6deg);}
+}
+
+.shakePage_tab{ padding:0 5px; background:#f0f8bb; padding-top:30px;}
+.shakePage_tab_list{ display:block; float:left; width:23.5%; margin-right:2%;}
+.shakePage_tab_list:last-child{ margin-right:0;}
+.shakePage_tab_list a{ display:block; background:#afbd52; text-align:center; font-size:12px; line-height:30px; color:#fff;}
+.shakePage_tab_list a em{ padding:8px; background:url(../img/tabIco_white.png) no-repeat center top; background-size:100% auto; font-size:0; line-height:0; vertical-align:middle; margin-right:2px;}
+.shakePage_tab_list a em.ico_1{ background-position:center 0;}
+.shakePage_tab_list a em.ico_2{ background-position:center -16px;}
+.shakePage_tab_list a em.ico_3{ background-position:center -32px;}
+.shakePage_tab_list a em.ico_4{ background-position:center -48px;}
+.shakePage_tab_list.on a{background:#539a2f;}
+.shakePage_list_box{min-height:300px;}
+.shakePage_list{ display:none;}
+.shakePage_intro{ padding:20px;}
+.shakePage_intro p{font-size:12px; line-height:24px; color:#b8c754;}
+
+.winRecord_list_box{ padding:10px;}
+.winRecord_list{ display:block; padding:10px; background:#f0f8bb; margin-bottom:10px;}
+.winRecord_list .img{ width:50px; height:50px;}
+.winRecord_list .img img{ width:100%; height:100%;}
+.winRecord_list .wz{ margin-left:60px;}
+.winRecord_list .wz p{font-size:12px; line-height:20px; color:#999;}
+.winRecord_list .wz .bt{font-size:14px; color:#333;}
+/*摇一摇结束*/

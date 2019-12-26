@@ -1,0 +1,360 @@
+<include file='public:header'/>
+<style>
+.sjgl_topli span.suxian{color:#ECEBEB; margin:0 10px;}
+.sjgl_topli {padding-right:0px;}
+</style>
+<div id="musicHidden" style="position:absolute;top:-6000px">
+<div id="sound"></div>
+<script type="text/javascript" src="__PUBLIC__/js/swfobject.js"></script>
+<script type="text/javascript">
+	var url = "<{:U('treatment/order',array('shop_id'=>$SHOP['shop_id']))}>";    
+    function musicOrder(){
+    	 $.ajax({
+            type: "POST",//提交方式
+            async: true,
+            dataType: "text",//数据格式
+            url: url,
+            data: {},
+            success: function (data) {
+				if(data == 1){
+					var flashvars = {
+					};
+					var params = {
+						wmode: "transparent"
+					}; 
+					var attributes = {};
+					swfobject.embedSWF("__PUBLIC__/js/online.swf", "sound", "1", "1", "9.0.0", "__PUBLIC__/js/expressInstall.swf", flashvars, params, attributes);
+				}else{
+				}
+            }
+    	 })
+    }
+    setInterval(function(){
+    	musicOrder();
+    }
+    ,5000);
+</script>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".leftMenu_a").click(function(){ 
+			$(".leftMenu_a").removeClass("on");
+			$(this).addClass("on");
+			$(".leftNav2").hide();
+			$(this).parent().find(".leftNav2").show();  
+		});
+		$(".leftNav2 li").click(function(){
+			$(".leftNav2 li a").removeClass('on');
+			$(this).find('a').addClass('on');
+		});
+	});
+</script>
+<div class="sjgl_top">
+    <div class="left sjgl_toplogo"><{$CONFIG.site.sitename}>商家后台</div>
+    <div class="right sjgl_top_r">
+        <ul>
+            <li class="left sjgl_topli sjgl_toplixl"><a>您好：<{$SHOP.shop_name}></a><span class="suxian">|</span></li>
+            <if condition="!empty($SHOPGRADE['grade_name'])">
+            	<li class="left sjgl_topli sjgl_toplixl"><a>店铺等级：<{$SHOPGRADE.grade_name}></a><span class="suxian">|</span></li>
+            <else/>
+            	<li class="left sjgl_topli"><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=<{$CONFIG.site.qq}>&site=qq&menu=yes">暂无等级</a><span class="suxian">|</span></li>
+            </if>
+<!--            <li class="left sjgl_topli sjgl_toplixl"><a target="main_frm" href="<{:U('shop/grade')}>">查看等级权限</a><span class="suxian">|</span></li>-->
+            <li class="left sjgl_topli"><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=<{$CONFIG.site.qq}>&site=qq&menu=yes">联系客服</a><span class="suxian">|</span></li>
+            <li class="left sjgl_topli">
+                <a  target="main_frm" href="<{:U('message/index')}>">网站通知 
+                    <if condition="$msg_day gt 0">
+                        <i class="tongzhi"><{$msg_day}></i>
+                    </if>
+                </a><span class="suxian">|</span>
+            </li>
+            <li class="left sjgl_topli"><a target="_blank" href="<{:u('home/index/index')}>">网站首页</a><span class="suxian">|</span></li>
+            <li class="left sjgl_topli"><a href="<{:U('login/logout')}>"><em class="toptc"><img src="__TMPL__statics/images/toptc_03.png" /></em>退出</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="sjglBox">
+    <div class="left sjgl_leftmenu">
+        <ul>
+            <li class="leftMenu_li"><a class="leftMenu_a on2" target="main_frm" href="<{:U('index/main')}>"><em>&nbsp;</em>首页</a></li>
+            <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a13" target="main_frm" href="<{:U('money/finance')}>"><em>&nbsp;</em>资金管理</a>
+            	<div class="leftNav2">
+                    <ul>  
+                   		 <li><a target="main_frm" href="<{:U('money/shopmoney')}>"><em>&nbsp;</em>商家资金</a></li>
+                         <li><a target="main_frm" href="<{:U('money/index')}>"><em>&nbsp;</em>资金记录</a></li>
+                         <li><a target="main_frm" href="<{:U('money/tixianlog')}>"><em>&nbsp;</em>提现申请</a></li>
+                    </ul>
+                </div>
+            </li>
+            
+            
+            <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a2"  target="main_frm" href="<{:U('branch/index')}>"><em>&nbsp;</em>商家管理</a>
+                <div class="leftNav2">
+                    <ul>
+                        <li><a target="main_frm" href="<{:U('shop/about')}>"><em>&nbsp;</em>基本管理</a></li>
+<!--                        <li><a  target="main_frm" href="<{:U('shop/service')}>"><em>&nbsp;</em>打印设置</a></li>-->
+<!--						<li><a target="main_frm" href="<{:U('audit/index')}>"><em>&nbsp;</em>认证管理</a></li>-->
+<!--                    	<li><a  target="main_frm" href="<{:U('branch/index')}>"><em>&nbsp;</em>分店地址</a></li>-->
+<!--                        <li><a  target="main_frm" href="<{:U('shopyouhui/index')}>"><em>&nbsp;</em>优惠买单</a></li>-->
+                        <li><a  target="main_frm" href="<{:U('worker/index')}>"><em>&nbsp;</em>员工管理</a></li>
+<!--                        <li><a  target="main_frm" href="<{:U('shopkuaidi/index')}>"><em>&nbsp;</em>商城运费模板</a></li>-->
+                    </ul>
+                </div>
+            </li>
+
+
+			<if condition="!empty($SHOPGRADE['is_tuan'])">
+                <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a3" target="main_frm" href="<{:U('tuan/index')}>"><em>&nbsp;</em>套餐管理</a>
+                    <div class="leftNav2">
+                        <ul>
+                            <li><a target="main_frm" href="<{:U('tuan/index')}>"><em>&nbsp;</em>套餐商品列表</a></li>
+                            <li><a target="main_frm" href="<{:U('tuan/create')}>"><em>&nbsp;</em>添加套餐</a></li>
+                            <li><a target="main_frm" href="<{:U('tuan/order')}>"><em>&nbsp;</em>套餐订单列表</a></li>
+                            <li><a target="main_frm" href="<{:U('tuan/code')}>"><em>&nbsp;</em>套餐劵列表</a></li>
+                            <li><a target="main_frm" href="<{:U('tuan/used')}>"><em>&nbsp;</em>套餐劵核销</a></li>
+                            <li><a target="main_frm" href="<{:U('tuan/usedok')}>"><em>&nbsp;</em>套餐劵验证记录</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </if>
+            <if condition="!empty($SHOPGRADE['is_coupon'])">
+                <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a10" target="main_frm" href="<{:U('coupon/index')}>"><em>&nbsp;</em>优惠劵管理</a>
+                    <div class="leftNav2">
+                        <ul>
+                            <li><a target="main_frm" href="<{:U('coupon/index')}>"><em>&nbsp;</em>优惠券管理</a></li>
+                            <li><a target="main_frm" href="<{:U('coupon/download')}>"><em>&nbsp;</em>优惠券下载列表</a></li>
+                            <li><a target="main_frm" href="<{:U('coupon/used')}>"><em>&nbsp;</em>优惠券核销</a></li>
+                        </ul>
+                    </div>
+                </li>
+            </if>
+            
+			<if condition="!empty($open_mall)">
+                <if condition="!empty($SHOPGRADE['is_mall'])">
+                    <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a4" target="main_frm" href="<{:U('goods/index')}>"><em>&nbsp;</em>商城</a>
+                        <div class="leftNav2">
+                            <ul>
+                                <li><a target="main_frm" href="<{:U('goodsshopcate/index')}>"><em>&nbsp;</em>产品分类</a></li>
+                                <li><a target="main_frm" href="<{:U('goods/index')}>"><em>&nbsp;</em>出售中的商品</a></li>
+                                <li><a target="main_frm" href="<{:U('order/index')}>"><em>&nbsp;</em>全部订单列表</a></li>
+                                <eq name="SHOP.is_pei" value="1">
+                                   <li><a target="main_frm" href="<{:U('order/wait')}>"><em>&nbsp;</em>已付款订单</a></li>
+                                   <li><a target="main_frm" href="<{:U('order/wait2')}>"><em>&nbsp;</em>货到付款订单</a></li>
+                                   <li><a target="main_frm" href="<{:U('order/picks')}>"><em>&nbsp;</em>捡货单管理</a></li>
+                                   <li><a target="main_frm" href="<{:u('order/delivery')}>"><em>&nbsp;</em>待确认订单</a></li>	
+                                 </eq>
+                                 <eq name="SHOP.is_pei" value="0">>
+                                    <li><a target="main_frm" href="<{:U('order/index')}>"><em>&nbsp;</em>全部订单【配】</a></li>
+                                    <li><a target="main_frm" href="<{:u('order/delivery')}>"><em>&nbsp;</em>确认订单【配】</a></li>
+                                    <li><a target="main_frm" href="<{:u('order/count')}>"><em>&nbsp;</em>订单统计【配】</a></li>
+                                 </eq>
+<!--                                 <li><a target="main_frm" href="<{:U('goods/weidian')}>"><em>&nbsp;</em>商城资料修改</a></li>-->
+                            </ul>
+                        </div>
+                    </li>
+            	</if>
+			</if>
+      
+<!--			<if condition="!empty($SHOPGRADE['is_ele'])">-->
+<!--                 <if condition="!empty($waimai)">&lt;!&ndash;如果商户开通外卖&ndash;&gt;-->
+<!--                    <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a19" target="main_frm" href="<{:U('ele/index')}>"><em>&nbsp;</em>外卖</a>-->
+<!--                    <div class="leftNav2">-->
+<!--                        <ul>-->
+<!--                            <li><a target="main_frm" href="<{:U('elecate/index')}>"><em>&nbsp;</em>菜系分类</a></li>-->
+<!--                            <li><a target="main_frm" href="<{:U('eleproduct/index')}>"><em>&nbsp;</em>菜单管理</a></li>-->
+<!--                            <eq name="SHOP.is_pei" value="1">-->
+<!--                            <li><a class="on" target="main_frm" href="<{:U('ele/index')}>"><em>&nbsp;</em>营业设置</a></li>-->
+<!--                            <li><a target="main_frm" href="<{:U('eleorder/index')}>"><em>&nbsp;</em>确认订单</a></li>-->
+<!--                            <li><a target="main_frm" href="<{:U('eleorder/wait')}>"><em>&nbsp;</em>配送订单</a></li>-->
+<!--                            <li><a target="main_frm" href="<{:U('eleorder/over')}>"><em>&nbsp;</em>完成订单</a></li>-->
+<!--                            </eq>-->
+<!--                            <eq name="SHOP.is_pei" value="0">-->
+<!--                                <li><a target="main_frm" href="<{:U('eleorder/wait')}>"><em>&nbsp;</em>等待处理【配】</a></li>-->
+<!--                                <li><a target="main_frm" href="<{:U('eleorder/count')}>"><em>&nbsp;</em>订单统计【配】</a></li>-->
+<!--                                <li><a target="main_frm" href="<{:U('eleorder/whole')}>"><em>&nbsp;</em>全部订单【配】</a></li>-->
+<!--                            </eq>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </li>-->
+<!--                <else/>-->
+<!--                <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a19" target="main_frm" href="<{:U('ele/apply')}>"><em>&nbsp;</em>外卖</a>-->
+<!--                    <div class="leftNav2">-->
+<!--                        <ul>-->
+<!--                            <li><a target="main_frm" href="<{:U('ele/apply')}>"><em>&nbsp;</em>申请入驻外卖频道</a></li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </li>-->
+<!--                </if>-->
+<!--            </if> -->
+            
+<!--&lt;!&ndash;            &ndash;&gt;-->
+<!--&lt;!&ndash;            &ndash;&gt;-->
+<!--&lt;!&ndash;           <if condition="!empty($open_hotels)"> &ndash;&gt;-->
+<!--&lt;!&ndash;               <if condition="!empty($SHOPGRADE['is_hotel'])">&ndash;&gt;-->
+<!--&lt;!&ndash;                   <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a9" target="main_frm" href="<{:U('hotel/index')}>"><em>&nbsp;</em>酒店</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <div class="leftNav2">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li><a class="on" target="main_frm" href="<{:U('hotel/index')}>"><em>&nbsp;</em>酒店订单</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li><a target="main_frm" href="<{:U('hotel/room')}>"><em>&nbsp;</em>酒店房间</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li><a target="main_frm" href="<{:U('hotel/set_hotel')}>"><em>&nbsp;</em>酒店资料</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                 </if>&ndash;&gt;-->
+<!--&lt;!&ndash;            </if>&ndash;&gt;-->
+<!--&lt;!&ndash;            &ndash;&gt;-->
+<!--&lt;!&ndash;           <if condition="!empty($open_booking)">  &ndash;&gt;-->
+<!--&lt;!&ndash;               <if condition="!empty($SHOPGRADE['is_booking'])"> &ndash;&gt;-->
+<!--&lt;!&ndash;                 <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a11" target="main_frm" href="<{:U('booking/index')}>"><em>&nbsp;</em>预订</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="leftNav2">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <li><a class="on" target="main_frm" href="<{:U('booking/index')}>"><em>&nbsp;</em>预订列表</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <li><a target="main_frm" href="<{:U('booking/cate')}>"><em>&nbsp;</em>菜品分类</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <li><a target="main_frm" href="<{:U('booking/menu')}>"><em>&nbsp;</em>菜品配置</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <li><a target="main_frm" href="<{:U('booking/room')}>"><em>&nbsp;</em>包间配置</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <li><a target="main_frm" href="<{:U('booking/set_booking')}>"><em>&nbsp;</em>预订资料</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </li>&ndash;&gt;-->
+<!--&lt;!&ndash;               </if>&ndash;&gt;-->
+<!--&lt;!&ndash;           </if>&ndash;&gt;-->
+<!--&lt;!&ndash;           &ndash;&gt;-->
+<!--&lt;!&ndash;           <if condition="$open_appoint eq '1'"> &ndash;&gt;-->
+<!--&lt;!&ndash;               <if condition="!empty($SHOPGRADE['is_appoint'])"> &ndash;&gt;-->
+<!--&lt;!&ndash;                   <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a9" target="main_frm" href="<{:U('appoint/index')}>"><em>&nbsp;</em>新版家政</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <div class="leftNav2">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li><a class="on" target="main_frm" href="<{:U('appoint/order')}>"><em>&nbsp;</em>家政订单</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li><a target="main_frm" href="<{:U('appoint/index')}>"><em>&nbsp;</em>家政列表</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                </if>&ndash;&gt;-->
+<!--&lt;!&ndash;            </if>&ndash;&gt;-->
+<!--&lt;!&ndash;            &ndash;&gt;-->
+<!--&lt;!&ndash;            <if condition="!empty($open_cloud)"> &ndash;&gt;-->
+<!--&lt;!&ndash;                <if condition="!empty($SHOPGRADE['is_cloud'])"> &ndash;&gt;-->
+<!--&lt;!&ndash;                    <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a10" target="main_frm" href="<{:U('cloud/index')}>"><em>&nbsp;</em>云购管理</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <div class="leftNav2">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li><a target="main_frm" href="<{:U('cloud/index')}>"><em>&nbsp;</em>云购管理</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li><a target="main_frm" href="<{:U('cloud/order')}>"><em>&nbsp;</em>云购支付列表</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                </if>&ndash;&gt;-->
+<!--&lt;!&ndash;            </if>&ndash;&gt;-->
+<!--&lt;!&ndash;           &ndash;&gt;-->
+<!--&lt;!&ndash;           <if condition="!empty($open_farm)"> &ndash;&gt;-->
+<!--&lt;!&ndash;               <if condition="!empty($SHOPGRADE['is_farm'])"> &ndash;&gt;-->
+<!--&lt;!&ndash;                   <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a9" target="main_frm" href="<{:U('farm/index')}>"><em>&nbsp;</em>农家乐</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <div class="leftNav2">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li><a class="on" target="main_frm" href="<{:U('farm/index')}>"><em>&nbsp;</em>农家乐订单</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li><a target="main_frm" href="<{:U('farm/package')}>"><em>&nbsp;</em>农家乐套餐</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li><a target="main_frm" href="<{:U('farm/set_farm')}>"><em>&nbsp;</em>农家乐资料</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                </if>&ndash;&gt;-->
+<!--&lt;!&ndash;            </if> &ndash;&gt;-->
+
+<!--&lt;!&ndash;          <if condition="$ding['is_biz'] neq 0">&lt;!&ndash;如果后台开通黄页&ndash;&gt;&ndash;&gt;-->
+<!--&lt;!&ndash;              <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a11" target="main_frm" href="<{:U('pois/index')}>"><em>&nbsp;</em>黄页管理</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="leftNav2">&ndash;&gt;-->
+<!--&lt;!&ndash;                        <ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <li><a target="main_frm" href="<{:U('pois/index')}>"><em>&nbsp;</em>黄页列表</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <li><a target="main_frm" href="<{:U('pois/me')}>"><em>&nbsp;</em>我的黄页</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <li><a target="main_frm" href="<{:U('pois/create')}>"><em>&nbsp;</em>黄页生成</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <li><a target="main_frm" href="<{:U('pois/stick')}>"><em>&nbsp;</em>我的包年</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                            <li><a target="main_frm" href="<{:U('pois/word')}>"><em>&nbsp;</em>购买包年</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                       </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </li>&ndash;&gt;-->
+<!--&lt;!&ndash;           </if>&ndash;&gt;-->
+<!--&lt;!&ndash;   &ndash;&gt;-->
+
+<!--&lt;!&ndash;           <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a5" target="main_frm" href="<{:U('fans/index')}>"><em>&nbsp;</em>粉丝</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            	<div class="leftNav2">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <li><a class="on"  target="main_frm" href="<{:U('fans/index')}>"><em>&nbsp;</em>粉丝列表</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <li><a target="main_frm" href="<{:U('news/index')}>"><em>&nbsp;</em>推送文章</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                </div>&ndash;&gt;-->
+<!--&lt;!&ndash;            </li>&ndash;&gt;-->
+<!--&lt;!&ndash;            &ndash;&gt;-->
+<!--             <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a10" target="main_frm" href="<{:U('weixin/index')}>"><em>&nbsp;</em>营销管理</a>-->
+<!--            	<div class="leftNav2">-->
+<!--                    <ul>-->
+<!--                        <li><a target="main_frm" href="<{:U('weixin/index')}>"><em>&nbsp;</em>微信设置</a></li>-->
+<!--                        <li><a target="main_frm" href="<{:U('scratch/index')}>"><em>&nbsp;</em>刮刮卡</a></li>-->
+<!--                        <li><a target="main_frm" href="<{:U('lottery/index')}>"><em>&nbsp;</em>大转盘</a></li>-->
+<!--                        <li><a target="main_frm" href="<{:U('goldegg/index')}>"><em>&nbsp;</em>砸金蛋</a></li>-->
+<!--                        <li><a target="main_frm" href="<{:U('shake/index')}>"><em>&nbsp;</em>摇一摇</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </li>-->
+
+<!--             <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a12" target="main_frm" href="<{:U('dianping/index')}>"><em>&nbsp;</em>评价管理</a>-->
+<!--            	<div class="leftNav2">-->
+<!--                    <ul>  -->
+<!--                        <li><a target="main_frm" href="<{:U('dianping/index')}>"><em>&nbsp;</em>商家评价</a></li>-->
+<!--                        <li><a target="main_frm" href="<{:U('dianping/tuan')}>"><em>&nbsp;</em>团购评价</a></li>-->
+<!--                        <if condition="$open_mall eq '1' "> -->
+<!--                        	<li><a target="main_frm" href="<{:U('dianping/mall')}>"><em>&nbsp;</em>商城评价价</a></li>-->
+<!--						</if>-->
+<!--                        <li><a target="main_frm" href="<{:U('dianping/waimai')}>"><em>&nbsp;</em>外卖点评</a></li>-->
+<!--						<if condition="$open_booking eq '1' ">-->
+<!--                        	<li><a target="main_frm" href="<{:U('dianping/booking')}>"><em>&nbsp;</em>订座评价</a></li>-->
+<!--						</if>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </li>-->
+
+
+<!--&lt;!&ndash;           <if condition="!empty($open_life)">  &ndash;&gt;-->
+<!--&lt;!&ndash;               <if condition="!empty($SHOPGRADE['is_life'])">   &ndash;&gt;-->
+<!--&lt;!&ndash;                  <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a18" target="main_frm" href="<{:U('life/index')}>"><em>&nbsp;</em>同城信息</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <div class="leftNav2">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <li><a target="main_frm" href="<{:U('life/index')}>"><em>&nbsp;</em>生活信息</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;               	  </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                </if>&ndash;&gt;-->
+<!--&lt;!&ndash;            </if>&ndash;&gt;-->
+<!--&lt;!&ndash;			<if condition="!empty($open_huodong) ">  &ndash;&gt;-->
+<!--&lt;!&ndash;                <if condition="!empty($SHOPGRADE['is_huodong'])">  &ndash;&gt;-->
+<!--&lt;!&ndash;                 <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a12" target="main_frm" href="<{:U('activity/index')}>"><em>&nbsp;</em>活动管理</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="leftNav2">&ndash;&gt;-->
+<!--&lt;!&ndash;                      <ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <li><a target="main_frm" href="<{:U('activity/index')}>"><em>&nbsp;</em>活动管理</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <li><a target="main_frm" href="<{:U('activity/sign')}>"><em>&nbsp;</em>报名管理</a></li>&ndash;&gt;-->
+<!--&lt;!&ndash;                      </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                  </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                </if>&ndash;&gt;-->
+<!--&lt;!&ndash;            </if>&ndash;&gt;-->
+<!--&lt;!&ndash;            &ndash;&gt;-->
+<!--            <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a12" target="main_frm" href="<{:U('work/index')}>"><em>&nbsp;</em>其他</a>-->
+<!--            	<div class="leftNav2">-->
+<!--                    <ul>-->
+<!--                        <li><a target="main_frm" href="<{:U('breaks/index')}>"><em>&nbsp;</em>优惠买单订单</a></li>-->
+<!--                        <li><a class="on" target="main_frm" href="<{:U('work/index')}>"><em>&nbsp;</em>人才招聘</a></li>-->
+<!--                        <li><a target="main_frm" href="<{:U('yuyue/index')}>"><em>&nbsp;</em>预约列表</a></li>-->
+<!--                        <li><a target="main_frm" href="<{:U('yuyue/used')}>"><em>&nbsp;</em>消费确认</a></li>-->
+<!--                    </ul>-->
+<!--                </div>-->
+<!--            </li>-->
+        </ul>
+    </div>
+
+    <div id="sjgl_right" style="padding-left:200px; height:100%;">
+        <div class="sjgl_main" style="height:1000px;">
+        <iframe src="<{:U('index/main')}>" marginheight="0" marginwidth="0" frameborder="0" width="100%" height=100% id="main_frm" name="main_frm"></iframe>
+        </div>
+    </div>
+</div>
+<include file='public:footer'/>

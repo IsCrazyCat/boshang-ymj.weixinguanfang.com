@@ -1,0 +1,58 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">拼团商家</li>
+        <li class="li2">配送管理</li>
+        <li class="li2 li3">地址列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('pkuaidi/address')}>">
+                    <div class="seleHidden" id="seleHidden">
+                    	<div class="seleK"> 
+                        <label>
+                        <span>区域</span>
+                        <input type="text" name="keyword" value="<{$keyword}>" class="inptText" />
+                        <input type="submit" value="   搜索"  class="inptButton" />
+                        </label>
+                       </div>
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+        
+    </div>
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="id" /></td>
+                    <td class="w50">ID</td>
+                    <td>地区</td>
+                    <td>类型</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_shop_id" type="checkbox" name="shop_id[]" value="<{$var.id}>" /></td>
+                        <td><{$var.id}></td>
+                        <td><{$var.name}></td>
+                        <td>
+                        	<eq name="var.level" value="1">1级</eq>
+                            <eq name="var.level" value="2">2级</eq>
+                            <eq name="var.level" value="3">3级</eq>
+                        </td>
+                        
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+
+

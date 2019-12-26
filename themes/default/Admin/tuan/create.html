@@ -1,0 +1,398 @@
+<include  file='public:header'/>
+<php>print_r($str);</php>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商城</li>
+        <li class="li2">套餐管理</li>
+        <li class="li2 li3">新增</li>
+    </ul>
+</div>
+<form  target="baocms_frm" action="<{:U('tuan/create')}>" method="post">
+    <div class="mainScAdd ">
+
+        <div class="tableBox">
+
+
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td  class="lfTdBt">商家：</td>
+                    <td class="rgTdBt">
+                        <div class="lt">
+                            <input type="hidden" id="shop_id" oninput="alert(this.value);" name="data[shop_id]" value="<{$detail.shop_id|default=''}>"/>
+                            <input type="text" id="shop_name" name="shop_name" value="" class="scAddTextName sj" />
+                        </div>
+                        <a mini="select"  w="1000" h="600" href="<{:U('shop/select')}>" class="seleSj">选择商家</a>
+                    </td>
+                </tr>
+                <script>
+                    /*
+                     $(document).ready(function (e) {
+                     setInterval(function () {
+                     if ($('#shop_id').val() != '') {
+                     var shop_id = $('#shop_id').val();
+                     var url = '/index.php?c=admin&m=tuan&a=branch&shop_id='+shop_id;
+                     //var url = "<{:U('tuan/branch',array('shop_id'=>"+shop_id+"))}>";
+                     $.get(url, function (data) {
+                     alert(data);
+                     if (data.status == 0) {
+                     $("#branch_select").html(data.str);
+                     }
+                     }, 'html');
+                     }
+                     }, 1000);
+                     });
+                     */
+                </script>
+                <tr>
+                    <td  class="lfTdBt">分类：</td>
+                    <td class="rgTdBt"> 
+                        <select id="data[cate_id]" name="data[cate_id]" class="seleFl w200">
+                            <option value="0">请选择...</option>
+                            <foreach name="cates" item="var">
+                                <eq name="var.parent_id" value="0">
+                                <option value="<{$var.cate_id}>"  <eq name="var.cate_id" value="$cate_id">selected="selected"</eq> ><{$var.cate_name}>(<{$var.rate}>‰)</option>                
+                                <foreach name="cates" item="var2">
+                                    <eq name="var2.parent_id" value="$var.cate_id">
+                                    <option value="<{$var2.cate_id}>"  <eq name="var2.cate_id" value="$cate_id">selected="selected"</eq> > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<{$var2.cate_name}>(<{$var2.rate}>‰)</option>
+                                    </eq>
+                                </foreach>
+                                </eq>
+                            </foreach>
+                        </select>
+                    </td> 
+                </tr>
+                <tr>
+                    <td  class="lfTdBt">商品名称：</td>
+                    <td class="rgTdBt"><input type="text" name="data[title]" value="<{$detail.title|default=''}>" class="manageInput" />
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">关联车辆：</td>
+                    <td class="rgTdBt">
+                        <input type="hidden" id="car_ids" name="data[car_ids]" value=""/>
+                        <a mini="select" w="1000" h="600" href="<{:U('car/select')}>" onclick="addCar()"
+                           class="remberBtn" style="margin:0px;">选择车辆</a>
+                        <div style="padding-top: 10px" name="carDIV">
+                            <input type="hidden" id="car_id" name="car_id" value=""/>
+                            <input type="text" id="car_name" name="car_name" value="" class="scAddTextName w210 sj"/>
+                            <a name="delCar" w="400" h="600" class="seleSj">删除</a>
+                        </div>
+                        <script>
+                            var flag = 0;
+
+                            function addCar() {
+                                var tdobj = $("div[name='carDIV']").parent();
+                                var count = $("div[name='carDIV']").size();
+                                if (flag == 0) {
+                                    flag = count;
+                                }
+                                if (count <= 0) {
+                                    var str =
+                                        "<div style='padding-top: 10px' name='carDIV'>" +
+                                        "<input type='hidden' id='car_id' name='car_id' value=''/>" +
+                                        "<input class='scAddTextName w210 sj' readonly='readonly' type='text' name='car_name' id='car_name' value=''/> " +
+                                        "<a  name='delCar' w='400' h='600' class='seleSj'>删除</a>" +
+                                        "</div>";
+                                    $("a[mini='select']").parent().append(str);
+                                    flag = flag + 1;
+                                }
+                                //当前只有一个管理员 看是否添加了 如果已经添加了就修改id 新增一个文本框接受新添加的用户
+                                //所以说最后一个最新的一个文本框的id是nickname和user_id
+                                if ($("#car_id").val() != "" && $("#car_id").val() != null) {
+                                    //修改当前id 为nickname和user_id的id属性
+                                    $("#car_id").attr('id', 'car_id' + flag);
+                                    $("#car_name").attr('id', 'car_name' + flag);
+                                    // alert($("#user_id"+count).val());
+                                    // alert($("#nickname"+count).val());
+
+                                    var str =
+                                        "<div style='padding-top: 5px' name='carDIV'>" +
+                                        "<input type='hidden' id='car_id' name='car_id' value=''/>" +
+                                        "<input class='scAddTextName w210 sj' readonly='readonly' type='text' name='car_name' id='car_name'value=''/> " +
+                                        "<a  name='delCar' w='400' h='600' class='seleSj'>删除</a>" +
+                                        "</div>";
+                                    tdobj.append(str);
+                                    flag = flag + 1;
+                                }
+                            }
+
+                            $(document).on("click", "a[name='delCar']", function () {
+
+                                $(this).parent().remove();
+                                var user_id = "#car_id" + (flag - 1);
+                                var nickname = "#car_name" + (flag - 1);
+                                if ($("#car_id")) {
+                                    if ($(this).prev().attr('id') == "car_name" || $(this).prev().attr('id') == "car_id") {
+                                        $(user_id).attr('id', 'car_id');
+                                        $(nickname).attr('id', 'car_name');
+                                    }
+                                }
+                            });
+
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="lfTdBt">商品副标题：</td>
+                    <td class="rgTdBt"><input type="text" name="data[intro]" value="<{$detail.intro|default=''}>" class="manageInput" />
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">参加活动：</td>
+                    <td class="rgTdBt">
+                        <select id="activity_id" name="data[activity_id]" class="seleFl w300">
+                            <option value="0">请选择</option>
+                            <foreach name="hd" item="var">
+                                <option value="<{$var.activity_id}>"><{$var.title}></option>                
+                            </foreach>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">选择分店：</td>
+                    <td id="branch_select" class="rgTdBt">
+                <foreach name="branch" item="item">
+                    <label style="margin-right: 10px;"><span><{$item.name}>：</span><input style="width: 20px; height: 20px;" type="checkbox" name="branch_id[]" value="<{$item.branch_id}>" /></label>
+                </foreach>
+                </td>
+                </tr>
+                         <tr>
+                    <td class="lfTdBt">缩略图：</td>
+                 <td class="rgTdBt">
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <input type="hidden" name="data[photo]" value="<{$detail.photo}>" id="data_photo" />
+                        <div id="fileToUpload" >上传缩略图</div>
+                    </div>
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <img id="photo_img" width="80" height="80"  src="<{:config_img($detail['photo'])}>" />
+                        <a href="<{:U('setting/attachs')}>">缩略图设置</a>
+                        <{$CONFIG.attachs.tuan.thumb}>
+                    </div>
+                    <script>                                            
+						var width_tuan = '<{:thumbSize($CONFIG[attachs][tuan][thumb],0)}>';                         
+						var height_tuan = '<{:thumbSize($CONFIG[attachs][tuan][thumb],1)}>';                         
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"tuan"))}>',                             
+						pick: '#fileToUpload',                             
+						resize: true,  
+						compress : {width: width_tuan,height: height_tuan,quality: 80,allowMagnify: false,crop: true}                       
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_photo").val(resporse.url);                             
+						$("#photo_img").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+                </td>
+            </tr>
+                <tr>
+                  <td class="lfTdBt">更多详情图：</td>
+                        <td class="rgTdBt">
+                            <div>
+                                <div id="moreToUpload" >上传图片</div>
+                            </div>							
+							<script>                                
+									var width_tuan_pic = '<{:thumbSize($CONFIG[attachs][tuan][thumb],0)}>';  //获取宽度                              
+									var height_tuan_pic = '<{:thumbSize($CONFIG[attachs][tuan][thumb],1)}>'; //获取高度 
+                       
+									var uploader = WebUploader.create({                                    
+									auto: true,                                    
+									swf: '/static/default/webuploader/Uploader.swf',                                    
+									server: '<{:U("app/upload/uploadify",array("model"=>"goods"))}>',                                    
+									pick: '#moreToUpload',                                    
+									fileNumberLimit:10,                                    
+									resize: true, 
+									crop: false,  
+									compress : {width:width_tuan_pic,height:height_tuan_pic,quality: 80,allowMagnify: false,crop: true},														
+								});                                                               
+								uploader.on( 'uploadSuccess', function( file,resporse) {                                    
+								var str = '<span style="width: 240px; height: 135px; float: left; margin-left: 5px; margin-top: 10px;">  <img width="200" height="100" src="' + resporse.url + '">  <input type="hidden" name="thumb[]" value="' + resporse.url + '" />    <a href="javascript:void(0);">取消</a>  </span>';                                   
+								 $(".jq_uploads_img").append(str);                                
+									 });                                                            
+								 uploader.on( 'uploadError', function( file ) {                                    
+									alert('上传出错');                                
+								 });                                
+								 $(document).on("click", ".jq_uploads_img a", function () {                                    
+									 $(this).parent().remove();                                
+								 });                            
+                             </script>
+                            <div class="jq_uploads_img">
+                                <foreach  name="thumb" item="item">
+                                    <span style="width: 200px; height: 120px; float: left; margin-left: 5px; margin-top: 10px;"> 
+                                        <img width="100" height="100" src="<{:config_img($item)}>">  
+                                        <input type="hidden" name="thumb[]" value="<{$item}>" />  
+                                        <a href="javascript:void(0);">取消</a>  
+                                    </span>
+                                </foreach>
+                            </div>					
+                        </td>
+                    </tr>
+             <tr>
+             
+                <tr>
+                    <td  class="lfTdBt">属性：</td>
+                    <td class="rgTdBt">
+                        <label><span>是否热门：</span><input type="checkbox" name="data[is_hot]" value="1" /></label>
+                        <label><span style="margin-left: 20px;">是否精选：</span><input type="checkbox" name="data[is_chose]" value="1" /></label>
+                        <label><span style="margin-left: 20px;">是否新单：</span><input type="checkbox" name="data[is_new]" value="1" /></label>
+                        <label><span style="margin-left: 20px;">是否免预约：</span><input type="checkbox" name="data[freebook]" value="1" /></label>
+                        <label><span style="margin-left: 20px;">是否返现1%：</span><input type="checkbox" name="data[is_return_cash]" value="1" /></label><label><span style="margin-left: 20px;">是否仅能下一次单</span><input type="checkbox" name="data[xiadan]" value="1" /></label>
+                    </td>
+                </tr>
+ 				<tr>
+                    <td  class="lfTdBt">每天套餐份数：</td>
+                    <td class="rgTdBt"><input type="text" name="data[xiangou]" value="<{$detail.xiangou|default='0'}>" class="manageInput" />
+					<code>0表示不限购</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="lfTdBt">市场价格：</td>
+                    <td class="rgTdBt"><input type="text" name="data[price]" value="<{$detail.price|default=''}>" class="manageInput" />
+
+                    </td>
+                </tr><tr>
+                    <td  class="lfTdBt">套餐价格：</td>
+                    <td class="rgTdBt"><input type="text" name="data[tuan_price]" value="<{$detail.tuan_price|default=''}>" class="manageInput" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">手机下单优惠价格：</td>
+                    <td class="rgTdBt"><input type="text" name="data[mobile_fan]" value="<{$detail.mobile_fan|default=''}>" class="manageInput" />
+
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="lfTdBt">可使用积分：</td>
+                    <td class="rgTdBt"><input type="text" name="data[use_integral]" value="<{$detail.use_integral|default=''}>" class="manageInput" />
+                        <code>100积分抵用1块钱RMB</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="lfTdBt">结算价格：</td>
+                    <td class="rgTdBt"><input type="text" name="data[settlement_price]" value="<{$detail.settlement_price|default=''}>" class="manageInput" />
+                        <code>网站和商家结算的价格</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="lfTdBt">库存：</td>
+                    <td class="rgTdBt"><input type="text" name="data[num]" value="<{$detail.num|default=''}>" class="manageInput" />
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td  class="lfTdBt">售出数：</td>
+                    <td class="rgTdBt"><input type="text" name="data[sold_num]" value="<{$detail.sold_num|default=''}>" class="manageInput" />
+
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="lfTdBt">排序：</td>
+                    <td class="rgTdBt"><input type="text" name="data[orderby]" value="<{$detail.orderby|default=''}>" class="manageInput" />
+
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="lfTdBt">开始时间：</td>
+                    <td class="rgTdBt"><input type="text" name="data[bg_date]" value="<{$detail.bg_date|default=''}>" onfocus="WdatePicker();"  class="inputData" />
+
+                    </td>
+                </tr><tr>
+                    <td  class="lfTdBt">结束时间：</td>
+                    <td class="rgTdBt"><input type="text" name="data[end_date]" value="<{$detail.end_date|default=''}>" onfocus="WdatePicker();"  class="inputData" />
+
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="lfTdBt">虚拟物品过期时间：</td>
+                    <td class="rgTdBt"><input type="text" name="data[fail_date]" value="<{$detail.fail_date|default=''}>" onfocus="WdatePicker();"  class="inputData" />
+
+                    </td>
+                </tr>
+
+                 <tr>
+                    <td class="lfTdBt">购买须知：</td>
+                    <td class="rgTdBt">
+                        <script type="text/plain" id="instructions" name="instructions" style="width:800px;height:360px;"><{$tuan_details.instructions}></script>
+                    </td>
+                </tr><link rel="stylesheet" href="__PUBLIC__/qiniu_ueditor/themes/default/css/ueditor.min.css" type="text/css">
+                    <script type="text/javascript" charset="utf-8" src="__PUBLIC__/qiniu_ueditor/ueditor.config.js"></script>
+                    <script type="text/javascript" charset="utf-8" src="__PUBLIC__/qiniu_ueditor/ueditor.all.min.js"></script>
+                    <script type="text/javascript" src="__PUBLIC__/qiniu_ueditor/lang/zh-cn/zh-cn.js"></script>
+                <script>
+                  um2 = UE.getEditor('instructions', {
+                    lang: 'zh-cn',
+					toolbars:[['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'backcolor', 'fontsize', 'fontfamily', ]],  
+                  });
+                </script>
+                
+                
+                
+                
+                   <tr>
+                    <td class="lfTdBt">详细内容：</td>
+                    <td class="rgTdBt">
+                        <script type="text/plain" id="data_details" name="details" style="width:800px;height:360px;"><{$tuan_details.details}></script>
+                    </td>
+                </tr>
+                <script>
+                    um = UE.getEditor('data_details', {
+                        lang: 'zh-cn',
+						toolbars:[['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'backcolor', 'fontsize', 'fontfamily', 'justifyleft', 'justifyright', 'justifycenter', 'justifyjustify', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', 'link', 'unlink', 'map', 'template', 'background','inserttable','print','attachment',  'emotion',  'snapscreen','insertimage', 'music', 'insertvideo']],  
+                        });
+                </script>
+                
+                
+                <tr>
+                    <td class="lfTdBt">是否分成给上级分销商：</td>
+                    <td class="rgTdBt"><input type="checkbox" name="data[profit_enable]" value='1' <if condition="$detail['profit_enable'] eq 1"> checked="checked" </if> /></td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">购买付款后等级升为：</td>
+                    <td class="rgTdBt">
+                        <select name="data[profit_rank_id]" class="seleFl w200">
+                            <option value="0">不设置</option>
+                            <foreach name="ranks" item="item">
+                                <option <eq name="item.rank_id" value="$detail.profit_rank_id">selected="selected"</eq> value="<{$item.rank_id}>"><{$item.rank_name}></option>
+                            </foreach>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">一级会员分成比例：</td>
+                    <td class="rgTdBt"><input type="number" min="0" max="100" name="data[profit_rate1]" value='<{$detail.profit_rate1}>' class="manageInput " />元</td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">二级会员分成比例：</td>
+                    <td class="rgTdBt"><input type="number" min="0" max="100" name="data[profit_rate2]" value='<{$detail.profit_rate2}>' class="manageInput " />元</td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">三级会员分成比例：</td>
+                    <td class="rgTdBt"><input type="number" min="0" max="100" name="data[profit_rate3]" value='<{$detail.profit_rate3}>' class="manageInput " />元</td>
+                </tr>
+            
+
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认添加" class="smtQrIpt" /></div>
+    </div>
+</form>
+<script>
+    $(document).ready(function () {
+        $(".smtQrIpt").on("click", function () {
+            var objs = $("input[name='car_id']");
+            var ids = [];
+            $.each(objs, function (key, val) {
+                ids[key] = val['value'];
+            });
+            $("#car_ids").val(ids);
+        });s
+    });
+</script>
+<include  file='public:footer'/>       

@@ -1,0 +1,177 @@
+.shop-list .item{overflow:hidden;padding:10px 0;border-bottom:thin solid #EEE;display:block;position:relative;}
+.shop-list .item .pic{float:left;width:100px;height:80px;width:80px;}
+.shop-list .item .des{float:left;width:100%;padding-left:90px;position:absolute;left:0;}
+.shop-list .item .des h5{overflow:hidden;margin-bottom:5px;width:100%;}
+.shop-list .item .des .info span.ui-starbar{ margin-top:5px;}
+.shop-list .item .des .info span.shopyouhui{color:#F00;font-size:14px; padding: 0 3px;float: right;}
+.shop-list .item .des .distance{float:right;}
+.shop-list .item .des .addr{padding:5px 0;font-size:12px;color:#999;display: block;}
+
+
+/*幻灯+详情*/
+.focus{ width:100%;margin:0 auto; position:relative; overflow:hidden;   }
+.focus .hd{ width:100%; height:11px; position:absolute; z-index:1;top:5px; text-align:center;  }
+.focus .hd ul{ display:inline-block; height:10px; padding:3px 5px; background-color:rgba(171, 171, 171, 0.7);-webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px; font-size:0; vertical-align:top;}
+.focus .hd ul li{display:inline-block; width:5px; height:5px; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px; background:#8C8C8C; margin:0 5px; vertical-align:top; overflow:hidden;   }
+.focus .hd ul .on{ background:#06c1ae;  }
+.focus .bd{position:relative; z-index:0; }
+.focus .bd li img{width:100%;max-height:220px;background:url(images/loading.gif) center center no-repeat;  }
+.focus .bd li a{ -webkit-tap-highlight-color:rgba(0, 0, 0, 0); }
+.line li{list-style-type:none}
+.tuan-detail .title1{position:absolute;bottom:0;padding:5px;color:#FFF;background:rgba(0,0,0,0.5);width:100%;}
+.tuan-detail .title1 h1{font-size:14px;height:16px;line-height:16px;}
+.tuan-detail .title1 p{height:12px;line-height:12px;font-size:12px;overflow:hidden;margin:3px 0 0 0;}
+.tuan-detail .info {padding: 10px;}
+.tuan-detail .info span.mr10{ font-size:12px; color:#999; margin-top:5px}
+.tuan-detail .status {padding: 10px;color: #999;}
+.tuan-detail .title{position:absolute;bottom:0;color:#FFF;background:rgba(0,0,0,0.5);width:100%; padding:10px;}
+.tuan-detail .title h1{height:28px;}
+.tuan-detail .title h1 a {font-size:12px;text-align:center; color:#fff;}
+.tuan-detail .title p{height:20px;line-height:20px;font-size:12px;overflow:hidden;margin:5px 0 0 0;}
+
+.panel-list ul{padding:0;list-style:none}
+.panel-list li{overflow:hidden;border-bottom:thin solid #eee}
+.panel-list li i{float:right;color:#999}
+.panel-list li span{float:left;width:30px;text-align:center;color:#999;font-size:16px}
+.panel-list li a{display:block;padding:0 10px;height:50px;line-height:50px;width:100%}
+.panel-list li em{float:right}
+
+
+.coupon-list .shop{overflow:hidden;height:40px;line-height:40px;border-bottom:thin solid #eee;font-size:14px;padding:0 10px;background:#FAFAFA;font-weight:bold;}
+.coupon-list .shop span{float:right;font-weight:normal;}
+.coupon-list .item{border-bottom:thin solid #eee;display:block;overflow:hidden;padding:10px;position:relative;}
+.coupon-list .item  .pic{width:90%;height:100px;}
+.coupon-list .item h3{height:20px;line-height:20px;overflow:hidden;font-size:14px;}
+.coupon-list .item .intro{line-height:20px;height:40px;color:#999;margin:5px 0;overflow:hidden;font-size:12px;}
+.coupon-list .item .info{line-height:20px;height:20px;color:#999;padding:5px 0;border-top:thin dotted #eee;font-size:12px;}
+
+
+/*预定表单*/
+.ding-form .date{border:none;width:100%;}
+.ding-form .date[disabled]{background:#fff;color:#999;}
+.ding-form .select{border:none;width:100%;background:#fff;}
+
+/*包厢选择*/
+.hotel_time {padding: 0.6rem;border-bottom: 0.1rem solid #e6e6e6;border-top: 0.1rem solid #e6e6e6;background: #fff;overflow: hidden;}
+.left {float: left;}
+.maincl {color: #2fbdaa;}
+.time_select {width:5.5rem;border: none; color: #2fbdaa;}
+
+/*酒店想起介绍*/
+.hotel_serv{ background:#fff; border-bottom:0.1rem solid #e5e5e5; overflow:hidden;}
+.hotel_serv h2{ margin:0.6rem; font-size:16px; line-height:1.8rem; font-weight:normal;}
+.hotel_serv .list{ display:block; float:left; width:33.33%; color:#999; line-height:1.8rem; margin-bottom:0.6rem;}
+.hotel_serv .list .ico{ display:inline-block; width:1.2rem; height:1.2rem; background:url(../image/hotel/servIco/servIco1.png) center top no-repeat; background-size:100% auto; margin:0 0.3rem 0 0.6rem; vertical-align:middle;}
+.hotel_serv .list .ico_2{ background-image:url(../image/hotel/servIco/servIco2.png);}
+.hotel_serv .list .ico_3{ background-image:url(../image/hotel/servIco/servIco3.png);}
+.hotel_serv .list .ico_4{ background-image:url(../image/hotel/servIco/servIco4.png);}
+.hotel_serv .list .ico_5{ background-image:url(../image/hotel/servIco/servIco5.png);}
+.hotel_serv .list .ico_6{ background-image:url(../image/hotel/servIco/servIco6.png);}
+.hotel_serv .list .ico_7{ background-image:url(../image/hotel/servIco/servIco7.png);}
+.hotel_serv .list .ico_8{ background-image:url(../image/hotel/servIco/servIco8.png);}
+.hotel_serv .list .ico_9{ background-image:url(../image/hotel/servIco/servIco9.png);}
+.hotel_tel{ margin:0.6rem; border:0.1rem solid #2fbdaa; border-radius:0.3rem;background: #fafafa; font-size:16px; line-height:2.2rem; text-align:center; color:#2fbdaa;}
+.hotel_infor{background:#fff; overflow:hidden; padding:0.6rem;}
+.hotel_infor table tr th,.hotel_infor table tr td{ padding:0.3rem 0; vertical-align:top;}
+.hotel_infor table tr th{ font-weight:normal; width:4.5rem;}
+.hotel_infor table tr td{ color:#666;}
+.hotel_infor .bq{ display:inline-block; border:0.1rem solid #ccc; border-radius:0.3rem; background:#fff; padding:0 0.6rem; line-height:1.3rem; color:#666; margin-right:0.4rem;}
+.hotel_intro{background:#fff; overflow:hidden; padding:0.8rem;}
+.hotel_intro h2{ font-size:16px; line-height:0.8rem; font-weight:normal;}
+.hotel_intro p{ line-height:0.8rem; color:#666;}
+.border_b {border-bottom: 0.1rem solid #e5e5e5;}
+.border_t {border-top: 0.1rem solid #e5e5e5;}
+
+/*浮动底栏*/
+.shop-list .item{display:block;padding:10px;border-bottom:thin solid #EEE;position:relative}
+.shop-list .item img{width:90%;max-height:80px}
+.shop-list .item p{margin:0;color:#999;font-size:12px;line-height:16px;}
+.shop-list .item .des-star{margin-top:5px}
+.shop-list .item h5 span{float:right;margin-left:5px;width:60px;height:30px;text-align:center;line-height:30px;color:#fff;font-size:12px!important;cursor:pointer}
+.shop-list .item h5 span.fu{background:#eb6100}
+.shop-list .item h5 span.pei{background:#55830A}
+.shop-list .item h5 span.fan{background:#ff2121}
+.shop-list .item h5 span.jian{background:#00a0e9}
+/*酒店的团购列表*/
+.main-tuan ul{list-style:none;padding:0;}
+.main-tuan li{padding:10px 0;border-bottom:thin solid #eee;}
+.main-tuan li img{float:left;border-radius:3px;overflow:hidden;}
+.main-tuan li .des {padding-left:5px;}
+.main-tuan li .des h5{height:20px;line-height:20px;overflow:hidden;}
+.main-tuan li .des .intro{height:20px;line-height:20px;color:#999;overflow:hidden;margin:0;font-size:12px;}
+.main-tuan li .des .info {color:#F60;font-size:11px;margin:0;overflow:hidden; padding: 0px;}
+.main-tuan li .des .info del{color:#999;margin-left:20px;}
+.main-tuan li .des .info em{font-size:14px;}
+
+
+/*商品列表*/
+.item-list{list-style:none;padding:0 10px;}
+.item-list li{padding:10px 0;border-bottom:thin solid #eee;position:relative;}
+.item-list h5{font-size:12px;}
+.item-list img{width:90%;}
+.item-list p{margin:0;}
+.item-list .price{}
+.item-list .price span{color:#F60;}
+.item-list .price del{color:#999;font-size:12px;margin-left:10px;}
+.item-list .item-addcart{position:absolute;right:0;bottom:15px;}
+
+
+/*购物车*/
+.cart-list ul{list-style:none;padding:0;}
+.cart-list li{padding:10px;border-bottom:thin solid #eee;}
+.cart-list li img{width:90%;}
+.cart-list li .txt{display:block;float:left;}
+.cart-list li .jian{border-top-right-radius:0!important;border-bottom-right-radius:0!important;}
+.cart-list li .jia{border-top-left-radius:0!important;border-bottom-left-radius:0!important;}
+.cart-list li  .num{background:#fff;border:none;border-top:thin solid #eee;border-bottom:thin solid #eee;}
+.cart-list li  .del i{font-size:24px!important;}
+.cart-list li p{margin:0;}
+/*浮动底栏*/
+.cart-bar{bottom:0px;display:table;width:100%;height:50px;padding:0px;table-layout:fixed;position:fixed;z-index:10;right:0px;left:0px;background: #FAFAFA;box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.55);backface-visibility: hidden;}
+.cart-bar{overflow:hidden;padding:0 20px;}
+.cart-bar .cart{float:left;height:50px;line-height:50px;color:#999;}
+.cart-bar .num{float:left;height:50px;line-height:50px;font-size:18px;color:#E33;padding:0 5px;}
+.cart-bar i{float:left;color:#999;font-size:22px;margin-right:5px;}
+.cart-bar .result{float:right;margin-top:8px;}
+.cart-bar .jquery-last{color:#f00;font-size:12px;margin-left:20px;}
+/*支付确认*/
+.pay-form .row{padding:0 10px;overflow:hidden}
+.pay-form .row p{margin:0}
+.pay-form .text-input{width:100%;border:none;}
+.pay-form .text-area{width:100%;height:80px;resize:none;}
+
+
+/*酒店下单*/
+.right {float: right;}
+.black9 {color: #999999 !important;font-size: 12px;line-height: 18px;}
+p, .p { margin-bottom: 0px;line-height: none;}
+button, input, select, textarea {outline: 0 none;vertical-align: baseline;-webkit-tap-highlight-color: rgba(0,0,0,0);}
+.hotelOrd .ts{ padding:0.5rem; background:#f8f0d8; overflow:hidden; font-size:12px;margin-bottom: 0px;}
+.hotelOrd .ts .btn{ display:inline-block; padding:0 0.4rem; border-radius:0.3rem; background:#2fbdaa; color:#fff; line-height:1.2rem;}
+.hotelOrd .infor{ padding:0.6rem; background:#dfeeec; line-height:1.2rem;}
+.hotelOrd .infor h3{ font-weight:normal; font-size:16px;}
+.hotelOrd .infor h3 .bq{display:inline-block; width:30px; height:1.4rem; border-radius:0.3rem; background:#ff6600; color:#fff; line-height:1.6rem; text-align:center; font-size:12px; margin-left:0.5rem;}
+.hotelOrd .box{ background:#fff; padding:0.8rem; border-bottom:0.1rem solid #e5e5e5; overflow:hidden;}
+.jiajianBox{ overflow:hidden;}
+.jiajianBox input{ float:left; display:inline-block; vertical-align:top; padding:0; margin:0;}
+.jiajianBox input[type='button']{ width:1.6rem; height:1.6rem; border:0.1rem solid #2fbdaa; color:#2fbdaa; font-size:16px; background:#fff; appearance:none; -webkit-appearance:none;}
+.jiajianBox input[type='text']{ width:1.6rem; height:1.6rem; border:0.1rem solid #dedede; background:#fff; margin:0 0.4rem; text-align:center; appearance:none; -webkit-appearance:none;}
+.hotelOrd .ts2{ padding:0.6rem; background:#eee; border-radius:0.5rem; color:#999;}
+.hotelOrd .int_box table tr th{ width:3.6rem; font-weight:normal; text-align:left;}
+.hotelOrd .int_box input{ width:100%; border:none; background:none;}
+.linkIco{content:'';display:inline-block;vertical-align:middle;width:0.6rem;height:0.6rem;border-bottom:0.1rem solid #c9c9c9;border-right:0.1rem solid #c9c9c9;transform:rotate(-45deg);-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);-webkit-transform:rotate(-45d eg);-o-transform:rotate(-45deg)}
+.hotel_payWay{ overflow:hidden;}
+.hotel_payWay .list{ display:block; float:left; width:50%;}
+.hotel_payWay .list .box{height:2.5rem; line-height:2.5rem; margin:0.8rem 0.6rem; border:0.1rem solid #e6e6e6; background:#fff; padding:0 0.8rem; border-radius:0.3rem;}
+footer {height: 2.5rem; border-top: 1px #CCC solid;position: fixed;bottom: 0;z-index: 999;background: #EEE; width: 100%;}
+.hotelOrd_footer{ overflow:hidden; background:#fff; width:100%; height:2.5rem; line-height:2.5rem;}
+.hotelOrd_footer .left{ margin-left:0.8rem;margin-top: 0.4rem;}
+.hotelOrd_footer .btn{ display:inline-block; width:6rem; height:2.5rem; background:#ff3c00; font-size:16px; line-height:2.5rem; color:#fff; text-align:center; border:none; padding:0;}
+.checkbox_int {display: inline-block;width:2.6rem;height:1.2rem;background: url(../image/hotel/check.png) no-repeat center -1.3rem;vertical-align: middle;}
+.mr25 {margin-right: 10px !important;}
+.radioBox_int.on {background-position: center 0;}
+.checkbox_int input { width: 100%;height: 100%;opacity: 0;filter: alpha(opacity=0);}
+/*单选框样式*/
+.radioBox_int{ display:inline-block; width:1.4rem; height:1.4rem; background:url(../image/hotel/radio_gray.png) no-repeat; vertical-align:middle;}
+.radioBox_int.on{ background:url(../image/hotel/radio.png) no-repeat;}
+.radioBox_int input{ width:100%; height:100%; opacity:0;filter:alpha(opacity=0);}

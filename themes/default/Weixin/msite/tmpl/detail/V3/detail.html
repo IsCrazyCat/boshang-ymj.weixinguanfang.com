@@ -1,0 +1,14 @@
+<{include file="weixin/block/mheader.html"}>
+<link href="%THEME%/weixin/msite/tmpl/detail/V3/detail.css" rel="stylesheet" type="text/css">
+<body id="weisite">
+<div class="container">
+	<div class="detail">
+    	<h6 class="title"><{$detail.title}><p class="info"><{$detail.dateline|format:"Y-m-d"}></p></h6>        
+        <section class="content">
+            <{$detail.content}>
+        </section>
+    </div>
+</div>
+<p class="hide bdtongji"><{$MSITE.tongji}></p>
+</body>
+</html>

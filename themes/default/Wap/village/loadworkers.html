@@ -1,0 +1,5 @@
+<foreach name="list" item="item">
+	<li class="padding border-bottom" style="text-align: center"><img src="<{:config_img($item['photo'])}>" /><br/>
+		姓名:<{:bao_Msubstr($item['name'],0,14,false)}> | 职务：<{$item.job}>
+	</li>
+</foreach>

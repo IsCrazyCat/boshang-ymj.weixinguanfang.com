@@ -1,0 +1,86 @@
+<include  file='public:header'/> 
+<include  file='public:top'/> 
+<include  file='public:nav2'/>
+<div class="pagewd mt10">
+	<!--分类-->
+	<div class="goods_flBox">
+        <ul>
+            <li class="goods_flList">
+                <div class="left goods_flList_l">地区：</div>
+                <div class="left goods_flList_r">
+                    <a  class="<if condition='empty($area_id)'>on</if> goods_flListA"  title="全部地区" href="<{:LinkTo('booking/lists',$linkArr,array('area_id'=>0,'business_id'=>0))}>">全部</a>  
+                    <foreach name="areas" item="item">
+                        <eq name="item.city_id" value="$city_id">
+
+                        <a title="<{$item.area_name}>"  href="<{:LinkTo('booking/lists',$linkArr,array('area_id'=>$item['area_id']))}>"  <eq name="item.area_id" value="$area_id">class="goods_flListA on"<else/>class="goods_flListA"</eq> ><{$item.area_name}></a> 
+                        </eq>
+                    </foreach>
+                </div>
+            <if condition="!empty($area_id)">
+                <div class="left goods_flList_r stycate">
+                    <foreach name="bizs" item="item">
+                        <eq name="item.area_id" value="$area_id">
+                        <a title="<{$item.business_name}>"  class="<eq name='item.business_id' value='$business_id'> on</eq> goods_flListA"  href="<{:LinkTo('booking/lists',$linkArr,array('area_id'=>$area_id,'business_id'=>$item['business_id']))}>"  ><{$item.business_name}></a>
+                        </eq>
+                    </foreach>
+                </div>    
+            </if>
+            </li>
+            <li class="goods_flList">
+                <div class="left goods_flList_l">分类：</div>
+                <div class="left goods_flList_r"> 
+                    <a <if condition="empty($type_id)">class="goods_flListA on"<else/>class="goods_flListA"</if> href="<{:LinkTo('booking/lists',$linkArr,array('type_id'=>0))}>">全部</a>
+                    <volist name='dingtypes' id='item'> 
+                        <a href="<{:LinkTo('booking/lists',$linkArr,array('type_id'=>$i))}>" <if condition="$type_id eq $i">class="goods_flListA on"<else/>class="goods_flListA"</if> ><{$item}></a> 
+                    </volist>
+                </div>
+            </li>
+            <li class="goods_flList">
+                <div class="left goods_flList_l">价格：</div>
+                <div class="left goods_flList_r"> <a <if condition="empty($price)">class="goods_flListA on"<else/>class="goods_flListA"</if> href="<{:LinkTo('booking/lists',$linkArr,array('price'=>0))}>">全部</a>
+                    <volist name='price_list' id='item'> 
+                        <a  href="<{:LinkTo('booking/lists',$linkArr,array('price'=>$i))}>" <if condition="$price eq $i">class="goods_flListA on"<else/>class="goods_flListA"</if> ><{$item}></a> 
+                    </volist>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!--分类end-->
+    <!--排序-->
+    <div class="nearbuy_sxk">
+        <ul>
+            <li class="nearbuy_sxkLi <eq name='order' value='d'>on</eq>"><a class="nearbuy_sxkLiA" href="<{:LinkTo('booking/lists',$linkArr,array('order'=>'d'))}>">默认</a></li>
+            <li class="nearbuy_sxkLi <eq name='order' value='s'>on</eq>"><a class="nearbuy_sxkLiA" href="<{:LinkTo('booking/lists',$linkArr,array('order'=>'s'))}>">销量<em class="em_up"></em></a></li>
+            <li class="nearbuy_sxkLi <eq name='order' value='p'>on</eq>"><a class="nearbuy_sxkLiA" href="<{:LinkTo('booking/lists',$linkArr,array('order'=>'p'))}>">价格<em></em></a></li>
+            <li class="nearbuy_sxkLi <eq name='order' value='k'>on</eq> "><a class="nearbuy_sxkLiA" href="<{:LinkTo('booking/lists',$linkArr,array('order'=>'k'))}>">口味<em class="em_up"></em></a></li>
+            <li class="nearbuy_sxkLi <eq name='order' value='h'>on</eq> "><a class="nearbuy_sxkLiA" href="<{:LinkTo('booking/lists',$linkArr,array('order'=>'h'))}>">环境<em class="em_up"></em></a></li>
+            <li class="nearbuy_sxkLi <eq name='order' value='f'>on</eq> "><a class="nearbuy_sxkLiA" href="<{:LinkTo('booking/lists',$linkArr,array('order'=>'f'))}>">服务<em class="em_up"></em></a></li>
+        </ul>
+    </div>
+    <!--排序end-->
+    <!--列表-->
+    <div class="seat_goodsList_box">
+        <ul class="">
+            <volist name='list' id='item'>
+                <li class="seat_goodsList">
+                    <div class="pub_img"><a target="_blank" href="<{:U('booking/detail',array('shop_id'=>$item['shop_id']))}>">
+                    <img src="<{:config_img($item['photo'])}>" />
+                        <p><{:bao_msubstr($item[addr],0,15)}></p></a>
+                    </div>
+                    <div class="pub_wz">
+                        <h3 class="overflow_clear"><a target="_blank" href="<{:U('booking/detail',array('shop_id'=>$item['shop_id']))}>"><{$item.shop_name}></a></h3>
+                        <p class="mt10 mb10">口味：<span class="fontcl1 mr10"><{$item.kw_score}></span>环境：<span class="fontcl1 mr10"><{$item.hj_score}></span>服务：<span class="fontcl1 mr10"><{$item.fw_score}></span></p>
+                        <div class="btn_box">
+                            <div class="left">人均：<span class="fontcl1">￥<{$item.price}></span></div>
+                            <a target="_blank" href="<{:U('booking/detail',array('shop_id'=>$item['shop_id']))}>" class="btn right">立即预订</a>
+                        </div>
+                    </div>
+                </li>
+            </volist>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <!--列表end-->
+    <div class="x"> <{$page}> </div>
+</div>
+<include file="public:footer"/>

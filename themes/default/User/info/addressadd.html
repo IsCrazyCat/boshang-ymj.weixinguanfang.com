@@ -1,0 +1,105 @@
+<include  file='public:header'/>    
+<body>
+    <header>
+        <div class="header_color">
+            <a class="back" href="<{:u('members/index')}>"><img  src="__TMPL__statics/img/back_icon.png"></a>
+            新增收货地址
+        </div>
+    </header>
+    <div>
+        <form  action="<{:u('members/addressadd',array('goods_id'=>$goods_id))}>" method="post">
+            <ul class="list_tj">
+                <!-- <li>地区：<select name="data[area_id]"  class="select jq_area_id">
+                         <option value="0">请选择...</option>
+                         <foreach name="areas" item="var">
+                             <option value="<{$var.area_id}>"><{$var.area_name}></option>
+                         </foreach>   
+                     </select>
+                     <script>
+                         $(document).ready(function (e) {
+                             $(".jq_area_id").change(function () {
+                                 var url = '<{:U("member/child",array("area_id"=>"0000"))}>';
+                                 if ($(this).val() > 0) {
+                                     var url2 = url.replace('0000', $(this).val());
+                                     $.get(url2, function (data) {
+                                         $(".jq_business_id").html(data);
+                                     }, 'html');
+                                 }
+ 
+                             });
+                         });
+                     </script></li> -->
+                <!-- <li>商圈：
+                      <select name="data[business_id]" class="select jq_business_id">
+                          <option value="0">请选择...</option>
+                          <foreach name="business" item="var">
+                              <option value="<{$var.business_id}>"><{$var.business_name}></option>
+                          </foreach>   
+                      </select>
+                  </li>-->
+                <li>地区：<div class="select">
+                        <span  class="selectOption">请选择...</span>
+                        <input type="hidden" id="area_id" name="data[area_id]" value=""/>
+                        <div class="option" id="option">
+                            <ul>
+                                <foreach name="areas" item="var">
+                                    <li rel="<{$var.area_id}>" class="optionLi"><{$var.area_name}></li>
+                                </foreach>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li>商圈：<div  class="select">
+                        <span  class="selectOption">请选择...</span>
+                        <input type="hidden" id="business_id" name="data[business_id]" value=""/>
+                        <div class="option" id="options">
+                            <ul>
+                                <foreach name="business" item="var">
+                                    <li style="display: none;" rel="<{$var.business_id}>" data="<{$var.area_id}>" class="optionLi"><{$var.business_name}></li>
+                                </foreach>   
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <script>
+                    $(document).ready(function () {
+                        $(".selectOption").click(function () {
+                            $(this).parent().find(".option").toggle();
+                        });
+
+                        $("#option li").click(function () {
+                            $(this).parents(".select").find(".selectOption").html($(this).html());
+                            $("#area_id").val($(this).attr('rel'));
+                            var area_id = $(this).attr('rel');
+                            $("#options li").each(function () {
+                                if ($(this).attr('data') == area_id) {
+                                    $(this).show();
+                                }else{
+                                    $(this).hide();
+                                }
+                            });
+                            $(this).parents("#option").hide();
+                        });
+                        
+                        $("#options li").click(function () {
+                            $(this).parents(".select").find(".selectOption").html($(this).html());
+                            $("#business_id").val($(this).attr('rel'));
+                             $(this).parents("#options").hide();
+                            });
+                        
+                    });
+                </script>
+
+                <li>收货人：<input type="text" name="data[name]" value="<{$detail.name|default=''}>" class="cjinput" /></li>
+                <li>手机号码：<input type="text" name="data[mobile]" value="<{$detail.mobile|default=''}>" class="cjinput" /></li>
+                <li>具体地址：<input type="text" name="data[addr]" value="<{$detail.addr|default=''}>" class="cjinput" /></li>
+                <input type="hidden" value="<{$backurl}>" name="backurl" id="backurl" />
+            </ul>
+
+            <div class="span85 radius">
+                <input name="" type="submit" class="aniu" value="确认添加"/>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

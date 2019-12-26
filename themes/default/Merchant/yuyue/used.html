@@ -1,0 +1,60 @@
+<include file='public:header'/>
+ <script src="__PUBLIC__/js/layer/layer.js?v=20150815"></script>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="javascript:void(0);">其他</a> > <a href="<{:U('yuyue/used')}>">消费确认</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">输入用户手机短信的电子预约码即可完成消费！</div>
+        </div>
+    </div> 
+    <div class="tuanfabu_tab">
+        <ul>
+            <li class="tuanfabu_tabli"><a href="<{:U('yuyue/index')}>">预约列表</a></li>
+            <li class="tuanfabu_tabli on"><a href="<{:U('yuyue/used')}>">消费确认</a></li>
+        </ul>
+    </div> 
+    <form method="post"  action="<{:U('yuyue/used')}>"  target="baocms_frm">
+        <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td>
+                    <div class="tuaned_td">
+                        <a class="radius3 tuan_topbt" href="javascript:void(0);" id="add">新增一行</a>
+                        <div id="jq_code">
+                            <div class="tuaned_int">
+                                <input name="code[1]" type="text" class="radius3 tuan_topser" />
+                                <code id="code_1"></code>
+                                <a class="radius3 tuan_zcan jq_del" href="javascript:void(0);">移除</a>
+                            </div>
+                        </div>
+                        <input class="radius3 sjgl_an tuan_topbt" type="submit" value="确认修改" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <script>
+        var code_num = 1;
+        $(document).ready(function (e) {
+            $(document).on('click', '.jq_del', function () {
+                $(this).parent().remove();
+            });
+            $("#add").click(function () {
+                code_num++;
+                var str = '<div class="tuaned_int">';
+                str += '<input name="code[' + code_num + ']" type="text" class="radius3 tuan_topser" />';
+                str += '<code id="code_' + code_num + '"></code>';
+                str += '<a class="radius3 tuan_zcan jq_del" href="javascript:void(0);">移除</a></div>';
+                $("#jq_code").append(str);
+            });
+            $('#submit').click(function () {
+                $('form').submit()
+            });
+        });
+    </script>
+    <include  file='public:footer'/>
+
+

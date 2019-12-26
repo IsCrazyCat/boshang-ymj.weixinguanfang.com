@@ -1,0 +1,60 @@
+<div class="cl"></div>
+<h3 class="mainTit"><span><a href="<?php echo $channel_link;?>" title="<?php echo $channel_name;?>" target="_blank">更多</a></span><?php echo $channel_name;?></h3>
+<div class="hqbox jq_opacity_img">
+    <div class="sycard">
+        <h3>实用手册</h3>
+        <ul>
+            <?php foreach($help as $k=>$v) {?>
+            <li><a href="<?php echo $helplink[$k];?>" title="<?php echo $v;?>" target="_blank"><?php echo $v;?></a></li>
+            <?php }?>
+        </ul>
+        <h4>网友热搜：</h4>
+        <div class="cardtxt">  
+            <?php $i=0; foreach($keyword as $k=>$v) { $i++;?>
+            <span class="<?php if($i<2){?>colorred<?php }elseif($i<5){?>colorh<?php }else{ ?> colory<?php }?>"><a href="<?php echo $keywordlink[$k];?>" title="<?php echo $v;?>" target="_blank"><?php echo $v;?></a></span>
+            <?php }?>
+        </div>
+    </div>
+    <div class="hqMid">
+        <div id="jq_ads_<?php echo $setting_id;?>" class="hqbigPic">
+
+            <ul id="jq_ad_ul_<?php echo $setting_id;?>" style="width: 1000px;">
+                <?php foreach($ads as $val){?>
+                <li>
+                    <a title="<?php echo $val['title']; ?>" href="<?php echo $val['link_url'];?>" target="_blank"><img width="230"  height="335" src="<?php echo __ROOT__; ?>/attachs/<?php echo $val['photo'];?>" /></a>
+                </li>
+                <?php } ?>
+            </ul>
+
+        </div>
+        <script>
+            $(document).ready(function(){
+                $("#jq_ads_<?php echo $setting_id;?>").imageScroller({
+                    frame:"jq_ad_ul_<?php echo $setting_id;?>",
+                    width:230,
+                    child: "li",
+                    auto: true,
+                    scrolltime:3000
+                });
+            });
+        </script>
+        <ul class="hqMidPic ">
+            <?php foreach($blocks as $val) {?>
+            <li>
+                <a title="<?php echo $val['title']; ?>" href="<?php echo $val['link_url'];?>" target="_blank"><img width="161" height="161" src="<?php echo __ROOT__; ?>/attachs/<?php echo $val['photo'];?>" /></a>
+                <p><a title="<?php echo $val['title']; ?>" href="<?php echo $val['link_url'];?>" target="_blank"><?php echo $val['title'];?></a></p>
+            </li>
+            <?php }?>
+        </ul>
+    </div>
+    <div class="shangp">
+        <h3>最新入驻商家</h3>
+        <ul>
+            <?php $i=0; foreach($shops as $val) { $i++; ?>
+            <li><em <?php if($i >3) echo 'class="e2"'; ?>><?php echo $i;?></em><a href="<?php echo U('shop/detail',array('shop_id'=>$val['shop_id']));?>" title="<?php echo $val['shop_name'];?>"  target="_blank"><?php echo $val['shop_name'];?></a></li>
+           <?php }?>
+           
+        
+        </ul>
+    </div>
+</div>

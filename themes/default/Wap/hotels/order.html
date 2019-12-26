@@ -1,0 +1,239 @@
+<include file="public:header"/>
+<script src="__TMPL__statics/js/jscookie.js"></script>
+ 	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('hotels/detail',array('hotel_id'=>$hotel['hotel_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			订单提交
+		</div>
+		<div class="top-signed">
+		</div>
+	</header> 
+<style>
+body{ font-family: "MICROSOFT YAHEI";}
+</style>   
+    
+<div class="page-center-box">
+    <div class="hotelOrd">
+        <p class="fontcl2 ts">订单30分钟内未支付自动取消</p>
+        <div class="infor">
+        	<h3><{$hotel.hotel_name}><span class="bq">团</span></h3>
+                <p class="black9">入住：<span id="ft"><{$into_time}></span><span class="ml25">离店：<span id="tt"><{$out_time}></span><span class="ml25">共：<span id="night_num"></span>晚</span></p>
+                <p class="black9">酒店房型：<{$roomtype[$detail['type']]}><if condition="$detail.is_zc">-有早餐</if></p>
+        </div>
+        <div class="box">
+        	<p class="left">单价</p>
+           	<p class="right">￥<{$detail.price}>/晚</p>
+        </div>
+        <div class="box">
+        	<p class="left">房间数</p>
+           	<div class="right jiajianBox">
+            	<input type="button" value="-" class="jian">
+                <input type="text" id="jq_num" value="1">
+                <input type="button" value="+" class="jia">
+            </div>
+        </div>
+        <div class="box">
+        	<p class="ts2">请真实填写入住房间数及人数，否则入住时会收取额外费用</p>
+        </div>
+        <div class="box">
+        	<p class="left">到店时间</p>
+                <div class="right black9" style="width:3.5rem; overflow: hidden; position: relative;">
+                        <select id="last_time" style="width:5rem; border: none; font-size:14px;">
+                            <for start="0" end="24">
+                                <option <if condition="$i eq 14">selected="selected"</if> value="<{$i}>:00"><{$i}>:00</option>
+                            <option value="<{$i}>:30"><{$i}>:30</option>
+                        </for>
+                        </select>
+                    <em class="linkIco" style="position: absolute; right: 0.302rem; top: 0.5rem;"></em>
+                    </div>
+                 
+        </div>
+        <div class="box">
+            <div class="int_box">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <th>入住人</th>
+                        <td><input type="text" id="realname" placeholder="请输入真实姓名"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="box">
+            <div class="int_box">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <th>手机号</th>
+                        <td><input type="text" id="mobile" placeholder="请输入手机号码"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="box">
+            <div class="int_box">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <th>住宿偏好</th>
+                        <td><input type="text" id="note" placeholder="请输入住宿要求"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <!--<div class="box mb10">
+        	<p class="left">收据</p>
+           	<p class="right">不需要收据<span class="checkbox_int ml25"><input type="checkbox"></span></p>
+            <div class="clear"></div>
+            <script>
+		$(document).ready(function() {
+                    $(".checkbox_int").click(function(){
+                        if($(this).hasClass("on")){
+                            $(this).removeClass("on");
+                            $(this).parents(".box").find(".ts_box").hide();
+                        }else{
+                            $(this).addClass("on");
+                            $(this).parents(".box").find(".ts_box").show();
+                        }
+                    });
+                });
+            </script>
+            <p class="black9 ts_box" style="display:none;">代理商无法开具纸质发票，只提供电子收据，预订成功后通过电子邮件发送。</p>
+        </div>-->
+        <p class="box mb10">不可退：<span class="black9">订单确认后不可取消或变更。如未入住，扣除全部费用。</span></p>
+        <p class="box mb10">预订说明：<span class="black9">办理入住时间：14:00    办理退房时间：12:00</span></p>
+        <div class="hotel_payWay mb10">
+            <ul>
+                <label><li class="list"><div class="box"><span class="radioBox_int mr25 on" rel="online_pay"><input type="radio" name="online_pay" value="1" checked="checked"></span>在线支付</div></li></label>
+                <label><li class="list"><div class="box"><span class="radioBox_int mr25" rel="dao_pay"><input type="radio" name="online_pay" value="0"></span>到店付</div></li></label>
+            </ul>
+            
+            
+            <script>
+                $(document).ready(function() {
+                    $(".radioBox_int").click(function(){
+                         $(".hotelOrd_footer").hide();
+                        $("#"+$(this).attr('rel')).show();
+                        if($(this).hasClass("on")){
+                            $(".radioBox_int").removeClass("on");
+                            $(this).addClass("on");
+                        }
+                        else{
+                            $(".radioBox_int").removeClass("on");
+                            $(this).addClass("on");
+                        }
+                    });
+                });
+            </script>
+        </div>
+    </div>
+</div>
+<footer>
+	<div class="hotelOrd_footer" id="online_pay">
+            <p class="fontcl2 left mt10">在线支付:￥<span id="jqtotal"></span></p>
+            <input type="button" value="提交订单" class="btn right">
+        </div>
+        <div class="hotelOrd_footer" id="dao_pay" style="display: none;">
+            <input type="button" value="确认订单" class="btn right">
+        </div>
+</footer>
+<script>
+        $(document).ready(function(){
+            var price = "<{$detail.price}>";
+            function changetotal(num,night_num) {
+                $("#jqtotal").html(Math.round(price * num * night_num*100)/100);
+            }
+
+
+            var stime = $("#ft").html();
+            var ltime = $("#tt").html();
+            var night_num = get_night(stime,ltime) ||0;
+            var num = $("#jq_num").val();
+            var total = Math.round(price * num * night_num*100)/100 ||0;
+            $("#night_num").html(night_num);
+            $("#jqtotal").html(total);
+
+
+            // + - 房间数量
+            $(".jia").click(function () {
+                var night_num = $("#night_num").html();
+                var num = $("#jq_num").val();
+                num++;
+                $("#jq_num").val(num);
+                changetotal(num,night_num);
+            });
+            $(".jian").click(function () {
+                var night_num = $("#night_num").html();
+                var num = $("#jq_num").val();
+                if (num > 1) {
+                    num--;
+                }else{
+                    layer.msg('不能再少了');
+                }
+                $("#jq_num").val(num);
+                changetotal(num,night_num);
+            });
+            $("#jq_num").keyup(function () {
+                var night_num = $("#night_num").html();
+                var num = parseInt($("#jq_num").val())||1;
+                if (num <= 0) {
+                    $("#jq_num").val(1);
+                    changetotal(num,night_num);
+                } else {
+                    $("#jq_num").val(num);
+                    changetotal(num,night_num);
+                }
+            });
+            
+            $(".btn").click(function(){
+                var is_app = "<{$is_app}>";
+                var online_pay = $('input[name="online_pay"]:checked').val();
+                var stime = $("#ft").html();
+                var ltime = $("#tt").html();
+                var num = $("#jq_num").val();
+                var last_time = $('#last_time option:selected') .val();
+                var realname = $("#realname").val();
+                var mobile = $("#mobile").val();
+                var note = $("#note").val();
+                var room_id = "<{$detail.room_id}>";
+                var url = "<{:U('hotels/orderCreate')}>";
+                if(stime >= ltime){
+                    layer.msg('选择时间不正确');
+                    return false;
+                }else{
+                    $.post(url,{online_pay:online_pay,stime:stime,ltime:ltime,num:num,last_time:last_time,realname:realname,mobile:mobile,note:note,room_id:room_id},function(data){
+                        if(data.status == 'login'){
+                            setTimeout(function () {
+                            if (!is_app) {
+                                window.location.href = "<{:U('wap/passport/login')}>";
+                            } else {
+                                <?php if ($is_android){?>
+                                window.jsObj.goLogin();
+                                <?php }else{?>
+                                 goload();
+                                <?php }?>
+                            }
+                        }, 1000)
+                        }else if(data.status == 'success'){
+                            layer.msg(data.msg);
+                            var link = "<{:U('hotels/pay',array('order_id'=>oooo))}>";
+                            var link2 = "<{:U('user/hotels/detail',array('order_id'=>oooo))}>";
+                            setTimeout(function () {
+                                if(data.online_pay == 1){
+                                    window.location.href = link.replace('oooo', data.order_id);
+                                }else{
+                                    window.location.href = link2.replace('oooo', data.order_id);
+                                }
+                            }, 1000);
+
+                        }else{
+                            layer.msg(data.msg);
+                        }
+                    },'json')
+                }
+            })
+
+        })
+    </script> 
+ 
+</body>
+</html>

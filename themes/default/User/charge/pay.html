@@ -1,0 +1,146 @@
+
+<include file="public:header"/>
+<link rel="stylesheet" href="/static/default/wap/css/passport.css">
+<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:u('user/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			缴费站
+		</div>
+	</header>
+	
+    
+    <script>
+	    	function checkMobile(str) {
+				var re = /^1\d{10}$/;
+				if (re.test(str)) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+	    	function MoneyCheck(money) {
+	            var isNum = /^\d+(\.\d{0,2})?$/;
+	           // var money = document.getElementById("Money").value;
+	            if(!isNum.test(money)){
+	                //alert("请输入正确的金钱");
+	                return false;
+	            }else{
+		            return true;
+	                //alert("输入正确");
+	            }
+	        }
+    	
+    		$(function(){
+				/*$('#phone').focus(function(){
+
+						if(this.value=='请输入手机号'){
+							this.value = '';	
+						}
+						
+					}).blur(function(){
+						if(this.value==''){
+							this.value = '请输入手机号';	
+						}else{
+							if(!checkMobile(this.value)){
+								alert('请输入正确的手机格式！');
+								this.value='请输入手机号';
+							}
+						}
+						
+						});
+
+				$('#fare').focus(function(){
+
+					if(this.value=='请输入金额'){
+						this.value = '';	
+					}
+					//val=this.value;
+					//this.value='';
+				}).blur(function(){
+
+					if(this.value==''){
+						this.value = '请输入金额';	
+					}else{
+						if(!MoneyCheck(this.value)){
+							alert('请输入正确的金额格式！');
+							this.value='请输入金额';
+						}
+					}
+					//this.value = val;
+					});*/
+
+//					$("form").submit( function () {
+//						if(confirm("确定要缴费吗？")){
+//							return true;
+//						}else{
+//							return false;
+//						}
+//					});
+					$('#divButtons input').click(function() {
+						$('#sum').val(this.value);
+					});
+        		});
+    	</script>
+        
+	<div class="line">
+		<div class="blank-20"></div>
+		<form class="login-form" action="<{:u('user/charge/pay', array('id' => $billType['bill_type_id']))}>" method="post" target="x-frame">
+			<input type="hidden" name="backurl" value="<{$backurl}>">
+			<div class="form-group">
+				<div class="field field-icon" style="text-align: center;">
+					<input type="button" class="input" value="<{$billType['bill_type_name']}>缴费" style="width: 200px;display: initial;padding:0px;font-weight: bold; background: #ccc;" />
+				</div>
+			</div>
+			<volist name="fields" id="v">
+			<div class="form-group">
+				<div class="field field-icon">
+					<span class="icon icon-phone"></span>
+					<input id="<{$v}>" name="<{$v}>" type="text" class="input" placeholder="请输入<{$fieldNames[$v]}>" />
+				</div>
+			</div>
+			<div class="blank-20"></div>
+			</volist>
+			<div class="form-group">
+				<div class="field field-icon">
+					<span class="icon icon-phone"></span>
+					<input id="sum" name="sum" type="number" min="1" class="input" placeholder="请输入缴费金额" />
+				</div>
+				<div class="field field-icon" style="text-align: center;" id="divButtons">
+					<input type="button" class="input" value="50" style="width: 100px;display: initial;padding:0px;" />
+					<input type="button" class="input" value="100" style="width: 100px;display: initial;padding:0px;" />
+					<input type="button" class="input" value="200" style="width: 100px;display: initial;padding:0px;" />
+					<input type="button" class="input" value="500" style="width: 100px;display: initial;padding:0px;" />
+				</div>
+			</div>
+			<div class="blank-20"></div>
+			<div class="container">
+				<div class="form-button"><button class="button button-block button-big bg-dot tijiao" type="submit">确认缴费</button></div>
+			</div>
+		</form>
+
+		<div class="blank-40"></div>
+	
+     	
+	</div>
+
+
+<include file="public:footer"/>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

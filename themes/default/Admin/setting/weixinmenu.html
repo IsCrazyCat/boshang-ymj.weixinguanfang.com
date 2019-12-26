@@ -1,0 +1,75 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">微信</li>
+        <li class="li2">微信管理</li>
+        <li class="li2 li3">自定义菜单</li>
+    </ul>
+</div>
+<div class="main-cate">
+    <p class="attention"><span>注意：</span>微信自定义菜单需要开通服务号！最多3个BUTTON  每组BUTTON 最多5个子菜单！不填可以留空！</p>
+    <div class="tableBox">
+        <form  target="baocms_frm" action="<{:U('setting/weixinmenu')}>" method="post">
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF; text-align:center;">
+                <tr bgcolor="#ffaa7b" height="48px;" style="color:#FFF; font-size:16px; line-height:48px;">
+                    <td style="text-align: center;">项目</td>
+                    <td>名称</td>
+                    <td>链接地址</td>
+                </tr>
+                <tr bgcolor="#f1f1f1" height="48px" style="font-size:14px; color:#545454; text-align:left; line-height:48px;">
+                    <td width="140" align="center">BUTTON1</td>
+                    <td colspan="2" class="rgTdBt">
+                        <input class="manageInput" name="data[button][1]" type="text" value="<{$CONFIG['weixinmenu']['button'][1]}>"  />
+                    </td>
+                </tr>
+                <for start="1" end="6">
+                    <tr height="48px" style="font-size:14px; color:#545454; text-align:center; line-height:48px;">
+                        <td width="140" >子菜单<{$i}></td>
+                        <td class="rgTdBt">
+                            <input class="manageInput" name="data[child][1][<{$i}>][name]" type="text" value="<{$CONFIG['weixinmenu']['child'][1][$i]['name']}>"  />
+                        </td>
+                        <td class="rgTdBt">
+                            <input class="manageInput" name="data[child][1][<{$i}>][url]" type="text" value="<{$CONFIG['weixinmenu']['child'][1][$i]['url']}>"  />
+                        </td>
+                    </tr>
+                </for>    
+                <tr bgcolor="#f1f1f1" height="48px" style="font-size:14px; color:#545454; text-align:left; line-height:48px;">
+                    <td width="140" align="center">BUTTON2</td>
+                    <td colspan="2" class="rgTdBt">
+                        <input class="manageInput" name="data[button][2]" type="text" value="<{$CONFIG['weixinmenu']['button'][2]}>"  />
+                    </td>
+                </tr>
+                <for start="1" end="6">
+                    <tr height="48px" style="font-size:14px; color:#545454; text-align:center; line-height:48px;">
+                        <td width="140" >子菜单<{$i}></td>
+                        <td class="rgTdBt">
+                            <input class="manageInput" name="data[child][2][<{$i}>][name]" type="text" value="<{$CONFIG['weixinmenu']['child'][2][$i]['name']}>"  />
+                        </td>
+                        <td class="rgTdBt">
+                            <input class="manageInput" name="data[child][2][<{$i}>][url]" type="text" value="<{$CONFIG['weixinmenu']['child'][2][$i]['url']}>"  />
+                        </td>
+                    </tr>
+                </for>    
+                <tr bgcolor="#f1f1f1" height="48px" style="font-size:14px; color:#545454; text-align:left; line-height:48px;">
+                    <td width="140" align="center">BUTTON3</td>
+                    <td colspan="2" class="rgTdBt">
+                        <input class="manageInput" name="data[button][3]" type="text" value="<{$CONFIG['weixinmenu']['button'][3]}>"  />
+                    </td>
+                </tr>
+                <for start="1" end="6">
+                    <tr height="48px" style="font-size:14px; color:#545454; text-align:center; line-height:48px;">
+                        <td width="140" >子菜单<{$i}></td>
+                        <td class="rgTdBt">
+                            <input class="manageInput" name="data[child][3][<{$i}>][name]" type="text" value="<{$CONFIG['weixinmenu']['child'][3][$i]['name']}>"  />
+                        </td>
+                        <td class="rgTdBt">
+                            <input class="manageInput" name="data[child][3][<{$i}>][url]" type="text" value="<{$CONFIG['weixinmenu']['child'][3][$i]['url']}>"  />
+                        </td>
+                    </tr>
+                </for>    
+            </table>
+            <div class="smtQr"><input type="submit" value="确定保存" class="smtQrIpt" /></div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>       

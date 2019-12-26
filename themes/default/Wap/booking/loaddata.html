@@ -1,0 +1,21 @@
+<foreach name="list" item="item">
+	<a class="item" href="<{:U('booking/detail',array('shop_id'=>$item['shop_id']))}>">	
+		<img class="pic" src="<{:config_img($item['photo'])}>">	
+		<div class="des">	
+			<h5><{$item.shop_name}>	<span class="distance"><{$item.d}></span>	</h5>	
+            <p class="des-star">
+					 <if condition="empty($item['is_ting'])">
+						<span class="tag text-small bg-gray">大厅(已满)</span>
+					 <else/>
+						<span class="tag text-small bg-green">大厅(有位)</span>
+					 </if>
+					 <if condition="empty($item['is_bao'])">
+						<span class="tag text-small bg-gray">包厢(已满)</span>
+					 <else/>
+						<span class="tag text-small bg-green">包厢(有位)</span>
+					 </if>
+			</p>
+			<span class="addr">	地址：<{$item['addr']}></span>
+		</div>	
+	</a>
+</foreach>

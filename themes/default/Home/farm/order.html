@@ -1,0 +1,70 @@
+<include file="public:header" /> 
+<include file="public:topOne"/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<!--主体内容-->
+<div class="pagewd">
+    <div class="hotel_state">
+        <div class="list_box">
+            <ul>
+                <li class="list on">1.提交订单</li>
+                <li class="list">2.去支付</li>
+                <li class="list">3.完成</li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+        <div class="img img1"></div>
+    </div>
+    <div class="hotel_ord_box mb20">
+    	<h2  class="mb20">【<{$shop.shop_name}>】<small class="graycl"><{$p.title}></small></h2>
+        <div class="hotel_ord_infor">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <th colspan="2">订单信息</th>
+                </tr>
+                <tr>
+                	<td width="110">
+                    	<img src="<{:config_img($f['photo'])}>" width="110" height="80" />
+                    </td>
+                    <td>
+                    	<p class="blackcl6">【<{$shop.shop_name}>】<{$p.title}></p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <form action="<{:U('farm/orderCreate')}>"  method="post">
+    <div class="hotel_ord_box mb20">
+    	<h2  class="mb20">联系人信息</h2>
+        <div class="hotel_ord_user">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td colspan="2">联系人姓名：<{$name}></td>
+                    <input type="hidden" name="data[name]" value="<{$name}>">
+                </tr>
+                <tr>
+                    <td colspan="2">手机号码：<{$mobile}></td>
+                    <input type="hidden" name="data[mobile]" value="<{$mobile}>">
+                </tr>
+                <tr>
+                    <td colspan="2">到店时间：<{$gotime}></td>
+                    <input type="hidden" name="data[gotime]" value="<{$gotime}>">
+                </tr>
+                <tr>
+                    <td width="80">补充说明：</td>
+                    <td>
+                    	<textarea placeholder="选填，可告诉客服人员您的特殊要求" name='data[note]'></textarea>
+                    </td>
+                </tr>
+                <input type="hidden" name="data[pid]" value="<{$p.pid}>">
+            </table>
+        </div>
+    </div>
+    <p class="graycl mb20">预订说明：本站订单，分线上预付定金和到店支付实际费用（定金可直接到农家抵现）</p>
+    <div class="hotel_tongji" id="online_pay">
+        应支付定金：<span class="fontcl1">￥<span class="price"><{$p.price}></span></span><input type='submit' value='提交订单' style='border:none;font-weight:bold;cursor:pointer;' class="btn"></input>
+    </div>
+    </form>
+</div>
+
+<!--主体内容结束-->
+<include file="public:footer"/>

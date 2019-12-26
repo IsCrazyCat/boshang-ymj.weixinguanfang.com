@@ -1,0 +1,4 @@
+.user-list{list-style:none;padding:0;}
+.user-list li{padding:10px;border-bottom:thin solid #eee;}
+.user-list li img{width:90%;border-radius:50%;}
+.user-list li p{margin:0;}

@@ -1,0 +1,121 @@
+<include  file='public:header'/>
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">频道</li>
+        <li class="li2">餐饮频道</li>
+        <li class="li2 li3">商家列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>如果未添加商家，那么不能发布菜单</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="border-top: none; margin-top: 0px;">
+            <div class="left">
+                <{:BA('ele/create','','添加内容')}>  
+            </div>
+            <div class="right">
+                <form method="post" action="<{:U('ele/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <span>分类</span>
+                        <select id="cate_id" name="cate_id" class="select">
+                            <option value="0">请选择...</option>
+                            <foreach name="cates" item="var">
+                                <eq name="var.parent_id" value="0">
+                                <option value="<{$var.cate_id}>"  <eq name="var.cate_id" value="$cate_id">selected="selected"</eq> ><{$var.cate_name}></option>                
+                                <foreach name="cates" item="var2">
+                                    <eq name="var2.parent_id" value="$var.cate_id">
+                                    <option value="<{$var2.cate_id}>"  <eq name="var2.cate_id" value="$cate_id">selected="selected"</eq> > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<{$var2.cate_name}></option>
+                                    </eq>
+                                </foreach>
+                                </eq>
+                            </foreach>
+                        </select>
+
+
+                        <span>  区域：</span>   
+                        <select name="area_id" id="area_id" class="select manageSelect">
+                            <option value="0">请选择...</option>
+                            <foreach name="areas" item="var">
+                                <option value="<{$var.area_id}>"  <eq name="var.area_id" value="$area_id">selected="selected"</eq> ><{$var.area_name}></option>
+                            </foreach>   
+                        </select>
+                        <span>  关键字：</span>   
+                        <input type="text" name="keyword" value="<{$keyword|default=''}>" class="inptText" />
+                        <input type="submit" class="inptButton" value="  搜索" />
+
+                    </div>
+                </form>
+            </div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="shop_id" /></td>
+                        <td class="w50">ID</td>
+                        <td>商家名称</td>
+                        <td>纬度</td>
+                        <td>是否打洋</td>
+                        <td>是否支持在线付款</td>
+                        <td>是否返利</td>
+                        <td>最高返利金额</td>
+                        <td>新客户下单立减</td>
+                        <td>满多少钱</td>
+                        <td>减多少钱</td>
+                        <td>配送费</td>
+                        <td>起送价</td>
+                        <td>卖出数</td>
+                        <td>月卖出数</td>
+                        <td>排序</td>
+                        <td>操作</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_shop_id" type="checkbox" name="shop_id[]" value="<{$var.shop_id}>" /></td>
+                            <td><{$var.shop_id}></td>
+                            <td><{$var.shop_name}></td>
+                            <td><{$var.lat}></td>
+                            <td>
+                        <eq name="var.is_open" value="1">营业中<else/>打烊了</eq>
+                        </td>
+                        <td>
+                        <eq name="var.is_pay" value="1">支持在线付款<else/>不支持</eq>
+                        </td>
+                        <td>
+                        <eq name="var.is_fan" value="1">返利<else/>无</eq>
+                        </td>
+                        <td><{:round($var['fan_money']/100,2)}></td>
+                        <td><eq name="var.is_new" value="1">新单优惠<else/>无</eq></td>
+                        <td><{:round($var['full_money']/100,2)}></td>
+                        <td><{:round($var['new_money']/100,2)}></td>
+                        <td><{:round($var['logistics']/100,2)}></td>
+                        <td><{:round($var['since_money']/100,2)}></td>
+                        <td><{$var.sold_num}></td>
+                        <td><{$var.month_num}></td>
+                        <td><{$var.orderby}></td>
+                        <td>
+                            <{:BA('ele/edit',array("shop_id"=>$var["shop_id"]),'编辑','','remberBtn')}>
+                            <{:BA('ele/delete',array("shop_id"=>$var["shop_id"]),'删除','act','remberBtn')}>
+                            <eq name="var.is_open" value="0">
+                            <{:BA('ele/opened',array("shop_id"=>$var["shop_id"],'type'=>'open'),'开始接客','act','remberBtn')}>
+                        <else/>
+                        <{:BA('ele/opened',array("shop_id"=>$var["shop_id"],'type'=>'closed'),'打烊','act','remberBtn')}>
+                        </eq>
+                        <a target="_blank" class="remberBtn" href="<{:U('shop/login',array('shop_id'=>$var['shop_id']))}>">管理商家</a>
+                        </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('ele/delete','','批量删除','list','a2')}>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>       

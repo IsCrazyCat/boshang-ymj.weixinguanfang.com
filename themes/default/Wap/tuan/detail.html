@@ -1,0 +1,121 @@
+<php>$mobile_title = $detail['title'].'团购';</php>
+<include file='public:header_amazeui'/>    
+<body class="bg am-with-fixed-navbar">
+<include file='public:am_offcanvas_user'/> 
+
+<div data-am-widget="gotop" class="am-gotop am-gotop-fixed am-no-layout am-active">
+	<a href="#top"><span class="am-gotop-title"></span><i class="am-gotop-icon am-icon-chevron-up"></i></a>
+</div>
+<header id="header" class="homeHeader page_view">
+    <div class="left"><a class="ico-back" href="javascript:history.go(-1);"><span><i></i></span></a></div>
+    <div class="cent">
+    	<span class="shop_name">套餐详情</span>
+    </div>
+    <div class="head-icon">
+        <a class="ico-search" data-am-collapse="{target: '#homeSearch'}"> <span><i></i></span></a>
+        <a class="ico-my" data-am-offcanvas="{target: '#offcanvas'}"> <span><i></i></span></a>
+    </div>
+</header>
+<div class="homeSearch am-collapse" id="homeSearch">
+    <div id="new_searchtext">
+        <form id="searchForm" method="get" action="<{:U('tuan/index')}>">
+            <input id="keyword" class="inp-search" name="keyword" type="text" placeholder="请输入套餐关键字搜索" x-webkit-speech="">
+            <input class="btn-search" name="search-btn" type="submit">
+        </form>
+    </div>
+</div>
+
+
+<figure data-am-widget="figure" class="am am-figure am-figure-default "data-am-figure="{  pureview: 'true' }">
+	<img src="<{:config_img($detail['photo'])}>" data-rel="<{:config_img($detail['photo'])}>" />
+    <div class="hatudou_com_tuan_title">
+        <h1><{:bao_Msubstr($detail['title'],0,10,false)}>  </h1>
+    </div>
+</figure>
+
+
+<div class="detail">
+    <div class="ontop">
+    <h2><{:bao_Msubstr($detail['intro'],0,100,false)}></h2>
+        <ul class="am-avg-sm-2">
+            <if condition="!empty($detail['use_integral'])">
+            	<li class="am-icon-check-circle">可使用<{$detail.use_integral}>积分</li>
+            <else/>
+           	 	<li class="am-icon-check-circle">不支持积分兑换</li>
+            </if>
+            <if condition="!empty($detail['xiangou'])">
+            	<li class="am-icon-eye">每天限购：<{$detail.xiangou}> 份</li>
+            <else/>
+           	 	<li class="am-icon-eye">支持过期退</li>
+            </if>
+            <if condition="$detail['freebook'] eq 1">
+            	<li class="am-icon-tty">免预约</li>
+            <else/>
+           	 	<li class="am-icon-tty">需要提前预约</li>
+            </if>
+            <li class="am-icon-thumbs-o-up">销售数:<{$detail.sold_num}></li>
+        </ul>
+    </div>
+</div>
+
+<div class="blank-10 bg"></div>
+<div class="hatudou_com_eval">
+    <div class="info"> 
+    	<a href="<{:U('tuan/dianping',array('tuan_id'=>$detail['tuan_id']))}>"> 
+        <span>套餐评论</span>
+            <span class="am-fr"> 
+            <em class="star"><i style="width:0%"></i></em> 
+            <em><{$pingnum}></em> 条套餐评论 <i class="am-icon-angle-right"></i>
+            </span> 
+        </a>
+    </div>
+</div>
+<div class="blank-10 bg"></div>
+
+<h1 class="tbtj">商家详情</h1>
+<div class="detail-info"><div class="info am-cf">
+    <div class="info-a">
+    	<a href="<{:U('shop/detail',array('shop_id'=>$detail['shop_id']))}>">
+    <div class="details">
+        <h4><{$shop.shop_name}>
+            <if condition="!empty($shop['is_renzheng'])">
+                【已认证】
+            </if>
+        </h4>
+        <php>$shopdetails = D('Shopdetails')->find($detail['shop_id']);</php>
+        <div class="address">营业时间 : <{$shopdetails['business_time']}></div>
+        <div class="address"><{:bao_Msubstr($shop['addr'],0,26,false)}></div>
+    </div>
+    </a>
+    </div>
+    <div class="am-avg-sm-2">
+        <li><a class="am-icon-map-marker" href="<{:U('shop/gps',array('shop_id'=>$detail['shop_id']))}>"> 商家位置</a></li>
+        <li><a class="am-icon-phone" href="tel:<{$shop.tel}>"> 拨打电话</a></li>
+    </div>
+    </div>
+</div>
+
+
+
+<h1 class="tbtj">购买须知</h1>
+<div class="detail_con"><{:cleanhtml($tuandetails['instructions'])}></div>
+<h1 class="tbtj">套餐详情</h1>
+<div data-am-widget="gallery" class="detail_con" data-am-gallery="{ pureview: true }"><{$tuandetails['details']}></div>
+
+<div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default  am-no-layout">
+    <ul class="b_price am-cf">
+        <li class="price am-fl">&yen;<{$detail.tuan_price}> <del>&yen;<{$detail.price}></del></li>
+        <li class="btn am-fr am-margin-top-xs">
+          <if condition="$detail['bg_date'] gt $today">  
+        	<a href="javascript:void(0);" class="am-btn am-btn-success am-radius am-btn-sm">即将开始</a>
+          <else/>
+            <if condition="$detail.num lt 1 ">
+                <a href="javascript:void(0);" class="am-btn am-btn-default am-radius am-btn-sm">卖光了</a>
+            <else />
+                <a href="<{:U('tuan/buy',array('tuan_id'=>$detail['tuan_id']))}>" class="am-btn am-btn-warning am-radius am-btn-sm">立即购买</a>
+            </if>
+          </if>  
+        </li>
+    </ul>
+</div>
+<include file='public:footer_amazeui'/>    

@@ -1,0 +1,111 @@
+<include file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+       <li><a href="<{:U('order/index')}>">商城</a> > <a href="<{:U('order/wait')}>">订单列表</a> >订单详情</li>
+    </ul>
+</div>
+
+
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">订单详情</div>
+             <div class="right tuan_topfb_r">
+                <a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('order/detail',array('order_id'=>$detail['order_id']))}>">刷新订单状态</a>
+                <a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('order/wait')}>">返回订单列表</a>
+            </div>
+        </div>
+    </div> 
+    
+    <div class="tabnr_change show">
+    	
+    	<table class="order_goods_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="120"><p class="tuanfabu_t">订单编号：</p></td><td>
+                <div class="tuanfabu_nr">
+                	<{$detail.order_id}>&nbsp;&nbsp;
+                    下单账户：<{$users['nickname']}>【<{$users['user_id']}>】
+                    下单时间：<{$detail.create_time|date='Y-m-d H:i',###}>
+                </div></td>
+            </tr>
+            
+             <tr>
+                <td width="120"><p class="tuanfabu_t">费用明细：</p></td>
+                <td>
+                <div class="tuanfabu_nr">
+                订单金额 &yen; <{:round($detail['total_price']/100,2)}> 元 &nbsp;&nbsp;
+                
+                配送费用：<if condition="empty($detail['express_price'])">
+						免邮&nbsp;&nbsp;
+                        <else/>
+                        &yen; <{:round($detail['express_price']/100,2)}> 元&nbsp;&nbsp;
+                        </if>
+               <if condition="!empty($detail['use_integral'])">
+               积分抵现： &yen;  <{:round($detail['use_integral']/100,2)}> 元&nbsp;&nbsp;
+               </if>
+               <if condition="!empty($detail['mobile_fan'])">
+               手机下单立减： &yen; <{:round($detail['mobile_fan']/100,2)}> 元&nbsp;&nbsp;
+               </if>
+               <a style="color:#F00">实际支付： &yen; <{:round($detail['need_pay']/100,2)}> 元&nbsp;&nbsp;</a>
+               </div>
+               </td>
+            </tr>
+            <tr>
+                <td width="120"><p class="tuanfabu_t">收货地址：</p></td><td><div class="tuanfabu_nr">
+                <{$Paddress['xm']}>
+                <{$Paddress.tel}>
+                <{$Paddress.area_str}> 
+                <{$Paddress.info }>
+                </div></td>
+            </tr>
+        </table>
+
+        <div style="margin-top:10px;"></div>
+        <table class="order_goods_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        	
+            <tr class="order_goods_table_tr">
+                <td><p class="tuanfabu_nr">标题</p></td>
+                <td><div class="tuanfabu_nr">缩略图</div></td>
+                <td <p class="tuanfabu_nr">单价</p></td>
+                <td><p class="tuanfabu_nr">数量</p></td>
+                <td><p class="tuanfabu_nr">总价</p></td>
+                <td><p class="tuanfabu_nr">备注</p></td>
+            </tr>
+           <foreach name="ordergoods" item="item">
+            	<tr>
+                    <td><p class="tuanfabu_nr"><{$goods[$item['goods_id']]['title']}></p></td>
+                    <td><div class="tuanfabu_nr">
+                    <img style="margin: 10px auto; width:60px;" src="<{:config_img($goods[$item['goods_id']]['photo'])}>" /></div></td>
+                    <td><p class="tuanfabu_nr"> <{:round($item['price']/100,2)}>元</p></td>
+                    <td><p class="tuanfabu_nr"><{$item.num}></p></td>
+                    <td><p class="tuanfabu_nr"><{:round($item['total_price']/100,2)}> 元</p></td>
+                    <td <p class="tuanfabu_nr">备注</p></td>
+                </tr>
+            </foreach>  
+            <tr>
+            	<td colspan="6" class="tuanfabu_t"> 订单总价 ： <{:round($detail[need_pay]/100,2)}>元 &nbsp;&nbsp; 运费：  <{:round($detail[express_price]/100,2)}>元 &nbsp;&nbsp;&nbsp; </td>
+            </tr>
+            
+            <td colspan="6" class="tuanfabu_order_express"> 物流明细（<{$logistics['express_name']}>） ： </td>
+            </tr>
+        </table>
+
+            <div class="tuanfabu_an">
+                <eq name="detail.is_daofu" value="0">
+                    <eq name="detail.status" value="0">
+                    <a class="radius3 sjgl_an tuan_topbt">待付款</a>
+                    <else />
+                    <a class="radius3 sjgl_an tuan_topbt"><{$types[$detail['status']]}></a>
+                    </eq>
+                <else />
+                    <eq name="detail.status" value="0">
+                    <a class="radius3 sjgl_an tuan_topbt">货到付款</a>
+                    <else />
+                    <a class="radius3 sjgl_an tuan_topbt"><{$types[$detail['status']]}></a>
+                    </eq>
+              </eq>
+            </div>
+      
+    </div> 
+</div>
+<include file='public:footer'/>

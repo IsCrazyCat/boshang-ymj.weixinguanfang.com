@@ -1,0 +1,49 @@
+<include  file='public:header'/>    
+<link rel="stylesheet" href="/static/default/wap/css/mcenter.css">
+<body>
+   <header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="javascript:history.back();"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			恭喜！完成支付 
+		</div>
+	</header>  
+    
+    
+    
+<div class="blank-10 bg"></div>
+<div class="panel-list">
+	<ul>
+		<li><a href="javascript:;">订单编号：<{$arr.order_no}></a></li>
+		<li><a href="javascript:;">预约时间：<{$arr.last_date}> &nbsp;<{$arr.last_t}></a></li>
+        
+        <li><a href="javascript:;">名称：<{$menu[$item[0]][menu_name]}></a></li>
+		<li><a href="javascript:;">项目：<{$item[1]}>x￥<{:round($menu[$item[0]][ding_price]/100,2)}>=￥<{:round($menu[$item[0]][ding_price]*$item[1]/100,2)}></a></li>
+        
+      
+        
+		<li><a href="javascript:;">支付定金： <em><{:round($arr['need_price']/100,2)}> 元 &nbsp;&nbsp; (<if condition="$arr[status] eq 1"> 未消费 <elseif condition="$arr[status] eq 2"/> 已消费 <elseif condition="$arr[status] eq -1"/> 已退款 <else/>未支付</if>)</em></a></li>
+		<li><a href="javascript:;">结算方式：<{$paytype[$order['use_integral']]['name']}></a></li>
+        <li><a href="javascript:;">结算价格：<em>￥<{:round($order['need_price']/100,2)}></em></a></li>
+        
+        <li><a href="javascript:;">地址：<{$arr.room_id}></a></li>
+        <li><a href="javascript:;">人数：<{$arr.number}></a></li>
+        <li><a href="javascript:;">联系方式： <{$arr.name}> &nbsp;（<if condition="$sex eq 2">女士<else/>先生</if>）电话：<{$arr.mobile}></a></li>
+	</ul>
+</div>
+
+
+<div class="blank-30"></div>
+<div class="line text-center">
+	<a class="button bg-dot" href="<{:u('user/ding/detail',array('order_id'=>$detail['order_id']))}>">查看详情</a>
+	<a class="button bg-main" href="<{:u('wap/ding/index')}>">继续逛逛</a>
+</div>
+<div class="blank-20"></div>    
+    
+    
+    
+    
+   
+    </div>
+<include  file='public:footer'/>    

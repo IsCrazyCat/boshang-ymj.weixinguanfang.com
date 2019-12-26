@@ -1,0 +1,26 @@
+<style>
+.foot-fixed .foot-item {width: 16.66666667%;}
+</style>
+     <footer class="foot-fixed">
+        <a class="foot-item" href="<{:u('crowd/crowd_list',array('aready'=>1))}>">
+            <span class="icon icon-home"></span><span class="foot-label">首页</span>
+        </a>
+        <a class="foot-item <if condition="($act eq 'setting')">active</if> " href="<{:U('crowd/setting',array('goods_id'=>$goods_id))}>">			
+            <span class="icon icon-paw"></span><span class="foot-label">项目</span>
+        </a>
+        <a class="foot-item  <if condition="($act eq 'project')">active</if>" href="<{:U('crowd/project',array('goods_id'=>$goods_id))}>">			
+            <span class="icon icon-arrow-right"></span><span class="foot-label">进展</span>
+        </a>
+        <a class="foot-item  <if condition="($act eq 'ask')">active</if>" href="<{:U('crowd/ask',array('goods_id'=>$goods_id))}>">			
+            <span class="icon icon-comments-o"></span><span class="foot-label">话题</span>
+        </a>
+        <a class="foot-item <if condition="($act eq 'lists')">active</if> " href="<{:U('crowd/lists',array('goods_id'=>$goods_id))}>">			
+             <span class="icon icon-chevron-circle-up"></span><span class="foot-label">支持</span>
+        </a>
+        <a class="foot-item  <if condition="($ac eq 'follow')">active</if>" href="<{:U('crowd/follow',array('goods_id'=>$goods_id))}>">			
+            <span class="icon icon-thumbs-up"></span><span class="foot-label">点赞</span>
+        </a>
+      </footer>
+	<iframe id="x-frame" name="x-frame" style="display:none;"></iframe>
+	</body>
+</html>

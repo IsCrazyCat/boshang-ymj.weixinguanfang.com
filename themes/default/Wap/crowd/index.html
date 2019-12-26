@@ -1,0 +1,222 @@
+<include file='public:header'/>    
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			众筹频道
+		</div>
+        <div class="top-search" style="display:none;">
+			<form method="post" action="<{:U('crowd/index')}>">
+				<input name="keyword" placeholder="输入家政的关键字"  />
+				<button type="submit" class="icon-search"></button> 
+			</form>
+		</div>
+       <div class="top-signed">
+			<a id="search-btn" href="javascript:void(0);"><i class="icon-search"></i></a>
+		</div>
+	</header>
+	
+<style>
+.dealcard{position: relative;box-sizing: border-box; margin: -.08rem 0;}
+.dealcard .dealcard-nobooking {position: absolute;overflow: hidden;width:4rem;height:4rem;z-index: 1;}
+.dealcard .dealcard-nobooking:after {font-size:12px;background: #06c1ae;color: #fff;padding: .15rem;position: absolute;width:5.8rem; text-align: center; -webkit-transform: rotateZ(-45deg);left: -1.35rem; top:0.8rem;}
+</style>     
+
+ <script type="text/javascript">
+	$(function(){
+		$("#search-btn").click(function(){
+			if($(".top-search").css("display")=='block'){
+				$(".top-search").hide();
+				$(".top-title").show(200);
+			}
+			else{
+				$(".top-search").show();
+				$(".top-title").hide(200);
+			}
+		});
+		$("#search-bar li").each(function(e){
+			$(this).click(function(){
+				if($(this).hasClass("on")){
+					$(this).parent().find("li").removeClass("on");
+					$(this).removeClass("on");
+					$(".serch-bar-mask").hide();
+				}
+				else{
+					$(this).parent().find("li").removeClass("on");
+					$(this).addClass("on");
+					$(".serch-bar-mask").show();
+				}
+				$(".serch-bar-mask .serch-bar-mask-list").each(function(i){
+					
+					if(e==i){
+						$(this).parent().find(".serch-bar-mask-list").hide();
+						$(this).show();
+					}
+					else{
+						$(this).hide();
+					}
+					$(this).find("li").click(function(){
+						$(this).parent().find("li").removeClass("on");
+						$(this).addClass("on");
+					});
+				});
+			});
+		});
+	});
+	</script>
+    
+  
+   <div id="filter2" class="filter2">
+    <ul class="tab clearfix">
+      <li class="item">
+        <a href="javascript:void(0);"> 
+        <if condition="!empty($cat)">
+        <span id="str_b_node" style="color:#f60"> <{$crowdcates[$cat]['cate_name']}></span>
+        <else/>
+        <span id="str_b_node">选择分类</span>
+        </if><em></em>
+        </a>
+      </li>
+     <li class="item">
+        <a href="javascript:void(0);"> 
+         <if condition="!empty($area_id)">
+            <span id="str_b_node" style="color:#f60;"><{$areass[$area_id]['area_name']}></span>
+         <else/>
+            <span id="str_d_node">选择地区</span>
+         </if>
+        <em></em>
+        </a>
+      </li>
+      <li class="item">
+        <a href="javascript:void(0);">
+        <if condition="empty($order)">
+        	<span id="str_e_node">选择排序</span>
+        <elseif condition="$order eq s"/>
+        	<span id="str_b_node" style="color:#f60;">关注排序</span>
+        <elseif condition="$order eq p"/>
+        	<span id="str_b_node" style="color:#f60;">价格排序</span>
+        <elseif condition="$order eq t"/>
+        	<span id="str_b_node" style="color:#f60;">时间排序</span>
+        <elseif condition="$order eq v"/>
+        	<span id="str_b_node" style="color:#f60;">浏览排序</span>
+        </if>
+        <em></em>
+        </a>
+      </li>
+    </ul>
+    
+     <div class="inner" style=" display:none">
+      <ul>
+        <li class="item">
+        <a class="rights" href="<{:U('crowd/index')}>">全部分类</a>
+        </li>
+       <foreach name="crowdcates" item="var">
+         <if condition="$var.parent_id eq 0">  
+            <li id="cat_<{$var['cate_id']}>"><a class="rights hasUlLink" title="<{$var.cate_name}>" href="javascript:void(0);>"><{$var.cate_name}><span class="num"></span></a>
+             
+               <ul id="items0">  
+                <foreach name="crowdcates" item="product">
+                   <if condition="$product.parent_id eq $var['cate_id']"> 
+                       <li><a title="<{$product.cate_name}>" href="<{:LinkTo('crowd/index',array('cat'=>$product['cate_id'],'area_id'=>$area_id,'order'=>$order))}>"> <{$product.cate_name}><span class="num"></span></a>
+                            
+                   </if>
+                </foreach>
+               </ul>
+                       
+             </li>
+         </if>
+        </foreach>
+      </ul>
+    </div>
+    
+    
+     <div class="inner" style=" display:none">
+        <ul>
+         <li class="<if condition="empty($area_id)">style="color:red;"</if> "><a href="<{:U('crowd/index')}>" >全部地区</a></li>
+				<foreach name="areas" item="var">
+                <php>if($var['city_id'] == $city_id){</php>    
+				<li><a <if condition="$area_id eq $var['area_id']"> style="color:red;"</if>  href="<{:U('crowd/index',array('cat'=>$cat,'area_id'=>$var['area_id'],'order'=>$order))}>"><{$var.area_name}></a></li>
+                <php>}</php> 
+				</foreach>
+               
+
+            </ul>
+    
+    </div>
+    
+    
+    
+   
+    
+    <div class="inner" style="display:none;">
+              <ul>
+              
+               <li><a href="<{:U('crowd/index')}>">默认排序</a></li>            
+                <li><a  <if condition="$order eq s">style="color:red;"</if>href="<{:LinkTo('crowd/index',array('cat'=>$cat,'area_id'=>$area_id,'order'=>s))}>">关注排序</a></li>
+                <li><a <if condition="$order eq p">style="color:red;"</if> href="<{:LinkTo('crowd/index',array('cat'=>$cat,'area_id'=>$area_id,'order'=>p))}>">价格排序</a></li>
+                <li><a <if condition="$order eq t">style="color:red;"</if> href="<{:LinkTo('crowd/index',array('cat'=>$cat,'area_id'=>$area_id,'order'=>t))}>">时间排序</a></li>
+                 <li><a <if condition="$order eq v">style="color:red;"</if> href="<{:LinkTo('crowd/index',array('cat'=>$cat,'area_id'=>$area_id,'order'=>v))}>">浏览排序</a></li>
+                
+           
+
+          
+
+      </ul>
+      </div>
+      
+      <div id="parent_container" class="inner_parent" style="display:none;">
+        <div class="innercontent"></div>
+      </div>
+      <div id="inner_container" class="inner_child" style="display:none;">
+        <div class="innercontent"></div>
+      </div>
+    
+</div>
+
+<div id="fullbg" class="fullbg" style="display: none; height: 250px;"><i class="pull2"></i></div>
+ 
+    
+    <script>
+		$("#search-bar li").each(function(e){
+			$(this).click(function(){
+				if($(this).hasClass("on")){
+					$(this).parent().find("li").removeClass("on");
+					$(this).removeClass("on");
+					$(".serch-bar-mask").hide();
+				}
+				else{
+					$(this).parent().find("li").removeClass("on");
+					$(this).addClass("on");
+					$(".serch-bar-mask").show();
+				}
+				$(".serch-bar-mask .serch-bar-mask-list").each(function(i){
+					
+					if(e==i){
+						$(this).parent().find(".serch-bar-mask-list").hide();
+						$(this).show();
+					}
+					else{
+						$(this).hide();
+					}
+					$(this).find("li").click(function(){
+						$(this).parent().find("li").removeClass("on");
+						$(this).addClass("on");
+					});
+				});
+			});
+		});
+	</script>  
+	<div class="xiaoqu-list">
+		<ul id="xiaoqu-list">
+        </ul>  
+	</div>
+
+	<script>
+		$(document).ready(function () {
+			showFilter({ibox:'filter2',content1:'parent_container',content2:'inner_container',fullbg:'fullbg'});
+			loaddata('<{$nextpage}>', $("#xiaoqu-list"), true);
+		});
+	</script>
+	
+<include file="public:footer"/>

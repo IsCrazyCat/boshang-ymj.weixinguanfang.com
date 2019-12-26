@@ -1,0 +1,87 @@
+<include file='public:header'/>  
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('ele/eleorder',array('status'=>1))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			外卖订单详情
+		</div>
+		<div class="top-share">
+			<a href="#" id="cate-btn"></a>
+		</div>
+	</header>
+<body>   
+
+
+
+<div class="panel-list">
+	<ul>
+        <li><a href="javascript:;">订单ID：<em><{$order.order_id}></em></a></li>
+        <li><a href="javascript:;">状态：<em class="text-dot">
+        <eq name="order.status" value="0">订单待接单</eq>
+        <eq name="order.status" value="1">订单待配送</eq>
+        <eq name="order.status" value="1">待确认完成</eq>
+        <eq name="order.status" value="8">订单已完成</eq>
+        </em></a></li>
+	</ul>
+</div>
+
+<div class="panel-list">
+	</ul>
+    <volist name="op" id="op">         
+    <li><a href="javascript:;"><{$ep[$op['product_id']]['product_name']}><em class="text-dot">×<{$op.num}></em></a></li>
+    </volist>                                    
+ </ul>
+</div>
+
+
+<div class="blank-10 bg"></div>
+<div class="panel-list">
+
+	<ul>
+    	<li><a href="javascript:;">合计：<em><{:round($order['total_price']/100,2)}> 元 + ￥<{:round($order['logistics']/100,2)}></b>（配送费）<gt name="order.fan_money" value="0">优惠减<{$order.fan_money}>元</em></gt></a></li>
+		<li><a href="javascript:;">结算价：<em><{:round($order['need_pay']/100,2)}></em></a></li>
+		<li><a href="javascript:;">订餐人姓名：<em><{$addr.name}></em></a></li>
+		<li><a href="tel:<{$addr.mobile}>">订餐人手机号：<em><{$addr.mobile}></em></a></li>
+		<li><a href="javascript:;">订餐人地址：<em><{$addr.addr}></em></a></li>
+		<li><a href="javascript:;">下单时间：<em><{$order.create_time|date='Y-m-d H:i:s',###}></em></a></li>
+        
+        <if condition="!empty($order['message'])">
+        <li><a href="javascript:;">留言：<em><{$order['message']}></em></a></li>
+        </if>
+        
+        <li><a href="javascript:;">配送方式：<em>
+        <notempty name='do'>第三方配送<else/>商家配送</notempty><!-- （配送费 <span class="fontcl1">￥<{:round($order['logistics']/100,2)}></span>）-->
+        </em></a></li>
+        <notempty name='do'>               
+        <li><a href="javascript:;">配送员：<gt name="do.delivery_id" value="0"><{$delivery.name}>(<{$delivery.mobile}>)<else/>还未接单</gt></a></li>
+		</notempty>
+	</ul>
+
+</div>
+
+
+
+
+
+<div class="blank-20"></div>
+<div class="container login-open">
+
+      <empty name="do">
+        <eq name="order.status" value="0">
+                <a  target="x-frame"  href="<{:U('ele/status',array('o'=>$order['order_id'],'s'=>1))}>" class="button button-block button-big bg-blue text-center">接单</a>
+        </eq>
+        <eq name="order.status" value="1">
+                <a   target="x-frame"  class="button button-block button-big bg-dot text-center" href="<{:U('ele/status',array('o'=>$order['order_id'],'s'=>2))}>" >确定配送</a>
+        </eq>
+        <eq name="order.status" value="2">
+                <a  target="x-frame"  class="button button-block button-big bg-dot text-center" href="<{:U('ele/send',array('order_id'=>$order['order_id']))}>" >确定完成</a>
+        </eq>
+        <eq name="order.status" value="8">
+                <a class="button button-block button-big bg-gray text-center" >已完成</a>
+        </eq>
+    </empty>
+</div>   
+    
+<div class="blank-20"></div>
+<include file="public:footer"/>

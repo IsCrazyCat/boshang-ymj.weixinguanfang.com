@@ -1,0 +1,19 @@
+<include  file='public:header'/>
+<div class="jump">
+    <span class="succe failu">&nbsp;</span><?php echo $error?$error:$message ; ?>
+
+</div>
+<b id="wait" style="display:none;"><?php echo($waitSecond); ?></b>
+<script type="text/javascript">
+(function(){
+	var wait = document.getElementById('wait');
+	var interval = setInterval(function(){
+	var time = --wait.innerHTML;
+	if(time <= 0) {
+		window.location.href = '<?php echo($jumpUrl);?>';
+		clearInterval(interval);
+	};
+}, 1000);
+})();
+</script>
+<include file='public:footer'/>

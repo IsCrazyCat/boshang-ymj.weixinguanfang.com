@@ -1,0 +1,94 @@
+.bar-left{width:275px;float:left;}
+.user-panel{overflow:hidden;border:thin solid #DDD;}
+.user-panel dt{float:left;width:90px;height:90px;padding:5px;border-right:thin solid #DDD;}
+.user-panel dt img{width:80px;height:80px;}
+.user-panel dd{float:left;width:180px;padding:10px;}
+.user-panel dd span{display:block;width:180px;height:30px;line-height:30px;}
+
+.bar-cate h4{font-size:13px;font-weight:bold;}
+.bar-cate ul{padding:0;}
+.bar-cate li{height:40px;line-height:40px;}
+.bar-cate .panel-body{padding:0;}
+.bar-cate li a{display:block;width:100%;height:40px;line-height:40px;padding-left:20px;}
+.bar-cate li a:hover{background:#FAFAFA;font-weight:bold;}
+.bar-cate .cate-index{padding:10px 15px;border:thin solid #DDD;height:42px;margin-bottom:5px;}
+.bar-cate .cate-index a{display:block;width:100%;font-size:13px;font-weight:bold;}
+
+
+
+.bar-status{border:thin solid #DDD;overflow:hidden;padding:10px;background:#FAFAFA;}
+.bar-status h2{font-size:14px;float:left;font-weight:bold;}
+.bar-status span{float:left;margin-left:10px;padding-top:3px;color:#999;}
+.bar-status em{color:#F60;}
+
+
+.bar-sort{overflow:hidden;position:relative;}
+.bar-sort ul{padding:0;width:100%;border:thin solid #DDD;overflow:hidden;}
+.bar-sort li{float:left;border-right:thin solid #DDD;}
+.bar-sort a{padding:0 15px;height:40px;line-height:40px;}
+.bar-sort  .sort-post{float:right;background:#F60;color:#FFF;position:absolute;top:0;right:0;height:42px;}
+.bar-sort  .sort-post:hover{background:#F30;}
+.bar-sort li.current{background:#FAFAFA;}
+.bar-sort li.current a{color:#F60;}
+
+.bar-list{border:thin solid #DDD;}
+.tie-list{padding:0;}
+.tie-list li{border-bottom: 1px dotted #E4E6EB;padding: 10px 0px;line-height: 30px;min-height: 30px;overflow: hidden;position: relative;z-index: 1;}
+.tie-list li p{color:#999;margin:0;}
+.tie-list li:hover{background:#FCFCFC;}
+.tie-list li .rcount{background:url("../image/tieba/tieba_icon.gif") no-repeat;width: 50px;height: 30px;float: left;background-position: -125px -278px;text-align: center;line-height: 24px;margin: 0px 20px 0px 7px;}
+.tie-list li .gallery{width:100%;overflow:hidden;padding:0;}
+.tie-list li .gallery li{float:left;border:none;}
+.tie-list li .gallery img{height: 90px;overflow: hidden;float: left;display: inline;margin-right: 10px;position: relative;z-index: 1;}
+.tie-list li .reply{float: right;width: 130px;line-height:16px;}
+.tie-list li .reply dt{background:url("../image/tieba/tieba_icon.gif") no-repeat;background-position: 0px -168px;word-break: break-all;height: 18px;overflow: hidden;font-weight:normal;padding-left:20px;}
+.tie-list li .reply dd{padding:5px 20px;color:#999;}
+.tie-list li .title{font-size:14px;}
+
+
+.tieba-form{background:#FAFAFA;overflow:hidden;border:thin solid #DDD;padding:10px 20px;border-top:none;}
+.tieba-form .post-photo{width:600px;float:left;padding:20px 0;}
+.tieba-form .post-pic-list{padding:0;overflow:hidden;}
+.tieba-form .post-pic-list li{float:left;margin:5px 5px 5px 0;position:relative;}
+.tieba-form .post-pic-list img{width:100px;height:80px;padding:1px;border:thin solid #DDD;background:#FFF;}
+.tieba-form .post-pic-list a{position:absolute;right:2px;bottom:2px;}
+.tieba-form .post-editor{width:600px;height:200px;}
+.tieba-form input{width:600px;}
+
+
+
+.tie-read .read-top{border-bottom:thin solid #DDD;overflow:hidden;padding: 15px 12px 15px 17px;position:relative;background:#FCFCFC;}
+.tie-read .read-top h1 {font-size:16px;line-height:24px;max-width:765px;color:#333;font-weight:bold;}
+.tie-read .read-top .p{margin:10px 0 0 0;}
+.tie-read .read-top a {display:inline-block;text-align: center;margin-right:8px;background:url("../image/tieba/tieba_icon.gif") no-repeat;float:left;}
+.tie-read .read-top a.lz {background-position:0px -535px;width:67px;height:25px;line-height:22px;}
+.tie-read .read-top a.hf {background-position:-69px -535px;width:60px;height:25px;padding-left:15px;margin:0;}
+.tie-read .read-top .zan{background:url("../image/tieba/tieba_icon.gif") no-repeat;position: absolute;height: 28px;cursor: pointer;color: #FFF;padding: 0px 10px 0px 50px;line-height: 28px;top: 14px;right: 14px;background-position: 0px -672px;}
+.tie-read .read-top .zan span{background:url("../image/tieba/tieba_icon.gif") no-repeat;position:absolute;right: 0px;top: 0px;width: 3px;height: 28px;overflow: hidden;background-position: 0px -477px;}
+.tie-read .read-top .status{color:#999;}
+.tie-read .read-reply ul{padding:0;}
+.tie-read .read-reply li{overflow:hidden;border-bottom:thin solid #DDD;background:#FAFBFC;}
+.tie-read .read-reply .reply-l{width:200px;float:left;position:relative;}
+.tie-read .read-reply .reply-r{width:653px;background:#FFF;float:right;min-height:240px;padding:15px 20px;position:relative;padding-bottom:30px;border-left:thin solid #DDD;}
+.tie-read .read-reply .reply-l .face{width: 88px;height: 88px;padding: 3px;border: 1px solid #CCC;margin: 20px auto 4px;display:block;}
+.tie-read .read-reply .reply-l .face img{width: 80px;height: 80px;}
+.tie-read .read-reply .reply-l .nick{display:block;width:100%;height:30px;line-height:30px;color: #2D64B3;text-align: center;}
+.tie-read .read-reply .reply-l .level-bg{vertical-align:middle;margin-left:5px;padding:0;display:inline-block;width:14px;height:15px;background: url("../image/level_bg.gif") no-repeat;}
+.tie-read .read-reply .reply-l .level-1{background-position:-205px -4px!important;}
+.tie-read .read-reply .reply-l .level-2{background-position:-164px -4px!important;}
+.tie-read .read-reply .reply-l .level-3{background-position:-124px -4px!important;}
+.tie-read .read-reply .reply-l .level-4{background-position:-84px -4px!important;}
+.tie-read .read-reply .reply-l .level-5{background-position:-43px -4px!important;}
+.tie-read .read-reply .reply-l .level-6{background-position:-3px -4px!important;}
+.tie-read .read-reply .reply-l p{text-align:center;margin:5px 0;}
+.tie-read .read-reply .reply-l .louzhu{background: url("../image/tieba/tieba_icon.gif") no-repeat;background-position: -139px -445px;width:36px;height:36px;position: absolute;top: 0px;right: 0px;display:block;}
+.tie-read .read-reply .reply-r .detail{font-size:14px;}
+.tie-read .read-reply .reply-r .detail img{max-width:600px;}
+.tie-read .read-reply .reply-r .detail p{text-indent:0;}
+.tie-read .read-reply .reply-r .desc{position:absolute;bottom:0px;right:0;height:30px;line-height:30px;width:100%;border-top:thin dashed #DDD;text-align:right;padding-right:30px;margin:0;background:#FCFCFC;}
+.tie-read .read-reply .reply-r .desc span{margin-right:10px;}
+.tie-read .read-reply .reply-r .gallery{width:100%;padding:0;margin-top:10px;}
+.tie-read .read-reply .reply-r .gallery li{margin-bottom:10px;border:none;background:#FFF;padding:0;float:left;margin-right:10px;}
+.tie-read .read-reply .reply-r .gallery img{height:100px;border:thin solid #DDD;padding:1px;max-width:180px;}
+.tie-read .read-reply .reply-r .ctrol{margin:25px 0;width:100%;}
+

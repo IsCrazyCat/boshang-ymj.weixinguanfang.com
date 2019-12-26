@@ -1,0 +1,18 @@
+<foreach name="list" item="item">
+	<div class="line padding border-bottom">
+		<div class="x3">
+			<a href="<{:u('wap/huodong/detail',array('activity_id'=>$item['activity_id']))}>">
+            <img src="<{:config_img($activity[$item['activity_id']]['photo'])}>" width="90%" /></a>
+		</div>
+		<div class="x9">
+			<p class="text-gray">活动名称：<{$activity[$item['activity_id']]['title']}></p>
+            <p class="text-gray">开始时间：<{$activity[$item['activity_id']]['bg_date']}></p>
+            <p class="text-gray">结束时间：<{$activity[$item['activity_id']]['end_date']}></p>
+		</div>
+	</div>
+	<div class="line padding">
+		<span class="x8">活动地址：<{$activity[$item['activity_id']]['addr']}></span>
+		<span class="x4 text-right"><a class="button button-small bg-dot" href="<{:u('wap/activity/detail',array('activity_id'=>$item['activity_id']))}>">活动详情</a></span>
+	</div>
+	<div class="blank-10 bg"></div>
+</foreach>

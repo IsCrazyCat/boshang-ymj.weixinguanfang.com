@@ -1,0 +1,109 @@
+<include  file='public:header'/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:u('distributors/tuan/order')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		套餐订单详情
+	</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+
+<div class="panel-list">
+	<ul>
+		<li>
+			<a href="javascript:;">
+				订单编号
+				<em><{$order.order_id}></em>
+			</a>
+		</li>
+
+		<li>
+			<a href="javascript:;">
+				下单时间
+				<em><{$order.create_time|date='Y-m-d H:i',###}></em>
+			</a>
+		</li>
+	</ul>
+</div>
+<div class="blank-10 bg"></div>
+<div class="panel-list">
+	<ul>
+		<li>
+			<a href="javascript:;">
+				消费用户
+				<em><{$use_user['nickname']}></em>
+			</a>
+		</li>
+	</ul>
+</div>
+<div class="blank-10 bg"></div>
+<div class="panel-list">
+	<ul>
+		<li>
+			<a href="javascript:;">
+				团购名称
+				<em><{$tuan['title']}></em>
+			</a>
+		</li>
+		<li>
+			<a href="javascript:;">
+				团购单价
+				<em>&yen; <{:round($tuan['tuan_price']/100,2)}> 元</em>
+			</a>
+		</li>
+		<li>
+			<a href="javascript:;">
+				团购数量
+				<em><{$order.num}></em>
+			</a>
+		</li>
+		<li>
+			<a href="javascript:;">
+				团购总价
+				<em>&yen; <{:round($order['total_price']/100,2)}> 元</em>
+			</a>
+		</li>
+		<if condition="$order['mobile_fan'] gt 0">
+			<li>
+				<a href="javascript:;">
+					手机下单立减：
+					<em  class="text-dot">&nbsp; &nbsp;&nbsp;减：&yen; <{:round($order['mobile_fan']/100,2)}> 元</em>
+				</a>
+			</li>
+		</if>
+		<if condition="$order['use_integral'] gt 0">
+			<li>
+				<a href="javascript:;">
+					使用积分：<{$order['use_integral']}> 分
+					<em  class="text-dot">&nbsp; &nbsp;&nbsp;抵现：&yen; <{:round($order['use_integral']/100,2)}> 元</em>
+				</a>
+			</li>
+		</if>
+		<li>
+			<a href="javascript:;">
+				实际支付金额
+				<em class="text-dot">¥ <{:round($order['need_pay']/100,2)}> 元</em>
+			</a>
+		</li>
+
+
+	</ul>
+</div>
+
+
+
+
+<div class="blank-30"></div>
+<div class="container text-center">
+
+		<a class="button  button-block button-big  bg-dot" href="<{$scanurl}>">确认消费</a>
+
+	</if>
+
+</div>
+<div class="blank-20"></div>
+
+<include  file='public:footer'/>   

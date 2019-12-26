@@ -1,0 +1,45 @@
+<include  file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">农家乐</a> > <a>农家乐订单</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">
+                <if condition="$detail['order_status'] eq -1"><font style="color:red;">已取消</font><elseif condition="$detail['order_status'] eq 2"/><font style="color:green;">已完成</font><elseif condition="$detail['order_status'] eq 1"/>已付款<else/>待处理</if>
+            </div>
+              <if condition="$detail['order_status'] eq 1 or ($detail['online_pay'] eq 0 and $detail['order_status'] eq 0)"><a class="btn right" mini="confirm" href="<{:U('farm/complete',array('order_id'=>$detail['order_id']))}>">完成订单</a></if> 
+                 <if condition="$detail['order_status'] neq -1"><a class="btn right" mini="confirm" href="<{:U('farm/cancel',array('order_id'=>$detail['order_id']))}>">取消订单</a></if> 
+                <if condition="$detail['order_status'] eq -1"><if condition="$detail['closed'] eq 0"><a class="btn right" mini="confirm" href="<{:U('hotel/delete',array('order_id'=>$detail['order_id']))}>">删除订单</a></if></if>
+        </div>
+    </div>
+    <div class="hotel_orddtl_box">
+    	<div class="title">预订信息</div>
+        <div class="hotel_orddtl_infor">
+            <ul>
+        	<li class="list">订单号：<span class="fontcl2"><{$detail.order_id}></span></li>
+                <li class="list">农家乐名称：<span class="fontcl2"><{$detail.farm.farm_name}></span></li>
+                <li class="list">农家乐地址：<span class="fontcl2"><{$detail.farm.addr}></span></li>
+                <li class="list">单价：<span class="fontcl2"><{$detail.amount}>元</span></li>
+                <li class="list">结算价：<span class="fontcl2"><{$detail.jiesuan_amount}>元</span></li>
+    	    </ul>
+        </div>
+        <div class="hotel_orddtl_infor">
+        	<ul>
+                <li class="list">入住人姓名：<span class="fontcl2"><{$detail.name}></span></li>
+                <li class="list">手机号码：<span class="fontcl2"><{$detail.mobile}></span></li>
+                <li class="list">预约时间：<span class="fontcl2"><{$detail.gotime|date='Y-m-d H:i:s',###}></span></li>
+    	    </ul>
+        </div>
+        <div class="hotel_orddtl_infor">
+            <ul>
+                <li class="list">补充说明：<span class="blackcl9"><{$detail.note}></span></li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+<include  file='public:footer'/>

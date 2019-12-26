@@ -1,0 +1,59 @@
+<include  file='member:head'/>    
+<div class="tgdd">
+    <div class="tgdd_t">
+        <ul>
+            <li  class="on"><a href="<{:u('members/ordercode')}>">我的套餐码</a></li>
+            <li><a href="<{:u('members/coupon')}>">优惠卷下载</a></li>
+            <li><a href="<{:u('members/ecchange')}>">我的兑换</a></li>
+            <li><a href="<{:u('members/yuyue')}>">我的预约</a></li>
+        </ul>
+    </div>
+    <div class="tgdd_nr">
+        <table border="0" cellspacing="0" width="100%"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; text-align:center;">
+            <tr class="tgdd_nrt">
+                <td>团购</td>
+                <td>团购券</td>
+                <td>价值</td>
+                <td>过期时间</td>
+                <td>订单状态</td>
+            </tr>
+            <volist name="list" id="var">
+                <tr class="tgdd_nrBh">
+                    <td colspan="5" style="text-align:left;">对应订单：<span class="tgdd_bh"><{$var.order_id}></span></td>
+                </tr>
+                <tr class="tgdd_nrC">
+                    <td style="text-align:left;" width="335px"><div class="tgdd_tw">
+                            <div class="left"><a target="_blank" href="<{:U('tuan/detail',array('tuan_id'=>$var['tuan_id']))}>">
+                            
+                            <img src="<{:config_img($tuans[$var['tuan_id']]['photo'])}>" width="81" height="60" /></a></div>
+                            <div class="lef"><a class="myInfor_sx" target="_blank" href="<{:U('tuan/detail',array('tuan_id'=>$var['tuan_id']))}>"><{$tuans[$var['tuan_id']]['title']}></a><p>有效期至：<{$var.fail_date}></p><p>购买时间：<{$var.create_time|date='Y-m-d',###}></p></div>
+                        </div>
+                    </td>
+                    <td class="tgdd_nrCtd"><{$var.code}></td>
+                    <td class="tgdd_nrCtd">￥<{:round($tuans[$var['tuan_id']]['price']/100,2)}></td>
+                    <td class="tgdd_nrCtd" <if condition="$var['fail_date'] lt $today"> style="color:red"</if> ><{$var.fail_date}></td>
+                <td class="tgdd_nrCtd"> <eq name="var.status" value="0">
+                    <eq name="var.is_used" value="1">
+                    已使用 
+                <else/> 
+                未使用 
+                <neq name="var.price" value="0">
+                <a mini='confirm' class="myInfor_sx"  href="<{:u('members/coderefund',array('code_id'=>$var['code_id']))}>">申请退款</a>
+                </neq>
+                </eq>
+                <else />
+                <eq name="var.status" value="1">
+                正在退款中
+                <else />
+                完成退款
+                </eq>
+                </eq></td>
+                
+                
+                </tr>
+            </volist>
+        </table>
+        <{$page}>
+    </div>
+</div>
+<include file="public:footer"/>

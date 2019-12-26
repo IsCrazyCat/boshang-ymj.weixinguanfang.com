@@ -1,0 +1,26 @@
+<php>$seo_title = $news[title]; </php>
+<include file='public:header'/>    
+	<script src="/static/default/wap/other/roll.js"></script>
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+                    <a class="top-addr" href="<{:U('village/noticelist',array('village_id'=>$detail['village_id'],'type'=>$news['type']))}>">返回</a>
+		</div>
+		<div class="top-title">
+			<{$detail.name}><if condition="$news.type eq 1">通知<else/>活动展示</if>
+		</div>
+	</header>
+	
+	<div class="container">
+		<div class="blank-20"></div>
+		<h4 class="text-center"><{$news.title}></h4>
+		<p class="text-center border-bottom padding text-small text-gray">
+			<span>时间：<{$news.addtime|date='Y-m-d',###}></span>
+			
+		</p>
+		<div class="padding">
+			<{$news.context}>
+		</div>
+	</div>
+
+	
+<include  file='public:footer'/>

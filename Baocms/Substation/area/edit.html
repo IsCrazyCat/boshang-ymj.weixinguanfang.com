@@ -1,0 +1,36 @@
+<div class="listBox clfx">
+    <div class="menuManage">
+        <form  target="baocms_frm" action="<{:U('area/edit',array('area_id'=>$detail['area_id']))}>" method="post">
+            <div class="mainScAdd">
+                <div class="tableBox">
+                    <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                        <tr>
+                            <td class="lfTdBt">区域名称：</td>
+                            <td class="rgTdBt"><input type="text" name="data[area_name]" value="<{$detail.area_name|default=''}>" class="manageInput" />
+                            </td>
+                        </tr>
+                        
+                         <tr>
+                            <td class="lfTdBt">所在城市：</td>
+                            <td class="rgTdBt">
+                            <select id="data[city_id]" name="data[city_id]" class="selectInput">
+                            <option value="0">请选择...</option>
+                            <foreach name="citys" item="var">
+                                <option value="<{$var.city_id}>"  <eq name="var.city_id" value="$detail.city_id">selected="selected"</eq> ><{$var.name}></option>                
+                            </foreach>
+                        </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lfTdBt">排序：</td>
+                            <td class="rgTdBt"><input type="text" name="data[orderby]" value="<{$detail.orderby|default=''}>" class="manageInput" />
+                                <code>数字越小排序越高</code>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+            </div>
+        </form>
+    </div>
+</div>

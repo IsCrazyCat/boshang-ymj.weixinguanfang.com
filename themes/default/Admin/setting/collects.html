@@ -1,0 +1,53 @@
+<include  file='public:header'/>
+<style>.lfTdBt {width: 150px;}</style>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">基本设置</li>
+        <li class="li2 li3">采集设置</li>
+    </ul>
+</div>
+
+<p class="attention">劲爆新功能 <span> 注意：这个单独卖，如果不填写，采集到黄页库，已就是商家的小店库中，采集之前请先备份数据库，切记~！</span></p>
+<form  target="baocms_frm" action="<{:U('setting/collects')}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+            
+               <tr>
+                    <td class="lfTdBt">是否开采集</td>
+                    <td class="rgTdBt">
+               <label><input type="radio" name="data[open]" <eq name="CONFIG.collects.open" value="1">checked="checked"</eq> value="1"  />开启</label>
+               <label><input type="radio" name="data[open]"  <eq name="CONFIG.collects.open" value="0">checked="checked"</eq>  value="0"  />关闭</label>
+                        <code>选择开启才会采集，选择不开启不会采集！</code>
+                    </td>
+                </tr>
+            
+                <tr>
+                    <td class="lfTdBt">小区采集编号：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[community]" value="<{$CONFIG.collects.community}>" class="scAddTextName w150" />
+						<code>就是那个频道采集到小区数据库，默认4</code>
+                    </td>
+                </tr>
+                
+                 <tr>
+                    <td class="lfTdBt">商家采集编号：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[shop]" value="<{$CONFIG.collects.shop}>" class="scAddTextName w150" />
+						<code><a target="_blank"  style="color:#00F;" href="http://www.fengmiyuanma.com/10552.html">就是那个频道采集到商家数据库，不懂点我！</a></code>
+                    </td>
+                </tr>
+           
+            </table>
+
+        </div>
+
+        <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+
+    </div>
+
+</form>
+
+<include  file='public:footer'/>       
+

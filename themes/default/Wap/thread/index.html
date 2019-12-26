@@ -1,0 +1,65 @@
+<include  file='public:header'/>
+   <header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<{:bao_msubstr($city_name,0,4,false)}>贴吧
+		</div>
+		<div class="top-share">
+		</div>
+	</header>
+    
+    <ul id="shangjia_tab">
+        <li class="x4"><a href="<{:U('thread/index')}>" <if condition="$act eq 'index'">class="on"</if> >推荐</a></li>
+        <li class="x4"><a href="<{:U('thread/lists')}>" <if condition="$act eq 'lists'">class="on"</if> >发现</a></li>
+        <li class="x4"><a href="<{:U('thread/attent')}>" <if condition="$act eq 'attent'">class="on"</if> >关注</a></li>
+    </ul>  
+    
+	<!--置顶帖子-->
+ 	
+	<if condition="!empty($ding)">
+	<div class="tie-ding">
+    <div class="blank-10 bg"></div>
+		<ul>
+			<foreach name="ding" item="item">
+			<li><em class="tag bg-dot">置顶</em><a href="<{:U('thread/postdetail',array('post_id'=>$item['post_id']))}>"><{$item['title']}></a><span class="icon-angle-right"></span></li>
+			</foreach>
+		</ul>
+	</div>
+	</if>
+    <!--帖子列表-->
+	<ul id="tie-list" class="tie-list">
+    </ul>
+	<script>
+		$(document).ready(function () {
+			showFilter({ibox:'filter2',content1:'parent_container',content2:'inner_container',fullbg:'fullbg'});
+			loaddata('<{$nextpage}>', $("#tie-list"), true);
+		});
+	</script>
+
+<nav class="foot-bar">
+	<div class="line">
+		<div class="x2">
+			<a class="left-icon" href="<{:U('thread/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="x8">
+			<div class="line">
+				<span class="x6">
+					<a class="post-icon" href="<{:U('thread/attent')}>">
+						<i class="icon-reorder"></i>
+						关注
+					</a>
+				</span>
+				<span class="x6">
+					<a class="post-icon" href="<{:U('thread/lists')}>"><i class="icon-pencil-square"></i>发现</a>
+				</span>
+			</div>
+		</div>
+		<div class="x2">
+			<a class="right-icon" href="<{:u('user/index/index')}>"><i class="icon-ellipsis-v"></i></a>
+		</div>
+	</div>
+</nav>
+</body>
+</html>

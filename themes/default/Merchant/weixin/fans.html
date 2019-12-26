@@ -1,0 +1,50 @@
+<include  file='public:header'/>
+<div class="local">
+    当前位置：设置 > 店铺管理 > 商家粉丝
+</div>
+<div class="notice">
+    <span>注意：</span> 这里可以查看商家的粉丝
+</div>
+
+<div class="search">
+    <!--<form method="post" action="<{:U('goods/index')}>">
+        <table cellpadding="0"  cellspacing="0" width="100%" >
+            <tr>
+                <td width="90" align="center">商品名称：</td>
+                <td align="left"><input type="text" name="keyword" value="<{$keyword}>" /><input class="view" type="submit" name="button" value="搜索"></td>
+                <td align='right'><a class="add" href="<{:U('goods/create')}>">+&nbsp;发布商品</a></td>
+            </tr> 
+        </table>
+    </form>-->
+</div>
+<div class="tlist">
+    <table cellpadding="0"  cellspacing="0" width="100%" >
+        <tr>
+
+            <th>粉丝ID</th>
+            <th>用户ID</th>
+            <th>用户图像</th>
+            <th>用户手机号</th>
+            <th>最后互动时间</th>
+        </tr>
+        <foreach name="list" item="var">
+            <tr>
+                <td><{$var.fid}></td>
+                <td><{$var.user_id}></td>
+                <td style="height: 80px;"><img src="__ROOT__/attachs/<{$users[$var['user_id']]['face']}>"  style="width: 80px;  margin: 0px auto;" /></td>
+                <td><{$users[$var['user_id']]['mobile']}></td>
+                <td><{$var.year}>年<{$var.month}>月<{$var.day}>日</td>
+            </tr>
+        </foreach>
+        <tr class="bottom">
+            <td colspan="10">
+                <div class="pages">
+                    <{$page}>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+<if condition="empty($list)">
+	<p>暂时还没有评论，虚位以待很久了，赶紧来抢沙发把！</p>
+</if>
+<volist name="list" id="data">	 
+<div class="media media-x level-1">	  				
+	<a class="float-left" href="#">
+<img  class="radius" src="<{:config_img($users[$data['user_id']]['face'])}>" />
+    
+    
+    </a>
+	<div class="media-body">
+		<strong><{$data.nickname}></strong>
+		<{$data.content}>
+		<p><{$data.create_time|date='Y-m-d',###}> <a class="zan" id="cmt-<{$data['comment_id']}>" href="javascript:void(0);" rel="<{:U('news/zans',array('comment_id'=>$data['comment_id']))}>"><i class="icon-thumbs-up"></i>赞(<em><{$data.zan}></em>)</a></p>
+		
+		
+	</div>
+</div>
+</volist>

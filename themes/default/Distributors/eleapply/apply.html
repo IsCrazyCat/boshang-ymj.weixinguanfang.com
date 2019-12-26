@@ -1,0 +1,195 @@
+<include  file='public:header'/>   
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:u('distributors/index/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+    <if condition="empty($audit)">
+    外卖商家申请表
+    <elseif condition="$audit['audit'] eq 0"/>   
+    审核中
+    <elseif condition="$audit['audit'] eq 1"/>
+    已审核
+    <elseif condition="$audit['audit'] eq 2"/>
+    已拒绝
+    </if>
+
+	</div>
+</header>
+<style>
+.fabu-form .form-content2 {border: none;resize: none;width: 100%;height: 80px;padding: 10px; font-size: 12px; color:#999;}
+.fabu-form .form-content1 {border: none;resize: none;width: 100%;height: 80px;padding: 10px;font-size: 12px; color:#999;}
+p, .p {margin-bottom: 5px;line-height: 20px;}
+</style>
+
+
+<if condition="empty($audit)">
+<form class="fabu-form" method="post"  target="x-frame" action="<{:U('eleapply/apply')}>">
+<div class="blank-10 bg border-top"></div>
+
+
+  <div class="row">
+     <div class="line">
+        <span class="x3">分类：</span>
+        <span class="x9">
+        <foreach name="getEleCate" item="var" key="index">
+        <label><input  style="width: 20px; height: 20px;" type="checkbox" name="cate[]" value="<{$index}>"/>&nbsp;&nbsp;<{$var}>&nbsp;&nbsp;</label>
+        </foreach>   
+        </span>
+    </div>
+  </div>
+        
+        
+<div class="row">
+    <div class="line">
+        <span class="x5">是否支持在线付款：</span>
+        <span class="x7">
+        <label><span>支持</span>
+        	<input style="width: 20px; height: 20px;" type="radio" name="data[is_pay]" value="1" <eq name="detail.is_pay" value="1">checked="checked"</eq>>
+        </label>
+        <label><span style="margin-left: 20px;">不支持</span>
+        	<input style="width: 20px; height: 20px;" type="radio" name="data[is_pay]" value="0" <eq name="detail.is_pay" value="0">checked="checked"</eq>>
+        </label>
+        </span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="line">
+        <span class="x5">是否支持返利：</span>
+        <span class="x7">
+        <label><span>支持</span>
+        	<input style="width: 20px; height: 20px;" type="radio" name="data[is_fan]" value="1" <eq name="detail.is_fan" value="1">checked="checked"</eq>>
+        </label>
+        <label><span style="margin-left: 20px;">不支持</span>
+        	<input style="width: 20px; height: 20px;" type="radio" name="data[is_fan]" value="0" <eq name="detail.is_fan" value="0">checked="checked"</eq>>
+        </label>
+        </span>
+    </div>
+</div>
+
+<div class="row">
+	<div class="line">
+		<span class="x5">最高返利金额：</span>
+		<span class="x7">
+			<input type="text" class="text-input" name="data[fan_money]"/>
+		</span>
+	</div>
+</div>
+
+
+<div class="row">
+    <div class="line">
+        <span class="x5">新客户下单立减：</span>
+        <span class="x7">
+        <label><span>支持</span>
+        	<input style="width: 20px; height: 20px;" type="radio" name="data[is_new]" value="1" <eq name="detail.is_new" value="1">checked="checked"</eq>>
+        </label>
+        <label><span style="margin-left: 20px;">不支持</span>
+        	<input style="width: 20px; height: 20px;" type="radio" name="data[is_new]" value="0" <eq name="detail.is_new" value="0">checked="checked"</eq>>
+        </label>
+        </span>
+    </div>
+</div>
+
+
+
+<div class="row">
+	<div class="line">
+		<span class="x3">满多少钱：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[full_money]"/>
+		</span>
+	</div>
+</div>
+
+<div class="row">
+	<div class="line">
+		<span class="x3">减多少钱：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[new_money]"/>
+		</span>
+	</div>
+</div>
+
+<div class="row">
+	<div class="line">
+		<span class="x3">配送费：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[logistics]"/>
+		</span>
+	</div>
+</div>
+
+<div class="row">
+	<div class="line">
+		<span class="x3">起送价：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[since_money]" />
+		</span>
+	</div>
+</div>
+
+
+
+<div class="row">
+	<div class="line">
+		<span class="x3">配送时间：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[distribution]" value="<{$detail.distribution|default='60'}>"/>
+		</span>
+	</div>
+</div>
+
+<div class="blank-10 bg"></div>
+<div class="line border-bottom">
+	<textarea class="form-content2" name="data[intro]" placeholder="添加简短详情介绍，不超过50字！"><{$detail.intro|default=''}></textarea>
+</div> 
+
+
+	<div class="container">
+		<div class="blank-30"></div>
+		<button  type="submit" class="button button-block button-big bg-dot">申请开通外卖</button>
+		<div class="blank-30"></div>
+	</div>
+		
+</form>
+	
+<elseif condition="$audit['audit'] eq 0"/>   
+
+<div class="blank-10 bg"></div>
+ <em class="text-small text-gray"><em>
+	<div class="container">
+		<div class="blank-10"></div>
+		<p><span class="text-dot">小提示：</span> 您的外申请卖未通过审核，如需加快审核联系电话：<{$CONFIG.site.tel}></p>
+        <a  href="tel:<{$CONFIG.site.tel}>"class="button button-block button-big bg-dot text-center">打电话问问</a>
+        <div class="blank-10"></div>
+</div>    
+<div class="blank-10 bg"></div>  
+  
+<elseif condition="$audit['audit'] eq 1"/>
+<div class="blank-10 bg"></div>
+ <em class="text-small text-gray"><em>
+	<div class="container">
+		<div class="blank-10"></div>
+		<p><span class="text-dot">小提示：</span> 您的外卖申请已通过审核，如需修改联系电话：<{$CONFIG.site.tel}></p>
+        <a  href="<{:u('distributors/ele/index')}>"class="button button-block button-big bg-blue text-center">去上传菜单吧</a>
+        <div class="blank-10"></div>
+</div>    
+<div class="blank-10 bg"></div>
+
+<elseif condition="$audit['audit'] eq 2"/>
+<div class="blank-10 bg"></div>
+ <em class="text-small text-gray"><em>
+	<div class="container">
+		<div class="blank-10"></div>
+		<p><span class="text-dot">小提示：</span> 很抱歉，您的申请不符合要求，已被拒绝，联系电话：<{$CONFIG.site.tel}></p>
+        <a  href="tel:<{$CONFIG.site.tel}>"class="button button-block button-big bg-gray text-center">联系客服</a>
+        <div class="blank-10"></div>
+</div>    
+<div class="blank-10 bg"></div>
+
+</if>
+ 
+    	
+<include  file='public:footer'/>

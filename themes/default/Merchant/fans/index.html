@@ -1,0 +1,54 @@
+<include file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="">粉丝</a>><a>粉丝列表</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+	<div class="radius5 tuan_top">
+        <div class="tuan_top_t tuanfabu_top">
+            <div class="left tuan_topser_l">比如粉丝关闭了短信推送，那么该粉丝无法收到短信，以此类推</div>
+        </div>
+    </div>
+    
+    <form  method="post" action="<{:U('fans/index')}>">
+    
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+           粉丝UID：<input type="text" name="keyword" value="<{$keyword}>"  class="radius3 tuan_topser" />
+            <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/>     
+        </div>
+    </div>
+    </form>
+    <div class="tuanfabu_tab">
+        
+    </div>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>昵称</td>
+			<td>电话号码</td>
+            <td>关注时间</td>
+            <td>积分</td>
+            <td>订阅推送状态（短信/微信/站内信）</td>
+            <td>操作</td>
+        </tr>
+        <foreach name="list" item="var">
+            <tr>
+                <td><{$users[$var['user_id']]['nickname']}></td>
+				<td><{$users[$var['user_id']]['mobile']}></td>
+                <td><{$var.create_time|date='Y年m月d日',###}></td>
+                <td><{$users[$var['user_id']]['integral']}></td>
+                <td>
+                <eq name="var.is_sms" value="0">关闭 /<else/><a class="tuisong_red">开启 /</a></eq>
+                <eq name="var.is_weixin" value="0">关闭 /<else/><a class="tuisong_red">开启 /</a></eq>
+                <eq name="var.is_msg" value="0">关闭<else/><a  class="tuisong_red">开启</a></eq>
+                </td>
+                <td><a href="<{:U('fans/add',array('user_id'=>$var['user_id']))}>">增加积分</td> 
+            </tr>
+        </foreach>
+    </table>
+    <div class="paging">
+        <{$page}>
+    </div>
+</div>
+<include file='public:footer'/>

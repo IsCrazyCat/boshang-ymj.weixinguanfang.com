@@ -1,0 +1,78 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">小区通知</li>
+        <li class="li2">通知信息</li>
+        <li class="li2 li3">新增</li>
+    </ul>
+</div>
+<div class="mainScAdd ">
+
+    <div class="tableBox">
+        <form  target="baocms_frm" action="<{:U('communitynews/create')}>" method="post">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">标题：</td>
+                    <td class="rgTdBt"><input type="text" name="data[title]" value="<{$detail.title|default=''}>" class="manageInput" />
+                    <code>通知的标题</code>
+
+                    </td>
+                </tr>
+                
+            
+               
+              
+                
+                <tr>
+                    <td class="lfTdBt">小区：</td>
+                    <td class="rgTdBt">
+                        <div class="lt">
+                            <input type="hidden" id="community_id" name="data[community_id]" value="<{$detail.community_id|default=''}>" class="manageInput" />
+                            <input type="text" name="community" id="community"  value="<{$community.name}>" />
+                        </div>
+                        <a mini="select"  w="800" h="600" href="<{:U('community/select')}>" class="remberBtn">选择小区</a>
+                        <code>一定要选择哦</code>
+                    </td>
+                </tr> 
+              
+              <tr>
+                    <td  class="lfTdBt">简介：</td>
+                    <td class="rgTdBt">
+                        <textarea name="data[intro]" rows="5" cols="40"><{$detail.intro|default=''}></textarea>
+                        <code>通知简介</code>
+                    </td>
+                </tr>
+                
+              
+               <tr>
+                    <td  class="lfTdBt">详细内容：</td>
+                    <td class="rgTdBt">
+                        <textarea name="data[details]" rows="5" cols="40"><{$detail.details|default=''}></textarea>
+                         <code>通知正文</code>
+                    </td>
+                </tr>
+                
+                
+                 
+                <tr>
+                    <td class="lfTdBt">浏览量：</td>
+                    <td class="rgTdBt"><input type="text" name="data[views]" value="<{$detail.views|default=''}>" class="manageInput" />
+                    <code>作弊使用</code>
+
+                    </td>
+                </tr>
+                
+                
+           
+               
+                <tr>
+                    <td colspan="2">
+                        <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>       

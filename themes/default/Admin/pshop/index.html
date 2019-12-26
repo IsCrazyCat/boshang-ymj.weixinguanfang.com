@@ -1,0 +1,87 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">拼团商家</li>
+        <li class="li2">商家管理</li>
+        <li class="li2 li3">商家列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('pshop/create','','添加申请')}>
+            </div>
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('pshop/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                    	<div class="seleK"> 
+                    	<label>
+                                <input type="hidden" id="user_id" name="user_id" value="<{$user_id|default=''}>" />
+                                <input type="text" name="nickname" id="nickname"  value="<{$nickname}>"   class="text" />
+                                <a mini="select"  w="800" h="600" href="<{:U('user/select')}>" class="sumit">选择用户</a>
+                        </label>
+                        <label>
+                        <span>关键字(电话或商户名称)</span>
+                        <input type="text" name="keyword" value="<{$keyword}>" class="inptText" />
+                        <input type="submit" value="   搜索"  class="inptButton" />
+                        </label>
+                       </div>
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+        
+    </div>
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="shop_id" /></td>
+                    <td class="w50">ID</td>
+                    <td>店铺掌柜</td>
+                    <td>店铺名称</td>
+                    <td>商铺地址</td>
+                    <td>商铺LOGO</td>
+                    <td>店铺电话</td>
+                    <td>是否免运费</td>
+                    <td>同城配送</td>
+                    <td>入住时间</td>
+                    <td class="w360">操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_shop_id" type="checkbox" name="shop_id[]" value="<{$var.id}>" /></td>
+                        <td><{$var.id}></td>
+                        <td><{$var.name}></td>
+                        <td><{$users[$var['user_id']]['nickname']}>(<{$var.user_id}>)</td>
+                        <td><{$var.address}></td>
+                        <td><img src="<{:config_img($var['logo'])}>" class="w80" /></td>
+                        <td><{$var.tel}></td>
+                        <td>
+                        	<eq name="var.mianyunfei" value="1">免运费</eq>
+                            <eq name="var.mianyunfei" value="0">否</eq>
+                        </td>
+                        <td><{$var.tongchen}></td>
+                    <td><{$var.add_time|date='Y-m-d H:i:s',###}></td>
+                    <td>       
+                    <{:BA('pshop/edit',array("shop_id"=>$var["id"]),'编辑','','remberBtn')}>
+                    <{:BA('pshop/delete',array("shop_id"=>$var["id"]),'删除','act','remberBtn')}>
+                    <!--<a target="_blank" class="remberBtn" href="<{:U('shop/login',array('shop_id'=>$var['shop_id']))}>">商家订单</a>-->
+                    </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                <{:BA('pshop/delete','','批量删除','list',' a2')}>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+
+

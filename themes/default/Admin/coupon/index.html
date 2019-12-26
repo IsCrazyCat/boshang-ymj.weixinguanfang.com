@@ -1,0 +1,128 @@
+
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">套餐</li>
+        <li class="li2"> 优惠券</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>新版增加了满多少钱减去多少钱，请不要乱设置哦</p>
+    <div class="jsglNr">
+
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('coupon/create','','添加内容')}>
+            </div>
+            <div class="right">
+                <form action="<{:U('coupon/index')}>" method="post" style="float:left;">  
+                    <div class="seleHidden" id="seleHidden">
+                        <span>状态</span>
+                        <select name="audit" class="select">
+                            <option value="0"  >全部</option>
+                            <option value="-1" <eq name="audit" value="-1">selected="selected"</eq> >等待审核</option>
+                            <option value="1" <eq name="audit" value="1">selected="selected"</eq>>正常</option>
+                        </select>
+                        <span>关键字:</span>
+                        <input type="text"  class="inptText"   name="keyword" value="<{$keyword|default=''}>" /><input type="submit" value="   搜索"  class="inptButton" />
+
+                    </div> 
+                </form>
+                <a href="javascript:void(0);" class="searchG">高级搜索</a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form action="<{:U('coupon/index')}>" method="post">
+            <div class="selectNr selectNr2">
+                <div class="left">
+                    <div class="seleK">
+                        <lable>
+                            <span>状态</span>
+                            <select name="audit" class="select w100">
+                                <option value="0"  >全部</option>
+                                <option value="-1" <eq name="audit" value="-1">selected="selected"</eq> >等待审核</option>
+                                <option value="1" <eq name="audit" value="1">selected="selected"</eq>>正常</option>
+                            </select>
+                        </lable>
+                        <label>
+                        <span>商家</span>
+                        <input type="hidden" id="shop_id" name="shop_id" value="<{$shop_id|default=''}>"/>
+                        <input type="text"   id="shop_name" name="shop_name" value="<{$shop_name}>" class="text" />
+                        <a  href="<{:U('shop/select')}>" mini='select' w='800' h='600' class="sumit lt ">选择商家</a>
+                        </label>
+                        <label>
+                        <span>用户</span>
+                        <input type="hidden" id="user_id" name="user_id" value="<{$user_id|default=''}>" />
+                        <input type="text" name="nickname" id="nickname"  value="<{$nickname}>"   class="text" />
+                        <a  href="<{:U('user/select')}>" mini='select' w='800' h='600' class="sumit lt ">选择用户</a>
+                        </label>
+                        <label>
+                        <span>关键字:</span>
+                        <input type="text"  class="inptText"   name="keyword" value="<{$keyword|default=''}>" />
+                        </label>
+                    </div>
+
+                </div>
+                <div class="right">
+                    <input type="submit" value="   搜索"  class="inptButton" />
+                </div>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="coupon_id" /></td>
+                    <td class="w50">ID</td>
+                    <td>商家</td>
+                    <td>标题</td>
+                    <td>优惠券图片</td>
+                    <td>满多少钱</td>
+                    <td>减多少钱</td>
+                    <td>过期日期</td>
+                    <td>浏览量</td>
+                    <td>下载量</td>
+                    <td>是否审核</td>
+                    <td>创建时间</td>
+                    <td>创建IP</td>
+                    <td>操作</td>
+
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_coupon_id" type="checkbox" name="coupon_id[]" value="<{$var.coupon_id}>" /> </td>
+                        <td><{$var.coupon_id}></td>
+                        <td><{$shops[$var['shop_id']]['shop_name']}></td>
+                        <td><{$var.title}></td>
+                        <td><img src="<{:config_img($var['photo'])}>" class="w80" /></td>
+                        <td><{:round($var['full_price']/100,2)}></td>
+                        <td><{:round($var['reduce_price']/100,2)}></td>
+                        <td><{$var.expire_date}></td>
+                        <td><{$var.views}></td>
+                        <td><{$var.downloads}></td>
+                        <td><eq name="var.audit" value="0">等待审核<else/>正常</eq></td>
+                    <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                    <td><{$var.create_ip_area}><{$var.create_ip}></td>
+                    <td>
+                        <{:BA('coupon/edit',array("coupon_id"=>$var["coupon_id"]),'编辑','','remberBtn')}>
+                        <{:BA('coupon/delete',array("coupon_id"=>$var["coupon_id"]),'删除','act','remberBtn')}>
+                        <eq name="var.audit" value="0"> <{:BA('coupon/audit',array("coupon_id"=>$var["coupon_id"]),'审核','act','remberBtn')}> </eq>
+
+                    </td>
+                    </tr>
+                </foreach>    
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                <{:BA('coupon/delete','','批量删除','list','a2')}>
+                <{:BA('coupon/audit','','批量审核','list','remberBtn')}>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  

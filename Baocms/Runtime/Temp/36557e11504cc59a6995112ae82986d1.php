@@ -1,0 +1,3 @@
+<?php
+//000000000600a:1:{i:0;a:21:{s:9:"coupon_id";s:1:"3";s:7:"shop_id";s:1:"1";s:7:"cate_id";s:2:"36";s:7:"city_id";s:2:"16";s:7:"area_id";s:2:"34";s:11:"business_id";s:1:"0";s:5:"title";s:24:"浡莱克会员减免券";s:5:"photo";s:43:"/attachs/2019/11/16/thumb_5dcfccf1c058b.jpg";s:10:"full_price";s:5:"25800";s:12:"reduce_price";s:5:"10000";s:8:"discount";N;s:11:"expire_date";s:10:"2022-01-01";s:5:"views";s:5:"32520";s:9:"downloads";s:5:"25328";s:5:"intro";s:54:"浡莱克会员爱车保养减免工时费和滤芯费";s:5:"audit";s:1:"1";s:3:"num";s:5:"74672";s:9:"limit_num";s:1:"2";s:6:"closed";s:1:"0";s:11:"create_time";s:10:"1573873816";s:9:"create_ip";s:15:"112.239.236.201";}}
+?>

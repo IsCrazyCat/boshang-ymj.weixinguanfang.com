@@ -1,0 +1,97 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('wuye/index/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			小区广告管理
+		</div>
+	<div class="top-share">
+        <a href="<{:U('wuye/ad/create')}>" class="top-addr icon-plus"> 广告</a>
+		</div>
+</header>
+<style>
+.xiaoqu-search { margin-top:0rem;}
+.list-media-x { margin-top: 0.0rem !important;}
+.list-media-x p {margin-top: .01rem; line-height:20px;font-size: 12px;}
+</style>
+<div class="line xiaoqu-search">
+		<form method="post"  action="<{:U('ad/index')}>" id="form1" class="form1">
+			<div class="form-group">
+				<div class="field">
+					<div class="input-group">
+						<span class="addbtn"><button type="button" class="button icon-search"></button></span>
+						<input type="text" class="input" name="keyword" size="50" value="<{$keyword}>" placeholder="请输入关键字"  />
+						<span class="addbtn"><button type="submit" class="button">搜索</button></span>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+    
+    
+
+<div class="list-media-x" id="list-media">
+	<ul>
+    <div class="blank-10 bg"></div> 
+    <foreach name="list" item="var">
+   	 <li class="line">
+          <dt><a class="x3">广告编号：<{$var.ad_id}></a><a class="x9 text-right text-gray">创建时间：<{$var.create_time|date='Y-m-d H:i:s',###}></a></dt>
+          <dd class="zhong">
+            <div class="x3">
+                   <img src="<{:config_img($var['photo'])}>" style="width:90%;">
+    
+                   </div>
+             <div class="9">
+                <p class="text-small">广告标题：<{$var.title}></p>
+                <p class="text-gray">广告链接：<{$var.link_url}></p>     
+                <p class="text-small">
+                   <span class="text-dot1 margin-right">排序：<span class="text-dot"><{$var.orderby}></span></span>
+                </p>
+             </div>
+          </dd>
+
+          <dl>
+            
+             <p class="text-right padding-top x12"> 
+             <a href="<{:U('ad/edit',array('ad_id'=>$var['ad_id']))}>" class="button button-small bg-dot">编辑</a>
+             <a href="javascript:void(0);" rel="<{$var.ad_id}>"  class="jquery-delete button button-small bg-gray">删除</a>
+              </p>
+          </dl>
+        </li>
+        <div class="blank-10 bg"></div>  
+     </foreach>
+     
+  </ul>
+</div>
+<script>
+	$(document).ready(function () {
+		$(document).on('click', ".jquery-delete", function (e) {
+			var ad_id = $(this).attr('rel');
+			layer.confirm('您确定要删除该广告？', {
+				skin: 'layer-ext-demo', 
+				area: ['50%', 'auto'], //宽高
+				btn: ['是的', '不'], //按钮
+				shade: false //不显示遮罩
+			}, function () {
+				$.post("<{:U('ad/delete')}>", {ad_id: ad_id}, function (result) {
+					if (result.status == "success") {
+						layer.msg(result.msg);
+						setTimeout(function () {
+							location.reload();
+						}, 1000);
+					} else {
+						layer.msg(result.msg);
+					}
+				}, 'json');
+			});
+		});
+	});
+</script>
+
+<div class="blank-20"></div>
+<div class="container login-open">
+<h5 style="text-align:center"><{$page}><!--分页代码不要忘记加--> </h5>
+</div>
+
+<include  file='public:footer'/>

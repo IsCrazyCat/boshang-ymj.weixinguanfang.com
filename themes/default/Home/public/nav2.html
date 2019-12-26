@@ -1,0 +1,21 @@
+ <div class="nav">
+    <div class="navList">
+        <ul>
+        <if condition="$ctl eq life">
+       	 	<li class="navListAll"><span class="navListAllt">分类信息分类</span><div class="shadowy navAll"><include file="public:cate_life"/></div></li>
+        <elseif condition="$ctl eq shop"/>
+        	<li class="navListAll"><span class="navListAllt">全部商家分类</span><div class="shadowy navAll"><include file="public:cate_shop"/></div></li>
+        <else/>
+       		<li class="navListAll"><span class="navListAllt">全部套餐分类</span><div class="shadowy navAll"><include file="public:cate"/></div></li>
+        </if>
+        	
+<volist name="navigations" id="var" key="index" >
+<if condition="($var.parent_id eq 0)"> 
+<li class="navLi"><a <if condition="$var.target eq 1">target="_blank"</if> <if condition="$ctl eq $var['title']"> class="navA  on"<else/>class="navA"</if> title="<{$var['nav_name']}>" href="<{$var['url']}>?nav_id=<{$var['nav_id']}>" ><{$var['nav_name']}> <if condition="$var['is_new'] eq 1"><em class="hot"></em></if> </a></li>
+</if>
+</volist>
+
+        </ul>
+    </div>
+</div>
+<div class="clear"></div>

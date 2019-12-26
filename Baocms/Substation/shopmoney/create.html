@@ -1,0 +1,59 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">资金记录</li>
+        <li class="li2 li3">添加记录</li>
+    </ul>
+</div>
+<form  target="baocms_frm" action="<{:U('shopmoney/create')}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+
+                <tr>
+                    <td class="lfTdBt">商家：</td>
+                    <td class="rgTdBt">
+                        <div class="lt">
+                            <input type="hidden" id="shop_id" name="data[shop_id]" value="<{$detail.shop_id|default=''}>"/>
+                            <input type="text" id="shop_name" name="shop_name" value="" class="scAddTextName w200 sj" />
+                        </div>
+                        <a mini="select"  w="1000" h="600" href="<{:U('shop/select')}>" class="seleSj">选择商家</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">RMB：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[money]" value="<{$detail.money|default=''}>" class="scAddTextName w200" />
+                        <code>扣除就输入负数</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">类型：</td>
+                    <td class="rgTdBt">
+                        <select name="data[type]" class="seleFl w200">
+                            <option value="tuan">套餐</option>
+                            <option value="goods">商城订单</option>
+                            <option value="ele">餐饮订餐</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">原始订单ID：</td>
+                    <td class="rgTdBt"><input type="text" name="data[order_id]" value="<{$detail.order_id|default=''}>" class="scAddTextName w200" />
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">说明：</td>
+                    <td class="rgTdBt">
+                        <textarea name="data[intro]" cols="50" rows="5"></textarea>
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认添加" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>       

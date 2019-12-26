@@ -1,0 +1,84 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+             <li class="li1">社区村设置</li>
+        <li class="li2">帖子查看</li>
+    </ul>
+</div>
+<form target="baocms_frm" action="<{:U('village/bbs_view',array('post_id'=>$detail['post_id']))}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+
+                <tr>
+                    <td class="lfTdBt">标题：</td>
+                    <td class="rgTdBt"><{$detail.title|default=''}>
+   <input type="hidden" name="data[village_id]" value="<{$detail.village_id}>"  />
+                    </td>
+                </tr>  
+            
+                
+                <tr>
+                    <td class="lfTdBt">内容：</td>
+                    <td class="rgTdBt">
+                      <{$detail.details}>
+                    </td>
+                </tr>
+                     <tr>
+                    <td class="lfTdBt">是否首页：</td>
+                    <td class="rgTdBt">
+                     <input type="radio" name="data[hot]" value="1"  <if condition='$detail.hot eq 1'>checked="checked"</if>/>是    <input type="radio" name="data[hot]" value="0" <if condition='$detail.hot eq 0'>checked="checked"</if> />否
+                    </td>
+                </tr>
+                  <div class="smtQr"><input type="submit" value="确认编辑" class="smtQrIpt" /></div>
+                
+                  <!--添加开始-->
+                  
+                  <tr>
+                  <tbody>
+                      <tr>  <th colspan="4">所有评论</th></tr>
+                      <tr>
+                          
+                      <td>回复人</td>
+                        <td>回复内容</td>
+                         <td>回复时间</td>
+                          <td>操作</td>
+                      </tr>
+                       <foreach name="list" item="var">
+                    <tr>
+                     
+                        <td><{$var.user_name}></td>
+                        <td><{$var.details}></td>
+                        <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                        <td>
+                        <eq name="var.audit" value="0"> <{:BA('village/bbs_replys_audit',array("reply_id"=>$var["reply_id"]),'审核','act','remberBtn')}> </eq>
+                        <{:BA('village/bbs_replys_delete',array("reply_id"=>$var["reply_id"],'post_id'=>$detail['post_id']),'删除','act','remberBtn')}>
+
+                        </td>
+
+                    </tr>
+                </foreach>
+                  <tr>
+                      <td colspan="4">  <{$page}></td>
+                  </tr>
+                  </tbody>
+                  </tr>
+             
+                
+                 <!--添加结束-->
+                
+                            </table>
+         
+        </div>
+        
+     
+    </div>
+    </form>
+    <style>
+        .smtQrIpt a{
+            color:#ffffff;
+        }
+    </style>
+   
+
+<include  file='public:footer'/>   

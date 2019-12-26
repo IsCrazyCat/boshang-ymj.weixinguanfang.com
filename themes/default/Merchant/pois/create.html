@@ -1,0 +1,412 @@
+<include  file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">黄页</a> > <a>创建黄页</a></li>
+    </ul>
+</div>
+<if condition="!empty($list)">
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">您已经拥有了 <strong><{:count($list)}></strong>  个黄页，不能再生成了，您可以按照下面的信息进行创建！</div>
+        </div>
+    </div> 
+    <div class="tabnr_change  show">
+        <form method="post"  action="<{:U('pois/create')}>"  target="baocms_frm">
+            <table class="tuanfabu_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">商家名称：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[name]" value="<{$detail.name|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+                        </div></td>
+                </tr>
+                 
+                  <tr>
+                 <td><p class="tuanfabu_t">上传缩略图：</p></td>
+                 <td><div class="tuanfabu_nr">
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <input type="hidden" name="data[photo]" value="<{$detail.photo}>" id="data_photo" />
+                        <div id="fileToUpload" >上传缩略图</div>
+                    </div>
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <img id="photo_img" width="80" height="80"  src="<{:config_img($detail['photo'])}>" />
+                        <a href="<{:U('setting/attachs')}>">缩略图设置</a>
+                        <{$CONFIG.attachs.biz.thumb}>
+                    </div>
+                    <script>                                            
+						var width_biz = '<{:thumbSize($CONFIG[attachs][biz][thumb],0)}>';                         
+						var height_biz = '<{:thumbSize($CONFIG[attachs][biz][thumb],1)}>';                         
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"biz"))}>',                             
+						pick: '#fileToUpload',                             
+						resize: true,  
+						compress : {width: width_biz,height: height_biz,quality: 80,allowMagnify: false,crop: true}                       
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_photo").val(resporse.url);                             
+						$("#photo_img").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+                    </div>
+                </td>
+            </tr>
+            
+          
+            
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">电话：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[telephone]" value="<{$detail.telephone|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+                        </div></td>
+                </tr>
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">选择类别：</p></td>
+                    <td><div class="tuanfabu_nr">
+                     <select name="data[type]" id="cate__id" class="tuanfabu_int tuanfabu_intw2">
+                        <option value="0">请选择...</option>
+                        <foreach name="getType" item="var" key="index">
+                            <option value="<{$index}>" <eq name='detail.type' value='$index'>selected="selected"</eq> ><{$var}></option>
+                        </foreach>   
+                    </select>
+                            <code>必须选择</code>
+                        </div></td>
+                </tr>
+               
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">地址：</p></td>
+                    <td><div class="tuanfabu_nr"><input type="text" name="data[address]" value="<{$detail.address|default='0'}>" class="tuanfabu_int tuanfabu_intw2" />
+ 					</div>
+                    </td>
+                </tr>
+                 <php>$tags = str_replace(',',';',$SHOP[tags]);</php>
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">标记：</p></td>
+                    <td><div class="tuanfabu_nr"><input type="text" name="data[tag]" value="<{$detail.tag|default='0'}>" class="tuanfabu_int tuanfabu_intw2" />
+ 					</div>
+                    </td>
+                </tr>
+                <!--坐标开始-->
+               
+                 <tr>
+                    <td width="120"><p class="tuanfabu_t">坐标：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[lng]" id="lng" value="<notempty name="weidian.lng"><{$weidian.lng}><else/><{$the_shop.lng}></notempty>" class="tuanfabu_int tuanfabu_intw2" /> 经度
+                            <input type="text" name="data[lat]" id="lat" value="<notempty name="weidian.lat"><{$weidian.lat}><else/><{$the_shop.lat}></notempty>" class="tuanfabu_int tuanfabu_intw2" /> 纬度
+                        </div></td>
+                </tr>
+            
+                
+                 <tr>
+                    <td width="120"><p class="tuanfabu_t">地图：</p></td>
+                    <td><div class="tuanfabu_nr">
+                        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7b92b3afff29988b6d4dbf9a00698ed8"></script>
+                        <div class="top" style="width:700px; margin-bottom: 20px;">
+                            <div id="r-result"><input type="text" id="suggestId" class="mapinputs tuanfabu_int tuanfabu_intw2" size="20" value="重庆" /> 请输入地址自动定位查找</div>    
+                        </div>
+                        <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+                        <div id="allmap" style="width: 600px; height:500px;"></div>
+                        <script type="text/javascript">
+
+                            // 百度地图API功能
+                            var map = new BMap.Map("allmap");
+                            var lng = "<{$CONFIG['site']['lng']}>";
+                            var lat = "<{$CONFIG['site']['lat']}>";
+                            if (!lng && !lat) {
+                                map.centerAndZoom("合肥");
+                                var point = new BMap.Point(117.260852, 31.825717);
+                            } else {
+                                map.centerAndZoom(new BMap.Point(lng, lat), 15);
+                                var point = new BMap.Point(lng, lat);
+                            }
+                            map.centerAndZoom(point, 15);
+                            var marker = new BMap.Marker(point);  // 创建标注
+                            map.clearOverlays();
+                            map.addOverlay(marker);              // 将标注添加到地图中
+                            marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                            function showPoint(e) {
+                                document.getElementById('lat').value = e.point.lat;
+                                document.getElementById('lng').value = e.point.lng;
+                                var p = new BMap.Point(e.point.lng, e.point.lat);
+                                var mk = new BMap.Marker(p);
+                                map.clearOverlays();
+                                map.addOverlay(mk);
+                                mk.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                            }
+                            map.enableScrollWheelZoom(true);
+                            map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+                            map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}));  //右上角，仅包含平移和缩放按钮
+                            map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT, type: BMAP_NAVIGATION_CONTROL_PAN}));  //左下角，仅包含平移按钮
+                            map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, type: BMAP_NAVIGATION_CONTROL_ZOOM}));  //右下角，仅包含缩放按钮
+                            map.addEventListener("click", showPoint);
+                            function G(id) {
+                                return document.getElementById(id);
+                            }
+
+                            var ac = new BMap.Autocomplete(//建立一个自动完成的对象
+                                    {"input": "suggestId"
+                                        , "location": map
+                                    });
+
+                            ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
+                                var str = "";
+                                var _value = e.fromitem.value;
+                                var value = "";
+                                if (e.fromitem.index > -1) {
+                                    value = _value.province + _value.city + _value.district + _value.street + _value.business;
+                                }
+                                str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+
+                                value = "";
+                                if (e.toitem.index > -1) {
+                                    _value = e.toitem.value;
+                                    value = _value.province + _value.city + _value.district + _value.street + _value.business;
+                                }
+                                str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+                                G("searchResultPanel").innerHTML = str;
+                            });
+
+                            var myValue;
+                            ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
+                                var _value = e.item.value;
+                                myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+                                G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+
+                                setPlace();
+                            });
+
+
+                            function setPlace() {
+                                map.clearOverlays();    //清除地图上所有覆盖物
+                                function myFun() {
+                                    var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+                                    map.centerAndZoom(pp, 18);
+                                    map.addOverlay(new BMap.Marker(pp));    //添加标注
+                                }
+                                var local = new BMap.LocalSearch(map, {//智能搜索
+                                    onSearchComplete: myFun
+                                });
+                                local.search(myValue);
+                            }
+
+                        </script>
+                    </div></td>
+                </tr>
+                <!--坐标结束-->
+                
+                
+                
+            </table>
+            <div class="tuanfabu_an">
+                <input type="submit" class="radius3 sjgl_an tuan_topbt" value="创建黄页" />
+            </div>
+        </form>
+    </div> 
+</div>
+<else />
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">注意：</strong> 下面的信息来自于您的商家资料，请检查后提交开通黄页功能！</div>
+        </div>
+    </div> 
+    <div class="tabnr_change  show">
+        <form method="post"  action="<{:U('pois/create')}>"  target="baocms_frm">
+
+            <table class="tuanfabu_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">商家名称：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[name]" value="<{$SHOP.shop_name}>" class="tuanfabu_int tuanfabu_intw2" />
+                        </div></td>
+                </tr>
+                 
+                 <tr>
+                 <td><p class="tuanfabu_t">上传缩略图：</p></td>
+                 <td><div class="tuanfabu_nr">
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <input type="hidden" name="data[photo]" value="<{$detail.photo}>" id="data_photo" />
+                        <div id="fileToUpload" >上传缩略图</div>
+                    </div>
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <img id="photo_img" width="80" height="80"  src="<{:config_img($detail['photo'])}>" />
+                        <a href="<{:U('setting/attachs')}>">缩略图设置</a>
+                        <{$CONFIG.attachs.biz.thumb}>
+                    </div>
+                    <script>                                            
+						var width_biz = '<{:thumbSize($CONFIG[attachs][biz][thumb],0)}>';                         
+						var height_biz = '<{:thumbSize($CONFIG[attachs][biz][thumb],1)}>';                         
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"biz"))}>',                             
+						pick: '#fileToUpload',                             
+						resize: true,  
+						compress : {width: width_biz,height: height_biz,quality: 80,allowMagnify: false,crop: true}                       
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_photo").val(resporse.url);                             
+						$("#photo_img").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+                    </div>
+                </td>
+            </tr>
+            
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">电话：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[telephone]" value="<{$SHOP.tel}>" class="tuanfabu_int tuanfabu_intw2" />
+                        </div></td>
+                </tr>
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">选择类别：</p></td>
+                    <td><div class="tuanfabu_nr">
+                           <select name="data[type]" id="cate__id" class="tuanfabu_int tuanfabu_intw2">
+                        <option value="0">请选择...</option>
+                        <foreach name="getType" item="var" key="index">
+                            <option value="<{$index}>" <eq name='detail.type' value='$index'>selected="selected"</eq> ><{$var}></option>
+                        </foreach>   
+                    </select>
+                            <code>必须选择</code>
+                        </div></td>
+                </tr>
+               
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">地址：</p></td>
+                    <td><div class="tuanfabu_nr"><input type="text" name="data[address]" value="<{$SHOP.addr}>" class="tuanfabu_int tuanfabu_intw2" />
+ 					</div>
+                    </td>
+                </tr>
+                 <php>$tags = str_replace(',',';',$SHOP[tags]);</php>
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">标记：</p></td>
+                    <td><div class="tuanfabu_nr"><input type="text" name="data[tag]" value="<{$tags}>" class="tuanfabu_int tuanfabu_intw2" />
+ 					</div>
+                    </td>
+                </tr>
+                <!--坐标开始-->
+               
+                 <tr>
+                    <td width="120"><p class="tuanfabu_t">坐标：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[lng]" id="lng" value="<{$SHOP.lng}>" class="tuanfabu_int tuanfabu_intw2" /> 经度
+                            <input type="text" name="data[lat]" id="lat" value="<{$SHOP.lat}>" class="tuanfabu_int tuanfabu_intw2" /> 纬度
+                        </div></td>
+                </tr>
+                  <tr>
+                    <td width="120"><p class="tuanfabu_t">地图：</p></td>
+                    <td><div class="tuanfabu_nr">
+                        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7b92b3afff29988b6d4dbf9a00698ed8"></script>
+                        <div class="top" style="width:700px; margin-bottom: 20px;">
+                            <div id="r-result"><input type="text" id="suggestId" class="mapinputs tuanfabu_int tuanfabu_intw2" size="20" value="重庆" /> 请输入地址自动定位查找</div>    
+                        </div>
+                        <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+                        <div id="allmap" style="width: 600px; height:500px;"></div>
+                        <script type="text/javascript">
+
+                            // 百度地图API功能
+                            var map = new BMap.Map("allmap");
+                            var lng = "<{$CONFIG['site']['lng']}>";
+                            var lat = "<{$CONFIG['site']['lat']}>";
+                            if (!lng && !lat) {
+                                map.centerAndZoom("合肥");
+                                var point = new BMap.Point(117.260852, 31.825717);
+                            } else {
+                                map.centerAndZoom(new BMap.Point(lng, lat), 15);
+                                var point = new BMap.Point(lng, lat);
+                            }
+                            map.centerAndZoom(point, 15);
+                            var marker = new BMap.Marker(point);  // 创建标注
+                            map.clearOverlays();
+                            map.addOverlay(marker);              // 将标注添加到地图中
+                            marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                            function showPoint(e) {
+                                document.getElementById('lat').value = e.point.lat;
+                                document.getElementById('lng').value = e.point.lng;
+                                var p = new BMap.Point(e.point.lng, e.point.lat);
+                                var mk = new BMap.Marker(p);
+                                map.clearOverlays();
+                                map.addOverlay(mk);
+                                mk.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                            }
+                            map.enableScrollWheelZoom(true);
+                            map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+                            map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}));  //右上角，仅包含平移和缩放按钮
+                            map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT, type: BMAP_NAVIGATION_CONTROL_PAN}));  //左下角，仅包含平移按钮
+                            map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, type: BMAP_NAVIGATION_CONTROL_ZOOM}));  //右下角，仅包含缩放按钮
+                            map.addEventListener("click", showPoint);
+                            function G(id) {
+                                return document.getElementById(id);
+                            }
+
+                            var ac = new BMap.Autocomplete(//建立一个自动完成的对象
+                                    {"input": "suggestId"
+                                        , "location": map
+                                    });
+
+                            ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
+                                var str = "";
+                                var _value = e.fromitem.value;
+                                var value = "";
+                                if (e.fromitem.index > -1) {
+                                    value = _value.province + _value.city + _value.district + _value.street + _value.business;
+                                }
+                                str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+
+                                value = "";
+                                if (e.toitem.index > -1) {
+                                    _value = e.toitem.value;
+                                    value = _value.province + _value.city + _value.district + _value.street + _value.business;
+                                }
+                                str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+                                G("searchResultPanel").innerHTML = str;
+                            });
+
+                            var myValue;
+                            ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
+                                var _value = e.item.value;
+                                myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+                                G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+
+                                setPlace();
+                            });
+
+
+                            function setPlace() {
+                                map.clearOverlays();    //清除地图上所有覆盖物
+                                function myFun() {
+                                    var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+                                    map.centerAndZoom(pp, 18);
+                                    map.addOverlay(new BMap.Marker(pp));    //添加标注
+                                }
+                                var local = new BMap.LocalSearch(map, {//智能搜索
+                                    onSearchComplete: myFun
+                                });
+                                local.search(myValue);
+                            }
+
+                        </script>
+                    </div></td>
+                </tr>
+                <!--坐标结束-->
+                
+                
+                
+            </table>
+            <div class="tuanfabu_an">
+                <input type="submit" class="radius3 sjgl_an tuan_topbt" value="生成黄页" />
+            </div>
+        </form>
+    </div> 
+</div>
+</if>
+<include  file='public:footer'/>

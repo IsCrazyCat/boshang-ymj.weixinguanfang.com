@@ -1,0 +1,11 @@
+<IfModule mod_rewrite.c>
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
+</IfModule>
+
+<FilesMatch (.*)\.(exe|bat|bak|com|sql|zip|rar|7z|cab|jar|tar|gz|iso|bz2|z)$>
+Order allow,deny
+deny from all
+</FilesMatch>

@@ -1,0 +1,15 @@
+<foreach name="list" item="var">
+<li class="line">
+	<a href="<{:U('village/detail',array('village_id'=>$var['village_id']))}>" class="item fix hightitem">	
+		<div class="x3">
+                    <img src="<{:config_img($var['pic'])}>">
+		</div>
+		<div class="x9">	
+			<h5>名称：<{:bao_msubstr($var['name'],0,6,false)}> <span class="float-right"><i class="icon-map-marker"></i> <{$var.d}></span></h5>	
+			<p class="addr">	
+				地址：<{$var.addr}>
+			</p>
+		</div>
+	</a>
+</li>
+</foreach>

@@ -1,0 +1,80 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">小区</li>
+        <li class="li2">小区论坛</li>
+        <li class="li2 li3">回复帖子</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span> 此页面是小区贴吧的回复页面！</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('communitypostsreply/create','','添加内容')}>  
+            </div>
+            <div class="right">
+                <form method="post" action="<{:U('communitypostsreply/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <span>原帖子ID</span>
+                        <input type="text" name="post_id" value="<{$post_id|default=''}>" class="inptText w120" />
+                        <span>状态</span>
+                        <select class="select w120" name="audit">
+                            <option value="0"  >全部</option>
+                            <option value="-1" <eq name="audit" value="-1">selected="selected"</eq> >等待审核</option>
+                            <option value="1" <eq name="audit" value="1">selected="selected"</eq>>正常</option>
+                        </select>
+                        <span>  用户ID：</span>   <input type="text" name="user_id" value="<{$user_id|default=''}>" class="inptText w150" />
+                        <input type="submit" class="inptButton" value="  搜索" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="reply_id" /></td>
+                        <td class="w50">ID</td>
+                        <td>原帖子</td>
+                        <td>所属小区</td>
+                        <td>回复人</td>
+                        <td>回复内容</td>
+                        <td>是否审核</td>
+                        <td>操作</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_reply_id" type="checkbox" name="reply_id[]" value="<{$var.reply_id}>" /></td>
+                            <td><{$var.reply_id}></td>
+                            <td><{$posts[$var['post_id']]['title']}></td>
+                            <td><{$community[$var['community_id']]['name']}></td>
+                            <td><{$users[$var['user_id']]['account']}>(<{$var.user_id}>)</td>
+                            <td><{$var.details}></td>
+                            <td>
+                        <if condition="$var.audit eq 1">
+                            <font style="color: green;">已审核</font>
+                            <else/>
+                            <font style="color: red;">待审核</font>
+                        </if>
+                        </td>
+                        <td>
+                            <{:BA('communitypostsreply/edit',array("reply_id"=>$var["reply_id"]),'编辑','','remberBtn')}>
+                            <{:BA('communitypostsreply/delete',array("reply_id"=>$var["reply_id"]),'删除','act','remberBtn')}>
+                            <eq name="var.audit" value="0"> <{:BA('communitypostsreply/audit',array("reply_id"=>$var["reply_id"]),'审核','act','remberBtn')}> </eq>
+                        </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('communitypostsreply/delete','','批量删除','list','a2')}>
+                    <{:BA('communitypostsreply/audit','','批量审核','list','remberBtn')}>
+                </div>
+            </div>
+        </form>
+    </div>
+    <include  file='public:footer'/>       

@@ -1,0 +1,72 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="JavaScript:void(0);">物业管理</a> > <a href="javascript:void(0);">消息通知</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <form method="post" action="<{:U('news/index')}>">
+        <div class="radius5 tuan_top">
+            <div class="tuan_top_t">
+                <div class="left tuan_topser_l">标题：<input type="text" class="radius3 tuan_topser"  name="keyword" value="<{$keyword}>"/><input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/></div>
+                <div class="right tuan_topfb_r"><a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('news/create')}>">添加通知+</a></div>
+            </div> 
+        </div>
+    </form>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td width="50">通知编号</td>
+            <td width="100">标题</td>
+            <td width="100">简介</td>
+            <td width="120">内容</td>
+            <td width="50">浏览数</td>
+            <td width="50">创建时间</td>
+            <td width="60">操作</td>
+        </tr>
+        <foreach name="list" item="var">
+            <tr>
+                <td><{$var.news_id}></td>
+                <td><{$var.title}></td>
+                <td><{:bao_msubstr($var['intro'],0,10,false)}><a class="tips" rel="<{$var.intro}>" style="color: #fff; background: #1ca290; padding: 0px 5px; margin-left: 10px; display: inline-block; float: right; height: 20px; line-height: 20px;" href="javascript:void(0)">查看</a></td>
+                <td><{:bao_msubstr($var['details'],0,20,false)}><a class="tips" rel="<{$var.details}>" style="color: #fff; background: #1ca290; padding: 0px 5px; margin-left: 10px; display: inline-block; float: right; height: 20px; line-height: 20px;" href="javascript:void(0)">查看</a></td>
+                <td><{$var.views}></td>
+                <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                <td>
+                
+                <a class="remove" href="<{:U('news/edit',array('news_id'=>$var['news_id']))}>">编辑</a>
+                <a class="remove jq_delete" rel="<{$var['news_id']}>" href="javascript:void(0);">删除</a>
+                <eq name="var.audit" value="0"> 未审核<else/>已审核 </eq>
+                </td>
+                </tr>
+        </foreach>
+    </table>
+    <script>
+        $(document).ready(function () {
+            $(".jq_delete").click(function () {
+                var url = "<{:U('news/delete')}>";
+                var news_id = $(this).attr('rel');
+                layer.confirm('您确定要删除该通知？', {
+                    area: ['200px', '150px'], //宽高
+                    btn: ['是的', '不'], //按钮
+                    shade: false //不显示遮罩
+                }, function () {
+                    $.post(url, {news_id: news_id}, function (result) {
+                        if (result.status == "success") {
+                            layer.msg(result.msg);
+                            setTimeout(function () {
+                                location.reload();
+                            }, 1000);
+                        } else {
+                            layer.msg(result.msg);
+                        }
+                    }, 'json');
+                });
+                $('.layui-layer-btn0').css('background', '#2fbdaa');
+            });
+        })
+    </script>
+    <div class="paging">
+        <{$page}>
+    </div>
+</div>
+<include  file='public:footer'/>

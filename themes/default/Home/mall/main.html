@@ -1,0 +1,301 @@
+<include file="public:header" /> 
+<include file="public:top"/>
+<include file="public:nav2"/>
+<!--top END-->
+<script>
+$(document).ready(function () {
+	$('.sy_flexslider').flexslider({
+		directionNav: false,
+		pauseOnAction: false
+	});//商城banner
+	$(function() {
+		$(".mall_crowd_flexslider").flexslider({
+			animation: "slide",
+			animationLoop: false,
+			itemWidth: 282,
+			itemMargin: 24,
+			minItems: 2,
+			maxItems: 4,
+			controlNav: false,
+		   // pausePlay: true
+		});
+	});	//商城众筹
+	
+});
+</script>
+<!--商城频道首页-->
+<!--banner内容-->
+<div class="pagewd mall_banner mb20">
+	<div class="mall_cate">
+    	<ul>
+        	 <php>$i=0;</php>         
+        	 <foreach name="goodscate" item="item">
+                <eq name="item.parent_id" value="0"> 
+                <php>$i++;if($i <= 10){</php>
+                 <li class="list">
+                    <h3><a href="<{:U('mall/index',array('cat'=>$item['cate_id']))}>"><{$item.cate_name}><em class="linkIco"></em></a></h3>
+                    <div class="list_child">
+                    	 <php>$i2=0;</php>
+                        <foreach name="goodscate" item="item2">
+                            <eq name="item2.parent_id" value="$item.cate_id"> 
+                            <php>$i2++;if($i2 <= 3){</php>
+                            <a target="_blank" href="<{:U('mall/index',array('cat'=>$item['cate_id'],'cate_id'=>$item2['cate_id']))}>"><{:msubstr($item2['cate_name'],0,4,'utf-8',false)}></a>
+                            <php>}</php>
+                            </eq>
+                        </foreach>
+                    </div>
+                </li>
+                <php>}</php>
+                </eq>
+            </foreach>
+            
+    	   
+	    </ul>
+    </div>
+	<div class="sy_flexslider">
+        <ul class="slides">
+            <calldata mdl="Ad" where=" closed=0 AND site_id=5 AND  city_id IN ({$city_ids}) and bg_date ELT '{$today}' AND end_date EGT '{$today}' " limit="0,5" cache="21600" order="orderby asc">
+                 <li class="list" style="background:url('<{:config_img($item['photo'])}>') center center no-repeat;">
+                 <a target="_blank" href="<{:U('app/ad/click',array('ad_id'=>$item['ad_id'],'aready'=>1))}>"></a></li>
+            </calldata>
+        </ul>
+    </div>
+    <div class="mall_hot">
+    	<volist name='itemss' id='item' offset='0' length='1'>
+            	<div class="pub_img"><a href="<{:U('cloud/detail',array('goods_id'=>$item['goods_id']))}>"><span class="tag"><img src="__TMPL__statics/images/mall/hot.png" /></span><img src="<{:config_img($item['photo'])}>" width="240" height="170" /></a></div>
+                    <div class="pub_wz">
+                        <h3 class="overflow_clear mb10"><a href="<{:U('cloud/detail',array('goods_id'=>$item['goods_id']))}>"><{$item.title}></a></h3>
+                        <div class="mall_progressBar mb20">
+                            <div class="mall_progressBar_wrap">
+                            <php>$lefts = $item['price'] - $item['join']; 
+                    $tt = round($item['join']/$item['price']*100,2);</php>
+                                <span class="mall_progressBar_bar" style="width:<{$tt}>%;"></span>
+                            </div>
+                            <ul class="mall_progressBar_txt">
+                                <li class="list"><p><{$item.price}></p><p class="graycl">总需要人次</p></li>
+                                <li class="list"><p><{$item.join}></p><p class="graycl">人已参与</p></li>
+                                <li class="list"><p><{$lefts}>
+                                </p><p class="graycl">剩余</p></li>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                        <a href="<{:U('cloud/detail',array('goods_id'=>$item['goods_id']))}>" class="btn">立即夺宝</a>
+                    </div>
+        </volist>
+    </div>
+</div>
+<!--banner内容结束-->
+<div class="">
+    <!--商品众筹-->
+    <div class="mall_tit pagewd">
+    	<h2 class="left"><b class="bq">众</b>商品众筹</h2>
+        <a href="<{:U('mall/index')}>" class="more right graycl">更多&gt;</a>
+    </div>
+    <div class="mall_crowd mb20">
+    	<script src="__TMPL__mall/js/jquery.circliful.min.js??v=20160409"></script>
+        <script>
+			$(document).ready(function() {
+                $('.indicatorContainer').circliful();
+            });
+        </script>
+        
+        <div class="mall_crowd_flexslider carousel mall_crowd_box">
+          <ul class="slides">
+          	<volist name='itemss' id='item' offset='1' length='10'>
+                     <li class="list">
+                        <php>$lefts = $item['price'] - $item['join']; 
+                    $tt = round($item['join']/$item['price']*100,2);</php>
+                    
+                        <div class="pub_img"><a href="<{:U('cloud/detail',array('goods_id'=>$item['goods_id']))}>"><img src="<{:config_img($item['photo'])}>" width="282" height="200" /> 
+                                <div  class="circle-svg indicatorContainer" data-dimension="120" data-text="<{$tt}>%" data-info="" data-width="6" data-fontsize="20" data-percent="<{$tt}>" data-fgcolor="#61a9dc" data-bgcolor="#eee" data-fill="#fff"></div>
+
+                        </div>
+                        <div class="pub_wz">
+                        
+                     
+                    
+                    
+                            <h3 class="overflow_clear mb10"><a href="<{:U('cloud/detail',array('goods_id'=>$item['goods_id']))}>"><{$item.title}></a></h3>
+                            <div class="mall_progressBar mb10">
+                                <div class="mall_progressBar_wrap">
+                                    <span class="mall_progressBar_bar" style="width:<{$tt}>%;"></span>
+                                </div>
+                                <ul class="mall_progressBar_txt">
+                                    <li class="left"><p><span class="graycl">总需要人次</span> <{$item.price}></p></li>
+                                    <li class="right"><p><span class="graycl">参与人次</span> <{$item.join}></p></li>
+                                </ul>
+                                <div class="clear"></div>
+                            </div>
+                            <a href="<{:U('cloud/detail',array('goods_id'=>$item['goods_id']))}>" class="btn">立即夺宝</a>
+                        </div>
+                    </li>
+        	</volist>
+            
+          </ul>
+        </div>
+    </div>
+    <!--商品众筹结束-->
+</div>
+<div class="pagewd">
+    <!--新品上架-->
+    <div class="mall_tit">
+    	<h2 class="left"><b class="bq">新</b>新品上架</h2>
+        <a href="<{:U('mall/index')}>" class="more right graycl">更多&gt;</a>
+    </div>
+    <div class="mall_new mb20">
+    	<volist name='new' id='item' offset='0' length='1'>
+        	<div class="left mall_newOne">
+                <img src="<{:config_img($item['photo'])}>" width="560" height="390" />
+                <div class="pub_wz">
+                    <span class="bq">新</span>
+                    <h3><{:bao_msubstr($item['title'],0,12,false)}></h3>
+                    <h3 class="fontcl1">￥<{:round($item['mall_price']/100,2)}></h3>
+                    <p>市场价：<del>￥<{:round($item['price']/100,2)}></del></p>
+                    <p><span class="mr10">已售：<{$item.sold_num}></span><span class="ml10">库存：<{$item.kucun}></span></p>
+                    <a href="<{:U('mall/detail',array('goods_id'=>$item['goods_id']))}>" class="btn">立即购买</a>
+                </div>
+            </div>
+        </volist>
+    	
+        <div class="right mall_new_list_box">
+            <ul>
+            	<volist name='new' id='item' offset='1' length='2'>
+                     <li class="mall_new_list">
+                        <div class="pub_img"><a href="<{:U('mall/detail',array('goods_id'=>$item['goods_id']))}>"><span class="bq">新</span><img src="<{:config_img($item['photo'])}>" width="290" height="210" /></a></div>
+                        <div class="pub_wz">
+                            <h3 class="overflow_clear mb10"><a href="<{:U('mall/detail',array('goods_id'=>$item['goods_id']))}>"><{:bao_msubstr($item['title'],0,12,false)}></a></h3>
+                            <p class="fontcl1 price">￥<{:round($item['mall_price']/100,2)}></p>
+                            <P>市场价：<del>￥<{:round($item['price']/100,2)}></del></P>
+                            <div class="box">
+                                <div class="left" style="line-height:20px; text-align:left; font-size:12px; color:#666;">已售出：<{$item.sold_num}><p>库存：<{$item.kucun}></p></div>
+                                <div class="right"><a href="<{:U('mall/detail',array('goods_id'=>$item['goods_id']))}>" class="btn">立即购买</a></div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </li>
+                </volist>
+               
+               
+            </ul>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!--新品上架结束-->
+    <!--热门推荐-->
+    <div class="mall_tit">
+    	<h2 class="left"><b class="bq">荐</b>热门推荐</h2>
+        <a href="<{:U('mall/index')}>" class="more right graycl">更多&gt;</a>
+    </div>
+    <div class="mall_recmd mb20">
+    	<ul>
+        	<volist name='tuijian' id='item'>
+                <li class="list">
+                    <p class="bq_box bor1"><span class="bq">推荐</span></p>
+                    <a href="<{:U('mall/detail',array('goods_id'=>$item['goods_id']))}>" class="blackcl3"><img src="<{:config_img($item['photo'])}>" width="204" height="145" /></a>
+                    <h3 class="overflow_clear mt10"><a href="<{:U('mall/detail',array('goods_id'=>$item['goods_id']))}>" class="blackcl3"><{:bao_msubstr($item['title'],0,12,false)}></a></h3>
+                    <p class="price fontcl1">现价：￥<{:round($item['mall_price']/100,2)}></p>
+                    <p>市场价：<del>￥<{:round($item['price']/100,2)}></del></p>
+                    <p class="graycl" style="overflow:hidden; margin-top:10px; font-size:12px;"><span class="left">已售：<{$item.sold_num}></span><span class="right">库存：<{$item.kucun}></span></p>
+                </li>
+            </volist>
+	    </ul>
+        <div class="clear"></div>
+    </div>
+    <!--热门推荐结束-->
+    <!--限时套餐-->
+    <div class="mall_tit">
+    	<h2 class="left"><b class="bq">抢</b>限时套餐</h2>
+        <a href="<{:U('mall/index')}>" class="more right graycl">更多&gt;</a>
+    </div>
+    <div class="mall_recmd mall_buy mb20">
+    	<div class="left mall_buy_time">
+        	<img src="__TMPL__statics/images/mall/time.png" />
+        	<p>距离结束还剩</p>
+            <script type="text/javascript" language="javascript">
+                var t1 = 20*3600*1000;
+                
+                    setInterval(function () {
+                        if(t1>0){
+                        t1-=1000;
+                       // alert(t1);
+                       var str = '';
+                        var d1 = Math.floor(t1 / 1000 / 60 / 60 / 24);
+                        var h1 = Math.floor(t1 / 1000 / 60 / 60 % 24);
+                        var m1 = Math.floor(t1 / 1000 / 60 % 60);
+                        var s1 = Math.floor(t1 / 1000 % 60);
+                        //alert(d1);
+                        //if (d1 > 30 || t1 < 11) {
+                           // $('#s1').hide();
+                       // }
+
+                        
+                        if (h1 < 10) {
+                            str+='<span>0'+h1+'</span>时';
+                        } else {
+                           str+='<span>'+h1+'</span>时';
+                        }
+                        if (m1 < 10) {
+                           str+='<span>0'+m1+'</span>分';
+                        } else {
+                            str+='<span>'+m1+'</span>分';
+                        }
+						if (s1 < 10) {
+                           str+='<span>0'+s1+'</span>分';
+                        } else {
+                            str+='<span>'+s1+'</span>分';
+                        }
+                    }
+                        $("#s1").html(str);
+                    }, 1000);
+            </script>
+            <div id="s1" class="time"></div>
+        </div>
+        <div class="right mall_buy_r">
+            <ul>
+            
+            	<volist name='xianshi' id='item'>
+                    <li class="list">
+                        <p class="bq_box"><span class="bq">套餐</span></p>
+                        <a href="<{:U('mall/detail',array('goods_id'=>$item['goods_id']))}>"><img src="<{:config_img($item['photo'])}>" width="204" height="145" /></a>
+                        <h3 class="overflow_clear mt10"><a href="<{:U('mall/detail',array('goods_id'=>$item['goods_id']))}>" class="blackcl3"><{:bao_msubstr($item['title'],0,12,false)}></a></h3>
+                        <p class="price fontcl1">￥<{$item['rush_price']/100}></p>
+                        <p>市场价：<del>￥<{$item['price']/100}></del></p>
+                    </li>
+                </volist>
+            </ul>
+            <div class="clear"></div>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <!--限时套餐结束-->
+</div>
+<div class="mall_bggrey">
+    <div class="pagewd">
+        <div class="mall_tit">
+            <h2 class="left">热门商品</h2>
+            <a href="<{:U('mall/index')}>" class="more right graycl">更多&gt;</a>
+        </div>
+        <div class="mall_list_box">
+            <ul>
+            
+            	<volist name='like' id='item'>
+                     <li class="mall_list">
+                        <div class="box"> 
+                            <a href="<{:U('mall/detail',array('goods_id'=>$item['goods_id']))}>"><img src="<{:config_img($item['photo'])}>" width="278" height="190" /></a>
+                            <h3 class="overflow_clear"><a href="<{:U('mall/detail',array('goods_id'=>$item['goods_id']))}>"><{:bao_msubstr($item['title'],0,12,false)}></a></h3>
+                            <p class="fontcl1">现价：<big><b>￥<{$item['mall_price']/100}></b></big><span style="margin-left:20px;">市场价：<del class="blackcl6">￥<{$item['price']/100}></del></span></p>
+                            
+                            <div class="btn_box"><a href="<{:U('mall/detail',array('goods_id'=>$item['goods_id']))}>" class="btn">立即购买</a></div>
+                            <p class="graycl" style="overflow:hidden; margin-top:16px;"><span class="left">已售：<{$item.sold_num}></span><span class="right">库存：<{$item.kucun}></span></p>
+                        </div>
+                    </li>
+                </volist>
+            </ul>
+            <div class="clear"></div>
+        </div>
+       
+    </div>
+</div>
+<!--商城频道首页结束-->
+<include file="public:footer"/>

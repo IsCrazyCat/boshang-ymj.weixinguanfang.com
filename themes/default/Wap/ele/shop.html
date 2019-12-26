@@ -1,0 +1,344 @@
+<php>$mobile_title = $detail['shop_name'];</php>
+<include file="public:header"/>
+<script src="/static/default/wap/other/cookie.js"></script>
+<script src="/static/default/wap/js/elecart.js"></script>
+<script src="/static/default/wap/js/dialog.js"></script>
+<script src="/static/default/wap/js/jquery.fly.min.js"></script>
+<link href="/static/default/wap/css/main.css" rel="stylesheet">
+
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('ele/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<{$detail.shop_name}>
+		</div>
+	</header>
+
+    
+<script>
+    $(function () {
+        if ($('#shangjia_tab').length > 0)/*判断是否存在这个html代码*/
+        {
+            $('#shangjia_tab li').width(100 / $('#shangjia_tab li').length + '%');
+            $('.page-center-box').css('top', '0.9rem');
+        }//头部切换tab结束
+        if ($('.elePrompt').length > 0 && $('#shangjia_tab').length > 0)/*判断是否存在这个html代码*/
+        {
+            $('#shangjia_tab').css('top', '5.0rem');
+            $('.page-center-box').css('top', '8.0rem');
+        } else if ($('.elePrompt').length > 0 || $('#shangjia_tab').length > 0) {
+            $('.page-center-box').css('top', '6.0rem');
+        }//头部提示结束
+        
+		$.fn.smartFloat = function() {
+			var position = function(element) {
+				var top = 100,
+					pos = element.css("position");
+				$(window).scroll(function() {
+					var scrolls = $(this).scrollTop();
+					if(scrolls > top) {
+						if(window.XMLHttpRequest) {
+							element.css({
+								position: "fixed",
+								top: 50,
+								width: "25%"
+							});
+						} else {
+							element.css({
+								top: 100,
+								width: "100%"
+							});
+						}
+					} else {
+						element.css({
+							position: pos,
+							top: 100,
+							width: "100%"
+						});
+					}
+				});
+			};
+			return $(this).each(function() {
+				position($(this));
+			});
+		};
+        $("#r-ggbox").smartFloat();
+        $(".frame-set-left ul li").click(function () {
+            $(".frame-set-left ul li").removeClass('active');
+            $(this).addClass('active');
+            var cate = $(this).attr('rel');
+            if (cate == 'all') {
+                $('.list-box').show();
+            } else {
+                $('.list-box').hide();
+                $('.' + cate).show();
+                $("html, body").animate({
+					"scroll-top":0
+				},"fast");
+            }
+        });
+    });
+</script>
+
+<style>
+body{background: #f8f8f8;}
+.menu_detail img {max-height: 230px;}
+.tag1 {font-size: 75%;padding: 0.1em 0.5em 0.2em;color: #fff;}
+.tag1 em {padding: 0.1em 0.5em 0.2em;color: #fff;}
+.list-have-pic .list-content em {padding: 0 .22rem;}
+.detail-info{border-bottom:1px solid #dddddd;background-color:#fff;width:100%;display:-webkit-box;display:-ms-flexbox;display:-moz-box}
+.detail-info-cell{text-align:center;margin-top:6px;width:33.33%}
+.detail-info-desc{font-size:12px}
+.detail-info-data{font-size:23px;line-height:25px}
+.detail-info-units{font-size:12px;color:#959595}
+.detail-info-receive{color:#53a1dd}
+.detail-separate{width:1px;height:32px;background-color:#eeeeee;margin:14px 0;-webkit-box-flex:0;-ms-flex:0 0 auto;-moz-box-flex:0;box-flex:0}
+.menuwrap{width:100%;display:-webkit-box;display:-ms-flexbox;display:-moz-box;display:box;height:100%;-ms-touch-action:none}
+.asidewrap{width:28%;min-width:90px;height:100%;background-color:#f8f8f8;overflow:hidden}
+.u-flyer{display: block;width: 50px;height: 50px;border-radius: 50px;position: fixed;z-index: 9999;}
+
+#ele {top: 6rem;}
+#ele_tab{display:block;width:100%;background-color:#fff;border-bottom:.11rem #dedede solid;z-index:999; display:inline-block;}
+#ele_tab li{display:block;float:left}
+#ele_tab li a{display:block;text-align:center;line-height:2.2rem;height:2.2rem;color:#999}
+#ele_tab li a.on{border-bottom:.22rem solid #2fbdaa;margin-top:-.01rem}
+#ele_tab li em{display:inline-block;margin-left:.05rem;margin-bottom:.02rem;content:'';width:.07rem;height:.07rem;border-bottom:.02rem solid #666;border-left:.02rem solid #666;transform:rotate(-45deg);-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);-webkit-transform:rotate(-45deg);-o-transform:rotate(-45deg)}
+
+</style>
+
+<!-- 筛选TAB -->
+<ul id="ele_tab">
+   <li class="x4"><a href="<{:U('ele/shop',array('shop_id'=>$detail['shop_id']))}>" class="on">商品</a></li>
+   <li class="x4"><a href="<{:U('ele/detail',array('shop_id'=>$detail['shop_id']))}>">商家</a></li>
+   <li class="x4"><a href="<{:U('ele/dianping',array('shop_id'=>$detail['shop_id']))}>">评价</a></li>
+</ul>  
+
+
+
+<!--头部切换结束-->
+<div id="ele" class="page-center-box mt10">
+    <div class="frame-set-left">
+        <ul id="r-ggbox">
+            <li class="active" rel="all" style="border-top:0.1rem solid #dedede;"><a href="javascript:void(0);">全部分类</a></li>
+            <foreach name="cates" item="item">
+                <li rel="cate_<{$item.cate_id}>"><a href="javascript:void(0);"><{:bao_msubstr($item['cate_name'],0,4,false)}></a></li>
+            </foreach>
+        </ul>
+    </div>
+    <div class="frame-set-right">
+        <div id="scroll">
+            <div class="list-have-pic">
+                <div class="eleList_box">
+                    <foreach name="list" item="var">
+                        <div class="list-box cate_<{$var.cate_id}>">
+                            <div class="list-img ac" onclick="liclick(this);" href="javascript:;"><!--增加触发事件-->
+                            
+                                <img  url="<{:config_img($var['photo'])}>" src="<{:config_img($var['photo'])}>">
+                            </div>
+                            <div class="list-content">
+                                <p class="overflow_clear"><h5><{:bao_msubstr($var['product_name'],0,10,false)}></h5></p>
+                                <h1 style="display:none" class="salenum"><{:bao_msubstr($var['desc'],0,56,false)}>...</h1>
+                                <p class="price fontcl2">
+                                    <span class="unit_price">&yen;<{:round($var['price']/100,2)}></span><em>元</em>
+                                    <span class="fontc3">月售：<{$var.sold_num}>份</span>
+                                </p>
+                                <div class="num-input">
+                                	<img style="display: none;" src="<{:config_img($var['photo'])}>">
+                                    <div class="btn jq_jian" val="<{:round($var['price']/100,2)}>" did="<{$var.product_id}>" onclick="dec(this);">-</div>
+                                    <div class="input"><input type="text" class="ordernum" readonly="readonly" value="<{$var.cart_num}>" /></div>
+                                    <div class="btn active jq_addcart" val="<{:round($var['price']/100,2)}>" did="<{$var.product_id}>" onclick="addcart(this);" >+</div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </foreach>
+                </div>
+            </div>                
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<footer class="footer-cart eleFooter-cart">
+    <div class="cart">
+        <a id="cart_1" href="javascript:void(0);"><i class="icon icon-cart-plus"></i><div class="cart-num" id="num"></div></a>
+    </div>
+    <div class="price">￥<span id="total_price"></span><p>(<{:round($detail['since_money']/100,2)}>元起送,<if condition="empty($detail['logistics'])">免费配送<else/>配送费:￥<{:round($detail['logistics']/100,2)}></if>)</p></div>
+    <div id="cart_2" class="disable"><a href="javascript:void(0);" style="color:#FFFFFF;">确认下单</a></div>
+</footer>
+</body>
+
+
+   <!--弹出 start-->
+   <div id="menuDetail" class="menu_detail">
+    <img style="display: none;">
+    <div class="nopic"></div>
+    <a id="detailBtn" class="comm_btn jq_addcart" onclick="addcart(this);"  did="<{$var.product_id}>" href="javascript:void(0);">来一份</a>
+        <dl><dt>价格：</dt><dd class="highlight"><span class="price"></span></dd></dl>
+        <dl style=" margin-top:15px;"><dt>介绍：</dt><dd class="info"></dd></dl>
+    </div>
+   <!--end-->
+<script type="text/javascript">
+//添加弹出
+	var _wraper = $('#menuDetail');
+	var dialogTarget;
+	function liclick(l){
+		var _this = $(l),
+			F = function(str){return _this.parent().find(str);},
+			title = F('h5').text(),
+			imgUrl = F('img').attr('url'),
+			val = _this.parent().find('.jq_jian').attr('val'),
+			did = _this.parent().find('.jq_jian').attr('did'),
+			price = F('.unit_price').text(),
+			sales = F('.sales strong').attr('class'),
+			saleNum = F('.sale_num').text(),
+			info = F('h1').text(),
+			saleDesc = F('.salenum').html(),
+			unit=F('.theunit').text(),
+			_detailImg = _wraper.find('img');
+			_wraper.find('.price').text(price).end()
+			.find('.sales strong').attr('class', sales).end()
+			//.find('.sale_desc').html(saleNum).end()
+			.find('.info').text(info);
+		_wraper.parents('.dialog').find('.dialog_tt').text(title);
+			$('#detailBtn').removeClass('disabled').text('来一份');
+			$('#detailBtn').attr('val',val);
+			$('#detailBtn').attr('did',did);
+		if(imgUrl){
+			_detailImg.attr('src', imgUrl).show().next().hide();
+		}else{
+			_detailImg.hide().next().show();
+		}
+
+		dialogTarget = _this;
+		_wraper.dialog({title: title, closeBtn: true});
+		}
+
+		//添加弹出的商品到购物车
+		function addcart(o){
+			var data = {}, shop_id = "<{$_GET['shop_id']}>";
+			data['product_id'] = $(o).attr('did');
+			data['price']      = $(o).attr('val');
+			
+			var v = $(o).parent().find(".ordernum").val();
+			if(v < 99){
+				v++;
+				$(o).parent().find(".ordernum").val(v);
+			}
+			window.ele.addcart(shop_id,data);
+			$("#num").text(window.ele.count());
+		}
+		
+		//加入购物车特效
+    $(function() {
+        var offset = $("#num").offset();
+        $(".jq_addcart").click(function(event) {
+            var addcar = $(this);
+            var img = addcar.parent().find('img').attr('src');
+            var flyer = $('<img class="u-flyer" src="' + img + '">');
+            flyer.fly({
+                start: {
+                    left: event.pageX,
+                    top: event.pageY
+                },
+                end: {
+                    left: offset.left + 10,
+                    top: offset.top + 10,
+                    width: 0,
+                    height: 0
+                }
+            });
+        });
+    })
+</script>
+
+<!--JS 购物车-->
+<script type="text/javascript">
+	
+    $(document).ready(function () {
+        var price = window.ele.totalprice("<{$detail['shop_id']}>");
+        var since_money = "<{:round($detail['since_money']/100,2)}>";
+        if(price > since_money){
+            $('#cart_1').attr('href', "<{:U('ele/cart')}>");
+            $('#cart_2').find('a').attr('href', "<{:U('ele/cart')}>");
+            $('#cart_2').removeClass('disable');
+            $('#cart_2').addClass('btn');
+        }else{
+            $('#cart_1').attr('href', "javascript:void(0);");
+            $('#cart_2').find('a').attr('href', "javascript:void(0);");
+            $('#cart_2').addClass('disable');
+            $('#cart_2').removeClass('btn');
+        }
+        
+    })
+
+
+
+    function addcart(o) {
+        var data = {}, shop_id = "<{$detail['shop_id']}>";
+        data['product_id'] = $(o).attr('did');
+        data['price'] = $(o).attr('val');
+        var v = $(o).parent().find(".ordernum").val();
+        if(v < 99){
+            v++;
+            $(o).parent().find(".ordernum").val(v);
+        }
+        window.ele.addcart(shop_id, data);
+        $("#num").text(window.ele.count("<{$detail['shop_id']}>"));
+        $("#total_price").html(window.ele.totalprice("<{$detail['shop_id']}>"));
+        var since_money = "<{:round($detail['since_money']/100,2)}>";
+		//alert(window.ele.totalprice("<{$detail['shop_id']}>"));
+        if (parseInt(window.ele.totalprice("<{$detail['shop_id']}>")) < parseInt(since_money)) {
+			//alert(1)
+		    $('#cart_1').attr('href', "javascript:void(0);");
+            $('#cart_2').find('a').attr('href', "javascript:void(0);");
+			$('#cart_2').removeClass('btn');
+            $('#cart_2').addClass('disable');
+        } else {
+			//alert(2)
+            $('#cart_1').attr('href', "<{:U('ele/cart')}>");
+            $('#cart_2').find('a').attr('href', "<{:U('ele/cart')}>");
+            $('#cart_2').removeClass('disable');
+            $('#cart_2').addClass('btn');
+        }
+    }
+    function dec(e) {
+        var product_id = $(e).attr('did'), shop_id = "<{$detail['shop_id']}>";
+        window.ele.dec(shop_id, product_id);
+        var v = $(e).parent().find(".ordernum").val();
+        if(v > 0){
+            v--;
+            $(e).parent().find(".ordernum").val(v);
+        }
+        $("#num").text(window.ele.count("<{$detail['shop_id']}>"));
+        $("#total_price").html(window.ele.totalprice("<{$detail['shop_id']}>"));
+        var since_money = "<{:round($detail['since_money']/100,2)}>";
+		// if (parseInt(window.ele.totalprice("<{$detail['shop_id']}>")) < parseInt(since_money)) {
+        if (parseInt(window.ele.totalprice("<{$detail['shop_id']}>")) < parseInt(since_money)) {
+            $('#cart_1').attr('href', "javascript:void(0);");
+            $('#cart_2').find('a').attr('href', "javascript:void(0);");
+            $('#cart_2').addClass('disable');
+            $('#cart_2').removeClass('btn');
+        } else {
+            $('#cart_1').attr('href', "<{:U('ele/cart')}>");
+            $('#cart_2').find('a').attr('href', "<{:U('ele/cart')}>");
+            $('#cart_2').removeClass('disable');
+            $('#cart_2').addClass('btn');
+        }
+    }
+
+//初始化购物城数据
+    ~function () {
+        var count = window.ele.count("<{$detail['shop_id']}>");
+        var totalprice = window.ele.totalprice("<{$detail['shop_id']}>");
+        $("#num").text(count);
+        $("#total_price").html(totalprice);
+    }();
+
+</script>
+</html>

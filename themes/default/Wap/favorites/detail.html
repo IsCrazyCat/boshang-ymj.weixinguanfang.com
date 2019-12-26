@@ -1,0 +1,119 @@
+<include file='public:header'/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('favorites/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		<{$detail.shop_name}>
+	</div>
+</header>
+<style>
+.pic img{ width:100%}
+</style>
+
+<div id="container" class="container">
+	<div class="blank-20"></div>
+	<?php foreach($news as $k=>$val){?>
+	<div class="news-item">
+		<p class="text-center">
+			<span class="tag"><?php echo date('m月d日 H:i',$val['create_time']);?></span>
+		</p>
+		<div class="margin-large border padding">
+        
+			<a href="<{:U('favorites/read',array('news_id'=>$val['news_id']))}>"><div class="pic"><img src="<{:config_img($val['photo'])}>"  /></div>
+				<h5><{:msubstr($val['title'],0,18)}></h5>
+				<p><{$val.create_time|date='Y-m-d',###}></p>
+				<p><{:bao_Msubstr($val['details'],0,60)}></p>
+			</a>
+		</div>
+	</div>
+	<?php }?>
+</div>
+
+<footer class="footer-switch">
+    <div class="float-left left"><span class="switch-btn"></span></div>
+	<div class="float-left right">
+    	<script>
+			$(function(){
+				$(".footer-switch .switch-btn").click(function(){
+					if($(".footer-switch .menu").css("display")=='block'){
+						$(".footer-switch .menu").hide();
+						$(".footer-switch .input-box").show(200);
+					}
+					else{
+						$(".footer-switch .menu").show();
+						$(".footer-switch .input-box").hide(200);
+					}
+				});
+				$(".footer-switch .menu-list").click(function(){
+					if($(this).find(".menu-pull").css("display")=='block'){
+						$(".footer-switch .menu-pull").hide();
+						$(this).find(".menu-pull").hide();
+					}
+					else{
+						$(".footer-switch .menu-pull").hide();
+						$(this).find(".menu-pull").show();
+					}
+				});
+                                
+                                
+				$("#jquery-send").click(function(){
+					if($("#word").val()!=''){
+						var word = $("#word").val();
+						var str ='<div class="chat-box"> <div class="face float-right"><img src="<{:config_img($MEMBER['face'])}>" class="float-right" /></div> <div class="chat float-right"><div class="chat-block float-right">'+word+'</div> </div>  <div class="clear"></div></div>';
+						$("#container").append(str);
+						$("#word").val('');
+						$("html,body").animate({scrollTop: document.body.clientHeight}, 200);
+						$.post('<{:U("favorites/send",array("shop_id"=>$detail["shop_id"]))}>',"word="+word,function(data){
+							 if(data.ret == 1){
+								 switch(data.type){
+									 case 'text':
+											var str = '<div class="chat-box"> <div class="face float-left"><img src="'+data.face+'" class="float-left" /></div> <div class="chat float-left"><div class="float-left">'+data.contents+'</div></div> <div class="clear"></div> </div>';
+											$("#container").append(str);
+										 break;
+									 case  'news':
+										 var str = '<div class="blank-20"></div><div class="news-item">';
+											str+=' <a href="'+data.url+'"><div class="pic"><img src="'+data.photo+'"  /></div>';
+											str+=' <h5>'+data.title+'</h5>';
+											str+='<p>'+data.intro;
+											str+='</p> </a></div>';
+											$("#container").append(str);
+										 break;
+									 
+								 } 
+							 }
+							
+							 $("html,body").animate({scrollTop: document.body.clientHeight}, 200);
+						},'json');
+					}                                    
+				});
+			});
+		</script>
+	    <div class="menu">
+	        <ul>
+                <?php  foreach($weixin['button']  as $k=>$v){?>
+                <li class="menu-list"><span class="menu-list-small" href="javascript:void(0);"><{$v}></span>
+                	<div class="menu-pull">
+                    	<ul>
+                            <?php 
+								foreach($weixin['child'][$k] as $key=>$val){
+								if($val['name']!=''){
+							?>
+								<li><a href="<{$val.url}>"><{$val.name}></a></li>
+                            <?php }}?>
+                        </ul>
+                    </div>
+                </li>
+                <?php }?>
+            </ul>
+	    </div>
+        <div class="input-box">
+			<input name="word" id="word" type="text" class="text" />
+			<input type="button" id="jquery-send" class="button bg-green" value="发送" />
+        </div>
+	</div>
+    <div class="clear"></div>
+</footer>
+
+</body>
+</html>

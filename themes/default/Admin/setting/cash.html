@@ -1,0 +1,252 @@
+<include  file='public:header'/>
+<style>
+.profit {text-align: center;color: #333;font-weight: bold; background: #F5F5FB;}
+.lfTdBt{width:180px;}
+</style>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">基本设置</li>
+        <li class="li2 li3">充值提现设置</li>
+    </ul>
+</div>
+<p class="attention">这里可以设置会员提现至少满多少钱才可以提现，或者单笔不超过多少钱！<span>注意：单笔提现设置必须比满多少元大！记住了！不能设置为0，可以留空！</span></p>
+<form  target="baocms_frm" action="<{:U('setting/cash')}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                    <php>
+                        $config = D('Setting')->fetchAll();
+                    </php>
+                    
+                 <tr>
+                     <td class="lfTdBt">是否开启会员提现：</td>
+                     <td class="rgTdBt">
+                     <label><input type="radio" name="data[is_cash]" <eq name="CONFIG.cash.is_cash" value="1">checked="checked"</eq> value="1"/>开启</label>
+                     <label><input type="radio" name="data[is_cash]" <eq name="CONFIG.cash.is_cash" value="0">checked="checked"</eq>  value="0"/>关闭</label>
+                        <code>开启后才会出现会员提现按钮，否则会员无法提现，商家提现不受任何影响，商家已没有必要关闭提现功能。</code>
+                      </td>
+			    </tr>
+                    
+                <tr>
+                    <td class="lfTdBt">网站会员最低提现：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[user]" value="<{$CONFIG.cash.user}>" class="scAddTextName w80" />
+						<code>会员单笔提现最低</code>
+                        <input type="text" name="data[user_big]" value="<{$CONFIG.cash.user_big}>" class="scAddTextName w80" />
+                        <code>会员单笔提现最高
+                            <if condition="$config['cash']['user_big'] ELT $config['cash']['user']">
+                                <a style="color:#F00">会员最低提现设置不合法 </a>
+                            </if>
+                        </code>
+                        <input type="text" name="data[user_cash_commission]" value="<{$CONFIG.cash.user_cash_commission}>" class="scAddTextName w80" />%
+                        <code>单笔提现手续费，设置3%，100元扣除3元，实际到账97元</code>
+                    </td>
+                </tr>
+                 
+
+                <tr>
+                    <td class="lfTdBt">商户最低提现：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[shop]" value="<{$CONFIG.cash.shop}>" class="scAddTextName w80" />
+						<code>商家单笔提现最低</code>
+                        <input type="text" name="data[shop_big]" value="<{$CONFIG.cash.shop_big}>" class="scAddTextName w80" />
+						<code>商家单笔提现最高
+                        	<if condition="$config['cash']['shop_big'] ELT $config['cash']['shop']">
+                                <a style="color:#F00">商户最低提现不合法 </a>
+                            </if>
+                        </code>
+                        <input type="text" name="data[shop_cash_commission]" value="<{$CONFIG.cash.shop_cash_commission}>" class="scAddTextName w80" />%
+                        <code>单笔提现手续费，设置3%，100元扣除3元，实际到账97元</code>
+                    </td>
+                </tr>
+
+
+                 <tr> 
+                    <td class="lfTdBt">认证商户最低提现：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[renzheng_shop]" value="<{$CONFIG.cash.renzheng_shop}>" class="scAddTextName w80" />
+						<code>通过资质认证的商家每次提现可以多少钱</code>
+                        <input type="text" name="data[renzheng_shop_big]" value="<{$CONFIG.cash.renzheng_shop_big}>" class="scAddTextName w80" />
+						<code>认证商户单笔最大提现多少钱
+                        	<if condition="$config['cash']['renzheng_shop_big'] ELT $config['cash']['renzheng_shop']">
+                                <a style="color:#F00">认证商户最低提现不合法 </a>
+                            </if>
+                        </code>
+                    </td>
+                </tr>
+                
+                <tr> 
+                    <td class="lfTdBt">每日申请提现次数：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[user_cash_second]" value="<{$CONFIG.cash.user_cash_second}>" class="scAddTextName w80" />
+						<code>会员每日最多申请多少次提现</code>
+                        <input type="text" name="data[shop_cash_second]" value="<{$CONFIG.cash.shop_cash_second}>" class="scAddTextName w80" />
+						<code>商家每日最多申请多少次提现</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                  <td class="rgTdBt profit" colspan = "2"> 下面的设置，项目3>项目2》项目1，否则报错
+                      <if condition="!empty($config['cash']['recharge_give_2']) && $config['cash']['recharge_full_2'] LT $config['cash']['recharge_full_1']">
+                         <a style="color:#F00">注意！项目2充值多少必须大于项目1充值满多少 </a>
+                      </if>
+                      <if condition="!empty($config['cash']['recharge_give_3']) && $config['cash']['recharge_full_3'] LT $config['cash']['recharge_full_3']">
+                         <a style="color:#F00">注意！项目3充值多少必须大于项目2充值满多少 </a>
+                      </if>
+                  </td>
+                </tr>
+                
+                
+                 <tr>
+                     <td class="lfTdBt">是否开启充值返现：</td>
+                     <td class="rgTdBt">
+                     <label><input type="radio" name="data[is_recharge]" <eq name="CONFIG.cash.is_recharge" value="1">checked="checked"</eq> value="1"/>开启</label>
+                     <label><input type="radio" name="data[is_recharge]" <eq name="CONFIG.cash.is_recharge" value="0">checked="checked"</eq>  value="0"/>关闭</label>
+                        <code>开启后下面的充值设置选项才会生效，否则无效，开启后用户充值满了多少后自动到账，下面最多设置3项，已可以只填写意一项，不设置留空。</code>
+                      </td>
+			    </tr>
+                
+                <tr> 
+                    <td class="lfTdBt">单笔充值满多少送多少1：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[recharge_full_1]" value="<{$CONFIG.cash.recharge_full_1}>" class="scAddTextName w80" />
+						<code>满多少</code>
+                        <input type="text" name="data[recharge_give_1]" value="<{$CONFIG.cash.recharge_give_1}>" class="scAddTextName w80" />
+						<code>切记！单笔充值送多少，满多少必须大于送多少，否则会出现错误
+                        	<if condition="$config['cash']['recharge_give_1'] EGT $config['cash']['recharge_full_1']">
+                                <a style="color:#F00">充值满多少送多少1不合法 </a>
+                            </if>
+                        </code>
+                    </td>
+                </tr>
+                
+                <tr> 
+                    <td class="lfTdBt">单笔充值满多少送多少2：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[recharge_full_2]" value="<{$CONFIG.cash.recharge_full_2}>" class="scAddTextName w80" />
+						<code>满多少</code>
+                        <input type="text" name="data[recharge_give_2]" value="<{$CONFIG.cash.recharge_give_2}>" class="scAddTextName w80" />
+						<code>切记！单笔充值送多少，满多少必须大于送多少，否则会出现错误
+                       		 <if condition="$config['cash']['recharge_give_3'] EGT $config['cash']['recharge_full_3']">
+                                <a style="color:#F00">充值满多少送多少3不合法 </a>
+                            </if>
+                            
+                            <if condition="!empty($config['cash']['recharge_give_2']) && $config['cash']['recharge_full_2'] LT $config['cash']['recharge_full_1']">
+                                <a style="color:#F00">注意！项目2充值多少必须大于项目1充值满多少 </a>
+                            </if>
+                            
+                            
+                        </code>
+                    </td>
+                </tr>
+                
+                <tr> 
+                    <td class="lfTdBt">单笔充值满多少送多少3：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[recharge_full_3]" value="<{$CONFIG.cash.recharge_full_3}>" class="scAddTextName w80" />
+						<code>满多少</code>
+                        <input type="text" name="data[recharge_give_3]" value="<{$CONFIG.cash.recharge_give_3}>" class="scAddTextName w80" />
+						<code>切记！单笔充值送多少，满多少必须大于送多少，否则会出现错误
+                        	<if condition="$config['cash']['recharge_give_3'] EGT $config['cash']['recharge_full_3']">
+                                <a style="color:#F00">充值满多少送多少3不合法 </a>
+                            </if>
+                            <if condition="!empty($config['cash']['recharge_give_3']) && $config['cash']['recharge_full_3'] LT $config['cash']['recharge_full_3']">
+                                <a style="color:#F00">注意！项目3充值多少必须大于项目2充值满多少 </a>
+                            </if>
+                        </code>
+                    </td>
+                </tr>
+                
+                <tr>
+                  <td class="rgTdBt profit" colspan = "2"> 下面的请好好设置，不要乱写，单笔最多要大于单笔最少，不然无法转账
+                      <if condition="$config['cash']['is_transfer_big'] ELT $config['cash']['is_transfer_small']">
+                                <a style="color:#F00">给好友转账金额设置不合法 </a>
+                       </if>
+                  </td>
+                </tr>
+                <tr>
+                     <td class="lfTdBt">是否开启会员转账功能：</td>
+                     <td class="rgTdBt">
+                     <label><input type="radio" name="data[is_transfer]" <eq name="CONFIG.cash.is_transfer" value="1">checked="checked"</eq> value="1"/>开启</label>
+                     <label><input type="radio" name="data[is_transfer]" <eq name="CONFIG.cash.is_transfer" value="0">checked="checked"</eq>  value="0"/>关闭</label>
+                        <code>开启后PC跟wap会显示给好友转账的菜单。</code>
+                      </td>
+			    </tr>
+                
+                 <tr>
+                    <td class="lfTdBt">给好友转账最低等级：</td>
+                    <td class="rgTdBt">
+						<select name="data[is_transferrank_id]" class="seleFl w200">
+							<option value="0">不限制</option>
+							<foreach name="ranks" item="item">           
+								<option <eq name="item.rank_id" value="$CONFIG.cash.is_transferrank_id">selected="selected"</eq> value="<{$item.rank_id}>"><{$item.rank_name}></option>
+							</foreach>
+						</select>
+                        <code>就是需要达到什么等级后才能给好友转账的权限，没有达到这个会员等级，无法使用转账功能</code>
+					</td>
+                </tr>
+                
+                 <tr> 
+                    <td class="lfTdBt">给好友转账单笔限制：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[is_transfer_small]" value="<{$CONFIG.cash.is_transfer_small}>" class="scAddTextName w80" />
+						<code>最少多少钱可以转账</code>
+                        <input type="text" name="data[is_transfer_big]" value="<{$CONFIG.cash.is_transfer_big}>" class="scAddTextName w80" />
+						<code>单笔最多转账多少钱
+                        	<if condition="$config['cash']['is_transfer_big'] ELT $config['cash']['is_transfer_small']">
+                                <a style="color:#F00">给好友转账金额设置不合法 </a>
+                            </if>
+                        </code>
+                    </td>
+                </tr>
+                
+                <tr> 
+                  <td class="lfTdBt">单笔转账间隔时间：</td>
+                   <td class="rgTdBt">
+                    <input type="text" name="data[is_transfer_interval_time]" value="<{$CONFIG.cash.is_transfer_interval_time}>" class="scAddTextName w80" />
+					<code>就是好友单笔转账需要间隔多少秒才能转，建议900秒，填写900</code>
+                   </td>
+                </tr>
+                
+                <tr> 
+                  <td class="lfTdBt">单笔转账手续费：</td>
+                   <td class="rgTdBt">
+                    <input type="text" name="data[is_transfer_commission]" value="<{$CONFIG.cash.is_transfer_commission}>" class="scAddTextName w80" />%
+					<code>单笔转账需要给网站的手续费，已可以不填，要要填写就建议填写5-10，就是扣除5%-10%手续费，只能为整数，不能有小数点，否则手续费扣除失败</code>
+                   </td>
+                </tr>
+                
+                <tr>
+                  <td class="rgTdBt profit" colspan = "2"> 充值送积分功能，先开启后才有效，<a style="color:#F00">注意！这里有比例不要乱设置，只能填写1,10,100</a></td>
+                </tr>
+                
+                 <tr>
+                     <td class="lfTdBt">是否开启充值送积分功能：</td>
+                     <td class="rgTdBt">
+                     <label><input type="radio" name="data[is_recharge_integral]" <eq name="CONFIG.cash.is_recharge_integral" value="1">checked="checked"</eq> value="1"/>开启</label>
+                     <label><input type="radio" name="data[is_recharge_integral]" <eq name="CONFIG.cash.is_recharge_integral" value="0">checked="checked"</eq>  value="0"/>关闭</label>
+                        <code>开启后充值余额才会返还积分。</code>
+                      </td>
+			    </tr>
+                 <tr> 
+                  <td class="lfTdBt">充值送积分比例：</td>
+                   <td class="rgTdBt">
+                    <input type="text" name="data[return_recharge_integral]" value="<{$CONFIG.cash.return_recharge_integral}>" class="scAddTextName w80" />
+					<code>这里不要乱写，如果开启功能后必须要填写，这里逻辑是填写1就是充1元获得1积分，填写10就是充值1元获得10积分，填写100就是充值1元获得100积分，暂时只支持这3种比例，如果乱写出现的错误，概不负责！
+                    
+                    <if condition="($config['cash']['return_recharge_integral'] neq 1) && ($config['cash']['return_recharge_integral'] neq 10) && ($config['cash']['return_recharge_integral'] neq 100)">
+                                <a style="color:#F00">设置错误！这里只能填写1,10,100 </a>
+                            </if>
+                            
+                            </code>
+                   </td>
+                </tr>
+                
+
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>       

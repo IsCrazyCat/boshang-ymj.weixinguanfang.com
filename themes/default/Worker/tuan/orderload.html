@@ -1,0 +1,61 @@
+<foreach name="list" item="item">
+    <!-- 循环 -->
+    <li class="line ">
+    	 <dt><a class="x3">订单ID：<{$item.order_id}></a><a class="x9 text-right">下单日期：<{$item.create_time|date='Y-m-d,H:i:s',###}></a></dt>
+  <dd class="zhong">
+        <div class="x4">
+            <a href="<{:U('tuan/detail',array('order_id'=>$item['order_id']))}>">
+            <img style="width:90%;" src="<{:config_img($tuans[$item['tuan_id']]['photo'])}>"></a>
+        </div>
+        <div class="x8">
+            <p><a href="<{:U('tuan/detail',array('order_id'=>$item['order_id']))}>"><{:bao_Msubstr($tuans[$item['tuan_id']]['title'],0,16)}></a> </p>
+            <p class="text-small">
+				<span class="text-dot1 margin-right"><{:bao_Msubstr($tuans[$item['tuan_id']]['intro'],0,20)}><a class="text-dot1" href="<{:u('wap/tuan/detail',array('tuan_id'=>$item['tuan_id']))}>">[详细]</a></span>
+			</p>
+         </div>
+
+
+         <!--信息-->          
+
+      <dt>
+         <div class="x12">
+         <if condition="$item['status'] eq 0">
+          <p class="text-small">该笔订单未支付</p>
+		<else/>
+           <p class="text-small">
+           总金额：<a class="text-dot"><{:round($item['total_price']/100,2)}></a>元，
+           实际付款：<a class="text-dot"><{:round($item['need_pay']/100,2)}></a>元
+           </p>
+        </if>
+         </div>
+      </dt> 
+      <!--信息end-->   
+
+
+      </dd>
+      <dl>
+      <p class="text-right padding-top">
+             <if condition="$item['status'] eq -1">
+            <a class="button button-small bg-blue">到店付</a>	
+          <elseif condition="$item['status'] eq 0"/>
+          	<a class="button button-small bg-dot">未付款</a>
+          <elseif condition="$item['status'] eq 1"/>
+            <a class="button button-small bg-dot">已付款</a>
+          <elseif condition="$item['status'] eq 3"/>
+            <a class="button button-small bg-blue">正在退款</a>
+          <elseif condition="$item['status'] eq 4"/>
+            <a class="button button-small bg-gray">已退款</a>
+          <elseif condition="$item['status'] eq 8"/>
+             <a class="button button-small bg-gray">已完成</a>
+          </if>
+
+         <eq name="item.is_mobile" value="1">
+         <a class="button button-small bg-blue">手机订单</a>
+         </eq>
+         <a href="<{:U('tuan/detail',array('order_id'=>$item['order_id']))}>" class="button button-small bg-dot">详情</a>
+			</p>
+      </dl>
+    </li>
+    <!-- 循环 -->
+    <div class="blank-10 bg"></div>
+</foreach>

@@ -1,0 +1,276 @@
+<{include file="weixin/scratch/block/header.html"}>
+<body id="scratch">
+	<div class="container body">
+    	<div class="scr_top">
+            <div class="img"><img src="%THEME%/weixin/scratch/static/img/ggk1.png"/></div>
+    		<div class="area">
+                <img src="%THEME%/weixin/scratch/static/img/ggkArea.png"/>
+                <div class="scratch_area" style="width: 320px; height: 160px; margin-left: -160px;">
+                
+                 <{if $error}>
+                	<div class="prize_text" style="font-size: 16px; line-height: 160px; width: 320px; height: 160px; margin-left: -160px;"><{$error}></div>   
+                    <canvas style="display:none" /> 
+                  <{else}>
+                        <!-- 抽奖信息 -->
+                        <div class="prize_text" id=("tform") style="display:none"></div>
+                        <canvas />             
+                <{/if}>
+                </div>
+            </div>
+        </div>
+        <!--列表-->
+        <script>
+		$(document).ready(function() {
+			  $('.ggk_tab_list').each(function (e) {
+				$(this).click(function(){
+					$('.ggk_tab_list').removeClass("on");
+					$(this).addClass("on");
+					$(".ggk_list_box .ggk_list").each(function(i){
+						if(e==i){
+							$(".ggk_list_box .ggk_list").hide();
+							$(this).show();
+						}
+						else{
+							$(this).hide();
+						}
+					});
+				});
+			});  
+		});
+		</script>
+        <div class="ggk_tab">
+            <ul>
+                <li class="ggk_tab_list on"><a href="javascript:;"><em class="ico_1"></em>活动介绍</a></li>
+                <li class="ggk_tab_list"><a href="javascript:;"><em class="ico_2"></em>奖项设置</a></li>
+                <li class="ggk_tab_list"><a href="javascript:;"><em class="ico_3"></em>中奖记录</a></li>
+                <li class="ggk_tab_list"><a href="javascript:;"><em class="ico_4"></em>我的中奖</a></li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+        <div class="ggk_list_box">
+            <div class="ggk_list">
+                <div class="ggk_infor">
+                    <p>奖项说明：</p>
+                    <p><{$sdetail.intro}></p>
+                </div>
+            </div>
+            <div class="ggk_list" style="display:none;">
+                <div class="ggk_infor">
+						<p>奖项设置：</p>
+					    <{foreach $items as $item}>
+							<p><{$item.title}><{$item.num}>名，奖品：<{$item.name}></p>
+					    <{foreachelse}>
+					     <tr><td colspan="20"><p class="text-align tip-notice">没有数据</p></td></tr>
+					    <{/foreach}>				
+                </div>
+            </div>
+            <div class="ggk_list" style="display:none;">
+            	<div id="tt">
+	            	<ul>
+	            		<{foreach $zitems as $zitem}>
+		                    <li class="zhuanpan_list">
+		                        <div class="fl img"><img src="<{$pager.img}>/<{$zitem.photo}>" width="100" height="78" /><p><{$zitem.title}></p></div>
+		                        <div class="wz">恭喜<{$zitem.nickname}>中<{$zitem.title}>获得<{$zitem.prize_title}>。</div>
+		                    </li>
+	                    <{foreachelse}>
+	                </ul>
+						<tr><td colspan="20"><p class="text-align tip-notice">没有数据</p></td></tr>
+						<{/foreach}>
+					<td class="page-list"><{$pager.pagebar}></td>
+				</div>	
+            </div>
+
+            <div class="ggk_list" style="display:none;">	
+            	<{foreach $myzitems as $myzitem}>
+            	<ul>
+                    <li class="zhuanpan_list">
+                        <div class="fl img"><img src="<{$pager.img}>/<{$myzitem.photo}>" width="100" height="78" /><p><{$myzitem.title}></p></div>
+                        <div class="wz">恭喜您中<{$myzitem.title}>获得<{$myzitem.prize_title}>。</div>
+                    </li>
+                </ul>
+                <{foreachelse}>
+					     <tr><td colspan="20"><p class="text-align tip-notice">没有数据</p></td></tr>
+				<{/foreach}>
+
+            </div>
+        </div>
+    </div>  
+<script type="text/javascript"> 
+function createXHR() {
+		    var xhr = null;
+		    if(window.XMLHttpRequest) {
+		        xhr = new XMLHttpRequest();
+		    } else if(window.ActiveXObject) {
+		        xhr = new ActiveXObject('Microsoft.XMLHTTP');
+		    }
+		    return xhr;
+		} 
+		function send() {
+		    var fd2 = new FormData();	    
+		    var xhr = createXHR();
+		    xhr.open('POST',"<{link ctl='weixin/Scratch1'}>",true);
+
+		    xhr.onreadystatechange = function () {
+		        if(this.readyState == 4) {
+		        	alert(this.responseText);
+		            document.getElementById('tt').innerHTML = this.responseText;
+		        }
+		    }
+		    fd2.append('scratch_id','<{$detail.scratch_id}>');
+		    xhr.send(fd2);
+
+		}
+
+$(function(){
+	//try{ 
+		initCanvas(document.body.style);
+	//}catch(e){ 
+		//alert('您的手机不支持刮刮卡效果哦~!'+e); 
+	//} 
+	
+	})
+send();  
+var is_set = 0;
+function initCanvas(bodyStyle){ 
+	var u = navigator.userAgent;
+	var mobile = ''; 
+	if(u.indexOf('iPhone') > -1 || u.indexOf('iPod') > -1 || u.indexOf('iPad') > -1) mobile = 'iphone'; 
+	if(u.indexOf('Android') > -1 || u.indexOf('Linux') > -1 || u.indexOf('windows') > -1) mobile = 'Android';         
+	bodyStyle.mozUserSelect = 'none';         
+	bodyStyle.webkitUserSelect = 'none';           
+	var img = new Image();         
+	var canvas = $('canvas');         
+	canvas.css({'background-color':'transparent'}); 
+	var w = $('.container').width()/2; 
+	var h =  w/2;      
+	$('.prize_text').css({'width':w,'height':h,'margin-left':-w/2,'line-height':h+'px'});
+	$('.scratch_area').css({'width':w,'height':h,'margin-left':-w/2}); 
+	
+	$('canvas').css({'margin-left':-w/2});
+	//alert($('.container').width()+"="+w+"=="+h);
+	canvas[0].width = w;
+	canvas[0].height = h;  
+	img.addEventListener('load',function(e){  
+		var ctx;
+		///var w = img.width, h = img.height;             
+		var offsetX = canvas.offset().left, offsetY =  canvas.offset().top;             
+		var mousedown = false;               
+		function layer(ctx){            
+			ctx.fillStyle = 'gray';                 
+			ctx.fillRect(0, 0, w, h);           
+		}
+		function layered(ctx){   
+		               
+			ctx.fillStyle = 'gray';                 
+			ctx.clearRect(0, 0, w, h);             
+		}  
+		function eventDown(e){                 
+			e.preventDefault();                 
+			mousedown=true;             
+		}   
+		function eventUp(e){                 
+			e.preventDefault();                 
+			mousedown = false;
+			var data=ctx.getImageData(0,0,w,h).data;
+			for(var i=0,j=0;i<data.length;i+=4){
+				if(data[i] && data[i+1] && data[i+2] && data[i+3]){
+					j++;
+				}
+			}
+			//console.log(j+"=="+(w*h*0.9));
+			if(j<=w*h*0.8 && is_set==0){
+				
+				layered(ctx); 
+				var url = "<{$link}>";
+				var id = "<{$detail.scratch_id}>";
+				$.post(url,{id:id},function(result){
+				   		var arr = result.split("|");
+				   		set_sn_code(arr[0]); //刮开记录中奖情况
+				   		var prize_id = arr[0];
+				   		if(prize_id>0){
+							//中奖
+							$(".prize_text").html(arr[1]);
+							openSuccessDialog();
+							$('#now_my_prize').show();
+						}else{
+							$(".prize_text").html(arr[1]);
+							openErrorDialog();
+						}
+						is_set = 1; //只能更新一次
+				});
+				
+			}             
+		} 
+		/**/
+		
+
+		function eventMove(e){                 
+			e.preventDefault();                 
+			if(mousedown){       
+				if(e.changedTouches){           
+					e=e.changedTouches[e.changedTouches.length-1];                     
+				}                     
+				 
+					var x = e.pageX - offsetX; 
+					var y = e.pageY - offsetY; 
+				
+				//alert(x+"=="+y);
+				with(ctx){  
+					beginPath();
+					arc(x, y, 10, 0, Math.PI * 2);   
+					fill();     
+					//var radius=20;
+					//ctx.clearRect(x, y, radius, radius);
+					$('canvas').css("opacity",0.99);  
+					setTimeout(function(){
+						$('canvas').css("opacity",1);  
+						},5);
+					             
+				}                
+			}             
+		}               
+		canvas.width=w;             
+		canvas.height=h;    
+		                
+		ctx=canvas[0].getContext('2d');             
+		ctx.fillStyle='transparent';             
+		ctx.fillRect(0, 0, w, h);    
+		layer(ctx);               
+		ctx.globalCompositeOperation = 'destination-out';               
+		canvas[0].addEventListener('touchstart', eventDown);             
+		canvas[0].addEventListener('touchend', eventUp);             
+		canvas[0].addEventListener('touchmove', eventMove);             
+		canvas[0].addEventListener('mousedown', eventDown);             
+		canvas[0].addEventListener('mouseup', eventUp);             
+		canvas[0].addEventListener('mousemove', eventMove);    
+		$('.prize_text').show();
+		canvas.css({'background-image':'url('+img.src+')'});
+		
+	});
+	
+	img.src = '%THEME%/weixin/scratch/static/img/text_bg.png';
+
+};    
+function openSuccessDialog(){
+	var successHtml = "<div class='common_dialog lqcg'>"
+		+"<h6>你的运气太好了！</h6><p class='p_10'>你获得了<{$prize.title}>,奖品是<{$prize.name}>，请联系客服领取。</p>"
+		+"<div class='tb'><a class='btn m_15 flex_1' href='###' onClick='$.Dialog.close();'>去领取</a></div>"
+		+"</div>"
+		$.Dialog.open(successHtml);
+	}
+function openErrorDialog(){
+	var successHtml = "<div class='common_dialog lqcg'>"
+		+"<h6>很抱歉！没有中奖，还需继续努力</h6><{if $detail.max_num}><p class='p_10'>你还有<{$prize.count|intval}>次机会。</p><{/if}>"
+		+"<div class='tb'><a class='btn m_15 flex_1' href='###' onClick='$.Dialog.close();'>确 定</a></div>"
+		+"</div>"
+		$.Dialog.open(successHtml);
+	}
+function set_sn_code(prize_id){
+	var url = "<{$link1}>";
+	var id = "<{$detail.scratch_id}>";
+	$.post(url, {id:id, prize_id:prize_id});	
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,124 @@
+<include file='public:header'/>   
+	<link href="/static/default/wap/other/jquery-ui.css" rel="stylesheet" />
+	<script src="/static/default/wap/other/jquery-ui.js"></script> 
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('appoint/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			预约<{$cates[$detail['cate_id']]['cate_name']}>
+		</div>
+	</header>
+    <style>
+	.datepicker{ width:80% !important;}
+	</style>   
+	<php>
+        $cha = $MEMBER['money'] - $detail['price'];
+        $Appointworker = D('Appointworker') ->find($worker_id);
+    </php>
+    <div class="line padding border-bottom">
+        <if condition="$cha GT 0">
+        	<span class="x12 text-gray"><{$MEMBER['nickname']}>，您的余额：&yen;<{:round($MEMBER['money']/100,2)}>元</span>
+        <else/>
+        	<span class="x12 text-gray">您的余额不足，请<a class="button button-small bg-dot" href="<{:U('user/money/index')}>">充值</a></span>
+        </if>
+	</div>
+    <if condition="!empty($worker_id)">
+        <div class="line padding border-bottom">
+           <span class="x12 text-dot">您当前已经选择：<{$Appointworker['name']}>(<{$Appointworker['office']}>)</span>
+        </div>
+    </if>
+    <div class="blank-10 bg"></div> 
+    
+    
+	<div class="send-form">
+		<form method="post" action="<{:U('appoint/create',array('appoint_id'=>$detail['appoint_id']))}>"  target="x-frame">
+        
+            <if condition="!empty($worker_id)">
+            <input type="hidden" class="line-input" id="worker_id" name="worker_id" value="<{$worker_id}>"/>
+            </if>
+              
+			<div class="row">
+            	<div class="x7">
+                    <span class="icon icon-calendar" style="margin-left:8px;"></span>
+                    <input type="text" class="line-input datepicker" id="date" name="date" size="30"  readonly="readonly"  placeholder="选择时间" />
+                </div>
+                <div class="x5">
+                     <select name="time" class="line-input" >
+                       <volist name='getcfg' id='item'>
+							<option value="<{$item}>"><{$item}></option>
+						</volist>   
+                    </select>
+                </div>
+			</div>
+            <!--选择技师-->
+            <if condition="empty($worker_id)">
+                <if condition="!empty($appointworker)">
+                  <div class="row">
+                    <div class="x12">
+                     <span class="icon icon-users"></span>
+                          <select name="worker_id" class="line-input" >
+                          <option value="">请选择技师</option>
+                            <volist name='appointworker' id='item'>
+                                    <option value="<{$item['worker_id']}>" <eq name="item.worker_id" value="$worker_id">selected="selected"</eq>>
+                                     <{$item['name']}>
+                                     <!--如果不等于空-->
+                                     <if condition="!empty($item['office'])">
+                                        (<{$item['office']}>)
+                                     </if>
+                                    </option>
+                                </volist>  
+                            </select>
+                    </div>
+                </div>      
+                </if>   
+            </if>     
+            <!--选择技师结束-->        
+			<div class="row">
+				<span class="icon icon-map-marker"></span>
+				<input type="text" class="line-input" id="addr" name="addr"  size="30"  placeholder="填写地址" />
+			</div>
+			<div class="row">
+				<span class="icon icon-user"></span>
+				<input type="text" class="line-input" id="name" name="name" placeholder="填写联系人姓名"  value="<if condition="$MEMBER.nickname neq null"><{$MEMBER.nickname}><else/></if>"/>
+			</div>
+			<div class="row">
+				<span class="icon icon-mobile"></span>
+				<input type="text" class="line-input" id="tel" name="tel" placeholder="填写手机号码" value="<if condition="$MEMBER.mobile neq null"><{$MEMBER.mobile}><else/></if>" />
+			</div>
+			<div class="row">
+				<span class="icon icon-pencil-square-o"></span>
+				<input type="text" class="line-input" id="contents" name="contents" placeholder="填写其他要求" />
+			</div>
+			<div class="blank-40"></div>
+            <div class="container text-center"><button class="button button-block button-big bg-dot" type="submit">提交订单</button></div>
+		</form>
+	</div>
+
+	<script>
+		jQuery(function($){
+			$.datepicker.regional['zh-CN'] = {
+				closeText: '关闭',
+				prevText: '&#x3c;上月',
+				nextText: '下月&#x3e;',
+				currentText: '今天',
+				monthNames: ['一月','二月','三月','四月','五月','六月',
+				'七月','八月','九月','十月','十一月','十二月'],
+				monthNamesShort: ['一','二','三','四','五','六',
+				'七','八','九','十','十一','十二'],
+				dayNames: ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],
+				dayNamesShort: ['周日','周一','周二','周三','周四','周五','周六'],
+				dayNamesMin: ['日','一','二','三','四','五','六'],
+				weekHeader: '周',
+				dateFormat: 'yy-mm-dd',
+				firstDay: 1,
+				isRTL: false,
+				showMonthAfterYear: true,
+				yearSuffix: '年'};
+			$.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+		});
+		$(function() {
+			$( ".datepicker" ).datepicker();
+		});
+	</script>
+<include file='public:footer'/>  

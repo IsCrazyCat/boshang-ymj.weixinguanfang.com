@@ -1,0 +1,15 @@
+<volist name="list" id="g">
+    <li class="seat_list">
+        <div class="pub_img fl"><a href="<{:U('farm/detail',array('farm_id'=>$g['farm_id']))}>">
+        <img src="<{:config_img($g['photo'])}>"></a></div>
+        <div class="pub_wz">
+            <h3 class="overflow_clear"><a href="<{:U('farm/detail',array('farm_id'=>$g['farm_id']))}>"><{$g.farm_name}></a></h3>
+            <div class="star_box">
+                <p class="fontcl2 fl"><span class="spxq_qgpstarBg"><span class="spxq_qgpstar" style="width:<{$g.score*20}>%;"></span></span></p>
+                <p class="black9 fr"><{$g.comments}>人评价</p>
+            </div>
+            <p class="price black9">人均：￥<big class="fontcl1"><{$g.price}></big><span class="fr"><span class="fontcl2"><{$g.d}></span></span></p>
+        </div>
+        <div class="clear"></div>
+    </li> 
+</volist>

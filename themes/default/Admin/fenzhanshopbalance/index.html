@@ -1,0 +1,81 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">商家管理</li>
+        <li class="li2 li3">商家资金管理</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>这里是商家的资金管理，可以设置商家冻结金。</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('shop/index','','商家列表','load','',700,600)}>
+            </div>
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('fenzhanshopbalance/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <label>
+                            <span>账户</span>
+                            <input type="text" name="account" value="<{$account}>" class="inptText" />
+                        </label>
+                        
+                          <label>
+                            <span>手机号码</span>
+                            <input type="text" name="mobile" value="<{$mobile}>" class="inptText" />
+                        </label>
+                        <label>
+                            <span>昵称</span>
+                            <input type="text" name="nickname" value="<{$nickname}>" class="inptText" />
+                            <input type="submit" value="   搜索"  class="inptButton" />
+                        </label>
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="user_id" /></td>
+                    <td class="w50">ID</td>
+                    <td>商户名称</td>
+                    <td>会员名称</td>
+                    <td>余额</td>
+                    <td>冻结余额</td>
+                    <td class="w150">操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_user_id" type="checkbox" name="user_id[]" value="<{$var.user_id}>" /></td>
+                        <td><{$var.user_id}></td>
+                        <php>
+                        $shop_name = D('Shop')->where(array('user_id'=>$var['user_id']))->find();
+                        </php>
+                        <td><{$shop_name['shop_name']}></td>
+                        <td><{$var.account}></td>
+                        <td><{:round($var['gold']/100,2)}></td>
+                        <td><{:round($var['frozen']/100,2)}></td>
+                    <td class="w150">
+                        <{:BA('fenzhanshopbalance/frozen',array("user_id"=>$var["user_id"]),'设置冻结金','load','remberBtn',600,350)}>
+                    </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+
+

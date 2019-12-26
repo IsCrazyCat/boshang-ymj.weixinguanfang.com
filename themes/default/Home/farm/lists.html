@@ -1,0 +1,172 @@
+<include  file='public:header'/> 
+<include  file='public:top'/> 
+<include  file='public:nav2'/>
+<style>
+.hotel_cate .goods_flList_r {width: 1000px;}
+.goods_flList .stycate {height: 30px;}
+</style>
+<div class="pagewd mt10">
+	<!--分类-->
+	<div class="hotel_cate">
+        <div class="goods_flBox">
+            <ul>
+                <li class="goods_flList">
+                    <div class="left goods_flList_l">地区位置：</div>
+                    <div class="left goods_flList_r">
+                        <a  class="<if condition='empty($area_id)'>on</if> goods_flListA"  title="全部地区" href="<{:LinkTo('farm/lists',$linkArr,array('area_id'=>0,'business_id'=>0))}>">全部</a>
+                        <foreach name="areas" item="item">
+                            <eq name="item.city_id" value="$city_id">
+                                <a title="<{$item.area_name}>"  href="<{:LinkTo('farm/lists',$linkArr,array('area_id'=>$item['area_id']))}>"  <eq name="item.area_id" value="$area_id">class="goods_flListA on"<else/>class="goods_flListA"</eq> ><{$item.area_name}></a> 
+                            </eq>
+                        </foreach>
+                    </div>
+                    <if condition="!empty($area_id)">
+                        <div class="left goods_flList_r stycate">
+                            <foreach name="bizs" item="item">
+                                <eq name="item.area_id" value="$area_id">
+                                <a title="<{$item.business_name}>"  class="<eq name='item.business_id' value='$business_id'> on</eq> goods_flListA"  href="<{:LinkTo('farm/lists',$linkArr,array('area_id'=>$area_id,'business_id'=>$item['business_id']))}>"  ><{$item.business_name}></a>
+                                </eq>
+                            </foreach>
+                        </div> 
+                    </if>
+                </li>
+
+                <li class="goods_flList">
+                    <div class="left goods_flList_l">价格范围：</div>
+                    <div class="left goods_flList_r">
+                        <a  class="<if condition='empty($fp)&&empty($tp)'>on</if> goods_flListA"  title="不限" href="<{:LinkTo('farm/lists',$linkArr,array('fp'=>0,'tp'=>0))}>">不限</a> 
+                        <a title="￥200以下" href="<{:LinkTo('farm/lists',$linkArr,array('fp'=>0,'tp'=>200))}>" class="<if condition='$fp eq 0 && $tp eq 200'>on</if> goods_flListA">￥200以下</a>
+                        <a title="￥200-￥300" href="<{:LinkTo('farm/lists',$linkArr,array('fp'=>200,'tp'=>300))}>" class="<if condition='$fp eq 200 && $tp eq 300'>on</if> goods_flListA">￥200-￥300</a>
+                        <a title="￥300-￥500" href="<{:LinkTo('farm/lists',$linkArr,array('fp'=>300,'tp'=>500))}>" class="<if condition='$fp eq 300 && $tp eq 500'>on</if> goods_flListA">￥300-￥500</a>
+                        <a title="￥500以上" href="<{:LinkTo('farm/lists',$linkArr,array('fp'=>500,'tp'=>0))}>" class="<if condition='$fp eq 500 && $tp eq 0'>on</if> goods_flListA">￥500以上</a>
+                        <span class="hotel_cate_price">自定义<input id="fp" type="text" value="<{$fp|default=''}>" />~<input id='tp' type="text" value="<{$tp|default=''}>" /><a href="javascript:void(0);" id="sure_btn" rel="<{:LinkTo('farm/lists',$linkArr,array('fp'=>'oooo','tp'=>yyyy))}>" class="btn">确定</a></span>
+                    </div>
+                </li>
+
+                <li class="goods_flList">
+                    <div class="left goods_flList_l">游玩项目：</div>
+                    <div class="left goods_flList_r">
+                        <a class="<if condition='empty($sel1)'>on</if> goods_flListA" href="<{:LinkTo('farm/lists',$linkArr,array())}>">不限</a>
+                        <volist name="cate" id="ct">
+                            <label class="hotel_cate_int play wd"><input type="checkbox" class="play_check" val="<{$key}>" <eq name="ct.sel" value="1">checked="checked"</eq> id="p<{$key}>"><{$ct.name}></label>
+                        </volist>
+                    </div>
+                </li>
+                
+                
+                <script>
+                     $(document).ready(function(){
+                         $('.play input').click(function(){
+                             var play=""; 
+                             var ii = 1;
+                             $('.play_check:checked').each(function(){ 
+                                if(ii>1){
+                                   play+='-'+$(this).attr('val');
+                                }else{
+                                   play+=$(this).attr('val');
+                                }
+                                ii=ii+1;
+                             });
+                             var link = "<{:LinkTo('farm/lists',$linkArr,array('play'=>__play))}>";
+                             window.location.href = link.replace('__play',play);
+                         })
+                     })
+                </script>
+                
+                <li class="goods_flList">
+                    <div class="left goods_flList_l">适合人群：</div>
+                    <div class="left goods_flList_r">
+ 
+                        <a class="<if condition='empty($sel2)'>on</if> goods_flListA" href="<{:LinkTo('farm/lists',$linkArr,array())}>">不限</a>
+                        <volist name="group" id="gp">
+                            <label class="hotel_cate_int group wd"><input type="checkbox" class="group_check" val="<{$key}>" <eq name="gp.sel" value="1">checked="checked"</eq> id="g<{$key}>"><{$gp.name}></label>
+                        </volist>
+                    </div>
+                </li>
+                
+                <script>
+                     $(document).ready(function(){
+                         $('.group input').click(function(){
+                             var group = '';
+                             var i = 1;
+                             $('.group_check:checked').each(function(){
+                                if(i>1){
+                                   group+='-'+$(this).attr('val');
+                                }else{
+                                   group+=$(this).attr('val');
+                                }
+                                i=i+1;
+                             });
+                             var link = "<{:LinkTo('farm/lists',$linkArr,array('group'=>__group))}>";
+                             window.location.href = link.replace('__group',group);
+
+                         })
+                     })
+                </script>
+                
+            </ul>
+        </div>
+        <script>
+            $(document).ready(function() {
+                $(".hotel_cate .goods_flList_r .more").click(function(){
+                    if($(this).hasClass("on")){
+                            $(this).removeClass("on");
+                            $(this).parent().find(".more_box").hide();
+                    }
+                    else{
+                            $(this).addClass("on");
+                            $(this).parent().find(".more_box").show();
+                    }
+                });
+                $(".can_cancel input").click(function () {
+                    if ($(this).prop('checked') == true) {
+                        location.href = $(this).attr('rel');
+                    } else {
+                        location.href = $(this).attr('data');
+                    }
+                });
+                $("#sure_btn").click(function(){
+                    var link = $(this).attr('rel');
+                    var fp = $("#fp").val();
+                    var tp = $("#tp").val();
+                     window.location.href = link.replace('oooo', fp).replace('yyyy',tp);
+                })
+            });
+        </script>
+    </div>
+    <!--分类end-->
+    <!--排序-->
+    <div class="nearbuy_sxk">
+        <ul>
+            <li class="nearbuy_sxkLi <eq name="order" value="1">on</eq>"><a class="nearbuy_sxkLiA" href="<{:LinkTo('farm/lists',$linkArr,array('order'=>1))}>">默认</a></li>
+            <li class="nearbuy_sxkLi <eq name="order" value="2">on</eq>"><a class="nearbuy_sxkLiA" href="<{:LinkTo('farm/lists',$linkArr,array('order'=>2))}>">销量<em class="<eq name="order" value="2">em_up</eq>"></em></a>
+            </li>
+            <li class="nearbuy_sxkLi <eq name="order" value="3">on</eq>"><a class="nearbuy_sxkLiA" href="<{:LinkTo('farm/lists',$linkArr,array('order'=>3))}>">价格<em class="<eq name="order" value="3">em_up</eq>"></em></a>
+            </li>
+            <li class="nearbuy_sxkLi <eq name="order" value="4">on</eq>"><a class="nearbuy_sxkLiA" href="<{:LinkTo('farm/lists',$linkArr,array('order'=>4))}>">评分<em class="<eq name="order" value="4">em_up</eq>"></em></a></li>
+        </ul>
+    </div>
+    <!--排序end-->
+    <!--列表-->
+    <div class="farm_recmd">
+        <ul>
+            <volist name="list" id="ll">
+            <li class="list">
+                <div class="pub_img"><a href="<{:U('farm/detail',array('farm_id'=>$ll['farm_id']))}>"><img src="<{:config_img($ll['photo'])}>" width="285" height="200" /></a></div>
+                <div class="pub_wz">
+                	<p class="bt overflow_clear"><a href="#" class="blackcl3"><b>[<{$citys[$ll['city_id']]['name']}>]</b> <{$ll.farm_name}></a></p>
+                    <P class="graycl line2">地址：<{$ll.addr}></P>
+                    <div class="box">
+                    	<p class="left fontcl1">好评：<php>echo intval(($g['good_comments']/$g['comments'])*100);</php>%</p>
+                        <p class="right fontcl1">￥<big><{$ll.price}></big>起</p>
+                    </div>
+                </div>
+            </li>
+            </volist>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <!--列表end-->
+    <div class="x"> <{$page}> </div>
+</div>
+<include file="public:footer"/>

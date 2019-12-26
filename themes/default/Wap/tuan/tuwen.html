@@ -1,0 +1,105 @@
+<php>$seo_title = $detail['tuan'].'团购';</php>
+<include file='public:head_am'/>  
+<link rel="stylesheet" href="/static/default/wap/css/tuan.css"/> 
+<body >
+<style>
+/*css重写*/
+body{background: #fff;}
+.am-header-default {background: #06c1ae;}
+.am-header-default .am-header-nav a.back{position: absolute;left: 0;top: 0;width: 50px; bottom: 0;}	
+.am-header-default .am-header-nav a.back:after {content: '';display: inline-block;width: 10px;height: 10px;border-top: 2px solid #fff;border-left: 2px solid #fff;-webkit-transform: rotate(-45deg);transform: rotate(-45deg);}
+.am-header-default .am-header-title a{ font-size:14px;}
+.container{ padding:10px;}
+.container li {padding: 5px;}
+/*am兼容*/
+*+p, *+hr, *+ul, *+ol, *+dl, *+blockquote, *+pre, *+address, *+fieldset, *+figure {margin-top: 0.1rem;}
+p, hr, ul, ol, dl, blockquote, pre, address, fieldset, figure {margin: 0 0 0.2rem 0;}
+.am-gotop-fixed .am-active {opacity: .7;}
+.am-gotop-fixed {z-index: 1;border-radius: 50%;right: 24px; bottom: 60px;width: 40px; min-height: 40px;}
+.am-gotop-fixed .am-gotop-icon {line-height: 40px;background-color: #FF5500;}
+.am-icon-chevron-up:before { color: #FFFFFF;}
+</style>
+<header data-am-widget="header" class="am-header am-header-default am-badge-danger am-text-nowrap  am-no-layout">
+    <div class="am-header-left am-header-nav">
+        <a href="<{:U('tuan/detail',array('tuan_id'=>$detail['tuan_id']))}>" class="back">
+            <i class="am-header-icon am-iocn-reply am-icon-sm"></i>
+        </a>  
+    </div>
+    <h1 class="am-header-title">
+        <a href="#title-link" class="">团购详情</a>
+    </h1>
+    <div class="am-header-right am-header-nav">
+    </div>
+</header>
+
+
+	<div data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-3 am-avg-lg-4 am-gallery-overlay" data-am-gallery="{ pureview: true }">
+		<div class="container">
+        
+        <div class="global">
+            <div class="line banner">	
+                <div id="focus" class="global_focus">
+                <{$tuandetails.details}> 
+                </div>
+            </div>
+    </div>
+    
+		 
+		</div>
+	</div>
+    
+ 
+ 
+ <section class="buy-btn-wrap" id="j-buy-segment">
+    <div class="buy-segment">
+            <span class="old-current-price">
+            	<em class="price-value"><{$detail.tuan_price}></em>
+            </span>
+            <span class="original-price">
+            	<del><{$detail.price}></del>
+            </span>
+        <!--判断开始-->
+        
+                        
+                        
+                        
+     <if condition="$detail['bg_date'] gt $today">  
+        <div class="buy-wrapper">
+            <div class="privilege-btn">
+                <a href="<{:U('tuan/buy',array('tuan_id'=>$detail['tuan_id']))}>" class="buy-btn" data-role="buy-btn" >
+                    <span class="text">即将开始</span>
+                </a>
+            </div>
+        </div> 
+        <else/>
+        <if condition="$detail.num lt 1 ">
+        <div class="buy-wrapper">
+            <div class="privilege-btn">
+                <a href="<{:U('tuan/buy',array('tuan_id'=>$detail['tuan_id']))}>" class="buy-btn" data-role="buy-btn" >
+                    <span class="text">卖光了</span>
+                </a>
+            </div>
+        </div>
+        <else />
+        <div class="buy-wrapper">
+            <div class="privilege-btn">
+                <a href="<{:U('tuan/buy',array('tuan_id'=>$detail['tuan_id']))}>" class="buy-btn" data-role="buy-btn" >
+                    <span class="text">立即购买</span>
+                </a>
+            </div>
+        </div>
+         </if>
+     </if>           
+    </div>
+</section>
+
+  
+  
+<div data-am-widget="gotop" class="am-gotop am-gotop-fixed am-no-layout am-active">
+<a href="#top"><span class="am-gotop-title"></span><i class="am-gotop-icon am-icon-chevron-up"></i></a>
+</div> 
+<if condition="$CONFIG['mobile']['amazeui'] eq 1"><!--如果开启就显示-->
+<script src="http://images2.5maiche.cn/static/assets/js/amazeui.min.js" type="text/javascript"></script>
+<else /><!--否则加载本地-->
+<script src="/static/default/news/js/amazeui.min.js" type="text/javascript"></script>
+</if>

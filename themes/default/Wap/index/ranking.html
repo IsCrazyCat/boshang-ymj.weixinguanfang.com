@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>营销排行榜</title>
+<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="black" name="apple-mobile-web-app-status-bar-style">
+<meta content="telephone=no" name="format-detection">
+<link rel="stylesheet" href="__TMPL__statics/css/ranking.css" type="text/css"/>
+</head>
+<body>
+
+<section class="aui-flexView">
+    <header class="aui-navBar aui-navBar-fixed">
+        <div class="aui-center">
+            <span class="aui-center-title">排行榜</span>
+        </div>
+    </header>
+    <section class="aui-scrollView">
+        <div class="aui-beat-head">
+            <img src="__TMPL__statics/img/ranking/head.png" alt="">
+            <div class="aui-beat-text">
+                <h2>浡莱克最佳分销商</h2>
+                <h2>排行榜</h2>
+                <h3></h3>
+                <p>拼搏到无能为力，坚持到感动自己</p>
+                <p>永远不要低估你改变自己的能力！！！</p>
+<!--                <p>勇气是唯一能挽回你在人生牌桌上颓势的一张牌</p>-->
+            </div>
+        </div>
+        <div class="aui-beat-list">
+<!--            <foreach name="users" key="index" item="user">-->
+<!--                <a href="javascript:;" class="aui-flex b-line">-->
+<!--                    <div class="aui-logo-img">-->
+<!--                        <if condition="$index eq 0">-->
+<!--                            <span>-->
+<!--                                <img src="__TMPL__statics/img/ranking/vip1.png" alt="">-->
+<!--                            </span>-->
+<!--                        <elseif condition="$index eq 1"/>-->
+<!--                            <span>-->
+<!--                                <img src="__TMPL__statics/img/ranking/vip3.png" alt="">-->
+<!--                            </span>-->
+<!--                        <elseif condition="$index eq 2"/>-->
+<!--                            <span>-->
+<!--                                <img src="__TMPL__statics/img/ranking/vip2.png" alt="">-->
+<!--                            </span>-->
+<!--                        <else/>-->
+<!--                            <span><{$index}></span>-->
+<!--                        </if>-->
+<!--                        <img src="<{:config_img($user['face'])}>" alt="">-->
+<!--                    </div>-->
+<!--                    <div class="aui-flex-box">-->
+<!--                        <h2><{$user['info']['nickname']}></h2>-->
+<!--                        <p>一级：<{$user['level1']}>人</p>-->
+<!--                        <p>二级：<{$user['level2']}>人</p>-->
+<!--                    </div>-->
+<!--                    <div class="aui-bear-right">-->
+<!--                        <h2>&yen;<{:round($user['money']/100,2)}><em></em></h2>-->
+<!--                        <p>分销佣金</p>-->
+<!--                    </div>-->
+<!--                </a>-->
+<!--            </foreach>-->
+<!--            这里暂时修改为虚拟数据 后期修改-->
+                <a href="javascript:;" class="aui-flex b-line">
+                    <div class="aui-logo-img">
+                        <if condition="$index eq 0">
+                            <span>
+                                <img src="__TMPL__statics/img/ranking/vip1.png" alt="">
+                            </span>
+                        <elseif condition="$index eq 1"/>
+                            <span>
+                                <img src="__TMPL__statics/img/ranking/vip3.png" alt="">
+                            </span>
+                        <elseif condition="$index eq 2"/>
+                            <span>
+                                <img src="__TMPL__statics/img/ranking/vip2.png" alt="">
+                            </span>
+                        <else/>
+                            <span><{$index}></span>
+                        </if>
+                        <img src="<{:config_img($user['face'])}>" alt="">
+                    </div>
+                    <div class="aui-flex-box">
+                        <h2><{$user['info']['nickname']}></h2>
+                        <p>一级：<{$user['level1']}>人</p>
+                        <p>二级：<{$user['level2']}>人</p>
+                    </div>
+                    <div class="aui-bear-right">
+                        <h2>&yen;<{:round($user['money']/100,2)}><em></em></h2>
+                        <p>分销佣金</p>
+                    </div>
+                </a>
+            <a href="javascript:;" class="aui-flex b-line">
+                <div class="aui-logo-img">
+                    <if condition="$index eq 0">
+                            <span>
+                                <img src="__TMPL__statics/img/ranking/vip1.png" alt="">
+                            </span>
+                        <elseif condition="$index eq 1"/>
+                        <span>
+                                <img src="__TMPL__statics/img/ranking/vip3.png" alt="">
+                            </span>
+                        <elseif condition="$index eq 2"/>
+                        <span>
+                                <img src="__TMPL__statics/img/ranking/vip2.png" alt="">
+                            </span>
+                        <else/>
+                        <span><{$index}></span>
+                    </if>
+                    <img src="<{:config_img($user['face'])}>" alt="">
+                </div>
+                <div class="aui-flex-box">
+                    <h2><{$user['info']['nickname']}></h2>
+                    <p>一级：<{$user['level1']}>人</p>
+                    <p>二级：<{$user['level2']}>人</p>
+                </div>
+                <div class="aui-bear-right">
+                    <h2>&yen;<{:round($user['money']/100,2)}><em></em></h2>
+                    <p>分销佣金</p>
+                </div>
+            </a>
+            <a href="javascript:;" class="aui-flex b-line">
+                <div class="aui-logo-img">
+                    <if condition="$index eq 0">
+                            <span>
+                                <img src="__TMPL__statics/img/ranking/vip1.png" alt="">
+                            </span>
+                        <elseif condition="$index eq 1"/>
+                        <span>
+                                <img src="__TMPL__statics/img/ranking/vip3.png" alt="">
+                            </span>
+                        <elseif condition="$index eq 2"/>
+                        <span>
+                                <img src="__TMPL__statics/img/ranking/vip2.png" alt="">
+                            </span>
+                        <else/>
+                        <span><{$index}></span>
+                    </if>
+                    <img src="<{:config_img($user['face'])}>" alt="">
+                </div>
+                <div class="aui-flex-box">
+                    <h2><{$user['info']['nickname']}></h2>
+                    <p>一级：<{$user['level1']}>人</p>
+                    <p>二级：<{$user['level2']}>人</p>
+                </div>
+                <div class="aui-bear-right">
+                    <h2>&yen;<{:round($user['money']/100,2)}><em></em></h2>
+                    <p>分销佣金</p>
+                </div>
+            </a>
+        </div>
+
+    </section>
+</section>
+
+<script src="__TMPL__statics/js/jquery-1.7.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="__TMPL__statics/js/layer/layer.js"></script>
+
+</body>
+</html>

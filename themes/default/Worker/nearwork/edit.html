@@ -1,0 +1,122 @@
+<include file="public:header"/>
+<link rel="stylesheet" href="/static/default/wap/css/tieba.css">
+<link href="/static/default/wap/other/jquery-ui.css" rel="stylesheet">
+<script src="/static/default/wap/other/jquery-ui.js"></script>
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('nearwork/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			修改招聘
+		</div>
+		
+	</header>
+    
+    
+    
+    <form class="fabu-form" method="post" target="x-frame" action="<{:U('nearwork/edit',array('work_id'=>$detail['work_id']))}>">
+
+        <div class="row">
+            <div class="line">
+                <span class="x3">标题：</span>
+                <span class="x9">
+                    <input type="text" class="text-input" name="data[title]" value="<{$detail['title']}>">
+                </span>
+            </div>
+        </div>
+        
+        
+        <div class="row">
+            <div class="line">
+                <span class="x3">人数：</span>
+                <span class="x9">
+                   <input type="text" class="text-input"  name="data[num]" value="<{$detail['num']}>"  placeholder="人数" />
+                </span>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="line">
+                <span class="x3">薪资范围：</span>
+                <span class="x9">
+                <span class="x4"><input type="text"  class="text-input"  style="border: 1px #eee solid;padding: 0 5px;" name="data[money1]" value="<{$detail['money1']}>"  placeholder="薪资范围" /></span>
+                <span class="x1">--</span>
+                <span class="x4"><input type="text"  class="text-input"  style="border: 1px #eee solid;padding: 0 5px;" name="data[money2]" value="<{$detail['money2']}>"  placeholder="薪资范围" /></span>
+                </span>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="line">
+                <span class="x3">工作时间：</span>
+                <span class="x9">
+                    <input type="text" class="text-input"  name="data[work_time]" value="<{$detail['work_time']}>" placeholder="工作时间" />
+                </span>
+            </div>
+        </div>
+        
+        
+        <div class="row">
+            <div class="line">
+                <span class="x3">有效期：</span>
+                <span class="x9">
+                     <input type="text" class="text-input line-input datepicker" id="svctime" name="data[expir_date]" size="30"  readonly="readonly"  value="<{$detail['expir_date']}>" placeholder="选择服务时间" />
+                </span>
+            </div>
+        </div>
+        
+        
+        
+        
+        <div class="padding">
+            <div class="line">
+                <span class="x3">招聘简介：</span>
+            </div>
+        </div>
+        <div class="line">
+            <div class="container">
+                <textarea  class="text-area" rows="5" name="data[intro]" placeholder="请输入简介"/><{$detail['intro']}></textarea>	
+            </div>
+        </div>
+            <div class="container">
+                <div class="blank-30"></div>
+                <button type="submit" class="button button-block button-big bg-dot">发布信息</button>
+                <div class="blank-30"></div>
+            </div>
+        
+            
+    
+    </form>
+
+
+
+	
+    
+    <script>
+		jQuery(function($){
+			$.datepicker.regional['zh-CN'] = {
+				closeText: '关闭',
+				prevText: '&#x3c;上月',
+				nextText: '下月&#x3e;',
+				currentText: '今天',
+				monthNames: ['一月','二月','三月','四月','五月','六月',
+				'七月','八月','九月','十月','十一月','十二月'],
+				monthNamesShort: ['一','二','三','四','五','六',
+				'七','八','九','十','十一','十二'],
+				dayNames: ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],
+				dayNamesShort: ['周日','周一','周二','周三','周四','周五','周六'],
+				dayNamesMin: ['日','一','二','三','四','五','六'],
+				weekHeader: '周',
+				dateFormat: 'yy-mm-dd',
+				firstDay: 1,
+				isRTL: false,
+				showMonthAfterYear: true,
+				yearSuffix: '年'};
+			$.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+		});
+		$(function() {
+			$( ".datepicker" ).datepicker();
+		});
+	</script>
+    
+<include file='public:footer'/>  

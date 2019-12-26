@@ -1,0 +1,58 @@
+<include  file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<style>.pay{ background:#F7F7F7}</style>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="javascript:void(0);">小区业主</a> > <a href="javascript:void(0);">修改账单</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">修改账单，包括水、电、燃气、停车、物业费</div>
+        </div>
+    </div> 
+    <div class="tabnr_change  show">
+        <form method="post"  action="<{:U('order/edit',array('order_id'=>$detail['order_id']))}>"  target="baocms_frm">
+            <table class="tuanfabu_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">账单时间（年、月）：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" class="radius3 tuan_topser  pay" disabled="disabled"  name="order_date" value="<{$detail.order_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM'});"/>账单日期无法修改
+                        </div></td>
+                </tr>
+                <volist name="types" id="item" key="index">
+                    <if condition="$products[$index]['is_pay'] eq 1">
+                    <tr>
+                    <td width="120"><p class="tuanfabu_t"><{$item}>：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="hidden" name="data[<{$index}>][id]" value="<{$products[$index]['id']}>"/>
+                            <input type="hidden" name="data[<{$index}>][is_pay]" value="<{$products[$index]['is_pay']}>"/>
+                            <input type="text" name="data[<{$index}>][money]" disabled="disabled" value="<{:round($products[$index]['money']/100,2)}>" class="tuanfabu_int tuanfabu_intw2 pay" />
+                            开始时间：<input type="text" class="radius3 tuan_topser pay" disabled="disabled"  name="data[<{$index}>][bg_date]" value="<{$products[$index]['bg_date']}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd'});"/>
+                            截止时间：<input type="text" class="radius3 tuan_topser pay" disabled="disabled"  name="data[<{$index}>][end_date]" value="<{$products[$index]['end_date']}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd'});"/>
+                            <{$item}>已缴清
+                        </div></td>
+                </tr>
+                <else/>
+                <tr>
+                    <td width="120"><p class="tuanfabu_t"><{$item}>：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="hidden" name="data[<{$index}>][id]" value="<{$products[$index]['id']}>"/>
+                            <input type="hidden" name="data[<{$index}>][is_pay]" value="<{$products[$index]['is_pay']}>"/>
+                            <input type="text" name="data[<{$index}>][money]" value="<{:round($products[$index]['money']/100,2)}>" class="tuanfabu_int tuanfabu_intw2" />
+                            开始时间：<input type="text" class="radius3 tuan_topser"  name="data[<{$index}>][bg_date]" value="<{$products[$index]['bg_date']}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd'});"/>
+                            截止时间：<input type="text" class="radius3 tuan_topser"  name="data[<{$index}>][end_date]" value="<{$products[$index]['end_date']}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd'});"/>
+                        </div></td>
+                       <td><a class="radius3 sy_c1an" style="color:#00F; text-align:left;" href="<{:U('order/is_pay',array('id'=>$products[$index]['id']))}>">设置为已缴费</a></td>
+                </tr>
+                    </if>
+                </volist>
+            </table>
+            <div class="tuanfabu_an">
+                <input type="submit" class="radius3 sjgl_an tuan_topbt" value="确认修改" />
+            </div>
+        </form>
+    </div> 
+</div>
+<include  file='public:footer'/>

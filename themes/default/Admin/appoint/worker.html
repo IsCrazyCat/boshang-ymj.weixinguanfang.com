@@ -1,0 +1,66 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">家政</li>
+        <li class="li2">家政项目</li>
+        <li class="li2 li3">员工列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>新增项目</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('appoint/worker_create',array('appoint_id'=>$detail['appoint_id']),'添加技师/员工')}>  
+            </div>
+            <div class="left">
+            </div>
+        </div>
+
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        	<td class="w50"><input type="checkbox" class="checkAll" rel="worker_id" /></td>
+                            <td width="50">员工ID</td>
+                            <td>头像</td>
+                            <td>预约价格</td>
+                            <td>员工姓名</td>
+                            <td>员工职务</td>
+                            <td>员工简介</td>
+                            <td>员工电话</td>
+                            <td>审核状态</td>
+                            <td>添加时间</td>
+                            <td>操作</td>
+                    </tr>
+                    
+                     <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_worker_id" type="checkbox" name="worker_id[]" value="<{$var.worker_id}>" /></td>
+                            <td><{$var.worker_id}></td>
+                            <td><img src="<{:config_img($var['photo'])}>"  style="width:60px; margin: 0px auto;" /></td>
+                            <td><{$var['price']/100}></td>
+                            <td><{$var.name}></td>
+                            <td><{$var.office}></td>
+                            <td><{$var.intro}></td>
+                            <td><{$var['mobile']}></td>
+                            <td><eq name="var.audit" value="0">未审核<else/>已审核</eq></td>
+                            <td><{$var.create_time|date="Y-m-d H:i:s",###}></td>
+                            <td>
+                                <{:BA('appoint/worker_edit',array("worker_id"=>$var["worker_id"]),'编辑','','remberBtn')}>
+                                <{:BA('appoint/worker_delete',array("worker_id"=>$var["worker_id"]),'删除','act','remberBtn')}>
+                           </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                   <!-- <{:BA('appoint/worker_delete','','批量删除','list','a1')}>-->
+                </div>
+            </div>
+        </form>
+    </div>
+    <include  file='public:footer'/>       

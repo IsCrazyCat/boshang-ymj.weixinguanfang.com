@@ -1,0 +1,26 @@
+<include  file='public:header'/>  
+<script src="/static/default/wap/js/dialog.js"></script>
+<link href="/static/default/wap/css/dianping.css" rel="stylesheet">
+<style>
+.coupon-list2 {margin-top:0px;}
+</style>
+
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('appoint/detail',array('appoint_id'=>$detail['appoint_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			家政点评
+		</div>
+        <div class="top-ping">
+		</div>
+	</header>
+  <div class="blank-10 bg"></div>
+ <div id="coupon-list" class="coupon-list2"></div>
+    <script>
+        $(document).ready(function () {
+            loaddata('<{:U("appoint/dianpingloading",array("appoint_id"=>$detail["appoint_id"],"p"=>"0000"))}>', $("#coupon-list"), true);
+        });
+    </script>
+
+<include  file='public:footer'/>   

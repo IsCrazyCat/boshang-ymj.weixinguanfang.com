@@ -1,0 +1,206 @@
+<php>$arr = array();</php>
+<foreach name="lifecate" item="item">
+	<php>$arr[$item['cate_id']] = $item['channel_id'];</php>
+</foreach>
+<foreach name="list" item="var">
+	<php>$chl = $arr[$var['cate_id']];</php>
+	
+	<!-- 二手 -->
+	<if condition="$chl eq 1">
+	<li class="mod-1">
+		<a href="<{:U('life/detail',array('life_id'=>$var['life_id']))}>">
+			<img class="pic flex" src="<{:config_img($var['photo'])}>" />
+			<div class="des flex">
+				<h4>
+					<{$var['title']}>
+	                <gt name="var.top_date" value="$today"><span>顶</span></gt>
+                    <gt name="var.urgent_date" value="$today"><span>急</span></gt>
+				</h4>
+				<p><{$var.addr}> / <{:formatTime($var['create_time'])}></p>
+				<if condition="!empty($cate['num2'])"><p><em><{$var.num2|default='面议'}></em> <if condition="!empty($var['num2'])"><i><{$cate.unit2}></i></if></p></if>
+			</div>
+		</a>
+	</li>
+	</if>
+	
+	<!-- 车辆 -->
+	<if condition="$chl eq 2">
+	<notin name="var.cate_id" value="28,31,33,37">
+	<li class="mod-1">
+		<a href="<{:U('life/detail',array('life_id'=>$var['life_id']))}>">
+			<img class="pic flex" src="<{:config_img($item['photo'])}>" />
+			<div class="des flex">
+				<h4>
+					<{$var['title']}>
+	                <gt name="var.top_date" value="$today"><span>顶</span></gt>
+                    <gt name="var.urgent_date" value="$today"><span>急</span></gt>
+				</h4>
+				<p><{$var.addr}> / <{:formatTime($var['create_time'])}></p>
+				<if condition="!empty($cate['num2'])"><p><em><{$var.num2|default='面议'}></em> <if condition="!empty($var['num2'])"><i><{$cate.unit2}></i></if></p></if>
+			</div>
+		</a>
+	</li>
+	<else />
+	<li class="mod-2">
+		<div class="des flex">
+			<h4>
+				<a href="<{:U('life/detail',array('life_id'=>$var['life_id']))}>"><{$var['title']}></a>
+				<gt name="var.top_date" value="$today"><span>顶</span></gt>
+				<gt name="var.urgent_date" value="$today"><span>急</span></gt>
+			</h4>
+			<p><{$var.addr}> </p>
+			<p>联系人:<{$var.contact}> / <{:formatTime($var['create_time'])}></p>
+		</div>
+		<div class="tel flex">
+			<a href="tel:<{$var.mobile}>"><span class="mui-icon mui-icon-phone"></span></a>
+		</div>
+	</li>
+	</notin>
+	</if>
+	
+	<!-- 求职 -->
+	<if condition="$chl eq 3">
+	<li class="mod-2">
+		<div class="des flex">
+			<h4>
+				<a href="<{:U('life/detail',array('life_id'=>$var['life_id']))}>"><{$var['title']}></a>
+				<gt name="var.top_date" value="$today"><span>顶</span></gt>
+				<gt name="var.urgent_date" value="$today"><span>急</span></gt>
+			</h4>
+			<p><{$var.addr}> </p>
+			<p>联系人:<{$var.contact}> / <{:formatTime($var['create_time'])}></p>
+		</div>
+		<div class="tel flex">
+			<a href="tel:<{$var.mobile}>"><span class="mui-icon mui-icon-phone"></span></a>
+		</div>
+	</li>
+	</if>
+	
+	
+	<!-- 交友 -->
+	<if condition="$chl eq 4">
+	<li class="mod-2">
+		<div class="des flex">
+			<h4>
+				<a href="<{:U('life/detail',array('life_id'=>$var['life_id']))}>"><{$var['title']}></a>
+				<gt name="var.top_date" value="$today"><span>顶</span></gt>
+				<gt name="var.urgent_date" value="$today"><span>急</span></gt>
+			</h4>
+			<p><{$var.addr}> </p>
+			<p>联系人:<{$var.contact}> / <{:formatTime($var['create_time'])}></p>
+		</div>
+		<div class="tel flex">
+			<a href="<{:U('life/detail',array('life_id'=>$var['life_id']))}>"><span class="mui-icon mui-icon-chatbubble"></span></a>
+		</div>
+	</li>
+	</if>
+	
+	<!-- 房屋 -->
+	<if condition="$chl eq 5">
+	<li class="mod-1">
+		<a href="<{:U('life/detail',array('life_id'=>$var['life_id']))}>">
+			<img class="pic flex" src="<{:config_img($item['photo'])}>" />
+			<div class="des flex">
+				<h4>
+					<{$var['title']}>
+	                <gt name="var.top_date" value="$today"><span>顶</span></gt>
+                    <gt name="var.urgent_date" value="$today"><span>急</span></gt>
+				</h4>
+				<p><{$var.addr}> / <{:formatTime($var['create_time'])}></p>
+				<if condition="!empty($cate['num2'])"><p><em><{$var.num2|default='面议'}></em> <if condition="!empty($var['num2'])"><i><{$cate.unit2}></i></if></p></if>
+			</div>
+		</a>
+	</li>
+	</if>
+	
+	<!-- 培训 -->
+	<if condition="$chl eq 6">
+	<li class="mod-2">
+		<div class="des flex">
+			<h4>
+				<a href="<{:U('life/detail',array('life_id'=>$var['life_id']))}>"><{$var['title']}></a>
+				<gt name="var.top_date" value="$today"><span>顶</span></gt>
+				<gt name="var.urgent_date" value="$today"><span>急</span></gt>
+			</h4>
+			<p><{$var.addr}> </p>
+			<p>联系人:<{$var.contact}> / <{:formatTime($var['create_time'])}></p>
+		</div>
+		<div class="tel flex">
+			<a href="tel:<{$var.mobile}>"><span class="mui-icon mui-icon-phone"></span></a>
+		</div>
+	</li>
+	</if>
+	
+	<!-- 招聘 -->
+	<if condition="$chl eq 7">
+	<li class="mod-2">
+		<div class="des flex">
+			<h4>
+				<a href="<{:U('life/detail',array('life_id'=>$var['life_id']))}>"><{$var['title']}></a>
+				<gt name="var.top_date" value="$today"><span>顶</span></gt>
+				<gt name="var.urgent_date" value="$today"><span>急</span></gt>
+			</h4>
+			<p><{$var.addr}> </p>
+			<p>联系人:<{$var.contact}> / <{:formatTime($var['create_time'])}></p>
+		</div>
+		<div class="tel flex">
+			<a href="tel:<{$var.mobile}>"><span class="mui-icon mui-icon-phone"></span></a>
+		</div>
+	</li>
+	</if>
+	
+	<!-- 服务 -->
+	<if condition="$chl eq 8">
+	<li class="mod-2">
+		<div class="des flex">
+			<h4>
+				<a href="<{:U('life/detail',array('life_id'=>$var['life_id']))}>"><{$var['title']}></a>
+				<gt name="var.top_date" value="$today"><span>顶</span></gt>
+				<gt name="var.urgent_date" value="$today"><span>急</span></gt>
+			</h4>
+			<p><{$var.addr}> </p>
+			<p>联系人:<{$var.contact}> / <{:formatTime($var['create_time'])}></p>
+		</div>
+		<div class="tel flex">
+			<a href="tel:<{$var.mobile}>"><span class="mui-icon mui-icon-phone"></span></a>
+		</div>
+	</li>
+	</if>
+	
+	<!-- 兼职 -->
+	<if condition="$chl eq 9">
+	<li class="mod-2">
+		<div class="des flex">
+			<h4>
+				<a href="<{:U('life/detail',array('life_id'=>$var['life_id']))}>"><{$var['title']}></a>
+				<gt name="var.top_date" value="$today"><span>顶</span></gt>
+				<gt name="var.urgent_date" value="$today"><span>急</span></gt>
+			</h4>
+			<p><{$var.addr}> </p>
+			<p>联系人:<{$var.contact}> / <{:formatTime($var['create_time'])}></p>
+		</div>
+		<div class="tel flex">
+			<a href="tel:<{$var.mobile}>"><span class="mui-icon mui-icon-phone"></span></a>
+		</div>
+	</li>
+	</if>
+	
+	<!-- 宠物 -->
+	<if condition="$chl eq 10">
+	<li class="mod-2">
+		<div class="des flex">
+			<h4>
+				<a href="<{:U('life/detail',array('life_id'=>$var['life_id']))}>"><{$var['title']}></a>
+				<gt name="var.top_date" value="$today"><span>顶</span></gt>
+				<gt name="var.urgent_date" value="$today"><span>急</span></gt>
+			</h4>
+			<p><{$var.addr}> </p>
+			<p>联系人:<{$var.contact}> / <{:formatTime($var['create_time'])}></p>
+		</div>
+		<div class="tel flex">
+			<a href="tel:<{$var.mobile}>"><span class="mui-icon mui-icon-phone"></span></a>
+		</div>
+	</li>
+	</if>
+	
+</foreach>

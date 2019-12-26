@@ -1,0 +1,54 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">基本设置</li>
+        <li class="li2 li3">敏感词过滤</li>
+    </ul>
+</div>
+<div class="main-jsgl">
+    <p class="attention"><span>注意：</span>用户发布内容的时候会自动判断是否含有敏感词</p>
+    <div class="jsglNr">
+        <div class="selectNr">
+            <div class="left">
+                <{:BA('sensitive/create','','添加内容','load','',600,200)}>
+            </div>
+            <div class="right">
+                <form method="post" action="<{:U('sensitive/index')}>">
+                    <input type="text"  class="inptText" name="keyword" value="<{$keyword}>"  /><input type="submit" value="   搜索"  class="inptButton" />
+                </form>
+            </div>
+        </div>
+        <form target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td><input type="checkbox" class="checkAll" rel="words_id" /></td>
+                        <td>ID</td>
+                        <td>关键字</td>
+                        <td>操作</td>   
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_words_id" type="checkbox" name="words_id[]" value="<{$var.words_id}>" /></td>
+                            <td><{$var.words_id}></td>
+                            <td><{$var.words}></td>
+                            <td>
+                                <{:BA('sensitive/edit',array("words_id"=>$var["words_id"]),'编辑','load','remberBtn',600,200)}>
+                                <{:BA('sensitive/delete',array("words_id"=>$var["words_id"]),'删除','act','remberBtn')}>
+                            </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr">
+                <div class="left">
+                  <{:BA('sensitive/delete','','批量删除','list',' a2')}>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+<include  file='public:footer'/>       

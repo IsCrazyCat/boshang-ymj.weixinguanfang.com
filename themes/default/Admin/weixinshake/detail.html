@@ -1,0 +1,82 @@
+<include  file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<div class="mainBt">
+    <ul>
+        <li class="li1">微信</li>
+        <li class="li2">摇一摇</li>
+        <li class="li2 li3">详情</li>
+    </ul>
+</div>
+<div class="mainScAdd">
+    <div class="tabnr_change  show">
+    	<table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;">
+            <tr>
+                <td class="lfTdBt">商家：</td>
+                <td class="rgTdBt"><{$detail.shop_name}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">关键字：</td>
+                <td class="rgTdBt"><{$detail.keyword|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">标题：</td>
+                <td class="rgTdBt"><{$detail.title|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">封面简介：</td>
+                <td class="rgTdBt"><{$detail.intro|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">封面图片：</td>
+                <td class="rgTdBt"><div class="tuanfabu_nr">
+                <div style="width: 300px;height: 100px; float: left;">
+                    <img id="photo_img" width="80" height="80"  src="<{:config_img($detail['photo'])}>" />
+                </div>
+                </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">活动开始时间：</td>
+                <td class="rgTdBt"><{$detail.stime|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">活动结束时间：</td>
+                <td class="rgTdBt"><{$detail.ltime|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">使用说明：</td>
+                <td class="rgTdBt"><{$detail.use_tips|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">过期说明：</td>
+                <td class="rgTdBt"><{$detail.end_tips|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">预计参与人数：</td>
+                <td class="rgTdBt"><{$detail.predict_num|default=''}></td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">个人限制抽奖次数：</td>
+                <td class="rgTdBt"><{$detail.max_num|default=''}></td>
+            </tr>
+            
+            <tr>
+                <td class="lfTdBt">已领取人数：</td>
+                <td class="rgTdBt"><{$detail.collect_count|default=''}></td>
+            </tr>
+            
+            <tr>
+                <td class="lfTdBt">浏览人数：</td>
+                <td class="rgTdBt"><{$detail.views|default=''}></td>
+            </tr>
+
+        </table>
+        <div class="tuanfabu_an">
+        	<div class="smtQr">
+        		<a class="remberBtn " href="<{:U('weixinlottery/index',array('id'=>$var['id']))}>">返回列表页</a>
+        		<!-- <input type="submit" value="确认发布" class="smtQrIpt" /> -->
+	        </div>
+        </div>
+    </div> 
+</div>
+<include  file='public:footer'/>

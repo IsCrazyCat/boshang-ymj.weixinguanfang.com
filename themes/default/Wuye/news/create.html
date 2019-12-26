@@ -1,0 +1,50 @@
+<include  file='public:header'/>   
+
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('wuye/news/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		添加小区通知
+	</div>
+</header>
+
+<style>
+.fabu-form .form-content {border: none;resize: none;width: 100%;height: 80px;padding: 10px;font-size: 12px;}
+.fabu-form .form-content1 {border: none;resize: none;width: 100%;height: 150px;padding: 10px;font-size: 12px;}
+</style>
+
+<form class="fabu-form" method="post"  target="x-frame" action="<{:U('news/create')}>">
+
+
+<div class="blank-10 bg border-top"></div>
+<div class="row">
+	<div class="line">
+		<span class="x3">通知标题：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[title]" value="<{$detail.title|default=''}>" />
+		</span>
+	</div>
+</div>
+
+
+<div class="line border-bottom">
+	<textarea class="form-content" name="data[intro]" placeholder="添加简介,建议不超过30字"><{$detail.intro|default=''}></textarea>
+</div>
+
+       
+<div class="line border-bottom">
+	<textarea class="form-content1" name="data[details]" placeholder="添加通知内容，建议不超过200字！"></textarea>
+</div> 
+<div class="blank-10 bg"></div>        
+
+
+	<div class="container">
+		<div class="blank-30"></div>
+		<button  type="submit" class="button button-block button-big bg-dot">添加通知</button>
+		<div class="blank-30"></div>
+	</div>
+</form>
+
+
+<include  file='public:footer'/>

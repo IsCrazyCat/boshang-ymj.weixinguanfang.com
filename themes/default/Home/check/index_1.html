@@ -1,0 +1,124 @@
+<include file="public:header"/>
+<include file="public:top"/>
+<div class="content zy_content" id="qg-test">
+    <div class="left test-left">
+        <ul>
+            <script>
+                $(function () {
+                    $(".test-list a").click(function () {
+                        $(".test-list a").removeClass("on");
+                        $(this).addClass("on");
+                    });
+                });
+            </script>
+            <li class="test-list">
+                <h3>验证管理</h3>
+                <ul>
+                    <li><a class="on" href="<{:U('check/index')}>">验证套餐码</a></li>
+                    <li><a href="<{:U('chech/coupon')}>">验证优惠券</a></li>
+                </ul>
+            </li>
+            <li class="test-list">
+                <h3>消费记录</h3>
+                <ul>
+                    <li><a href="<{:U('check/tuanlist')}>">套餐消费明细</a></li>
+                    <li><a href="<{:U('check/couponlist')}>">优惠券消费明细</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="left test-right">
+        <div style="min-height:1000px;">
+            <div class="test-tab">
+                <script>
+                $(function () {
+                    $(".test-tab li").each(function (e) {
+                        $(this).click(function () {
+                            $(".test-tab li").removeClass("on");
+                            $(this).addClass("on");
+                            $(".test-tab-list").each(function (i) {
+                                if (e == i) {
+                                    $(".test-tab-list").hide();
+                                    $(this).show();
+                                }
+                                else {
+                                    $(this).hide();
+                                }
+                            });
+                        });
+                    });
+
+                });
+                </script>
+                <ul>
+                    <li class="on"><a href="javascript:void(0);">套餐码验证</a></li>
+                    <li><a href="javascript:void(0);">套餐码批量验证</a></li>
+                    <li><a href="javascript:void(0);">超级验证</a></li>
+                </ul>
+            </div>
+            <div class="test-tab-list" style="display:block;">
+                <p class="test-tab-list-ts">亲，您还没有输入口令，请先输入口令 </p>
+                <div>
+                    <input type="text" />
+                    <input class="test-tab-list-sub" type="submit" value="验证套餐码" />
+                </div>
+            </div>
+            <div class="test-tab-list">
+                <p class="test-tab-list-ts">亲，您还没有输入口令，请先输入口令 </p>
+                <div class="test-tab-list-int"><input type="text" value="请输入口令" onblur="if (!value) {
+                            value = defaultValue;
+                            this.style.color = '#999'
+                        }" onclick="if (value == defaultValue) {
+                                    value = '';
+                                    this.style.color = '#000'
+                                }" /></div>
+                <div class="test-tab-list-int"><input type="text" value="请输入口令" onblur="if (!value) {
+                            value = defaultValue;
+                            this.style.color = '#999'
+                        }" onclick="if (value == defaultValue) {
+                                    value = '';
+                                    this.style.color = '#000'
+                                }" /></div>
+                <div class="test-tab-list-int"><input type="text" value="请输入口令" onblur="if (!value) {
+                            value = defaultValue;
+                            this.style.color = '#999'
+                        }" onclick="if (value == defaultValue) {
+                                    value = '';
+                                    this.style.color = '#000'
+                                }" /></div>
+                <div class="test-tab-list-int"><input type="text" value="请输入口令" onblur="if (!value) {
+                            value = defaultValue;
+                            this.style.color = '#999'
+                        }" onclick="if (value == defaultValue) {
+                                    value = '';
+                                    this.style.color = '#000'
+                                }" /></div>
+                <div class="test-tab-list-int"><input type="text" value="请输入口令" onblur="if (!value) {
+                            value = defaultValue;
+                            this.style.color = '#999'
+                        }" onclick="if (value == defaultValue) {
+                                    value = '';
+                                    this.style.color = '#000'
+                                }" /><span><input class="test-tab-list-sub" type="submit" value="新增一行+" /></span></div>
+                <div class="test-tab-list-intTop"><input class="test-tab-list-sub" type="submit" value="验证套餐码" /></div>
+
+            </div>
+            <div class="test-tab-list">
+                <p class="test-tab-list-ts">亲，您还没有输入口令，请先输入口令 </p>
+                <div class="test-tab-list-int"><input type="text" value="请输入口令" onblur="if (!value) {
+                            value = defaultValue;
+                            this.style.color = '#999'
+                        }" onclick="if (value == defaultValue) {
+                                    value = '';
+                                    this.style.color = '#000'
+                                }" /><input class="test-tab-list-sub" type="submit" value="验证套餐码" /></div>
+                <div class="test-tab-list-tsk">
+                    <h3>温馨提示</h3>
+                    <p>超级验证，输入其中一个密码可以查询出该订单下所有可用套餐码;</p>
+                    <p>根据输入的张数随机抽取你要使用的套餐码，但必须是同一款商品;</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="public:footer"/>

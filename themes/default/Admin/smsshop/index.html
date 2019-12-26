@@ -1,0 +1,92 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">短信管理</li>
+        <li class="li2 li3">商家短信记录</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>这里记录了会员的短信数量。</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('smsshop/create','','添加商户短信','','',700,600)}>
+            </div>
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('smsshop/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <span>输入(会员id或商户id)</span>
+                        <input type="text" name="keyword" value="<{$keyword}>" class="inptText" /><input type="submit" value="   搜索"  class="inptButton" />
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form method="post" action="<{:U('smsshop/index')}>">
+            
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="log_id" /></td>
+                    <td class="w50">ID</td>
+                    <td>会员账户（昵称）</td>
+                    <td>商家名称</td>
+                    <td>短数量</td>
+                    <td>购买时间</td>
+                    <td>操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_log_id" type="checkbox" name="log_id[]" value="<{$var.log_id}>" /></td>
+                        <td><{$var.log_id}></td>
+                        <php>
+                        $users = D('Users')->where(array('user_id'=>$var['user_id']))->find();
+                        </php>
+                        <td>
+                        
+                        	<if condition="!empty($users['nickname'])">
+                           	 	<{$users['nickname']}>
+                            <else/>
+                            	<{$users['account']}>
+                            </if>
+                        
+                        
+                        (<{$var.user_id}>)</td>
+                        <td>
+                        <if condition="!empty($shops[$var['shop_id']]['shop_name'])">
+                        <{$shops[$var['shop_id']]['shop_name']}>
+                        <else/>
+                        	<if condition="!empty($users['nickname'])">
+                           	 	<{$users['nickname']}>
+                            <else/>
+                            	<{$users['account']}>
+                            </if>
+                        </if>
+                        </td>
+                        <td><{$var.num}></td>
+                        <td> <{$var.create_time|date='Y-m-d H:i:s',###}></td>
+
+                    <td class="w150">
+                        <{:BA('smsshop/num',array("log_id"=>$var["log_id"]),'短信+ -','load','remberBtn',400,250)}>
+                        <{:BA('smsshop/edit',array("log_id"=>$var["log_id"]),'编辑','','remberBtn',600,400)}>
+                        <!--<{:BA('smsshop/delete',array("log_id"=>$var["log_id"]),'删除','act','remberBtn')}>-->
+                    </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                <!--<{:BA('smsshop/delete','','批量删除','list',' a2')}>-->
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+
+

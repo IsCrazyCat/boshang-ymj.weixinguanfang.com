@@ -1,0 +1,70 @@
+<include  file='public:header'/>   
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:u('user/pintuan/groups',array('aready'=>1))}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			我的拼团订单
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+
+<div class="panel-list">
+	<ul>
+        <li><a href="javascript:;">订单编号<em><{$order.order_no}></em></a></li>
+		<li><a href="javascript:;">订单状态<em><{$orderStatus[$order['order_status']]}></em></a></li>
+        <li><a href="javascript:;">订单金额<em>￥<{:round($order['pay_price']/100,2)}></em></a></li>
+        <li><a href="javascript:;">商品金额 <em class="text-dot">￥<{:round($order['goods_price']/100,2)}></em></a></li>   
+	</ul>
+</div>
+<div class="blank-10 bg"></div>
+<div class="panel-list">
+	<ul>
+		<li><a href="javascript:;">送至<em class="text-dot"><{$order.address}></em></a></li>
+        <li><a href="javascript:;">收货人<em class="text-dot"><{$order.xm}>  <{$order.tel}></em></a></li>
+        <li><a href="javascript:;">下单时间<em class="text-dot"><{$order.order_time|date='Y-m-d H:i:s',###}></a></li>
+        <li><a href="javascript:;">运费<em class="text-dot">￥<{:round($order['express_price']/100,2)}></em></a></li>
+        <li><a href="javascript:;">配送方式<em class="text-dot"><{$order.express_name}> <{$order.express_no}></em></a></li>
+	</ul>
+</div>
+
+
+
+    
+    
+    		
+<div class="blank-10 bg"></div>
+<div class="list-media-x">
+	<ul>
+		<foreach name="ordergoods" item="item">
+		<li class="line padding">
+			<div class="x3">
+				<img style="width:90%;" src="<{:config_img($goods['goods_pic'])}>" />
+			</div>
+			<div class="x9">
+				<p><{$goods.name}> 数量：<{$order.goods_num}></p>
+				<p class="text-small padding-top">小计：<span class="text-dot">><{:round($order['goods_price']/100,2)}>/<{$goods.goods_unit}></span></p>
+			</div>
+		</li> 
+		</foreach>  
+	</ul>
+</div>
+
+
+<div class="blank-30"></div>
+	<div class="container text-center">
+                <if condition="$order['order_status'] eq 4 AND	$order['express_name'] neq '同城配送'">
+                <a class="button button-block button-big bg-dot" href="http://m.kuaidi100.com/index_all.html?type=<{$order['express_name']}>&postid=<{$order.express_no}>&callbackurl=<{$CONFIG.site.host}><{:U('pintuan/order',array('id'=>$order['id']))}>">查看物流</a>
+                </if>
+                <if condition="$order['order_status'] eq 4">
+                <a target="x-frame" class="button button-block button-big bg-blue" href="<{:U('/mcenter/pintuan/queren',array('id'=>$order['id']))}>">确认收货</a>
+                </if>
+        </eq>
+	</div>
+    
+
+<div class="blank-20"></div>
+
+<include  file='public:footer'/>  

@@ -1,0 +1,45 @@
+<div class="listBox clfx">
+    <div class="menuManage">
+        <form target="baocms_frm" action="<{:U('porder/order',array('id'=>$detail['id']))}>" method="post">
+            <div class="mainScAdd">
+                <div class="tableBox">
+                    <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+						<tr>
+                            <td class="lfTdBt">商品信息：</td>
+                            <td class="rgTdBt">商品名称：<{$detail.goods_name}><br>商品价格：￥<{:round($detail['goods_price']/100,2)}></td>
+                        </tr>
+                        <tr>
+                            <td class="lfTdBt">订单信息：</td>
+                            <td class="rgTdBt">订单类型：<{$tstatusArray[$detail['tstatus']]}><br>
+                            	订单编号：<{$detail.order_no}><br>
+                            	下单时间：<{$detail.order_time|date='Y-m-d H:i:s',###}><br>
+                            	订单状态：<{$orderStatusArray[$detail['order_status']]}><br>
+                            	支付金额：￥<{:round($detail['pay_price']/100,2)}>（含运费：￥<{:round($detail['express_price']/100,2)}>）<br>
+                            	支付方式：<if condition="$detail['pay_name'] eq weixin">微信支付<elseif condition="$detail['pay_name'] eq wxapp" />微信APP支付<elseif condition="$detail['pay_name'] eq alipay" />支付宝支付<else />等待支付</if><br>
+                            	支付时间：<{$detail.pay_time|date='Y-m-d H:i:s',###}></td>
+                        </tr>
+						<tr>
+                            <td class="lfTdBt">快递信息：</td>
+                            <td class="rgTdBt">收件人：<{$detail.xm}><br>联系电话：<{$detail.tel}><br>收货地址：<{$detail.address}><br>配送方式：<{$detail.express_name}><br>快递单号：<{$detail.express_no}><br>订单备注：<{$detail.order_beizu}>
+                            </td>
+                        </tr>
+                        <tr>
+                    		<td class="lfTdBt">修改状态：</td>
+                			<td class="rgTdBt">
+                            <foreach name="orderStatusArray" key="key" item="item">
+                             <input type="radio" name="order_status" value="<{$key}>" <eq name="detail.order_status" value="$key">checked</eq>><{$item}></foreach>
+                                    <code>此处修改订单状态功能只是修改订单状态值，不能完成退款、发货等功能，一般情况下请不要使用</code>
+                				</td>
+            			</tr>
+                    </table>
+                </div>
+                <div class="smtQr"><input type="submit" value="提交修改" class="smtQrIpt" /></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+
+

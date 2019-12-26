@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head lang="zh-CN">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+        <title><{$CONFIG.site.sitename}></title>
+        <link rel="stylesheet" href="__TMPL__statics/themes/hg.min.css" />
+        <link rel="stylesheet" href="__TMPL__statics/LIB/jquery.mobile.custom.structure.css"/>
+        <link rel="stylesheet" href="__TMPL__statics/css/site.css"/>
+        <script src="__TMPL__statics/LIB/jquery-1.11.1.min.js"></script>
+        <script src="__TMPL__statics/js/site.js"></script>
+        <script src="__TMPL__statics/LIB/jquery.mobile.custom.js"></script>
+
+    </head>
+    <body>
+        <div data-role="page">
+            <div data-role="header" data-position="inline" class="header-default">
+                <a href="<{:U('index/index')}>" data-rel="back" class="icon_arrow_r no_bg"></a>
+                <h1>绑定账号</h1>
+            </div>
+            <div class="nav_b">
+                <a href="<{:U('passport/bind')}>" class="ui-btn-active">已有账号绑定</a>
+                <a href="<{:U('passport/register')}>" >没有帐号注册</a>
+            </div>
+            <div data-role="content">
+                <form action="<{:U('passport/login')}>" method="post" class="register">
+                    <ul >
+                        <li><span class="icon_name"></span><input  name="account"  type="text" placeholder="请输入账号"> </li>
+                        <li><span class="icon_lock"></span><input name="password"  type="password" placeholder="请输入密码"> </li>
+                    </ul>
+                    <input type="submit" value="立刻绑定" class="ui-btn">
+                </form>
+            </div>
+
+
+        </div>
+    </body>
+</html>

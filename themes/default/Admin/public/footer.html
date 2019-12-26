@@ -1,0 +1,13 @@
+
+<script>     
+ window.onbeforeunload = function(){
+	 					var admin_id = '<{$admin['admin_id']}>';
+                        $.post("<{:U('login/close2')}>", {admin_id:admin_id}, function (data) {
+                                $('#tuan_id').html(res);
+                        }, 'json');
+
+    };  
+</script>     
+</div>
+</body>
+</html>

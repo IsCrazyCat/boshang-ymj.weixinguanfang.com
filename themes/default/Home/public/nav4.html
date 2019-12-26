@@ -1,0 +1,17 @@
+<style>
+.navA {position: relative;}
+.navA .hot {display: block;width: 27px;height: 18px;background: url(/themes/default/Home/statics/images/header-hot.gif) no-repeat center top;position: absolute;right: -5px;top: 2px;}
+</style>
+<div class="nav mb10">
+    <div class="navList">
+        <ul>
+         <volist name="navigations" id="var" key="index" >
+            <if condition="($var.parent_id eq 0)"> 
+            <li class="navLi"><a <if condition="$var.target eq 1">target="_blank"</if> <if condition="$ctl eq $var['title']"> class="navA  on"<else/>class="navA"</if> title="<{$var['nav_name']}>" href="<{$var['url']}>?nav_id=<{$var['nav_id']}>" ><{$var['nav_name']}> <if condition="$var['is_new'] eq 1"><em class="hot"></em></if></a></li>
+            </if>
+         </volist>
+ 
+        </ul>
+    </div>
+</div>
+<div class="clear"></div>

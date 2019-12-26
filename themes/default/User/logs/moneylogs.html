@@ -1,0 +1,35 @@
+<include  file='public:header'/>   
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:u('member/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			余额日志
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+<!-- 筛选TAB -->
+<style>
+ul{ padding-left:0px;}
+.list-media-x li dd.zhong, .list-media-x li { border-bottom: 0px solid #eee;}
+</style>
+<ul id="shangjia_tab">
+		<li class="x4"><a href="<{:u('logs/integral')}>">积分日志</a></li>
+        <li class="x4"><a href="<{:u('logs/moneylogs')}>"  class="on">余额日志</a></li>
+        <li class="x4"><a href="<{:u('logs/rechargecard')}>">代金券日志</a></li>
+</ul>
+
+<div class="list-media-x" id="list-media">
+<div class="blank-10 bg"></div>
+	<ul>
+    </ul>
+</div>
+<script>
+	$(document).ready(function(){        
+		loaddata('<{:U("logs/money_data",array("p"=>"0000"))}>',  $("#list-media ul"),true);
+	});
+</script>
+
+<include file='public:footer'/>   

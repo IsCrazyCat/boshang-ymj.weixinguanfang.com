@@ -1,0 +1,78 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">会员</li>
+        <li class="li2">收货地址</li>
+        <li class="li2 li3">编辑</li>
+    </ul>
+</div>
+<form target="baocms_frm" action="<{:U('useraddr/edit',array('addr_id'=>$detail['addr_id']))}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+
+
+                <tr>
+                    <td class="lfTdBt">用户：</td>
+                    <td class="rgTdBt"> <div class="lt">
+                            <input type="hidden" id="user_id" name="data[user_id]" value="<{$detail.user_id|default=''}>" />
+                            <input class="scAddTextName w200 sj" type="text" name="nickname" id="nickname"  value="<{$user.nickname}>" />
+                        </div>
+                        <a mini="select"  w="800" h="600" href="<{:U('user/select')}>" class="seleSj">选择用户</a>
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">地区：</td>
+                    <td class="rgTdBt">  <select name="data[area_id]" id="area_id" class="seleFl w200">
+                            <option value="0">请选择...</option>
+                            <foreach name="areas" item="var">
+                                <option value="<{$var.area_id}>"  <eq name="var.area_id" value="$detail.area_id">selected="selected"</eq> ><{$var.area_name}></option>
+                            </foreach>   
+                        </select>
+                    </td>
+                </tr>
+                <script>
+                    $(document).ready(function (e) {
+                        $("#area_id").change(function () {
+                            var url = '<{:U("business/child",array("area_id"=>"0000"))}>';
+                            if ($(this).val() > 0) {
+                                var url2 = url.replace('0000', $(this).val());
+                                $.get(url2, function (data) {
+                                    $("#business_id").html(data);
+                                }, 'html');
+                            }
+
+                        });
+                    });
+                </script>
+                <tr>
+                    <td class="lfTdBt">商圈：</td>
+                    <td class="rgTdBt"> <select name="data[business_id]" id="business_id" class="w200 seleFl">
+                            <option value="0">请选择...</option>
+                            <foreach name="business" item="var">
+                                <option value="<{$var.business_id}>"  <eq name="var.business_id" value="$detail.business_id">selected="selected"</eq> ><{$var.business_name}></option>
+                            </foreach>   
+                        </select>
+
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">收货人：</td>
+                    <td class="rgTdBt"><input type="text" name="data[name]" value="<{$detail.name|default=''}>" class="scAddTextName w300" />
+
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">手机号码：</td>
+                    <td class="rgTdBt"><input type="text" name="data[mobile]" value="<{$detail.mobile|default=''}>" class="scAddTextName w300" />
+
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">具体地址：</td>
+                    <td class="rgTdBt"><input type="text" name="data[addr]" value="<{$detail.addr|default=''}>" class="scAddTextName w300" />
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认编辑" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>       

@@ -1,0 +1,20 @@
+<foreach name="list" item="item">
+<li>	<a class="item line" href="<{:U('ele/shop',array('shop_id'=>$item['shop_id']))}>">
+		<div class="x3">
+        
+			<img src="<{:config_img($shops[$item['shop_id']]['photo'])}>">
+		</div>
+		<div class="x9">
+				<h5><{$item['shop_name']}>
+					<eq name="item.is_pay" value="1"> <span class="fu">付</span></eq>
+					<eq name="item.is_fan" value="1"> <span class="fan">返</span></eq>
+					 <span class="pei">配</span>
+					<eq name="item.is_new" value="1"><span class="jian">减</span></eq>
+				</h5>				<p class="des-star">
+					<span class="ui-starbar"><span style="width:<{:round($shops[$item['shop_id']]['score']*2,2)}>%"></span></span>
+					<span class="float-right"><{$item.d}></span>
+				</p>
+				<p class="des-addr"><i class="mui-icon mui-icon-location"></i><{$shops[$item['shop_id']]['addr']}></p>
+		</div>	</a>
+</li>
+</foreach>

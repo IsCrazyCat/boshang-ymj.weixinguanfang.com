@@ -1,0 +1,69 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">分享</li>
+        <li class="li2">分享管理</li>
+        <li class="li2 li3">设置</li>
+    </ul>
+</div>
+<p class="attention"><span>注意：</span>这里是页面中那些分享key调用</p>
+<form  target="baocms_frm" action="<{:U('setting/share')}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+
+               
+              <tr>
+                    <td colspan ="3" class="rgTdBt">QQ空间： 申请地址<a href="http://connect.qq.com/manage/index" target="_blank">http://connect.qq.com/manage/index</a></td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">UID：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[qzone_uid]" value="<{$CONFIG.share.qzone_uid}>"  class="scAddTextName w300 " />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">KEY：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[qzone_key]" value="<{$CONFIG.share.qzone_key}>"  class="scAddTextName w300 " />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan ="3"  class="rgTdBt"> QQ微博：申请地址<a href="http://connect.qq.com/manage/index" target="_blank">http://connect.qq.com/manage/index</a></td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">UID：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[qwb_uid]" value="<{$CONFIG.share.qwb_uid}>"  class="scAddTextName w300 " />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">KEY：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[qwb_key]" value="<{$CONFIG.share.qwb_key}>"  class="scAddTextName w300 " />
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td colspan ="3"  class="rgTdBt">新浪微博：申请地址<a href="http://open.weibo.com/connect" target="_blank">http://open.weibo.com/connect</a></td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">UID：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[weibo_uid]" value="<{$CONFIG.share.weibo_uid}>"  class="scAddTextName w300 " />
+                        <code></code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">KEY：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[weibo_key]" value="<{$CONFIG.share.weibo_key}>"  class="scAddTextName w300 " />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>       

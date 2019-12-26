@@ -1,0 +1,41 @@
+<foreach name="list" item="item">
+
+       <li class="line">
+        <dt>
+            <a class="x3">订单号：<{$item.order_id}></a>
+            <a class="x9 text-right">买单时间：<{$item.create_time|date='Y-m-d H:i',###}> </a>
+        </dt>
+        
+          <dd class="zhong">
+                <div class="x12">
+                    <p><a href="<{:u('wap/shop/detail',array('shop_id'=>$item['shop_id']))}>">买单商家：<{$shops[$item['shop_id']]['shop_name']}> </a></p>
+                    <p class="text-small">
+                        <span class="text-dot1 margin-right">
+                        总金额：<span class="text-dot">&yen;<{$item.amount}>元 </span> 
+                        不参与优惠金额：<span class="text-dot">&yen;<{$item.exception}>元 </span> 
+                        </span>
+                    </p>
+                    
+                    <p class="text-small">
+                        <span class="text-dot1 margin-right">
+                        优惠金额：<span class="text-dot">&yen;<{$item.yh}>元 </span> 
+                        总支付金额：<span class="text-dot">&yen;<{$item.need_pay}>元 </span> 
+                        </span>
+                    </p>        
+              </div>
+          </dd>
+          
+      <dl>
+      <p class="text-right padding-top x12">
+        <if condition="$item.status eq 0">
+        <a class="button button-small bg-gray">未支付</a>
+        	<a class="button button-small bg-dot" href="<{:u('wap/shop/breakspay',array('order_id'=>$item['order_id']))}>" target="_blank">去付款</a>
+        <else/>
+        <a class="button button-small bg-blue">已支付</a>
+        </if>
+      </p>
+      </dl>
+    </li>
+    <div class="blank-10 bg"></div>
+</foreach>
+

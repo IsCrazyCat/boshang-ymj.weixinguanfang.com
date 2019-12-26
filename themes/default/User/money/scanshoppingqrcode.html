@@ -1,0 +1,105 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+    <div class="top-back">
+        <a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+    </div>
+    <div class="top-title">
+        购物活动
+    </div>
+    <div class="top-signed">
+        <include file="public:message"/>
+    </div>
+</header>
+
+<form method="post" action="<{:U('money/scanshoppingqrcodepay')}>">
+    <div class="line padding">
+        <span class="x3">门店：</span>
+        <span class="x9">
+            <input id="shop_id" type="hidden" name="shop_id" value="<{$shop['shop_id']}>"/>
+            <input class="text-input" type="text" name="shopname" placeholder="" value="<{$shop['shop_name']}>"
+                   style="border-color:#CCC 1px solid!important;"/>
+	</span>
+    </div>
+    <div class="line padding">
+
+        <span class="x3">真实姓名：</span>
+        <span class="x9">
+		<input class="text-input" type="text" name="user_name" placeholder="输入真实姓名" value="<{$users['ext0']}>"
+               style="border-color:#CCC 1px solid!important;"/>
+	</span>
+
+    </div>
+    <div class="line padding">
+
+        <span class="x3">手机号码：</span>
+        <span class="x9">
+		<input class="text-input" type="text" name="user_mobile" value="<{$users['mobile']}>" placeholder="输入手机号码"
+               style="border-color:#CCC 1px solid!important;"/>
+	</span>
+
+    </div>
+
+    <div class="line padding">
+
+        <span class="x3">购物金额：</span>
+        <span class="x9">
+		<input class="text-input" type="text" name="pay_money" placeholder="输入购物金额"
+               style="border-color:#CCC 1px solid!important;"/>
+	</span>
+
+    </div>
+
+
+    <ul id="pay-method-ul" class="pay-method">
+        <foreach name="payment" item="var">
+            <if condition="$var['code'] neq 'money'">
+                <li data-rel="<{$var.code}>" class="media media-x payment active">
+                    <else/>
+                <li data-rel="<{$var.code}>" class="media media-x payment">
+            </if>
+
+
+            <a class="float-left" href="javascript:;">
+                <img src="/static/default/wap/image/pay/<{$var.mobile_logo}>">
+            </a>
+            <div class="media-body">
+                <div class="line">
+                    <div class="x10">
+                        <{$var.name}>
+                        <p>
+                            <if condition="$var['code'] neq 'money'">
+                                推荐已安装<{$var.name}><{$var.id}>客户端的用户使用
+                                <else/>
+                                当前可用余额 <{:round($users['money']/100,2)}> 元
+                            </if>
+                        </p>
+                    </div>
+                    <div class="x2">
+                        <span class="radio txt txt-small radius-circle bg-green"><i class="icon-check"></i></span>
+                    </div>
+                </div>
+            </div>
+            </li>
+
+        </foreach>
+    </ul>
+    <input id="pay_method" type="hidden" name="pay_method" value="weixin"/>
+    <script>
+        $("#pay-method-ul li").click(function () {
+            var pay_method = $(this).attr("data-rel");
+            $("#pay_method").val(pay_method);
+
+            $("#pay-method-ul li").each(function () {
+                $(this).removeClass("active");
+            });
+            $(this).addClass("active");
+        });
+    </script>
+
+    <div class="blank-30"></div>
+    <div class="container">
+        <button type="submit" class="button button-block button-big bg-dot">提交支付</button>
+    </div>
+
+</form>
+<include file="public:footer"/>

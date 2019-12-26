@@ -1,0 +1,440 @@
+<include  file='public:header'/>
+
+
+
+<div class="content_right">   
+    <div class="tgdd">
+        <form  target="baocms_frm" action="<{:U('life/edit',array('life_id'=>$detail['life_id']))}>" method="post">
+            <div class="addAddress_nr">
+                <p class="addAddress_t">编辑信息："<{$detail.title}>"</p>
+                <ul>
+                    <li>
+                        <div class="left"><span>标题：</span></div>
+                        <div class="lef">
+                            <input type="text" name="data[title]" value="<{$detail.title|default=''}>" class="manageInput w300" />
+                        </div>
+                    </li>
+                    <li>
+                        <div class="left"><span>分类：</span></div>
+                        <div class="lef">
+                            <select name="data[cate_id]" id="jq_cate" class="manageSelect">
+                                <foreach name="channelmeans" item="item" key="key">
+                                    <option value=""><{$item}></option>
+                                    <foreach name="cates" item="it" key="k">
+                                        <eq name="it.channel_id" value="$key">
+                                        <option <eq name="detail.cate_id" value="$it.cate_id">selected="selected"</eq> value="<{$it.cate_id}>">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<{$it.cate_name}></option>
+                                        </eq>
+                                    </foreach>
+                                </foreach>
+                            </select>
+                        </div>
+                    </li>
+                    <script>
+                        var ajaxurl = '<{:U("life/ajax",array("cate_id"=>"0000","life_id"=>$detail["life_id"]))}>';
+                        $(document).ready(function () {
+                            $("#jq_cate").change(function () {
+                                if ($(this).val() > 0) {
+                                    var link = ajaxurl.replace('0000', $(this).val());
+                                    $.get(link, function (data) {
+                                        $("#jq_setting").html(data);
+                                    }, 'html');
+
+                                } else {
+                                    layer.msg("请选择分类");
+                                }
+                            });
+                        });
+                    </script>
+                    <li>
+                        <div class="left"><span>&nbsp;</span></div>
+                        <div class="lef" id="jq_setting">
+                            <table> 
+                                <if condition="!empty($cate['text1'])"> 
+                                    <tr>
+                                        <td align="right"><{$cate.text1}>：</td>
+                                        <td class="cate-name"><input type="text" name="data[text1]" value="<{$detail.text1|default=''}>" class="manageInput w200" />
+                                        </td>
+                                    </tr>
+                                </if>
+
+                                <if condition="!empty($cate['text2'])"> 
+                                    <tr>
+                                        <td align="right"><{$cate.text2}>：</td>
+                                        <td class="cate-name"><input type="text" name="data[text2]" value="<{$detail.text2|default=''}>" class="manageInput w200" />
+                                        </td>
+                                    </tr>
+                                </if>
+                                <if condition="!empty($cate['text3'])"> 
+                                    <tr>
+                                        <td align="right"><{$cate.text3}>：</td>
+                                        <td class="cate-name"><input type="text" name="data[text3]" value="<{$detail.text3|default=''}>" class="manageInput w200" />
+
+                                        </td>
+                                    </tr>
+                                </if>
+                                <if condition="!empty($cate['num1'])"> 
+                                    <tr>
+                                        <td align="right"><{$cate.num1}>：</td>
+                                        <td><input type="text" name="data[num1]" value="<{$detail.num1|default=''}>" class="manageInput w200" />
+                                            <{$cate.unit1}>
+                                        </td>
+                                    </tr>
+                                </if>
+                                <if condition="!empty($cate['num2'])"> 
+                                    <tr>
+                                        <td align="right"><{$cate.num2}>：</td>
+                                        <td><input type="text" name="data[num2]" value="<{$detail.num2|default=''}>" class="manageInput w200" />
+                                            <{$cate.unit2}>
+                                        </td>
+                                    </tr>
+                                </if>
+                                <if condition="!empty($cate['select1'])"> 
+                                    <tr>
+                                        <td align="right"><{$cate.select1}>：</td>
+                                        <td>
+                                            <select name="data[select1]" class="manageSelect">
+                                                <foreach name="attrs" item="item">
+                                                    <eq name="item.type" value="select1">
+                                                    <option value="<{$item.attr_id}>"  <eq name="detail.select1" value="$item.attr_id">selected="selected"</eq>  ><{$item.attr_name}></option>
+                                                    </eq>
+                                                </foreach>                    
+                                            </select>
+                                        </td>
+                                    </tr> 
+                                </if>
+                                <if condition="!empty($cate['select2'])"> 
+                                    <tr>
+                                        <td align="right"><{$cate.select2}>：</td>
+                                        <td>
+                                            <select name="data[select2]" class="manageSelect">
+                                                <foreach name="attrs" item="item">
+                                                    <eq name="item.type" value="select2">
+                                                    <option value="<{$item.attr_id}>"  <eq name="detail.select2" value="$item.attr_id">selected="selected"</eq>  ><{$item.attr_name}></option>
+                                                    </eq>
+                                                </foreach>                    
+                                            </select>
+                                        </td>
+                                    </tr> 
+                                </if>
+                                <if condition="!empty($cate['select3'])"> 
+                                    <tr>
+                                        <td align="right"><{$cate.select3}>：</td>
+                                        <td>
+                                            <select name="data[select3]" class="manageSelect">
+                                                <foreach name="attrs" item="item">
+                                                    <eq name="item.type" value="select3">
+                                                    <option value="<{$item.attr_id}>"  <eq name="detail.select3" value="$item.attr_id">selected="selected"</eq>  ><{$item.attr_name}></option>
+                                                    </eq>
+                                                </foreach>                    
+                                            </select>
+                                        </td>
+                                    </tr> 
+                                </if>
+                                <if condition="!empty($cate['select4'])"> 
+                                    <tr>
+                                        <td align="right"><{$cate.select4}>：</td>
+                                        <td>
+                                            <select name="data[select4]" class="manageSelect">
+                                                <foreach name="attrs" item="item">
+                                                    <eq name="item.type" value="select4">
+                                                    <option value="<{$item.attr_id}>"  <eq name="detail.select4" value="$item.attr_id">selected="selected"</eq>  ><{$item.attr_name}></option>
+                                                    </eq>
+                                                </foreach>                    
+                                            </select>
+                                        </td>
+                                    </tr> 
+                                </if>
+                                <if condition="!empty($cate['select5'])"> 
+                                    <tr>
+                                        <td align="right"><{$cate.select5}>：</td>
+                                        <td>
+                                            <select name="data[select5]" class="manageSelect">
+                                                <foreach name="attrs" item="item">
+                                                    <eq name="item.type" value="select5">
+                                                    <option value="<{$item.attr_id}>"  <eq name="detail.select5" value="$item.attr_id">selected="selected"</eq>  ><{$item.attr_name}></option>
+                                                    </eq>
+                                                </foreach>                    
+                                            </select>
+                                        </td>
+                                    </tr> 
+                                </if>
+                            </table>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="left"><span>所在区域：</span></div>
+                        <div class="lef">
+                            <select name="data[city_id]" id="city_id" class="manageSelect">
+                                <option value="0">请选择...</option>
+                            </select>
+                            <select name="data[area_id]" id="area_id" class="manageSelect">
+                                <option value="0">请选择...</option>
+                            </select>
+                            <select name="data[business_id]" id="business_id" class="manageSelect">
+                                <option value="0">请选择...</option>
+                            </select>
+                        </div>
+                    </li>
+                    <script src="<{:U('app/datas/cab',array('name'=>'cityareas'))}>"></script>
+                    <script>
+                        var city_id = "<{$detail.city_id}>";
+                        var area_id = "<{$detail.area_id}>";
+                        var business_id = "<{$detail.business_id}>";
+                        $(document).ready(function () {
+                            var city_str = ' <option value="0">请选择...</option>';
+                            for (a in cityareas.city) {
+                                if (city_id == cityareas.city[a].city_id) {
+                                    city_str += '<option selected="selected" value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+                                } else {
+                                    city_str += '<option value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+                                }
+                            }
+                            $("#city_id").html(city_str);
+
+                            $("#city_id").change(function () {
+                                if ($("#city_id").val() > 0) {
+                                    city_id = $("#city_id").val();
+                                    var area_str = ' <option value="0">请选择...</option>';
+                                    for (a in cityareas.area) {
+                                        if (cityareas.area[a].city_id == city_id) {
+                                            if (area_id == cityareas.area[a].area_id) {
+                                                area_str += '<option selected="selected" value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                            } else {
+                                                area_str += '<option value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                            }
+                                        }
+                                    }
+                                    $("#area_id").html(area_str);
+                                    $("#business_id").html('<option value="0">请选择...</option>');
+                                } else {
+                                    $("#area_id").html('<option value="0">请选择...</option>');
+                                    $("#business_id").html('<option value="0">请选择...</option>');
+                                }
+
+                            });
+
+                            if (city_id > 0) {
+                                var area_str = ' <option value="0">请选择...</option>';
+                                for (a in cityareas.area) {
+                                    if (cityareas.area[a].city_id == city_id) {
+                                        if (area_id == cityareas.area[a].area_id) {
+                                            area_str += '<option selected="selected" value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                        } else {
+                                            area_str += '<option value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                        }
+                                    }
+                                }
+                                $("#area_id").html(area_str);
+                            }
+
+
+                            $("#area_id").change(function () {
+                                if ($("#area_id").val() > 0) {
+                                    area_id = $("#area_id").val();
+                                    var business_str = ' <option value="0">请选择...</option>';
+                                    for (a in cityareas.business) {
+                                        if (cityareas.business[a].area_id == area_id) {
+                                            if (business_id == cityareas.business[a].business_id) {
+                                                business_str += '<option selected="selected" value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                            } else {
+                                                business_str += '<option value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                            }
+                                        }
+                                    }
+                                    $("#business_id").html(business_str);
+                                } else {
+                                    $("#business_id").html('<option value="0">请选择...</option>');
+                                }
+
+                            });
+
+                            if (area_id > 0) {
+                                var business_str = ' <option value="0">请选择...</option>';
+                                for (a in cityareas.business) {
+                                    if (cityareas.business[a].area_id == area_id) {
+                                        if (business_id == cityareas.business[a].business_id) {
+                                            business_str += '<option selected="selected" value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                        } else {
+                                            business_str += '<option value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                        }
+                                    }
+                                }
+                                $("#business_id").html(business_str);
+                            }
+                            $("#business_id").change(function () {
+                                business_id = $(this).val();
+                            });
+                        });
+                    </script>
+                    <li>
+                        <div class="left"><span>所在坐标：</span></div>
+                        <div class="lef lt">
+                            <input type="text" name="data[lng]" id="data_lng" value="<{$detail.lng|default=''}>" class="fselect" />经度
+                            <input type="text" name="data[lat]" id="data_lat" value="<{$detail.lat|default=''}>" class="fselect" />纬度
+                        </div>
+                    </li>
+                    <li>
+                        <div class="left"><span>地图坐标：</span></div>
+                        <div class="lef">
+                            <div class="listBox clfx">
+                                <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7b92b3afff29988b6d4dbf9a00698ed8"></script>
+                                <div id="allmap" style="width: 560px; height:500px;"></div>
+                                <script type="text/javascript">
+
+                        // 百度地图API功能
+                        var map = new BMap.Map("allmap");
+                        map.centerAndZoom(new BMap.Point("<{$detail['lng']}>", "<{$detail['lat']}>"), 16);
+                        function selectCallBack(id, name, v1, v2) {
+                            $("#" + id).val(v1);
+                            $("#" + name).val(v2);
+                            var point = new BMap.Point(v1, v2);
+                            var marker = new BMap.Marker(point);  // 创建标注
+                            map.clearOverlays();
+                            map.addOverlay(marker);              // 将标注添加到地图中
+
+                        }
+                        function showInfo(e) {
+                            selectCallBack('data_lng', 'data_lat', e.point.lng, e.point.lat);
+                        }
+                        map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+                        map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}));  //右上角，仅包含平移和缩放按钮
+                        map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT, type: BMAP_NAVIGATION_CONTROL_PAN}));  //左下角，仅包含平移按钮
+                        map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, type: BMAP_NAVIGATION_CONTROL_ZOOM}));  //右下角，仅包含缩放按钮
+                        map.addEventListener("click", showInfo);
+                                </script>
+                            </div>
+                        </div>
+                    </li>
+                    
+                    
+                    <li>
+                 
+                 <p class="tuanfabu_t">图片：</p>
+                 <div class="tuanfabu_nr">
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <input type="hidden" name="data[photo]" value="<{$detail.photo}>" id="data_photo" />
+                        <div id="fileToUpload" >上传缩略图</div>
+                    </div>
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <img id="photo_img" width="80" height="80"  src="<{:config_img($detail['photo'])}>" />
+                        <a href="<{:U('setting/attachs')}>">缩略图设置</a>
+                        <{$CONFIG.attachs.life.thumb}>
+                    </div>
+                    <script>                                            
+						var width_life = '<{:thumbSize($CONFIG[attachs][life][thumb],0)}>';                         
+						var height_life = '<{:thumbSize($CONFIG[attachs][life][thumb],1)}>';                         
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"life"))}>',                             
+						pick: '#fileToUpload',                             
+						resize: true,  
+						compress : {width: width_good,height: height_good,quality: 80,allowMagnify: false,crop: true}                       
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_photo").val(resporse.url);                             
+						$("#photo_img").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+                    </div>
+             
+                    </li>
+                    <li>
+                        <div class="left"><span>联系人：</span></div>
+                        <div class="lef">
+                            <input type="text" name="data[contact]" value="<{$detail.contact|default=''}>" class="manageInput w200" />
+                        </div>
+                    </li>
+                    <li>
+                        <div class="left"><span>手机：</span></div>
+                        <div class="lef">
+                            <input type="text" name="data[mobile]" value="<{$detail.mobile|default=''}>" class="manageInput w200" />
+                        </div>
+                    </li>
+                    <li>
+                        <div class="left"><span>QQ：</span></div>
+                        <div class="lef">
+                            <input type="text" name="data[qq]" value="<{$detail.qq|default=''}>" class="manageInput w200" />
+                        </div>
+                    </li>
+                    <li>
+                        <div class="left"><span>联系地址：</span></div>
+                        <div class="lef">
+                            <input type="text" name="data[addr]" value="<{$detail.addr|default=''}>" class="manageInput" style="width: 400px;" />
+                        </div>
+                    </li>
+                    <li>
+                    <div class="left">
+                        	<div id="moreToUpload" >上传更多图片</div>
+                         </div>
+							<script>                                
+									var width_life_pic = '<{:thumbSize($CONFIG[attachs][life][thumb],0)}>';  //获取宽度                              
+									var height_life_pic = '<{:thumbSize($CONFIG[attachs][life][thumb],1)}>'; //获取高度 
+                       
+									var uploader = WebUploader.create({                                    
+									auto: true,                                    
+									swf: '/static/default/webuploader/Uploader.swf',                                    
+									server: '<{:U("app/upload/uploadify",array("model"=>"life"))}>',                                    
+									pick: '#moreToUpload',                                    
+									fileNumberLimit:10,                                    
+									resize: true, 
+									crop: false,  
+									compress : {width:width_life_pic,height:height_life_pic,quality: 80,allowMagnify: false,crop: true},														                        
+								});                                                               
+								uploader.on( 'uploadSuccess', function( file,resporse) {                                    
+								var str = '<span style="width: 120px; height: 120px; float: left; margin:0 10px 0 10px; overflow: hidden;">  <img width="200" height="100" src="' + resporse.url + '">  <input type="hidden" name="photos[]" value="' + resporse.url + '" />    <a href="javascript:void(0);">取消</a>  </span>';                                   
+								 $(".jq_uploads_img").append(str);                                
+									 });                                                            
+								 uploader.on( 'uploadError', function( file ) {                                    
+									alert('上传出错');                                
+								 });                                
+								 $(document).on("click", ".jq_uploads_img a", function () {                                    
+									 $(this).parent().remove();                                
+								 });                            
+                             </script>
+                            <div class="jq_uploads_img">
+                                <foreach  name="photos" item="item">
+                                    <span style="width: 120px; height: 120px; float: left; margin-left: 5px; margin-top: 10px;"> 
+                                        <img width="100" height="100" src="<{:config_img($item['photo'])}>">  
+                                        <input type="hidden" name="photos[]" value="<{$item.photo}>" />  
+                                        <a href="javascript:void(0);">取消</a>  
+                                    </span>
+                                </foreach>
+                            </div>		
+                    </li>        
+                    <li>
+                    
+                    
+                      <!--详情开始--> 
+                <tr><td><p class="tuanfabu_t">商品详情：</p></td> <td><div class="tuanfabu_nr">
+                <script type="text/plain" id="details" name="data[details]" style="width:800px;height:360px;"><{$ex.details}></script>
+                <link rel="stylesheet" href="/Public/qiniu_ueditor/themes/default/css/ueditor.min.css" type="text/css">
+                <script type="text/javascript" charset="utf-8" src="/Public/qiniu_ueditor/ueditor.config.js"></script>
+                <script type="text/javascript" charset="utf-8" src="/Public/qiniu_ueditor/ueditor.all.min.js"></script>
+                <script type="text/javascript" src="/Public/qiniu_ueditor/lang/zh-cn/zh-cn.js"></script>
+                <script>
+                    um = UE.getEditor('details', {
+                        lang: 'zh-cn',
+						toolbars:[['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'backcolor', 'fontsize', 'fontfamily', 'justifyleft', 'justifyright', 'justifycenter', 'justifyjustify', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', 'link', 'unlink', 'map', 'template', 'background','inserttable','print','attachment',  'emotion',  'snapscreen','insertimage', 'music', 'insertvideo']],  
+                        });
+                </script>
+                </div></td></tr>
+                <!--详情结束--> 
+                
+                
+                        
+                        
+                        
+                    </li>
+                </ul>
+                <div class="addAddress_bcqx"><input class="bc" type="submit" value="确认保存" /></div>
+            </div>
+
+        </form>
+    </div>
+</div>
+</div>
+<include file="public:footer"/>

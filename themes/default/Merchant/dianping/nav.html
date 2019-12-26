@@ -1,0 +1,13 @@
+<div class="tuanfabu_tab">
+   <ul>
+     <li class="tuanfabu_tabli tabli_change  <eq name="act" value="index">on</eq>"><a href="<{:U('dianping/index')}>">商家点评</a></li>
+     <li class="tuanfabu_tabli tabli_change  <eq name="act" value="tuan">on</eq>"><a href="<{:U('dianping/tuan')}>">套餐点评</a></li>
+     <if condition="$open_mall eq '1' ">
+         <li class="tuanfabu_tabli tabli_change  <eq name="act" value="mall">on</eq>"><a href="<{:U('dianping/mall')}>">商城点评</a></li>
+     </if>
+     <li class="tuanfabu_tabli tabli_change  <eq name="act" value="waimai">on</eq>"><a href="<{:U('dianping/waimai')}>">外卖点评</a></li>
+     <if condition="$open_booking eq '1' ">
+        <li class="tuanfabu_tabli tabli_change  <eq name="act" value="booking">on</eq>"><a href="<{:U('dianping/booking')}>">订座点评</a></li>
+     </if>
+   </ul>
+</div> 

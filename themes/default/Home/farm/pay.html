@@ -1,0 +1,78 @@
+<include file="public:header" />
+<include file="public:topOne" />
+<div class="between">
+    <div class="hotel_state">
+        <div class="list_box">
+            <ul>
+                <li class="list">1.提交订单</li>
+                <li class="list on">2.去支付</li>
+                <li class="list">3.完成</li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+        <div class="img img2"></div>
+    </div>
+    <div class="clear"></div>
+    <form action="<{:U('farm/pay2',array('order_id'=>$order['order_id']))}>" method="post">
+        <div class="mode_dingdan" style="padding-bottom:150px;">
+            <table class="order" width="100%">
+                <tr>
+                    <th width="400">套餐名称</th>
+                    <th width="200">预订时间</th>
+                    <th>应付金额</th>
+                </tr>
+                <tr>
+                    <td style="width: 120px;"><{$f.title}></td>
+                    <td><{$order.gotime|date='Y-m-d h:i:s',###}></td>
+                    <td><span class="order_2">￥<{$order['amount']}></span></td>
+                </tr>
+            </table>
+
+            <div class="mode left">选择支付方式</div>
+            <div class="clear"></div>
+            <ul class="mode_zx">
+                <li  class="on">在线付款</li>
+            </ul>
+            <div class="order_type table1">
+                <div class="order_style">
+                    <ul class="zfList">
+                        <php>$i = 0;</php>
+                        <foreach name="payment" item="var">
+                            <if condition="$var['code'] neq 'weixin'">
+                                <?php $i++; ?>
+                                <li>
+                                    <label class="block">
+                                        <label class="seat-check-radio">
+                                            <input id="code" value="<{$var.code}>" name="code" type="radio" />
+                                        </label>
+                                        <img src="__PUBLIC__/images/<{$var.logo}>">
+                                    </label>
+                                </li>
+                            </if>
+                        </foreach>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+                <script>
+                    $(function () {
+                        $(".seat-check-radio").click(function () {
+                            $(".seat-check-radio").removeClass("on");
+                            $(this).addClass("on");
+                        });
+                        $(".order_style ul.zfList li").click(function () {
+                            $(".order_style ul.zfList li").removeClass("current");
+                            $(this).addClass("current");
+                        });
+                    });
+                </script>
+                <div class="order_p1" style="margin-right: 0px;">
+                    <div class=" order_s3"> <span class="">需支付：<span class="order_s4">￥<{$order['amount']}></span></span> </div>
+                    <div style=" overflow:hidden;"> 
+                        <input type="submit" name="sub" value="去支付" >
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<include file="public:footer"/> 

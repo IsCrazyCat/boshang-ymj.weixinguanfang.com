@@ -1,0 +1,43 @@
+<include file='public:header'/>  
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:u('crowd/crowd_list',array('aready'=>1))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">验证众筹劵</div>
+		<div class="top-share"></div>
+	</header>
+ <form action="<{:U('crowd/used',array('goods_id'=>$goods_id))}>" method="post" target="x-frame">
+	<!--<div class="line padding border-bottom">
+		<span class="x12">当前待验证：
+        <if condition="$counts['tuan_order_code_is_used'] gt 0">
+       		<span class="text-dot"><{$counts['tuan_order_code_is_used']}>单。</span>
+        <else/>暂无</if>
+        </span>
+	</div>-->
+
+	<div class="line padding border-bottom">
+		<span class="x3">众筹劵：</span>
+		<span class="x9"><input type="text" name="code[1]"  class="text-input text-gray" placeholder="请输入套餐劵"></span>
+		</div>
+	<div class="container">
+		<div class="blank-30"></div>
+		<p><span class="text-dot">小提示：</span> 推荐扫码验证！</p>
+	</div>
+	<div class="container">
+		<div class="blank-30"></div>
+		<button class="button button-big button-block bg-dot">提交修改</button>
+		<div class="blank-30"></div>
+	</div>
+</form>
+<if condition="!empty($goods_id)">
+	<include file="crowd:footer"/>
+<else/>
+	<iframe id="x-frame" name="x-frame" style="display:none;"></iframe>
+</if>
+
+
+
+
+
+
+

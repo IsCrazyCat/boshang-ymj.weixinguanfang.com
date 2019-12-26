@@ -1,0 +1,97 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">微信</li>
+        <li class="li2">微信关键字</li>
+        <li class="li2 li3">编辑</li>
+    </ul>
+</div>
+<form target="baocms_frm" action="<{:U('weixinkeyword/edit',array('keyword_id'=>$detail['keyword_id']))}>" method="post">
+    <div class="mainScAdd ">
+        <div class="tableBox">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">关键字：</td>
+                    <td class="rgTdBt"><input type="text" name="data[keyword]" value="<{$detail.keyword|default=''}>" class="scAddTextName" />
+                    </td>
+                </tr>    <tr>
+                    <td class="lfTdBt">类型：</td>
+                    <td class="rgTdBt">
+                        <select name="data[type]" class="manageSelect jq_type">
+                            <option <eq name="detail.type" value="text">selected="selected"</eq> value="text">文字</option>
+                            <option <eq name="detail.type" value="news">selected="selected"</eq>  value="news">图文</option>
+                        </select>
+                    </td>
+                </tr>
+                <script>
+                    $(document).ready(function () {
+                        $(".jq_type").change(function () {
+                            if ($(this).val() == 'text') {
+                                $(".jq_type_1").show();
+                                $(".jq_type_2").hide();
+                            } else {
+                                $(".jq_type_2").show();
+                                $(".jq_type_1").hide();
+                            }
+                        });
+                        $(".jq_type").change();
+
+                    });
+                </script>
+                <tr class="jq_type_1">
+                    <td class="lfTdBt">内容：</td>
+                    <td class="rgTdBt">
+                        <textarea cols="50" rows="10" name="data[contents]" ><{$detail.contents}></textarea>
+                        <code>支持a标签</code>
+                    </td>
+                </tr>
+                <tr class="jq_type_2">
+                    <td class="lfTdBt">标题：</td>
+                    <td class="rgTdBt"><input type="text" name="data[title]" value="<{$detail.title|default=''}>" class="scAddTextName" />
+
+                    </td>
+                </tr>
+                <tr class="jq_type_2">
+                    <td class="lfTdBt">链接地址：</td>
+                    <td class="rgTdBt"><input type="text" name="data[url]" value="<{$detail.url|default=''}>" class="scAddTextName" />
+                    </td>
+                </tr>
+                 <tr class="jq_type_2">
+                    <td class="lfTdBt">关键词回复图片：</td>
+                 <td class="rgTdBt">
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <input type="hidden" name="data[photo]" value="<{$detail.photo}>" id="data_photo" />
+                        <div id="fileToUpload" >上传关键词回复图片</div>
+                    </div>
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <img id="photo_img" width="120" height="80"  src="<{:config_img($detail['photo'])}>" />
+                        <a href="<{:U('setting/attachs')}>">缩略图设置</a>
+                        <{$CONFIG.attachs.weixin.thumb}>
+                    </div>
+                    <script>                                            
+						var width_weixin = '<{:thumbSize($CONFIG[attachs][weixin][thumb],0)}>';                         
+						var height_weixin = '<{:thumbSize($CONFIG[attachs][weixin][thumb],1)}>';                         
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"weixin"))}>',                             
+						pick: '#fileToUpload',                             
+						resize: true,  
+						compress : {width: width_weixin,height: height_weixin,quality: 80,allowMagnify: false,crop: true}                       
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_photo").val(resporse.url);                             
+						$("#photo_img").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+                </td>
+            </tr>
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认编辑" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>       

@@ -1,0 +1,259 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">手机</li>
+        <li class="li2">手机消息</li>
+        <li class="li2 li3">新增消息</li>
+    </ul>
+</div>
+<style>
+.lfTdBt2 { background-color: #FFE2FF; font-family: "微软雅黑";font-size: 14px;line-height: 48px;color: #1a1a1a;text-align: right;padding-right: 20px; width: 118px;}
+.rgTdBt2 {padding-left: 10px;background-color:#F7F8F9;font-size: 14px;}
+</style>
+<form  target="baocms_frm" action="<{:U('msg/create')}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+                       <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+            
+               <tr>
+                    <td class="lfTdBt">选择推送主体：</td>
+                    <td  class="rgTdBt"> 
+                        <select name="data[cate_id]" id="cate__id" class="manageSelect w210 jq_type" >
+                            <option value="0">请选择...</option>
+                            <foreach name="getMsgCate" item="var" key="index">
+                                <option value="<{$index}>" <eq name='detail.cate_id' value='$index'>selected="selected"</eq> ><{$var}></option>
+                            </foreach>   
+                        </select>
+                        <code>必须选择一个分类才能弹出对应的模块推送</code>
+                    </td> 
+                </tr>
+            
+             <script>
+                    $(document).ready(function () {
+                        $(".jq_type").change(function () {
+                            if ($(this).val() == 1) {//用户
+                                $(".jq_type_1").show();//1show
+                                $(".jq_type_2").hide();
+								$(".jq_type_3").hide();
+								$(".jq_type_4").hide();
+								$(".jq_type_5").hide();
+								$(".jq_type_6").hide();
+								$(".jq_type_7").hide();
+                            }else if ($(this).val() == 2){//商家
+                                $(".jq_type_1").hide();
+                                $(".jq_type_2").show();//2show
+								$(".jq_type_3").hide();
+								$(".jq_type_4").hide();
+								$(".jq_type_5").hide();
+								$(".jq_type_6").hide();
+								$(".jq_type_7").hide();
+                            }else if ($(this).val() == 3){//分站
+                                $(".jq_type_1").hide();
+                                $(".jq_type_2").hide();
+								$(".jq_type_3").show();//3show
+								$(".jq_type_4").hide();
+								$(".jq_type_5").hide();
+								$(".jq_type_6").hide();
+								$(".jq_type_7").hide();
+								
+                            }else if ($(this).val() == 4){//物业
+                                $(".jq_type_1").hide();
+                                $(".jq_type_2").hide();
+								$(".jq_type_3").hide();
+								$(".jq_type_4").show();//4show
+								$(".jq_type_5").hide();
+								$(".jq_type_6").hide();
+								$(".jq_type_7").hide();
+								
+                            }else if ($(this).val() == 5){//物流
+                                $(".jq_type_1").hide();
+                                $(".jq_type_2").hide();
+								$(".jq_type_3").hide();
+								$(".jq_type_4").hide();
+								$(".jq_type_5").show();//5show
+								$(".jq_type_6").hide();
+								$(".jq_type_7").hide();
+								
+                            }else if ($(this).val() == 6){//员工
+                                $(".jq_type_1").hide();
+                                $(".jq_type_2").hide();
+								$(".jq_type_3").hide();
+								$(".jq_type_4").hide();
+								$(".jq_type_5").hide();
+								$(".jq_type_6").show();//6show
+								$(".jq_type_7").hide();
+								
+                            }else {//乡村管理员，不过还没做
+                                $(".jq_type_1").hide();
+                                $(".jq_type_2").hide();
+								$(".jq_type_3").hide();
+								$(".jq_type_4").hide();
+								$(".jq_type_5").hide();
+								$(".jq_type_6").hide();
+								$(".jq_type_7").show();//7show
+                            }
+                        });
+                        $(".jq_type").change();
+                    });
+                </script>
+            
+            
+                <tr class="jq_type_1">
+                    <td class="lfTdBt2">选择用户：</td>
+                    <td class="rgTdBt2">
+                        <div class="lt">
+                            <input type="hidden" id="user_id" name="data[user_id]" value="" class="manageInput" />
+                            <input type="text" name="nickname" id="nickname" class="manageInput w200" value="" />
+                        </div>
+                        <a mini="select"  w="800" h="600" href="<{:U('user/select')}>" class="seleSj">选择用户</a>
+                        <code>如果发私信就选择会员，否则请留空</code>
+                    </td>
+                </tr>    
+                <tr class="jq_type_1">
+                    <td class="lfTdBt2">选择类型：</td>
+                    <td class="rgTdBt2">
+                        <select name="data[type]" class="manageSelect w200">
+                            <foreach name="types" item="item" key="key">
+                                <option value="<{$key}>" <eq name="key" value="$detail['type']">selected="selected"</eq> ><{$item}></option>
+                            </foreach>
+                            
+                        </select>
+                        <code>正常情况下建议选择分类</code>
+                    </td>
+                </tr>
+                
+                <tr class="jq_type_2">
+                    <td class="lfTdBt2">商家：</td>
+                    <td class="rgTdBt2"> <div class="lt">
+                            <input type="hidden" id="shop_id" name="data[shop_id]" value="<{$detail.shop_id|default=''}>"/>
+                            <input type="text" id="shop_name" name="shop_name" value="<{$shop.shop_name}>" class="manageInput" />
+                        </div>
+                        <a mini="select"  w="1000" h="600" href="<{:U('shop/select')}>" class="remberBtn">选择商家</a>
+                         <code>如果发私信就选择商家，否则请留空</code>
+                    </td>
+                </tr>
+                
+                <tr class="jq_type_3">
+                    <td class="lfTdBt2">分站城市：</td>
+                    <td class="rgTdBt2">
+                        
+                        <select name="data[city_id]" id="city_id" style="float: left;" class="seleFl w210"></select>
+                        <code> 如果要单独给城市分站发送消息请选择，否则留空</code>
+
+                    </td>
+                </tr>
+
+                 <script src="<{:U('app/datas/cityarea')}>"></script>
+                <script>
+                    var city_id = <?php echo (int)$detail['city_id'];?>;
+                    var area_id = <?php echo (int)$detail['area_id'];?>;
+                    function changeCity(cid){
+                        var area_str = '<option value="0">请选择.....</option>';
+                        for(a in cityareas.area){
+                           if(cityareas.area[a].city_id ==cid){
+                                if(area_id == cityareas.area[a].area_id){
+                                    area_str += '<option selected="selected" value="'+cityareas.area[a].area_id+'">'+cityareas.area[a].area_name+'</option>';
+                                }else{
+                                     area_str += '<option value="'+cityareas.area[a].area_id+'">'+cityareas.area[a].area_name+'</option>';
+                                }  
+                            }
+                        }
+                        $("#area_id").html(area_str);
+                    }
+                    $(document).ready(function(){
+                        var city_str = '<option value="0">请选择.....</option>';
+                        for(a in cityareas.city){
+                           if(city_id == cityareas.city[a].city_id){
+                               city_str += '<option selected="selected" value="'+cityareas.city[a].city_id+'">'+cityareas.city[a].name+'</option>';
+                           }else{
+                                city_str += '<option value="'+cityareas.city[a].city_id+'">'+cityareas.city[a].name+'</option>';
+                           }  
+                        }
+                        $("#city_id").html(city_str);
+                        if(city_id){
+                            changeCity(city_id);
+                        }
+                        $("#city_id").change(function(){
+                            city_id = $(this).val();
+                            changeCity($(this).val());
+                        });
+                        
+                      
+                    });
+                </script>
+                
+   
+                 <tr class="jq_type_4">
+                    <td class="lfTdBt2">选择小区：</td>
+                    <td class="rgTdBt2">
+                        <div class="lt">
+                            <input type="hidden" id="community_id" name="data[community_id]" value="<{$detail.community_id|default=''}>"  />
+                            <input type="text" name="community" id="community"  value="<{$community.name}>"  class="manageInput" />
+                        </div>
+                        <a mini="select"  w="800" h="600" href="<{:U('community/select')}>" class="remberBtn">选择小区</a>
+                        <code> 如果要单独给小区发送消息请选择，否则留空</code>
+                    </td>
+                </tr> 
+                
+                 <tr class="jq_type_5">
+                    <td class="lfTdBt2">选择配送员：</td>
+                    <td class="rgTdBt2">
+                        <div class="lt">
+                            <input type="hidden" id="delivery_id" name="data[delivery_id]" value="<{$detail.delivery_id|default=''}>"  />
+                            <input type="text" name="delivery" id="delivery"  value="<{$delivery.name}>"  class="manageInput" />
+                        </div>
+                        <a mini="select"  w="800" h="600" href="<{:U('delivery/select')}>" class="remberBtn">选择配送员</a>
+                        <code> 如果要单独给配送员发送消息请选择，否则留空</code>
+                    </td>
+                </tr> 
+                
+     
+                <tr class="jq_type_7">
+                    <td class="lfTdBt2">选择乡村：</td>
+                    <td class="rgTdBt2">
+                        <div class="lt">
+                            <input type="hidden" id="village_id" name="data[village_id]" value="<{$detail.village_id|default=''}>"/>
+                            <input class="scAddTextName" type="text" name="village" id="village"  value="<{$villages.name}>" />
+                        </div>
+                        <a mini="select"  w="800" h="600" href="<{:U('village/select')}>" class="seleSj">选择社区村镇</a>
+                        <code> 如果要单独给乡村发送消息请选择，否则留空</code>
+                    </td>
+                </tr>
+
+                 
+                
+                <tr>
+                    <td class="lfTdBt">标题：</td>
+                    <td class="rgTdBt"><input type="text" name="data[title]" value="<{$detail.title|default=''}>" class="manageInput w360" />
+					<code>越精简越好</code>
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">简单描述：</td>
+                    <td class="rgTdBt"><textarea  name="data[intro]" cols="50" rows="5" ><{$detail.intro|default=''}></textarea>
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">外链地址：</td>
+                    <td class="rgTdBt"><input type="text" name="data[link_url]" value="<{$detail.link_url|default=''}>" class="manageInput w360" />
+                        <code>如果填写了外链，那么将会直接打开链接的地址，默认留空</code>
+                    </td>
+                </tr>  <tr><td class="lfTdBt">详细内容：</td><td class="rgTdBt">
+                  <script type="text/plain" id="data_details" name="data[details]" style="width:800px;height:360px;"><{$detail.details}></script>
+					</td>
+             </tr><link rel="stylesheet" href="__PUBLIC__/qiniu_ueditor/themes/default/css/ueditor.min.css" type="text/css">
+                  <script type="text/javascript" charset="utf-8" src="__PUBLIC__/qiniu_ueditor/ueditor.config.js"></script>
+                  <script type="text/javascript" charset="utf-8" src="__PUBLIC__/qiniu_ueditor/ueditor.all.min.js"></script>
+                  <script type="text/javascript" src="__PUBLIC__/qiniu_ueditor/lang/zh-cn/zh-cn.js"></script>
+				  <script>
+                        um = UE.getEditor('data_details', {
+                            lang: 'zh-cn',
+                            toolbars:[['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'backcolor', 'fontsize', 'fontfamily', 'justifyleft', 'justifyright', 'justifycenter', 'justifyjustify', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', 'link', 'unlink', 'map', 'template', 'background','inserttable','print','attachment',  'emotion',  'snapscreen','insertimage', 'music', 'insertvideo']],  
+                            });
+                   </script> 
+                   
+          
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认添加" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>       

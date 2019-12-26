@@ -1,0 +1,69 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">当前位置>
+        <li class="li2"> 黄页</li>
+
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>通过这里您可以对黄页信息进行编辑！</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('pois/create','','添加黄页')}>
+            </div>
+            <div class="right">
+                <form class="" method="post"  action="<{:U('pois/index')}>"> 
+
+                    <div class="seleHidden" id="seleHidden">
+                        <span>关键字</span>
+                        <input type="text"  class="inptText" name="keyword" value="<{$keyword}>"  />
+
+                        <input type="submit" value=" 搜索"  class="inptButton" />
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                  <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" > 
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="pois_id" /></td>
+                        <td class="w50">ID</td>
+                        <td>名称</td>
+                        <td>关键字</td>
+                        <td>状态</td>
+                        <td>操作</td>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_article_id" type="checkbox" name="pois_id[]" value="<{$var.pois_id}>" /> </td>
+                            <td><{$var.pois_id}></td>
+                            <td><{$var.name}></td>
+                            <td><{$var.tag}></td>
+							<td >
+								<if condition="$var[status] eq 0"><a class="remberBtn ">审核未认领</a></if>
+								<if condition="$var[status] eq 1"><span class="text-green"><a class="remberBtn ">通过绑定正常</a></span></if>
+								<if condition="$var[status] eq -1"><span class="text-dot"><a class="remberBtn ">等待审核</a></span></if>
+								<if condition="$var[status] eq -9"><span class="text-dot"><a class="remberBtn ">已关闭</a></span></if>
+							</td>
+                            <td>
+                                <{:BA('pois/edit',array("pois_id"=>$var["pois_id"]),'编辑','','remberBtn')}>
+                            </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('pois/delete','','批量删除','list','a2')}>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>  
+

@@ -1,0 +1,63 @@
+<include file="public:header"/>
+<style>
+.list-media-x li {
+    border-bottom: none;
+    border-top: thin solid #eee;
+}
+</style>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('user/member/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			我的预约
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+
+<!-- 筛选TAB -->
+<ul id="shangjia_tab">
+        <li style="width:50%;"><a href="<{:LinkTo('yuyue/index',array('status'=>1))}>" <eq name='status' value='1'>class="on"</eq>>已使用</a></li>
+        <li style="width:50%;"><a href="<{:LinkTo('yuyue/index',array('status'=>2))}>" <eq name='status' value='2'>class="on"</eq>>未使用</a></li>
+     
+</ul>
+
+
+
+<div class="list-media-x" id="list-media">
+<div class="blank-10 bg"></div>
+	<ul></ul>
+</div>	
+
+
+<script>
+	$(document).ready(function () {
+		loaddata('<{$nextpage}>', $("#list-media ul"), true);
+		
+		$(document).on('click', ".jquery-delete", function (e) {
+			var yuyue_id = $(this).attr('rel');
+			layer.confirm('您确定要删除该预约？', {
+				skin: 'layer-ext-demo', 
+				area: ['50%', 'auto'], //宽高
+				btn: ['是的', '不'], //按钮
+				shade: false //不显示遮罩
+			}, function () {
+				$.post("<{:U('yuyue/delete')}>", {yuyue_id: yuyue_id}, function (result) {
+					if (result.status == "success") {
+						layer.msg(result.msg);
+						setTimeout(function () {
+							location.reload();
+						}, 1000);
+					} else {
+						layer.msg(result.msg);
+					}
+				}, 'json');
+			});
+		});
+	});
+</script>
+
+
+<include  file='public:footer'/>

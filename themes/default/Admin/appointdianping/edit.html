@@ -1,0 +1,97 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">家政</li>
+        <li class="li2">家政点评</li>
+        <li class="li2 li3">编辑</li>
+    </ul>
+</div>
+<form target="baocms_frm" action="<{:U('appointdianping/edit',array('dianping_id'=>$detail['dianping_id']))}>" method="post">
+    <div class="mainScAdd ">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">用户：</td>
+                    <td class="rgTdBt">
+                        <div class="lt">
+                            <input type="hidden" id="user_id" name="data[user_id]" value="<{$detail.user_id|default=''}>" class="manageInput" />
+                            <input class="scAddTextName sj" type="text" name="nickname" id="nickname"  value="<{$user.nickname}>" />
+                        </div>
+                        <a mini="select"  w="800" h="600" href="<{:U('user/select')}>" class="seleSj">选择用户</a>
+                    </td>
+                </tr> 
+                <tr>
+                    <td class="lfTdBt">评分：</td>
+                    <td class="rgTdBt"><input type="text" name="data[score]" value="<{$detail.score|default=''}>" class="manageInput w200" />
+                        <code>最高5分，比如：1分，2分，3分，4分，5分，只能填写数字</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">评价内容：</td>
+                    <td class="rgTdBt">
+                        <textarea name="data[contents]" rows="5" cols="40"><{$detail.contents|default=''}></textarea>
+                    </td>
+                </tr>
+                <tr>
+                  <td class="lfTdBt">更多点评图片：</td>
+                        <td class="rgTdBt">
+                            <div>
+                                <div id="moreToUpload" >上传点评图片</div>
+                            </div>							
+							<script>                                
+									var width_appoint_dianping = '<{:thumbSize($CONFIG[attachs][appoint_dianping][thumb],0)}>';                              
+									var height_appoint_dianping = '<{:thumbSize($CONFIG[attachs][appoint_dianping][thumb],1)}>'; 
+									var uploader = WebUploader.create({                                    
+									auto: true,                                    
+									swf: '/static/default/webuploader/Uploader.swf',                                    
+									server: '<{:U("app/upload/uploadify",array("model"=>"appoint_dianping"))}>',                                    
+									pick: '#moreToUpload',                                    
+									fileNumberLimit:10,                                    
+									resize: true, 
+									crop: false,  
+									compress : {width:width_appoint_dianping,height:height_appoint_dianping,quality: 80,allowMagnify: false,crop: true},														
+								});                                                               
+								uploader.on( 'uploadSuccess', function( file,resporse) {                                    
+								var str = '<span style="width:200px; height:100px; float: left; margin-left: 5px; margin-top: 10px;">  <img width="200" height="100" src="' + resporse.url + '">  <input type="hidden" name="photos[]" value="' + resporse.url + '" />    <a href="javascript:void(0);">取消</a>  </span>';                                   
+								 $(".jq_uploads_img").append(str);                                
+									 });                                                            
+								 uploader.on( 'uploadError', function( file ) {                                    
+									alert('上传出错');                                
+								 });                                
+								 $(document).on("click", ".jq_uploads_img a", function () {                                    
+									 $(this).parent().remove();                                
+								 });                            
+                             </script>
+                            <div class="jq_uploads_img">
+                                <foreach  name="photos" item="item">
+                                    <span style="width 200px; height:100px; float: left; margin-left: 5px; margin-top: 10px;"> 
+                                        <img width="200" height="100" src="<{:config_img($item['pic'])}>">  
+                                        <input type="hidden" name="photos[]" value="<{$item.pic}>" />  
+                                        <a href="javascript:void(0);">取消</a>  
+                                    </span>
+                                </foreach>
+                            </div>					
+                        </td>
+                    </tr>
+             <tr>
+                <tr>
+                    <td class="lfTdBt">家政回复：</td>
+                    <td class="rgTdBt">
+                        <textarea name="data[reply]" rows="5" cols="40"><{$detail.reply|default=''}></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">生效日期：</td>
+                    <td class="rgTdBt"><input type="text" name="data[show_date]" value="<{$detail.show_date|default=''}>" onfocus="WdatePicker();"  class="inputData" />
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+        </div>
+</form>
+
+<include  file='public:footer'/>       

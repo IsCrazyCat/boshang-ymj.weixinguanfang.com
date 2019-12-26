@@ -1,0 +1,956 @@
+[ 2019-12-23T16:21:31+08:00 ] ERR: Cron:cron_1 Runat 2019-12-23 16:21:31 Use 0.000818 s
+
+[ 2019-12-23T16:21:31+08:00 ] 127.0.0.1 /?XDEBUG_SESSION_START=10455
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001673s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001902s ]
+NOTIC: [2048] Declaration of SettingModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+NOTIC: [2048] Declaration of SettingModel::save() should be compatible with Model::save($data = '', $options = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+SQL: SHOW COLUMNS FROM `bao_setting` [ RunTime:0.005967s ]
+SQL: SELECT * FROM `bao_setting`  [ RunTime:0.000365s ]
+SQL: SHOW COLUMNS FROM `bao_city` [ RunTime:0.004949s ]
+SQL: SELECT * FROM `bao_city` ORDER BY `orderby` asc  [ RunTime:0.000251s ]
+NOTIC: [8] Undefined index:  E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Home\CommonAction.class.php 第 36 行.
+NOTIC: [8] Undefined index:  E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Home\CommonAction.class.php 第 37 行.
+NOTIC: [8] Undefined variable: char E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 59 行.
+NOTIC: [8] Undefined variable: str E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 66 行.
+SQL: SHOW COLUMNS FROM `bao_users` [ RunTime:0.005468s ]
+SQL: SELECT * FROM `bao_users` WHERE ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000336s ]
+SQL: SHOW COLUMNS FROM `bao_shop_cate` [ RunTime:0.006632s ]
+SQL: SELECT * FROM `bao_shop_cate` ORDER BY `orderby` asc  [ RunTime:0.000537s ]
+SQL: SHOW COLUMNS FROM `bao_tuan_cate` [ RunTime:0.004977s ]
+SQL: SELECT * FROM `bao_tuan_cate` ORDER BY `orderby` asc  [ RunTime:0.000267s ]
+SQL: SHOW COLUMNS FROM `bao_area` [ RunTime:0.006552s ]
+SQL: SELECT * FROM `bao_area` ORDER BY `orderby` asc  [ RunTime:0.000222s ]
+SQL: SHOW COLUMNS FROM `bao_business` [ RunTime:0.005590s ]
+SQL: SELECT * FROM `bao_business` ORDER BY `orderby` asc  [ RunTime:0.000408s ]
+NOTIC: [8] Undefined offset: 32 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 7 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 7 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 24 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 23 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 10 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 28 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 29 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 8 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 2 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 1 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 1 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 1 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 1 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 29 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 1 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 1 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 1 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 1 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 6 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 1 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 5 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 1 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 4 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 22 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 4 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 20 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 22 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 20 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 6 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 3 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 11 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 11 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 11 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 11 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Use of undefined constant CONTROLLER_NAME - assumed 'CONTROLLER_NAME' E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Home\CommonAction.class.php 第 112 行.
+NOTIC: [2048] Declaration of TemplateModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\TemplateModel.class.php 第 30 行.
+SQL: SHOW COLUMNS FROM `bao_template` [ RunTime:0.004889s ]
+SQL: SELECT * FROM `bao_template`  [ RunTime:0.000218s ]
+SQL: SHOW COLUMNS FROM `bao_template_setting` [ RunTime:0.005386s ]
+SQL: SELECT * FROM `bao_template_setting`  [ RunTime:0.000210s ]
+NOTIC: [8] Undefined offset: 0 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\TemplatesettingModel.class.php 第 10 行.
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_param
+SQL: SHOW COLUMNS FROM `bao_navigation` [ RunTime:0.005027s ]
+SQL: SELECT * FROM `bao_navigation` WHERE ( `status` = 4 ) AND ( `closed` = 0 ) ORDER BY `orderby` asc  [ RunTime:0.000439s ]
+SQL: SHOW COLUMNS FROM `bao_msg` [ RunTime:0.005157s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_msg` WHERE ( `cate_id` = 2 ) AND ( `views` = 0 ) AND ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000298s ]
+SQL: SHOW COLUMNS FROM `bao_keyword` [ RunTime:0.005499s ]
+SQL: SELECT * FROM `bao_keyword`  [ RunTime:0.000407s ]
+SQL: SHOW COLUMNS FROM `bao_goods_cate` [ RunTime:0.005494s ]
+SQL: SELECT * FROM `bao_goods_cate` ORDER BY `orderby` asc  [ RunTime:0.000289s ]
+SQL: SHOW COLUMNS FROM `bao_life_cate` [ RunTime:0.007051s ]
+SQL: SELECT * FROM `bao_life_cate` ORDER BY `is_hot` desc,`orderby` asc  [ RunTime:0.001073s ]
+SQL: SHOW COLUMNS FROM `bao_article_cate` [ RunTime:0.005888s ]
+SQL: SELECT * FROM `bao_article_cate` ORDER BY `orderby` asc  [ RunTime:0.000296s ]
+SQL: SHOW COLUMNS FROM `bao_housekeeping_cate` [ RunTime:0.004144s ]
+ERR: 1146:Table 'boshang_ymj_weixinguanfang_com.bao_housekeeping_cate' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `bao_housekeeping_cate`
+SQL: SELECT * FROM `bao_housekeeping_cate` ORDER BY `orderby` asc  [ RunTime:0.000558s ]
+ERR: 1146:Table 'boshang_ymj_weixinguanfang_com.bao_housekeeping_cate' doesn't exist
+ [ SQL语句 ] : SELECT * FROM `bao_housekeeping_cate` ORDER BY `orderby` asc 
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\CommonModel.class.php 第 38 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.006840s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_shop` LIMIT 1   [ RunTime:0.000241s ]
+SQL: SHOW COLUMNS FROM `bao_coupon` [ RunTime:0.005012s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_coupon` LIMIT 1   [ RunTime:0.000170s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_users` LIMIT 1   [ RunTime:0.000134s ]
+SQL: SHOW COLUMNS FROM `bao_life` [ RunTime:0.006913s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_life` LIMIT 1   [ RunTime:0.000257s ]
+SQL: SHOW COLUMNS FROM `bao_post` [ RunTime:0.004871s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_post` LIMIT 1   [ RunTime:0.000224s ]
+NOTIC: [2048] Declaration of SeoModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SeoModel.class.php 第 20 行.
+SQL: SHOW COLUMNS FROM `bao_seo` [ RunTime:0.005520s ]
+SQL: SELECT * FROM `bao_seo`  [ RunTime:0.000363s ]
+NOTIC: [8] Constant THEME_NAME already defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Home\CommonAction.class.php 第 228 行.
+NOTIC: [8] Constant THEME_PATH already defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Core\View.class.php 第 154 行.
+NOTIC: [8] Constant APP_TMPL_PATH already defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Core\View.class.php 第 155 行.
+INFO: [ view_parse ] --START--
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [8] Undefined index: headinfo E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Home\78de4b0fe7a06c04f9b31be899cf1a5c.php 第 5 行.
+NOTIC: [8] Undefined variable: config E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Home\78de4b0fe7a06c04f9b31be899cf1a5c.php 第 6 行.
+NOTIC: [2] array_reverse() expects parameter 1 to be array, boolean given E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Home\78de4b0fe7a06c04f9b31be899cf1a5c.php 第 102 行.
+SQL: SHOW COLUMNS FROM `bao_ad` [ RunTime:0.005277s ]
+SQL: SELECT * FROM `bao_ad` WHERE (  closed=0 AND site_id=67 AND  city_id IN (0,16) and bg_date <= '2019-12-23' AND end_date >= '2019-12-23'  ) ORDER BY orderby asc LIMIT 0,1   [ RunTime:0.000398s ]
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Home\78de4b0fe7a06c04f9b31be899cf1a5c.php 第 183 行.
+NOTIC: [8] Use of undefined constant ding - assumed 'ding' E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Home\78de4b0fe7a06c04f9b31be899cf1a5c.php 第 244 行.
+NOTIC: [8] Undefined variable: keyword E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Home\78de4b0fe7a06c04f9b31be899cf1a5c.php 第 244 行.
+SQL: SELECT * FROM `bao_keyword` ORDER BY key_id desc LIMIT 0,8   [ RunTime:0.000346s ]
+NOTIC: [2] array_sum() expects parameter 1 to be array, null given E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Home\78de4b0fe7a06c04f9b31be899cf1a5c.php 第 268 行.
+SQL: SELECT * FROM `bao_ad` WHERE (  closed=0 AND site_id=1 AND  city_id IN (0,16) and bg_date <= '2019-12-23' AND end_date >= '2019-12-23'  ) ORDER BY orderby asc LIMIT 0,5   [ RunTime:0.000468s ]
+SQL: SHOW COLUMNS FROM `bao_article` [ RunTime:0.005333s ]
+SQL: SELECT * FROM `bao_article` WHERE ( closed=0 ) ORDER BY views desc LIMIT 0,5   [ RunTime:0.000382s ]
+SQL: SELECT * FROM `bao_life` WHERE ( closed=0 AND audit=1 ) ORDER BY views desc LIMIT 0,5   [ RunTime:0.000260s ]
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Home\78de4b0fe7a06c04f9b31be899cf1a5c.php 第 594 行.
+SQL: SHOW COLUMNS FROM `bao_tuan` [ RunTime:0.005549s ]
+SQL: SELECT * FROM `bao_tuan` WHERE ( audit = 1 AND closed=0 AND city_id=16 AND cate_id IN (146,147,148,150,151) ) ORDER BY orderby asc,sold_num desc LIMIT 0,8   [ RunTime:0.000292s ]
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Home\78de4b0fe7a06c04f9b31be899cf1a5c.php 第 662 行.
+SQL: SELECT * FROM `bao_tuan` WHERE ( audit = 1 AND closed=0 AND city_id=16 AND cate_id IN (152,153,154) ) ORDER BY orderby asc,sold_num desc LIMIT 0,8   [ RunTime:0.000642s ]
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Home\78de4b0fe7a06c04f9b31be899cf1a5c.php 第 662 行.
+SQL: SHOW COLUMNS FROM `bao_goods` [ RunTime:0.006097s ]
+SQL: SELECT * FROM `bao_goods` WHERE ( audit =1 AND closed=0 AND city_id = 16 ) ORDER BY orderby asc,sold_num desc LIMIT 0,8   [ RunTime:0.000407s ]
+NOTIC: [8] Undefined index: max_price E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Home\78de4b0fe7a06c04f9b31be899cf1a5c.php 第 748 行.
+NOTIC: [8] Undefined index: max_price E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Home\78de4b0fe7a06c04f9b31be899cf1a5c.php 第 749 行.
+NOTIC: [8] Undefined variable: shops E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Home\78de4b0fe7a06c04f9b31be899cf1a5c.php 第 755 行.
+NOTIC: [8] Undefined index: max_price E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Home\78de4b0fe7a06c04f9b31be899cf1a5c.php 第 748 行.
+NOTIC: [8] Undefined index: max_price E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Home\78de4b0fe7a06c04f9b31be899cf1a5c.php 第 749 行.
+NOTIC: [8] Undefined variable: shops E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Home\78de4b0fe7a06c04f9b31be899cf1a5c.php 第 755 行.
+SQL: SELECT * FROM `bao_coupon` WHERE ( audit=1 AND closed=0 AND city_id=16 ) ORDER BY downloads desc,views desc LIMIT 0,5   [ RunTime:0.000385s ]
+SQL: SHOW COLUMNS FROM `bao_booking` [ RunTime:0.005542s ]
+SQL: SELECT * FROM `bao_booking` WHERE ( audit=1 AND closed=0 AND  city_id=16 ) ORDER BY shop_id asc LIMIT 0,4   [ RunTime:0.000292s ]
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Home\78de4b0fe7a06c04f9b31be899cf1a5c.php 第 831 行.
+SQL: SHOW COLUMNS FROM `bao_booking_setting` [ RunTime:0.005928s ]
+SQL: SHOW COLUMNS FROM `bao_booking_room` [ RunTime:0.005209s ]
+SQL: SELECT * FROM `bao_booking` WHERE ( audit=1 AND closed=0 AND  city_id=16 ) ORDER BY shop_id desc LIMIT 0,3   [ RunTime:0.000255s ]
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Home\78de4b0fe7a06c04f9b31be899cf1a5c.php 第 887 行.
+NOTIC: [8] Use of undefined constant index - assumed 'index' E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Home\78de4b0fe7a06c04f9b31be899cf1a5c.php 第 1065 行.
+SQL: SHOW COLUMNS FROM `bao_links` [ RunTime:0.006614s ]
+SQL: SELECT * FROM `bao_links` WHERE ( audit=1 AND colsed=0 AND city_id=16 ) ORDER BY orderby asc LIMIT 0,10   [ RunTime:0.000377s ]
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Home\78de4b0fe7a06c04f9b31be899cf1a5c.php 第 1068 行.
+NOTIC: [8] Undefined index: wxcode E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Home\78de4b0fe7a06c04f9b31be899cf1a5c.php 第 1117 行.
+NOTIC: [8] Undefined index: icp E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Home\78de4b0fe7a06c04f9b31be899cf1a5c.php 第 1121 行.
+NOTIC: [8] Undefined index: tongji E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Home\78de4b0fe7a06c04f9b31be899cf1a5c.php 第 1121 行.
+NOTIC: [8] Undefined index: wxcode E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Home\78de4b0fe7a06c04f9b31be899cf1a5c.php 第 1128 行.
+NOTIC: [8] Undefined variable: height_num E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Home\78de4b0fe7a06c04f9b31be899cf1a5c.php 第 1155 行.
+INFO: ParseTemplate Behavior ::run [ RunTime:0.278973s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.279178s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.001529s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.001507s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.001181s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.001448s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.006234s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.002274s ]
+INFO: [ view_end ] --END-- [ RunTime:0.002489s ]
+INFO: [ app_end ] --START--
+NOTIC: [2] include(E:\PhpStorm\boshang-ymj.weixinguanfang.com/Baocms/Lib/Cron/WeatherUpdate.php): failed to open stream: No such file or directory E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Behavior\CronRunBehavior.class.php 第 51 行.
+NOTIC: [2] include(): Failed opening 'E:\PhpStorm\boshang-ymj.weixinguanfang.com/Baocms/Lib/Cron/WeatherUpdate.php' for inclusion (include_path='.;C:\php\pear;E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core/Extend/Vendor/') E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Behavior\CronRunBehavior.class.php 第 51 行.
+INFO: CronRun Behavior ::run [ RunTime:0.006804s ]
+INFO: [ app_end ] --END-- [ RunTime:0.007021s ]
+
+[ 2019-12-23T16:21:31+08:00 ] 127.0.0.1 /wap/index/index.html
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.001462s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001669s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001120s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001312s ]
+NOTIC: [2048] Declaration of CommonAction::show() should be compatible with Action::show($content, $charset = '', $contentType = '', $prefix = '') E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 444 行.
+NOTIC: [2048] Declaration of SettingModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+NOTIC: [2048] Declaration of SettingModel::save() should be compatible with Model::save($data = '', $options = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+SQL: SHOW COLUMNS FROM `bao_setting` [ RunTime:0.005472s ]
+SQL: SHOW COLUMNS FROM `bao_city` [ RunTime:0.004778s ]
+NOTIC: [8] Undefined variable: char E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 59 行.
+NOTIC: [8] Undefined variable: str E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 66 行.
+SQL: SHOW COLUMNS FROM `bao_users` [ RunTime:0.004668s ]
+SQL: SELECT * FROM `bao_users` WHERE ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000357s ]
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: [8] Constant __HOST__ already defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 98 行.
+NOTIC: 建议使用I方法替代_param
+SQL: SHOW COLUMNS FROM `bao_pois_content` [ RunTime:0.006133s ]
+SQL: SHOW COLUMNS FROM `bao_area` [ RunTime:0.004208s ]
+SQL: SHOW COLUMNS FROM `bao_business` [ RunTime:0.004208s ]
+SQL: SHOW COLUMNS FROM `bao_msg` [ RunTime:0.004217s ]
+SQL: SELECT * FROM `bao_msg` WHERE ( `user_id` IN (0,2981) ) LIMIT 0,20   [ RunTime:0.000290s ]
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 295 行.
+SQL: SHOW COLUMNS FROM `bao_msg_read` [ RunTime:0.005198s ]
+SQL: SELECT * FROM `bao_msg_read` WHERE ( `user_id` = 2981 ) AND ( `msg_id` IN () )  [ RunTime:0.000190s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') )' at line 1
+ [ SQL语句 ] : SELECT * FROM `bao_msg_read` WHERE ( `user_id` = 2981 ) AND ( `msg_id` IN () ) 
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 303 行.
+NOTIC: [2] array_sum() expects parameter 1 to be array, null given E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 145 行.
+SQL: SHOW COLUMNS FROM `bao_weixin_access` [ RunTime:0.005098s ]
+SQL: SELECT * FROM `bao_weixin_access` ORDER BY id desc LIMIT 1   [ RunTime:0.000240s ]
+NOTIC: [8] curl_setopt(): CURLOPT_SSL_VERIFYHOST no longer accepts the value 1, value 2 will be used instead E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Net\Curl.class.php 第 20 行.
+NOTIC: [8] Undefined property: stdClass::$ticket E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Net\Jssdk.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.004405s ]
+SQL: SELECT * FROM `bao_shop` WHERE ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000378s ]
+SQL: SHOW COLUMNS FROM `bao_life_cate` [ RunTime:0.004538s ]
+SQL: SELECT * FROM `bao_shop` WHERE ( `city_id` = 16 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) ORDER BY  (ABS(lng - '115.991983') +  ABS(lat - '36.518393') ) asc  LIMIT 0,5   [ RunTime:0.000453s ]
+SQL: SHOW COLUMNS FROM `bao_article` [ RunTime:0.004343s ]
+SQL: SELECT * FROM `bao_article` WHERE ( `city_id` = 16 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) ORDER BY `create_time` desc LIMIT 0,5   [ RunTime:0.000338s ]
+SQL: SHOW COLUMNS FROM `bao_community` [ RunTime:0.005964s ]
+SQL: SELECT * FROM `bao_community` WHERE ( `city_id` = 16 ) AND ( `closed` = 0 ) ORDER BY  (ABS(lng - '115.991983') +  ABS(lat - '36.518393') ) asc  LIMIT 0,5   [ RunTime:0.000329s ]
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\IndexAction.class.php 第 31 行.
+SQL: SHOW COLUMNS FROM `bao_navigation` [ RunTime:0.004074s ]
+SQL: SELECT * FROM `bao_navigation` WHERE ( `status` = 2 ) AND ( `closed` = 0 ) ORDER BY `orderby` asc  [ RunTime:0.000332s ]
+SQL: SHOW COLUMNS FROM `bao_user_sign` [ RunTime:0.005858s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_user_sign` WHERE ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000289s ]
+NOTIC: [2048] Declaration of TemplateModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\TemplateModel.class.php 第 30 行.
+SQL: SHOW COLUMNS FROM `bao_template` [ RunTime:0.004102s ]
+NOTIC: [8] Constant THEME_PATH already defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Core\View.class.php 第 154 行.
+NOTIC: [8] Constant APP_TMPL_PATH already defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Core\View.class.php 第 155 行.
+INFO: [ view_parse ] --START--
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [8] Use of undefined constant other - assumed 'other' E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\b3a973ba6057ec9cbf8d9b5abc3cea56.php 第 1 行.
+NOTIC: [8] Use of undefined constant wap_index_addr - assumed 'wap_index_addr' E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\b3a973ba6057ec9cbf8d9b5abc3cea56.php 第 1 行.
+NOTIC: [8] Use of undefined constant other - assumed 'other' E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\b3a973ba6057ec9cbf8d9b5abc3cea56.php 第 138 行.
+NOTIC: [8] Use of undefined constant wap_search_title - assumed 'wap_search_title' E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\b3a973ba6057ec9cbf8d9b5abc3cea56.php 第 138 行.
+SQL: SHOW COLUMNS FROM `bao_ad` [ RunTime:0.004677s ]
+SQL: SELECT * FROM `bao_ad` WHERE (  closed=0 AND site_id=57 AND city_id IN (0,16) and bg_date <= '2019-12-23' AND end_date >= '2019-12-23'  ) ORDER BY orderby asc LIMIT 0,3   [ RunTime:0.000388s ]
+NOTIC: [8] Use of undefined constant other - assumed 'other' E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\b3a973ba6057ec9cbf8d9b5abc3cea56.php 第 176 行.
+NOTIC: [8] Use of undefined constant wap_navigation - assumed 'wap_navigation' E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\b3a973ba6057ec9cbf8d9b5abc3cea56.php 第 176 行.
+SQL: SHOW COLUMNS FROM `bao_goods` [ RunTime:0.004921s ]
+SQL: SELECT * FROM `bao_goods` WHERE ( audit =1 AND closed=0 AND city_id = 16 AND end_date >= '2019-12-23' ) ORDER BY orderby asc,sold_num desc LIMIT 0,10   [ RunTime:0.000370s ]
+SQL: SELECT * FROM `bao_ad` WHERE (  closed=0 AND site_id=62 AND  city_id IN (0,16) and bg_date <= '2019-12-23' AND end_date >= '2019-12-23'  ) ORDER BY orderby asc LIMIT 0,1   [ RunTime:0.000451s ]
+SQL: SELECT * FROM `bao_ad` WHERE (  closed=0 AND site_id=63 AND  city_id IN (0,16) and bg_date <= '2019-12-23' AND end_date >= '2019-12-23'  ) ORDER BY orderby asc LIMIT 0,1   [ RunTime:0.000421s ]
+SQL: SELECT * FROM `bao_ad` WHERE (  closed=0 AND site_id=64 AND  city_id IN (0,16) and bg_date <= '2019-12-23' AND end_date >= '2019-12-23'  ) ORDER BY orderby asc LIMIT 0,1   [ RunTime:0.000373s ]
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\b3a973ba6057ec9cbf8d9b5abc3cea56.php 第 298 行.
+SQL: SELECT * FROM `bao_ad` WHERE (  closed=0 AND site_id=65 AND  city_id IN (0,16) and bg_date <= '2019-12-23' AND end_date >= '2019-12-23'  ) ORDER BY orderby asc LIMIT 0,1   [ RunTime:0.000318s ]
+SQL: SELECT * FROM `bao_business` WHERE ( business_id =42 ) LIMIT 1   [ RunTime:0.000281s ]
+SQL: SELECT * FROM `bao_business` WHERE ( business_id =42 ) LIMIT 1   [ RunTime:0.000252s ]
+SQL: SELECT * FROM `bao_business` WHERE ( business_id =42 ) LIMIT 1   [ RunTime:0.000258s ]
+NOTIC: [8] Use of undefined constant other - assumed 'other' E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\b3a973ba6057ec9cbf8d9b5abc3cea56.php 第 411 行.
+NOTIC: [8] Use of undefined constant footer - assumed 'footer' E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\b3a973ba6057ec9cbf8d9b5abc3cea56.php 第 411 行.
+NOTIC: [8] Undefined variable: config E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\b3a973ba6057ec9cbf8d9b5abc3cea56.php 第 449 行.
+NOTIC: [8] Undefined variable: config E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\b3a973ba6057ec9cbf8d9b5abc3cea56.php 第 450 行.
+NOTIC: [8] Undefined variable: char E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 59 行.
+NOTIC: [8] Undefined variable: str E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 66 行.
+INFO: ParseTemplate Behavior ::run [ RunTime:0.090708s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.090914s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.001388s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.001212s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.001004s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.001297s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.005451s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.001348s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001557s ]
+INFO: [ app_end ] --START--
+INFO: CronRun Behavior ::run [ RunTime:0.003628s ]
+INFO: [ app_end ] --END-- [ RunTime:0.003846s ]
+
+[ 2019-12-23T16:21:33+08:00 ] 127.0.0.1 /wap/mall/push/t/1577089291/p/1.html
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.001587s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001807s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001192s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001355s ]
+NOTIC: [2048] Declaration of CommonAction::show() should be compatible with Action::show($content, $charset = '', $contentType = '', $prefix = '') E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 444 行.
+NOTIC: [2048] Declaration of SettingModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+NOTIC: [2048] Declaration of SettingModel::save() should be compatible with Model::save($data = '', $options = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+SQL: SHOW COLUMNS FROM `bao_setting` [ RunTime:0.003683s ]
+SQL: SHOW COLUMNS FROM `bao_city` [ RunTime:0.004132s ]
+NOTIC: [8] Undefined variable: char E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 59 行.
+NOTIC: [8] Undefined variable: str E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 66 行.
+SQL: SHOW COLUMNS FROM `bao_users` [ RunTime:0.004599s ]
+SQL: SELECT * FROM `bao_users` WHERE ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000397s ]
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: [8] Constant __HOST__ already defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 98 行.
+NOTIC: 建议使用I方法替代_param
+SQL: SHOW COLUMNS FROM `bao_pois_content` [ RunTime:0.004250s ]
+SQL: SHOW COLUMNS FROM `bao_area` [ RunTime:0.004234s ]
+SQL: SHOW COLUMNS FROM `bao_business` [ RunTime:0.004179s ]
+SQL: SHOW COLUMNS FROM `bao_msg` [ RunTime:0.004187s ]
+SQL: SELECT * FROM `bao_msg` WHERE ( `user_id` IN (0,2981) ) LIMIT 0,20   [ RunTime:0.000312s ]
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 295 行.
+SQL: SHOW COLUMNS FROM `bao_msg_read` [ RunTime:0.004205s ]
+SQL: SELECT * FROM `bao_msg_read` WHERE ( `user_id` = 2981 ) AND ( `msg_id` IN () )  [ RunTime:0.000228s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') )' at line 1
+ [ SQL语句 ] : SELECT * FROM `bao_msg_read` WHERE ( `user_id` = 2981 ) AND ( `msg_id` IN () ) 
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 303 行.
+NOTIC: [2] array_sum() expects parameter 1 to be array, null given E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 145 行.
+SQL: SHOW COLUMNS FROM `bao_weixin_access` [ RunTime:0.004172s ]
+SQL: SELECT * FROM `bao_weixin_access` ORDER BY id desc LIMIT 1   [ RunTime:0.000248s ]
+NOTIC: [8] curl_setopt(): CURLOPT_SSL_VERIFYHOST no longer accepts the value 1, value 2 will be used instead E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Net\Curl.class.php 第 20 行.
+NOTIC: [8] Undefined property: stdClass::$ticket E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Net\Jssdk.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.004813s ]
+SQL: SELECT * FROM `bao_shop` WHERE ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000359s ]
+NOTIC: [2] array_sum() expects parameter 1 to be array, null given E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 13 行.
+NOTIC: 建议使用I方法替代_param
+SQL: SHOW COLUMNS FROM `bao_goods` [ RunTime:0.004548s ]
+SQL: SHOW COLUMNS FROM `bao_goods_cate` [ RunTime:0.004075s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000383s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000289s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000277s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` IN ('19','20') ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000355s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000323s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` IN ('28','29','30','31') ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000265s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000264s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` IN ('22') ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000290s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000278s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000351s ]
+SQL: SHOW COLUMNS FROM `bao_paddress` [ RunTime:0.005073s ]
+SQL: SELECT * FROM `bao_paddress` WHERE ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000336s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `audit` = 1 ) AND ( `closed` = 0 ) AND ( `end_date` >= '2019-12-23' ) LIMIT 1   [ RunTime:0.000329s ]
+SQL: SELECT * FROM `bao_goods` WHERE ( `audit` = 1 ) AND ( `closed` = 0 ) AND ( `end_date` >= '2019-12-23' ) AND ( `shoplx` = 53 ) ORDER BY orderby asc LIMIT 0,3   [ RunTime:0.000366s ]
+NOTIC: [2048] Declaration of TemplateModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\TemplateModel.class.php 第 30 行.
+SQL: SHOW COLUMNS FROM `bao_template` [ RunTime:0.004361s ]
+NOTIC: [8] Constant THEME_PATH already defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Core\View.class.php 第 154 行.
+NOTIC: [8] Constant APP_TMPL_PATH already defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Core\View.class.php 第 155 行.
+INFO: [ view_parse ] --START--
+INFO: ParseTemplate Behavior ::run [ RunTime:0.015073s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.015241s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.001153s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.001369s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.001063s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.001358s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.005382s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.001323s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001472s ]
+INFO: [ app_end ] --START--
+INFO: CronRun Behavior ::run [ RunTime:0.003411s ]
+INFO: [ app_end ] --END-- [ RunTime:0.003576s ]
+
+[ 2019-12-23T16:21:34+08:00 ] ERR: Cron:cron_1 Runat 2019-12-23 16:21:34 Use 0.000650 s
+
+[ 2019-12-23T16:21:34+08:00 ] 127.0.0.1 /wap/mall/detail/goods_id/37.html
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.001455s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001661s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001190s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001380s ]
+NOTIC: [2048] Declaration of CommonAction::show() should be compatible with Action::show($content, $charset = '', $contentType = '', $prefix = '') E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 444 行.
+NOTIC: [2048] Declaration of SettingModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+NOTIC: [2048] Declaration of SettingModel::save() should be compatible with Model::save($data = '', $options = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+SQL: SHOW COLUMNS FROM `bao_setting` [ RunTime:0.004147s ]
+SQL: SHOW COLUMNS FROM `bao_city` [ RunTime:0.004144s ]
+NOTIC: [8] Undefined variable: char E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 59 行.
+NOTIC: [8] Undefined variable: str E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 66 行.
+SQL: SHOW COLUMNS FROM `bao_users` [ RunTime:0.004700s ]
+SQL: SELECT * FROM `bao_users` WHERE ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000404s ]
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: [8] Constant __HOST__ already defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 98 行.
+NOTIC: 建议使用I方法替代_param
+SQL: SHOW COLUMNS FROM `bao_pois_content` [ RunTime:0.004230s ]
+SQL: SHOW COLUMNS FROM `bao_area` [ RunTime:0.004281s ]
+SQL: SHOW COLUMNS FROM `bao_business` [ RunTime:0.004177s ]
+SQL: SHOW COLUMNS FROM `bao_msg` [ RunTime:0.004155s ]
+SQL: SELECT * FROM `bao_msg` WHERE ( `user_id` IN (0,2981) ) LIMIT 0,20   [ RunTime:0.000340s ]
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 295 行.
+SQL: SHOW COLUMNS FROM `bao_msg_read` [ RunTime:0.004396s ]
+SQL: SELECT * FROM `bao_msg_read` WHERE ( `user_id` = 2981 ) AND ( `msg_id` IN () )  [ RunTime:0.000191s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') )' at line 1
+ [ SQL语句 ] : SELECT * FROM `bao_msg_read` WHERE ( `user_id` = 2981 ) AND ( `msg_id` IN () ) 
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 303 行.
+NOTIC: [2] array_sum() expects parameter 1 to be array, null given E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 145 行.
+SQL: SHOW COLUMNS FROM `bao_weixin_access` [ RunTime:0.004226s ]
+SQL: SELECT * FROM `bao_weixin_access` ORDER BY id desc LIMIT 1   [ RunTime:0.000260s ]
+NOTIC: [8] curl_setopt(): CURLOPT_SSL_VERIFYHOST no longer accepts the value 1, value 2 will be used instead E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Net\Curl.class.php 第 20 行.
+NOTIC: [8] Undefined property: stdClass::$ticket E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Net\Jssdk.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.004842s ]
+SQL: SELECT * FROM `bao_shop` WHERE ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000402s ]
+NOTIC: [2] array_sum() expects parameter 1 to be array, null given E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 13 行.
+NOTIC: 建议使用I方法替代_param
+SQL: SHOW COLUMNS FROM `bao_goods` [ RunTime:0.004677s ]
+SQL: SHOW COLUMNS FROM `bao_goods_cate` [ RunTime:0.004088s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000339s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000276s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000304s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` IN ('19','20') ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000318s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000301s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` IN ('28','29','30','31') ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000328s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000341s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` IN ('22') ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000250s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000278s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000280s ]
+SQL: SHOW COLUMNS FROM `bao_paddress` [ RunTime:0.004252s ]
+SQL: SELECT * FROM `bao_paddress` WHERE ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000361s ]
+SQL: SELECT * FROM `bao_goods` WHERE ( `goods_id` = 37 ) LIMIT 1   [ RunTime:0.000362s ]
+SQL: SELECT * FROM `bao_goods` WHERE ( `shop_id` = 1 ) AND ( `audit` = 1 ) AND ( `closed` = 1 ) AND ( `goods_id` <> 37 ) AND ( `end_date` >= '2019-12-23' )  [ RunTime:0.000321s ]
+SQL: SHOW COLUMNS FROM `bao_users_goods` [ RunTime:0.004769s ]
+SQL: SELECT * FROM `bao_users_goods` WHERE ( `user_id` = 2981 ) AND ( `goods_id` = 37 ) LIMIT 1   [ RunTime:0.000288s ]
+SQL: UPDATE `bao_users_goods` SET `user_id`=2981,`goods_id`=37,`record_time`=1577089293,`record_ip`='127.0.0.1' WHERE ( `record_id` = 23 ) [ RunTime:0.000299s ]
+SQL: SELECT * FROM `bao_shop` WHERE ( `shop_id` = 1 ) LIMIT 1   [ RunTime:0.000307s ]
+SQL: SHOW COLUMNS FROM `bao_tp_spec_goods_price` [ RunTime:0.005097s ]
+SQL: SELECT GROUP_CONCAT(`key` SEPARATOR '_') FROM `bao_tp_spec_goods_price` WHERE ( goods_id = 37 ) LIMIT 1   [ RunTime:0.000254s ]
+SQL: SHOW COLUMNS FROM `bao_goods` [ RunTime:0.004651s ]
+SQL: SELECT * FROM `bao_goods` WHERE ( `goods_id` = 37 ) LIMIT 1   [ RunTime:0.000444s ]
+NOTIC: [8] Use of undefined constant mall_price - assumed 'mall_price' E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 348 行.
+NOTIC: [8] Use of undefined constant mall_price - assumed 'mall_price' E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 348 行.
+SQL: SELECT `key`,`price`,`store_count` FROM `bao_tp_spec_goods_price` WHERE ( goods_id = 37 )  [ RunTime:0.000298s ]
+NOTIC: [8] Use of undefined constant yh - assumed 'yh' E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 353 行.
+NOTIC: [8] Undefined index: yh E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 353 行.
+NOTIC: [8] Use of undefined constant s - assumed 's' E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 359 行.
+NOTIC: [8] Undefined index: s E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 359 行.
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 359 行.
+NOTIC: [8] Undefined variable: rs E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 364 行.
+NOTIC: [8] Undefined variable: rs E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 365 行.
+NOTIC: [2048] Declaration of GoodsdianpingModel::check() should be compatible with Model::check($value, $rule, $type = 'regex') E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\GoodsdianpingModel.class.php 第 29 行.
+SQL: SHOW COLUMNS FROM `bao_goods_dianping` [ RunTime:0.005558s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods_dianping` WHERE ( `goods_id` = 37 ) AND ( `show_date` <= '2019-12-23' ) LIMIT 1   [ RunTime:0.000272s ]
+SQL: SELECT AVG(score) AS tp_avg FROM `bao_goods_dianping` WHERE ( `goods_id` = 37 ) LIMIT 1   [ RunTime:0.000210s ]
+SQL: SHOW COLUMNS FROM `bao_goods_photos` [ RunTime:0.004980s ]
+SQL: SELECT * FROM `bao_goods_photos` WHERE ( `goods_id` = 37 )  [ RunTime:0.000282s ]
+NOTIC: [2048] Declaration of GoodsfavoritesModel::check() should be compatible with Model::check($value, $rule, $type = 'regex') E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\GoodsfavoritesModel.class.php 第 10 行.
+SQL: SHOW COLUMNS FROM `bao_goods_favorites` [ RunTime:0.005179s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods_favorites` WHERE ( `goods_id` = 37 ) LIMIT 1   [ RunTime:0.000238s ]
+SQL: SELECT * FROM `bao_goods_favorites` WHERE ( `goods_id` = 37 ) AND ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000281s ]
+NOTIC: [2048] Declaration of TemplateModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\TemplateModel.class.php 第 30 行.
+SQL: SHOW COLUMNS FROM `bao_template` [ RunTime:0.004356s ]
+NOTIC: [8] Constant THEME_PATH already defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Core\View.class.php 第 154 行.
+NOTIC: [8] Constant APP_TMPL_PATH already defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Core\View.class.php 第 155 行.
+INFO: [ view_parse ] --START--
+NOTIC: [2] Missing argument 4 for bao_msubstr(), called in E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\f0ff9477b5ffaf32829e10357a3d169c.php on line 119 and defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Common\common.php 第 257 行.
+NOTIC: [8] Undefined variable: suffix E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Common\common.php 第 260 行.
+NOTIC: [8] Undefined variable: spec_goods_price E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\f0ff9477b5ffaf32829e10357a3d169c.php 第 288 行.
+NOTIC: [8] Undefined variable: config E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\f0ff9477b5ffaf32829e10357a3d169c.php 第 383 行.
+NOTIC: [8] Undefined variable: config E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\f0ff9477b5ffaf32829e10357a3d169c.php 第 384 行.
+NOTIC: [8] Undefined variable: char E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 59 行.
+NOTIC: [8] Undefined variable: str E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 66 行.
+INFO: ParseTemplate Behavior ::run [ RunTime:0.037551s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.037743s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.001325s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.001265s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.000969s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.001264s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.005329s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.001527s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001812s ]
+INFO: [ app_end ] --START--
+NOTIC: [2] include(E:\PhpStorm\boshang-ymj.weixinguanfang.com/Baocms/Lib/Cron/WeatherUpdate.php): failed to open stream: No such file or directory E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Behavior\CronRunBehavior.class.php 第 51 行.
+NOTIC: [2] include(): Failed opening 'E:\PhpStorm\boshang-ymj.weixinguanfang.com/Baocms/Lib/Cron/WeatherUpdate.php' for inclusion (include_path='.;C:\php\pear;E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core/Extend/Vendor/') E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Behavior\CronRunBehavior.class.php 第 51 行.
+INFO: CronRun Behavior ::run [ RunTime:0.016121s ]
+INFO: [ app_end ] --END-- [ RunTime:0.016358s ]
+
+[ 2019-12-23T16:21:36+08:00 ] 127.0.0.1 /index.php?g=wap&m=mall&a=buy&mt=1577089294&goods_id=37&num=1
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001447s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001623s ]
+NOTIC: [2048] Declaration of CommonAction::show() should be compatible with Action::show($content, $charset = '', $contentType = '', $prefix = '') E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 444 行.
+NOTIC: [2048] Declaration of SettingModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+NOTIC: [2048] Declaration of SettingModel::save() should be compatible with Model::save($data = '', $options = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+SQL: SHOW COLUMNS FROM `bao_setting` [ RunTime:0.004221s ]
+SQL: SHOW COLUMNS FROM `bao_city` [ RunTime:0.004282s ]
+NOTIC: [8] Undefined variable: char E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 59 行.
+NOTIC: [8] Undefined variable: str E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 66 行.
+SQL: SHOW COLUMNS FROM `bao_users` [ RunTime:0.004830s ]
+SQL: SELECT * FROM `bao_users` WHERE ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000426s ]
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: [8] Constant __HOST__ already defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 98 行.
+NOTIC: 建议使用I方法替代_param
+SQL: SHOW COLUMNS FROM `bao_pois_content` [ RunTime:0.004476s ]
+SQL: SHOW COLUMNS FROM `bao_area` [ RunTime:0.003990s ]
+SQL: SHOW COLUMNS FROM `bao_business` [ RunTime:0.004024s ]
+SQL: SHOW COLUMNS FROM `bao_msg` [ RunTime:0.004210s ]
+SQL: SELECT * FROM `bao_msg` WHERE ( `user_id` IN (0,2981) ) LIMIT 0,20   [ RunTime:0.000309s ]
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 295 行.
+SQL: SHOW COLUMNS FROM `bao_msg_read` [ RunTime:0.004084s ]
+SQL: SELECT * FROM `bao_msg_read` WHERE ( `user_id` = 2981 ) AND ( `msg_id` IN () )  [ RunTime:0.000244s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') )' at line 1
+ [ SQL语句 ] : SELECT * FROM `bao_msg_read` WHERE ( `user_id` = 2981 ) AND ( `msg_id` IN () ) 
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 303 行.
+NOTIC: [2] array_sum() expects parameter 1 to be array, null given E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 145 行.
+SQL: SHOW COLUMNS FROM `bao_weixin_access` [ RunTime:0.004113s ]
+SQL: SELECT * FROM `bao_weixin_access` ORDER BY id desc LIMIT 1   [ RunTime:0.000244s ]
+NOTIC: [8] curl_setopt(): CURLOPT_SSL_VERIFYHOST no longer accepts the value 1, value 2 will be used instead E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Net\Curl.class.php 第 20 行.
+NOTIC: [8] Undefined property: stdClass::$ticket E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Net\Jssdk.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.004452s ]
+SQL: SELECT * FROM `bao_shop` WHERE ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000411s ]
+NOTIC: [2] array_sum() expects parameter 1 to be array, null given E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 13 行.
+NOTIC: 建议使用I方法替代_param
+SQL: SHOW COLUMNS FROM `bao_goods` [ RunTime:0.004475s ]
+SQL: SHOW COLUMNS FROM `bao_goods_cate` [ RunTime:0.004049s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000318s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000271s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000312s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` IN ('19','20') ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000317s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000247s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` IN ('28','29','30','31') ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000221s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000236s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` IN ('22') ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000231s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000267s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000267s ]
+SQL: SHOW COLUMNS FROM `bao_paddress` [ RunTime:0.004382s ]
+SQL: SELECT * FROM `bao_paddress` WHERE ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000292s ]
+SQL: SELECT * FROM `bao_goods` WHERE ( `goods_id` = 37 ) LIMIT 1   [ RunTime:0.000315s ]
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+SQL: SHOW COLUMNS FROM `bao_tp_spec_goods_price` [ RunTime:0.004120s ]
+SQL: SELECT * FROM `bao_tp_spec_goods_price` WHERE ( `key`='' and `goods_id`='37' ) LIMIT 1   [ RunTime:0.000243s ]
+
+[ 2019-12-23T16:21:38+08:00 ] ERR: Cron:cron_1 Runat 2019-12-23 16:21:38 Use 0.000435 s
+
+[ 2019-12-23T16:21:38+08:00 ] 127.0.0.1 /wap/mall/cart.html
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.001589s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001858s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001022s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001218s ]
+NOTIC: [2048] Declaration of CommonAction::show() should be compatible with Action::show($content, $charset = '', $contentType = '', $prefix = '') E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 444 行.
+NOTIC: [2048] Declaration of SettingModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+NOTIC: [2048] Declaration of SettingModel::save() should be compatible with Model::save($data = '', $options = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+SQL: SHOW COLUMNS FROM `bao_setting` [ RunTime:0.003953s ]
+SQL: SHOW COLUMNS FROM `bao_city` [ RunTime:0.004345s ]
+NOTIC: [8] Undefined variable: char E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 59 行.
+NOTIC: [8] Undefined variable: str E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 66 行.
+SQL: SHOW COLUMNS FROM `bao_users` [ RunTime:0.004377s ]
+SQL: SELECT * FROM `bao_users` WHERE ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000376s ]
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: [8] Constant __HOST__ already defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 98 行.
+NOTIC: 建议使用I方法替代_param
+SQL: SHOW COLUMNS FROM `bao_pois_content` [ RunTime:0.004790s ]
+SQL: SHOW COLUMNS FROM `bao_area` [ RunTime:0.004877s ]
+SQL: SHOW COLUMNS FROM `bao_business` [ RunTime:0.004309s ]
+SQL: SHOW COLUMNS FROM `bao_msg` [ RunTime:0.004460s ]
+SQL: SELECT * FROM `bao_msg` WHERE ( `user_id` IN (0,2981) ) LIMIT 0,20   [ RunTime:0.000334s ]
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 295 行.
+SQL: SHOW COLUMNS FROM `bao_msg_read` [ RunTime:0.007434s ]
+SQL: SELECT * FROM `bao_msg_read` WHERE ( `user_id` = 2981 ) AND ( `msg_id` IN () )  [ RunTime:0.000235s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') )' at line 1
+ [ SQL语句 ] : SELECT * FROM `bao_msg_read` WHERE ( `user_id` = 2981 ) AND ( `msg_id` IN () ) 
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 303 行.
+NOTIC: [2] array_sum() expects parameter 1 to be array, null given E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 145 行.
+SQL: SHOW COLUMNS FROM `bao_weixin_access` [ RunTime:0.004369s ]
+SQL: SELECT * FROM `bao_weixin_access` ORDER BY id desc LIMIT 1   [ RunTime:0.000305s ]
+NOTIC: [8] curl_setopt(): CURLOPT_SSL_VERIFYHOST no longer accepts the value 1, value 2 will be used instead E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Net\Curl.class.php 第 20 行.
+NOTIC: [8] Undefined property: stdClass::$ticket E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Net\Jssdk.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.004432s ]
+SQL: SELECT * FROM `bao_shop` WHERE ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000384s ]
+NOTIC: 建议使用I方法替代_param
+SQL: SHOW COLUMNS FROM `bao_goods` [ RunTime:0.004409s ]
+SQL: SHOW COLUMNS FROM `bao_goods_cate` [ RunTime:0.004303s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000317s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000305s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000281s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` IN ('19','20') ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000292s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000295s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` IN ('28','29','30','31') ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000390s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000314s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` IN ('22') ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000226s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000328s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000280s ]
+SQL: SHOW COLUMNS FROM `bao_paddress` [ RunTime:0.004112s ]
+SQL: SELECT * FROM `bao_paddress` WHERE ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000301s ]
+NOTIC: [2] end() expects parameter 1 to be array, null given E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 271 行.
+NOTIC: [2] key() expects parameter 1 to be array, null given E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 272 行.
+SQL: SELECT * FROM `bao_goods` WHERE ( `goods_id` IN ('37') )  [ RunTime:0.000420s ]
+SQL: SELECT * FROM `bao_shop` WHERE ( `shop_id` IN ('1') )  [ RunTime:0.000340s ]
+NOTIC: [2048] Declaration of TemplateModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\TemplateModel.class.php 第 30 行.
+SQL: SHOW COLUMNS FROM `bao_template` [ RunTime:0.004228s ]
+NOTIC: [8] Constant THEME_PATH already defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Core\View.class.php 第 154 行.
+NOTIC: [8] Constant APP_TMPL_PATH already defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Core\View.class.php 第 155 行.
+INFO: [ view_parse ] --START--
+NOTIC: [8] Undefined index: key_name E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\037f9f87325339af047d9baf6987a8af.php 第 58 行.
+NOTIC: [8] Undefined index: product_id E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\037f9f87325339af047d9baf6987a8af.php 第 59 行.
+NOTIC: [8] Undefined variable: tt E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\037f9f87325339af047d9baf6987a8af.php 第 157 行.
+NOTIC: [8] Use of undefined constant goods - assumed 'goods' E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\037f9f87325339af047d9baf6987a8af.php 第 191 行.
+INFO: ParseTemplate Behavior ::run [ RunTime:0.022787s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.022985s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.001262s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.001248s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.000969s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.001476s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.005502s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.001341s ]
+INFO: [ view_end ] --END-- [ RunTime:0.001533s ]
+INFO: [ app_end ] --START--
+NOTIC: [2] include(E:\PhpStorm\boshang-ymj.weixinguanfang.com/Baocms/Lib/Cron/WeatherUpdate.php): failed to open stream: No such file or directory E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Behavior\CronRunBehavior.class.php 第 51 行.
+NOTIC: [2] include(): Failed opening 'E:\PhpStorm\boshang-ymj.weixinguanfang.com/Baocms/Lib/Cron/WeatherUpdate.php' for inclusion (include_path='.;C:\php\pear;E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core/Extend/Vendor/') E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Behavior\CronRunBehavior.class.php 第 51 行.
+INFO: CronRun Behavior ::run [ RunTime:0.004449s ]
+INFO: [ app_end ] --END-- [ RunTime:0.004642s ]
+
+[ 2019-12-23T16:21:39+08:00 ] 127.0.0.1 /index.php?g=wap&m=mall&a=buy&mt=1577089294&goods_id=37&num=1
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001571s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001769s ]
+NOTIC: [2048] Declaration of CommonAction::show() should be compatible with Action::show($content, $charset = '', $contentType = '', $prefix = '') E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 444 行.
+NOTIC: [2048] Declaration of SettingModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+NOTIC: [2048] Declaration of SettingModel::save() should be compatible with Model::save($data = '', $options = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+SQL: SHOW COLUMNS FROM `bao_setting` [ RunTime:0.004200s ]
+SQL: SHOW COLUMNS FROM `bao_city` [ RunTime:0.005495s ]
+NOTIC: [8] Undefined variable: char E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 59 行.
+NOTIC: [8] Undefined variable: str E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 66 行.
+SQL: SHOW COLUMNS FROM `bao_users` [ RunTime:0.004410s ]
+SQL: SELECT * FROM `bao_users` WHERE ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000457s ]
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: [8] Constant __HOST__ already defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 98 行.
+NOTIC: 建议使用I方法替代_param
+SQL: SHOW COLUMNS FROM `bao_pois_content` [ RunTime:0.004001s ]
+SQL: SHOW COLUMNS FROM `bao_area` [ RunTime:0.004063s ]
+SQL: SHOW COLUMNS FROM `bao_business` [ RunTime:0.003830s ]
+SQL: SHOW COLUMNS FROM `bao_msg` [ RunTime:0.004425s ]
+SQL: SELECT * FROM `bao_msg` WHERE ( `user_id` IN (0,2981) ) LIMIT 0,20   [ RunTime:0.000383s ]
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 295 行.
+SQL: SHOW COLUMNS FROM `bao_msg_read` [ RunTime:0.005189s ]
+SQL: SELECT * FROM `bao_msg_read` WHERE ( `user_id` = 2981 ) AND ( `msg_id` IN () )  [ RunTime:0.000173s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') )' at line 1
+ [ SQL语句 ] : SELECT * FROM `bao_msg_read` WHERE ( `user_id` = 2981 ) AND ( `msg_id` IN () ) 
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 303 行.
+NOTIC: [2] array_sum() expects parameter 1 to be array, null given E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 145 行.
+SQL: SHOW COLUMNS FROM `bao_weixin_access` [ RunTime:0.004143s ]
+SQL: SELECT * FROM `bao_weixin_access` ORDER BY id desc LIMIT 1   [ RunTime:0.000591s ]
+NOTIC: [8] curl_setopt(): CURLOPT_SSL_VERIFYHOST no longer accepts the value 1, value 2 will be used instead E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Net\Curl.class.php 第 20 行.
+NOTIC: [8] Undefined property: stdClass::$ticket E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Net\Jssdk.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.004603s ]
+SQL: SELECT * FROM `bao_shop` WHERE ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000378s ]
+NOTIC: 建议使用I方法替代_param
+SQL: SHOW COLUMNS FROM `bao_goods` [ RunTime:0.004296s ]
+SQL: SHOW COLUMNS FROM `bao_goods_cate` [ RunTime:0.004041s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000364s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000276s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000239s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` IN ('19','20') ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000278s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000304s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` IN ('28','29','30','31') ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000270s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000267s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` IN ('22') ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000313s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000287s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000328s ]
+SQL: SHOW COLUMNS FROM `bao_paddress` [ RunTime:0.004257s ]
+SQL: SELECT * FROM `bao_paddress` WHERE ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000277s ]
+SQL: SELECT * FROM `bao_goods` WHERE ( `goods_id` = 37 ) LIMIT 1   [ RunTime:0.000306s ]
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+SQL: SHOW COLUMNS FROM `bao_tp_spec_goods_price` [ RunTime:0.004217s ]
+SQL: SELECT * FROM `bao_tp_spec_goods_price` WHERE ( `key`='' and `goods_id`='37' ) LIMIT 1   [ RunTime:0.000261s ]
+
+[ 2019-12-23T16:21:40+08:00 ] 127.0.0.1 /wap/mall/order/t/1577089298.html
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.001456s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001663s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001183s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001382s ]
+NOTIC: [2048] Declaration of CommonAction::show() should be compatible with Action::show($content, $charset = '', $contentType = '', $prefix = '') E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 444 行.
+NOTIC: [2048] Declaration of SettingModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+NOTIC: [2048] Declaration of SettingModel::save() should be compatible with Model::save($data = '', $options = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+SQL: SHOW COLUMNS FROM `bao_setting` [ RunTime:0.007414s ]
+SQL: SHOW COLUMNS FROM `bao_city` [ RunTime:0.004084s ]
+NOTIC: [8] Undefined variable: char E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 59 行.
+NOTIC: [8] Undefined variable: str E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 66 行.
+SQL: SHOW COLUMNS FROM `bao_users` [ RunTime:0.004476s ]
+SQL: SELECT * FROM `bao_users` WHERE ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000376s ]
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: [8] Constant __HOST__ already defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 98 行.
+NOTIC: 建议使用I方法替代_param
+SQL: SHOW COLUMNS FROM `bao_pois_content` [ RunTime:0.004215s ]
+SQL: SHOW COLUMNS FROM `bao_area` [ RunTime:0.004510s ]
+SQL: SHOW COLUMNS FROM `bao_business` [ RunTime:0.004036s ]
+SQL: SHOW COLUMNS FROM `bao_msg` [ RunTime:0.004060s ]
+SQL: SELECT * FROM `bao_msg` WHERE ( `user_id` IN (0,2981) ) LIMIT 0,20   [ RunTime:0.000272s ]
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 295 行.
+SQL: SHOW COLUMNS FROM `bao_msg_read` [ RunTime:0.004357s ]
+SQL: SELECT * FROM `bao_msg_read` WHERE ( `user_id` = 2981 ) AND ( `msg_id` IN () )  [ RunTime:0.000224s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') )' at line 1
+ [ SQL语句 ] : SELECT * FROM `bao_msg_read` WHERE ( `user_id` = 2981 ) AND ( `msg_id` IN () ) 
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 303 行.
+NOTIC: [2] array_sum() expects parameter 1 to be array, null given E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 145 行.
+SQL: SHOW COLUMNS FROM `bao_weixin_access` [ RunTime:0.004165s ]
+SQL: SELECT * FROM `bao_weixin_access` ORDER BY id desc LIMIT 1   [ RunTime:0.000257s ]
+NOTIC: [8] curl_setopt(): CURLOPT_SSL_VERIFYHOST no longer accepts the value 1, value 2 will be used instead E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Net\Curl.class.php 第 20 行.
+NOTIC: [8] Undefined property: stdClass::$ticket E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Net\Jssdk.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.004659s ]
+SQL: SELECT * FROM `bao_shop` WHERE ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000422s ]
+NOTIC: 建议使用I方法替代_param
+SQL: SHOW COLUMNS FROM `bao_goods` [ RunTime:0.005297s ]
+SQL: SHOW COLUMNS FROM `bao_goods_cate` [ RunTime:0.004097s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000322s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000281s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000269s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` IN ('19','20') ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000268s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000326s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` IN ('28','29','30','31') ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000276s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000227s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` IN ('22') ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000281s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000328s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000315s ]
+SQL: SHOW COLUMNS FROM `bao_paddress` [ RunTime:0.004068s ]
+SQL: SELECT * FROM `bao_paddress` WHERE ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000245s ]
+SQL: SHOW COLUMNS FROM `bao_users` [ RunTime:0.004233s ]
+SQL: SELECT `integral` FROM `bao_users` WHERE ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000332s ]
+NOTIC: 建议使用I方法替代_post
+SQL: SELECT * FROM `bao_goods` WHERE ( `goods_id` IN (37) )  [ RunTime:0.000361s ]
+NOTIC: [8] Use of undefined constant sky - assumed 'sky' E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 489 行.
+NOTIC: [8] Use of undefined constant sky - assumed 'sky' E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 491 行.
+NOTIC: [8] Use of undefined constant goods_id - assumed 'goods_id' E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 508 行.
+NOTIC: [8] Use of undefined constant sky - assumed 'sky' E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 508 行.
+SQL: SHOW COLUMNS FROM `bao_tp_spec_goods_price` [ RunTime:0.004371s ]
+SQL: SELECT * FROM `bao_tp_spec_goods_price` WHERE ( `key`='' and `goods_id`='37' ) LIMIT 1   [ RunTime:0.000269s ]
+SQL: SHOW COLUMNS FROM `bao_order_goods` [ RunTime:0.005094s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_paddress` WHERE ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000288s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_paddress` WHERE ( `user_id` = 2981 ) AND ( `default` = 1 ) LIMIT 1   [ RunTime:0.000321s ]
+SQL: SELECT * FROM `bao_paddress` WHERE ( `user_id` = 2981 ) AND ( `default` = 1 ) LIMIT 1   [ RunTime:0.000286s ]
+SQL: SELECT * FROM `bao_goods` WHERE ( `goods_id` = 37 ) LIMIT 1   [ RunTime:0.000307s ]
+NOTIC: [8] Undefined index: key_name E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 558 行.
+NOTIC: [8] Undefined offset: 1 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 560 行.
+NOTIC: [8] Undefined offset: 1 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 561 行.
+NOTIC: [8] Undefined variable: express_price E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 562 行.
+NOTIC: [8] Undefined offset: 1 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 562 行.
+NOTIC: [8] Undefined variable: mm_price E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 563 行.
+NOTIC: [8] Undefined offset: 1 E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 563 行.
+NOTIC: [8] Undefined variable: type E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 572 行.
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_paddress` WHERE ( `user_id` = 2981 ) AND ( `closed` = 0 ) LIMIT 1   [ RunTime:0.000283s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_paddress` WHERE ( `user_id` = 2981 ) AND ( `default` = 1 ) AND ( `closed` = 0 ) LIMIT 1   [ RunTime:0.000237s ]
+SQL: SELECT * FROM `bao_paddress` WHERE ( `user_id` = 2981 ) AND ( `default` = 1 ) AND ( `closed` = 0 ) LIMIT 1   [ RunTime:0.000276s ]
+SQL: SELECT * FROM `bao_shop` WHERE ( `shop_id` = 1 ) LIMIT 1   [ RunTime:0.000335s ]
+SQL: SHOW COLUMNS FROM `bao_order` [ RunTime:0.005085s ]
+SQL: INSERT INTO `bao_order` (`user_id`,`create_time`,`create_ip`,`is_mobile`,`shop_id`,`total_price`,`mobile_fan`,`can_use_integral`,`express_price`,`address_id`,`is_shop`) VALUES (2981,1577089300,'127.0.0.1',1,1,3900,0,0,0,3,1) [ RunTime:0.000342s ]
+SQL: INSERT INTO `bao_order_goods` (`goods_id`,`shop_id`,`num`,`kuaidi_id`,`price`,`total_price`,`back_money`,`back_count`,`back_inteval`,`mobile_fan`,`express_price`,`js_price`,`create_time`,`create_ip`,`key`,`key_name`,`order_id`) VALUES (37,1,1,0,3900,3900,18000,2,2,0,0,0,1577089300,'127.0.0.1','',null,57) [ RunTime:0.000332s ]
+
+[ 2019-12-23T16:21:44+08:00 ] ERR: Cron:cron_1 Runat 2019-12-23 16:21:44 Use 0.001116 s
+
+[ 2019-12-23T16:21:44+08:00 ] 127.0.0.1 /wap/mall/pay/order_id/57/address_id/3.html
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.001030s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001238s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000964s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001153s ]
+NOTIC: [2048] Declaration of CommonAction::show() should be compatible with Action::show($content, $charset = '', $contentType = '', $prefix = '') E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 444 行.
+NOTIC: [2048] Declaration of SettingModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+NOTIC: [2048] Declaration of SettingModel::save() should be compatible with Model::save($data = '', $options = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+SQL: SHOW COLUMNS FROM `bao_setting` [ RunTime:0.003928s ]
+SQL: SHOW COLUMNS FROM `bao_city` [ RunTime:0.004285s ]
+NOTIC: [8] Undefined variable: char E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 59 行.
+NOTIC: [8] Undefined variable: str E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 66 行.
+SQL: SHOW COLUMNS FROM `bao_users` [ RunTime:0.004407s ]
+SQL: SELECT * FROM `bao_users` WHERE ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000394s ]
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: [8] Constant __HOST__ already defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 98 行.
+NOTIC: 建议使用I方法替代_param
+SQL: SHOW COLUMNS FROM `bao_pois_content` [ RunTime:0.004419s ]
+SQL: SHOW COLUMNS FROM `bao_area` [ RunTime:0.004075s ]
+SQL: SHOW COLUMNS FROM `bao_business` [ RunTime:0.004359s ]
+SQL: SHOW COLUMNS FROM `bao_msg` [ RunTime:0.004080s ]
+SQL: SELECT * FROM `bao_msg` WHERE ( `user_id` IN (0,2981) ) LIMIT 0,20   [ RunTime:0.000274s ]
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 295 行.
+SQL: SHOW COLUMNS FROM `bao_msg_read` [ RunTime:0.004266s ]
+SQL: SELECT * FROM `bao_msg_read` WHERE ( `user_id` = 2981 ) AND ( `msg_id` IN () )  [ RunTime:0.000228s ]
+ERR: 1064:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') )' at line 1
+ [ SQL语句 ] : SELECT * FROM `bao_msg_read` WHERE ( `user_id` = 2981 ) AND ( `msg_id` IN () ) 
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 303 行.
+NOTIC: [2] array_sum() expects parameter 1 to be array, null given E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 145 行.
+SQL: SHOW COLUMNS FROM `bao_weixin_access` [ RunTime:0.004179s ]
+SQL: SELECT * FROM `bao_weixin_access` ORDER BY id desc LIMIT 1   [ RunTime:0.000227s ]
+NOTIC: [8] curl_setopt(): CURLOPT_SSL_VERIFYHOST no longer accepts the value 1, value 2 will be used instead E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Net\Curl.class.php 第 20 行.
+NOTIC: [8] Undefined property: stdClass::$ticket E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Net\Jssdk.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.008423s ]
+SQL: SELECT * FROM `bao_shop` WHERE ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000334s ]
+NOTIC: [2] array_sum() expects parameter 1 to be array, null given E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 13 行.
+NOTIC: 建议使用I方法替代_param
+SQL: SHOW COLUMNS FROM `bao_goods` [ RunTime:0.004562s ]
+SQL: SHOW COLUMNS FROM `bao_goods_cate` [ RunTime:0.004177s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000331s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000288s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000271s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` IN ('19','20') ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000265s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000311s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` IN ('28','29','30','31') ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000315s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000230s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` IN ('22') ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000246s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000283s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000273s ]
+SQL: SHOW COLUMNS FROM `bao_paddress` [ RunTime:0.004179s ]
+SQL: SELECT * FROM `bao_paddress` WHERE ( `user_id` = 2981 ) LIMIT 1   [ RunTime:0.000319s ]
+SQL: SELECT `mobile` FROM `bao_users` WHERE ( user_id =2981 ) LIMIT 1   [ RunTime:0.000433s ]
+NOTIC: 建议使用I方法替代_get
+SQL: SHOW COLUMNS FROM `bao_order` [ RunTime:0.004459s ]
+SQL: SELECT * FROM `bao_order` WHERE ( `order_id` = 57 ) LIMIT 1   [ RunTime:0.000308s ]
+SQL: SHOW COLUMNS FROM `bao_order_goods` [ RunTime:0.004167s ]
+SQL: SELECT * FROM `bao_order_goods` WHERE ( `order_id` = 57 )  [ RunTime:0.000332s ]
+SQL: SELECT * FROM `bao_goods` WHERE ( `goods_id` IN ('37') )  [ RunTime:0.000367s ]
+SQL: SELECT * FROM `bao_shop` WHERE ( `shop_id` IN ('1') )  [ RunTime:0.000335s ]
+SQL: SELECT * FROM `bao_order` WHERE ( `order_id` = 57 ) LIMIT 1   [ RunTime:0.000289s ]
+SQL: SELECT * FROM `bao_paddress` WHERE ( `id` = 3 ) AND ( `closed` = 0 ) LIMIT 1   [ RunTime:0.000266s ]
+NOTIC: [8] Use of undefined constant goods - assumed 'goods' E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 684 行.
+SQL: SHOW COLUMNS FROM `bao_coupon` [ RunTime:0.004141s ]
+SQL: SELECT * FROM `bao_order` WHERE ( `order_id` = 57 ) AND ( `closed` = 0 ) AND ( `status` = 0 ) LIMIT 1   [ RunTime:0.000322s ]
+SQL: SHOW COLUMNS FROM `bao_coupon_download` [ RunTime:0.005658s ]
+SQL: SELECT * FROM `bao_coupon_download` WHERE ( `user_id` = 2981 ) AND ( `is_used` = 0 ) ORDER BY `create_time` asc  [ RunTime:0.000261s ]
+NOTIC: [2] Invalid argument supplied for foreach() E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\CouponModel.class.php 第 11 行.
+SQL: SHOW COLUMNS FROM `bao_payment` [ RunTime:0.005036s ]
+SQL: SELECT * FROM `bao_payment`  [ RunTime:0.000273s ]
+NOTIC: [8] unserialize(): Error at offset 0 of 117 bytes E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\PaymentModel.class.php 第 145 行.
+NOTIC: [2048] Declaration of TemplateModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\TemplateModel.class.php 第 30 行.
+SQL: SHOW COLUMNS FROM `bao_template` [ RunTime:0.004179s ]
+NOTIC: [8] Constant THEME_PATH already defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Core\View.class.php 第 154 行.
+NOTIC: [8] Constant APP_TMPL_PATH already defined E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Lib\Core\View.class.php 第 155 行.
+INFO: [ view_parse ] --START--
+NOTIC: [8] Undefined variable: detail E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\6ff63faf38f4015d983514a702f76e7d.php 第 37 行.
+NOTIC: [8] Undefined index: id E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\6ff63faf38f4015d983514a702f76e7d.php 第 126 行.
+NOTIC: [8] Use of undefined constant other - assumed 'other' E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\6ff63faf38f4015d983514a702f76e7d.php 第 174 行.
+NOTIC: [8] Use of undefined constant footer - assumed 'footer' E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\6ff63faf38f4015d983514a702f76e7d.php 第 174 行.
+NOTIC: [8] Undefined variable: config E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\6ff63faf38f4015d983514a702f76e7d.php 第 212 行.
+NOTIC: [8] Undefined variable: config E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\6ff63faf38f4015d983514a702f76e7d.php 第 213 行.
+NOTIC: [8] Undefined variable: char E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 59 行.
+NOTIC: [8] Undefined variable: str E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 66 行.
+INFO: ParseTemplate Behavior ::run [ RunTime:0.033368s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.033589s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.001352s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.001161s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.000980s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.001334s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.005438s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.002075s ]
+INFO: [ view_end ] --END-- [ RunTime:0.002288s ]
+INFO: [ app_end ] --START--
+NOTIC: [2] include(E:\PhpStorm\boshang-ymj.weixinguanfang.com/Baocms/Lib/Cron/WeatherUpdate.php): failed to open stream: No such file or directory E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Behavior\CronRunBehavior.class.php 第 51 行.
+NOTIC: [2] include(): Failed opening 'E:\PhpStorm\boshang-ymj.weixinguanfang.com/Baocms/Lib/Cron/WeatherUpdate.php' for inclusion (include_path='.;C:\php\pear;E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core/Extend/Vendor/') E:\PhpStorm\boshang-ymj.weixinguanfang.com\Core\Extend\Behavior\CronRunBehavior.class.php 第 51 行.
+INFO: CronRun Behavior ::run [ RunTime:0.024399s ]
+INFO: [ app_end ] --END-- [ RunTime:0.025132s ]
+

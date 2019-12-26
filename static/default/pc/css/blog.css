@@ -1,0 +1,16 @@
+.blog-main{border:thin solid #DDD;}
+.user-box{padding:15px;}
+.user-box .media img{width:100px;height:100px;}
+.user-box .media strong{display:block;height:30px;line-height:30px;font-size:14px;}
+.blog-nav a{font-size:14px;}
+.blog-nav .nav{padding-left:100px;}
+.main-bd{padding:15px;}
+.main-bd h4{height:40px;line-height:40px;font-weight:bold;font-size:14px;}
+.user-info{line-height:30px;overflow:hidden;color:#444;}
+.user-info em{margin-right:10px;color:#999;}
+.user-visitor{margin-top:10px;}
+.user-visitor img{width:80px;height:80px;}
+.user-visitor p{width:80px;overflow:hidden;height:20px;line-height:20px;overflow:hidden;text-align:center;}
+.tie-list li{height:40px;line-height:40px;overflow:hidden;}
+.tie-list li span{margin-left:5px;}
+.tie-list li em{color:#999;margin-left:30px;}

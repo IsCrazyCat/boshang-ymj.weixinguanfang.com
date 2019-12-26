@@ -1,0 +1,138 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">营销管理</a> > <a href="">微信营销</a> > <a>绑定公众账号</a></li>
+    </ul>
+</div>
+<js file='__PUBLIC__/js/uploadify/jquery.uploadify.min.js'/>
+<link rel="stylesheet" href="__PUBLIC__/js/uploadify/uploadify.css">
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">如果您申请的是订阅号就一定要选择订阅号，因为服务号的功能一般订阅号都是没有办法使用的！您需要在https://weixin.qq.com注册</div>
+        </div>
+    </div> 
+    <div class="tuanfabu_tab">
+        <ul>
+              <li class="tuanfabu_tabli tabli_change on"><a href="<{:U('weixin/index')}>">绑定公众账号</a></li>
+            <li class="tuanfabu_tabli tabli_change"><a href="<{:U('weixin/menu')}>">自定义菜单</a></li>
+            <li class="tuanfabu_tabli tabli_change"><a href="<{:U('weixinkeyword/index')}>">关键字回复</a></li>
+        </ul>
+    </div>
+    <div class="tabnr_change  show">
+    	<form method="post" class="password"  action="<{:U('weixin/index')}>"  target="baocms_frm">
+    	<table class="tuanfabu_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="120"><p class="tuanfabu_t">URL(服务器地址)：</p></td>
+                <td><div class="tuanfabu_nr">
+                <{$CONFIG.site.host}>/weixin/index.php?shop_id=<{$SHOP.shop_id}>
+                </div></td>
+            </tr>
+            <tr>
+                <td width="120"><p class="tuanfabu_t">TOKEN：</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[token]" value="<{$details.token}>" class="tuanfabu_int tuanfabu_intw2" />
+                </div></td>
+            </tr>
+            <tr>
+                <td width="120"><p class="tuanfabu_t">微信公共帐号类型：</p></td>
+                <td><div class="tuanfabu_nr">
+                <label><input type="radio" name="data[is_dingyue]" value="0" <eq name="details.is_dingyue" value="0">checked="checked"</eq>  class="cjinput" />服务号</label> 
+                <label><input type="radio" name="data[is_dingyue]" value="1" <eq name="details.is_dingyue" value="1">checked="checked"</eq>  class="cjinput" />订阅号</label> 
+                </div></td>
+            </tr>
+            <tr>
+                <td width="120"><p class="tuanfabu_t">AppID(应用ID)：</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[app_id]" value="<{$details.app_id}>" class="tuanfabu_int tuanfabu_intw2" />
+                </div></td>
+            </tr>
+            <tr>
+                <td width="120"><p class="tuanfabu_t">AppSecret(应用密钥)：</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[app_key]" value="<{$details.app_key}>" class="tuanfabu_int tuanfabu_intw2" />
+                </div></td>
+            </tr>
+            <tr>
+                <td width="120"><p class="tuanfabu_t">关注时回复内容形式：</p></td>
+                <td><div class="tuanfabu_nr">
+                <select name="weixin_msg[type]" class="manageSelect w150 jq_type">
+                    <option <eq name="details.weixin_msg.type" value="1">selected="selected"</eq> value="1">文字</option>
+                    <option  <eq name="details.weixin_msg.type" value="2">selected="selected"</eq> value="2">图片</option>
+                </select>
+                </div></td>
+            </tr>
+            <script>
+                $(document).ready(function(){
+                    $(".jq_type").change(function(){
+                        if($(this).val() == 1){
+                            $(".jq_type_1").show();
+                            $(".jq_type_2").hide();
+                        }else{
+                            $(".jq_type_2").show();
+                            $(".jq_type_1").hide();
+                        }  
+                    });
+                    $(".jq_type").change();
+                        
+                });
+            </script>
+            <tr class="jq_type_1">
+                <td align="right"><p class="tuanfabu_t">回复内容：</p></td>
+                <td>
+                	<div class="tuanfabu_nr">
+                    <textarea name="weixin_msg[description]" cols="60" rows="10"><{$details.weixin_msg.description}></textarea>
+                    </div>
+                </td>
+            </tr>
+            <tr class="jq_type_2">
+                <td align="right"><p class="tuanfabu_t">回复标题：</p></td>
+                <td>
+                	<div class="tuanfabu_nr">
+                    <input type="text" name="weixin_msg[title]" value="<{$details.weixin_msg.title}>" class="manageInput " />
+                    </div>
+                </td>
+            </tr>
+            <tr class="jq_type_2">
+                <td align="right"><p class="tuanfabu_t">链接地址：</p></td>
+                <td>
+                	<div class="tuanfabu_nr">
+                    <input type="text" name="weixin_msg[linkurl]" value="<{$details.weixin_msg.linkurl}>" class="manageInput " />
+                    </div>
+                </td>
+            </tr>
+            <tr class="jq_type_2">
+                <td align="right"><p class="tuanfabu_t">图片：</p></td>
+                <td>
+                	<div class="tuanfabu_nr">
+                    <div style="width: 300px; height: 100px; float: left;">
+                        <input type="hidden" name="weixin_msg[photo]" value="<{$details.weixin_msg.photo}>" id="data_photo" />
+                        <input id="photo_file" name="photo_file" type="file" multiple="true" value="" />
+                    </div>
+                    <div style="width: 300px; height: 100px; float: left;">
+                        <img id="photo_img" width="200" height="100"  src="__ROOT__/attachs/<{$details.weixin_msg.photo|default='default.jpg'}>" />
+                    </div>
+            		<script>
+                    $("#photo_file").uploadify({
+                        'swf'      : '__PUBLIC__/js/uploadify/uploadify.swf?t=<{$nowtime}>',
+                        'uploader' : '<{:U("app/upload/uploadify",array("model"=>"weixin"))}>',
+                        'cancelImg' : '__PUBLIC__/js/uploadify/uploadify-cancel.png',
+                        'buttonText' : '上传图片',
+                        'fileTypeExts': '*.gif;*.jpg;*.png',
+                        'queueSizeLimit':1,
+                        'onUploadSuccess' : function(file, data, response) {
+                            $("#data_photo").val(data);
+                            $("#photo_img").attr('src','__ROOT__/attachs/'+data).show();
+                        }
+                    });
+            		</script>
+                    </div>
+            </td>
+        </table>
+        <div class="tuanfabu_an">
+        <input type="submit" class="radius3 sjgl_an tuan_topbt" value="保存" />
+        </div>
+        </form>
+    </div> 
+</div>
+<include  file='public:footer'/>

@@ -1,0 +1,158 @@
+<include file="public:header"/>
+<div class="content_right">
+<style>
+.password_input .left {width:140px;}
+.password_input .lef code{ margin-left:10px; color:#F00;}
+.password_subm .submit {background-color: #CACACA;}
+.password_subm .active {background-color: #fd8f52;}
+.password_input .lef input.email_lkrz {width: 120px;}
+</style>
+<div class="tgdd">
+	<include file="money:nav"/>
+		<form method="post"  action="<{:U('money/transfer')}>" target="baocms_frm">
+        <input type="hidden" id="status" value="0" />
+			<div class="password_nr">
+                <div class="password_input">
+					<if condition="!empty($CONFIG[cash][is_transfer_small])">
+                    	单笔最少转账：&yen;<{$CONFIG[cash][is_transfer_small]}>元
+                    </if>
+                    
+                    <if condition="!empty($CONFIG[cash][is_transfer_big])">
+                    	单笔最多转账：&yen;<{$CONFIG[cash][is_transfer_big]}>元
+                    </if>
+   
+                    <if condition="!empty($MEMBER['money'])">
+                    	您当前有余额：&yen;<{:round($MEMBER['money']/100,2)}>元
+                        <php>$cha = round($MEMBER['money']/100,2) - $this->_CONFIG['cash']['is_transfer_small'] ; </php>
+                        <if condition="$cha elt 0">
+                        您的余额太少，赶快去充值一点吧！~~
+                        </IF>
+                    <else/>
+                        抱歉，您当前没有余额，请先<a class="myInfor_sx myInfor_sx_fk" href="<{:U('money/money')}>"> 充值</a>
+                    </if>
+                    
+				</div>
+                <div class="password_input">
+					<div class="left">输入对方手机号</div>
+					<div class="lef">
+						<input type="text" name="mobile" id="mobile" class="cjinput"  />
+                        <a class="myInfor_sx myInfor_sx_fk"  id="check-nick"> 检测账户</a>
+                        <span id="user_data"></span>
+					</div>
+				</div>
+                
+                <div class="password_input">
+					<div class="left">输入转账金额</div>
+					<div class="lef">
+						<input type="text" name="money" class="cjinput"  />
+					</div>
+				</div>
+                
+                
+                <div class="password_input email_rz">
+                <div class="left">输入手机验证码：</div>
+                <div class="lef">
+                    <input type="button" class="email_lkrz"  id="jq_send" value="获取验证码"/>
+                    <input class="oldPassw" style="width: 100px;" name="yzm" id="yzm" type="text" />
+                    <code style="margin-left: 20px;">请输入6位手机验证码</code>
+                    <if condition="!empty($mobile)">
+                        <php>$mobile = substr_replace($MEMBER['mobile'],'****',3,4);</php>
+                    	当前绑定的手机号：<{$mobile}>
+                    <else/>
+                        抱歉，请先 <a class="myInfor_sx myInfor_sx_fk" href="<{:U('set/mobile')}>"> 绑定手机号</a>
+                    </if>
+                </div>   
+            </div>
+            
+				
+				<div class="password_subm">
+					<input  id="check-form"  class="submit" type="submit" value="立刻转账" />
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+</div>
+
+<script>
+	$(document).ready(function () {
+		$("#check-nick").click(function () {
+			var mobile = $("#mobile").val();
+			var page = "/members/money/check_mobile/mobile/"+mobile+".html";
+			if(mobile=="" || mobile=="请输入手机号"){
+				layer.msg("手机号不能为空！",{icon:2});
+				$("#status").val("0");
+			}else{
+				$.get(page, function (data) {
+					if(data == "0"){
+						layer.msg("检测到对方账户不合法！",{icon:2});
+						$("#user_data").html( "" );
+						$('#check-form').removeClass("active");
+						$("#status").val("0");
+					}else{
+						layer.msg("可以转账到该用户！",{icon:1});
+						$("#user_data").html(data);
+						$('#check-form').addClass("active");
+						$("#status").val("1");
+					}
+				
+				}, 'html')
+			}
+		});
+
+		$("#check-form").click(function () {
+			var status = $("#status").val();
+			if( status == '0'){
+				layer.msg("手机没有检测通过！",{icon:2});
+			}else{
+				$("#nick-form").submit();
+			}
+		});
+	});
+</script>
+
+<script type="text/javascript">
+        var mobile_timeout;
+        var mobile_count = 100;
+        var mobile_lock = 0;
+		var user_mobile = "<{$MEMBER['mobile']}>";
+         $(function () {
+            $("#jq_send").click(function () {
+                if (mobile_lock == 0) {
+                    mobile_lock = 1;
+					if(user_mobile=="" || user_mobile==0){
+						layer.msg('对不起，您还没绑定手机号，请绑定后重试', function(){
+							setTimeout(function () {
+							   window.location.href = "<{:U('set/mobile')}>";
+							}, 1000);
+						});
+						exit;//如果没绑定手机，不执行下面的代码
+					}else{
+						$.post("<{:U('money/sendsms')}>",{mobile:user_mobile},function(data){
+							if(data.status == 'success'){
+								mobile_count = 60;
+								layer.msg(data.msg,{icon:1});
+								BtnCount();
+							}else{
+								mobile_lock = 0;
+								layer.msg(data.msg,{icon:2});
+							}
+						},'json');
+					}
+                }
+            });
+        });
+        BtnCount = function () {
+            if (mobile_count == 0) {
+                $('#jq_send').val("重新发送");
+                mobile_lock = 0;
+                clearTimeout(mobile_timeout);
+            }
+            else {
+                mobile_count--;
+                $('#jq_send').val("重新发送(" + mobile_count.toString() + ")秒");
+                mobile_timeout = setTimeout(BtnCount, 1000);
+            }
+        };
+    </script>
+<include file="public:footer"/> 

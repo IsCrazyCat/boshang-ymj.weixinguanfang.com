@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+    <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+    <meta content="no-cache" http-equiv="pragma">
+    <meta content="0" http-equiv="expires">
+    <meta content="telephone=no, address=no" name="format-detection">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<title><{$reply.title}>-<{$CONFIG.site.title}>微信平台</title>
+	<meta name="author" content="IJH.CC" />
+	<meta name="keywords" content="" />
+	<meta name="description" content="<{$reply.intro}>" />
+	<link href="/themes/default/weixin/static/style/wechat.css" rel="stylesheet" type="text/css">
+	<link href="/themes/default/weixin/static/style/reply.css" rel="stylesheet" type="text/css">
+</head>
+<body id="weisite">
+<div class="container">
+    <div class="detail top_line">
+    	<h6 class="title"><{$reply.title}></h6>
+        <p class="info"><span class="colorless"><{$reply.dateline|format}></span></p>
+        <section class="content">
+			<{if $relpy.photo}><p><img src="<{$pager.img}>/<{$reply.photo}>"/></p><{/if}>
+			<{$reply.content}>
+        </section>
+    </div>
+</div>
+<div class="bottom_nav_blank"/>
+</body>
+</html>

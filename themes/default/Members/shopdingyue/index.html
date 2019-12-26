@@ -1,0 +1,272 @@
+<include file="public:header"/>
+<div class="content_right">  
+    <div class="tgdd">   
+    
+     <div class="tgdd_t password_t">
+        <ul>
+            <li><a href="<{:U('life/index')}>">分类信息列表</a></li>
+            <li><a href="<{:U('shopdingyue/base')}>">订阅设置</a></li>
+            <li class="on"><a href="<{:U('shopdingyue/index')}>">我的订阅</a></li>
+            <li><a href="<{:U('sms/index')}>">购买短信</a></li>
+            <li><a href="<{:U('money/money')}>">余额充值</a></li>
+            <a style="display: inline-block; float: right; margin-right: 10px;" class="myInfor_sx" href="<{:u('home/life/fabu')}>">发布信息</a>
+        </ul>
+    </div>
+    
+    
+         
+        <form method="post" action="<{:U('shopdingyue/index')}>" >
+            <div class="password_nr">               
+                <div class="password_input">                    
+                    <div class="left">分类</div>
+                    <div class="lef select_box">
+                        <select id="channel_id" name="channel_id" class="selecttop">
+                            <option value="0">请选择...</option>               
+                            <foreach name="chanel" item="var">
+                                <option value="<{$key}>"><{$var}></option>    
+                            </foreach>                                         
+                        </select>   
+                    </div> 
+                    <div class="lef select_box">
+                    <select name="cate_id"  id="cate_id" class="cate_twotwo">
+                        <option value="0">请选择...</option>          
+                    </select>
+                    </div>   
+                    <br/><br/>   <br/>                     
+                    <div id="attr_id" >                        
+                    </div> 
+                                      
+                    <div class="left" style="padding-left: 30px;">审核状态</div>
+                    <div class="lef select_box">
+                    <select id="audit" name="audit">
+                        <option value="0">请选择...</option>
+                        <option value="1">通过</option>
+                        <option value="-1">未通过</option>
+                        <option value=":0">审核中</option>
+                    </select>
+                    </div>
+
+                <input class="submit" type="submit" value="筛选" style="width: 100px;height: 30px; font-size: 14px;float: right;"/>            
+                </div>     
+            </div>
+        </form>       
+    </div>
+<script type="text/javascript">
+
+$("#channel_id").change(function(){
+        var value = $(this).val();  
+        $.ajax({
+            type:"POST",
+            dataType:"JSON",
+            url:'<{:U("Shopdingyue/catajax")}>',
+            data:{"channel_id":value
+
+                 },           
+            success:function(data){
+                $("#cate_id").empty();
+                var count = data.length;
+                var i = 0;
+                var b="";
+                    b=" <option value='0'>请选择...</option>"
+                   for(i=0;i<count;i++){
+                       b+="<option value='"+data[i].cate_id+"'>"+data[i].cate_name+"</option>";
+                   }
+                $("#cate_id").append(b);
+            }
+        });
+   });
+
+$("#cate_id").change(function(){
+        var value = $(this).val();  
+        $.ajax({
+            type:"POST",
+            dataType:"JSON",
+            url:'<{:U("Shopdingyue/attrajax")}>',
+            data:{"cate_id":value
+                 },           
+            success:function(data){
+                $("#attr_id").empty();
+                var count = data.attr.length;
+                var num = data.select.length;               
+                var i = 0;
+                var b1="",b2="",b3="",b4="",b5="";     
+                var g1=0,g2=0,g3=0,g4=0,g5=0;
+                var n=0,gg1=0,gg2=0,gg3=0,gg4=0,gg5=0;             
+                for(n=0;n<count;n++){
+                     switch (data.attr[n].type) {
+                      case 'select1':  gg1+=1;
+                      break; 
+                      case 'select2':  gg2+=1;
+                      break; 
+                      case 'select3':  gg3+=1;
+                      break; 
+                      case 'select4':  gg4+=1;
+                      break; 
+                      case 'select5':  gg5+=1;
+                      break; 
+                    }
+                }
+                   for(i=0;i<count;i++){
+                      switch (data.attr[i].type) {
+                      case 'select1':                        
+                        if (g1<1) {
+                            b1+="<span style='font-size:14px;padding-left:40px;'>"+data.select[0].select1+":&nbsp;&nbsp;&nbsp;</span>";
+                        }
+                        g1=g1+1;
+                        b1+= "<input type='checkbox' name='"+data.attr[i].type+"[]"+"' value='"+data.attr[i].attr_id+"'/>"+"<span style='font-size:14px;'>"+data.attr[i].attr_name+"</span>&nbsp;&nbsp;&nbsp;"; 
+                        if (gg1==g1) {
+                            b1+="<br/><br/>"
+                        }
+                        break;
+                      case 'select2':
+                        if (g2<1) {
+                           b2+="<span style='font-size:14px;padding-left:40px;'>"+data.select[0].select2+": &nbsp;&nbsp;&nbsp; </span>";
+                        }
+                        g2=g2+1;
+                         b2+="<input type='checkbox' name='"+data.attr[i].type+"[]"+"' value='"+data.attr[i].attr_id+"' />"+"<span style='font-size:14px;'>"+data.attr[i].attr_name+"</span>&nbsp;&nbsp;&nbsp;";  
+                        if (gg2==g2) {
+                            b2+="<br/><br/>"
+                        }
+                        break;
+                      case 'select3': 
+                        if (g3<1) {
+                           b3+="<span style='font-size:14px;padding-left:40px;'>"+data.select[0].select3+": &nbsp;&nbsp;&nbsp; </span>";
+                        }
+                        g3=g3+1;
+                        b3+= "<input type='checkbox' name='"+data.attr[i].type+"[]"+"' value='"+data.attr[i].attr_id+"' />"+"<span style='font-size:14px;'>"+data.attr[i].attr_name+"</span>&nbsp;&nbsp;&nbsp;"; 
+                        if (gg3==g3) {
+                            b3+="<br/><br/>"
+                        }
+                        break;
+                      case 'select4':
+                        if (g4<1) {
+                           b4+="<span style='font-size:14px;padding-left:40px;'>"+data.select[0].select4+": &nbsp;&nbsp;&nbsp; </span>";
+                        }
+                        g4=g4+1; 
+                         b4+= "<input type='checkbox' name='"+data.attr[i].type+"[]"+"' value='"+data.attr[i].attr_id+"' />"+"<span style='font-size:14px;'>"+data.attr[i].attr_name+"&nbsp;&nbsp;&nbsp;</span>"; 
+                         if (gg4==g4) {
+                            b4+="<br/><br/>"
+                        }
+                        break;
+                      case 'select5': 
+                         if (g5<1) {
+                           b5+="<span style='font-size:14px;padding-left:40px;'>"+data.select[0].select5+": &nbsp;&nbsp;&nbsp; </span>";
+                        }
+                        g5=g5+1;
+                         b5+= "<input type='checkbox' name='"+data.attr[i].type+"[]"+"' value='"+data.attr[i].attr_id+"' />"+"<span style='font-size:14px;'>"+data.attr[i].attr_name+"&nbsp;&nbsp;&nbsp;</span>"; 
+                         if (gg5==g5) {
+                            b5+="<br/><br/>"
+                        }
+                        break;
+                      default: 
+                         b+= "<input type='checkbox' name='"+data.attr[i].type+"[]"+"' value='"+data.attr[i].attr_id+"' />"+data.attr[i].attr_name; 
+                        break;
+                    }                     
+                                        
+                   }
+                   b=b1+b2+b3+b4+b5;
+                $("#attr_id").append(b);
+            }
+        });
+   });
+
+</script>
+<div class="tgdd_nr">
+    <table border="0" cellspacing="0" width="100%"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; text-align:center;">
+        <tr class="tgdd_nrt">
+            <th width="5%">订阅id</th>
+            <th>地址</th>
+            <th>分类</th>
+             <th>分类详情</th>
+            <th>审核状态</th>
+            <th>短信提醒</th>
+            <th>操作</th>
+        </tr>
+        <foreach name="list" item="list">                
+            <tr class="tgdd_nrC">
+                <td class="tgdd_tdtw"><div class="tgdd_tw">
+                       <{$list.dingyue_id}></td>
+               
+                <td class="tgdd_nrCtd" id="price-color">
+
+                <foreach name="list['sitelist']" item="s">   
+                    <{$s}>  &nbsp;&nbsp;
+                </foreach>
+                </td>
+                <td class="tgdd_nrCtd" id="price-color">
+                     <foreach name="list['catlist']" item="c">  
+                     <{$c}>&nbsp;&nbsp;
+                     </foreach>
+                </td>
+                 <td class="tgdd_nrCtd" id="price-color">
+                     <foreach name="list['select1']" item="s1">  
+                     <{$s1}>&nbsp;&nbsp;
+                     </foreach><br/>
+                     <foreach name="list['select2']" item="s2">  
+                     <{$s2}>&nbsp;&nbsp;
+                     </foreach><br/>
+                     <foreach name="list['select3']" item="s3">  
+                     <{$s3}>&nbsp;&nbsp;
+                     </foreach><br/>
+                     <foreach name="list['select4']" item="s4">  
+                     <{$s4}>&nbsp;&nbsp;
+                     </foreach><br/>
+                     <foreach name="list['select5']" item="s5">  
+                     <{$s5}>&nbsp;&nbsp;
+                     </foreach><br/>
+
+                </td>
+                <if condition="$list.audit eq 1"> 
+                <td>通过</td>
+                <elseif condition="$list.audit eq 0"/>
+                <td>审核中</td>
+                <elseif condition="$list.audit eq -1"/>
+                <td>审核失败</td>
+                <else /> 
+                <td>未审核</td>
+                </if>
+                
+                <if condition="$list.sms eq 1"> 
+                <td> 
+                <div style="cursor: pointer;" id="sms_open<{$list.dingyue_id}>">开</div>
+                </td>
+                <elseif condition="$list.sms eq -1"/>
+                <td><div style="cursor: pointer;" id="sms_open<{$list.dingyue_id}>">关</div></td>
+                <else /> 
+                <td>未设置</td>
+                </if>
+                 <script type="text/javascript">
+                    $("#sms_open<{$list.dingyue_id}>").click(function(){
+                            var sms ="<{$list.sms}>";
+                            var id="<{$list.dingyue_id}>";
+                            var urla="<{:U('shopdingyue/sms_open')}>";
+                            $.ajax({
+                                type:"post",
+                                dataType:"json",
+                                url:urla,
+                                data:{"sms":sms,
+                                      "dingyue_id":id
+                                    },
+                                success:function(response){
+                                     if (response.status == 1) {
+                                        var sms=response.sms;
+                                        $("#sms_open<{$list.dingyue_id}>").html(sms);
+                                     }else{
+                                        alert('不能双击开关！请刷新页面');
+                                     }
+                                    
+                                }
+                        });
+                     });
+                </script>
+
+                <td class="tgdd_nrCtd"><a href="<{:U('shopdingyue/del',array('dingyue_id'=>$list['dingyue_id']))}>">删除</a></td>
+            </tr>
+        </foreach>
+    </table>
+    <div class='x'><{$page}></div>
+     </div>
+</div>
+<include file="public:footer"/>
+
+

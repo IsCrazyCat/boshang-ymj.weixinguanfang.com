@@ -1,0 +1,120 @@
+
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">频道</li>
+        <li class="li2">资金记录</li>
+        <li class="li2 li3">资金列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>这里查询的是物业资金。</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none; padding-bottom: 0px;">
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('logs/index')}>"> 
+                    <div class="seleHidden" id="seleHidden">
+                        <div class="seleK"> 
+                            <label>
+                            <span>小区</span>
+                            <input type="hidden" id="community_id" name="community_id" value="<{$community_id|default=''}>"/>
+                            <input type="text"   id="name" name="name" value="<{$name}>" class="text w150" />
+                            <a style="margin-right: 5px;"  href="<{:U('logs/select')}>" mini='select' w='800' h='600' class="sumit">选择小区</a>
+                        </label>
+                            <label>
+                                <span>类型</span>
+                                <select name="type" class="select w100">
+                                    <option value="999">请选择</option>
+                                    <foreach name="types" key="key" item="item">
+                                        <option <eq name="type" value="$key">selected="selected"</eq>  value="<{$key}>"><{$item}></option>
+                                    </foreach>
+                                </select>
+                            </label>
+                            <label>
+                                <span>户号</span>
+                                <input type="text" name="number" value="<{$number}>" class="inptText" />
+
+                                <input type="submit" value="   搜索"  class="inptButton" />
+                            </label>
+                        </div>
+                    </div> 
+                </form>
+                <a href="javascript:void(0);" class="searchG">高级搜索</a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form method="post" action="<{:U('logs/index')}>">
+            <div class="selectNr selectNr2">
+                <div class="left">
+                    <div class="seleK">
+                        <label>
+                            <span>商家</span>
+                            <input type="hidden" id="community_id" name="community_id" value="<{$community_id|default=''}>"/>
+                            <input type="text"   id="name" name="name" value="<{$name}>" class="text w150" />
+                            <a style="margin-right: 5px;"  href="<{:U('logs/select')}>" mini='select' w='800' h='600' class="sumit">选择小区</a>
+                        </label>
+                        <label>
+                            <span>类型</span>
+                            <select name="type" class="select w80">
+                                <option value="999">请选择</option>
+                                <foreach name="types" key="key" item="item">
+                                    <option <eq name="type" value="$key">selected="selected"</eq>  value="<{$key}>"><{$item}></option>
+                                </foreach>
+
+                            </select>
+                        </label>
+                        <label>
+                            <span>开始时间</span>
+                            <input type="text" name="bg_date" value="<{$bg_date|default=''}>"  onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w150" />
+                        </label>
+                        <label>
+                            <span>结束时间</span>
+                            <input type="text" name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w150" />
+                        </label>
+                        <label>
+                            <span>户号</span>
+                            <input type="text" name="number" value="<{$number}>" class="inptText w100" />
+                        </label>
+                    </div>
+                </div>
+                <div class="right">
+                    <input type="submit" value="   搜索"  class="inptButton" />
+                </div>
+                <div class="clear"></div>
+            </div>
+        </form>
+        <div class="tableBox">
+
+            <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="log_id" /></td>
+                        <td class="w50">ID</td>
+                        <td>小区</td>
+                        <td>用户</td>
+                        <td>类型</td>
+                        <td>金额(单位：元)</td>
+                        <td>日志时间</td>
+                    </tr>
+                    <tr>
+                        <td colspan="7">总计：<{:round($sum/100,2)}>元</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_log_id" type="checkbox" name="log_id[]" value="<{$var.log_id}>" /> </td>
+                            <td><{$var.log_id}></td>
+                            <td><{$communitys[$var['community_id']]['name']}></td>
+                            <td><{$users[$var['user_id']]['nickname']}></td>
+                            <td><{$types[$var['type']]}></td>
+                            <td><eq name="var.money" value="0"><a style="color:#F00">物业管理员设置为已缴费</a><else/><{:round($var['money']/100,2)}></eq></td>
+                            <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+        </form>
+        </div>
+        <include  file='public:footer'/>       

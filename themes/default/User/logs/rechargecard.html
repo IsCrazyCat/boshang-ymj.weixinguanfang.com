@@ -1,0 +1,52 @@
+<include  file='public:header'/>   
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:u('member/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			代金券日志
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+
+<!-- 筛选TAB -->
+<style>
+ul{ padding-left:0px;}
+.table {margin-top: 2.2rem;}
+</style>
+<ul id="shangjia_tab">
+		<li class="x4"><a href="<{:u('logs/integral')}>">积分日志</a></li>
+        <li class="x4"><a href="<{:u('logs/moneylogs')}>" >余额日志</a></li>
+        <li class="x4"><a href="<{:u('logs/rechargecard')}>" class="on">代金券日志</a></li>
+</ul>
+
+
+
+
+<table class="table">
+	<tr>
+		<th>卡名</th>
+		<th>卡密</th>
+		<th>余额</th>
+        <th>使用时间</th>
+        <th>过期时间</th>
+	</tr> 
+	<foreach name="list" item="var">
+	<tr>
+		<td><{$var.name}></td>
+		<td><{$var.card_key}></td>
+		<td><{:round($var['value']/100,2)}></td>
+        <td> <{$var.used_time|date='Y-m-d H:i:s',###}></td>
+        <td><{$var.end_date}> </td>
+	</tr>
+	 </foreach>                  
+</table>
+<div class="blank-10 bg"></div>
+<div class="container login-open">
+<h5 style="text-align:center"><{$page}><!--分页代码不要忘记加--> </h5>
+<div class="blank-20"></div>
+</div>
+
+<include file='public:footer'/>   

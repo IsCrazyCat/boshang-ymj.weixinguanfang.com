@@ -1,0 +1,11 @@
+<foreach name="list" item="item">
+	<a class="item" href="<{:U('hotels/detail',array('hotel_id'=>$item['hotel_id']))}>">	
+		<img class="pic" src="<{:config_img($item['photo'])}>">	
+		<div class="des">	
+			<h5><{:bao_msubstr($item['hotel_name'],0,9,false)}><span class="distance"><{$item.d}></span></h5>
+            <php>$s = round($item['score']/$item['comments'],1);$sc = $s*20;</php>
+            <span class="addr">评分：<{$s}>分 &nbsp;&nbsp;&nbsp;<{$cates[$item['cate_id']]}></span>
+			<span class="addr">	地址：<{$item['addr']}></span>
+		</div>	
+	</a>
+</foreach>

@@ -1,0 +1,18 @@
+<include  file='public:header'/>   
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		资金记录
+	</div>
+</header>
+<style>
+.container, .container-layout {padding: 5px;}
+</style>
+
+<div class="container">
+		<div class="blank-10"></div>
+		<p><span class="text-dot">您的跑腿总收入：</span> &yen; <{:round($user_delivery_count_money/100,2)}>元</p>
+</div>
+<include  file='public:footer'/>

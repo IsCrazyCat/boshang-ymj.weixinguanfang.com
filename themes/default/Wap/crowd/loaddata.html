@@ -1,0 +1,14 @@
+<foreach name="list" item="item">
+  <li class="line" onclick="location='<{:U('crowd/detail',array('goods_id'=>$item['goods_id']))}>'">	
+    <div class="x4 detail-base">
+    <img src="<{:config_img($item['photo'])}>">
+    </div>
+		<div class="x8">	
+			<h5><{:bao_msubstr($item['title'],0,32,false)}></h5>
+            <div class="yiyuan_progres"><span class="yiyuan_progres_bar" style="width:<{$item['have_price']/$item['all_price']*100|ceil}>%;"></span></div>
+			<p class="addr">项目进度：<{$item['have_price']/$item['all_price']*100|ceil}>% &nbsp;&nbsp;剩余天数<{$item['crowd_time']}></p>
+            <p class="addr">已集金额：&yen;<{$item['have_price']/100}>&nbsp;&nbsp;&nbsp;&nbsp;筹集金额：&yen;<{$item['all_price']/100}></p>
+		</div>
+  </li>
+<div class="blank-10 bg"></div>
+</foreach>

@@ -1,0 +1,96 @@
+<include file="public:header_baocms"/>
+
+<body>
+<?php if(!$is_app){?>
+<header>
+    <a href="<{:U('farm/detail',array('farm_id'=>$order['farm_id']))}>"><i class="icon-goback"></i></a>
+    <div class="title">订单详情</div>
+    <i class="icon-menu3"></i>
+</header>
+<?php }?>
+<div id='seat' class="page-center-box">
+    <form action="<{:U('farm/pay2',array('order_id'=>$order['order_id']))}>" method="post">
+	<!--头部状态-->
+    <div class="seatOrd_state mb10">
+        <div class="state"><em class="ico ico_1 fl"></em>
+            <div class="pub_wz">
+                <p class="font_size14 font_line24 fontcl2">等待支付</p>
+                <p class="black9">请尽快完成付款</p>
+            </div>
+        </div>
+        <div class="progress">
+            <ul>
+                <li class="list">
+                    <em class="ico"></em>
+                    <p class="font_size14">提交成功</p>
+                    <p><{$order.create_time|date='H:i:s',###}></p>
+                </li>
+                <li class="list on">
+                    <em class="ico"></em>
+                    <p class="font_size14">等待支付</p>
+                    <p><php>echo date('H:i:s',time());</php></p>
+                </li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <!--头部状态end-->
+    <!--订单详情-->
+    <div class="seatOrd_detl border_b">
+    	<div class="title border_t border_b"><{$f.title}></div>
+        <div class="nr">
+            <p>到店时间：<{$order.gotime|date='Y-m-d H:i:s',###}></p>
+            <p>选择套餐：<{$f.title}></p>
+            <p>联系人：<{$order.name}></p>
+            <p>手机号：<{$order.mobile}></p>
+            <p>价格：<{$order.amount}>元</p>
+        </div>
+    </div>
+
+    <div id="seat" style="position:relative; top:inherit; bottom:inherit;">
+        <div class="pay">
+            <div class="wap-form border_b">
+                <?php if($is_android){ ?>
+                   <ul>
+                       <l<i>支付方式</li>
+                       <foreach name="payment" item="var">
+                           <li class="pay-li i-<{$var.payment_id}>">
+                               <label>  <input type="radio"  name="code" value="<{$var.code}>" > <{$var.name}></label>
+                           </li>
+                       </foreach>
+                   </ul>
+
+                   <?php }else{?>
+                   <script>
+                       $(function () {
+                           $(".seat-check input").click(function () {
+                               $(".seat-check").find("label").removeClass("on");
+                               $(this).parent("label").addClass("on");
+                           });
+                       });
+                   </script>
+                   <ul>
+                       <li>支付方式</li>
+
+                       <foreach name="payment" item="var">
+                           <li class="pay-li i-<{$var.payment_id}>">
+                               <{$var.name}><p>推荐已安装<{$var.name}><{$var.id}>客户端的用户使用</p><div class="seat-check"><label><input type="radio" class="ui-radio" name="code" value="<{$var.code}>" ></label></div>
+                           </li>
+                       </foreach>
+                   </ul>
+                   <?php  }?>
+            </div>
+        </div>
+    </div>
+    
+    <!--订单详情end-->
+    <div class="seatOrd_btn_box">
+    	<input type="button" value="取消订单" class="pub_btn graybg">
+        <input type="submit" value="立即付款" class="pub_btn bgcl1">
+    </div>
+    </form>
+</div> 
+
+
+</body>
+</html>

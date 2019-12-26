@@ -1,0 +1,42 @@
+<include file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="">粉丝</a>><a href="<{:U('fans/index')}>">粉丝列表</a>><a>增加积分</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+	<div class="radius5 tuan_top">
+        <div class="tuan_top_t tuanfabu_top">
+            <div class="left tuan_topser_l">注意：亲，您给粉丝所加的积分必须不大于自己的积分额！</div>
+        </div>
+    </div>
+
+    <form method="post" target="baocms_frm" action="<{:U('fans/add',array('user_id'=>$user['user_id']))}>">
+		
+    	<table class="tuanfabu_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+			<tr>
+                <td><p class="tuanfabu_t"><{$shop['shop_name']}>积分</td>
+                <td><div class="tuanfabu_nr"><input type="text" disabled="disabled"  class="tuanfabu_int tuanfabu_intw2" value="<{$jifen}>"/></div></td>
+            </tr>
+            <tr>
+                <td><p class="tuanfabu_t">用户名</td>
+                <td><div class="tuanfabu_nr"><input type="text" disabled="disabled"  class="tuanfabu_int tuanfabu_intw2" value="<{$user['nickname']}>"/></div></td>
+            </tr>
+			<tr>
+                <td><p class="tuanfabu_t">用户积分</td>
+                <td><div class="tuanfabu_nr"><input type="text" disabled="disabled"  class="tuanfabu_int tuanfabu_intw2" value="<{$user['integral']}>"/></div></td>
+            </tr>
+			<tr>
+                <td><p class="tuanfabu_t">赠送积分</td>
+                <td><div class="tuanfabu_nr"><input type="text" style="width:100px;" class="tuanfabu_int tuanfabu_intw2"name="integral"/></div></td>
+            </tr>
+        </table>
+        <div class="tuanfabu_an"><input type="submit" class="radius3 sjgl_an tuan_topbt" value="确认赠送"></div>
+ 
+    </form>
+    
+    <div class="paging">
+        <{$page}>
+    </div>
+</div>
+<include file='public:footer'/>

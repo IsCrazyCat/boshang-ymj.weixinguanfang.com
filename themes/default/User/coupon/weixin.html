@@ -1,0 +1,38 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('coupon/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			我的优惠券
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+<style>
+.padding-large {padding:5px 20px;}
+</style>
+<php>$shop= D('Shop')->find($detail['shop_id']);</php>
+<div class="container">
+	<div class="padding-large">
+            <img width="100%" src="__ROOT__/attachs/<{$file}>" />
+            <p>
+                1：可以到<{$shop['shop_name']}>购物享受优惠。<br/>
+                2：到店消费的时候出示二维码。
+            </p>
+	</div>
+</div>
+
+
+<div class="container text-center">
+    <a class="button button-block button-big bg-dot margin-bottom" href="<{:U('wap/shop/goods',array('shop_id'=>$detail['shop_id']))}>">去商家购物消费</a>   
+    <a class="button button-block button-big bg-blue margin-bottom" href="<{:U('coupon/give',array('download_id'=>$detail['download_id']))}>">赠送给朋友</a>  
+    <if condition="$detail['is_sms'] eq 0">      
+       <a class="button button-block button-big bg-yellow margin-bottom" href="<{:U('coupon/sms',array('download_id'=>$detail['download_id']))}>">发送短信到手机</a> 
+    <else/>
+       <a class="button button-block button-big bg-gray margin-bottom" href="Javascript: void(0)">已发送</a>
+    </if>
+    
+</div>
+<include  file='public:footer'/>

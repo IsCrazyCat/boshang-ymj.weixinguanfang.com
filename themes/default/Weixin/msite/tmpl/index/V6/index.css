@@ -1,0 +1,30 @@
+@charset "utf-8";
+/* CSS Document by jacy use in weisite */
+.container{ background:#f5f5f5;}
+header{ text-align:center}
+.banner{ width:100%; overflow:hidden; position:relative;}
+.banner ul{ position:absolute; left:0; top:0; z-index:10; margin:0;}
+.banner ul li{ float:left; display:table-cell; position:relative}
+.banner li a{ width:100%; height:100%; display:block;}
+.banner li .title{background-color:RGBA(0,0,0,.5); height:30px; color:#fff; line-height:30px; padding-left:10px; position:absolute; left:0; bottom:0; width:100%; z-index:1000;}
+.identify{text-align:left; position:absolute; bottom:0; left:0; z-index:100; width:100%; height:30px;}
+.identify em{ display:inline-block; margin:10px;-webkit-border-radius: 6px;-moz-border-radius: 6px;
+border-radius: 6px;margin-left: 5px;width: 12px;height: 12px;background: #fff;}
+.identify em.cur{ background-color:#e32f0c}
+.identify span.pointer{ float:right; margin-right:10px;}
+.navBox{ text-align:center; margin:10px 0px; background:#fff; border-top:1px solid #e9e9e9;border-bottom:1px solid #e9e9e9; overflow:hidden; padding:20px 0px;}
+.navBox .item{ width:25%; float:left; color:#333; font-size:13px; border-top:0.025rem solid #ef5858;}
+.navBox .item .icon{ margin:10px auto; display:block; width:35px; height:35px; padding:15px; border-radius:50px;}
+.navBox .item img{ width:35px; height:35px; background-size:35px 35px;}
+.articleIn { margin-bottom:10px;}
+.articleIn li a{ display:block; overflow:hidden; color:#333;}
+.articleIn li .ui-list-img{ width:50px; height:50px; float:left;}
+.articleIn li .ui-list-img span{ background:url(apollo.jpg) no-repeat; background-size:50px 50px;}
+.articleIn li .ui-list-info p{ color:#999; font-size:14px;}
+.list_case{ background:#fff;}
+.list_case .title{ height:42px; line-height:42px; overflow:hidden; padding:0px 1em; border-bottom:1px solid #e9e9e9;border-top:1px solid #e9e9e9;}
+.list_case .title span{ float:left;}
+.list_case .title a{ float:right; font-size:14px; color:#666;}
+.list_case .title a i{ display:inline-block; width:1em; height:1em; background:url(more.jpg) no-repeat; vertical-align:middle; margin-left:3px; background-size:1em 1em;}
+.caseBox .ui-grid-halve-img{ padding-top:100%;}
+.caseBox .ui-grid-halve-img h4{ padding:0px 2%; position:absolute; bottom:0px; left:0px; width:96%; height:30px; line-height:30px; background:rgba(0,0,0,0.8); color:#fff;}

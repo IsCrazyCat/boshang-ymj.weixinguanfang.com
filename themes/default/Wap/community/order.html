@@ -1,0 +1,209 @@
+<include file='public:header'/>  
+<style>
+.top-fixed .top-share a { width: 80px !important;}
+body { background: #fafafa !important;}
+ul {padding-left: 0px !important;}
+</style>  
+<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:u('community/detail',array('community_id'=>$detail['community_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			生活缴费
+		</div>
+		<div class="top-share">
+			<a href="javascript:void(0);" id="cate-btn" class="icon-chevron-down"> <{$order_date}></a></a>
+		</div>
+	</header>
+	
+    <div class="serch-bar-mask" id="cate_menu" style="display:none;top:50px;">
+		<div class="serch-bar-mask-list">
+			<ul>                
+            <foreach name="days" item="item">   
+            <li><a <if condition="$item['item'] eq $item">class="on"</if> href="<{:u('community/order',array('community_id'=>$detail['community_id'],'order_date'=>$item))}>"><{$item}></a></li>
+            </foreach>
+			</ul>
+		</div>
+	</div>
+    
+    
+    
+	<script>
+		$(document).ready(function () {
+			$("#cate-btn").click(function () {
+				$("#cate_menu").toggle();
+			});
+			
+			$("#cate_menu ul li a").click(function () {
+				$("#cate_menu").toggle();
+			});
+
+		});
+	</script>
+
+
+
+<div id="" class="page-center-box">
+        <div id="scroll">
+            <div class="paymentList_box mt10">
+                <ul>
+                    <form method="post" id="payform">
+                        <input type="hidden" name="community_id" value="<{$detail.community_id}>">
+                        <input type="hidden" class="total" name="total" value="">
+                        <input type="hidden" name="order_date" value="<{$order_date}>">
+                        <if condition="!empty($products)">
+                            <foreach name="products" item="item">
+                                <li class="paymentList"  <if condition="$item['money'] eq 0"> style="background:#f1f1f1;" </if>>
+                                    <label>
+                                        <div class="left nr">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                    <th>缴费类型</th>
+                                                    <td><{$item.type_name}> 
+                                                    <if condition="$item['money'] eq 0">
+                                                     <a style="color:#F00">(暂无)</a>
+                                                    <else/>
+                                                    </if>
+                                                    
+                                                    
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>账单日期</th>
+                                                    <td>
+                                                    <if condition="!empty($item['end_date'])">
+                                                    <{$item.bg_date}>至<{$item.end_date}>
+                                                    <else/>
+                                                    管理员未设置日期
+                                                    </if>
+                                                    
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <th>缴费金额</th>
+                                                    <td>
+                                                    <if condition="$item['money'] eq 0">
+                                                    此次账单暂时无费用
+                                                    <else/>
+                                                    <span class="price fontcl1"><{:round($item['money']/100,2)}>元</span>
+                                                    </if>
+                                                    
+                                                    
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="right">
+                                        <eq name="item.is_pay" value="1">
+                                        <span class="paidIco"></span>
+                                        <else/>
+                                        
+                                        <if condition="$item['money'] eq 0">
+                                        <else/>
+                                        <div class="paymentList1">
+                                        <span rel="<{:round($item['money']/100,2)}>" class="checkInt"><input type="hidden" name="type[<{$item['type']}>]" value=""/><input type="checkbox" /></span></div>
+                                        </if>
+                                        
+                                        </eq>
+                                        
+                                        </div>
+                                        <div class="clear"></div>
+                                    </label>
+                                </li>
+                            </foreach>
+                            <else/>
+                            <p style="height: 2.3rem; line-height: 2.3rem; padding: 2.2rem 0rem; text-align: center;">暂无未缴费用</p>
+                        </if>
+                    </form>
+                </ul>
+            </div>
+            <div class="paymentAll"><a href="javascript:void(0);" class="btn">一键缴费</a></div>
+        </div>
+    </div>
+    
+<div class="blank-40"></div>
+<div class="blank-20"></div>
+
+
+
+ <script>
+        function total(money) {
+            if (money > 0) {
+                $(".paymentPrice .right").find("a").addClass("order_pay");
+            } else {
+                $(".paymentPrice .right").find("a").removeClass("order_pay");
+            }
+        }
+
+        $(document).ready(function () {
+            var money = 0;
+            $(".paymentAll").click(function () {
+                money = 0;
+                $(".checkInt").each(function () {
+                    if ($(this).find(".checkInt").hasClass("on")) {
+                        money += 0;
+                    } else {
+                        money += parseFloat($(this).attr('rel'));
+                        $(this).find("input[type='hidden']").val(parseFloat($(this).attr('rel')).toFixed(2));
+                    }
+                });
+                $(".checkInt").addClass("on");
+                total(money);
+                $(".ml25").html(money.toFixed(2) + '元');
+                $(".total").val(money.toFixed(2));
+            });
+
+            $(".paymentList1").click(function (e) {
+                if ($(this).find(".checkInt").hasClass("on")) {
+                    $(this).find("input[type='hidden']").val(0);
+                    money -= parseFloat($(this).find(".checkInt").attr('rel'));
+                    $(this).find(".checkInt").removeClass("on");
+                }
+                else {
+                    $(this).find("input[type='hidden']").val(parseFloat($(this).find(".checkInt").attr('rel')).toFixed(2));
+                    money += parseFloat($(this).find(".checkInt").attr('rel'));
+                    $(this).find(".checkInt").addClass("on");
+                }
+                $(".ml25").html(money.toFixed(2) + '元');
+                total(money);
+                $(".total").val(money.toFixed(2));
+            });
+
+
+            $(".monthChoice").click(function () {
+                $(".monthChoice_pull").slideToggle();
+            });
+
+            $(".paymentPrice").on('click', '.order_pay', function () {
+                var url = "<{:u('community/orderpay')}>";
+                var type = $("#payform").serialize();
+                $.post(url, type, function (data) {
+                    if (data.status == 'login') {
+                        layer.msg(data.msg, function () {
+                            setTimeout(function () {
+                                window.location.href = "<{:u('wap/passport/login')}>";
+                            }, 1000)
+                        });
+                    } else if (data.status == 'success') {
+                        layer.msg(data.msg, function () {
+                            setTimeout(function () {
+                                window.location.reload(true);
+                            }, 1000)
+                        });
+                    } else {
+                        layer.msg(data.msg);
+                    }
+                }, 'json')
+            })
+
+
+        });
+    </script>
+
+    <footer class="paymentPrice">
+        <div class="left price">应缴费<span class="fontcl1 ml25">0.00元</span></div>
+        <div class="right"><a href="javascript:void(0);" class="btn">付款</a></div>
+    </footer>
+
+</body>
+</html>

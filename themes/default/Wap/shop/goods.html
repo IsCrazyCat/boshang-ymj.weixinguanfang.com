@@ -1,0 +1,92 @@
+<include file='public:header'/>   
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('shop/detail',array('shop_id'=>$detail['shop_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<{$detail.shop_name}>
+		</div>
+		<div class="top-share">
+		</div>
+	</header>
+    
+<!-- 筛选TAB -->
+<ul id="shangjia_tab">
+        <li style="width:16.66666667%;"><a href="<{:U('shop/detail',array('shop_id'=>$detail['shop_id']))}>">首页</a></li>
+        <li style="width:16.66666667%;"><a href="<{:U('shop/tuan',array('shop_id'=>$detail['shop_id']))}>">套餐</a></li>
+        <li style="width:16.66666667%;"><a href="<{:U('shop/goods',array('shop_id'=>$detail['shop_id']))}>" class="on">商品</a></li>
+        <li style="width:16.66666667%;"><a href="<{:U('shop/coupon',array('shop_id'=>$detail['shop_id']))}>">优惠</a></li>
+        <li style="width:16.66666667%;"><a href="<{:U('shop/news',array('shop_id'=>$detail['shop_id']))}>">新闻</a></li>
+<!--        <li style="width:16.66666667%;"><a href="<{:U('shop/dianping',array('shop_id'=>$detail['shop_id']))}>">评价</a></li>-->
+</ul>
+<style>
+.list-have-pic .list-box { padding-right:5px;}
+.list-have-pic .list-content p { line-height: 0.8rem;}
+.list-have-pic .list-content p.price_mall_price{font-size:18px;font-family: tahoma,arial,"Hiragino Sans GB",宋体,sans-serif;color: #F60;}
+.list-have-pic .list-content p.price_mall_price del{font-size:12px; color:#333; float:right}
+</style>   
+<script>
+    $(function () {
+        if ($('#shangjia_tab').length > 0)/*判断是否存在这个html代码*/
+        {
+            $('#shangjia_tab li').width(100 / $('#shangjia_tab li').length + '%');
+            $('.page-center-box').css('top', '0.9rem');
+        }//头部切换tab结束
+        if ($('.elePrompt').length > 0 && $('#shangjia_tab').length > 0)/*判断是否存在这个html代码*/
+        {
+            $('#shangjia_tab').css('top', '0.9rem');
+            $('.page-center-box').css('top', '5.2rem');
+        } else if ($('.elePrompt').length > 0 || $('#shangjia_tab').length > 0) {
+            $('.page-center-box').css('top', '5.2rem');
+        }//头部提示结束
+        $(".frame-set-left ul li").click(function(){
+            $(".frame-set-left ul li").removeClass('active');
+            $(this).addClass('active');
+            var cate = $(this).attr('rel');
+            if(cate == 'all'){
+                $('.list-box').show();
+            }else{
+                $('.list-box').hide();
+                $('.'+ cate).show();
+            }
+        }); 
+    });
+</script>
+
+   
+   
+   <div id="ele" class="page-center-box mt10">
+    <div class="frame-set-left">
+        <ul>
+            <li class="active" rel="all"><a href="javascript:void(0);">全部分类</a></li>
+            <foreach name="goodsshopcate" item="item">
+                <li rel="cate_<{$item.cate_id}>"><a href="javascript:void(0);"><{:bao_msubstr($item['cate_name'],0,4,false)}></a></li>
+            </foreach>
+        </ul>
+    </div>
+    <div class="frame-set-right">
+        <div id="scroll">
+            <div class="list-have-pic">
+                <div class="eleList_box">
+                    <foreach name="list" item="var">
+                        
+                        <div class="list-box cate_<{$var.shopcate_id}>" onclick="location='<{:U('mall/detail',array('goods_id'=>$var['goods_id']))}>'">
+                        <php>$save = $var['price'] - $var['mall_price'];</php>
+                            <div class="list-img">
+                                <img src="<{:config_img($var['photo'])}>">
+                            </div>
+                            <div class="list-content">
+                                <p class="overflow_clear"><{$var.title}></p>
+                                <p class="overflow_clear">为您节省：&yen;<{:round($save/100,2)}>元</p>
+                                <p class="price_mall_price">&yen;<{:round($var['mall_price']/100,2)}>元<del>原价：<{:round($var['price']/100,2)}>元</del></p>
+                                
+                            </div>
+                        </div>
+                    </foreach>
+                </div>
+                
+            </div>                
+        </div>
+    </div>
+</div>
+<include file='public:footer'/>   

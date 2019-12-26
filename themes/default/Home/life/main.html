@@ -1,0 +1,381 @@
+<include file="public:header" />
+<include file="public:top"/>
+<include file="public:nav2"/>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.sy_flexslider').flexslider({
+            directionNav: true,
+            pauseOnAction: false
+        });
+        $('.syfq_flexslider').flexslider({
+            directionNav: true,
+            pauseOnAction: false
+        });
+        $('.hottj_flexslider').flexslider({
+            directionNav: true,
+            pauseOnAction: false
+        });
+
+    });//首页轮播js
+</script>
+<style>
+.liveadd .syfq_flexslider .flex-direction-nav li a { top: -54px; }
+.newsRight .syfq_flexslider .flex-direction-nav li a { top: -40px;}
+.liveadd .syfq_flexslider .flex-control-nav {top: 80px;text-align: center;}
+.newsRight .syfq_flexslider .flex-control-nav {top: 115px;text-align: center;}
+.newsxx .goods_flList_r {width: 628px;}
+</style>
+<!--top END-->
+<div class="main" style="width:1200px; margin:0 auto; overflow:hidden; height:auto;">
+    <div class="life-flBox">
+        <div class="newsxx">
+            <div class="goods_flBox">
+                <ul>
+                    <li class="goods_flList">
+                        <div class="left goods_flList_l">地区：</div>
+                        <div class="left goods_flList_r"> <a class="goods_flListA on" href="<{:U('life/index')}>">全部</a>
+                            <foreach name="areas" item="item"> 
+                                <php>if($item['city_id'] == $city_id){</php>
+                                <a class="goods_flListA" href="<{:U('life/index',array('area'=>$item['area_id']))}>"><{$item.area_name}></a> 
+                                <php>}</php>
+                            </foreach>
+                        </div>
+                    </li>
+                    <li class="goods_flList">
+                        <div class="left goods_flList_l">频道：</div>
+                        <div class="left goods_flList_r"> <a class="goods_flListA on" href="<{:U('life/index')}>">不限</a>
+                            <foreach name="channelmeans" key="key" item="item"> <a class="goods_flListA" href="<{:U('life/index',array('channel'=>$key))}>"><{$item}></a> </foreach>
+                        </div>
+                    </li>
+                    <script>
+                        $(function () {
+                            var scrtime;
+                            $("#quotation").hover(function () {
+                                clearInterval(scrtime);
+                            }, function () {
+                                scrtime = setInterval(function () {
+                                    var $ul = $("#quotation ul");
+                                    var liHeight = $ul.find("li:last").height();
+                                    $ul.animate({marginTop: liHeight + 20 + "px"}, 600, function () {
+
+                                        $ul.find("li:last").prependTo($ul)
+                                        $ul.find("li:first").hide();
+                                        $ul.css({marginTop: 0});
+                                        $ul.find("li:first").fadeIn(300);
+                                    });
+                                }, 5000);
+                            }).trigger("mouseleave");
+                        });
+                    </script>
+                    <li class="goods_flList">
+                        <div class="nr">
+                            <div class="left">新消息:</div>
+                            <div class="left" id="quotation">
+                                <ul>
+                                    <foreach name="tops" item="item">
+                                        <if condition="$item['city_id'] eq $city_id">
+                                        <li><a title="<{$item.title}>" href="<{:U('life/detail',array('life_id'=>$item['life_id']))}>" target="_blank"><{$item.title}></a> </li>
+                                        </if>
+                                    </foreach>
+                                </ul>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="newsRight">
+            <div class="syfq_flexslider">
+                <ul class="slides">
+                    <calldata mdl="Ad" where=" closed=0 AND site_id=20 AND city_id IN ({$city_ids}) AND bg_date ELT '{$today}' AND end_date EGT '{$today}' " limit="0,3" cache="43200" order="orderby asc">
+                        <li class="sy_hotgzLi"><a target="_blank" href="<{:U('app/ad/click',array('ad_id'=>$item['ad_id'],'aready'=>1))}>">
+                        <img src="<{:config_img($item['photo'])}>" width="280" height="187" /></a></li>
+                    </calldata>
+                </ul>
+                <ol class="flex-control-nav flex-control-paging">
+                </ol>
+            </div>
+        </div>
+    </div>
+    <div class="xxfx">
+        <div class="col-one">
+            <h3 class="xx"><em></em>微站 </h3>
+            <h4><a href="javascript:void(0);" target="_blank">微站6期PK，奖上加奖</a></h4>
+            <div class="colBOX"> <em><a href="javascript:void(0);" target="_blank">免费开通微博</a></em> <em><a href="javascript:void(0);" target="_blank">微站论坛</a></em> <em><a href="javascript:void(0);" target="_blank">我关注的微站</a></em> <em><a href="javascript:void(0);" target="_blank">热门论坛</a></em> </div>
+            <div class="cl"></div>
+            <h3 class="xx"><em class="x2"></em>二手<code></code> </h3>
+            <foreach  name="cates" item="item">
+                <eq name="item.is_hot" value="1">
+                <eq name="item.channel_id" value="1">
+                <dl>
+                    <dt><a href="<{:U('life/index',array('cat'=>$item['cate_id']))}>" title="本地<{$item.cate_name}>信息" target="_blank"><{$item.cate_name}></a></dt>
+                    <if condition="!empty($item['select2'])">
+                        <dd>
+                        <php>$i=0;</php>
+                        <foreach name="attrs" item="attr">
+                            <eq name="attr.cate_id" value="$item.cate_id">
+                            <eq name="attr.type" value="select2">
+                            <php>$i++;if($i<=4){</php>
+                            <a href="<{:U('life/index',array('cat'=>$item['cate_id'],'s2'=>$attr['attr_id']))}>" title="本地<{$item.cate_name}><{$attr.attr_name}>信息"  target="_blank"><{$attr.attr_name}></a>
+                            <php>}</php>
+                            </eq>
+                            </eq>
+                        </foreach>
+                        </dd>
+                    </if>
+                </dl>
+                </eq>
+                </eq>
+            </foreach>
+            <div class="colBOX">
+                <foreach  name="cates" item="item">
+                    <eq name="item.is_hot" value="0">
+                    <eq name="item.channel_id" value="1"> <em><a href="<{:U('life/index',array('cat'=>$item['cate_id']))}>" title="本地<{$item.cate_name}>信息" target="_blank"><{$item.cate_name}></a></em> </eq>
+                    </eq>
+                </foreach>
+            </div>
+        </div>
+        <div class="col-one">
+            <h3 class="xx"><em class="x3"></em>车辆 <code></code> </h3>
+            <foreach  name="cates" item="item">
+                <eq name="item.is_hot" value="1">
+                <eq name="item.channel_id" value="2">
+                <dl>
+                    <dt><a href="<{:U('life/index',array('cat'=>$item['cate_id']))}>" title="本地<{$item.cate_name}>信息" target="_blank"><{$item.cate_name}></a></dt>
+                    <if condition="!empty($item['select2'])">
+                        <dd>
+                        <php>$i=0;</php>
+                        <foreach name="attrs" item="attr">
+                            <eq name="attr.cate_id" value="$item.cate_id">
+                            <eq name="attr.type" value="select2">
+                            <php>$i++;if($i<=4){</php>
+                            <a href="<{:U('life/index',array('cat'=>$item['cate_id'],'s2'=>$attr['attr_id']))}>" title="本地<{$item.cate_name}><{$attr.attr_name}>信息"  target="_blank"><{$attr.attr_name}></a>
+                            <php>}</php>
+                            </eq>
+                            </eq>
+                        </foreach>
+                        </dd>
+                    </if>
+                </dl>
+                </eq>
+                </eq>
+            </foreach>
+            <div class="col2box">
+                <foreach  name="cates" item="item">
+                    <eq name="item.is_hot" value="0">
+                    <eq name="item.channel_id" value="2"> <span><a href="<{:U('life/index',array('cat'=>$item['cate_id']))}>" title="本地<{$item.cate_name}>信息" target="_blank"><{$item.cate_name}></a></span> </eq>
+                    </eq>
+                </foreach>
+            </div>
+            <h3 class="xx"><em class="x4"></em>求职<code></code> </h3>
+            <div class="col2box">
+                <foreach  name="cates" item="item">
+                    <eq name="item.channel_id" value="3"> <span><a href="<{:U('life/index',array('cat'=>$item['cate_id']))}>" title="本地<{$item.cate_name}>信息" target="_blank"><{$item.cate_name}></a></span> </eq>
+                </foreach>
+            </div>
+            <h3 class="xx"><em class="x5"></em>交友<code></code> </h3>
+            <foreach  name="cates" item="item">
+                <eq name="item.is_hot" value="1">
+                <eq name="item.channel_id" value="4">
+                <dl>
+                    <dt><a href="<{:U('life/index',array('cat'=>$item['cate_id']))}>" title="本地<{$item.cate_name}>信息" target="_blank"><{$item.cate_name}></a></dt>
+                    <if condition="!empty($item['select1'])">
+                        <dd>
+                        <php>$i=0;</php>
+                        <foreach name="attrs" item="attr">
+                            <eq name="attr.cate_id" value="$item.cate_id">
+                            <eq name="attr.type" value="select1">
+                            <php>$i++;if($i<=4){</php>
+                            <a href="<{:U('life/index',array('cat'=>$item['cate_id'],'s1'=>$attr['attr_id']))}>" title="本地<{$item.cate_name}><{$attr.attr_name}>信息"  target="_blank"><{$attr.attr_name}></a>
+                            <php>}</php>
+                            </eq>
+                            </eq>
+                        </foreach>
+                        </dd>
+                    </if>
+                </dl>
+                </eq>
+                </eq>
+            </foreach>
+            <div class="colBOX">
+                <foreach  name="cates" item="item">
+                    <eq name="item.is_hot" value="0">
+                    <eq name="item.channel_id" value="4"> <em><a href="<{:U('life/index',array('cat'=>$item['cate_id']))}>" title="本地<{$item.cate_name}>信息" target="_blank"><{$item.cate_name}></a></em> </eq>
+                    </eq>
+                </foreach>
+            </div>
+        </div>
+        <div class="col-one">
+            <h3 class="xx"><em class="x6"></em>房屋 <code></code> </h3>
+            <foreach  name="cates" item="item">
+                <eq name="item.is_hot" value="1">
+                <eq name="item.channel_id" value="5">
+                <dl>
+                    <dt><a href="<{:U('life/index',array('cat'=>$item['cate_id']))}>" title="本地<{$item.cate_name}>信息" target="_blank"><{$item.cate_name}></a></dt>
+                    <if condition="!empty($item['select1'])">
+                        <dd>
+                        <php>$i=0;</php>
+                        <foreach name="attrs" item="attr">
+                            <eq name="attr.cate_id" value="$item.cate_id">
+                            <eq name="attr.type" value="select1">
+                            <php>$i++;if($i<=4){</php>
+                            <a href="<{:U('life/index',array('cat'=>$item['cate_id'],'s1'=>$attr['attr_id']))}>" title="本地<{$item.cate_name}><{$attr.attr_name}>信息"  target="_blank"><{$attr.attr_name}></a>
+                            <php>}</php>
+                            </eq>
+                            </eq>
+                        </foreach>
+                        </dd>
+                    </if>
+                </dl>
+                </eq>
+                </eq>
+            </foreach>
+            <div class="col2box">
+                <foreach  name="cates" item="item">
+                    <eq name="item.is_hot" value="0">
+                    <eq name="item.channel_id" value="5"> <span><a href="<{:U('life/index',array('cat'=>$item['cate_id']))}>" title="本地<{$item.cate_name}>信息" target="_blank"><{$item.cate_name}></a></span> </eq>
+                    </eq>
+                </foreach>
+            </div>
+            <h3 class="xx"><em class="x7"></em>培训<code></code> </h3>
+            <foreach  name="cates" item="item">
+                <eq name="item.is_hot" value="1">
+                <eq name="item.channel_id" value="6">
+                <dl>
+                    <dt><a href="<{:U('life/index',array('cat'=>$item['cate_id']))}>" title="本地<{$item.cate_name}>信息" target="_blank"><{$item.cate_name}></a></dt>
+                    <if condition="!empty($item['select1'])">
+                        <dd>
+                        <php>$i=0;</php>
+                        <foreach name="attrs" item="attr">
+                            <eq name="attr.cate_id" value="$item.cate_id">
+                            <eq name="attr.type" value="select1">
+                            <php>$i++;if($i<=4){</php>
+                            <a href="<{:U('life/index',array('cat'=>$item['cate_id'],'s1'=>$attr['attr_id']))}>" title="本地<{$item.cate_name}><{$attr.attr_name}>信息"  target="_blank"><{$attr.attr_name}></a>
+                            <php>}</php>
+                            </eq>
+                            </eq>
+                        </foreach>
+                        </dd>
+                    </if>
+                </dl>
+                </eq>
+                </eq>
+            </foreach>
+            <div class="col2box">
+                <foreach  name="cates" item="item">
+                    <eq name="item.is_hot" value="0">
+                    <eq name="item.channel_id" value="6"> <span><a href="<{:U('life/index',array('cat'=>$item['cate_id']))}>" title="本地<{$item.cate_name}>信息" target="_blank"><{$item.cate_name}></a></span> </eq>
+                    </eq>
+                </foreach>
+            </div>
+        </div>
+        <div class="col-one">
+            <h3 class="xx"><em class="x8"></em>招聘 <code></code> </h3>
+            <foreach  name="cates" item="item">
+                <eq name="item.is_hot" value="1">
+                <eq name="item.channel_id" value="7">
+                <dl>
+                    <dt><a href="<{:U('life/index',array('cat'=>$item['cate_id']))}>" title="本地<{$item.cate_name}>信息" target="_blank"><{$item.cate_name}></a></dt>
+                    <if condition="!empty($item['select1'])">
+                        <dd>
+                        <php>$i=0;</php>
+                        <foreach name="attrs" item="attr">
+                            <eq name="attr.cate_id" value="$item.cate_id">
+                            <eq name="attr.type" value="select1">
+                            <php>$i++;if($i<=4){</php>
+                            <a href="<{:U('life/index',array('cat'=>$item['cate_id'],'s1'=>$attr['attr_id']))}>" title="本地<{$item.cate_name}><{$attr.attr_name}>信息"  target="_blank"><{$attr.attr_name}></a>
+                            <php>}</php>
+                            </eq>
+                            </eq>
+                        </foreach>
+                        </dd>
+                    </if>
+                </dl>
+                </eq>
+                </eq>
+            </foreach>
+            <div class="col2box">
+                <foreach  name="cates" item="item">
+                    <eq name="item.is_hot" value="0">
+                    <eq name="item.channel_id" value="7"> <span><a href="<{:U('life/index',array('cat'=>$item['cate_id']))}>" title="本地<{$item.cate_name}>信息" target="_blank"><{$item.cate_name}></a></span> </eq>
+                    </eq>
+                </foreach>
+            </div>
+        </div>
+        <div class="col-one">
+            <h3 class="xx"><em class="x9"></em>服务 <code></code> </h3>
+            <foreach  name="cates" item="item">
+                <eq name="item.is_hot" value="1">
+                <eq name="item.channel_id" value="8">
+                <dl>
+                    <dt><a href="<{:U('life/index',array('cat'=>$item['cate_id']))}>" title="本地<{$item.cate_name}>信息" target="_blank"><{$item.cate_name}></a></dt>
+                    <if condition="!empty($item['select1'])">
+                        <dd>
+                        <php>$i=0;</php>
+                        <foreach name="attrs" item="attr">
+                            <eq name="attr.cate_id" value="$item.cate_id">
+                            <eq name="attr.type" value="select1">
+                            <php>$i++;if($i<=4){</php>
+                            <a href="<{:U('life/index',array('cat'=>$item['cate_id'],'s1'=>$attr['attr_id']))}>" title="本地<{$item.cate_name}><{$attr.attr_name}>信息"  target="_blank"><{$attr.attr_name}></a>
+                            <php>}</php>
+                            </eq>
+                            </eq>
+                        </foreach>
+                        </dd>
+                    </if>
+                </dl>
+                </eq>
+                </eq>
+            </foreach>
+            <div class="colBOX colBOX2">
+                <foreach  name="cates" item="item">
+                    <eq name="item.is_hot" value="0">
+                    <eq name="item.channel_id" value="8"> <em><a href="<{:U('life/index',array('cat'=>$item['cate_id']))}>" title="本地<{$item.cate_name}>信息" target="_blank"><{$item.cate_name}></a></em> </eq>
+                    </eq>
+                </foreach>
+            </div>
+            <div class="cl"></div>
+            <h3 class="xx"><em class="x10"></em>兼职 </h3>
+            <div class="colBOX colBOX2">
+                <foreach  name="cates" item="item">
+                    <eq name="item.channel_id" value="9"> <em><a href="<{:U('life/index',array('cat'=>$item['cate_id']))}>" title="本地<{$item.cate_name}>信息" target="_blank"><{$item.cate_name}></a></em> </eq>
+                </foreach>
+            </div>
+            <div class="cl"></div>
+            <h3 class="xx"><em class="x11"></em>宠物<code></code> </h3>
+            <foreach  name="cates" item="item">
+                <eq name="item.is_hot" value="1">
+                <eq name="item.channel_id" value="10">
+                <dl>
+                    <dt><a href="<{:U('life/index',array('cat'=>$item['cate_id']))}>" title="本地<{$item.cate_name}>宠物信息" target="_blank"><{$item.cate_name}></a></dt>
+                    <if condition="!empty($item['select1'])">
+                        <dd>
+                        <php>$i=0;</php>
+                        <foreach name="attrs" item="attr">
+                            <eq name="attr.cate_id" value="$item.cate_id">
+                            <eq name="attr.type" value="select1">
+                            <php>$i++;if($i<=4){</php>
+                            <a href="<{:U('life/index',array('cat'=>$item['cate_id'],'s1'=>$attr['attr_id']))}>" title="本地<{$item.cate_name}><{$attr.attr_name}>宠物信息"  target="_blank"><{$attr.attr_name}></a>
+                            <php>}</php>
+                            </eq>
+                            </eq>
+                        </foreach>
+                        </dd>
+                    </if>
+                </dl>
+                </eq>
+                </eq>
+            </foreach>
+            <div class="col2box">
+                <foreach  name="cates" item="item">
+                    <eq name="item.is_hot" value="0">
+                    <eq name="item.channel_id" value="10"> <em><a href="<{:U('life/index',array('cat'=>$item['cate_id']))}>" title="本地<{$item.cate_name}>宠物信息" target="_blank"><{$item.cate_name}></a></em> </eq>
+                    </eq>
+                </foreach>
+            </div>
+        </div>
+    </div>
+    <div class="cl"></div>
+</div>
+<include file="public:footer"/>

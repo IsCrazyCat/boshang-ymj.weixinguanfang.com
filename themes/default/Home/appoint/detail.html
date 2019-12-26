@@ -1,0 +1,398 @@
+<include  file='public:header'/>
+<include  file='public:top'/>
+<style> 
+img{max-width: 100%;}
+.zy_content{padding-top:0px;}
+.product_infor>.bt{font-size:22px;}
+.product_infor>p {margin-top: 10px;}
+.cloudBuy_detail_l{width:880px;}
+.zy_doorSer_detail .nrForm {border:1px solid #dedede;}
+.product_number .total{line-height:30px;}
+.product_number{text-align:inherit;padding:10px;width:425px;}
+.search_form_worker{ width:90% !important;}
+.zy_doorSer_detail .nrForm p{margin-bottom:4.8px;}
+.zy_doorSer_detail .nrForm .btn{cursor: pointer;}
+.table_activity_sign {border-collapse: collapse;border: 1px solid #ececec;text-align: center;}
+.spxq_pjUl {width: 100%;margin-left: 100px;}
+.spxq_qgjgk {padding:10px 0;}
+.spxq_qgjgk .appoint_shop{height: 30px;line-height: 30px;}
+.spxq_qgjgk .appoint_shop a.shop_url{font-size: 18px;font-weight: bold;}
+.table_activity_sign td, table_activity_sign tr{ padding:10px;}
+.appoint_text_red{color:#F00}
+.zy_doorSer_detail .nrForm p em{color:#F00;font-size:18px;}
+.zy_doorSer_detail .nrForm p.red{color:#F00; font-weight:bold;}
+.mall_bggrey {background:#FFF;}
+.mall_list {width: 220px;height: 450px;}
+.mall_list .box {width: 200px;height: 335px}
+</style>
+<if condition="!empty($worker_id)">
+<style>
+.zy_doorSer_detail .nrForm {background-color: #FFD6D6 !important;}
+</style>
+</if>
+<div class="nav">
+    <div class="navList">
+        <ul>
+            <li class="navListAll"><span class="navListAllt">全部家政分类</span>
+                <div class="shadowy navAll">
+                    <include file="public:cate_appoint"/>
+                </div>
+            </li>
+    <li class="navLi"><a class="navA <if condition='$ctl eq appoint and $act eq index'>on</if> " href="<{:U('appoint/index')}>">首页</a></li>   
+    <php>$i=0;</php>     
+    <foreach name="appointcates" item="item">
+        <eq name="item.parent_id" value="0"> 
+            <php>$i++;if($i <= 6){</php>
+            <li class="navLi"><a class="navA <if condition="$cat eq $item['cate_id']">on</if> " href="<{:U('appoint/index',array('cat'=>$item['cate_id']))}>"><{$item.cate_name}></a></li>
+            <php>}</php>
+        </eq>
+    </foreach>
+        </ul>
+    </div>
+</div>
+<script>
+    $(document).ready(function (e) {
+        /*图片缩略查看*/
+        $('.min-box-list li img').hover(function () {
+            $('#product_img_slider .show-box li img').attr('src', $(this).data('mpic'));
+            $(this).closest('li').addClass('on').siblings('li').removeClass('on');
+        });
+        /*图片缩略查看*/
+        $(".cloudBuy_cont_tab ul li").each(function (e) {
+            $(this).click(function () {
+                $(this).parent().find("li").removeClass("on");
+                $(this).addClass("on");
+                $(".cloudBuy_nr_box .cloudBuy_nr").each(function (i) {
+                    if (e == i) {
+                        $(this).parent().find(".cloudBuy_nr").hide();
+                        $(this).show();
+                    }
+                    else {
+                        $(this).hide();
+                    }
+                });
+            });
+        });
+
+        $(".suoyou").click(function () {
+            var rightDiv = $(this).closest('.jion_right_div');
+            rightDiv.toggleClass('tanchu');
+            if ($.trim(rightDiv.find('.number_list').html()) == '') {
+                $.post(get_number_list, {id: rightDiv.data('id')}, function (result) {
+                    if (result.status == 1) {
+                        var numberHtml = '';
+                        $.each(result.number, function (i, item) {
+                            numberHtml += '<dd>' + item + '</dd>';
+                        });
+                        $('.number_list_' + rightDiv.data('id')).html(numberHtml);
+                    } else {
+                        alert(result.info);
+                    }
+                });
+            }
+        });
+        $(".jion_close").click(function () {
+            $(this).closest('.jion_right_div').removeClass('tanchu');
+        });
+    });
+</script>
+
+<div class="content zy_content">
+    <div class="spxq_loca">
+        <a href="<{:U('index/index')}>">网站首页</a>&gt;&gt;
+        <a href="<{:U('appoint/index')}>">家政首页</a>&gt;&gt;
+        
+        <if condition="!empty($catstr)">
+            <if condition="empty($catestr)">
+            	<a href="<{:U('appoint/index',array('cat'=>$detail['cate_id']))}>"><{$catstr}></a>&gt;&gt;
+            <else/>
+                <a href="<{:U('appoint/index',array('cat'=>$cat))}>"><{$catstr}></a>&gt;&gt;
+                <a href="<{:U('appoint/index',array('cat'=>$cat,'cate_id'=>$detail['cate_id']))}>"><{$catestr}></a>&gt;&gt;
+            </if>
+        </if>
+        
+        <if condition="!empty($detail['area_id'])">
+            <a href="<{:U('appoint/index',array('area'=>$detail['area_id']))}>">
+            <{$areas[$detail['area_id']]['area_name']}></a>&gt;&gt;
+        </if>
+        <if condition="!empty($detail['business_id'])">
+            <a href="<{:U('appoint/index',array('area'=>$detail['area_id'],'business'=>$detail['business_id']))}>">
+            <{$bizs[$detail['business_id']]['business_name']}></a>&gt;&gt;
+        </if>
+        
+        <a href="<{:U('appoint/detail',array('appoint_id'=>$detail['appoint_id']))}>"><{$detail['title']}></a>
+        
+        
+    </div>
+    <!--内容部分开始-->
+    <div class="cloudBuy_detail">
+        <div class="left cloudBuy_detail_l">
+            <div class="product_table mb20">
+                <div class="product_img left">
+                    <div id="product_img_slider">
+                        <div class="show-box">
+                            <ul>
+                                <li><img src="<{:config_img($detail['photo'])}>" width="360" height="344"/></li>
+                            </ul>
+                        </div>
+                        <div class="minImgs">
+                            <ul class="min-box-list">
+                                <li class="on"> <img src="<{:config_img($detail['photo'])}>" data-mpic="<{:config_img($detail['photo'])}>" width="64" height="64"/> </li>
+                                <php>$a=1;</php>
+                                <foreach name="detail.thumb" item="item">
+                                    <if condition="$a elt 4">
+                                        <li class=""><img src="<{:config_img($item)}>" data-mpic="<{:config_img($item)}>" width="64" height="64"/> </li>
+                                    </if>
+                                    <php>$a++;</php>
+                                </foreach>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="product_infor">
+                    <p class="bt"><{$detail.title}></p>
+                    <p><{$detail.intro}></p>
+                    
+                    <div class="spxq_qgjgk">
+                        <span class="spxq_qgjg" style="font-size:28px; font-weight:bold;">定金：&yen;<{:round($detail['price']/100,2)}>元
+                        	<if condition="!empty($detail['unit'])">/<{$detail.unit}></if>
+                        </span>
+                    </div>
+                    
+                    <div class="product_number">
+                     <div class="total">家政类别：<{$cates[$detail['cate_id']]['cate_name']}></div>
+                     <div class="total">服务时间：<{$detail.biz_time}></div>
+                     <div class="total">服务工具：<{$detail.gongju}></div>
+                     <div class="total">预约人数：<{$detail.yuyue_num}>人</div>
+                     <div class="total">浏览次数：<{$detail.views}>次</div>
+                    </div>
+                    
+                    <div class="spxq_qgjgk">
+                       <span class="appoint_shop">商家：
+                       <a class="shop_url" target="_blank" href="<{:U('shop/detail',array('shop_id'=>$detail['shop_id']))}>">
+                       <{$shops['shop_name']}></a></span>
+                    </div>
+                        
+                    <div class="product_attend">
+                        <div class="left">
+                            <div class="left">已预约：</div>
+                            <ul class="left">
+                                <li><a class="inp"><{$detail.yuyue_num}></a></li>
+                            </ul>
+                            <div class="left">人次&nbsp;</div>
+                        </div>
+                        <span class="tip left">预约前请先绑定手机，方便通知哦！~</span> 
+                    </div>
+                     
+                </div>
+            </div>
+           </div> 
+            
+            <!--预约开始-->   
+        <div class="right cloudBuy_detail_r">
+        <script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+        <div class="zy_doorSer_detail">
+            <div class="right nrForm">
+                <form method="post" target="baocms_frm" action="<{:U('appoint/create',array('appoint_id'=>$detail['appoint_id']))}>">
+                    <p>服务时间</p>
+                    <div class="int_box">
+                        <input class="search_form_time" type="text" name="date" value="<{$today}>" onfocus="WdatePicker({minDate: '<{$tmr}>'});"  />
+                        <select name="time">
+                            <volist name='getcfg' id='item'>
+                                <option value="<{$item}>"><{$item}></option>
+                            </volist>  
+                        </select>
+                    </div>
+                    <if condition="!empty($appointworker)">
+                        <if condition="!empty($worker_id)">
+                        	<p class="red">您当前已选择技师：</p>
+                        <else/>
+                        	<p>请您选择技师 <em> *</em></p>
+                        </if>
+                    <div class="int_box">
+                        <select name="worker_id" class="search_form_worker" >
+                        <option value="">点击请选择技师</option>
+                        <volist name='appointworker' id='item'>
+                                <option <eq name="item.worker_id" value="$worker_id">selected="selected"</eq>  value="<{$item['worker_id']}>">
+                                 <{$item['name']}>
+                                 <!--如果不等于空-->
+                                 <if condition="!empty($item['office'])">
+                                	(<{$item['office']}>)
+                                 </if>
+                                </option>
+                            </volist>  
+                        </select>
+                    </div>
+                    </if>
+                    <p>服务地址</p>
+                    <input type="text" name="addr" placeholder="请输入详细服务地址" />
+                    <p>联系方式</p>
+                    <input type="text" name="name" placeholder="请输入联系人"  value="<if condition="$MEMBER.nickname neq null"><{$MEMBER.nickname}><else/></if>"/>
+                    <input type="text" name="tel" placeholder="请输入联系电话" value="<if condition="$MEMBER.mobile neq null"><{$MEMBER.mobile}><else/></if>" />
+                    <p>更多需求</p>
+                    <input type="text" name="contents" placeholder="您可以在这里填写更多需求" />
+                    <php>
+                    $cha = $MEMBER['money'] - $detail['price'];
+                    </php>
+                    <if condition="empty($MEMBER)">
+                    	<p><a href="javascript:void(0);" class="on login_kuaijie appoint_text_red" id="login">登陆后查看余额</a></p>
+                    <else/>
+                    	 <if condition="$cha GT 0">
+                         	<a class="appoint_text_red">您当前余额：&yen;<{:round($MEMBER['money']/100,2)}>元</a>
+                         <else/>
+                            您的余额不足，请<a class="appoint_text_red" href="<{:U('members/money/money')}>">充值</a>
+                         </if>
+                    </if>
+                 <input type="submit" class="btn" value="立即预约" />
+                </form>
+            </div>
+        	</div>
+        </div>
+       <!--预约结束--> 
+        <div class="clear"></div>   
+            <div class="cloudBuy_cont">
+                <div class="cloudBuy_cont_tab">
+                    <ul>
+                        <li class="on">服务须知</li>
+                        <if condition="!empty($appointworker)">
+                        <li>技师列表</li>
+                        </if>
+                        <li>服务详情</li>
+                        <li>购买记录</li>
+                        <li>家政点评</li>
+                    </ul>
+                </div>
+                <div class="cloudBuy_nr_box">
+                    <div class="cloudBuy_nr" style="display:block;">
+                    	<div class="spxq_xqBt">
+                            <div class="left">服务须知</div>
+                        </div>
+                    	<{$detail.intro}>
+                    </div>
+                    <if condition="!empty($appointworker)">
+                    <div class="cloudBuy_nr" style="display:block;">
+                        <!--员工风采开始-->
+                    	<div class="mall_bggrey">
+                            <div class="pagewd">
+                                <div class="mall_tit">
+                                    <h2 class="left">技师列表</h2>
+                                   <!-- <a href="" class="more right graycl">更多&gt;</a>-->
+                                </div>
+                                <div class="mall_list_box">
+                                    <ul>
+                                    <foreach name="appointworker" item="var">
+                                       <li class="mall_list">
+                                          <div class="box"> 
+                                             <img src="<{:config_img($var['photo'])}>" width="200" height="300">
+                                             <h3 class="overflow_clear"><{$var['name']}></h3>
+                                             <p class="fontcl1">服务价格：<big>&yen;<b><{:round($var['price']/100,2)}></b></p>
+                                             <div class="btn_box">
+                                             	<a href="<{:U('appoint/detail',array('appoint_id'=>$var['appoint_id'],'worker_id'=>$var['worker_id']))}>" class="btn">立即预约</a>
+                                             </div>
+                                            <p class="graycl" style="overflow:hidden; margin-top:16px;"><span class="left"><{$var['intro']}></span></p>
+                                          </div>
+                                       </li>
+                                    </foreach>         
+                                            
+                                            
+                                   </ul>
+                                    <div class="clear"></div>
+                                </div>
+                               
+                            </div>
+                        </div>
+                    </div>
+                    </if>
+                    <div class="cloudBuy_nr" style="display:block;">
+                    	<div class="spxq_xqBt">
+                            <div class="left">服务详情</div>
+                        </div>
+                    	<{$detail.contents}>
+                    </div>
+                    
+                    
+                    <div class="cloudBuy_nr" style="display:block;">
+                    	<div class="spxq_xqBt">
+                            <div class="left">购买记录</div>
+                        </div>
+                    	<table width="100%" border="1" class="table_activity_sign">
+                          <tr>
+                            <td>报名ID</td>
+                            <td>姓名</td>
+                            <td>金额</td>
+                            <td>时间</td>
+                          </tr>
+                          <foreach name="appointment" item="var">
+                          <tr>
+                            <td><{$var['order_id']}></td>
+                            <td><{:config_user_name($var['name'])}></td>
+                            <td>&yen;<{:round($var['need_pay']/100,2)}>元</td>
+                            <td><{$var.create_time|date="Y-m-d H:i:s",###}></td>
+                          </tr>
+                          </foreach>
+                        </table>
+                    
+                    </div>
+                    <div class="cloudBuy_nr" style="display:block;">
+                    <!--评价开始-->
+                   		<div class="spxq_xqBt4">
+                        <div class="spxq_xqBt">
+                            <div class="left"><{$detail.user_name}>的评价</div>
+                            <div class="right spxq_xqBt_r">我预约过<{$detail.user_name}>，
+                            <a class="spxq_pjAn" href="<{:u('members/appoint/index')}>">我要评价</a></div>
+                        </div>
+                        <div class="spxq_xqNr">
+                            <ul>
+                                <foreach name="list" item="var">
+                                    <li class="spxq_pjList">
+                                        <div class="left spxq_pjList_l">
+                                            <div class="spxq_pjTx">
+                                                <img  width="50" height="50"  src="<{:config_img($users[$var['user_id']]['face'])}>" />
+                                            </div>
+                                            <p class="spxq_pjYh"><{:config_user_name($users[$var['user_id']]['nickname'])}></p>
+                                        </div>
+                                        <div class="left">
+                                            <span class="spxq_qgpstarBg">
+                                            	<span class="spxq_qgpstar  spxq_qgpstar<{:round($var['score']*5,2)}>">&nbsp;</span>
+                                            </span>
+                                            <span class="spxq_pjTime"><{$var.create_time|date='Y-m-d',###}></span>
+                                            	<p class="spxq_pjP">评价内容：<{$var.contents}></p>
+                                         </div>
+                                            <ul class="spxq_pjUl">
+                                                <foreach name="pics" item="pic">
+                                                    <eq name="pic.dianping_id" value="$var.dianping_id">
+                                                    <li class="spxq_pjLi"><a href="javascript:void(0);" rel="<{:config_img($pic['pic'])}>" >
+                                                    <img src="<{:config_img($pic['pic'])}>" width="60" height="40" /></a></li>
+                                                    </eq>
+                                                </foreach>
+                                            </ul>
+                                             <if condition="!empty($var['reply'])">
+                                             <div style="color:#F00">回复：<{$var.reply}></div>
+                                             </if>
+                                        </div>
+                                    </li>
+                                </foreach>
+                                <div class="x">
+                                    <{$page}>
+                                </div>
+                            </ul>
+                        </div>
+                    </div>
+                    </div>
+                  <!--评价结束-->  
+                </div>
+            </div>
+        
+        
+        </div>
+        
+        <div class="clear"></div>
+    </div>
+    <!--内容部分结束--> 
+</div>
+<div class="mask_bg mask_spxq_pjLi_img_mask">
+	<span class="app_closed"></span>
+	<div class="mask_spxq_pjLi_img"><img src="" width="300" height="200" /></div>
+</div>
+<!--main end--> 
+<include  file='public:footer'/> 

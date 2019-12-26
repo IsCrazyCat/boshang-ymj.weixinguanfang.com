@@ -1,0 +1,29 @@
+<div class="blank-20"></div>
+ <footer class="foot-fixed">
+   <a class="foot-item  <if condition="($act eq 'index')">active</if> " href="<{:u('distribution/index')}>">		
+    <span class="icon icon-home"></span>
+    <span class="foot-label">首页</span>
+    </a>
+    
+    <a class="foot-item  <if condition="($act eq 'profit')">active</if> " href="<{:LinkTo('distribution/profit',array('status'=>1))}>">			
+    <span class="icon icon-btc"></span><span class="foot-label">收益</span></a>
+    
+     <a class="foot-item  <if condition="($act eq 'subordinate')">active</if>" href="<{:u('distribution/subordinate',array('level'=>1))}>">			
+    <span class="icon icon-arrow-down"></span><span class="foot-label">客户</span></a>
+    
+    
+    
+    <a class="foot-item  <if condition="($act eq 'superior')">active</if>" href="<{:u('distribution/superior')}>">			
+    <span class="icon icon-arrow-up"></span><span class="foot-label">领导</span></a>
+    
+    <a class="foot-item  <if condition="($act eq 'qrcode')">active</if>" href="<{:u('distribution/qrcode')}>">
+    <span class="icon icon-tv"></span><span class="foot-label">二维码</span></a>
+    
+   
+    </footer>
+
+
+<iframe id="x-frame" name="x-frame" style="display:none;">
+</iframe>
+</body>
+</html>

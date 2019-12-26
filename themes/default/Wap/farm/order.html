@@ -1,0 +1,85 @@
+<include file="public:header_baocms"/>
+
+<body>
+<?php if(!$is_app){?>
+<header>
+    <a href="<{:U('farm/detail',array('farm_id'=>$farm_id))}>"><i class="icon-goback"></i></a>
+    <div class="title">在线预约</div>
+    <i class="icon-menu3"></i>
+</header>
+<?php }?>
+<form action="<{:U('farm/orderCreate')}>" method='post'>
+<div class="page-center-box">
+	<div class="seatYuyue_slct mb10">
+    	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <th>时间</th>
+                <td><div class="int_box"><input type="date" name='data[gotime]' value=""><em class="linkIco"></em></div></td>
+            </tr>
+        </table>
+    </div>
+    <div class="seatYuyue_name border_t border_b">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td><input type="text" name='data[name]' placeholder="请输入您的姓氏"></td>
+                <td class="box">
+                    <!--<span class="radioBox_int on"><input type="radio"></span>先生 <span class="radioBox_int ml10"><input type="radio"></span>女士-->
+                </td>
+            </tr>
+        </table>
+        <script>
+            $(document).ready(function() {
+                $(".seatYuyue_name .radioBox_int").click(function(){
+                    $(this).parents(".seatYuyue_name").find(".radioBox_int").removeClass("on");
+                    $(this).addClass("on");
+                });
+                $('#chk_pid li').click(function(){
+                    $('#chk_pid li').removeClass('on');
+                    $(this).addClass('on');
+                    var val = $(this).attr('val');
+                    $('#pid_val').val(val);
+                }) 
+            });
+        </script>
+    </div>
+    <input type="text" name='data[mobile]' class="seatYuyue_int border_b mb10" placeholder="请输入您的手机号码">
+    <input type="text" name='data[note]' class="seatYuyue_int border_t border_b" placeholder="备注：请填写您的需求，我们会尽量安排。">
+    <input type='hidden' name='data[pid]' value='0' id='pid_val'>
+
+    <div class="seatDelt_tit border_t border_b mt10">
+        <h2 class="fl">可选套餐</h2>
+    </div>
+    <div class="farmDelt_taocan mb10 border_b">
+        <ul id='chk_pid'>
+            <volist name='package' id='pka'>
+                <li class="list" val='<{$pka.pid}>'><{$pka.title}>￥<{$pka.price}><em class="ico"></em></li>
+            </volist>
+        </ul>
+        <script>
+            $(document).ready(function() {
+                $(".farmDelt_taocan .list").each(function(e){
+                    $(this).click(function(){
+                        $(".farmDelt_taocan .list").removeClass("on");
+                        $(this).addClass("on");
+                        $(".farmDelt_taocanList").each(function(i){
+                            if(e==i){
+                                $(".farmDelt_taocanList").hide();
+                                $(this).show();
+                            }else{
+                                $(this).hide();
+                            }
+                        });
+                    });
+                });
+            });
+        </script>
+    </div>
+</div> 
+<footer>
+    <div style="width:auto; padding:0.05rem 0.1rem; float:none; background:#fff;">
+        <input type="submit" value="提交订单" class="long_btn bgcl1">
+    </div>
+</footer>
+</form>
+</body>
+</html>

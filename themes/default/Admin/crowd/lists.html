@@ -1,0 +1,64 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">众筹</li>
+        <li class="li2">众筹管理</li>
+        <li class="li2 li3">支持列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>这里显示单个众筹商品的支持列表</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+             	 <include file='crowd:nav'/>
+            </div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                            <td width="50">ID</td>
+                            <td>用户名</td>
+                            <td>价格</td>
+                            <td>姓名</td>
+                            <td>电话</td>
+                            <td>地址</td>
+                            <td>购买时间</td>
+                            <td>操作</td>
+                    </tr>
+                    
+                    <foreach name="meals" item="var">
+                        <tr>
+                           
+                            <td ><{$var.list_id}></td>
+                            <td><{$users[$var['uid']]['nickname']}></td>
+                            <td><{$var['price']/100}>元</td>
+                            <td><{$var.name|default=''}></td>
+                            <td><{$var.mobile|default=''}></td>
+                            <td><{$var.addr|default=''}></td>
+                            <td><{$var.dateline|date='Y-m-d H:i:s',###}></td>
+                            <td>
+                                <if condition="$var[is_zhong] EQ '0'">
+                                <else/>
+                                <a class="remberBtn">已中奖</a>
+                                </if>
+                            </td>
+                        </tr>
+                        </tr>
+                        
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                	<{:BA('crowd/index','','返回众筹列表')}>
+                    <!--<{:BA('crowd/project_delete','','批量删除','list','a1')}>-->
+                </div>
+            </div>
+        </form>
+    </div>
+    <include  file='public:footer'/>       
+

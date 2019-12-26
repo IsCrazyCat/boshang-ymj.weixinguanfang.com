@@ -1,0 +1,62 @@
+<include  file='public:header'/>
+<style>
+.main-cate .jsglNr .tableBox { border-bottom: 1px solid #dbdbdb;}
+</style>
+<div class="mainBt">
+    <ul>
+        <li class="li1">主题</li>
+        <li class="li2">主题分类</li>
+        <li class="li2 li3">分类列表</li>
+    </ul>
+</div>
+<div class="main-cate">
+    <p class="attention"><span>注意：</span>暂时只支持一级分类，贴吧暂时没必要二级分类</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="border-top: 1px solid #dbdbdb;">
+            <div class="left">
+                <{:BA('threadcate/create','','添加分类','load','',500,280)}>
+            </div>
+            <div class="right">
+                 <{:BA('threadcate/update','','更新','list','remberBtn')}>
+            </div>
+        </div>
+
+        <div class="tableBox">
+            <form  target="baocms_frm" method="post">
+                <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF; text-align:center;">
+                    <tr bgcolor="#fefefe" height="48px;" style="color:#333; font-size:16px; line-height:48px;">
+                        <td>分类名称</td>
+                        <td>贴吧数量</td>
+                        <td>排序</td>
+                        <td>操作</td>
+                    </tr>
+
+                    <foreach name="list" item="var">
+                        <tr bgcolor="#f1f1f1" height="48px" style="font-size:14px; color:#545454; text-align:left; line-height:48px;">
+                            <td style="padding-left:20px;"><{$var.cate_name}>(<{$var.cate_id}>)</td>
+                            <td style="text-align:center"><{$var.count}></td>
+                            <td style="padding-left:70px;"><input name="orderby[<{$var.cate_id}>]" value="<{$var.orderby}>" type="text" class="remberinput w80" /></td>
+                            <td style="text-align:center;"> 
+                        <{:BA('threadcate/edit',array("cate_id"=>$var["cate_id"]),'编辑','load','remberBtn',300,280)}>
+                        <{:BA('threadcate/delete',array("cate_id"=>$var["cate_id"]),'删除','act','remberBtn')}>
+                        </td>
+                        </tr>
+                    </foreach>     
+                </table>
+                <div class="selectNr">
+                    <div class="left">
+                        <{:BA('threadcate/update','','更新分类排序','list','remberBtn')}>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<include  file='public:footer'/>
+
+
+
+
+
+
+

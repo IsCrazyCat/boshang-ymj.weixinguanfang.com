@@ -1,0 +1,34 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">会员</li>
+        <li class="li2">会员卡</li>
+        <li class="li2 li3">确认导入</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <div class="jsglNr">
+    <form  target="baocms_frm"  method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; margin-top: 10px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                <php>$i=0;</php>
+                    <foreach name="list" item="var">
+                        <php>$i++;if($i%6==0)echo '</tr><tr>';</php>
+                        <td><{$var}><input type="hidden" id="codes[<{$var}>]" name="codes[<{$var}>]" value="<{$var}>" /></td>
+                    </foreach>
+                </tr>
+            </table>
+          
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                <{:BA('usercard/importok','','确定导入','list','')}>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+
+

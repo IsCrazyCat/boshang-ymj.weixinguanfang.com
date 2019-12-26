@@ -1,0 +1,92 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			配送订单状态
+		</div>
+	<div class="top-signed">
+
+	</div>
+</header>
+
+<!-- 筛选TAB -->
+<ul id="shangjia_tab">
+        <li style="width: 50%;"><a href="<{:LinkTo('lists/state',array('order_id'=>$detail['order_id']))}>" class="on">订单状态</a></li>
+        <li style="width: 50%;"><a href="<{:LinkTo('lists/detail',array('order_id'=>$detail['order_id']))}>" >订单详情</a></li>
+     
+</ul>
+<style>
+body{background-color:#ebedf0}
+.order-widget-orderhistory{position:relative;padding-bottom:100px; margin-top:3rem;}
+.relative-wrapper{position:relative;padding:10px 15px;}
+.order-widget-orderhistory .item{margin-bottom:15px;position:relative;display:-moz-box;display:-webkit-box;display:box}
+.order-widget-orderhistory .status-icon{padding-top:11px}
+.order-widget-orderhistory .status-icon span{display:block;width:25px;height:25px;border-radius:12px;margin-left:11px;padding:8px 0;background-color:#EBEDF0}
+.order-widget-orderhistory .status-icon span.-mark img{width:25px}
+.order-widget-orderhistory .status-card{-moz-box-flex:1;-webkit-box-flex:1;box-flex:1;position:relative;margin-left:18px;border:1px solid #dbdcde;background:#fff}
+.order-widget-orderhistory .status-card .card-arrow{background-color:#fff;height:10px;width:10px;border-left:#d4d4d4 solid 1px;border-top:#d4d4d4 solid 1px;-webkit-transform:rotate(-45deg);transform:rotate(-45deg);position:absolute;left:-6px;top:25px}
+.order-widget-orderhistory .status-card .card-content{padding:10px;min-height:40px}
+.order-widget-orderhistory .status-card .card-content .big{color:#404142;font-size:14px}
+.order-widget-orderhistory .status-card .card-content .big{color:#404142;font-size:14px}
+.order-widget-orderhistory .status-card .card-content .big span{color:#b9bcc0;font-size:12px;float:right}
+.order-widget-orderhistory .status-card .card-content .small{margin-top:5px;color:#b9bcc0;font-size:12px}
+
+</style>
+
+<div id="order-widget-orderhistory" class="order-widget-orderhistory">
+    <if condition="!empty($detail['end_time'])">
+    <div class="relative-wrapper"><div class="item">
+            <div class="status-icon">
+            <span class="-mark">
+            <img src="/static/default/wap/image/delivery/5.png"></span></div>
+            <div class="status-card">
+                <div class="card-arrow">
+                </div>
+                <div class="card-content">
+                    <p class="big">已完成配送<span><{$detail.end_time|date='Y-m-d H:i',###}></span></p>
+                    <p class="small"><span>配送员：<{$deliverys['name']}>-<{$deliverys['mobile']}>已完成配送！</span></p>
+                </div>
+            </div>
+            </div>
+        </div>
+    </if>
+    <if condition="!empty($detail['update_time'])">
+	<div class="relative-wrapper"><div class="item">
+        <div class="status-icon">
+        <span class="-mark">
+        <img src="/static/default/wap/image/delivery/5.png"></span></div>
+        <div class="status-card">
+            <div class="card-arrow">
+            </div>
+            <div class="card-content">
+            	<p class="big">配送员接单<span><{$detail.update_time|date='Y-m-d H:i',###}></span></p>
+            	<p class="small"><span>配送员：<{$deliverys['name']}>-<{$deliverys['mobile']}>正在准备商品!</span></p>
+            </div>
+        </div>
+        </div>
+    </div>
+    </if>
+    <div class="relative-wrapper"><div class="item">
+        <div class="status-icon">
+        <span class="-mark">
+        <img src="/static/default/wap/image/delivery/3.png"></span></div>
+        <div class="status-card">
+            <div class="card-arrow">
+            </div>
+            <div class="card-content">
+            	<p class="big">用户下单<span><{$detail.create_time|date='Y-m-d H:i',###}></span></p>
+            	<p class="small"><span>订单编号：<{$detail.type_order_id}></span></p>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    
+    
+</div>
+
+    
+
+<include file='lists:footer'/>

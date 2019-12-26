@@ -1,0 +1,41 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">商城</li>
+        <li class="li2">商品</li>
+        <li class="li2 li3">商品属性</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>商家必须入住了商城才能发布产品，前台添加，后台审核！</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                 <{:BA('Goodstype/addEditGoodsAttribute','','添加属性')}> 
+            </div>
+            <div class="right">
+                    <div class="seleHidden" id="seleHidden">
+                    </div>
+            </div>
+        </div>
+
+     
+        
+ <include file="goodstype:ajaxgoodsattributelist"/>       
+        
+<script>
+    $(document).ready(function(){		
+		<?php
+		    if($_GET['type_id'])
+			{
+			   echo "$('#type_id').val(".$_GET['type_id'].");"; 
+			}
+		?>
+			$('#button-filter').trigger('click');
+    });
+</script>  
+        
+        
+    </div>
+    <include  file='public:footer'/>     

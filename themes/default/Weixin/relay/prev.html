@@ -1,0 +1,496 @@
+<{include file="weixin/relay/block/header.html"}>
+<link rel="stylesheet" type="text/css" href="%THEME%/weixin/relay/static/css/Coupon.css?201150408">
+
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+<body style="background:#005c5b;">
+<div class="youhuiRelay">
+	<script>
+	$(document).ready(function(e) {
+        $(".youhuiRelay_relu .btn").click(function(){
+			$(".youhuiRelay_relu_mask").show();
+		});
+		$(".youhuiRelay_relu_mask .closs").click(function(){
+			$(".youhuiRelay_relu_mask").hide();
+		});
+    });
+    </script>
+    <div class="youhuiRelay_relu"><a href="javascript:;" class="btn">活动规则</a><img src="%THEME%/weixin/relay/static/img/youhuiRelay1.png" width="100%" height="" /></div>
+    <div class="youhuiRelay_relu_mask" style="display:none;">
+    	<div class="cont">
+        	<span class="closs">×</span>
+        	<h3>标题内容 标题内容</h3>
+        	<p>11154544444内容内容内容内容内容内容内容内容</p>
+        </div>
+    </div>
+    <div class="youhuiRelay_infor">
+        <div class="youhuiRelay_infor_posit">
+            <div id="daojishi" rel="<{$detail.ltime-$time}>">00:00:00:00</div>
+            <div class="youhuiRelay_infor_event">
+                <div class="fl">
+                	<p class="bt">时间</p>
+                    <p><span class="time" id='time'><{$detail.time}></span>s</p>
+                </div>
+                <div class="fr">
+                	<p class="bt">金钱</p>
+                    <p><span id='qian'>0</span>元</p>
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <div class="youhuiRelay_jinbi"><img src="%THEME%/weixin/relay/static/img/jinbi.png" width="100%" height="" /></div>
+        <div class="youhuiRelay_prompt_posit">
+            <table width="100%" height="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td>剩余<i><{$detail.max_num-$my_sn_list.cishu}></i>次</td>
+                </tr>
+				 <tr>
+                   <td>已经抢到<i><{$my_sn_list.gold|default:0}></i>金币</td>
+					</tr>
+            </table>
+        </div>
+    	<img src="%THEME%/weixin/relay/static/img/youhuiRelay2.png" width="100%" height="" />
+    </div>
+
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script>
+	$(document).ready(function(e) {
+        $('.shareBtn').click(function(){
+
+				$('.share_pop').show();
+
+		});
+
+		$('.share_pop').click(function(){
+
+			$(this).hide();
+
+			});
+    });
+    </script>
+    <div class="share_pop"  style="display:none;"> <img src="%THEME%/weixin/help/static/img/sharePic.png"> </div>
+    <div class="youhuiRelay_anniu">
+    	<div class="youhuiRelay_anniu_posit">
+       		<a href="javascript:;" class="fl anniu_fenx"><span class="state shareBtn">邀好友</span><img src="%THEME%/weixin/relay/static/img/anniu_fenx.png" width="100%" height="" /></a>
+        	<{if $detail.max_num-$my_sn_list.cishu<=0}>
+            木了
+            <{else}>
+            	<a href="javascript:;" class="fr anniu_qiang"><span class="state">抢优惠</span><img src="%THEME%/weixin/relay/static/img/anniu_qiang.png" width="100%" height="" /></a>
+             <{/if}>
+            
+        </div>
+    	<img src="%THEME%/weixin/relay/static/img/youhuiRelay3.png" width="100%" height="" />
+    </div>
+    <div class="youhuiRelay_tab">
+    	<ul>
+			<!-- <li class="youhuiRelay_tab_list youhuiRelay_tab_reply on"><a href="javascript:;">介绍</a></li>-->
+			 <li class="youhuiRelay_tab_list "><a href="javascript:;">奖项设置</a></li>
+    	    <li class="youhuiRelay_tab_list"><a href="javascript:;">我抢到的</a></li>
+            <li class="youhuiRelay_tab_list"><a href="javascript:;">好友接力</a></li> 
+			<li class="youhuiRelay_tab_list"><a href="javascript:;">TOP10</a></li>
+	    </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="youhuiRelay_list_box">
+		 <div class="youhuiRelay_list" style="display:block;">
+            
+            <div class="shakePage_intro">
+            	<p>奖项设置：</p>
+                <{foreach $prizes as $k => $item}>
+                <p><{$item.name}><{$item.num}>名，奖<{$item.title}>；</p>
+                <{/foreach}> 
+            </div>
+           
+        </div>
+		
+        <div class="youhuiRelay_list">
+            <div class="youhuiRelay_mine">
+            	<div class="youhuiRelay_mine_infor">
+                	<div class="fl img"><img src="<{$my_sn_list.img}>" width="100" height="100" /></div>
+                    <div class="wz">
+                    	<p class="name"><{$my_sn_list.nick_name}>金币</p>
+                        <p><{$my_sn_list.gold}>金币</p>
+                        <p>玩了<{$my_sn_list.cishu}>次</p>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <ul class="youhuiRelay_mine_list">
+                	<{foreach $list_sn as $k => $item}>
+                     <li><span class="fl">抢到金币</span><span class="fl long"><{$item.gold}>金币</span><span class="fr"><{$item.dateline|format}></span></li>
+                    <{/foreach}>
+                </ul>
+            </div>
+        </div>
+        <div class="youhuiRelay_list">
+            <div class="youhuiRelay_mine">
+            	<{foreach $list_sn3 as $k => $item}>
+                 <div class="youhuiRelay_mine_infor">
+                	<div class="fl img"><img src="<{$item.img}>" width="100" height="100" /></div>
+                    <div class="wz">
+                    	<p class="name"><{$item.nickname}></p>
+                        <p><{$item.gold}></p>
+                        <p>玩了<{$item.cishu}>次</p>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+                <{/foreach}>
+            </div>
+        </div>
+		<div class="youhuiRelay_list">
+        
+                <ul>
+                    <{foreach $sn_list as $k => $item}>
+                    <li class="winRecord_list">
+                        <div class="fl img"><img src="<{$item.img}>" width="100" height="100" /></div>
+                        <div class="wz">
+                            <p class="bt"><{$item.nickname}></p>
+                            <p class="bt">（金币：<{$item.gold}>）</p>
+                            <p class="greycl"><{$item.dateline|format}></p>
+                        </div>
+                        <div class="clear"></div>
+                    </li>
+                    <{/foreach}>
+                </ul>
+            </div>
+            
+            
+        <div class="youhuiRelay_list">
+        	
+        </div>
+        
+    </div>
+</div>
+<audio id='test1' src="%THEME%/weixin/relay/static/5293.wav"></audio>
+
+<script>
+
+
+<{if $my_sn_list}> 
+<script type="text/javascript">
+
+	  wx.config({
+
+		  debug: true,
+
+		  appId: '<{$wxjscfg.appId}>',
+
+		  timestamp: <{$wxjscfg.timestamp}>,
+
+		  nonceStr: '<{$wxjscfg.nonceStr}>',
+
+		  signature: '<{$wxjscfg.signature}>',
+
+		  jsApiList: [
+
+			'checkJsApi',
+
+			'onMenuShareTimeline',
+
+			'onMenuShareAppMessage',
+
+			'onMenuShareQQ',
+
+			'onMenuShareQZone',
+
+			'onMenuShareWeibo',
+
+		  ]
+
+	  });
+
+
+
+	wx.ready(function(){
+
+		wx.onMenuShareTimeline({
+
+			title: '<{$detail.title}>', 
+
+			link: '<{$url}>', // 分享链接
+
+			imgUrl: '<{$pager.img}>/<{$detail.photo}>', // 分享图标
+
+			success: function () { 
+
+				fenxiang();
+
+			},
+
+			cancel: function () { 
+
+				// 用户取消分享后执行的回调函数
+
+			}
+
+		});
+
+		wx.onMenuShareAppMessage({
+
+			title: '<{$detail.title}>', // 分享标题
+
+			desc: '<{$detail.intro}>', // 分享描述
+
+			link: '<{$url}>', // 分享链接
+
+			imgUrl: '<{$pager.img}>/<{$detail.photo}>', // 分享图标
+
+			type: '', // 分享类型,music、video或link，不填默认为link
+
+			dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+
+			success: function () { 
+
+				fenxiang();
+
+			},
+
+			cancel: function () { 
+
+			}
+
+		});
+
+
+
+		wx.onMenuShareQQ({
+
+			title: '<{$detail.title}>', // 分享标题
+
+			desc: '<{$detail.intro}>', // 分享描述
+
+			link: '<{$url}>', // 分享链接
+
+			imgUrl: '<{$pager.img}>/<{$detail.photo}>', // 分享图标
+
+			success: function () { 
+
+			   fenxiang();
+
+			},
+
+			cancel: function () { 
+
+			   // 用户取消分享后执行的回调函数
+
+			}
+
+		});
+
+		
+
+	});
+
+	
+
+	function fenxiang(){
+
+		 var link = "<{link ctl='weixin/help:fenxiang' arg0=$my_sn_list.sn_id http='base'}>";
+
+		 $.getJSON(link, function(ret){
+
+			if(ret.error >0){	
+
+				ErrorDialog2(ret.message);
+
+			}else{
+
+				openSuccessDialog('分享成功');
+
+			}
+
+        });
+
+	}
+
+</script> 
+<{/if}> 
+
+
+<script>
+	$(document).ready(function(e) {	
+		$('.youhuiRelay_tab_list').each(function (e) {
+			$(this).click(function(){
+				$('.youhuiRelay_tab_list').removeClass("on");
+				$(this).addClass("on");
+				$(".youhuiRelay_list_box .youhuiRelay_list").each(function(i){
+					if(e==i){
+						$(".youhuiRelay_list_box .youhuiRelay_list").hide();
+						$(this).show();
+					}
+					else{
+						$(this).hide();
+					}
+				});
+			});
+		});
+	});
+	
+	
+	
+	function IsPC() {
+		var userAgentInfo = navigator.userAgent;
+		var Agents = ["Android", "iPhone",
+					"SymbianOS", "Windows Phone",
+					"iPad", "iPod"];
+		var flag = true;
+		for (var v = 0; v < Agents.length; v++) {
+			if (userAgentInfo.indexOf(Agents[v]) > 0) {
+				flag = false;
+				break;
+			}
+		}
+		return flag;
+	}
+	
+	var touchEvents = {
+		touchstart: "touchstart",
+		touchend: "touchend",
+	};
+	if (IsPC()) {
+		touchEvents.touchstart = "mousedown";
+		touchEvents.touchend = "mouseup";
+	}
+	
+	$(".anniu_fenx").bind(touchEvents.touchstart, function () {
+	   $(this).find("img").attr('src','%THEME%/weixin/relay/static/img/anniu_fenx_on.png');
+	  
+		
+	});
+
+	$(".anniu_fenx").bind(touchEvents.touchend, function () {
+	  $(this).find("img").attr('src','%THEME%/weixin/relay/static/img/anniu_fenx.png');
+	 
+		
+	});
+	
+	
+	
+	
+         
+	
+	$('.anniu_qiang .state').click(function(){
+		<{if $error}>
+			ErrorDialog();
+		<{/if}>
+		if($("#time").html() > 0){
+			var hqian =  $("#qian").html();
+			qian(hqian);
+		}
+		window.player1 = document.querySelector('#test1');
+		if(!player1.currentTime || player1.ended){
+			player1.play();	
+		}
+		
+		var src = $('.youhuiRelay_jinbi').find("img").attr('src');
+		if(src.indexOf("jinbi.gif")>0){	
+			clearTimeout(aa); 
+		}else{
+			$('.youhuiRelay_jinbi').find("img").attr('src','%THEME%/weixin/relay/static/img/jinbi.gif');
+			var aa = setTimeout(function(){
+				$('.youhuiRelay_jinbi').find("img").attr('src','%THEME%/weixin/relay/static/img/jinbi.png');
+			}, 650);
+		}
+		
+		
+		
+		if(hqian == 0){
+			var timer = setInterval(function () {	
+				if($("#time").html() > 0){
+					shijian($("#time").html());
+				}
+				
+				if($("#time").html() == 0){
+					var hqian =  $("#qian").html();
+					var link = "<{link ctl='weixin/relay:sign' arg0=$detail.relay_id arg1='#hqian#' arg2=$my_sn_list.sn_id http='base'}>";
+					 $.getJSON(link.replace("#hqian#", hqian), function(ret){			
+						if(ret.error >0){				
+							ErrorDialog2(ret.message);			
+						}else{			
+							openSuccessDialog(ret.message);			
+						}			
+					});
+					clearInterval(timer); 
+				}
+				
+			}, 1000);
+		}
+		
+	});
+	
+	function shijian(t) {
+		t--;
+		$("#time").html(t);
+	}
+	function qian(t) {
+		var x = <{$detail.min_gold}>;
+		var y = <{$detail.max_gold}>;
+		var rand = parseInt(Math.random() * (x - y + 1) + y);
+		var d = parseInt(t)+parseInt(rand);
+		$("#qian").html(d);
+		
+	}
+	
+	$(".anniu_qiang .state").bind(touchEvents.touchstart, function () {
+		$(".anniu_qiang").find("img").attr('src','%THEME%/weixin/relay/static/img/anniu_qiang_on.png');
+		
+	});
+
+	$(".anniu_qiang .state").bind(touchEvents.touchend, function () {
+	   $(".anniu_qiang").find("img").attr('src','%THEME%/weixin/relay/static/img/anniu_qiang.png');
+	   
+		
+	});
+	
+	function openSuccessDialog(msg){
+
+		var successHtml = "<div class='common_dialog lqcg'>"
+
+		+"<h6>恭喜您获得"+msg+"金币</h6>"
+
+		+"<div class='tb'><a class='btn m_15 flex_1' href='###' onClick='on_devicemotion();'>确 定</a></div>"
+
+		+"</div>"
+
+		$.Dialog.open(successHtml);
+
+	}
+
+	function on_devicemotion(){
+
+		location.reload();
+
+	}
+
+	
+
+	function ErrorDialog2(msg){
+
+		var successHtml = "<div class='common_dialog lqcg'>"
+
+		+"<h6>"+msg+"</h6>"
+
+		+"<div class='tb'><a class='btn m_15 flex_1' href='###' onClick='$.Dialog.close();'>确 定</a></div>"
+
+		+"</div>"
+
+		$.Dialog.open(successHtml);
+
+	}
+	
+	
+	function daojishi(id) {
+		var t = Math.floor($("#" + id).attr('rel'));
+		t--;
+		var d = Math.floor(t / 60 / 60 / 24);
+		var h = Math.floor(t / 60 / 60 % 24);
+		var m = Math.floor(t / 60 % 60);
+		var s = Math.floor(t % 60);
+		$("#" + id).attr('rel', t);
+		$("#" + id).html(d + '天' + h + '时' + m + '分' + s+'秒');
+	}
+	setInterval(function () {
+		daojishi("daojishi");
+	}, 1000);
+</script>
+</body>
+</html>

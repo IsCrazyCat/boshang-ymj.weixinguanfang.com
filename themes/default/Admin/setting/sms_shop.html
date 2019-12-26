@@ -1,0 +1,54 @@
+<include  file='public:header'/>
+<style>.lfTdBt {width: 150px;}</style>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">基本设置</li>
+        <li class="li2 li3">短信设置</li>
+    </ul>
+</div>
+
+<p class="attention">可以设置商户购买短信<span></span></p>
+<form  target="baocms_frm" action="<{:U('setting/sms_shop')}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+            
+                <tr>
+                    <td class="lfTdBt">单价：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[sms_shop_money]" value="<{$CONFIG.sms_shop.sms_shop_money}>" class="scAddTextName w150" />
+						<code>就是你打算卖多少钱一条</code>
+                    </td>
+
+                </tr>
+          
+                
+                
+                <tr>
+                    <td class="lfTdBt">其他设置：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[sms_shop_small]" value="<{$CONFIG.sms_shop.sms_shop_small}>" class="scAddTextName w150" />
+						<code>一次最少购买多少条</code>
+                        <input type="text" name="data[sms_shop_big]" value="<{$CONFIG.sms_shop.sms_shop_big}>" class="scAddTextName w150" />
+						<code>一次最多购买多少条</code>
+                        
+                    </td>
+                </tr>
+                
+              
+                
+             
+
+            </table>
+
+        </div>
+
+        <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+
+    </div>
+
+</form>
+
+<include  file='public:footer'/>       
+

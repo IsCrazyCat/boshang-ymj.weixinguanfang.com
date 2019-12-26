@@ -1,0 +1,46 @@
+<php>$mobile_title = $detail['title'];</php>
+<include  file='public:header'/>   
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('jifen/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		礼品详情
+	</div>
+</header>
+
+<div class="item-detail padding border-bottom">
+	<div class="line">
+		<div class="x3">
+        
+			<div class="item"><img src="<{:config_img($detail['face_pic'])}>" width='90%' /></div>
+		</div>
+		<div class="x9">
+			<h5><{$detail.title}></h5>
+			<p>需要积分：<span class="text-dot"><{$detail.integral}></span></p>
+			<p>市场价：<span class="text-dot margin-small-right"><{$detail.price}></span>  / <span class="margin-small-left">剩余 <em class="text-dot"><{$detail.num}></em>个</span></p>
+		</div>
+	</div>
+	<a class="button bg-dot" href="<{:U('jifen/exchange',array('goods_id'=>$detail['goods_id']))}>">立刻兑换</a>
+</div>
+
+<div class="blank-10 bg"></div>
+<div class="main-title">
+<div class="blank-10"></div>
+	<div class="line">
+		<div class="x4"><hr /></div>
+		<div class="x4">
+			<h2>礼品介绍</h2>
+			<p>GIFT INTRODUCT</p>
+		</div>
+		<div class="x4"><hr /></div>
+	</div>
+</div>
+<div class="line">
+	<div class="container item-intro">
+	<{$detail.details}>
+	</div>
+</div>
+			
+
+<include file="public:footer"/>

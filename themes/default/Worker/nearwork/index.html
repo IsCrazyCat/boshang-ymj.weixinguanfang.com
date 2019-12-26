@@ -1,0 +1,71 @@
+<include file='public:header'/>  
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			人才招聘
+		</div>
+		<div class="top-share">
+			<a  href="javascript:void(0);" id="cate-btn"></a>
+		</div>
+	</header>
+    
+
+<body>
+
+  
+	<div class="line xiaoqu-search">
+		<form method="post"  action="<{:U('nearwork/index')}>" id="form1" class="form1">
+			<div class="form-group">
+				<div class="field">
+					<div class="input-group">
+						<span class="addbtn"><button type="button" class="button icon-search"></button></span>
+						<input type="text" class="input" name="keyword" size="50" value="<{$keyword}>" placeholder="输入标题"  />
+						<span class="addbtn"><button type="submit" class="button">搜索</button></span>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+
+<div class="xiaoqu-list">
+<ul id="xiaoqu-list">
+              
+              
+     <foreach name="list" item="item">     
+     <li class="line">
+	<a href="javascript:void(0);" class="item fix hightitem">	
+		</a><div class="x12"><a href="javascript:void(0);" class="item fix hightitem">	
+			</a><h5>招聘标题：<{$item.title}></h5>
+            
+            <a href="<{:U('nearwork/edit',array('work_id'=>$item['work_id']))}>" class="button  bg-yellow float-right">编辑</a></h5>	
+            
+			<p class="addr">有效期:<{$item.expir_date}></p>
+            <p class="addr">浏览量：<{$item.views}></p>
+            <p class="addr">审核状态：<if condition="$item['audit'] eq 1">正常<else/>未审核</if></p>
+            
+		</div>
+	
+		</li>
+        <div class="blank-10 bg "></div>
+       </foreach>
+		
+        
+
+</ul>  
+	</div>
+
+	
+    
+    
+    
+    
+<div class="blank-20"></div>
+
+<div class="container login-open">
+<h5 style="text-align:center"><{$page}><!--分页代码不要忘记加--> </h5>
+</div>
+        
+<include file="public:footer"/>

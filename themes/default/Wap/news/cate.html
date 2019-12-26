@@ -1,0 +1,122 @@
+<php>$seo_title = $cate[cate_name];</php>
+<include file='public:header'/>    
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<{$cate[cate_name]}>
+		</div>
+        <div class="top-search" style="display:none;">
+			<form method="post" action="<{:U('news/index')}>">
+				<input name="keyword" placeholder="输入新闻的关键字"  />
+				<button type="submit" class="icon-search"></button> 
+			</form>
+		</div>
+		<div class="top-signed">
+			<a id="search-btn" href="javascript:void(0);"><i class="icon-search"></i></a>
+		</div>
+	</header>
+    
+<style>
+.select_wrapper .select_01 {height: 43px;border-bottom: 1px solid #cecece;}
+</style>   
+    <script>
+	$(function(){
+		$("#search-btn").click(function(){
+			if($(".top-search").css("display")=='block'){
+				$(".top-search").hide();
+				$(".top-title").show(200);
+			}
+			else{
+				$(".top-search").show();
+				$(".top-title").hide(200);
+			}
+		});
+
+		});
+    </script>
+
+	<div class="select_wrapper">
+        <div class="select_01" id="wrapper2">
+                <ul class="tab-hd" id="scroller2">
+                <li class="<if condition="empty($cat)">current</if> item"><a href="<{:LinkTo('news/index')}>">全部资讯</a></li>
+                <foreach name="articlecates" item="item">
+					<eq name="item.parent_id" value="0"> 
+                    <li class="<if condition="$cat eq $item['cate_id']">current</if> item"><a href="<{:LinkTo('news/index',array('cat'=>$item['cate_id']))}>"><{$item.cate_name}></a></li>
+					</eq>
+				</foreach>
+                </ul>
+                <div class="more" id="iscrollto"><span></span></div>
+            </div>
+		</div>	
+
+
+		<script>
+        (function($){
+            $('#scroller2').css('width',(90*$('#scroller2').find('li').length)+40+'px'); 
+            window['myScroll2'] = new IScroll('#wrapper2', {
+                scrollX: true,
+                scrollY: false,
+                click:true,
+                keyBindings: true
+            });
+            $('#iscrollto').click(function(){
+                window['myScroll2'].scrollBy(-100,0,500)
+            });
+        })(jQuery);
+        window.onload=function(){loaded_page();}
+        </script>
+ 
+		<script>
+            $("#search-bar li").each(function(e){
+                $(this).click(function(){
+                    if($(this).hasClass("on")){
+                        $(this).parent().find("li").removeClass("on");
+                        $(this).removeClass("on");
+                        $(".serch-bar-mask").hide();
+                    }
+                    else{
+                        $(this).parent().find("li").removeClass("on");
+                        $(this).addClass("on");
+                        $(".serch-bar-mask").show();
+                    }
+                    $(".serch-bar-mask .serch-bar-mask-list").each(function(i){
+                        
+                        if(e==i){
+                            $(this).parent().find(".serch-bar-mask-list").hide();
+                            $(this).show();
+                        }
+                        else{
+                            $(this).hide();
+                        }
+                        $(this).find("li").click(function(){
+                            $(this).parent().find("li").removeClass("on");
+                            $(this).addClass("on");
+                        });
+                    });
+                });
+            });
+        </script>  
+
+	
+	<div class="blank-10"></div>
+	<div class="sec-title">	
+		<div class="divider"></div>	
+		<span>资讯列表</span>
+	</div>
+	<div class="blank-10"></div>
+	<div class="list-media-x" id="list-media">
+	<ul></ul>
+    </div>
+    
+    <script>
+		$(document).ready(function () {
+			loaddata('<{$nextpage}>', $("#list-media ul"), true);
+		});
+	</script>
+ 		
+	</div>
+	
+	
+<include file="public:footer"/>

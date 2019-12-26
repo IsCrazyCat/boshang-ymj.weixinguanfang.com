@@ -1,0 +1,51 @@
+<include file='public:header'/>  
+<style>
+.list-media-x { margin-top: 2.1rem;}
+</style>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>  
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:u('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			外卖订单<if condition="$SHOP['is_pei'] eq 0">（已开通配送）</if>
+		</div>
+	</header>
+
+ 
+<!-- 筛选TAB -->
+<if condition="$SHOP['is_pei'] eq 0">
+<ul id="shangjia_tab">
+        <li style="width:20%;"><a href="<{:U('ele/eleorder',array('status'=>1))}>"  <eq name="status" value="1">class="on"</eq>>待配送</a></li>
+        <li style="width:20%;"><a href="<{:U('ele/eleorder',array('status'=>2))}>" <eq name="status" value="2">class="on"</eq>>已配送</a></li>
+        <li style="width:20%;"><a href="<{:U('ele/eleorder',array('status'=>3))}>" <eq name="status" value="3">class="on"</eq>>待退款</a></li>
+        <li style="width:20%;"><a href="<{:U('ele/eleorder',array('status'=>4))}>" <eq name="status" value="4">class="on"</eq>>已退款</a></li>
+        <li style="width:20%;"><a href="<{:U('ele/eleorder',array('status'=>8))}>" <eq name="status" value="8">class="on"</eq>>已完成</a></li>
+</ul>  
+<else/>
+<ul id="shangjia_tab">
+        <li style="width:20%;"><a href="<{:U('ele/eleorder',array('status'=>1))}>"  <eq name="status" value="1">class="on"</eq>>待配送</a></li>
+        <li style="width:20%;"><a href="<{:U('ele/eleorder',array('status'=>2))}>"  <eq name="status" value="2">class="on"</eq>>确认订单</a></li>
+        <li style="width:20%;"><a href="<{:U('ele/eleorder',array('status'=>3))}>" <eq name="status" value="3">class="on"</eq>>待退款</a></li>
+        <li style="width:20%;"><a href="<{:U('ele/eleorder',array('status'=>4))}>" <eq name="status" value="4">class="on"</eq>>已退款</a></li>
+        <li style="width:20%;"><a href="<{:U('ele/eleorder',array('status'=>8))}>" <eq name="status" value="8">class="on"</eq>>已完成</a></li>
+</ul>  
+</if>
+
+ 
+
+
+
+<div class="list-media-x" id="list-media">
+<div class="blank-10 bg"></div>
+<ul>
+</ul>
+</div> 
+
+<script>
+	$(document).ready(function () {
+		loaddata('<{$nextpage}>', $("#list-media ul"), true);
+	});
+</script>
+
+<include file="public:footer_waimai"/>

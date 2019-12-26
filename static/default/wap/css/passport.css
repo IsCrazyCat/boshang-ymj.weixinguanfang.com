@@ -1,0 +1,30 @@
+.login-open .icon{font-size:30px;}
+.login-open  a{color:#FFF;}
+.login-open  a:hover{filter:alpha(opacity=50);-moz-opacity:0.5; opacity:0.5;}
+
+.login-form .form-group{overflow:hidden;border-bottom:thin solid #eee;padding:0 10px;}
+.login-form .form-group .input{border:none;box-shadow:none;padding:0 10px 0 40px;height:40px;text-indent:0;}
+.login-form .form-group .icon{height:40px;line-height:40px;}
+
+.reg-form .text-input{border:none;width:100%;}
+.reg-form  label{color:#999;}
+
+.text-input {border:none;width:100%;}
+.text-select{border:none;width:100%;background:#fff!important;}
+.text-area{width:100%;border:none;resize:none;padding:10px;}.fabu-form .row{padding:10px;border-bottom:thin solid #eee;}
+.fabu-form .row .x3{color:#999;}
+.fabu-form .text-input{border:none;width:100%;}
+.fabu-form .text-select{border:none;width:100%;background:#fff!important;}
+.fabu-form .text-area{width:100%;border:thin solid #eee;resize:none;}
+#picker{display:inline-block;line-height:1.428571429;vertical-align:middle;margin:0 12px 0 0;}
+#picker .webuploader-pick{padding:6px 12px;display: block;}
+.uploader .thumbnail{width:25%;max-height:100px;}
+.uploader .thumbnail img{width:95%;height:100px;background:url("../image/tieba/loading.png") center no-repeat;}
+.uploader-list{width:100%;overflow:hidden;background:#fff;}
+.file-item{float:left;position:relative;background:#fff;margin-top:10px;}
+.upload-state-done:after{content:"\f00c";font-family:FontAwesome;font-style:normal;font-weight:normal;line-height:1;-webkit-font-smoothing: antialiased;-moz-osx-font-smoothing:grayscale;font-size:16px;position: absolute;bottom: 0;right:10%;color:#4cae4c;z-index:99;}
+/*切换TAB*/
+.tab-bar{text-align:center;padding:10px 0;background:#fafafa;border-bottom:thin solid #eee;}
+.tab-bar a{background:#fff;padding:8px 20px;}
+.tab-bar a:focus{border:none;border: 1px solid #EEE;}
+.tab-bar a.active{background:#E9553B;}

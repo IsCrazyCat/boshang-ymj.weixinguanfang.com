@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>用户中心</title>
+        <link href="__TMPL__statics/css/newstyle.css?v=20150729" rel="stylesheet" type="text/css" />
+        <script src="__TMPL__statics/js/jquery.js"></script>
+        <script> var BAO_PUBLIC = '__PUBLIC__';
+            var BAO_ROOT = '__ROOT__';</script>
+        <script src="__PUBLIC__/js/web.js"></script>
+        <script>
+            $(function () {
+                $('#selectBoxInput').click(function () {
+                    $('.selectList').toggle(300);
+                });
+                $(".selectList li a").click(function () {
+                    $("#selectBoxInput").html($(this).html());
+                    $('.selectList').hide();
+                });
+            });
+        </script>
+    </head>
+    <body> 
+        <div class="topOne">
+            <div class="nr">
+                <if condition="empty($MEMBER)">
+                    <div class="left"><span class="welcome">您好，欢迎访问<{$CONFIG.site.sitename}></span><a href="<{:u('home/passport/login')}>">登陆</a>|<a href="<{:U('passport/register')}>">注册</a>
+                        <else/>
+                        <div class="left">欢迎 <b style="color: red;font-size:14px;"><{$MEMBER.nickname}></b> 来到<{$CONFIG.site.sitename}>&nbsp;&nbsp; <a href="<{:u('members/index/index')}>" >个人中心</a>|<a href="<{:u('home/passport/logout')}>" >退出登录</a>
+                        </if>
+                        </div>
+                        <div class="right">                    
+                            <ul>
+                                <li class="liOne"><a class="liOneB" href="<{:u('members/order/index')}>" >我的订单</a><em>&nbsp;</em></li>
+                                <li class="liOne"><a class="liOneA" href="javascript:void(0);">我的服务<em>&nbsp;</em></a>
+                                    <div class="list">
+                                        <ul>
+                                            <li><a href="<{:u('members/order/index')}>">我的订单</a></li>
+                                            <li><a href="<{:u('members/ele/index')}>">我的外卖</a></li>
+                                            <li><a href="<{:u('members/yuyue/index')}>">我的预约</a></li>
+                                            <li><a href="<{:u('members/dianping/index')}>">我的评价</a></li>
+                                            <li><a href="<{:u('members/favorites/index')}>">我的收藏</a></li>                                    
+                                            <li><a href="<{:u('members/myactivity/index')}>">我的活动</a></li>
+                                            <li><a href="<{:u('members/life/index')}>">会员服务</a></li>
+                                            <li><a href="<{:u('members/set/nickname')}>">帐号设置</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <span>|</span>
+                                <li class="liOne liOne_visit"><a class="liOneA" href="javascript:void(0);">最近浏览<em>&nbsp;</em></a>
+                                    <div class="list liOne_visit_pull">
+                                        <ul>
+                                            <?php
+                                                $views = unserialize(cookie('views'));
+                                                $views = array_reverse($views, TRUE);
+                                                if($views){
+                                                foreach($views as $v){
+                                            ?>
+                                            <li class="liOne_visit_pull_li">
+                                                <a href="<{:U('tuan/detail',array('tuan_id'=>$v['tuan_id']))}>"><img src="<{:config_img($v['photo'])}>" width="80" height="50" /></a>
+
+                                                <h5><a href="<{:U('tuan/detail',array('tuan_id'=>$v['tuan_id']))}>"><{$v.title}></a></h5>
+
+                                                <div class="price_box"><a href="<{:U('tuan/detail',array('tuan_id'=>$v['tuan_id']))}>"><em class="price">￥<{$v.tuan_price}></em><span class="old_price">￥<{$v.price}></span></a></div>
+
+                                            </li>
+                                            <?php }?>
+                                        </ul>
+                                        <p class="empty"><a href="javascript:;" id="emptyhistory">清空最近浏览记录</a></p>
+                                        <?php }else{?>
+                                        <p class="empty">您还没有浏览记录</p>
+                                        <?php } ?>
+                                    </div>
+                                </li>
+                                <span>|</span>
+                                <li class="liOne"> <a class="liOneA" href="javascript:void(0);">我是商家<em>&nbsp;</em></a>
+                                    <div class="list">
+                                        <ul>
+                                            <li><a href="<{:u('merchant/login/index')}>">商家登陆</a></li>
+                                            <li><a href="<{:u('merchant/index/index')}>">微信营销</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <span>|</span>
+                                <li class="liOne"> <a class="liOneA" href="javascript:void(0);">快捷导航<em>&nbsp;</em></a>
+                                    <div class="list">
+                                        <ul>
+                                            <li><a href="<{:u('home/shop/index')}>">商家列表</a></li>
+                                            <li><a href="<{:u('home/jifen/index')}>">积分商城</a></li>
+                                            <li><a href="<{:u('home/billboard/index')}>">商家榜单</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+            </div>
+            <script>
+                $(document).ready(function(){
+                    $("#emptyhistory").click(function(){
+                        $.get("<{:U('tuan/emptyviews')}>",function(data){
+                            if(data.status == 'success'){
+                                $(".liOne_visit_pull ul li").remove();
+                                $(".liOne_visit_pull p.empty").html("您还没有浏览记录");
+                            }else{
+                                layer.msg(data.msg,{icon:2});
+                            }
+                        },'json')
+                    })
+                });
+            </script>
+
+            <div class="between">
+                <div class="middle" style="margin-bottom: 40px;">
+                    <div class="all">
+                        <div class="all_2">
+                            <ul>
+                                <li>1.提交订单<em>&nbsp;</em></li>
+                                <li>2.去支付<em>&nbsp;</em></li>
+                                <li class="on">3.完成<em>&nbsp;</em></li>
+                            </ul>               
+                        </div>
+                        <div class="all_3">
+                            <ul class="ul_3">
+                                <li><img src="__TMPL__statics/images/tp_5.png"><p>随时退</p></li>
+                                <li><img src="__TMPL__statics/images/tp_6.png"><p>不满意免单</p></li>
+                                <li><img src="__TMPL__statics/images/tp_7.png"><p>过期退</p></li>
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                    <table  class="tab_bor">
+
+                        <tr>
+
+                            <td><p class="tab_p1"><img src="__TMPL__statics/images/tp_15.png"></p></td>
+
+                            <td><p class="tab_p2"><{$message}><a href="<{:u('home/ele/index')}>"> &nbsp再去逛逛>></a></p></td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td colspan="2"><div class="tab_p4"><a href="<{:u('members/ele/index')}>">查看已买购物</a></div></td>
+
+                        </tr>
+
+                    </table>
+
+                    <table class="tab_xx" width="100%">
+
+                        <tr>
+
+                            <th colspan="5">订单信息</th>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>订单编号：<{$detail.order_id}></td>
+
+                            <td>下单时间：<{$detail.single_time|date='Y-m-d H:i',###}></td>
+
+                            <td>付款方式：<{$paytype[$detail['code']]['name']}></td>
+
+                            <td>付款时间：<{$detail.create_time|date='Y-m-d H:i',###}></td>
+
+                            <td>地址：<{$citys[$addr['city_id']]['name']}>&nbsp;<{$areas[$addr['area_id']]['area_name']}>&nbsp;<{$bizs[$addr['business_id']]['business_name']}>&nbsp;<{$addr['addr']}></td>
+
+                        </tr>
+
+                        <tr>
+
+                            <th colspan="2">菜单详情</th>
+
+                            <th>单价</th>
+
+                            <th>数量</th>
+
+                            <th class="tab_fiveTh">总额</th>
+
+                        </tr>
+
+                        <foreach name="ele_goods" item="item">
+
+                            <tr>
+
+                            
+
+                                <td width="150"><img width="150" src="<{:config_img($products[$item['product_id']]['photo'])}>"></td>
+
+                                <td width="200"><{$products[$item['product_id']]['product_name']}></td>
+
+                                <td> &yen;<{:round($products[$item['product_id']]['price']/100,2)}></td>
+
+                                <td>X<{$item.num}></td>
+
+                                <td class="tab_fiveTh"><{:round($item['total_price']/100,2)}></td>
+
+                            </tr>
+
+                        </foreach>
+
+                        <if condition="!empty($detail['new_money'])">
+
+                        <tr>
+
+                            <td colspan="3">&nbsp;</td>
+
+                            <td>-</td>
+
+                            <td><{:round($detail['new_money']/100,2)}></td>
+
+                        </tr>
+
+                        </if>
+
+                         <if condition="!empty($detail['fan_money'])">
+
+                        <tr>
+
+                            <td colspan="3">&nbsp;</td>
+
+                            <td>-</td>
+
+                            <td><{:round($detail['fan_money']/100,2)}></td>
+
+                        </tr>
+
+                         </if>
+
+                        <tr>
+
+                            <td colspan="4">&nbsp;</td>
+
+                            <td><p class="pay_total_p">支付总金额：<span>￥<{:round($detail['need_pay']/100,2)}></span></p></td>
+
+                        </tr>
+
+                    </table>      
+
+                </div>
+
+            </div>
+
+            <include file="public:footer"/>

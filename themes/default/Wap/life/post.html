@@ -1,0 +1,88 @@
+<include file="public:head"/>
+<body>
+	<!-- 头部 -->		
+	<header class="mui-bar mui-bar-nav mui-clearfix">
+		<a href="/wap/life/index.html" class="mui-pull-left miui-block">
+			<button class="mui-btn mui-btn-link mui-btn-nav">
+				<span class="mui-icon mui-icon-left-nav"></span>
+			</button>
+		</a>
+		<h1 class="mui-title">分类选择</h1>
+	</header>    
+	
+	<!-- 主体 -->
+	<div id="main">
+
+		<div class="darktitle">选择发布分类</div>	
+		<div class="cate-list">
+			<php>$i=0; foreach($channel as $val){$i++;</php>	
+			<div class="classify" tapmode onClick="expandList('cate-<{$i}>')">
+				<div class="fl">
+					<img src="/static/default/mob/images/life/life_icon_<{$i}>.png" class="sublogo" />	
+				</div>
+				<div class="info">	
+					<div class="title"><{$val}></div>	
+					<div class="subtitle">
+						<php> $a = 0 ;foreach($lifecate as $v){if($v['channel_id'] == $i){ $a++;if($a<3){</php>
+						<{$v['cate_name']}> .
+						<php>}}}</php>
+						...
+					</div>	
+				</div>	
+				<img src="/static/default/mob/images/ic_arrow_down_black.png" alt="" class="arrow" id="cate-<{$i}>arrow">	
+			</div>	
+			<div class="subclass" id="cate-<{$i}>"  data-click='0'>	
+				<php>
+					$k =0;
+					$items = array();
+					foreach($lifecate as $v){
+					if($v['channel_id'] == $i){
+						$items[] = $val;
+						$k++;
+						$y = $k%3;
+				</php>
+				<if condition = "$y eq 1">
+				<div class="row">	
+					<div class="col fw flipcard brb"><a href="<{:U('life/fabu',array('cat'=>$v['cate_id']))}>" ><{$v.cate_name}></a></div>
+				<elseif condition = "$y eq 2" />
+					<div class="col fw flipcard brb"><a href="<{:U('life/fabu',array('cat'=>$v['cate_id']))}>" ><{$v.cate_name}></a></div>
+				<elseif condition = "$y eq 0" />
+					<div class="col fw flipcard br"><a href="<{:U('life/fabu',array('cat'=>$v['cate_id']))}>" ><{$v.cate_name}></a></div>	
+				</div>
+				</if>
+				<php>}} $x = $k%3; </php>
+				<if condition = "$x eq 1">
+					<div class="col fw flipcard brb">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+					<div class="col fw flipcard br">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+				</div>
+				</if>
+				<if condition = "$x eq 2">
+					<div class="col fw flipcard br">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+				</div>
+				</if>
+			</div>
+			<php>}</php>
+		</div>	
+	</div>
+	
+<script>	
+	function expandList (type) {	
+		var food = document.getElementById(type);	
+		var click = food.getAttribute("data-click");	
+			
+		if (click == 0) {	
+			// 点开	
+			food.setAttribute("data-click", 1);	
+			$api.dom('#'+type+'arrow').src = "/static/default/mob/images/ic_arrow_up_black.png";	
+			food.style.display = 'block';	
+		}else {	
+			// 关闭	
+			food.setAttribute("data-click", 0);	
+			$api.dom('#'+type+'arrow').src = "/static/default/mob/images/ic_arrow_down_black.png";	
+			food.style.display = 'none';	
+		}	
+	}	
+</script>
+
+
+<include file="public:foot"/>

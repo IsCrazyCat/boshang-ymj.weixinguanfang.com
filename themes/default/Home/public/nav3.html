@@ -1,0 +1,20 @@
+<div class="nav">
+        <div class="navList">
+
+            <ul>
+                <li class="navListAll zy_navListAll"><span class="navListAllt">全部套餐分类</span>
+                    <div class="shadowy navAll">
+                        <include file="public:cate"/>
+                    </div>
+                </li>
+                <li class="navLi"><a <if condition="$act eq  'index' || $act eq 'detail' "> class="navA  on"<else/>class="navA"</if> href="<{:u('home/ding/index')}>">首页</a></li>
+                <li class="navLi"><a <if condition="$act eq  'lists'"> class="navA  on"<else/>class="navA"</if> href="<{:u('home/ding/lists')}>">订座</a></li>
+                <li class="navLi"><a <if condition="$act eq  'news'"> class="navA  on"<else/>class="navA"</if> href="<{:u('home/ding/news')}>">今日新单</a></li>
+                <li class="navLi"><a <if condition="$act eq  'hot'"> class="navA  on"<else/>class="navA"</if> href="<{:u('home/ding/hot')}>">热门疯抢</a></li>
+                
+                <!--<li class="navLi"><a <if condition="$ctl eq  'index'"> class="navA  on"<else/>class="navA"</if> title="首页" href="<{:U('index/index')}>" >首页</a></li>
+                <li class="navLi"><a <if condition="$ctl eq  'tuan'"> class="navA  on"<else/>class="navA"</if> title="身边套餐" href="<{:U('tuan/nearby')}>" >身边套餐</a></li>-->
+                
+            </ul>
+        </div>
+    </div>

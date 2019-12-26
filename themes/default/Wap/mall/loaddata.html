@@ -1,0 +1,26 @@
+<volist name="list" id="item" key="index"> 
+<php>$shop = D('Shop')->find($item['shop_id']);</php>
+	<li class="line">		
+        <a href="<{:U('mall/detail',array('goods_id'=>$item['goods_id']))}>">		
+        <div class="x3">
+            <img src="<{:config_img($item['photo'])}>" />
+            <if condition="!empty($item['profit_enable'])">
+            	<span class="album">分销商品</span>
+            </if>
+        </div>		
+        <div class="x9" style="margin-top:0.1rem; padding: 0 5px;">
+<!--            <h5><{:bao_msubstr($item['title'],0,18)}></h5>-->
+            <h5><{$item['title']}></h5>
+            <if condition="!empty($item['mobile_fan'])">
+            	<p class="desc">手机下单立减 <span style="color:#F00; font-size:12px;"><{:round($item['mobile_fan']/100,2)}></span> 元</p>	
+            <else/>
+            	<p class="desc"><{:bao_msubstr($item['intro'],0,26)}></p>	
+            </if>  
+                <p class="info"><span>&yen;<{:round($item['mall_price']/100,2)}></span><del>&yen;<{:round($item['price']/100,2)}></del>				
+                	<em>已售<{$item.sold_num}></em>
+                <if condition="!empty($shop['is_renzheng'])"><em class="is_renzheng">认证</em></if>
+                </p>	
+           </div>		
+           </a>	
+    </li>
+</volist>

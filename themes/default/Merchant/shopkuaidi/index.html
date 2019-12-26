@@ -1,0 +1,53 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+	<ul>
+		<li><a href="#">商家管理</a> > <a href="">快递管理</a> > <a>运费模板设置</a></li>
+	</ul>
+</div>
+<div class="tuan_content">
+	<form method="post" action="<{:U('shopkuaidi/index')}>">
+		<div class="radius5 tuan_top">
+			<div class="tuan_top_t">
+				<div class="left tuan_topser_l">
+					首先您的添加您的运费模板名称，然后添加运费 <input type="text" placeholder="输入模板" class="radius3 seleFl" name="keyword" value="<{$keyword}>"/><input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/>
+				</div>
+				<div class="right tuan_topfb_r">
+					<a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('shopkuaidi/create')}>">添加快递+</a>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="tuanfabu_tab">
+		<ul>
+			<li class="tuanfabu_tabli on"><a href="<{:U('shopkuaidi/index')}>">运费模板列表</a></li>
+            <li class="tuanfabu_tabli"><a href="<{:U('order/index')}>">商城订单列表</a></li>
+		</ul>
+	</div>
+	<table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+	<tr style="background-color:#eee;">
+		<td>ID</td>
+		<td>运费模板名称</td>
+		<td>电话</td>
+        <td>商家名称</td>
+		<td>审核状态</td>
+		<td>操作</td>
+		
+	</tr>
+	<foreach name="list" item="var">
+	<tr>
+		<td><{$var.id}></td>
+		<td><{$var.name}></td>
+		<td><{$var.tel}></td>
+        <td><{$shops[$var['shop_id']]['shop_name']}></td>
+		<td><if condition="$var.audit eq 1"><span class="text-green">已审核</span><else/>未审核</if></td>
+		<td>
+            <a class="tag" href="<{:U('shopkuaidi/lists',array('kuaidi_id'=>$var['id']))}>">运费设置</a>
+			<a class="tag" href="<{:U('shopkuaidi/edit',array('kuaidi_id'=>$var['id']))}>">编辑</a>
+			<a  mini="confirm" href="<{:U('shopkuaidi/delete',array('kuaidi_id'=>$var['id']))}>">删除</a>
+		</td>
+		
+	</tr>
+	</foreach>
+	</table>
+	<{$page}>
+</div>

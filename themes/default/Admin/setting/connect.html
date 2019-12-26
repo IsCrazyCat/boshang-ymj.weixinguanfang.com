@@ -1,0 +1,79 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">会员</li>
+        <li class="li2">会员管理</li>
+        <li class="li2 li3">第三方登录</li>
+    </ul>
+</div>
+<p class="attention"><span>注意：</span>联合登录需要在第三方平台申请</p>
+<form  target="baocms_frm" action="<{:U('setting/connect')}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+
+                <tr>
+                    <td class="lfTdBt">开启调试：</td>
+                    <td class="rgTdBt">
+                        <label><input type="radio" name="data[debug]" <eq name="CONFIG.connect.debug" value="1">checked="checked"</eq> value="1"  />开启</label>
+                        <label><input type="radio" name="data[debug]"  <eq name="CONFIG.connect.debug" value="0">checked="checked"</eq>  value="0"  />关闭</label>
+                        <code>调试模式是为了方便通过腾讯和微博等变态的审核！</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">&nbsp;</td>
+                    <td class="rgTdBt">腾讯QQ</td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">APP_ID：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[qq_app_id]" value="<{$CONFIG.connect.qq_app_id}>"  class="scAddTextName w300 " />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">APP_KEY：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[qq_app_key]" value="<{$CONFIG.connect.qq_app_key}>"  class="scAddTextName w300 " />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">&nbsp;</td>
+                    <td class="rgTdBt">微博</td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">APP_ID：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[wb_app_id]" value="<{$CONFIG.connect.wb_app_id}>"  class="scAddTextName w300 " />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">APP_KEY：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[wb_app_key]" value="<{$CONFIG.connect.wb_app_key}>"  class="scAddTextName w300 " />
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="lfTdBt">&nbsp;</td>
+                    <td class="rgTdBt">微信</td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">APP_ID：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[wx_app_id]" value="<{$CONFIG.connect.wx_app_id}>"  class="scAddTextName w300 " />
+                        <code>微信登录这个只启用在PC端，看过腾讯的API 这个需要在开发者中心申请！手机端的使用的是微信配置里面的2者不同，很悲剧</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">APP_KEY：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[wx_app_key]" value="<{$CONFIG.connect.wx_app_key}>"  class="scAddTextName w300 " />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>       

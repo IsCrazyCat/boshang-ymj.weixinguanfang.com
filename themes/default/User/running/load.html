@@ -1,0 +1,51 @@
+ <foreach name="list" item="item">
+	<div class="line padding border-bottom">
+		<div class="x12">
+			<p><a class="title" href="<{:U('running/detail',array('running_id'=>$item['running_id']))}>">需求：<{$item.title}>&nbsp;&nbsp; ID:(<{$item.running_id}>)</a></p>
+            <p class="text-gray" style="font-size:12px">地址：<{$item.name}> &nbsp;&nbsp;<{$item.mobile}>&nbsp;&nbsp;<{$item.addr}></p>
+            <p class="text-gray" style="font-size:12px">
+                价格：<{:round($item['price']/100,2)}> 
+                跑腿费：<{:round($item['freight']/100,2)}>   
+                实际支付：<{:round($item['need_pay']/100,2)}> 
+            </p>
+            <p class="text-gray" style="font-size:12px">发布时间：<{$item.create_time|date='Y-m-d H:i:s',###}> </p>
+		</div>
+	</div>
+	<div class="line padding text-right">
+		<span class="x12"> 
+        	<a class="button button-small bg-blue" href="<{:U('running/detail',array('running_id'=>$item['running_id']))}>">详情</a>
+        <if condition="$item.status eq 0">
+            <a class="button button-small bg-gray" href="<{:U('running/delete',array('running_id'=>$item['running_id']))}>">删除</a>
+        	<a class="button button-small bg-dot" href="<{:U('running/pay',array('running_id'=>$item['running_id']))}>">付款</a>
+        </if>
+       
+        <php>$delivery = D('Delivery')->where(array('user_id'=>$item['cid']))->find();</php>
+        <if condition="!empty($delivery)">	
+        <a id="is_running<{$item.running_id}>" class="button button-small bg-yellow">配送员资料</a>
+          <script type="text/javascript">
+             $('#is_running<{$item.running_id}>').mouseover(function(){
+				var n = '<{$delivery.name}>';
+				var m = '<{$delivery.mobile}>';
+				layer.tips('跑腿员姓名：'+n+'<br>电话：'+m+'',$(this),{
+					 tips: [2, '#7a7a7a']
+				});
+			  })
+          </script>
+        </if>
+
+        <if condition="$item.status eq 0">
+       		<a class="button button-small bg-gray">待付款</a>
+        <elseif condition="$item.status eq 1"/>
+        	<a class="button button-small bg-blue">待接单</a>
+        <elseif condition="$item.status eq 2"/>
+        	<a class="button button-small bg-dot">已接单</a>
+        <elseif condition="$item.status eq 3"/>
+        	<a class="button button-small bg-yellow">已配送</a>
+        <elseif condition="$item.status eq 8"/>
+        	<a class="button button-small bg-gray">已完成</a>
+        </if>
+        
+        </span>
+	</div>
+	<div class="blank-10 bg"></div>
+</foreach>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+    
+    <php>
+     $city_ids = D('City') -> where('city_id ='.$admin['city_id']) -> find();
+     $city = $city_ids['name'];
+     </php>
+     
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title><{$city}>分站<{$CONFIG.site.title}>管理后台</title>
+        <meta name="description" content="<{$city}>分站<{$CONFIG.site.title}>管理后台" />
+        <meta name="keywords" content="<{$city}>分站<{$CONFIG.site.title}>管理后台" />
+        <link href="__TMPL__statics/css/style.css" rel="stylesheet" type="text/css" />
+        <link href="__TMPL__statics/css/land.css" rel="stylesheet" type="text/css" />
+        <link href="__TMPL__statics/css/pub.css" rel="stylesheet" type="text/css" />
+        <link href="__TMPL__statics/css/main.css" rel="stylesheet" type="text/css" />
+        <link href="__PUBLIC__/js/jquery-ui.css" rel="stylesheet" type="text/css" />
+        <script> var BAO_PUBLIC = '__PUBLIC__';
+            var BAO_ROOT = '__ROOT__';</script>
+        <script src="__PUBLIC__/js/jquery.js"></script>
+        <script src="__PUBLIC__/js/jquery-ui.min.js"></script>
+        <script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+        <script src="__PUBLIC__/js/admin.js"></script>
+    </head>
+    <body>
+        <iframe id="baocms_frm" name="baocms_frm" style="display:none;"></iframe>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $(".leftMenu_a").click(function () {
+
+                    if ($(this).hasClass("currents")) {
+                        $(this).removeClass("currents");
+                    } else {
+                        $(this).addClass("currents");
+                    }
+
+                    //$(".leftNav2").slideToggle(200);
+                    $(this).parent().find(".leftNav2").slideToggle();
+                });
+                $(".leftNav2 li").click(function () {
+                    $(".leftNav2 li a").removeClass('curHover');
+                    $(this).find('a').addClass('curHover');
+                });
+            });
+        </script> 
+        <div class="top">
+            <div class="left">
+                <div class="bgx"><{$city}>分站管理</div>
+            </div>
+            <div class="center">
+                
+                <div class="t2">
+                    <ul>
+                        <foreach name="menuList" item="var">
+                            <if condition="($var.parent_id eq 0) and ($var.is_show eq 1) ">  
+                                <li><a href="javascript:void(0);" class="jq_menu" rel="<{$var.menu_id}>" ><{$var.menu_name}></a></li>
+                            </if>
+                        </foreach>
+                        <div class="clear"></div>
+                        <script>
+                            $(document).ready(function (e) {
+                                $(".jq_menu").click(function () {
+
+                                    var rel = $(this).attr('rel');
+                                    $(".jq_menu").removeClass('cur');
+                                    $(this).addClass('cur');
+                                    $(".leftMenu_ul ul .leftMenu_li").each(function (a) {
+                                        if ($(this).attr('rel') == rel) {
+                                            $(this).show();
+                                        } else {
+                                            $(this).hide();
+                                        }
+                                    });
+                                });
+
+                                $(".t2 li").eq(0).find('.jq_menu').click();
+                            });
+                        </script>
+                    </ul>
+                </div>
+                
+                
+                <div class="t3">
+                <ul> 
+                     <li><a class="jq_menu" target="_blank" href="">分站版本号：V3.0</a>
+                     <li><a href="<{:U('login/logout')}>" class="jq_menu">退出</a></li>
+                     <li class=" jq_menu2" ><a href="/" target="_blank" class="jq_menu">站点首页</a></li>
+                </ul>
+                 </div>
+                
+            </div>
+        </div>
+
+        <div class="bottom_box">
+            <div class="leftMenu">
+                <div class="menuClik">
+                
+                <div class="side-user">
+              <div class="avatar"><img src="__TMPL__statics/images/avatar1_50.jpg" alt="Avatar" width="46" height="46"></div>
+              <div class="info">
+                <a href="#">您好！<{$admin.username}>
+                <a target="main_frm" href="<{:U('clean/cache')}>">更新缓存</a>
+                <img src="__TMPL__statics/images/state_online.png" alt="Status"> <span>城市：<{$city}></span>
+             
+              </div>
+            </div>              
+                </div>
+                <div class="leftMenu_ul">
+                    <ul>
+                        <foreach name="menuList" item="var">
+                            <if condition="($var.parent_id eq 0) and ($var.is_show eq 1) ">  
+                                <foreach name="menuList" item="var2">
+                                    <eq name="var2.parent_id" value="$var.menu_id">
+                                        <if condition="$var2.is_show eq 1">
+                                            <li rel="<{$var.menu_id}>" class="leftMenu_li"><a class="leftMenu_a" href="javascript:void(0);" ><{$var2.menu_name}></a>
+                                                <div class="leftNav2">
+                                                    <ul>
+                                                        <foreach name="menuList" item="var3">
+                                                            <eq name="var3.parent_id" value="$var2.menu_id">
+                                                                <if condition="$var3.is_show eq 1">   
+                                                                    <li><a href="<{:U($var3['menu_action'])}>" target="main_frm"><{$var3.menu_name}></a></li>
+                                                                </if>
+                                                            </eq>
+                                                        </foreach>    
+                                                    </ul>
+                                                </div>
+                                            </li>
+                                        </if>     
+                                    </eq>
+                                </foreach>       
+                            </if>
+                        </foreach>
+                    </ul>
+                </div>
+            </div>
+            <div class="rightMenu">
+                <iframe id="main_frm" name="main_frm" src="<{:U('index/main')}>" frameborder="0" width="100%" height="100%"></iframe>
+            </div>
+        </div>
+        <script>
+            function checkSession() {
+                return   $.get('<{:U("index/check")}>', function (data) {
+                }, 'html');
+            }
+            setInterval('checkSession()', 60000);
+        </script>
+  
+        <include  file='public:footer'/>  
+

@@ -1,0 +1,150 @@
+<include  file='public:header'/>   
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="javascript:history.back();"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			订单支付
+		</div>
+	</header>  
+<style>
+.layui-layer-page .layui-layer-content{ padding:20px;}
+.layui-layer-page .layui-layer-content input[type='password']{ width:100%; height:36px; border:1px solid #ccc; background:#fff; margin-bottom:10px; text-indent:10px; font-size:14px;}
+.layui-layer-page .layui-layer-content input[type='button']{ width:100%; height:40px; border:none; background:#2FBDAA; color:#fff; font-size:16px;cursor:pointer}
+.reset_password{cursor:pointer}
+.layui-layer-page .layui-layer-content input.blue{background:#33b095;}
+.layui-layer-page .layui-layer-content p{ line-height:28px; color:#999;}
+.layui-layer-page .layui-layer-content .check_box{ overflow:hidden; margin-bottom:5px;}
+.layui-layer-page .layui-layer-content .check_box label{ display:block; float:left; margin-right:20px; margin-bottom:10px;}
+</style>	
+	<div class="tuan-order">
+		<div class="blank-10 bg"></div>
+		<div class="line border-top border-bottom">
+			<div class="container">
+				<div class="x12 row border-bottom">
+					<span class="float-left">
+						支付编号
+					</span>
+					<span class="float-right">
+						<{$logs.log_id}>
+					</span>
+				</div>
+				<div class="x12 row border-bottom">
+					<span class="float-left">
+						付款缘由
+					</span>
+					<span class="float-right">
+						<{$types[$logs['type']]}>
+					</span>
+				</div>
+				<div class="x12 row">
+					<span class="float-left">
+						实际支付金额
+					</span>
+					<span class="float-right text-dot">
+					&yen; <{:round($logs['need_pay']/100,2)}>元
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="blank-50"></div>
+	<div class="container">
+		<if condition = "$paytype[$logs['code']]['code'] != money"><{$button}></if>
+        <if condition = "$paytype[$logs['code']]['code'] == money">
+        <if condition = "!empty($user_pay_password)">
+        <input type="button" class="button button-block bg-dot button-big check_new_password" value=" 立刻支付 ">
+        <else/>
+           <input type="button" class="button button-block bg-dot button-big add_pay_password" value=" 设置支付密码 ">
+        </if>
+    </if>
+	</div>
+    
+<div class="blank-20"></div>
+<if condition = "$paytype[$logs['code']]['code'] == money">
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        var user_pay_password = "<{$user_pay_password}>";
+        if (user_pay_password == '' || user_pay_password == null) {
+             add_pay_password();
+         }else{
+			 check_pay_password();
+		 }
+	    $(".check_new_password").click(function () {
+             check_pay_password();
+        });
+		$(".add_pay_password").click(function () {
+             add_pay_password();
+        });
+    })
+	//检测支付密码
+	function check_pay_password() {
+			layer.open({
+						type: 1,
+						title:'请输入支付密码',
+						skin: 'layui-layer-rim', //加上边框
+						area: ['90%', 'auto'], //宽高
+						content: '<input type="password" class="pay_password" name="pay_password" placeholder="请输入支付密码" value=""/><input type="button" class="sure_das" value="确认支付"/><p>请先输入支付密码后操作</p><a class="reset_password">忘记密码？</a>',
+					  });
+			$('.layui-layer-title').css('color', '#ffffff').css('background', '#2fbdaa');
+		
+		}
+		$(document).on('click','.reset_password',function(){
+                layer.msg('正在带您去修改密码，请稍后', function(){
+					setTimeout(function () {
+						window.location.href = "<{:U('user/info/pay_password')}>";
+					}, 1000);
+				});
+         })
+            $(document).on('click','.sure_das',function(){
+                var url = "<{:U('payment/check_pay_password')}>";
+                var user_id = "<{$MEMBER['user_id']}>";
+                var pay_password = $(".pay_password").val();
+				
+                    $.post(url,{user_id:user_id,pay_password:pay_password},function(data){
+                        if(data.status == 'error'){
+                            layer.msg(data.msg);
+							$('.sure_das').removeClass("blue");
+                        }else{
+							$('.sure_das').addClass("blue");
+							layer.msg('支付密码验证成功，正在为您跳转支付', function(){
+								setTimeout(function () {
+								   window.location.href = "<{:U('user/member/pay',array('logs_id'=>$logs['log_id']))}>";
+								}, 1000);
+							});
+                        }
+                    },'json')
+
+            })
+
+	    //添加支付密码
+		function add_pay_password() {
+			layer.open({
+						type: 1,
+						title:'设置支付密码',
+						skin: 'layui-layer-rim', //加上边框
+						area: ['90%', 'auto'], //宽高
+						content: '<input type="password" class="pay_password" name="pay_password" placeholder="设置支付密码" value=""/><input type="button" class="sure_pay_password blue" value="确认设置"/><p>您还没有支付密码，请先设置支付密码</p>',
+					  });
+			$('.layui-layer-title').css('color', '#ffffff').css('background', '#2fbdaa');
+		}
+		 $(document).on('click','.sure_pay_password',function(){
+                var url = "<{:U('payment/set_pay_password')}>";
+                var user_id = "<{$MEMBER['user_id']}>";
+                var pay_password = $(".pay_password").val();
+                    $.post(url,{user_id:user_id,pay_password:pay_password},function(data){
+                        if(data.status == 'error'){
+                            layer.msg(data.msg);
+                        }else{
+							layer.msg('支付密码设置成功', function(){
+								setTimeout(function () {
+								    window.location.reload();
+								}, 1000);
+							});
+                        }
+                    },'json')
+            })
+</script>
+</if>
+<include file='public:footer'/>    

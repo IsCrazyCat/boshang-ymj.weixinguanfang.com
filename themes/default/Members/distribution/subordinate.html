@@ -1,0 +1,33 @@
+<include file="public:header"/>
+<div class="content_right">  
+    <div class="tgdd">
+        <div class="tgdd_t">
+            <ul>
+                <li <eq name='level' value='1'> class="on"</eq>><a href="<{:LinkTo('subordinate',array('level'=>1))}>">一级会员</a></li>
+                <li <eq name='level' value='2'> class="on"</eq>><a href="<{:LinkTo('subordinate',array('level'=>2))}>">二级会员</a></li>
+<!--                <li <eq name='level' value='3'> class="on"</eq>><a href="<{:LinkTo('subordinate',array('level'=>3))}>">三级会员</a></li>-->
+            </ul>
+        </div>
+        <div class="tgdd_nr">
+            <table border="0" cellspacing="0" width="100%"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; text-align:center;">
+                <tr class="tgdd_nrt">
+                    <th>用户ID</th>
+                    <th>帐户名</th>
+                    <th>昵称</th>
+                    <th>Email</th>
+                </tr>
+                <volist name="list" id="item" key="index">
+                    <tr class="tgdd_nrC">
+                        <td class="tgdd_nrCtd"><{$item['user_id']}></td>
+                        <td class="tgdd_nrCtd"><{$item['account']}></td>
+                        <td class="tgdd_nrCtd"><{$item['nickname']}></td>
+                        <td class="tgdd_nrCtd"><{$item['email']}></td>
+                    </tr>
+                </volist>
+            </table>
+            <div class="x"><{$page}></div>
+        </div>
+    </div>
+</div>
+</div>
+<include file="public:footer"/>

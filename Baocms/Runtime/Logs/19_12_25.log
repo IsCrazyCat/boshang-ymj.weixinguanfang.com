@@ -1,0 +1,514 @@
+[ 2019-12-25T10:53:31+08:00 ] ERR: Cron:cron_1 Runat 2019-12-25 10:53:31 Use 0.000000 s
+
+[ 2019-12-25T10:53:31+08:00 ] 223.166.222.112 /weixin/index.php?signature=32dafaf4840913a928ec129690017cf76a5293c4&timestamp=1577242409&nonce=985033445&openid=og_ssw-gJjwbpATlQohoZvp1sV40
+NOTIC: [8] Constant GROUP_NAME already defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Core\Dispatcher.class.php 第 147 行.
+NOTIC: [8] Constant NOW_TIME already defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Core\App.class.php 第 41 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.031222s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.031222s ]
+NOTIC: [2048] Declaration of SettingModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+NOTIC: [2048] Declaration of SettingModel::save() should be compatible with Model::save($data = '', $options = Array) D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+SQL: SHOW COLUMNS FROM `bao_setting` [ RunTime:0.000000s ]
+SQL: SELECT * FROM `bao_setting`  [ RunTime:0.000000s ]
+NOTIC: [8] Constant __HOST__ already defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Weixin\CommonAction.class.php 第 18 行.
+INFO: [ app_end ] --START--
+NOTIC: [2] include(D:\wwwroot\boshang-ymj.weixinguanfang.com\weixin/../Baocms/Lib/Cron/WeatherUpdate.php): failed to open stream: No such file or directory D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Extend\Behavior\CronRunBehavior.class.php 第 51 行.
+NOTIC: [2] include(D:\wwwroot\boshang-ymj.weixinguanfang.com\weixin/../Baocms/Lib/Cron/WeatherUpdate.php): failed to open stream: No such file or directory D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Extend\Behavior\CronRunBehavior.class.php 第 51 行.
+NOTIC: [2] include(): Failed opening 'D:\wwwroot\boshang-ymj.weixinguanfang.com\weixin/../Baocms/Lib/Cron/WeatherUpdate.php' for inclusion (include_path='.;C:\php\pear;D:\wwwroot\boshang-ymj.weixinguanfang.com\Core/Extend/Vendor/') D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Extend\Behavior\CronRunBehavior.class.php 第 51 行.
+INFO: CronRun Behavior ::run [ RunTime:0.093666s ]
+INFO: [ app_end ] --END-- [ RunTime:0.093666s ]
+
+[ 2019-12-25T11:19:00+08:00 ] ERR: Cron:cron_1 Runat 2019-12-25 11:19:00 Use 0.000000 s
+
+[ 2019-12-25T11:19:00+08:00 ] 223.166.222.112 /weixin/index.php?signature=44068f722b6e6f9d39f692329c26f3a0c76c637f&timestamp=1577243919&nonce=1220860243&openid=og_ssw-gJjwbpATlQohoZvp1sV40
+NOTIC: [8] Constant GROUP_NAME already defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Core\Dispatcher.class.php 第 147 行.
+NOTIC: [8] Constant NOW_TIME already defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Core\App.class.php 第 41 行.
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.015612s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.015612s ]
+NOTIC: [2048] Declaration of SettingModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+NOTIC: [2048] Declaration of SettingModel::save() should be compatible with Model::save($data = '', $options = Array) D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+SQL: SHOW COLUMNS FROM `bao_setting` [ RunTime:0.000000s ]
+NOTIC: [8] Constant __HOST__ already defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Weixin\CommonAction.class.php 第 18 行.
+INFO: [ app_end ] --START--
+NOTIC: [2] include(D:\wwwroot\boshang-ymj.weixinguanfang.com\weixin/../Baocms/Lib/Cron/WeatherUpdate.php): failed to open stream: No such file or directory D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Extend\Behavior\CronRunBehavior.class.php 第 51 行.
+NOTIC: [2] include(D:\wwwroot\boshang-ymj.weixinguanfang.com\weixin/../Baocms/Lib/Cron/WeatherUpdate.php): failed to open stream: No such file or directory D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Extend\Behavior\CronRunBehavior.class.php 第 51 行.
+NOTIC: [2] include(): Failed opening 'D:\wwwroot\boshang-ymj.weixinguanfang.com\weixin/../Baocms/Lib/Cron/WeatherUpdate.php' for inclusion (include_path='.;C:\php\pear;D:\wwwroot\boshang-ymj.weixinguanfang.com\Core/Extend/Vendor/') D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Extend\Behavior\CronRunBehavior.class.php 第 51 行.
+INFO: CronRun Behavior ::run [ RunTime:0.046837s ]
+INFO: [ app_end ] --END-- [ RunTime:0.046837s ]
+
+[ 2019-12-25T21:28:04+08:00 ] 42.236.10.125 /
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.007814s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.008791s ]
+NOTIC: [2048] Declaration of SettingModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+NOTIC: [2048] Declaration of SettingModel::save() should be compatible with Model::save($data = '', $options = Array) D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+SQL: SHOW COLUMNS FROM `bao_setting` [ RunTime:0.008790s ]
+SQL: SHOW COLUMNS FROM `bao_city` [ RunTime:0.008790s ]
+NOTIC: [8] Undefined index:  D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Home\CommonAction.class.php 第 36 行.
+NOTIC: [8] Undefined index:  D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Home\CommonAction.class.php 第 37 行.
+NOTIC: [8] Undefined index:  D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Home\CommonAction.class.php 第 86 行.
+NOTIC: [8] Undefined variable: str D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 69 行.
+SQL: SHOW COLUMNS FROM `bao_shop_cate` [ RunTime:0.101577s ]
+SQL: SELECT * FROM `bao_shop_cate` ORDER BY `orderby` asc  [ RunTime:0.001953s ]
+SQL: SHOW COLUMNS FROM `bao_tuan_cate` [ RunTime:0.085950s ]
+SQL: SELECT * FROM `bao_tuan_cate` ORDER BY `orderby` asc  [ RunTime:0.000976s ]
+SQL: SHOW COLUMNS FROM `bao_area` [ RunTime:0.014651s ]
+SQL: SHOW COLUMNS FROM `bao_business` [ RunTime:0.012697s ]
+NOTIC: [8] Use of undefined constant CONTROLLER_NAME - assumed 'CONTROLLER_NAME' D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Home\CommonAction.class.php 第 112 行.
+NOTIC: [2048] Declaration of TemplateModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) D:\wwwroot\boshang-ymj.weixinguanfang.com/Baocms/Lib/Model/TemplateModel.class.php 第 0 行.
+SQL: SHOW COLUMNS FROM `bao_template` [ RunTime:0.008791s ]
+NOTIC: [8] Undefined variable: theme D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Home\CommonAction.class.php 第 248 行.
+SQL: SHOW COLUMNS FROM `bao_template_setting` [ RunTime:0.043951s ]
+SQL: SELECT * FROM `bao_template_setting`  [ RunTime:0.000977s ]
+NOTIC: [8] Undefined offset: 0 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\TemplatesettingModel.class.php 第 10 行.
+
+[ 2019-12-25T21:28:04+08:00 ] ERR: Cron:cron_1 Runat 2019-12-25 21:28:04 Use 0.003907 s
+
+[ 2019-12-25T21:28:04+08:00 ] 42.236.10.125 /wap/index/index.html
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.063485s ]
+INFO: [ route_check ] --END-- [ RunTime:0.063485s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.007813s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.008790s ]
+NOTIC: [2048] Declaration of CommonAction::show() should be compatible with Action::show($content, $charset = '', $contentType = '', $prefix = '') D:\wwwroot\boshang-ymj.weixinguanfang.com/Baocms/Lib/Action/Wap/CommonAction.class.php 第 0 行.
+NOTIC: [2048] Declaration of SettingModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+NOTIC: [2048] Declaration of SettingModel::save() should be compatible with Model::save($data = '', $options = Array) D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+SQL: SHOW COLUMNS FROM `bao_setting` [ RunTime:0.011720s ]
+SQL: SHOW COLUMNS FROM `bao_city` [ RunTime:0.240268s ]
+SQL: SELECT * FROM `bao_city` ORDER BY `orderby` asc  [ RunTime:0.000977s ]
+NOTIC: [8] Undefined offset: 1 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Common\common.php 第 53 行.
+NOTIC: [8] Undefined variable: str D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 69 行.
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: [8] Constant __HOST__ already defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 98 行.
+NOTIC: 建议使用I方法替代_param
+SQL: SHOW COLUMNS FROM `bao_pois_content` [ RunTime:0.067393s ]
+SQL: SHOW COLUMNS FROM `bao_area` [ RunTime:0.040045s ]
+SQL: SELECT * FROM `bao_area` ORDER BY `orderby` asc  [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `bao_business` [ RunTime:0.048835s ]
+SQL: SELECT * FROM `bao_business` ORDER BY `orderby` asc  [ RunTime:0.012698s ]
+NOTIC: [8] Undefined offset: 32 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 7 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 7 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 24 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 23 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 10 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 28 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 29 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 8 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 2 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 1 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 1 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 1 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 1 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 29 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 1 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 1 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 1 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 1 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 6 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 1 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 5 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 1 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 4 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 22 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 4 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 20 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 22 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 20 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 6 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 3 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 11 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 11 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 11 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+NOTIC: [8] Undefined offset: 11 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\BusinessModel.class.php 第 13 行.
+SQL: SHOW COLUMNS FROM `bao_msg` [ RunTime:0.090834s ]
+SQL: SELECT * FROM `bao_msg` WHERE ( `user_id` IN (0,0) ) LIMIT 0,20   [ RunTime:0.000000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 295 行.
+NOTIC: [2] array_sum() expects parameter 1 to be array, null given D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 145 行.
+SQL: SHOW COLUMNS FROM `bao_weixin_access` [ RunTime:0.082042s ]
+SQL: SELECT * FROM `bao_weixin_access` ORDER BY id desc LIMIT 1   [ RunTime:0.016604s ]
+NOTIC: [8] curl_setopt(): CURLOPT_SSL_VERIFYHOST no longer accepts the value 1, value 2 will be used instead D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Net\Curl.class.php 第 20 行.
+NOTIC: [2] curl_setopt(): CURLOPT_FOLLOWLOCATION cannot be activated when an open_basedir is set D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Net\Curl.class.php 第 22 行.
+SQL: INSERT INTO `bao_weixin_access` (`access_token`,`expir_time`,`create_time`) VALUES ('28_KopUGIyc4Wu9Dlj9S8q82PuhPhMJP-E5l9eZVIdzqP6pEVE-w15q7lGPA2HLQRbzRV3mMc4zhjSjDZ9JSaZmAzT7W5H6ugEybVlP7W-b2RbmN1tvUpq0snz4WNmZTe-HIrPl494dGn9KhgobCRHdAGAFUK',1577287480,1577280480) [ RunTime:0.000977s ]
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.042975s ]
+SQL: SELECT * FROM `bao_shop` WHERE ( `user_id` = 0 ) LIMIT 1   [ RunTime:0.001953s ]
+SQL: SHOW COLUMNS FROM `bao_life_cate` [ RunTime:0.059578s ]
+SQL: SELECT * FROM `bao_life_cate` ORDER BY `is_hot` desc,`orderby` asc  [ RunTime:0.003906s ]
+SQL: SELECT * FROM `bao_shop` WHERE ( `city_id` = 16 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) ORDER BY  (ABS(lng - '115.991983') +  ABS(lat - '36.518393') ) asc  LIMIT 0,5   [ RunTime:0.000976s ]
+SQL: SHOW COLUMNS FROM `bao_article` [ RunTime:0.042975s ]
+SQL: SELECT * FROM `bao_article` WHERE ( `city_id` = 16 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) ORDER BY `create_time` desc LIMIT 0,5   [ RunTime:0.002930s ]
+SQL: SHOW COLUMNS FROM `bao_community` [ RunTime:0.105484s ]
+SQL: SELECT * FROM `bao_community` WHERE ( `city_id` = 16 ) AND ( `closed` = 0 ) ORDER BY  (ABS(lng - '115.991983') +  ABS(lat - '36.518393') ) asc  LIMIT 0,5   [ RunTime:0.000977s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\IndexAction.class.php 第 31 行.
+SQL: SHOW COLUMNS FROM `bao_navigation` [ RunTime:0.050789s ]
+SQL: SELECT * FROM `bao_navigation` WHERE ( `status` = 2 ) AND ( `closed` = 0 ) ORDER BY `orderby` asc  [ RunTime:0.001954s ]
+SQL: SHOW COLUMNS FROM `bao_user_sign` [ RunTime:0.092787s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_user_sign` WHERE ( `user_id` = 0 ) LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2048] Declaration of TemplateModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) D:\wwwroot\boshang-ymj.weixinguanfang.com/Baocms/Lib/Model/TemplateModel.class.php 第 0 行.
+SQL: SHOW COLUMNS FROM `bao_template` [ RunTime:0.032232s ]
+SQL: SELECT * FROM `bao_template`  [ RunTime:0.000977s ]
+NOTIC: [8] Constant THEME_PATH already defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Core\View.class.php 第 154 行.
+NOTIC: [8] Constant APP_TMPL_PATH already defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Core\View.class.php 第 155 行.
+INFO: [ view_parse ] --START--
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [8] Use of undefined constant other - assumed 'other' D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\a79a48c70e54082ec668f5a2c6990a87.php 第 1 行.
+NOTIC: [8] Use of undefined constant wap_index_addr - assumed 'wap_index_addr' D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\a79a48c70e54082ec668f5a2c6990a87.php 第 1 行.
+NOTIC: [8] Use of undefined constant other - assumed 'other' D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\a79a48c70e54082ec668f5a2c6990a87.php 第 138 行.
+NOTIC: [8] Use of undefined constant wap_search_title - assumed 'wap_search_title' D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\a79a48c70e54082ec668f5a2c6990a87.php 第 138 行.
+SQL: SHOW COLUMNS FROM `bao_ad` [ RunTime:0.089856s ]
+SQL: SELECT * FROM `bao_ad` WHERE (  closed=0 AND site_id=57 AND city_id IN (0,16) and bg_date <= '2019-12-25' AND end_date >= '2019-12-25'  ) ORDER BY orderby asc LIMIT 0,3   [ RunTime:0.039068s ]
+NOTIC: [8] Use of undefined constant other - assumed 'other' D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\a79a48c70e54082ec668f5a2c6990a87.php 第 176 行.
+NOTIC: [8] Use of undefined constant wap_navigation - assumed 'wap_navigation' D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\a79a48c70e54082ec668f5a2c6990a87.php 第 176 行.
+SQL: SHOW COLUMNS FROM `bao_goods` [ RunTime:0.051765s ]
+SQL: SELECT * FROM `bao_goods` WHERE ( audit =1 AND closed=0 AND city_id = 16 AND end_date >= '2019-12-25' ) ORDER BY orderby asc,sold_num desc LIMIT 0,10   [ RunTime:0.001953s ]
+SQL: SELECT * FROM `bao_ad` WHERE (  closed=0 AND site_id=62 AND  city_id IN (0,16) and bg_date <= '2019-12-25' AND end_date >= '2019-12-25'  ) ORDER BY orderby asc LIMIT 0,1   [ RunTime:0.000977s ]
+SQL: SELECT * FROM `bao_ad` WHERE (  closed=0 AND site_id=63 AND  city_id IN (0,16) and bg_date <= '2019-12-25' AND end_date >= '2019-12-25'  ) ORDER BY orderby asc LIMIT 0,1   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `bao_ad` WHERE (  closed=0 AND site_id=64 AND  city_id IN (0,16) and bg_date <= '2019-12-25' AND end_date >= '2019-12-25'  ) ORDER BY orderby asc LIMIT 0,1   [ RunTime:0.000976s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\a79a48c70e54082ec668f5a2c6990a87.php 第 298 行.
+SQL: SELECT * FROM `bao_ad` WHERE (  closed=0 AND site_id=65 AND  city_id IN (0,16) and bg_date <= '2019-12-25' AND end_date >= '2019-12-25'  ) ORDER BY orderby asc LIMIT 0,1   [ RunTime:0.000000s ]
+SQL: SELECT * FROM `bao_business` WHERE ( business_id =42 ) LIMIT 1   [ RunTime:0.000977s ]
+SQL: SELECT * FROM `bao_business` WHERE ( business_id =42 ) LIMIT 1   [ RunTime:0.000976s ]
+SQL: SELECT * FROM `bao_business` WHERE ( business_id =42 ) LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Use of undefined constant other - assumed 'other' D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\a79a48c70e54082ec668f5a2c6990a87.php 第 411 行.
+NOTIC: [8] Use of undefined constant footer - assumed 'footer' D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\a79a48c70e54082ec668f5a2c6990a87.php 第 411 行.
+NOTIC: [8] Undefined variable: config D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\a79a48c70e54082ec668f5a2c6990a87.php 第 449 行.
+NOTIC: [8] Undefined variable: config D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\a79a48c70e54082ec668f5a2c6990a87.php 第 450 行.
+NOTIC: [8] Undefined variable: str D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 69 行.
+INFO: ParseTemplate Behavior ::run [ RunTime:0.673923s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.673923s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.023441s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.014650s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.013674s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.012697s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.064462s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.011720s ]
+INFO: [ view_end ] --END-- [ RunTime:0.011720s ]
+INFO: [ app_end ] --START--
+NOTIC: [2] include(D:\wwwroot\boshang-ymj.weixinguanfang.com/Baocms/Lib/Cron/WeatherUpdate.php): failed to open stream: No such file or directory D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Extend\Behavior\CronRunBehavior.class.php 第 51 行.
+NOTIC: [2] include(D:\wwwroot\boshang-ymj.weixinguanfang.com/Baocms/Lib/Cron/WeatherUpdate.php): failed to open stream: No such file or directory D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Extend\Behavior\CronRunBehavior.class.php 第 51 行.
+NOTIC: [2] include(): Failed opening 'D:\wwwroot\boshang-ymj.weixinguanfang.com/Baocms/Lib/Cron/WeatherUpdate.php' for inclusion (include_path='.;C:\php\pear;D:\wwwroot\boshang-ymj.weixinguanfang.com\Core/Extend/Vendor/') D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Extend\Behavior\CronRunBehavior.class.php 第 51 行.
+INFO: CronRun Behavior ::run [ RunTime:0.039068s ]
+INFO: [ app_end ] --END-- [ RunTime:0.039068s ]
+
+[ 2019-12-25T21:28:05+08:00 ] 42.236.10.117 /
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.007814s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.007814s ]
+NOTIC: [2048] Declaration of SettingModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+NOTIC: [2048] Declaration of SettingModel::save() should be compatible with Model::save($data = '', $options = Array) D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+SQL: SHOW COLUMNS FROM `bao_setting` [ RunTime:0.009767s ]
+SQL: SHOW COLUMNS FROM `bao_city` [ RunTime:0.009767s ]
+NOTIC: [8] Undefined index:  D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Home\CommonAction.class.php 第 36 行.
+NOTIC: [8] Undefined index:  D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Home\CommonAction.class.php 第 37 行.
+NOTIC: [8] Undefined index:  D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Home\CommonAction.class.php 第 86 行.
+NOTIC: [8] Undefined offset: 1 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Common\common.php 第 53 行.
+NOTIC: [8] Undefined variable: str D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 69 行.
+SQL: SHOW COLUMNS FROM `bao_shop_cate` [ RunTime:0.009767s ]
+SQL: SHOW COLUMNS FROM `bao_tuan_cate` [ RunTime:0.009767s ]
+SQL: SHOW COLUMNS FROM `bao_area` [ RunTime:0.009767s ]
+SQL: SHOW COLUMNS FROM `bao_business` [ RunTime:0.008791s ]
+NOTIC: [8] Use of undefined constant CONTROLLER_NAME - assumed 'CONTROLLER_NAME' D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Home\CommonAction.class.php 第 112 行.
+NOTIC: [2048] Declaration of TemplateModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) D:\wwwroot\boshang-ymj.weixinguanfang.com/Baocms/Lib/Model/TemplateModel.class.php 第 0 行.
+SQL: SHOW COLUMNS FROM `bao_template` [ RunTime:0.009767s ]
+NOTIC: [8] Undefined variable: theme D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Home\CommonAction.class.php 第 248 行.
+SQL: SHOW COLUMNS FROM `bao_template_setting` [ RunTime:0.009767s ]
+NOTIC: [8] Undefined offset: 0 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\TemplatesettingModel.class.php 第 10 行.
+
+[ 2019-12-25T21:28:07+08:00 ] ERR: Cron:cron_1 Runat 2019-12-25 21:28:07 Use 0.003906 s
+
+[ 2019-12-25T21:28:07+08:00 ] 42.236.10.117 /wap/
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.008790s ]
+INFO: [ route_check ] --END-- [ RunTime:0.008790s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.007814s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.007814s ]
+NOTIC: [2048] Declaration of CommonAction::show() should be compatible with Action::show($content, $charset = '', $contentType = '', $prefix = '') D:\wwwroot\boshang-ymj.weixinguanfang.com/Baocms/Lib/Action/Wap/CommonAction.class.php 第 0 行.
+NOTIC: [2048] Declaration of SettingModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+NOTIC: [2048] Declaration of SettingModel::save() should be compatible with Model::save($data = '', $options = Array) D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+SQL: SHOW COLUMNS FROM `bao_setting` [ RunTime:0.010743s ]
+SQL: SHOW COLUMNS FROM `bao_city` [ RunTime:0.010744s ]
+NOTIC: [8] Undefined offset: 1 D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Common\common.php 第 53 行.
+NOTIC: [8] Undefined variable: str D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 69 行.
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: [8] Constant __HOST__ already defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 98 行.
+NOTIC: 建议使用I方法替代_param
+SQL: SHOW COLUMNS FROM `bao_pois_content` [ RunTime:0.011721s ]
+SQL: SHOW COLUMNS FROM `bao_area` [ RunTime:0.009767s ]
+SQL: SHOW COLUMNS FROM `bao_business` [ RunTime:0.010743s ]
+SQL: SHOW COLUMNS FROM `bao_msg` [ RunTime:0.010744s ]
+SQL: SELECT * FROM `bao_msg` WHERE ( `user_id` IN (0,0) ) LIMIT 0,20   [ RunTime:0.000977s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 295 行.
+NOTIC: [2] array_sum() expects parameter 1 to be array, null given D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 145 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.010744s ]
+SQL: SELECT * FROM `bao_shop` WHERE ( `user_id` = 0 ) LIMIT 1   [ RunTime:0.000977s ]
+SQL: SHOW COLUMNS FROM `bao_life_cate` [ RunTime:0.010744s ]
+SQL: SELECT * FROM `bao_shop` WHERE ( `city_id` = 16 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) ORDER BY  (ABS(lng - '115.991983') +  ABS(lat - '36.518393') ) asc  LIMIT 0,5   [ RunTime:0.000977s ]
+SQL: SHOW COLUMNS FROM `bao_article` [ RunTime:0.010744s ]
+SQL: SELECT * FROM `bao_article` WHERE ( `city_id` = 16 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) ORDER BY `create_time` desc LIMIT 0,5   [ RunTime:0.000977s ]
+SQL: SHOW COLUMNS FROM `bao_community` [ RunTime:0.010744s ]
+SQL: SELECT * FROM `bao_community` WHERE ( `city_id` = 16 ) AND ( `closed` = 0 ) ORDER BY  (ABS(lng - '115.991983') +  ABS(lat - '36.518393') ) asc  LIMIT 0,5   [ RunTime:0.000000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\IndexAction.class.php 第 31 行.
+SQL: SHOW COLUMNS FROM `bao_navigation` [ RunTime:0.011720s ]
+SQL: SELECT * FROM `bao_navigation` WHERE ( `status` = 2 ) AND ( `closed` = 0 ) ORDER BY `orderby` asc  [ RunTime:0.000977s ]
+SQL: SHOW COLUMNS FROM `bao_user_sign` [ RunTime:0.009767s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_user_sign` WHERE ( `user_id` = 0 ) LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [2048] Declaration of TemplateModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) D:\wwwroot\boshang-ymj.weixinguanfang.com/Baocms/Lib/Model/TemplateModel.class.php 第 0 行.
+SQL: SHOW COLUMNS FROM `bao_template` [ RunTime:0.009767s ]
+NOTIC: [8] Constant THEME_PATH already defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Core\View.class.php 第 154 行.
+NOTIC: [8] Constant APP_TMPL_PATH already defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Core\View.class.php 第 155 行.
+INFO: [ view_parse ] --START--
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [2] Missing argument 2 for TagLib::parseXmlAttr(), called in D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php on line 49 and defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 80 行.
+NOTIC: [8] Undefined variable: tag D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined index:  D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 91 行.
+NOTIC: [8] Undefined variable: tag D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Template\TagLib.class.php 第 92 行.
+NOTIC: [8] Undefined index: format D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 57 行.
+NOTIC: [8] Undefined index: debug D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\TagLib\TagLibCalldata.class.php 第 58 行.
+NOTIC: [8] Use of undefined constant other - assumed 'other' D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\a79a48c70e54082ec668f5a2c6990a87.php 第 1 行.
+NOTIC: [8] Use of undefined constant wap_index_addr - assumed 'wap_index_addr' D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\a79a48c70e54082ec668f5a2c6990a87.php 第 1 行.
+NOTIC: [8] Use of undefined constant other - assumed 'other' D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\a79a48c70e54082ec668f5a2c6990a87.php 第 138 行.
+NOTIC: [8] Use of undefined constant wap_search_title - assumed 'wap_search_title' D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\a79a48c70e54082ec668f5a2c6990a87.php 第 138 行.
+NOTIC: [8] Use of undefined constant other - assumed 'other' D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\a79a48c70e54082ec668f5a2c6990a87.php 第 176 行.
+NOTIC: [8] Use of undefined constant wap_navigation - assumed 'wap_navigation' D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\a79a48c70e54082ec668f5a2c6990a87.php 第 176 行.
+SQL: SHOW COLUMNS FROM `bao_ad` [ RunTime:0.009767s ]
+SQL: SELECT * FROM `bao_ad` WHERE (  closed=0 AND site_id=64 AND  city_id IN (0,16) and bg_date <= '2019-12-25' AND end_date >= '2019-12-25'  ) ORDER BY orderby asc LIMIT 0,1   [ RunTime:0.000977s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\a79a48c70e54082ec668f5a2c6990a87.php 第 298 行.
+SQL: SELECT * FROM `bao_business` WHERE ( business_id =42 ) LIMIT 1   [ RunTime:0.000976s ]
+SQL: SELECT * FROM `bao_business` WHERE ( business_id =42 ) LIMIT 1   [ RunTime:0.000977s ]
+SQL: SELECT * FROM `bao_business` WHERE ( business_id =42 ) LIMIT 1   [ RunTime:0.000000s ]
+NOTIC: [8] Use of undefined constant other - assumed 'other' D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\a79a48c70e54082ec668f5a2c6990a87.php 第 411 行.
+NOTIC: [8] Use of undefined constant footer - assumed 'footer' D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\a79a48c70e54082ec668f5a2c6990a87.php 第 411 行.
+NOTIC: [8] Undefined variable: config D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\a79a48c70e54082ec668f5a2c6990a87.php 第 449 行.
+NOTIC: [8] Undefined variable: config D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Runtime\Cache\Wap\a79a48c70e54082ec668f5a2c6990a87.php 第 450 行.
+NOTIC: [8] Undefined variable: str D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 69 行.
+INFO: ParseTemplate Behavior ::run [ RunTime:0.215850s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.215850s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.009767s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.007814s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.007813s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.008790s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.036138s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.007814s ]
+INFO: [ view_end ] --END-- [ RunTime:0.008791s ]
+INFO: [ app_end ] --START--
+NOTIC: [2] include(D:\wwwroot\boshang-ymj.weixinguanfang.com/Baocms/Lib/Cron/WeatherUpdate.php): failed to open stream: No such file or directory D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Extend\Behavior\CronRunBehavior.class.php 第 51 行.
+NOTIC: [2] include(D:\wwwroot\boshang-ymj.weixinguanfang.com/Baocms/Lib/Cron/WeatherUpdate.php): failed to open stream: No such file or directory D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Extend\Behavior\CronRunBehavior.class.php 第 51 行.
+NOTIC: [2] include(): Failed opening 'D:\wwwroot\boshang-ymj.weixinguanfang.com/Baocms/Lib/Cron/WeatherUpdate.php' for inclusion (include_path='.;C:\php\pear;D:\wwwroot\boshang-ymj.weixinguanfang.com\Core/Extend/Vendor/') D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Extend\Behavior\CronRunBehavior.class.php 第 51 行.
+INFO: CronRun Behavior ::run [ RunTime:0.031255s ]
+INFO: [ app_end ] --END-- [ RunTime:0.031255s ]
+
+[ 2019-12-25T21:28:08+08:00 ] 42.236.10.117 /wap/mall/push/t/1577280480/p/1.html
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.008790s ]
+INFO: [ route_check ] --END-- [ RunTime:0.008790s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.008790s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.008790s ]
+NOTIC: [2048] Declaration of CommonAction::show() should be compatible with Action::show($content, $charset = '', $contentType = '', $prefix = '') D:\wwwroot\boshang-ymj.weixinguanfang.com/Baocms/Lib/Action/Wap/CommonAction.class.php 第 0 行.
+NOTIC: [2048] Declaration of SettingModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+NOTIC: [2048] Declaration of SettingModel::save() should be compatible with Model::save($data = '', $options = Array) D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+SQL: SHOW COLUMNS FROM `bao_setting` [ RunTime:0.009767s ]
+SQL: SHOW COLUMNS FROM `bao_city` [ RunTime:0.010744s ]
+NOTIC: [8] Undefined variable: str D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 69 行.
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: [8] Constant __HOST__ already defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 98 行.
+NOTIC: 建议使用I方法替代_param
+SQL: SHOW COLUMNS FROM `bao_pois_content` [ RunTime:0.009767s ]
+SQL: SHOW COLUMNS FROM `bao_area` [ RunTime:0.009767s ]
+SQL: SHOW COLUMNS FROM `bao_business` [ RunTime:0.009767s ]
+SQL: SHOW COLUMNS FROM `bao_msg` [ RunTime:0.009767s ]
+SQL: SELECT * FROM `bao_msg` WHERE ( `user_id` IN (0,0) ) LIMIT 0,20   [ RunTime:0.000000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 295 行.
+NOTIC: [2] array_sum() expects parameter 1 to be array, null given D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 145 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.009767s ]
+SQL: SELECT * FROM `bao_shop` WHERE ( `user_id` = 0 ) LIMIT 1   [ RunTime:0.000977s ]
+NOTIC: [2] array_sum() expects parameter 1 to be array, null given D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 13 行.
+NOTIC: 建议使用I方法替代_param
+SQL: SHOW COLUMNS FROM `bao_goods` [ RunTime:0.010744s ]
+SQL: SHOW COLUMNS FROM `bao_goods_cate` [ RunTime:0.040044s ]
+SQL: SELECT * FROM `bao_goods_cate` ORDER BY `orderby` asc  [ RunTime:0.000000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000977s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` IN ('19','20') ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` IN ('28','29','30','31') ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000976s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` IN ('22') ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SHOW COLUMNS FROM `bao_paddress` [ RunTime:0.089857s ]
+SQL: SELECT * FROM `bao_paddress` WHERE ( `user_id` = 0 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `audit` = 1 ) AND ( `closed` = 0 ) AND ( `end_date` >= '2019-12-25' ) LIMIT 1   [ RunTime:0.000977s ]
+SQL: SELECT * FROM `bao_goods` WHERE ( `audit` = 1 ) AND ( `closed` = 0 ) AND ( `end_date` >= '2019-12-25' ) AND ( `shoplx` = 53 ) ORDER BY orderby asc LIMIT 0,3   [ RunTime:0.000000s ]
+NOTIC: [2048] Declaration of TemplateModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) D:\wwwroot\boshang-ymj.weixinguanfang.com/Baocms/Lib/Model/TemplateModel.class.php 第 0 行.
+SQL: SHOW COLUMNS FROM `bao_template` [ RunTime:0.008790s ]
+NOTIC: [8] Constant THEME_PATH already defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Core\View.class.php 第 154 行.
+NOTIC: [8] Constant APP_TMPL_PATH already defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Core\View.class.php 第 155 行.
+INFO: [ view_parse ] --START--
+INFO: ParseTemplate Behavior ::run [ RunTime:0.081066s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.081066s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.009767s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.008791s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.008790s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.009767s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.037115s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.008790s ]
+INFO: [ view_end ] --END-- [ RunTime:0.008790s ]
+INFO: [ app_end ] --START--
+INFO: CronRun Behavior ::run [ RunTime:0.022464s ]
+INFO: [ app_end ] --END-- [ RunTime:0.022464s ]
+
+[ 2019-12-25T21:28:32+08:00 ] ERR: Cron:cron_1 Runat 2019-12-25 21:28:32 Use 0.002930 s
+
+[ 2019-12-25T21:28:32+08:00 ] 42.236.10.117 /wap/mall/push/t/1577280486/p/1.html
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.008791s ]
+INFO: [ route_check ] --END-- [ RunTime:0.008791s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.007813s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.008790s ]
+NOTIC: [2048] Declaration of CommonAction::show() should be compatible with Action::show($content, $charset = '', $contentType = '', $prefix = '') D:\wwwroot\boshang-ymj.weixinguanfang.com/Baocms/Lib/Action/Wap/CommonAction.class.php 第 0 行.
+NOTIC: [2048] Declaration of SettingModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+NOTIC: [2048] Declaration of SettingModel::save() should be compatible with Model::save($data = '', $options = Array) D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 3 行.
+SQL: SHOW COLUMNS FROM `bao_setting` [ RunTime:0.010743s ]
+SQL: SHOW COLUMNS FROM `bao_city` [ RunTime:0.010744s ]
+NOTIC: [8] Undefined variable: str D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Extend\Library\ORG\Crypt\Base64.class.php 第 69 行.
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: 建议使用I方法替代_get
+NOTIC: [8] Constant __HOST__ already defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 98 行.
+NOTIC: 建议使用I方法替代_param
+SQL: SHOW COLUMNS FROM `bao_pois_content` [ RunTime:0.009767s ]
+SQL: SHOW COLUMNS FROM `bao_area` [ RunTime:0.010744s ]
+SQL: SHOW COLUMNS FROM `bao_business` [ RunTime:0.009767s ]
+SQL: SHOW COLUMNS FROM `bao_msg` [ RunTime:0.023441s ]
+SQL: SELECT * FROM `bao_msg` WHERE ( `user_id` IN (0,0) ) LIMIT 0,20   [ RunTime:0.000977s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 295 行.
+NOTIC: [2] array_sum() expects parameter 1 to be array, null given D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\CommonAction.class.php 第 145 行.
+SQL: SHOW COLUMNS FROM `bao_shop` [ RunTime:0.010743s ]
+SQL: SELECT * FROM `bao_shop` WHERE ( `user_id` = 0 ) LIMIT 1   [ RunTime:0.000976s ]
+NOTIC: [2] array_sum() expects parameter 1 to be array, null given D:\wwwroot\boshang-ymj.weixinguanfang.com\Baocms\Lib\Action\Wap\MallAction.class.php 第 13 行.
+NOTIC: 建议使用I方法替代_param
+SQL: SHOW COLUMNS FROM `bao_goods` [ RunTime:0.009767s ]
+SQL: SHOW COLUMNS FROM `bao_goods_cate` [ RunTime:0.010743s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` IN ('19','20') ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000977s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` IN ('28','29','30','31') ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000977s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` IN ('22') ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000977s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `cate_id` = 0 ) AND ( `closed` = 0 ) AND ( `audit` = 1 ) AND ( `city_id` = '16' ) LIMIT 1   [ RunTime:0.000977s ]
+SQL: SHOW COLUMNS FROM `bao_paddress` [ RunTime:0.010743s ]
+SQL: SELECT * FROM `bao_paddress` WHERE ( `user_id` = 0 ) LIMIT 1   [ RunTime:0.000000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `bao_goods` WHERE ( `audit` = 1 ) AND ( `closed` = 0 ) AND ( `end_date` >= '2019-12-25' ) LIMIT 1   [ RunTime:0.000977s ]
+SQL: SELECT * FROM `bao_goods` WHERE ( `audit` = 1 ) AND ( `closed` = 0 ) AND ( `end_date` >= '2019-12-25' ) AND ( `shoplx` = 53 ) ORDER BY orderby asc LIMIT 0,3   [ RunTime:0.000000s ]
+NOTIC: [2048] Declaration of TemplateModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) D:\wwwroot\boshang-ymj.weixinguanfang.com/Baocms/Lib/Model/TemplateModel.class.php 第 0 行.
+SQL: SHOW COLUMNS FROM `bao_template` [ RunTime:0.009767s ]
+NOTIC: [8] Constant THEME_PATH already defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Core\View.class.php 第 154 行.
+NOTIC: [8] Constant APP_TMPL_PATH already defined D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Lib\Core\View.class.php 第 155 行.
+INFO: [ view_parse ] --START--
+INFO: ParseTemplate Behavior ::run [ RunTime:0.067392s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.067392s ]
+INFO: [ view_filter ] --START--
+INFO: ContentReplace Behavior ::run [ RunTime:0.007813s ]
+INFO: TokenBuild Behavior ::run [ RunTime:0.008791s ]
+INFO: WriteHtmlCache Behavior ::run [ RunTime:0.007813s ]
+INFO: ShowRuntime Behavior ::run [ RunTime:0.007814s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.032231s ]
+INFO: [ view_end ] --START--
+INFO: ShowPageTrace Behavior ::run [ RunTime:0.007813s ]
+INFO: [ view_end ] --END-- [ RunTime:0.007813s ]
+INFO: [ app_end ] --START--
+NOTIC: [2] include(D:\wwwroot\boshang-ymj.weixinguanfang.com/Baocms/Lib/Cron/WeatherUpdate.php): failed to open stream: No such file or directory D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Extend\Behavior\CronRunBehavior.class.php 第 51 行.
+NOTIC: [2] include(D:\wwwroot\boshang-ymj.weixinguanfang.com/Baocms/Lib/Cron/WeatherUpdate.php): failed to open stream: No such file or directory D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Extend\Behavior\CronRunBehavior.class.php 第 51 行.
+NOTIC: [2] include(): Failed opening 'D:\wwwroot\boshang-ymj.weixinguanfang.com/Baocms/Lib/Cron/WeatherUpdate.php' for inclusion (include_path='.;C:\php\pear;D:\wwwroot\boshang-ymj.weixinguanfang.com\Core/Extend/Vendor/') D:\wwwroot\boshang-ymj.weixinguanfang.com\Core\Extend\Behavior\CronRunBehavior.class.php 第 51 行.
+INFO: CronRun Behavior ::run [ RunTime:0.033208s ]
+INFO: [ app_end ] --END-- [ RunTime:0.033208s ]
+

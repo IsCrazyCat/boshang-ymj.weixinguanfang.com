@@ -1,0 +1,127 @@
+<div class="footerOut">
+    <if condition="$ctl eq index">
+        <div class="foot_yqlj">
+        
+            友情链接：
+            <calldata mdl="Links" where="audit=1 AND colsed=0 AND city_id=$city_id" limit="0,10" cache="21600" order="orderby asc">
+                <a target="_blank" href="<{$item.link_url}>"><{$item.link_name}></a>
+            </calldata>
+            <a target="_blank" href="<{:U('home/public/apply_link')}>">申请链接</a>
+        </div>
+    </if>
+
+    <div class="footer">
+        <div class="footNav">
+            <div class="left">
+                <div class="footNavLi">
+                    <ul>
+
+                    	<li class="footerLi foot_contact">
+                            <h3><i class="ico_1"></i>联系我们</h3>
+                			<div class="nr">
+                            	<p>客服电话：<b class="fontcl3"><{$CONFIG.site.tel}></b></p>
+                                <p class="graycl">免费长途</p>
+                                <p>在线客服：<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=<{$CONFIG.site.qq}>&site=<{$CONFIG.site.host}>&menu=yes"><img src="__TMPL__statics/images/foot_btn.png"/></a></p>
+                                <p>工作时间：周一至周日9:00-22:00</p>
+                                <p class="graycl">法定节假日除外</p>
+                            </div>
+                        </li>
+
+                        <li class="footerLi">
+                            <h3><i class="ico_2"></i>公司信息</h3>
+                            <ul class="list">
+                                <li><a target="_blank" title="关于我们" href="<{:u('home/article/system',array('content_id'=>1))}>">关于我们</a></li>
+                                <li><a target="_blank" title="联系我们" href="<{:u('home/article/system',array('content_id'=>3))}>">联系我们</a></li>
+                                <li><a target="_blank" title="人才招聘" href="<{:u('home/article/system',array('content_id'=>2))}>">人才招聘</a></li>
+                                <li><a target="_blank" title="免责声明" href="<{:u('home/article/system',array('content_id'=>6))}>">免责声明</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="footerLi">
+                            <h3><i class="ico_3"></i>商户合作</h3>
+                            <ul class="list">
+                                <li><a href="<{:u('home/shop/apply')}>">商家入驻</a></li>
+                                <li><a target="_blank" title="广告合作" href="<{:u('home/article/system',array('content_id'=>5))}>">广告合作</a></li>
+                                <li><a href="<{:u('merchant/login/index')}>">商家后台</a></li>
+                            </ul>
+                        </li>
+                        <li class="footerLi">
+                            <h3><i class="ico_4"></i>用户帮助</h3>
+                            <ul class="list">
+                                <li><a target="_blank" title="服务协议" href="<{:u('home/article/system',array('content_id'=>2))}>">服务协议</a></li>
+                                <li><a target="_blank" title="退款承诺" href="/">退款承诺</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="right"><p>扫一扫加关注</p><img src="<{:config_img($CONFIG['site']['wxcode'])}>" width="149" height="149" /></div>
+        </div>
+    </div>
+
+	<div class="footerCopy">copyright 2013-2113 <{$Think.SERVER.HTTP_HOST}> All Rights Reserved <{$CONFIG.site.sitename}>版权所有 - <{$CONFIG.site.icp}> <{$CONFIG.site.tongji}></div>
+</div>  
+
+<div class="topUp">
+    <ul>
+    	<li class="kefu"><a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=<{$CONFIG.site.qq}>&site=<{$CONFIG.site.host}>&menu=yes"><div class="kefu_open maincl">在线客服</div></a></li>
+        <li class="topBack"><div class="topBackOn">回到<br />顶部</div></li>
+        <li class="topUpWx"><div class="topUpWxk"><img src="<{:config_img($CONFIG['site']['wxcode'])}>" width="149" height="149" /><p class="maincl">扫描二维码关注微信</p></div></li>
+    </ul>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        $(window).scroll(function () {
+            if ($(window).scrollTop() > 100) {
+                $(".topUp").show();
+                $(".indexpop").show();
+            } else {
+                $(".topUp").hide();
+                $(".indexpop").hide();
+
+            }
+
+            var ctl = "<{$ctl}>";
+            if(ctl == 'coupon'){
+                if ($(window).scrollTop() > 665) {
+                    $(".spxq_xqT2").show();
+                } else {
+                    $(".spxq_xqT2").hide();
+                }
+
+            }else{
+                if ($(window).scrollTop() > '<{$height_num}>') {
+                    $(".spxq_xqT2").show();
+                } else {
+                    $(".spxq_xqT2").hide();
+                }
+            }
+        });
+
+        $(".topBack").click(function () {
+            $("html,body").animate({scrollTop: 0}, 200);
+        });
+
+		$(window).scroll(function(){
+			var top = $(document).scrollTop();          //定义变量，获取滚动条的高度
+			var menu = $(".topUp");                      //定义变量，抓取topUp
+			var items = $(".footerOut");    //定义变量，查找footerOut 
+			items.each(function(){
+				var m=$(this);
+				var itemsTop = m.offset().top;      //定义变量，获取当前类的top偏移量
+				if(itemsTop-360 <= top-360){
+					menu.css('bottom','360px');
+					menu.css('top','auto');
+				}else{
+					menu.css('bottom','0px');
+					menu.css('top','auto');
+				}
+			});
+		});
+    });
+</script>
+</body>
+</html>

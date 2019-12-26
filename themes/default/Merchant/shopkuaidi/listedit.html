@@ -1,0 +1,52 @@
+<include file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="">商家</a>><a href="<{:U('shopkuaidi/index')}>">运费模板</a>><a>编辑地区运费</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+	<div class="radius5 tuan_top">
+        <div class="tuan_top_t tuanfabu_top">
+            <div class="left tuan_topser_l">注意：编辑运费模板</div>
+        </div>
+    </div>
+
+    <form method="post" target="baocms_frm" action="<{:U('shopkuaidi/listedit', array('yunfei_id' => $detail['id']))}>">
+    	<table class="tuanfabu_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td><p class="tuanfabu_t">配送名称：</td>
+                <td><div class="tuanfabu_nr"><input type="text" name="data[name]"  class="tuanfabu_int tuanfabu_intw2" value="<{$detail.name|default=''}>"/></div></td>
+            </tr>
+            
+            
+             <tr>
+               <td width="120"><p class="tuanfabu_t">配送区域：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <select id="province_id" name="data[province_id]" class="tuanfabu_int tuanfabu_intw2">
+                                <option value="0">请选择</option>
+                                <foreach name="provinceList" item="var">
+                                    <option <eq name="var.id" value="$detail.province_id">selected="selected"</eq> value="<{$var.id}>"><{$var.name}></option>                
+                                </foreach>
+                            </select>
+                 </div></td>
+              </tr>
+
+
+
+			<tr>
+                <td><p class="tuanfabu_t">首重费用：</td>
+                <td><div class="tuanfabu_nr"><input type="text"  name="data[shouzhong]"  class="tuanfabu_int tuanfabu_intw2" value="<{:round($detail['shouzhong']/100,2)}>"/></div>
+                </td>
+            </tr>
+            
+            <tr>
+                <td><p class="tuanfabu_t">续重费用：</td>
+                <td><div class="tuanfabu_nr"><input type="text"  name="data[xuzhong]"  class="tuanfabu_int tuanfabu_intw2" value="<{:round($detail['xuzhong']/100,2)}>"/></div>
+                </td>
+            </tr>
+			
+        </table>
+        <div class="tuanfabu_an"><input type="submit" class="radius3 sjgl_an tuan_topbt" value="确认编辑"></div>
+    </form>
+</div>
+<include file='public:footer'/>

@@ -1,0 +1,50 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('user/member/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			员工确认
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+<div class="line padding border-bottom">
+	来自商家：<{$shop.shop_name}>
+</div>
+<div class="line padding border-bottom">
+	您的姓名：<{$worker.name}>
+</div>
+<div class="line padding border-bottom">
+	您的职务：<{$worker.work}>
+</div>
+<div class="line padding border-bottom">
+	您的手机：<{$worker.mobile}>
+</div>
+<if condition="!empty($worker['tel'])">
+<div class="line padding border-bottom">
+	您的电话：<{$worker.tel}>
+</div>
+</if>
+<if condition="!empty($worker['qq'])">
+<div class="line padding border-bottom">
+	您的QQ：<{$worker.qq}>
+</div>
+</if>
+<if condition="!empty($worker['weixin'])">
+<div class="line padding border-bottom">
+	您的微信：<{$worker.weixin}>
+</div>
+</if>
+<div class="blank-40"></div>
+<div class="line">
+	<div class="x6 text-center">
+		<a class="button button-big bg-green" href="<{:U('information/worker_agree',array('worker_id'=>$worker['worker_id']))}>">同意</a>
+	</div>
+	<div class="x6 text-center">
+		<a class="button button-big bg-dot" href="<{:U('information/worker_refuse',array('worker_id'=>$worker['worker_id']))}>">拒绝</a>
+	</div>
+</div>
+<div class="blank-20"></div>
+<include file='public:footer'/>

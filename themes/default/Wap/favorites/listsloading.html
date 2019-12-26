@@ -1,0 +1,19 @@
+<foreach  name="list" item="var">
+<li>
+	<div class="line">
+    
+		<div class="x3"><img src="<{:config_img($var['photo'])}>" /></div>
+		<div class="x9 padding-left">
+			<h5><{$var.shop_name}><span class="float-right text-small"><{$var.d}></span></h5>
+			<p><{$var.addr}></p>
+			<p>
+				<?php if(isset($guanzhu[$var['shop_id']])){?>
+				<span class="text-gray">已关注</span>
+				<?php }else{?>
+				<a class="button border-dot button-small" href="<{:U('favorites/add',array('shop_id'=>$var['shop_id']))}>">关注商家</a>
+				<?php }?>   
+			</p>
+		</div>
+	</div>
+</li>
+</foreach>

@@ -1,0 +1,46 @@
+<include file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">其他</a> > <a href="">餐饮设置</a> > <a>菜系分类</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <form method="post" action="<{:U('elecate/index')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            分类名称：<input type="text" name="keyword" value="<{$keyword}>" class="radius3 tuan_topser" />
+            <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/>
+            <div class="right tuan_topfb_r"><a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('elecate/create')}>">添加分类+</a></div>
+        </div>
+    </div>
+    </form>
+    <div class="tuanfabu_tab">
+        <ul>
+            <li class="tuanfabu_tabli tabli_change on"><a href="<{:U('elecate/index')}>">菜系分类</a></li>
+            <li class="tuanfabu_tabli tabli_change"><a href="<{:U('eleproduct/index')}>">菜单管理</a></li>
+        </ul>
+    </div>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>ID</td>
+            <td>分类名称</td>
+            <td>操作</td>
+        </tr>
+        <foreach name="list" item="var">
+        <tr>
+            <tr>
+                <td><{$var.cate_id}></td>
+                <td><{$var.cate_name}></td>
+                <td>
+                   <a href="<{:U('elecate/edit',array('cate_id'=>$var['cate_id']))}>">编辑</a>
+                   <a mini='confirm' href="<{:U('elecate/delete',array('cate_id'=>$var['cate_id']))}>">删除</a>
+                </td>
+            </tr>
+        </tr>
+        </foreach>
+    </table>
+    <div class="paging">
+        <{$page}>
+    </div>
+</div>
+<include file='public:footer'/>

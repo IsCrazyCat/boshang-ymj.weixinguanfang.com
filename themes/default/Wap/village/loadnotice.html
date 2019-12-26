@@ -1,0 +1,5 @@
+<foreach name="list" item="item">
+	<li class="padding border-bottom">
+		<a href="<{:U('village/notice',array('id'=>$item['id']))}>"><{:bao_Msubstr($item['title'],0,14,false)}><span><{$item.addtime|date='Y-m-d',###}></span></a>
+	</li>
+</foreach>

@@ -1,0 +1,78 @@
+<php>$mobile_title = $detail['thread_name'];</php>
+<include  file='public:header'/>
+   <header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<{$detail.thread_name}>
+		</div>
+		<div class="top-share">
+		</div>
+	</header>
+    
+
+
+        <div class="thread-center-box">
+            <div  class="xingqu">
+                <div  class="xingqu-bigban"> <img src="<{:config_img($detail['banner'])}>"/>
+                    <div class="nr">
+                        <div class="tuwen">
+                            <div class="fl caomao"><img src="<{:config_img($detail['photo'])}>"/></div>
+                            <div class="fl tuwen-tx">
+                                <p class="font_size14 overflow_clear"><{$detail.thread_name}></p>
+                                <p >话题<{$detail.posts}>&nbsp;&nbsp;关注<{$detail.fans}></p>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="had txt_center"><a target="x-frame" href="<{:U('thread/collect',array('thread_id'=>$detail['thread_id']))}>" class="btn"><em class="had-xin"></em><if condition="$detail['collect'] eq 1">已关注<else/>关注</if></a></div>
+                    </div>
+                </div>
+                <div class="zhuye border_thread">
+                    <ul >
+                        <li class=" zhuye-list txt_center fl"><a href="<{:U('thread/detail',array('thread_id'=>$detail['thread_id']))}>" <if condition="$act eq 'detail'">class="on"</if> >主页</a></li>
+                        <li class=" zhuye-list txt_center fl"><a href="<{:U('thread/photo',array('thread_id'=>$detail['thread_id']))}>" <if condition="$act eq 'photo'">class="on"</if> >相册</a></li>
+                        <div class="clear"></div>
+                    </ul>
+                </div>
+                <div class="clear"></div>
+                <div class="quantibig black9"><span>全部话题（<{$count}>） </span></div>
+            </div>
+        </div>
+
+	<div class="clear"></div>
+    <!--帖子列表-->
+	<ul id="tie-list" class="tie-list">
+    </ul>
+	<script>
+		$(document).ready(function () {
+			loaddata('<{$nextpage}>', $("#tie-list"), true);
+		});
+	</script>
+
+<nav class="foot-bar">
+	<div class="line">
+		<div class="x2">
+			<a class="left-icon" href="<{:U('thread/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="x8">
+			<div class="line">
+				<span class="x6">
+					<a class="post-icon"  target="x-frame"  href="<{:U('thread/collect',array('thread_id'=>$detail['thread_id']))}>">
+						<i class="icon-reorder"></i>
+						关注
+					</a>
+				</span>
+				<span class="x6">
+					<a class="post-icon" href="<{:U('thread/fabu',array('thread_id'=>$detail['thread_id']))}>"><i class="icon-pencil-square"></i>发帖</a>
+				</span>
+			</div>
+		</div>
+		<div class="x2">
+			<a class="right-icon" href="<{:u('user/index/index')}>"><i class="icon-ellipsis-v"></i></a>
+		</div>
+	</div>
+</nav>
+<iframe id="x-frame" name="x-frame" style="display:none;"></iframe>
+</body>
+</html>

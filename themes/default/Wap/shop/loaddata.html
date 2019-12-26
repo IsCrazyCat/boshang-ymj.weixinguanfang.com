@@ -1,0 +1,29 @@
+<volist name="list" id="item" key="index">
+	<a class="item" href="<{:U('shop/detail',array('shop_id'=>$item['shop_id']))}>">	
+    
+		<img class="pic" src="<{:config_img($item['photo'])}>" />	
+		<div class="des">	
+			<h5><{:msubstr($item['shop_name'],0,20,'utf-8',false)}> &nbsp;<if condition="$item['is_renzheng'] eq 1"><span class="renzheng">认证</span></if>
+				<span class="distance"><{$item.d}></span>	
+			</h5>	
+			<div class="info">	
+<!--                <if condition="!empty($item['score'])"> &lt;!&ndash;如果价格等于0&ndash;&gt;-->
+<!--					<span class="ui-starbar"><span style="width:<{:round($item['score']*2,2)}>%"></span></span>-->
+<!--                <else/>-->
+<!--                	暂无评价-->
+<!--                </if>-->
+                <php>$shopyouhui = D('Shopyouhui')->where(array('shop_id'=>$item['shop_id']))->find();</php>
+                <if condition="!empty($shopyouhui)">
+                	<if condition="$shopyouhui['type_id'] EQ 0">
+                   		<span class="shopyouhui"><{$shopyouhui['discount']}>折</span>
+                    <else/>
+                    	<span class="shopyouhui">满 &yen;<{$shopyouhui['min_amount']}>元&nbsp;减 &yen;<{$shopyouhui['amount']}>元 </span>
+                    </if>
+                </if>
+			</div>	
+			<span class="addr">	
+				<{:msubstr($item['addr'],0,26,'utf-8',false)}>
+			</span>
+		</div>	
+	</a>
+</volist>

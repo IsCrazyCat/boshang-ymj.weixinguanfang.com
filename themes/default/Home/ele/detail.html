@@ -1,0 +1,246 @@
+<include  file='ele:header'/>  
+<div class="cl"></div>
+<div class="main">
+    <div class="local"><a href="<{:U('index/index')}>" target="_blank">首页</a> > <a href="<{:U('ele/ding')}>" target="_blank">订座</a> ><{$detail.shop_name}></div>
+    <div class="cl"></div>
+    <dl class="dzboxShow">
+        <dt><a href="<{:U('shop/detail',array('shop_id'=>$detail['shop_id']))}>" title="<{$detail.title}>" target="_blank"><img src="__ROOT__/attachs/<{$detail.photo}>"  /></a></dt>
+        <dd>
+            <b><{$detail.shop_name}> <gt name="detail.card_date" value="$today"><a class="k1" href="javascript:void(0);"></a></gt>
+                <gt name="detail.bao_date" value="$today"><a class="k2" href="javascript:void(0);"></a></gt>
+                <gt name="detail.wei_date" value="$today"><a class="k3" href="javascript:void(0);"></a></gt>
+                <gt name="detail.yuyue_date" value="$today"><a class="k4" href="javascript:void(0);"></a></gt>
+                <lt name="detail.orderby" value="100"><a class="k5" href="javascript:void(0);"></a></lt></b>
+            <p class="x">
+
+            <div class="ald-rate ald-rate-<{$detail.score}>" style="margin-top:7px"></div> 	<{$detail.score_num}>条评论 
+            人均：<{$ex['price']}>元 | <{$shopcates[$detail['cate_id']]['d1']}>：<{:round($detail['d1']/10,1)}> |
+            <{$shopcates[$detail['cate_id']]['d2']}>：<{:round($detail['d2']/10,1)}> | 
+            <{$shopcates[$detail['cate_id']]['d3']}>：<{:round($detail['d3']/10,1)}>
+            </p>
+            <p>地址：<{$detail.addr}>(<{$ex.near}>)</p>
+            <p>电话：<em><if condition="$detail.tel neq null"><{$detail.tel}><else/><{$detail.mobile}></if></em></p>
+        <php>
+            $tags = $detail['tags'];
+            $tagsarray = array();
+            if(!empty($tags)){
+            $tagsarray = explode(',',$tags);
+            }
+        </php>
+
+        <p class="label">标签：
+            <if condition="$tagsarray eq null"><a href="javascript:void(0);">暂无标签</a> <else/><volist name='tagsarray' id='var' key='index'>
+                    <a  href='<{:U("ele/ding",array("keyword"=>$var))}>'><{$var}></a>
+                </volist>
+            </if>
+        </p>
+        <p>营业时间：<{$ex.business_time}></p>
+        <p><a mini="load" href="<{:U('ele/yuyue',array('shop_id'=>$detail['shop_id']))}>" class="freedz">立即订座</a></p>
+        </dd>
+    </dl>
+    <div class="sjLeft">
+            <ul class="tjuan">
+            <foreach name="tuan" item="item">
+                <li class="li1"><a title="<{$item.title}>" target="_blank" href="<{:U('tuan/detail',array('tuan_id'=>$item['tuan_id']))}>"><{$item.title}></li>
+            </foreach>
+            <if condition="$coupon['title'] neq null"><li class="li2"><a title="<{$coupon.title}>" target="_blank" href="<{:U('coupon/detail',array('coupon_id'=>$coupon['coupon_id']))}>"><{$coupon.title}></a></li></if>
+        </ul>
+        <div class="dpInfor">
+            <h3 class="dptit">店铺<code>介绍</code></h3>
+            <p><{$ex.details}></p>    
+        
+        </div>
+             <div class="cl"></div>
+       <h3 class="dptit2">店铺<code>环境</code></h3>
+        <ul class="hjbox">
+            <foreach name="shoppic" item="item">
+                <li><img src="<{:config_img($item['photo'])}>" /></li>
+            </foreach>
+        </ul>
+         <div class="cl"></div>
+      <h3 class="dptit2">网友<code>评价</code></h3>
+        <volist name="list" id="var">
+            <dl class="pingj">
+                <dt>
+                <a target="_blank" title="<{$users[$var['user_id']]['nickname']}>" href="<{:U('blog/index',array('user_id'=>$var['user_id']))}>">
+                
+                <img src="<{:config_img($users[$var['user_id']]['face'])}>" width="65" height="65" /></a>
+                <p><a target="_blank" title="<{$users[$var['user_id']]['nickname']}>" href="<{:U('blog/index',array('user_id'=>$var['user_id']))}>"><{$users[$var['user_id']]['nickname']}></a></p>
+                <p><img src="__TMPL__statics/images/<{$userrank[$users[$var['user_id']]['rank_id']]['rank_name']}>.jpg" /></p>
+                </dt>
+                <dd>
+                    <div class="ptit">
+                        <span>2015-1-3</span>
+                        <code><em><div class="ald-rate ald-rate-<{$var.score}>"></div> </em>人均：<cite><{$var.cost}></cite></code>
+                    </div>
+                    <p><{$var.contents}></p>
+                    <p>
+                <foreach name="pics" item="pic">
+                    <eq name="pic.dianping_id" value="$var.dianping_id">
+                    <img src="<{:config_img($pic['pic'])}>" width="100" height="78" />
+                    </eq>
+                </foreach>
+                </p>
+                <if condition="!empty($var['reply'])"><p class="relax"><{$var.reply}></p></if>
+
+                </dd>
+            </dl>
+        </volist>
+        <div class="cl"></div>
+        <div class="pages"><{$page}></div>
+        <form id="dianping_frm" target="baocms_frm" method="post" action="<{:U('shop/dianping',array('shop_id'=>$detail['shop_id']))}>">
+            <div class="dp_bottom" id="dp_bottom">
+                <if condition="empty($MEMBER)">
+                    <div class="mydianping">
+                        <div class="guide_box">亲，登陆后你也可以点评喔！</div>
+                        <a href="<{:U('passport/login')}>"><div class="deng_btn">登录</div></a>
+                        <a href="<{:U('passport/resiter')}>"><div class="register_btn">注册</div></a>
+                    </div>
+                </if>    
+                <div class="start_dp">
+                    <h1>开始我的点评</h1>
+                    <p class="container">
+                        <span>上传图片:</span>
+                        <a class="tjt_btn" href="#"> + 添加图片</a>
+                        <span class="notice">最多可以添加5张照片,文件大小2M以内</span>
+                        <span class="shangchuan">
+                            <input name="bao_file" id="bao_file" type="file" />
+                        </span>		
+                    </p>
+                    <script type="text/javascript" src="__TMPL__statics/js/ajaxfileupload.js"></script>
+                    <script>
+                         function ajaxupload(){
+                             $(".loading").show();
+                                $.ajaxFileUpload({
+                                    url:'<{:U("app/upload/upload",array("model"=>"dianping"))}>',
+                                    type:'post',
+                                    fileElementId:'bao_file',
+                                    dataType:'text',
+                                    secureuri: false, //一般设置为false
+                                    success:function(data,status){
+                                        $(".loading").hide();
+                                        var str = '<div class="photo"><img width="75" height="75"  src="__ROOT__/attachs/'+data+'">  <input type="hidden" name="data[photo]" value="'+data+'" /><a href="javascript:void(0);">[删除]</a></div>';         
+                                        $("#jq_photo_list").append(str);
+                                        $("#bao_file").unbind('change');
+                                            $("#bao_file").change(function () {
+                                            ajaxupload();
+                                            });
+                                    }
+                                });
+                         }
+                        
+                        
+                        $(document).ready(function(){
+                            $("#bao_file").change(function(){
+                                 ajaxupload();
+                            });
+                            $(document).on("click","#jq_photo_list  a",function(){
+                                $(this).parent().remove();
+                            });
+                        });
+                    </script>
+                    <div style="height:120px; width:100%" id="jq_photo_list">
+                        <div class="photo loading" style="display: none;"><img src="__TMPL__statics/images/loading.gif" /></div>
+
+
+                    </div>
+
+                    <div class="s_line"></div>
+
+                    <label style="margin-left:20px;font-size:16px;color:#000;" for="title">点评:</label>
+                    <textarea name="data[contents]" cols="120" rows="10" placeholder="最多输入200字"></textarea>
+                    <table style="margin:10px 20px;" width="0" border="0">
+                        <tr>
+                            <td>总体评分：</td>
+                            <td><input id="datascore" name="data[score]" type="radio" value="1" />1分</td>
+                            <td><input id="datascore" name="data[score]" type="radio" value="2" />2分</td>
+                            <td><input id="datascore" name="data[score]" type="radio" value="3" />3分</td>
+                            <td><input id="datascore" name="data[score]" type="radio" value="4" />4分</td>
+                            <td><input id="datascore" name="data[score]" type="radio" value="5" />5分</td>
+                        </tr>
+                        <tr>
+                            <td><{$cate.d1}>评分：</td>
+                            <td><input id="datascore1" name="data[d1]" type="radio" value="1" />1分</td>
+                            <td><input id="datascore1" name="data[d1]" type="radio" value="2" />2分</td>
+                            <td><input id="datascore1" name="data[d1]" type="radio" value="3" />3分</td>
+                            <td><input id="datascore1" name="data[d1]" type="radio" value="4" />4分</td>
+                            <td><input id="datascore1" name="data[d1]" type="radio" value="5" />5分</td>
+                        </tr>
+                        <tr>
+                            <td><{$cate.d2}>评分：</td>
+                            <td><input id="datascore2" name="data[d2]" type="radio" value="1" />1分</td>
+                            <td><input id="datascore2" name="data[d2]" type="radio" value="2" />2分</td>
+                            <td><input id="datascore2" name="data[d2]" type="radio" value="3" />3分</td>
+                            <td><input id="datascore2" name="data[d2]" type="radio" value="4" />4分</td>
+                            <td><input id="datascore2" name="data[d2]" type="radio" value="5" />5分</td>
+                        </tr>
+                        <tr>
+                            <td><{$cate.d3}>评分：</td>
+                            <td><input id="datascore3" name="data[d3]" type="radio" value="1" />1分</td>
+                            <td><input id="datascore3" name="data[d3]" type="radio" value="2" />2分</td>
+                            <td><input id="datascore3" name="data[d3]" type="radio" value="3" />3分</td>
+                            <td><input id="datascore3" name="data[d3]" type="radio" value="4" />4分</td>
+                            <td><input id="datascore3" name="data[d3]" type="radio" value="5" />5分</td>
+                        </tr>
+                    </table>
+
+                    <table style="margin:10px 20px;" width="0" border="0">
+                        <tr>
+                            <td>人均消费：</td>
+                            <td><input style="height:30px;" type="text" name="data[cost]" id="datacost" class="mm"/> 元</td>
+                        </tr>
+                    </table>
+                    <input class="btn"  rel="dianping_frm" type="submit" value="提交点评" name="submitBtn" />
+
+
+                </div>
+            </div>
+        </form>
+
+    </div>
+    <div class="sjRight">
+        <div class="sj">
+            <h3>商家地图</h3>
+            <div class="sjRbox">
+                <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7b92b3afff29988b6d4dbf9a00698ed8"></script>
+                <div id="allmap" style="width:250px; height:275px;"></div>
+                <script type="text/javascript">
+                    // 百度地图API功能
+                    var map = new BMap.Map("allmap");
+                    map.centerAndZoom(new BMap.Point("<{$detail.lng}>", "<{$detail.lat}>"), 15);
+                    var point = new BMap.Point("<{$detail.lng}>", "<{$detail.lat}>");
+                    map.centerAndZoom(point, 15);
+                    var marker = new BMap.Marker(point); // 创建标注
+                    map.clearOverlays();
+                    map.addOverlay(marker); // 将标注添加到地图中
+                    marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                    map.addControl(new BMap.NavigationControl()); //添加默认缩放平移控件
+                </script>
+
+            </div>
+        </div>
+
+        <div class="xbjx">
+            <h3>小编精选</h3>
+            <ul>
+                <calldata mdl="Shop" order="orderby asc" where="closed = 0 AND audit=1 " cache="1800" limit="0,6" format='true'>
+                    <li <if condition="$index eq 1">style="border-top:0px;" </if> >
+                    <a href="<{:U('shop/detail',array('shop_id'=>$item['shop_id']))}>" title="<{$item.title}>" target="_blank"><img src="__ROOT__/attachs/<{$item.photo}>" width="88" height="88" /></a>
+                    <b><a href="<{:U('shop/detail',array('shop_id'=>$item['shop_id']))}>" title="<{$item.title}>" target="_blank"><{$item.shop_name}></a></b>
+                    <p>人均：<code><{$item['shopdetail']['price']}></code></p>
+                    <p>评分：<code><{$item.score}></code></p>
+                    <p><gt name="item.card_date" value="$today"><a class="k1" href="javascript:void(0);"></a></gt>
+                        <gt name="item.bao_date" value="$today"><a class="k2" href="javascript:void(0);"></a></gt>
+                        <gt name="item.wei_date" value="$today"><a class="k3" href="javascript:void(0);"></a></gt>
+                        <gt name="item.yuyue_date" value="$today"><a class="k4" href="javascript:void(0);"></a></gt>
+                        <lt name="item.orderby" value="100"><a class="k5" href="javascript:void(0);"></a></lt>
+                    </p>
+                    </li>
+                </calldata>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="cl"></div>
+<!--main end-->
+<include file="public:footer"/>

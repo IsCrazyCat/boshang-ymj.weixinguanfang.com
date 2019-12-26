@@ -1,0 +1,46 @@
+<php>$seo_title = $detail['shop_name'].'商家的点评详情';</php>
+<include file='public:head_am'/>   
+<body >
+<style>
+/*css重写*/
+body{background: #f5f5f5;}
+.am-header-default {background: rgba(0,0,0,.5);}
+.am-header-default .am-header-nav a.back{position: absolute;left: 0;top: 0;width: 50px; bottom: 0;}	
+.am-header-default .am-header-nav a.back:after {content: '';display: inline-block;width: 10px;height: 10px;border-top: 2px solid #fff;border-left: 2px solid #fff;-webkit-transform: rotate(-45deg);transform: rotate(-45deg);}
+.am-header-default .am-header-title a{ font-size:14px;}
+.container{-webkit-column-width:150px;-moz-column-width:150px;-o-colum-width:150px;-webkit-column-gap:1px;-moz-column-gap:1px;-o-column-gap:1px;}
+.container li {padding: 5px;}
+/*am兼容*/
+.am-gotop-fixed .am-active {opacity: .7;}
+.am-gotop-fixed {z-index: 1;border-radius: 50%;right: 24px; bottom: 60px;width: 40px; min-height: 40px;}
+.am-gotop-fixed .am-gotop-icon {line-height: 40px;background-color: #FF5500;}
+.am-icon-chevron-up:before { color: #FFFFFF;}
+</style>
+<header data-am-widget="header" class="am-header am-header-default am-badge-danger am-text-nowrap  am-no-layout">
+    <div class="am-header-left am-header-nav">
+        <a href="<{:U('appoint/detail',array('appoint_id'=>$detail['appoint_id']))}>" class="back">
+            <i class="am-header-icon am-iocn-reply am-icon-sm"></i>
+        </a>  
+    </div>
+    <h1 class="am-header-title">
+        <a href="#title-link" class="">点评图片详情</a>
+    </h1>
+    <div class="am-header-right am-header-nav"> </div>
+</header>
+
+	<div data-am-widget="gallery" class="am-gallery am-avg-sm-2 am-avg-md-3 am-avg-lg-4 am-gallery-overlay" data-am-gallery="{ pureview: true }">
+		<div class="container">
+		<foreach name="list" item="item">
+			<li><a href="<{:config_img($item['pic'])}>"><img src="<{:config_img($item['pic'])}>" /></a></li>
+		</foreach>
+		</div>
+	</div>
+
+<div data-am-widget="gotop" class="am-gotop am-gotop-fixed am-no-layout am-active">
+<a href="#top"><span class="am-gotop-title"></span><i class="am-gotop-icon am-icon-chevron-up"></i></a>
+</div>    
+<if condition="$CONFIG['mobile']['amazeui'] eq 1"><!--如果开启就显示-->
+<script src="http://images2.5maiche.cn/static/assets/js/amazeui.min.js" type="text/javascript"></script>
+<else /><!--否则加载本地-->
+<script src="/static/default/news/js/amazeui.min.js" type="text/javascript"></script>
+</if>

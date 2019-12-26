@@ -1,0 +1,59 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">社区村设置</li>
+        <li class="li2">意见管理</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <div class="jsglNr">
+    
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF; TABLE-LAYOUT: fixed"  >
+                <tr>
+                    <td><input type="checkbox" class="checkAll" rel="community_id" /></td>
+                    <td>标题</td>
+                    <td>联系人</td>
+                    <td>联系电话</td>
+                    <td>意见时间</td>
+                    <td>意见内容</td>
+                    <td>回复时间</td>
+                     <td>回复内容</td>
+                    <td>状态</td>
+                    <td>回复人</td>
+                    <td>操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_community_id" type="checkbox" name="id[]" value="<{$var.id}>" /></td>
+                        <td><{$var.title}></td>
+                        <td><{$var.person}></td>
+                        <td><{$var.tel}></td>
+                        <td><{$var.addtime|date='Y-m-d H:i:s',###}></td>
+                        <td   style="WORD-WRAP: break-word"><{$var.context}></td>
+                              <td><{$var.replytime|date='Y-m-d H:i:s',###}></td>
+                        <td   style="WORD-WRAP: break-word"><{$var.reply}></td>
+                        <td><if condition="$var.type eq 1">已回复<else/>未回复-><a href="<{:U('village/reply',array('id'=>$var[id]))}>">点击回复</a></if></td>
+                        <td>
+                           <{$var.user}>
+                        </td>
+                         <td>
+                              <{:BA('village/suggestion_edit',array("id"=>$var["id"]),'编辑','','remberBtn')}>
+                        </td>
+
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                <{:BA('village/reply_delete','','批量删除','list',' a2')}>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+

@@ -1,0 +1,17 @@
+
+#shangjia_tab{ display:block; width:100%; height:2.2rem; background-color:#fff; border-bottom:0.11rem #dedede solid; position:fixed; z-index:999; top:3.15rem;}
+#shangjia_tab li{ display:block; float:left;}
+#shangjia_tab li a{ display:block; text-align:center; line-height:2.2rem; height:2.2rem;  color:#999;}
+#shangjia_tab li a.on{border-bottom:0.22rem solid #2fbdaa; margin-top:-0.01rem;}
+#shangjia_tab li em{ display:inline-block; margin-left:0.05rem; margin-bottom:0.02rem; content:''; width:0.07rem; height:0.07rem; border-bottom:0.02rem solid #666;border-left:0.02rem solid #666;transform:rotate(-45deg);-webkit-transform:rotate(-45deg);-moz-transform:rotate(-45deg);-webkit-transform:rotate(-45deg);-o-transform:rotate(-45deg);}
+
+.main-tuan {overflow:hidden;}
+.main-tuan ul{list-style:none;padding:0;}
+.main-tuan li{padding:10px 0;border-bottom:thin solid #eee;}
+.main-tuan li img{float:left;border-radius:3px;overflow:hidden;}
+.main-tuan li .des {padding-left:5px;}
+.main-tuan li .des h5{height:20px;line-height:20px;overflow:hidden;}
+.main-tuan li .des .intro{height:20px;line-height:20px;color:#999;overflow:hidden;margin:0;font-size:12px;}
+.main-tuan li .des .info {color:#F60;font-size:11px;margin:0;overflow:hidden;}
+.main-tuan li .des .info del{color:#999;margin-left:20px;}
+.main-tuan li .des .info em{font-size:14px;}

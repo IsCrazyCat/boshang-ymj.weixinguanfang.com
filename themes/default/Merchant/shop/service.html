@@ -1,0 +1,124 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">系统设置</a> > <a href="">店铺管理</a> > <a>其他资料设置</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">店铺文字资料介绍店铺的基本信息 </div>
+        </div>
+    </div> 
+     <include  file='shop:nav'/>
+    <style>
+	#is_open{ width:20px; height:20px;}
+	</style>
+    <div class="tabnr_change  show">
+    	<form method="post"  action="<{:U('shop/service')}>" target="baocms_frm">
+    	<table class="tuanfabu_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        
+        
+         <tr>
+           <td><p class="tuanfabu_t">打印外卖订单</td>
+             <td>
+             <div class="tuanfabu_nr">
+             <label><input type="radio" <eq name="detail.is_ele_print" value="1"> checked="checked" </eq>  name="is_ele_print" id="is_open" value="1"/>开启</label>
+             <label><input type="radio" <eq name="detail.is_ele_print" value="0"> checked="checked" </eq>    name="is_ele_print" id="is_open" value="0"/>关闭</label>
+             <code style="margin-left:10px; color:#00F"> 默认建议开启哈，需要自动发货》》外卖》》外卖设置》》》开启打印后自动发货》》》</code></div>
+           </td>
+        </tr>
+        
+         <tr>
+           <td><p class="tuanfabu_t">打印套餐订单</td>
+             <td>
+             <div class="tuanfabu_nr">
+             <label><input type="radio" <eq name="detail.is_tuan_print" value="1"> checked="checked" </eq>  name="is_tuan_print" id="is_open" value="1"/>开启</label>
+             <label><input type="radio" <eq name="detail.is_tuan_print" value="0"> checked="checked" </eq>    name="is_tuan_print" id="is_open" value="0"/>关闭</label>
+             <code style="margin-left:10px; color:#00F"> 一般没必要开启</code></div>
+           </td>
+        </tr>
+        
+         <tr>
+           <td><p class="tuanfabu_t">打印商城订单</td>
+             <td>
+             <div class="tuanfabu_nr">
+             <label><input type="radio" <eq name="detail.is_goods_print" value="1"> checked="checked" </eq>  name="is_goods_print" id="is_open" value="1"/>开启</label>
+             <label><input type="radio" <eq name="detail.is_goods_print" value="0"> checked="checked" </eq>    name="is_goods_print" id="is_open" value="0"/>关闭</label>
+             <code style="margin-left:10px; color:#00F"> 开启后打印商城订单，这里是自动发货的，只要打印完毕自动发货，暂时没做关闭按钮后期做</code></div>
+           </td>
+        </tr>
+        
+         <tr>
+           <td><p class="tuanfabu_t">打印订座订单</td>
+             <td>
+             <div class="tuanfabu_nr">
+             <label><input type="radio" <eq name="detail.is_booking_print" value="1"> checked="checked" </eq>  name="is_booking_print" id="is_open" value="1"/>开启</label>
+             <label><input type="radio" <eq name="detail.is_booking_print" value="0"> checked="checked" </eq>  name="is_booking_print" id="is_open" value="0"/>关闭</label>
+             <code style="margin-left:10px; color:#00F"> 开启后才会打印订座订单</code></div>
+           </td>
+        </tr>
+        
+        
+         <tr>
+           <td><p class="tuanfabu_t">打印家政订单</td>
+             <td>
+             <div class="tuanfabu_nr">
+             <label><input type="radio" <eq name="detail.is_appoint_print" value="1"> checked="checked" </eq>  name="is_appoint_print" id="is_open" value="1"/>开启</label>
+             <label><input type="radio" <eq name="detail.is_appoint_print" value="0"> checked="checked" </eq>  name="is_appoint_print" id="is_open" value="0"/>关闭</label>
+             <code style="margin-left:10px; color:#00F"> 开启后才会打印家政预约信息</code></div>
+           </td>
+        </tr>
+            
+            
+            
+        
+           <tr>
+                <td width="120"><p class="tuanfabu_t">全景URL</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[panorama_url]" value="<{$detail.panorama_url}>" class="tuanfabu_int tuanfabu_intw2" style="width:600px;" />
+                <code>可以不填写，如果您有全景需要显示则填写您的全局url连接，全景连接必须带上http://完整的连接，填写后您的商家详情页默认自动加载全景展示</code></div></td>
+            </tr>
+        <tr><td><p class="tuanfabu_t"></td><td></div></td></tr>
+            <tr>
+                <td width="120"><p class="tuanfabu_t">打印标识(apiKey)</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[apiKey]" value="<{$detail.apiKey}>" class="tuanfabu_int tuanfabu_intw2" style="width: 400px;" />
+                <code>打印标识</code></div></td>
+            </tr>
+            <tr>
+                <td><p class="tuanfabu_t">密钥(mKey)</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[mKey]" value="<{$detail.mKey}>" class="tuanfabu_int tuanfabu_intw2" style="width: 400px;" />
+                <code>你在易连云打印平台注册的ID</code></div></td>
+            </tr>
+            
+             <tr>
+                <td width="120"><p class="tuanfabu_t">用户id(partner)</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[partner]" value="<{$detail.partner}>" class="tuanfabu_int tuanfabu_intw2" />
+                <code>打印标识</code></div></td>
+            </tr>
+            <tr>
+                <td><p class="tuanfabu_t">打印机终端号(machine_code)</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[machine_code]" value="<{$detail.machine_code}>" class="tuanfabu_int tuanfabu_intw2" />
+                <code>打印机终端号，一般购买打印机后打印机后面都有此号码。</code>
+                </div></td>
+            </tr>
+            
+             <tr>
+                <td><p class="tuanfabu_t">客服代码：</p></td>
+                <td><div class="tuanfabu_nr">
+                <textarea name="data[service]" cols="60" rows="8"><{$detail.service|default=''}></textarea>
+                <code>这里是你再其他地方的客服代码添加到这里，只在商家首页展示，建议是一段完整的JS代码</code></div></td>
+            </tr>
+
+        </table>
+        <div class="tuanfabu_an">
+        <input type="submit" class="radius3 sjgl_an tuan_topbt" value="确认保存" />
+        </div>
+        </form>
+    </div> 
+</div>
+<include  file='public:footer'/>

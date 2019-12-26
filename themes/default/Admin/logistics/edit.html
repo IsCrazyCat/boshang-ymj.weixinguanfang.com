@@ -1,0 +1,58 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商城</li>
+        <li class="li2">快递列表</li>
+        <li class="li2 li3">编辑快递</li>
+    </ul>
+</div>
+<div class="listBox clfx">
+    <div class="menuManage">
+        <form target="baocms_frm" action="<{:U('logistics/edit',array('express_id'=>$detail['express_id']))}>" method="post">
+            <div class="mainScAdd">
+                <div class="tableBox">
+                    <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                    
+                     <tr>
+                        <td class="lfTdBt">运单模板商家：</td>
+                        <td class="rgTdBt">
+                            <div class="lt">
+                                <input type="hidden" id="shop_id" name="data[shop_id]" value="<{$detail.shop_id|default=''}>" class="manageInput" />
+                                <input type="text" name="shop_name" id="shop_name"   value="<{$shops.shop_name}>" class="scAddTextName w150 sj"/>
+                            </div>
+                            <a mini="select"  w="800" h="600" href="<{:U('shop/select')}>" class="seleSj">运单模板商家</a>
+                        </td>
+                    </tr>
+
+                  <tr>
+                    <td class="lfTdBt">快递编号：</td>
+                    <td class="rgTdBt"><input type="text" name="data[express_com]" value="<{$detail.express_com|default=''}>" class="scAddTextName w150" />
+                    <code></code>
+                    </td>
+                   </tr>
+                 <tr>
+                  <td class="lfTdBt">快递名称：</td>
+                   <td class="rgTdBt"><input type="text" name="data[express_name]" value="<{$detail.express_name|default=''}>" class="scAddTextName w150" />
+                   <code>快递的名字</code>
+                   </td>
+                 </tr>
+                     
+                 <tr>
+                   <td class="lfTdBt">排序：</td>
+                   <td class="rgTdBt"><input type="text" name="data[orderby]" value="<{$detail.orderby|default=''}>" class="scAddTextName w150" />
+                   <code>数字越小越靠前</code>
+                   </td>
+                 </tr>
+                     
+                    </table>
+                </div>
+                <div class="smtQr"><input type="submit" value="确定编辑" class="smtQrIpt" /></div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<include  file='public:footer'/>   
+
+
+

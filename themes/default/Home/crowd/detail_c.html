@@ -1,0 +1,18 @@
+<volist name='itemss' id='item'>
+        
+        
+        <li class="crowdDetl_like_list">
+            <div class="pub_img"><img src="__ROOT__/attachs/<{$item.img}>" width="280" height="220" /><span class="tag">众筹中</span><span class="zan"><em class="ico"></em><{$item.have_num}></span><p class="wz">赞：<{$item.zan_num}> 关注：<{$item.follow_num}></p></div>
+            <div class="pub_wz">
+                <p class="overflow_clear"><a href="<{:U('mall/crowdDetail',array('goods_id'=>$item['goods_id']))}>"><{$item.title}></a></p>
+                <div class="mall_progressBar_wrap mt10"><span class="mall_progressBar_bar" style="width:<{$item['have_price']/$item['all_price']*100}>%;"></span></div>
+                <div class="bar_wz mt10">
+                    <ul>
+                        <li class="list one"><p class="blackcl6"><{$item['have_price']/$item['all_price']*100|ceil}>%</p><p class="graycl">已达</p></li>
+                        <li class="list"><p class="blackcl6">￥<{$item['have_price']/100}></p><p class="graycl">已筹金额</p></li>
+                        <li class="list"><p class="blackcl6">￥<{$item['all_price']/100-$item['have_price']/100}></p><p class="graycl">剩余金额</p></li>
+                    </ul>
+                </div>
+            </div>
+        </li>
+</volist>

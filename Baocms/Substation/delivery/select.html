@@ -1,0 +1,72 @@
+<include  file='public:header'/>
+<div class="main-jsgl main-sc">
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="right">    
+              <form class="search_form" method="post" action="<{:U('delivery/select',array('id'=>$id,'show'=>$show))}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <span>配送员名字</span>
+                        <input type="text" name="name" value="<{$name}>" class="inptText" /><input type="submit" value="  搜索"  class="inptButton" />
+                    </div> 
+                </form>
+              
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+   <div class="selectNr selectNr2">
+        <div class="clear"></div>
+   </div>
+
+       <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+
+                <tr>
+                   <td class="w50">ID</td>
+                    <td>物流配送员姓名</td>
+                    <td>加入时间</td>
+                </tr>
+
+               <foreach name="list" item="var">
+                    <tr>
+                        <td><input type="radio" name="delivery_id"   rel="<{$var.name}>" value="<{$var.id}>" /><{$var.id}></td>
+                        <td><{$var.name}></td>
+                       <td> <{$var.add_time|date="Y-m-d H:i:s",###}></td>
+                    </tr>
+                </foreach>
+
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                <input style="border:1px solid #dbdbdb; width: 100px; height: 38px; line-height: 38px; text-align: center;" type="button" id="select_btn" class="remberBtn" value="确定选择" />
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+
+
+
+<script>
+
+    $(document).ready(function (e) {
+        $("#select_btn").click(function () {
+            $("input[name='delivery_id']").each(function (a) {
+                if ($(this).prop("checked") == true) {
+                    parent.selectCallBack('delivery_id', 'delivery', $(this).val(), $(this).attr('rel'));
+                }
+            });
+        });
+    });
+
+</script>
+<include  file='public:footer'/>  
+
+
+
+
+

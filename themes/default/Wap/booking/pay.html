@@ -1,0 +1,83 @@
+<include file='public:header'/>    
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('booking/detail',array('shop_id'=>$order['shop_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			支付订单
+		</div>
+	</header>
+
+	
+
+	<form class="pay-form" action="<{:U('booking/pay2',array('order_id'=>$order['order_id']))}>" method="post"  target="x-frame">
+    <div class="blank-10"></div>
+		<div class="row">
+			<span class="float-left">商家名称</span>
+			<span class="float-right"><{$shop.shop_name}></span>
+		</div>
+		<hr />
+		<div class="row">
+			<span class="float-left">就餐时间</span>
+			<span class="float-right"><{$order.ding_date}>&nbsp;&nbsp;<{$order.ding_time}></span>
+		</div>
+		<hr />
+        <div class="row">
+			<span class="float-left">包厢/大厅：</span>
+			<span class="float-right"><if condition="!empty($order[room_id])">包厢：<{$room['name']}><else/>大厅</if></span>
+		</div>
+		<hr />
+         <div class="row">
+			<span class="float-left">点菜情况：</span>
+			<span class="float-right"><if condition="$order['menu_amount'] eq 0">未点<else/>已点</if></span>
+		</div>
+		<hr />
+        <div class="row">
+			<span class="float-left">点菜价格：&yen;<{:round($order['menu_amount']/100,1)}>元</span>
+			<span class="float-right">缴纳定金：<a class="text-dot">&yen;<{:round($order['amount']/100,1)}>元</a></span>
+		</div>
+        <div class="blank-10"></div>
+		<div class="blank-10 bg"></div>
+   
+        
+       <!--填写END-->
+
+		<ul id="pay-method" class="pay-method">
+			<foreach name="payment" item="var">
+			<li data-rel="<{$var.code}>" class="media media-x payment">
+				<a class="float-left"  href="javascript:;">
+					<img src="/static/default/wap/image/pay/<{$var.mobile_logo}>">
+				</a>
+				<div class="media-body">
+					<div class="line">
+						<div class="x10">
+						<{$var.name}><p>推荐已安装<{$var.name}><{$var.id}>客户端的用户使用</p>
+						</div>
+						<div class="x2">
+							<span class="radio txt txt-small radius-circle bg-green"><i class="icon-check"></i></span>
+						</div>
+					</div>
+				</div>
+			</li>
+			</foreach>
+		</ul>
+		<input id="code" type="hidden" name="code" value="" />
+		
+		<div class="text-center padding-left padding-right margin-large-top">
+			<button type="submit" class="button button-big button-block bg-yellow  submit">提交订单</button>
+		</div>
+		
+		<div class="blank-20"></div>
+	</form>
+</div>
+<script>
+		$("#pay-method li").click(function(){
+				var code = $(this).attr("data-rel");
+				$("#code").val(code);
+				$("#pay-method li").each(function(){
+					$(this).removeClass("active");
+				});
+				$(this).addClass("active");
+			});
+    </script>
+<iframe id="x-frame" name="x-frame" style="display:none;"></iframe>

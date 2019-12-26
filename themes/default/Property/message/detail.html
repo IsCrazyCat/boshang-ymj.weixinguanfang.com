@@ -1,0 +1,24 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">物业</a> > <a href="">消息管理</a> > <a>消息详情</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">标题：<{$detail.title}> &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;  发布时间：<{$detail.create_time|date='Y-m-d H:i',###}></div>
+        </div>
+
+    </div> 
+    <div class="tabnr_change  show">
+    <{$detail.details}>
+    </div> 
+    
+    <div class="tuanfabu_an">
+    	<a href="<{:U('message/index')}>" class="radius3 sjgl_an tuan_topbt">返回消息列表</a>
+        </div>
+        
+</div>
+
+<include  file='public:footer'/>

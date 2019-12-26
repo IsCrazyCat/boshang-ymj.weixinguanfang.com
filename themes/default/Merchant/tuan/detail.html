@@ -1,0 +1,79 @@
+<include file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+       <li><a href="<{:U('tuan/index')}>">套餐</a> > <a href="<{:U('tuan/order')}>">订单列表</a> >订单详情</li>
+    </ul>
+</div>
+
+
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">订单详情</div>
+             <div class="right tuan_topfb_r">
+                <a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('tuan/detail',array('order_id'=>$detail['order_id']))}>">刷新订单状态</a>
+                <a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('tuan/order')}>">返回订单列表</a>
+            </div>
+        </div>
+    </div> 
+    
+    
+    
+    <div class="tabnr_change show">
+    	
+    	<table class="order_goods_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        
+            <tr>
+                <td width="120"><p class="tuanfabu_t">套餐标题：</p></td>
+                <td><div class="tuanfabu_nr"><{$tuans['title']}></div></td>
+            </tr>
+            <tr>
+                <td width="120"><p class="tuanfabu_t">套餐副标题：</p></td>
+                <td><div class="tuanfabu_nr"><{$tuans['intro']}></div></td>
+            </tr>
+            <tr>
+                <td width="120"><p class="tuanfabu_t">订单编号：<{$detail.order_id}></p></td><td>
+                <div class="tuanfabu_nr">
+                	&nbsp;&nbsp;
+                    下单账户：<{$users['nickname']}>【<{$users['user_id']}>】
+                    下单时间：<{$detail.create_time|date='Y-m-d H:i',###}>
+                </div></td>
+            </tr>
+            
+             <tr>
+                <td width="120"><p class="tuanfabu_t">费用明细：</p></td>
+                <td>
+                <div class="tuanfabu_nr">
+                订单金额 &yen; <{:round($detail['total_price']/100,2)}> 元 &nbsp;&nbsp;
+    
+               <if condition="!empty($detail['use_integral'])">
+               积分抵现： &yen;  <{:round($detail['use_integral']/100,2)}> 元&nbsp;&nbsp;
+               </if>
+               <if condition="!empty($detail['mobile_fan'])">
+               手机下单立减： &yen; <{:round($detail['mobile_fan']/100,2)}> 元&nbsp;&nbsp;
+               </if>
+               <a style="color:#F00">实际支付： &yen; <{:round($detail['need_pay']/100,2)}> 元&nbsp;&nbsp;</a>
+               </div>
+               </td>
+            </tr>
+            
+        </table>
+
+       
+            <div class="tuanfabu_an">
+                <eq name="detail.status" value="0"><a class="radius3 sjgl_an tuan_topbt">未付款</a> </eq>
+                <eq name="detail.status" value="-1"> <a class="radius3 sjgl_an tuan_topbt">到店付</a> </eq>
+                <php> $rtc = D('TuanCode') -> where('order_id ='.$detail['order_id']) -> find(); </php>
+                <eq name="rtc.is_used" value="1">
+                  <if condition="$detail['dianping_id'] eq 1"> 
+                     <a class="radius3 sjgl_an tuan_topbt" href="javascript:void(0)">已评价</a>
+                  </if>
+                </eq>
+                <eq name="detail.status" value="3"><a class="radius3 sjgl_an tuan_topbt">正在退款</a></eq>
+                <eq name="detail.status" value="4"><a class="radius3 sjgl_an tuan_topbt">已退款</a></eq>         
+                <a class="radius3 sjgl_an tuan_topbt" href="<{:u('tuan/order')}>">返回</a> 
+            </div>
+      
+    </div> 
+</div>
+<include file='public:footer'/>

@@ -1,0 +1,46 @@
+<include file='public:header'/>    
+	<script src="/static/default/wap/other/roll.js"></script>
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('village/detail',array('village_id'=>$detail['village_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<{$detail.name}>--便民电话合作
+		</div>
+	</header>
+
+    <form  class="post-form" action="<{:U('village/together',array('village_id'=>$detail['village_id']))}>" method="post" target="x-frame">
+		<div class="line border-bottom">
+			<div class="x12 form-title">
+				<input type="text" name="data[name]" placeholder="输入您的项目，如牛哥开锁..."  value=""  />
+			</div>
+		</div>
+		<div class="line border-bottom">
+			<div class="x12 form-title">
+				<input type="text" name="data[phone]" placeholder="输入联系电话..."  value="" />
+			</div>
+		</div>
+		
+		
+		<div class="blank-20"></div>
+			<div class="container"><button class="button bg-green margin-small-right" type="submit">提交申请</button></div>
+		<div class="blank-50"></div>
+		
+		<hr />
+		<div class="container">
+			<span class="tag bg-dot">小提示</span>
+			<p class="text-small text-gray"><{$CONFIG['site']['cityname']}>互联网+新营销模式，不用再将牛皮癣广告贴到小区墙上，小区便民电话，入驻仅需要100元/年/小区。<br />
+				联系电话：<{$CONFIG['site']['tel']}>
+			</p>
+		</div>
+                <div class="text-list">
+		<ul>
+		</ul>
+	</div>
+                <script>
+        $(document).ready(function () {
+            loaddata('<{$next}>', $(".text-list ul"), true);
+        });
+    </script>
+    </form>
+<include file="public:footer"/> 

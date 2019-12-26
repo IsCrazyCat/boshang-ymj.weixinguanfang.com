@@ -1,0 +1,78 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">其他</a> > <a href="">家政服务</a> > <a>家政服务</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t tuanfabu_top">
+            <div class="left tuan_topser_l">家政需要用余额查看用户联系方式滴</div>
+        </div>
+    </div>
+    <form method="post" action="<{:U('housework/index')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">服务类型：
+            <select name="cate_id" id="cate_id" class="seleFl" style="margin-top:0px">
+            <foreach name="cates" item="var">
+            <option value="<{$var.cate_id}>"  <eq name="var.cate_id" value="$cate_id">selected="selected"</eq> ><{$var.cate_name}></option>  
+            </foreach>
+            </select>
+            <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/>
+            </div>
+        </div>
+    </div>
+    </form>
+    <div class="tuanfabu_tab">
+        <ul>
+            <li class="tuanfabu_tabli <if condition="($status eq 1) || ($status eq 0)"> on </if>"><a href="<{:U('housework/index',array('status'=>1))}>">家政服务</a></li>
+            <li class="tuanfabu_tabli <if condition="$status eq 2"> on </if>"><a href="<{:U('housework/index',array('status'=>2))}>">已购买</a></li>
+            <li class="tuanfabu_tabli <if condition="$status eq 3"> on </if>"><a href="<{:U('housework/index',array('status'=>3))}>">未购买</a></li>
+        </ul>
+    </div> 
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>服务</td>
+            <td>服务时间</td>
+            <td>姓名</td>
+            <td>电话</td>
+            <td>地址</td>
+            <td>内容</td>
+            <td>是否真实</td>
+            <td>查看需要余额</td>
+            <td>限制商家数</td>
+            <td>发布时间</td>
+            <td>操作</td>
+        </tr>
+        <foreach name="list" item="var">
+            <tr>
+                <td><{$cates[$var['cate_id']]['cate_name']}></td>
+                <td><{$var.svctime}></td>
+                <if condition="!empty($looks[$var['housework_id']])">
+                <td><{$var.name}></td>
+                <td><{$var.tel}></td>
+                <td><{$var.addr}></td>
+                <else/>
+                 <td>**</td>
+                <td>**</td>
+                <td><{:msubstr($var['addr'],0,5)}></td>
+                </if>
+                <td><{$var.contents}></td>
+                <td><eq name="var.is_real" value="1">真实需求<else/>未确认</eq></td>
+                <td><{:round($var['money']/100,2)}> 元</td>
+                <td><{$var.buy_num}>/<{$var.num}></td>
+                <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+            	<td>
+                    <if condition="!empty($looks[$var['housework_id']])">
+                    已经购买
+                    <else/>
+                	<a mini='confirm' href="<{:U('housework/look',array('housework_id'=>$var['housework_id']))}>">立刻花<{:round($var['money']/100,2)}>元查看</a>
+                    </if>
+            </td>
+            </tr>
+        </foreach>
+    </table>
+    <{$page}>
+</div>
+<include  file='public:footer'/>

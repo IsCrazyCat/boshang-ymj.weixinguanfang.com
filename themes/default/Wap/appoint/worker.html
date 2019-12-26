@@ -1,0 +1,62 @@
+<php>$mobile_title = $detail['name'];</php>
+<include  file='public:header'/>   
+<script src="/static/default/wap/other/roll.js"></script> 
+<style>
+.detail-worker{ display:block; overflow:hidden;}
+.detail-photo{ width:90px; padding:5px; margin-top:15px;}
+.hd-detail .detail-info2 {background: #FFF; padding: 0 10px;}
+.hd-detail .detail-info2 h1{height:40px;line-height:40px;font-size:14px;border-bottom:thin solid #eee;font-weight:bold;}
+.hd-detail .detail-info2 p{line-height:20px;border-bottom:thin solid #eee;padding:10px 0;margin:0;}
+.hd-detail .detail-info2 p:last-child{border:none!important;}
+
+
+</style>
+	<header class="top-fixed bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('appoint/worker_list',array('appoint_id'=>$detail['appoint_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			技师详情页
+		</div>
+       <div class="top-signed"></div>
+	</header>  
+	<div class="blank-10 bg"></div>
+	
+	<div class="hd-detail tuan-detail">
+    	<div class="detail-worker">
+            <div class="x4">
+                <a href="javascript:void(0);"><img class="detail-photo" src="<{:config_img($detail['photo'])}>" /></a>
+            </div>
+            <div class="x8">
+                <div class="detail-info2">
+                    <h1>技师详细信息</h1>
+                    <p>姓名：<{$detail.name}></p>
+                    <p>职务：<{$detail.office}></p>
+                    <p>服务价格：<b class="pointcl"><{:round($detail['price']/100,2)}></b>元</p>
+                </div>
+            </div>
+        </div>
+        <div class="blank-10 bg"></div>
+        <div class="line status">
+			<div class="x6">
+				<span class="ui-starbar"><span style="width:<{:round($score*20,2)}>%"></span></span>
+			</div>
+			<div class="x6">
+				<span class="float-right margin-small-top"><a href="<{:U('appoint/workerdianping',array('worker_id'=>$detail['worker_id']))}>"><{$pingnum}>人评价了该技师</a> <i class="icon-angle-right"></i></span>
+			</div>
+		</div>
+        
+		<div class="blank-10 bg"></div>
+		<div class="detail-info">
+			<h1>技师简单介绍</h1>
+			<p><{$detail.intro}></p>
+		</div>
+		<div class="blank-20"></div>
+
+        <section class="appoint_buy_btn">
+            <div class="appoint_buy_segment">
+                <div class="appoint_buy_wrapper">
+                 <a class="button button-block button-big bg-yellow" href="<{:U('appoint/yuyue',array('appoint_id'=>$detail['appoint_id'],'worker_id'=>$detail['worker_id']))}>">立即预约</a>
+                </div>
+            </div>
+        </section>

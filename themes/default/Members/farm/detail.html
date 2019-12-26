@@ -1,0 +1,59 @@
+<include file="public:header"/>
+<!--左侧内容-->
+<div class="content_right"> 
+	<p class="hotel_ts fontcl2">
+
+            <if condition="!$detail['order_status']">
+                等待支付<small class="black9">(订单30分钟内未支付自动取消)</small><a mini='confirm' href="<{:U('farm/cancel',array('order_id'=>$detail['order_id']))}>" class="btn right">取消订单</a>
+            <elseif condition="$detail['order_status'] eq 1"/>
+                订单已支付
+                    <a mini='confirm' href="<{:U('farm/cancel',array('order_id'=>$detail['order_id']))}>" class="btn right">取消订单</a>
+            <elseif condition="$detail['order_status'] eq -1"/>
+                订单已取消
+            <else/>
+                订单已完成
+                <eq name="detail.comment_status" value="0">
+                    <!--<a href="<{:U('farm/comment',array('order_id'=>$detail['order_id']))}>" class="btn right">去评价</a>-->
+                <else/>
+                    已评价
+                </eq>
+            </if>
+       
+        </p>
+    <div class="hotel_orddtl_box mb20">
+    	<div class="title">预订信息</div>
+        <div class="hotel_orddtl_infor">
+            <ul>
+        	<li class="list">订单号：<span class="fontcl2"><{$detail.order_id}></span></li>
+                <li class="list">农家乐名称：<span class="fontcl2"><{$detail.farm.farm_name}></span></li>
+                <li class="list">农家乐地址：<span class="fontcl2"><{$detail.farm.addr}></span></li>
+                <li class="list">预约时间：<span class="fontcl2"><{$detail.gotime|date='Y-m-d H:i:s',###}></span></li>
+                <li class="list">价格：<span class="fontcl2"><{$detail.amount}>元</span></li>
+    	    </ul>
+        </div>
+        <div class="hotel_orddtl_infor">
+        	<ul>
+                <li class="list">入住人姓名：<span class="fontcl2"><{$detail.name}></span></li>
+                <li class="list">手机号码：<span class="fontcl2"><{$detail.mobile}></span></li>
+    	    </ul>
+        </div>
+        <div class="hotel_orddtl_infor">
+        	<ul>
+                <li class="list">补充说明：<span class="blackcl9"><{$detail.note}></span></li>
+    	    </ul>
+        </div>
+    </div>
+
+        <if condition="!$detail['order_status']">        
+        <div class="hotel_tongji">
+            在线应支付<span class="price">￥<{$detail.amount}></span>
+            <a href="<{:U('home/farm/pay',array('order_id'=>$detail['order_id']))}>" class="btn">去支付</a>
+        </div>
+        </if>
+
+
+</div>
+<!--左侧内容end-->
+</div>
+</div>
+<include file="public:footer"/>

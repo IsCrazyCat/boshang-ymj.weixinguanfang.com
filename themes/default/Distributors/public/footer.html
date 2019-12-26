@@ -1,0 +1,42 @@
+<footer class="foot-fixed">
+<a class="foot-item <if condition="($ctl eq 'index') AND ($act neq 'more')">active</if>" href="<{:u('index/index')}>">		
+<span class="icon icon-home"></span>
+<span class="foot-label">首页</span>
+</a>
+<a class="foot-item <eq name="ctl" value="tuan">active</eq>" href="<{:U('tuan/index')}>">		
+<span class="icon icon-plus"></span>
+<span class="foot-label">上单</span>
+</a>
+<a class="foot-item <eq name="ctl" value="mart">active</eq>" href="<{:U('message/index')}>">		
+<span class="icon icon-volume-up"></span>
+<span class="foot-label">通知</span>
+</a>
+<a class="foot-item <eq name="ctl" value="message">active</eq>" href="<{:U('money/index')}>">		
+<span class="icon icon-btc"></span>
+<span class="foot-label">财务</span>
+</a>
+<a class="foot-item <eq name="act" value="about">active</eq>" href="<{:U('shop/about')}>">		
+<span class="icon icon-gears"></span>
+<span class="foot-label">设置</span>
+</a>
+</footer>
+<iframe id="x-frame" name="x-frame" style="display:none;"></iframe>
+<script type="text/javascript" language="javascript">
+   		$(document).ready(function(){
+                $('<audio id="chatAudio"><source src="/static/default/images/new.mp3" type="audio/mpeg"></audio>').appendTo('body');
+                function voice_alert(){
+                    $.post('<{:U("ele/voice_alert")}>',{is_post:1},function(result){
+                            if(result.status == '2'){
+                                layer.msg(result.message,{icon:6});
+                                $('#chatAudio')[0].play();
+                            }
+                    },'json');
+                }
+                setInterval(function(){
+                    voice_alert();
+                }
+                ,5000);//自动查询提醒
+		})
+   </script>
+</body>
+</html>

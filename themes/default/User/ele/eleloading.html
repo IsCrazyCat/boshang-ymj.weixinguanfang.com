@@ -1,0 +1,39 @@
+<foreach name="list" item="order">
+
+    <table width="100%" cellpadding="0"  cellspacing="0"   class="order_table">
+        <tr class="tr">
+            <td>订单：<{$order.order_id}></td>
+            <td><{:round($order['total_price']/100,2)}>元</td>
+            <td><{$order.create_time|date='Y-m-d H:i:s',###}></td>
+        </tr>
+        <foreach name="products" item="product">
+            <if condition="$product['order_id'] eq $order['order_id']">  
+                <tr class="no">
+                    <td>
+                        <img width="60" src="__ROOT__/attachs/<{$eleproducts[$product['product_id']]['photo']}>" />
+                        <p> <{$eleproducts[$product['product_id']]['product_name']}></p>
+
+                    </td>             
+                    <td><{$product.num}>份</td>
+                    <td style="color: red;">
+                        <eq name="order.is_pay" value="1">
+                        <eq name="order.status" value="0">
+                        <a href="<{:U('ele/pay',array('order_id'=>$order['order_id']))}>" target="_blank">去付款</a>
+                <else />
+                <{$cfg[$order['status']]}> <if condition="$order['status'] eq 1"><a mini='act' href="<{:U('ele/elecancle',array('order_id'=>$order['order_id']))}>">取消订单</a></if>
+                </eq>
+                <else />
+                <eq name="order.status" value="0">
+                <a href="<{:U('ele/pay',array('order_id'=>$order['order_id']))}>" target="_blank">去付款</a>
+                <else />
+                餐到付款&nbsp;&nbsp;<{$cfg[$order['status']]}>
+                </eq>
+                </eq>
+                </td>
+
+                </tr>
+            </if>
+        </foreach>
+    </table>
+
+</foreach>

@@ -1,0 +1,34 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('distribution/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			我的会员
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+
+
+<!-- 筛选TAB -->
+<ul id="shangjia_tab">
+        <li style="width:33.33333367%;"><a href="<{:LinkTo('subordinate',array('level'=>1))}>" <eq name='level' value='1'>class="on"</eq>>一级会员(<{$count1}>)</a></li>
+        <li style="width:33.33333367%;"><a href="<{:LinkTo('subordinate',array('level'=>2))}>" <eq name='level' value='2'>class="on"</eq>>二级会员(<{$count2}>)</a></li>
+<!--        <li style="width:33.33333367%;"><a href="<{:LinkTo('subordinate',array('level'=>3))}>" <eq name='level' value='3'>class="on"</eq>>三级会员</a></li>-->
+</ul>
+
+<div class="list-media-x" id="list-media">
+<div class="blank-10 bg"></div>
+	<ul></ul>
+</div>	
+
+
+<script>
+	$(document).ready(function () {
+		loaddata('<{$nextpage}>', $("#list-media ul"), true);
+	});
+</script>
+
+<include  file='distribution:footer'/>

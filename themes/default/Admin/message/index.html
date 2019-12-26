@@ -1,0 +1,68 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">新功能</li>
+        <li class="li2">小区</li>
+        <li class="li2 li3">小区邻居交友管理</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>小区邻居，后台只能编辑跟删除</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <!--<{:BA('feedback/create','','添加内容')}>  -->
+            </div>
+            <div class="right">
+                <form method="post" action="<{:U('message/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                       
+                      
+                        <span>  关键字：</span>   <input type="text" name="keyword" value="<{$keyword|default=''}>" class="inptText" /><input type="submit" class="inptButton" value="  搜索" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="msg_id" /></td>
+                        <td class="w50">ID</td>
+                        <td>发信人</td>
+                        <td>收信人</td>
+                        <td>内容</td>
+                        <td>创建时间</td>
+                        <td>操作</td>
+                    </tr>
+					
+                    <foreach name="list" item="var">
+					
+                        <tr>
+                            <td><input class="child_msg_id" type="checkbox" name="msg_id[]" value="<{$var.msg_id}>" /></td>
+                            <td><{$var.msg_id}></td>
+                            <td><{$users[$var[send_id]][nickname]}>(id:<{$var.send_id}>)</td>
+                            <td><{$users[$var[user_id]][nickname]}>(id:<{$var.user_id}>)</td>
+                            <td><{$var.content}></td>
+                            <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                        <td>
+                            <{:BA('message/detail',array("msg_id"=>$var["msg_id"]),'查看全部聊天记录','','remberBtn')}>
+                            <{:BA('message/delete',array("msg_id"=>$var["msg_id"]),'删除','act','remberBtn')}>
+                           
+
+                        </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('message/delete','','批量删除','list','a2')}>
+         
+                </div>
+            </div>
+        </form>
+    </div>
+    <include  file='public:footer'/>       

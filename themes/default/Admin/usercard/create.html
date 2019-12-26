@@ -1,0 +1,43 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">会员</li>
+        <li class="li2">会员卡管理</li>
+        <li class="li2 li3">录入卡</li>
+    </ul>
+</div>
+<form  target="baocms_frm"  action="<{:U('usercard/create')}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+              <tr>
+                    <td class="lfTdBt">卡号：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="card_num" id="card_num" value="" class="scAddTextName w300" />
+                        <code>请用刷卡器读卡的芯片的前10位或者后8位！</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">绑定会员：</td>
+                    <td class="rgTdBt">
+                        <div class="lt">
+                            <input type="hidden" id="user_id" name="user_id" value="<{$detail.user_id|default=''}>" />
+                            <input class="scAddTextName w250 sj" type="text" name="nickname" id="nickname"  value="" />
+                        </div>
+                        <a mini="select"  w="800" h="600" href="<{:U('user/select')}>" class="seleSj">选择用户</a>
+                         <code>这个可以不填由商家在会员消费的时候来填入！</code>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认生成" class="smtQrIpt" /></div>
+    </div>
+</form>
+<script>
+    $(document).ready(function(){
+        $("#card_num").focus();
+        
+    });
+</script>
+
+<include  file='public:footer'/>       

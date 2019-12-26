@@ -1,0 +1,82 @@
+ <foreach name="list" item="var">   
+ <li class="line">
+      <dt><a class="x3">ID：<{$var.order_id}></a><a class="x9 text-right">日期：<{$var.create_time|date='Y-m-d H:i:s',###}></a></dt>
+      <foreach name="goods" item="good">
+          <if condition="$good['order_id'] eq $var['order_id']"> 
+              <dd class="zhong">
+                 <div class="x2"><img src="<{:config_img($products[$good['product_id']]['photo'])}>" style="width:70%;"></div>
+                 <div class="10">
+                    <p class="text-gray"><{$products[$good['product_id']]['product_name']}></p>         
+                    <p class="text-gray">单价：&yen;<{:round($products[$good['product_id']]['price']/100,2)}>元 * <{$good['num']}></p>
+                 </div>
+              </dd> 
+          </if>
+      </foreach> 
+
+      <dt>
+         <div class="x12">
+          <p class="text-small">实际支付：&yen;<{:round($var['total_price']/100,2)}>元，配送费：&yen;<{:round($var['logistics']/100,2)}>元 </p>
+         </div>
+      </dt> 
+         
+      <dt>
+         <div class="x12">
+           <p class="text-gray">收货地址：<{$addrs[$var['addr_id']]['name']}> <{$addrs[$var['addr_id']]['mobile']}> <{$addrs[$var['addr_id']]['addr']}></p>
+         </div>
+      </dt> 
+         
+      <!--配送逻辑代码开始-->
+       <php>
+          $DeliveryOrder = D('DeliveryOrder')->where('type_order_id ='.$var['order_id'].' and type =1')->find();
+          $Delivery = D('Delivery')->where($DeliveryOrder['delivery_id'])->find();
+        </php>
+      <!--配送逻辑代码结束-->
+            
+      <dl>
+         <p class="text-right padding-top x12"> 
+         <if condition="$SHOP['is_pei'] eq 0">
+                 <if condition="$DeliveryOrder['status'] eq 0">
+                     <a class="button button-small bg-yellow">货到付款</a>
+                 <elseif condition="$DeliveryOrder['status'] eq 2"/>
+                     <a class="button button-small bg-yellow">配送中</a>
+                 <elseif condition="$DeliveryOrder['status'] eq 8"/>
+                     <a class="button button-small bg-yellow">已完成</a>
+                 <else/>
+                 </if>
+                 <if condition="!empty($Delivery)">	
+                	<a id="is_pei<{$var.order_id}>" class="button button-small bg-yellow">配送员资料</a>
+                    <script type="text/javascript">
+                    $('#is_pei<{$var.order_id}>').mouseover(function(){
+						var n = '<{$Delivery.name}>';
+						var m = '<{$Delivery.mobile}>';
+						layer.tips('配送员姓名：'+n+'<br>电话：'+m+'',$(this),{
+						 tips: [2, '#7a7a7a']
+						});
+					})
+                    </script>
+                </if>
+         <else/> 
+             <if condition="$var['is_daofu'] eq 1">
+             <a class="button button-small bg-yellow">餐到付款</a>
+             </if> 
+             <if condition="$var['status'] eq 1">
+             <a class="button button-small bg-blue">等待配送</a>
+             <a target="x-frame"  href="<{:U('ele/status',array('o'=>$var['order_id'],'s'=>2))}>" class="button button-small bg-dot">确定配送</a>
+             <elseif condition="$var['status'] eq 2"/>
+             <a class="button button-small bg-blue">等待确认</a>
+             <a target="x-frame" href="<{:U('ele/send',array('order_id'=>$var['order_id']))}>" class="button button-small bg-dot">确认完成</a>
+             <elseif condition="$var['status'] eq 3"/>
+             <a class="button button-small bg-gray">正在退款</a>
+             <elseif condition="$var['status'] eq 4"/>
+             <a class="button button-small bg-gray">已退款</a>
+             <elseif condition="$var['status'] eq 8"/>
+             <a class="button button-small bg-gray">已完成</a>
+             </if> 
+          </if>
+         <a href="<{:U('ele/detail',array('order_id'=>$var['order_id']))}>" class="button button-small bg-blue">详情</a>      
+          </p>
+      </dl>
+    </li>
+    <div class="blank-10 bg"></div>
+</foreach> 
+

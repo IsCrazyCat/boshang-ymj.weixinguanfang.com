@@ -1,0 +1,38 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">模版管理</li>
+        <li class="li2">短信模版</li>
+        <li class="li2 li3">新增模板</li>
+    </ul>
+</div>
+<form  target="baocms_frm" action="<{:U('sms/create')}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">全局可用标签：</td>
+                    <td class="rgTdBt" style="font-size: 14px;">站点名称{sitename},客服电话{tel}</td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">标签：</td>
+                    <td class="rgTdBt"><input type="text" name="data[sms_key]" value="<{$detail.sms_key|default=''}>" class="manageInput" />
+
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">说明：</td>
+                    <td class="rgTdBt"><textarea  name="data[sms_explain]" cols="50" rows="10" ><{$detail.sms_explain|default=''}></textarea>
+
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">模版：</td>
+                    <td class="rgTdBt"><textarea  name="data[sms_tmpl]" cols="50" rows="10" ><{$detail.sms_tmpl|default=''}></textarea>
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认添加" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>       

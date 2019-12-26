@@ -1,0 +1,42 @@
+<volist name="list" id="item">
+	<li class="tie-item">
+		<div class="item-head">
+			<span class="avatar">
+			 <img  src="<{:config_img($users[$item['user_id']]['face'])}>" />
+			</span>
+			<span class="info">
+				<em><{$users[$item['user_id']]['nickname']}></em>
+				<p><{$item.create_time|date="Y-m-d",###}></p>
+			</span>
+			<span class="title">
+				<{:msubstr($item['title'],0,15)}>
+			</span>
+			<span class="coner"></span>
+		</div>
+		<div class="item-body">
+			<a href="<{:U('village/tie',array('post_id'=>$item['post_id']))}>">
+			<php>$desc = msubstr(strip_tags($item['details']),0,100);</php>
+			<if condition="$desc neq '...'">
+			<p><{$desc}></p>
+			</if>
+			<php>$pic = getImgs($item['details']);$i = 0;</php>
+			<if condition="$pic neq ''">
+			<div class="pic">
+			<foreach name="pic" item="var"> 
+			<php>$i++;</php>
+			<if condition="$i lt 4">
+				<span><img src="<{:config_img($var)}>" /></span>
+			</if>
+			</foreach>
+			</div>
+			</if>
+			</a>
+			<div class="blank-10"></div>
+			<div class="ctrl">
+				<a class="ctrl-zan" href="javascript:(0)" id="zan-<{$item.post_id}>" data="<{$item.post_id}>"><i class="icon-thumbs-up"></i> <em><{$item['zan_num']}></em></a>
+				<a class="ctrl-reply" href="<{:U('village/reply',array('post_id'=>$item['post_id']))}>"><i class="icon-comments"></i> <em><{$item['reply']}></em></a>
+			</div>
+		</div>
+	
+	</li>
+</volist>

@@ -1,0 +1,103 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">主题</li>
+        <li class="li2">主题管理</li>
+        <li class="li2 li3">话题列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>这里是已审核的贴吧主题</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('threadpost/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <span>关键字(电话或商户名称)</span>
+                        <input type="text" name="keyword" value="<{$keyword}>" class="inptText" /><input type="submit" value="   搜索"  class="inptButton" />
+                    </div> 
+                </form>
+                <a href="javascript:void(0);" style="display: none;" class="searchG">高级搜索</a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form method="post" action="<{:U('threadpost/index')}>">
+            <div class="selectNr selectNr2">
+                <div class="left">
+                    <div class="seleK">
+                        <label>
+                            <span>分类：</span>
+                            <select id="cate_id" name="cate_id" class="select w100">
+                                <option value="0">请选择...</option>
+                                <foreach name="cates" item="var">
+                                    <eq name="var.parent_id" value="0">
+                                    <option value="<{$var.cate_id}>"  <eq name="var.cate_id" value="$cate_id">selected="selected"</eq> ><{$var.cate_name}></option>                
+                                    <foreach name="cates" item="var2">
+                                        <eq name="var2.parent_id" value="$var.cate_id">
+                                        <option value="<{$var2.cate_id}>"  <eq name="var2.cate_id" value="$cate_id">selected="selected"</eq> >&nbsp;&nbsp;<{$var2.cate_name}></option>
+                                        </eq>
+                                    </foreach>
+                                    </eq>
+                                </foreach>
+                            </select>
+                        </label>
+                        <label>
+                            <span>关键字:</span>
+                            <input type="text" name="keyword" value="<{$keyword}>" class="inptText" />
+                        </label>
+                    </div>
+                </div>
+                <div class="right">
+                    <input type="submit" value="   搜索"  class="inptButton" />
+                </div>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="post_id" /></td>
+                    <td class="w50">ID</td>
+                    <td>标题</td>
+                    <td>发帖人</td>
+                    <td>打赏人数</td>
+                    <td>评论人数</td>
+                    <td>点赞人数</td>
+                    <td>状态</td>
+                    <td>创建时间</td>
+                    <td class="w360">操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_post_id" type="checkbox" name="post_id[]" value="<{$var.post_id}>" /></td>
+                        <td><{$var.post_id}></td>
+                        <td><{$var.title}></td>
+                        <td><{$users[$var['user_id']]['nickname']|default='系统管理员'}></td>
+                        <td><{$var.donate_num}></td>
+                        <td><{$var.reply_num}></td>
+                        <td><{$var.zan_num}></td>
+                        <td><eq name="var.audit" value="1">已审核<else/>未审核</eq></td>
+                        <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                    <td>
+                    <if condition="$var['audit'] neq 1"><{:BA('threadpost/audit',array("post_id"=>$var["post_id"]),'审核','act','remberBtn')}></if>
+                    <{:BA('threadpost/edit',array("post_id"=>$var["post_id"]),'编辑','','remberBtn')}>
+                    <{:BA('threadpost/delete',array("post_id"=>$var["post_id"]),'删除','act','remberBtn')}>
+                    </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                <{:BA('threadpost/delete','','批量删除','list',' a2')}>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+
+

@@ -1,0 +1,99 @@
+<include  file='public:header'/>  
+<include  file='public:top'/>
+<include  file='public:nav'/>
+<div class="banner mb20" style="width: 1200px; margin: 0px auto;">
+<script type="text/javascript">
+        $(document).ready(function () {
+            $('.yhsy_flexslider').flexslider({
+                directionNav: true,
+                pauseOnAction: false,
+            });
+
+        });//首页轮播js
+    </script>
+<style>
+.yhsy_flexslider .flex-direction-nav li a{top:20px;}
+.yhsy_flexslider .flex-control-nav{top:280px; text-align: center;}
+.cloudBuy_list .dealcard-nobooking {position: absolute;overflow: hidden; width:6rem; height: 6rem; z-index: 1;}
+.cloudBuy_list .dealcard-nobooking:after {font-size: 12px;background: #06c1ae;color: #fff;padding: .15rem;position: absolute;width:5.75rem;text-align: center;-webkit-transform: rotateZ(-45deg); left: -1.35rem;top: 0.8rem;}
+ </style>
+    <div class="yhsy_flexslider">
+        <ul class="slides">
+            <calldata mdl="Ad" where=" bg_date ELT '{$today}' AND end_date EGT '{$today}' AND city_id IN ({$city_ids}) AND closed=0 AND site_id=60" limit="0,3" cache="21600" order="orderby asc">
+                <li class="sy_hotgzLi flex-active-slide" style="width: 100%; float: left; height: 321px; margin-right: -100%; position: relative; opacity: 1; display: block; z-index: 2;"><a href="<{:U('app/ad/click',array('ad_id'=>$item['ad_id'],'aready'=>1))}>" title="<{$item.title}>" target="_blank">
+                <img width="1200" height="321" src="<{:config_img($item['photo'])}>" draggable="false"></a></li>
+            </calldata>
+        </ul>
+        <ol class="flex-control-nav flex-control-paging"></ol>
+    </div>
+</div>
+<div class="content">
+	<div class="goods_flBox mb20">
+        <ul>
+            <li class="goods_flList">
+                <div class="left goods_flList_l">地区：</div>
+                <div style="width:880px;" class="left goods_flList_r">
+                    <a  class="<if condition='empty($area_id)'>on</if> goods_flListA"  title="全部地区" href="<{:LinkTo('cloud/index',array('type'=>$type))}>">全部</a>  
+                    <foreach name="areas" item="item">
+                        <eq name="item.city_id" value="$city_id">
+                        <a title="<{$item.area_name}>"  href="<{:LinkTo('cloud/index',array('area_id'=>$item['area_id'],'type'=>$type))}>"  <eq name="item.area_id" value="$area_id">class="goods_flListA on"<else/>class="goods_flListA"</eq> ><{$item.area_name}></a> 
+                        </eq>
+                    </foreach>
+                </div>
+            </li>
+            <li class="goods_flList">
+                <div class="left goods_flList_l">类别：</div>
+                <div style="width:880px;" class="left goods_flList_r">
+                    <a class="<if condition='empty($type)'>on</if> goods_flListA" href="<{:LinkTo('cloud/index',array('area_id'=>$area_id))}>">全部</a>
+                    <volist name="types" id="item" key="index">
+                        <a href="<{:LinkTo('cloud/index',array('area_id'=>$area_id,'type'=>$index))}>" class="goods_flListA <if condition='$type eq $index'>on</if>"><{$item.type_name}></a>
+                    </volist>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <!--列表开始-->
+    <div class="cloudBuy_list_box mb20">
+        <ul>
+            <foreach name="list" item="item">
+				
+                <li class="cloudBuy_list type_<{$item.type}>">
+                <span class="dealcard-nobooking"></span>
+                <style>
+				<eq name="item.type" value="1"> .type_<{$item.type}> .dealcard-nobooking:after {content: "1元区";}</eq>
+				<eq name="item.type" value="2"> .type_<{$item.type}> .dealcard-nobooking:after {content: "5元区";}</eq>
+				<eq name="item.type" value="5"> .type_<{$item.type}> .dealcard-nobooking:after {content: "5元区";}</eq>
+                </style>
+                <a target="_blank" href="<{:U('cloud/detail',array('goods_id'=>$item['goods_id']))}>"><img src="<{:config_img($item['photo'])}>" width="283" height="242" /></a>
+                <div class="wz">
+                    <p class="bt"><a target="_blank" href="<{:U('cloud/detail',array('goods_id'=>$item['goods_id']))}>"><{$item.title}></a></p>
+                    <p>总需：<span class="pointcl"><{$item.price}></span>人次</p>
+                     <php>$left = $item['price'] - $item['join'];$tt = round($item['join']/$item['price']*100,2);</php>
+                    <div class="w-progressBar" title="<{$tt}>%">
+                        <p class="w-progressBar-wrap">
+                            <span class="w-progressBar-bar" style="width:<{$tt}>%;"></span>
+                        </p>
+                        
+                        <ul class="w-progressBar-txt">
+                            <li class="w-progressBar-txt-l"><p><b><{$item.join}></b></p><p>已参与人次</p></li>
+                            <li class="w-progressBar-txt-r"><p><b><{$left}></b></p><p>剩余人次</p></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                    <a target="_blank" href="<{:U('cloud/detail',array('goods_id'=>$item['goods_id']))}>" class="btn">立即夺宝</a>
+                <div class="closs"><p>已结束，欢迎下次套餐</p></div>
+           	</li>
+            </foreach>
+        </ul>
+    </div>
+    <script>
+        
+    </script>
+    <!--列表结束-->
+    <div class="x">
+    	<{$page}>
+    </div>
+</div>
+<!--main end-->
+<include  file='public:footer'/> 

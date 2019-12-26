@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<title><if condition="!empty($seo_title)"></if><{$CONFIG.site.sitename}>会员中心</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+		<if condition="$CONFIG[site][concat] neq 1">
+		<link rel="stylesheet" href="/static/default/wap/css/base.css">
+		<link rel="stylesheet" href="/static/default/wap/css/mcenter.css"/>
+		<script src="/static/default/wap/js/jquery.js"></script>
+		<script src="/static/default/wap/js/base.js"></script>
+		<script src="/static/default/wap/other/layer.js"></script>
+		<script src="/static/default/wap/other/roll.js"></script>
+		<script src="/static/default/wap/js/public.js"></script>
+		<else />
+		<link rel="stylesheet" href="/static/default/wap/css/??base.css,mcenter.css" />
+		<script src="/static/default/wap/js/??jquery.js,base.js,roll.js,layer.js,public.js"></script>
+		</if>
+	</head>
+	<body>

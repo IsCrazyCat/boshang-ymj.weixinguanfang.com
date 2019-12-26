@@ -1,0 +1,31 @@
+<include file="public:header"/>
+<div class="content_right">   
+<div class="tgdd">
+    <include file="logs:nav"/>
+    <div class="tgdd_nr">
+        <table border="0" cellspacing="0" width="100%"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; text-align:center;">
+            <tr class="tgdd_nrt">
+                <td>卡名</td>
+                <td>卡密</td>
+                <td>余额</td>
+                <td>使用时间</td>
+                <td>过期时间</td>
+            </tr>
+            <foreach name="list" item="var">
+                <tr class="tgdd_nrC">
+                    <td class="tgdd_nrCtd bullionLog_td"><{$var.name}></td>
+                    <td class="tgdd_nrCtd bullionLog_td"><{$var.card_key}></td>
+                    <td style="text-align:center;" width="120"><div class="tgdd_tw bullionLog_ye">
+                            <div class="lef"><a class="myChange_sp" href="javascript:void(0);"><{:round($var['value']/100,2)}></a></div>
+                        </div></td>
+                    <td class="tgdd_nrCtd bullionLog_td"><{$var.used_time|date='Y-m-d H:i:s',###}></td>
+                    <td class="tgdd_nrCtd bullionLog_td"><{$var.end_date}></td>
+                </tr>
+            </foreach>
+        </table>
+        <div class="x"><{$page}></div>
+    </div>
+</div>
+</div>
+</div>
+<include file="public:footer"/>

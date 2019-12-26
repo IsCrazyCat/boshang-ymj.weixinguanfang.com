@@ -1,0 +1,68 @@
+<php>$a=1;</php>
+<volist name="list" id="item" key="index">
+    <li class="line padding">
+        <div class="x12">
+            <p class="text-small">编号：<{$item.order_id}>             
+              <eq name="item.type" value="0">（商城订单id：<{$item.type_order_id}>）
+              </eq>
+              <eq name="item.type" value="1">（外卖订单id：<{$item.type_order_id}>）
+              </eq>
+           </p>
+    				  <!--PHP代码开始-->
+                          <php>
+                            if($item['type'] == 0){ 
+                                $Order = D('Order');
+                                $lists = $Order -> where('order_id ='.$item['type_order_id']) -> find();//商品
+                                $t = 0;
+                                $OrderGoods = D('OrderGoods');
+                                $new_list = $OrderGoods -> where('order_id ='.$lists['order_id']) ->  select();
+                                $Goods = D('Goods');
+                                foreach($new_list as $key => $val){
+                                    $v = $Goods->where('goods_id ='.$val['goods_id'])->getField('title');
+                                    $new_list[$key]['t'] = $v ;
+                                }
+                            }elseif($item['type'] == 1){ //外卖
+                                $EleOrder = D('EleOrder');
+                                $lists = $EleOrder -> where('order_id ='.$item['type_order_id']) -> find();
+                                $t = 1;
+                                $EleOrderProduct = D('EleOrderProduct');
+                                $new_list = $EleOrderProduct -> where('order_id ='.$lists['order_id']) ->select();
+                                $EleProduct = D('EleProduct');
+                                foreach($new_list as $key => $val){
+                                    $v = $EleProduct->where('product_id ='.$val['product_id'])->getField('product_name');
+                                    $new_list[$key]['t'] = $v;  
+                                }
+                            }
+                        </php> 
+                        <!--PHP代码结束-->                    
+            <!--商品循环开始-->
+            <div class="blank-10"></div>
+            <table class="table">
+                <tbody><tr>
+                    <th>商品信息</th>
+                    <th>单价</th>
+                    <th>数量</th>
+                </tr>
+                <volist name="new_list" id="var">	
+                <tr>  
+                    <td><{:bao_msubstr($var['t'],0,18,false)}></td>
+                    <td>￥<php>echo round(($var['total_price']/$var['num'])/100,2);</php></td>
+                    <td> x<{$var.num}></td>
+                </tr> 
+                </volist>                 
+            </tbody></table>
+            <div class="blank-10"></div>
+            <!--商品循环结束-->
+          
+		 <p class="text-small">下单时间：<{$item.create_time|date='Y-m-d H:i:s',###}> </p> 
+         <p class="text-right padding-top"> 
+         <a href="<{:U('lists/detail',array('order_id'=>$item['order_id']))}>" class="button button-small bg-yellow">详情</a>
+         <eq name="t" value="0"><eq name="lists.is_daofu" value="1"><a href="javascript:void(0);" class="button button-small bg-yellow">货到付款</a></eq></eq>
+         <eq name="t" value="1"><eq name="lists.is_daofu" value="1"><a href="javascript:void(0);" class="button button-small bg-yellow">货到付款</a></eq></eq>
+         <a href="javascript:void(0);" class="button button-small bg-gray">已完成</a>
+         </p>
+        </div>
+    </li>
+    <div class="blank-10 bg"></div>
+<php>$a++;</php>
+</volist><!--循环结束-->

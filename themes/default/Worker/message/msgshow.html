@@ -1,0 +1,26 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('message/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			店员通知
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+	
+	
+<div class="padding">
+	<div id="scroll">
+		<div class="padding text-center">
+			<h5><{$detail.title}></h5>
+		</div>
+		<div class="blank-10"></div>
+		<p><{$detail.intro}></p>
+		<div class="blank-10"></div>
+	</div>
+</div>
+
+<include  file='public:footer'/>  

@@ -1,0 +1,67 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">当前位置</li>
+        <li class="li2">广告位</li>
+        <li class="li2 li3">新增</li>
+    </ul>
+</div>
+
+<p class="attention"><span>注意：</span>添加前，以及模板调用方法看：<a href="http://www.fengmiyuanma.com/10237.html" target="_blank">http://www.fengmiyuanma.com/10237.html</a></p>
+
+
+<div class="mainScAdd">
+	<form  target="baocms_frm" action="<{:U('adsite/create')}>" method="post">
+		<div class="tableBox">
+       
+            <table class="table table-hover">
+                <tr>
+                    <td class="lfTdBt">广告位名称：</td>
+                    <td  class="rgTdBt"><input type="text" name="data[site_name]" value="<{$detail.site_name|default=''}>" class="manageInput w300" />
+                    </td>
+                </tr>
+				
+                <tr>
+                    <td class="lfTdBt">模版选择：</td>
+                    <td  class="rgTdBt">
+						<select name="data[theme]">
+							<foreach name="template" item="item">
+							<option value="<{$item[theme]}>"><{$item[name]}></option>
+							 </foreach>
+						</select>
+                    </td>
+                </tr>
+				
+                <tr>
+                    <td class="lfTdBt">广告位类型：</td>
+                    <td  class="rgTdBt">
+                        <select name="data[site_type]" class="manageSelect w300">
+                            <foreach name="types" item="var" key="key">
+                                <option value="<{$key}>"><{$var}></option>
+                            </foreach>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">广告位位置：</td>
+                    <td  class="rgTdBt">
+                        <select name="data[site_place]" class="manageSelect w300">
+                            <foreach name="place" item="var" key="key">
+                                <option value="<{$key}>"><{$var}></option>
+                            </foreach>
+                        </select>
+                    </td>
+                </tr>
+            </table>
+		</div>
+		<div class="smtQr"><input type="submit" value="确认添加" class="smtQrIpt" /></div>
+	</form>
+</div>
+
+</div>
+</div>
+
+
+
+  
+<include  file='public:footer'/>       

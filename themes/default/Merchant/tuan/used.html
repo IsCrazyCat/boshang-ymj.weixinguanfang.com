@@ -1,0 +1,66 @@
+<include file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">套餐</a> > <a>套餐码管理</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">每个里面输入一个！到店付的也就是没有在平台付钱，商家自行收取消费</div>
+        </div>
+    </div> 
+   <include file='tuan:nav'/>
+    <form method="post" action="<{:U('tuan/used')}>"  target="baocms_frm">
+        <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td>
+                    <div class="tuaned_td">
+                        <a class="radius3 tuan_topbt" href="javascript:void(0);" id="add">新增一行</a>
+                        <div id="jq_code">
+                            <div class="tuaned_int">
+                                <input name="code[1]" type="text" class="radius3 tuan_topser" />
+                                <code id="code_1"></code>
+                                <a class="radius3 tuan_zcan jq_del" href="javascript:void(0);">移除</a>
+                            </div>
+                        </div>
+                        <input class="radius3 sjgl_an tuan_topbt" type="submit" value="确认修改" />
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <script>
+        function used(id, msg, type) {
+            $("#code_" + id).html(msg);
+            switch (type) {
+                case 1:
+                    $("#code_" + id).css('color', 'green');
+                    break;
+                case 2:
+                    $("#code_" + id).css('color', 'orange');
+                    break;
+                case 3:
+                    $("#code_" + id).css('color', 'red');
+                    break;
+            }
+        }
+        var code_num = 1;
+        $(document).ready(function (e) {
+            $(document).on('click', '.jq_del', function () {
+                $(this).parent().remove();
+            });
+            $("#add").click(function () {
+                code_num++;
+                var str = '<div class="tuaned_int">';
+                str += '<input name="code[' + code_num + ']" type="text" class="radius3 tuan_topser" />';
+                str += '<code id="code_' + code_num + '"></code>';
+                str += '<a class="radius3 tuan_zcan jq_del" href="javascript:void(0);">移除</a></div>';
+                $("#jq_code").append(str);
+            });
+            $('#submit').click(function () {
+                $('form').submit()
+            });
+        });
+    </script>
+    <include  file='public:footer'/>

@@ -1,0 +1,79 @@
+<include  file='public:header'/>
+<style>
+.tuan_table tr.gray{color:#9E9E9E}
+</style>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">套餐</a> > <a>套餐劵列表</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <form method="post" action="<{:U('tuan/code')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">
+            编号：<input type="text" placeholder="套餐劵密码或者编号" name="keyword" value="<{$keyword}>"  class="radius3 seleFl" />
+            状态：<select name="st" class="seleFl w80">
+                   <option value="999">请选择</option>
+                   <option <eq name="st" value="1">selected="selected"</eq>  value="1">正在退款</option>
+                   <option <eq name="st" value="2">selected="selected"</eq>  value="2">已退款</option>
+                </select>
+            <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/>
+            </div>
+            <div class="right tuan_topfb_r"><a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('tuan/used')}>">套餐劵验证+</a></div>
+        </div>
+    </div>
+    </form>
+     <include file='tuan:nav'/>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+       			<td>编号</td>
+                <td>套餐名称</td>
+                <td>原始订单号</td>
+                <td>验证码</td>
+                <td>下单用户</td>
+                <td>消费金额</td>
+                <td>结算金额</td>
+                <td>过期时间</td>
+                <td>下单时间</td>
+                <td>状态</td>
+                <td>操作</td>
+        </tr>
+        <foreach name="list" item="var">
+            <tr <if condition="$var.status eq 0">
+                    <elseif condition="$var.status eq 1" />
+                        style="background-color:#FFF8F8;"
+                    <elseif condition="$var.status eq 2" />
+                        style="background-color:#F5F5F5;"
+                    </if> <if condition="$var.is_used eq 1">class="gray" </if> >
+                <td><{$var.code_id}></td>
+                <td><{:bao_Msubstr($tuans[$var['tuan_id']]['title'],0,10)}></td>
+                <td><{$var.order_id}></td>
+                <td><{$var.code}></td>
+                <td><{:bao_Msubstr($users[$var['user_id']]['nickname'],0,10)}></td>
+                <td>&yen;<{:round($var['real_money']/100,2)}></td>
+                <td>&yen;<{:round($var['settlement_price']/100,2)}></td>
+                <td><{$var.fail_date}></td>
+                <td><{$var.create_time|date="Y-m-d H:i:s",###}></td>
+                <td>
+                <eq name="var.is_used" value="0">未验证<else/>验证时间：<{$var.used_time|date="Y-m-d H:i:s",###}></eq>
+                <eq name="var.is_sms" value="1"><a class="href">短信</a></eq>
+                </td>
+                <td>
+                    <if condition="$var.status eq 0">
+                        正常
+                    <elseif condition="$var.status eq 1" />
+                        <a class="href"  mini='confirm' href="<{:U('tuan/refund',array('code_id'=>$var['code_id']))}>">确认退款</a>
+                    <elseif condition="$var.status eq 2" />
+                        已完成退款
+                    </if>
+				</td>
+            </tr>
+        </foreach>
+    </table>
+    <div class="paging">
+        <{$page}>
+    </div>
+</div>
+
+<include  file='public:footer'/>

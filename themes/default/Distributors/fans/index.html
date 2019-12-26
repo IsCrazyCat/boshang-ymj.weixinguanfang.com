@@ -1,0 +1,71 @@
+<include file='public:header'/>  
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			粉丝列表
+		</div>
+		<div class="top-share">
+			<a  href="javascript:void(0);" id="cate-btn"></a>
+		</div>
+	</header>
+
+<style>
+.list-media-x { margin-top: 0.0rem;}
+.list-media-x p {margin-top: .00rem !important; line-height:20px;font-size: 12px;}
+</style>
+
+<body>
+
+
+	<div class="line xiaoqu-search">
+		<form method="post"  action="<{:U('fans/index')}>" id="form1" class="form1">
+			<div class="form-group">
+				<div class="field">
+					<div class="input-group">
+						<span class="addbtn"><button type="button" class="button icon-search"></button></span>
+						<input type="text" class="input" name="keyword" size="50" value="<{$keyword}>" placeholder="输入昵称"  />
+						<span class="addbtn"><button type="submit" class="button">搜索</button></span>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+
+<div class="list-media-x" id="list-media">
+<ul>
+<div class="blank-10 bg"></div>
+    <foreach name="list" item="var">           
+	<li class="line ">
+      <dt><a class="x3">粉丝ID：<{$var['favorites_id']}></a><a class="x9 text-right">加入时间：<{$var.create_time|date='Y年m月d日',###}></a></dt>
+        
+      <dd class="zhong">
+         <div class="12">
+            <p class="text-small">姓名：<{$users[$var['user_id']]['nickname']}></p>
+            <if condition="!empty($users[$var['user_id']]['mobile'])">
+            <p class="text-small">电话：<{$users[$var['user_id']]['mobile']}></p>
+            </if>
+            <p class="text-small">积分：<{$users[$var['user_id']]['integral']}></p>
+         </div>
+      </dd>
+      <dl>
+         <p class="text-right x12"> 
+         <a href="<{:U('fans/add',array('user_id'=>$var['user_id']))}>" class="button button-small bg-dot  margin-top">增加积分</a>
+         </p>
+      </dl>
+    </li>
+       <div class="blank-10 bg"></div>
+       </foreach>
+</ul>  
+</div>
+
+ 
+
+<div class="blank-20"></div>
+<div class="container login-open">
+<h5 style="text-align:center"><{$page}><!--分页代码不要忘记加--> </h5>
+</div>
+
+<include file="public:footer"/>

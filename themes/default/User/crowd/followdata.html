@@ -1,0 +1,18 @@
+<foreach name="meals" item="var">
+       <li class="line">
+        <dt>
+            <a class="x3">ID：<{$var.zan_id}></a>
+            <a class="x9 text-right">时间：<{$var.dateline|date='Y-m-d H:i:s',###}></span> </a>
+        </dt>
+  		<dd class="zhong">
+            <div class="x12">
+                <p class="text-small">
+                    <span class="text-dot1 margin-right">用户名：<{$users[$var['uid']]['nickname']}></span>
+                    <span class="text-dot1 margin-right">类型：<if condition="$var[type] EQ 'zan'">用户赞了该众筹<else/>该众筹被关注</if></span>
+                </p>
+          </div>
+         </dd>
+    </li>
+    <div class="blank-10 bg"></div>
+</foreach>
+

@@ -1,0 +1,70 @@
+<title><{$detail.shop_name}>分店详情页面</title>
+<include  file='public:header_community'/> 
+
+<style>
+.ajax-dialog {
+    z-index: 99 !important;
+}
+</style>
+ 
+	<script src="/static/default/pc/js/qrcode.js"></script>
+	<div class="blank-10"></div>
+	<div class="container">
+		<div class="shop-head">
+			<div class="line">
+				<div class="x3">
+					<div class="head-logo">
+						<img src="__ROOT__/attachs/<{$detail.logo}>" alt="<{$detail.shop_name}>" />
+					</div>
+				</div>
+				<div class="x7">
+					<div class="head-desc">
+						
+						<p class="addr"><i class="icon icon-map-marker"></i> 分店地址：<{$detail.addr}><if condition="!empty($ex['near'])">(<{$ex.near}>)</if></p>
+						<if condition="!empty($ex['business_time'])">
+						<p class="open"><i class="icon icon-clock-o"></i> 营业：<{$ex.business_time}></p>
+						</if>
+						<p class="avrg"><i class="icon icon-money"></i> 人均：<if condition="!empty($ex['price'])"><em>￥<{$ex.price}></em><else />待定</if></p>
+						<div class="cont">
+							<span><strong class="txt radius-circle bg-yellow"><i class="icon icon-phone"></i></strong> <em><{$detail.telephone}></em></span>
+							
+							<span><strong class="txt radius-circle bg-green"><i class="icon icon-refresh"></i></strong> <em>围观次数：<{$detail.view}></em></span>
+                           
+                          
+                            
+						</div>
+					</div>
+				</div>
+				<div class="x2">
+					<div class="head-info">
+						<a rel="http://<{$_SERVER['SERVER_NAME']}>/mobile<{$host}><{:u('wap/shop/shop',array('shop_id'=>$item['shop_id'],'branch_id'=>$item['branch_id']))}>" class="qrcode"></a>
+                        
+    <script>
+	$(function(){
+		$(".qrcode").each(function(){
+			$(this).empty();
+			$(this).qrcode($(this).attr("rel")); 
+		});
+	});
+	</script>
+    
+    
+						<p>手机扫描二维码访问</p>
+						<php>$host_arr = explode('.',$CONFIG['site']['host']); $host = $host_arr[1].'.'. $host_arr[2];</php>
+						<if condition="$domain['audit'] eq 1">
+							<if condition="!empty($domain['domain'])">
+							<a class="button bg-sub" href="http://www.<{$domain.domain}>" target="_blank">官方网站</a>
+							<else />
+							<a class="button bg-sub" href="http://<{$domain.second_domain}>.<{$host}>" target="_blank">官方网站</a>
+							</if>
+						</if>
+					</div>
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="blank-20"></div>
+
+
+<include file="public:footer"/>

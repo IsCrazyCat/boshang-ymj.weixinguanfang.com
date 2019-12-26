@@ -1,0 +1,68 @@
+/* CSS Document by jacy use in vipcard */
+body{ padding:0; margin:0; max-width:640px; margin:0 auto;}
+img{ font-size:0;}
+.fl{float:left;}
+.fr{float:right;}
+.clear{ height:0; line-height:0; font-size:0; clear:both;}
+/*优惠券开始*/
+.weiHelp_cont .join_anniu{ text-align:center; margin:20px 0;}
+.weiHelp_cont .join_anniu .butn{ display:inline-block; font-size:18px; line-height:40px; padding:0 15px; background:#fff600; font-weight:bold; color:#950008;}
+.weiHelp_cont .join_anniu .butn em{ padding:10px; background:url(../img/help_ico.png) no-repeat center top; background-size:100% auto; font-size:0; line-height:0; vertical-align:middle; margin-right:5px;}
+.weiHelp_mine{ background:#fdfeb8; border-radius:50px; padding:10px 15px 5px 5px; margin:10px; overflow:hidden;}
+.weiHelp_mine .img{ width:50px; height:50px; border-radius:100%; overflow:hidden;}
+.weiHelp_mine .img img{ width:100%; height:100%;}
+.weiHelp_mine .wz{ margin-left:60px;}
+.weiHelp_mine .wz p{font-size:12px; line-height:20px; color:#656364;}
+.weiHelp_mine .wz .name{font-size:14px; color:#950008;}
+.weiHelp_mine .wz>.fl{ width:40%;}
+.weiHelp_mine .wz>.fr{ width:60%; text-align:right; overflow:hidden;}
+.weiHelp_mine_num{ display:inline-block; text-align:center; margin:0 2px;}
+.weiHelp_mine_num .num{ display:inline-block; padding:0 8px; color:#fff; line-height:20px; font-size:12px;}
+
+.voucherPage_tab{ padding:0 10px; padding-bottom:10px;}
+.voucherPage_tab_list{ display:block; float:left; width:32%; margin-right:2%;}
+.voucherPage_tab_list:last-child{ margin-right:0;}
+.voucherPage_tab_list a{ display:block; background:#de252b; text-align:center; font-size:12px; line-height:30px; color:#fff;}
+.voucherPage_tab_list.on a{background:#ce1914; color:#fbfd94;}
+.voucherPage_list_box{min-height:300px; padding:10px;}
+.voucherPage_list{ display:none; padding:10px 10px 1px; background:#ede6c2;}
+.voucherPage_list .list{ display:block; background:#ff0034; margin-bottom:10px; height:134px;}
+.voucherPage_list .list>.fl{ width:110px; height:134zpx;}
+.voucherPage_list .list>.fl img{ width:100%; height:100%;}
+.voucherPage_list .list .wz{ margin-left:118px; text-align:center; padding:10px 10px 10px 0;}
+.voucherPage_list .list big{ font-size:30px; color:#fff; line-height:30px; text-shadow:0 1px 1px #f5f5f5; display:block; margin-bottom:5px;}
+.voucherPage_list .list p{ font-size:16px; line-height:20px; color:#fff; }
+.voucherPage_list .list .time{ font-size:12px; line-height:20px; color:#fff; }
+.voucherPage_list .list .butn{ display:inline-block; font-size:14px; line-height:30px; background:#ce1914; padding:0 30px; color:#ffd11b;  margin-top:10px;}
+
+.voucherPage_list .list.grey{background:#cfc8c8;}
+.voucherPage_list .list.grey big{color:#aeadad; text-shadow:none;}
+.voucherPage_list .list.grey p{color:#767676; text-shadow:none;}
+.voucherPage_list .list.grey .time{color:#767676; text-shadow:none;}
+.voucherPage_list .list.grey .butn{background:#aeadad; color:#cfc8c8; text-shadow:none;}
+/*优惠券结束*/
+
+/*优惠券详情页开始*/
+.couponpage_intro{ padding:10px;}
+.couponpage_intro h2 span{ display:inline-block; padding:0 2px; font-size:16px; line-height:30px; font-weight:normal; color:#fff; margin-left:20px; position:relative;}
+.couponpage_intro h2 span.bg_1{ background:#3cb8ec;}
+.couponpage_intro h2 span big{ margin-right:5px;}
+.couponpage_intro h2 span.bg_1:before{ content:''; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-right: 18px solid #3cb8ec; position:absolute; left:-18px; top:0;}
+.couponpage_intro h2 span.bg_1:after{ content:''; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 18px solid #3cb8ec; position:absolute; right:-18px; top:0;}
+.couponpage_intro h2 span.bg_2{ background:#f0c42e;}
+.couponpage_intro h2 span.bg_2:before{ content:''; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-right: 18px solid #f0c42e; position:absolute; left:-18px; top:0;}
+.couponpage_intro h2 span.bg_2:after{ content:''; border-top: 15px solid transparent; border-bottom: 15px solid transparent; border-left: 18px solid #f0c42e; position:absolute; right:-18px; top:0;}
+.couponpage_intro .nr{ padding:10px 20px; margin-bottom:10px;}
+.couponpage_intro p{ font-size:14px; line-height:20px; color:#666;}
+.couponpage_butn_box{ text-align:center; margin:20px 0;}
+.couponpage_butn_box .butn{ background:#ff535e; display:inline-block; width:80%; height:40px; border-radius:5px; font-size:16px; line-height:40px; color:#fff;}
+/*优惠券领取成功*/
+.voucherPage_succse{ margin:30px 10px; border:1px solid #e86766; border-radius:10px; padding:10px; position:relative;}
+.voucherPage_succse h1{ width:200px; margin:0 auto; text-align:center; position:absolute; top:-17px; left:50%; margin-left:-100px; border-bottom:2px solid #fff; height:15px;}
+.voucherPage_succse h1:before{ content:''; background:#fff; width:12px; height:12px; border-radius:100%; position:absolute; left:-6px; top:10px;}
+.voucherPage_succse h1:after{ content:''; background:#fff; width:12px; height:12px; border-radius:100%; position:absolute; right:-6px; top:10px;}
+.voucherPage_succse h1 span{ display:inline-block; padding:0 10px; background:#db1717; line-height:30px; font-size:16px; color:#fff;}
+.voucherPage_succse p{line-height:24px; font-size:14px; color:#fff;}
+
+.footer_copy{font-size: 14px; line-height: 40px; color: #fff; text-align: center; margin: 20px 0 0; background-color: #6c6c6c;}
+/*优惠券详情页结束*/

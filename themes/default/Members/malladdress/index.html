@@ -1,0 +1,38 @@
+<include file="public:header"/>
+<div class="content_right">    
+<div class="tgdd">
+    <div class="tgdd_t">
+    	<ul>
+            <li><a href="<{:U('address/index')}>">外卖收货地址</a></li>
+            <li class="on"><a href="<{:U('malladdress/index')}>">商城收货地址</a></li>
+        </ul>
+        <a style="display: inline-block; float: right; margin-right: 10px;" class="myInfor_sx" href="<{:U('malladdress/create')}>">新增地址</a>
+    </div>
+    <div class="tgdd_nr">
+        <table border="0" cellspacing="0" width="100%"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; text-align:center;">
+            <tr class="tgdd_nrt">
+                <td>地址序号</td>
+                <td>姓名</td>
+                <td>手机号</td>
+                <td>地址</td>
+                <td>操作</td>
+            </tr>
+            <volist name="list" id="item" key="index">
+                <tr class="tgdd_nrC">
+                    <td class="tgdd_nrCtd  bullionLog_td"><{$index}></td>
+                    <td class="tgdd_nrCtd  bullionLog_td"><{$item.xm}></td>
+                    <td class="tgdd_nrCtd  bullionLog_td"><{$item.tel}></td>
+                    <td class="tgdd_nrCtd  bullionLog_td"><{$item.area_str}><{$item.info}></td>
+                <td class="tgdd_nrCtd  bullionLog_td">
+                    <a class="myInfor_sx" href="<{:U('malladdress/edit',array('id'=>$item['id']))}>">编辑</a>
+                    <a class="myInfor_sx" mini="confirm" href="<{:U('malladdress/delete',array('id'=>$item['id']))}>">删除</a>
+                </td> 
+                </tr>
+            </volist>
+        </table>
+        <div class="x"><{$page}></div>
+    </div> 
+</div>
+</div>
+</div>
+<include file="public:footer"/>

@@ -1,0 +1,32 @@
+
+		<h3>我的红包</h3>
+		<table>
+			<tr>
+				<th>红包金额</th>
+				<th>中奖时间</th>
+				<th>红包状态</th>
+				<th>操作</th>
+			</tr>
+			<volist name='items' id='item'>
+            	<tr>
+                    <td><{$item.prize_name}></td>
+                    <td><{$item.add_time|date='Y m d H:i:s',###}></td>
+                    <td>
+                    	<if condition = "$item['is_reward'] eq 1">
+							已兑换
+                        <else/>	
+                            未领取
+                        </if>
+                    
+                    </td>
+                    <td>
+                    <if condition="$item['is_reward'] eq 1">
+                        兑奖已完成
+                   <else/>
+                        
+                        <a href="<{:U('weixin/packet/reward_forms',array('sn_id'=>$item['id']))}>" mini-width='300' mini-load="兑换红包">兑换红包</a>
+                    </if>
+                    </td>
+                </tr>
+            </volist>
+		</table>

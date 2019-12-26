@@ -1,0 +1,27 @@
+<include file='public:header'/>   
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:u('community/tie',array('post_id'=>$tie[post_id]))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			回复帖子
+		</div>
+	</header>
+
+	<form class="post-form" action="<{:u('community/reply',array('post_id'=>$tie[post_id]))}>" method="post"  target="x-frame">
+		<input type="hidden" id="photo" name="data[photo]" value="" />
+		<div class="line border-bottom">
+			<div class="x9 form-title">
+				<span>回复：<{$tie.title}></span>
+			</div>
+			<div class="x3 text-right">
+				<button class="button bg-green margin-small-right" type="submit">发表</button>
+				<div class="margin-small-bottom"></div>
+			</div>
+		</div>
+		<div class="line border-bottom">
+			<textarea class="form-content" name="data[details]" placeholder="文明上网，登陆发言"></textarea>
+		</div>
+	</form>
+<include file='public:footer'/>  
+

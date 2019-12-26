@@ -1,0 +1,138 @@
+<include  file='public:header'/>    
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('village/tieba',array('village_id'=>$detail['village_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			查看帖子
+		</div>
+		<div class="top-share">
+			<a href="javascript:void(0);" id="share-btn"><i class="icon-share"></i></a>
+		</div>
+	</header>
+	<div id="share-box" class="share-box">
+		<div class="dialog-mask"></div>
+			<ul class="line">
+				<li class="-mob-share-weibo x3">
+					<img src="/static/default/wap/image/share/share-weibo.png" />
+					<p>新浪微博</p>
+				</li>
+				<li class="-mob-share-tencentweibo x3">
+					<img src="/static/default/wap/image/share/share-twb.png" />
+					<p>腾讯微博</p>
+				</li>
+				<li class="-mob-share-qzone x3">
+					<img src="/static/default/wap/image/share/share-qzone.png" />
+					<p>QQ空间</p>
+				</li>
+				
+				<li class="-mob-share-qq x3">
+					<img src="/static/default/wap/image/share/share-py.png" />
+					<p>QQ好友</p>
+				</li>
+				<li class="-mob-share-weixin x3">
+					<img src="/static/default/wap/image/share/share-weixin.png" />
+					<p>微信</p>
+				</li>
+				<li class="-mob-share-renren x3">
+					<img src="/static/default/wap/image/share/share-renren.png" />
+					<p>人人网</p>
+				</li>
+				<li class="-mob-share-kaixin x3">
+					<img src="/static/default/wap/image/share/share-kaixin.png" />
+					<p>开心网</p>
+				</li>
+				<li id="mui-card-close" class="mui-card-close x3">
+					<img src="/static/default/wap/image/share/share-close.png" />
+					<p>关闭</p>
+				</li>
+			</ul>
+		<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=890ab8bbdb3c"></script>
+	</div>
+	<script>
+		$(document).ready(function () {
+			$("#share-box").hide();
+			$("#share-btn").click(function () {
+				$("#share-box").toggle();
+				$('html,body').animate({scrollTop:0}, 'slow');
+			});
+			$("#mui-card-close").click(function () {
+				$("#share-box").hide();
+			});
+		});
+	</script>
+	
+	<div class="tie-from">
+		<span class="text-gray">话题来自：</span> <a href="<{:U('village/tieba',array('village_id'=>$detail['village_id']))}>"><{$detail.name}>贴吧</a>
+		<i class="float-right icon-angle-right"></i>
+	</div>
+	
+	<div class="tie-detail">
+		<div class="tie-item">
+			<div class="item-head">
+				<span class="avatar">
+                
+               <img src="<{:config_img($puser['face'])}>" />
+            
+				</span>
+				<span class="info">
+					<em><{$puser['nickname']}></em>
+					<p><{$tie.create_time|date="Y-m-d",###}></p>
+				</span>
+				<span class="title">
+					<{$tie['title']}>
+				</span>
+				<span class="coner"></span>
+			</div>
+			<div class="item-body">
+				<p><{$tie['details']}></p>
+				
+				<div class="blank-10"></div>
+				<div class="ctrl">
+					<a class="ctrl-zan" id="zan-<{$tie.post_id}>" data="<{$tie.post_id}>"><i class="icon-thumbs-up"></i> <em><{$tie['zan_num']}></em></a>
+					<a class="ctrl-reply"><i class="icon-comments"></i> <em><{$replys}></em></a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="blank-10"></div>
+	<div class="reply-title">
+		<h3><i class="icon-commenting-o"></i> 全部回复</h3>
+	</div>
+	<ul id="reply-list" class="reply-list"></ul>
+	<script>
+		$(document).ready(function () {
+			loaddata('<{$nextpage}>', $("#reply-list"), true);
+			//点击"赞"按钮
+			$("body").delegate(".ctrl-zan","click",function(){
+				var postid = $(this).attr("data");
+				var url = "/mobile/village/zantie/post_id/" + postid + ".html";
+				$.get(url,function(data){
+					if( data == "-1"){
+						alert("你已经赞过该帖了！");
+					}else if( data == '-2'){
+						alert("您还没有登录！");
+					}else{
+						$("#zan-" + postid).find("em").html(data);
+                                                alert("点赞成功，您之间的友好度提升！");
+					}
+				},'html');
+				
+			});
+		});
+	</script>
+<nav class="foot-bar">
+	<div class="line">
+		<div class="x2">
+			<a class="back-icon" href="<{:U('village/tieba',array('village_id'=>$detail['village_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="x10">
+			<a class="post-icon" href="<{:U('village/reply',array('post_id'=>$tie['post_id']))}>">
+				<i class="icon-pencil-square"></i>
+				回复帖子
+			</a>
+		</div>
+	</div>
+</nav>
+</body>
+</html>

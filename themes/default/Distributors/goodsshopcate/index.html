@@ -1,0 +1,44 @@
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+<title>商城分类</title>
+<link href="__TMPL__statics/css/style.css?v=20150609" rel="stylesheet" type="text/css">
+<link href="__TMPL__statics/css/newstyle.css"  rel="stylesheet" type="text/css">
+<script src="__TMPL__statics/js/jquery.js?v=20150609"></script>
+<script src="__PUBLIC__/js/store.js?v=20150610"></script>
+<script> var BAO_PUBLIC = '__PUBLIC__';
+            var BAO_ROOT = '__ROOT__';</script>
+<header>
+<div class="headerTop">
+    <div class="headerTop_back"><a href="<{:U('index/index')}>"></a></div>
+    <div class="headerTop_t">分类列表</div>
+	<div class="headerTop_menuTog m_header_wz"><a class="jobFabu" href="<{:U('goodsshopcate/create')}>"><span><img src="__TMPL__statics/images/add_03.png" width="8" height="8"></span>添加分类</a></div>
+</div> 	
+</header>
+<section class="fixed_pad">
+	<form method="post" action="<{:U('goodsshopcate/index')}>">
+       <div class="MemCard_ser">
+      <div class="MemCard_serBox"><input class="MemCard_serK" name="keyword" type="text" />
+      <input type="image" class="MemCard_serAn" src="__TMPL__statics/images/ser_03.png" width="22" height="22"></a>
+            </div>
+        </div>
+    </form>
+    <div class="FundR_tj">
+   <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>分类名称</td>
+            <td>排序</td>
+            <td>操作</td>
+        </tr>
+            <foreach name="autocates" item="var">
+                <tr>
+                    <td><{$var.cate_name}></td>
+                    <td><{$var.orderby}></td>
+                    <td><a href="<{:U('goodsshopcate/edit',array('cate_id'=>$var['cate_id']))}>" class="FundR_td"><font color="微软雅黑">编辑</font></a>&nbsp;&nbsp;<a href="<{:U('goodsshopcate/delete',array('cate_id'=>$var['cate_id']))}>"><font color="red">删除</font></a></td>
+                </tr>
+            </foreach>
+        </table>
+    </div>
+</section>
+<include file="public:footer"/>

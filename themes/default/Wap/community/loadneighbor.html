@@ -1,0 +1,47 @@
+<style>ul{padding-left:0px !important;}</style>
+<ul id="shop-list" class="shop-list">
+<volist name="list" id="item">
+<li>	
+<a class="item line" href="#">
+		<div class="x3">
+        
+         <img  class="radius"  src="<{:config_img($users[$item['user_id']]['face'])}>" />
+        </div>
+		<div class="x9">
+				<h5>姓名：<{$users[$item['user_id']]['nickname']}></h5>				
+                <p class="des-star">
+					<span>性别：
+                    <if condition="!empty($ex[$item['user_id']]['sex'])">
+                    	<if condition="$ex[$item['user_id']]['sex'] eq 1">男<else/>女</if>
+                    <else/>
+                    未知
+                    </if>
+                    &nbsp;&nbsp;&nbsp;职业：
+                    <if condition="!empty($ex[$item['user_id']]['job'])">
+                    <{$ex[$item['user_id']]['job']}>
+                    <else/>
+                    未填写
+                    </if>
+                    
+                    </span>
+                    <if condition="$item[user_id] neq $MEMBER[user_id]">
+					<span class="float-right button button-small bg-dot" onclick="location='<{:U('message/send_news',array('user_id'=>$item['user_id']))}>'">发消息</span>
+                    <else />
+                    <span class="float-right button button-small bg-gray">我自己</span>
+                    </if>
+				</p>
+				<p class="des-addr"><i class="mui-icon mui-icon-location"></i>星座：
+                
+                 <if condition="!empty($stars[$ex[$item['user_id']]['star_id']])">
+                 <{$stars[$ex[$item['user_id']]['star_id']]}>
+                 <else/>
+                  未知
+                 </if>
+                
+                
+                </p>
+		</div>	
+        </a>
+</li>
+</volist>
+</ul>

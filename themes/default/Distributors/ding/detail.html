@@ -1,0 +1,99 @@
+<include file='public:header'/>  
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			订座订单详情
+		</div>
+		<div class="top-share">
+			<a href="#" id="cate-btn"></a>
+		</div>
+	</header>
+<body>   
+
+<div class="panel-list">
+	<ul>
+        <li><a href="javascript:;">订单号：<em><{$arr.order_no}></em></a></li>
+<if condition="$arr[menu][0][0] gt 0">                             
+<volist name='arr.menu' id='item'>         
+<li><a href="javascript:;"><{$menu[$item[0]][menu_name]}><em class="text-dot">x<{$item[1]}>&nbsp;￥<{:round($menu[$item[0]][ding_price]/100,2)}></em></a></li>
+</volist>                                    
+</if>
+
+	</ul>
+</div>
+<div class="blank-10 bg"></div>
+<div class="panel-list">
+
+	<ul>
+		<li><a href="javascript:;">地点：<em><{$arr.room_id}></em></a></li>
+		<li><a href="javascript:;">预约人数：<em><{$arr.number}></em></a></li>
+		<li><a href="javascript:;">预约日期：<em><{$arr.last_date}> &nbsp;<{$arr.last_t}></em></a></li>
+		<li><a href="javascript:;">联系人：<em><{$arr.name}> &nbsp;（<if condition="$sex eq 2">女士<else/>先生</if>）</span><{$arr.mobile}></em></a></li>
+		<li><a href="javascript:;">支付定金：<em>￥<{:round($arr['need_price']/100,2)}></em></a></li>
+        <li><a href="javascript:;">结算价格：<em>￥<{:round($order[total_price]/100,2)}></em></a></li>
+        <li><a href="javascript:;">买家留言：<{$arr.tip}></a></li>
+        <li><a href="javascript:;">支付定金：<em><{:round($arr['need_price']/100,2)}> 元 &nbsp;&nbsp; (<if condition="$arr[status] eq 1"> 未消费 <elseif condition="$arr[status] eq 2"/> 已消费 <elseif condition="$arr[status] eq -1"/> 已退款 <else/>未支付</if>)</em></a></li>
+	</ul>
+
+</div>
+
+
+
+
+
+<div class="blank-30"></div>
+<div class="container login-open">
+<if condition="$arr[status] eq -1"> 
+<a  href="<{:U('ding/index')}>"class=" button button-block button-big bg-blue text-center">返回订单列表</a>  
+<else/>
+<a href="javascript:void(0);" rel="<{$order_id}>" class="jquery-delete button button-block button-big bg-dot text-center">退款</a>  
+</if>
+
+<div class="blank-20" style="text-align:center"></div>
+
+                                  
+<if condition="$arr[status] eq 1"> 
+<form  action="<{:U('ding/edit',array('order_id'=>$order_id))}>" method="post">
+<input type="hidden" name="status" value="2" />
+<input type="submit" class="button button-block button-big bg-green" value="设为已消费" />
+</form>  
+<elseif condition="$arr[status] eq 2"/> 
+<a class="button button-block button-big bg-blue text-center">已消费</a> 
+<elseif condition="$arr[status] eq -1"/> 
+<a class="button button-block button-big bg-gray text-center">已退款</a>  
+<else/>
+<a class="button button-block button-big bg-gray text-center">未支付</a>  
+</if>
+</div>
+<div class="blank-20"></div>
+
+<script>
+	$(document).ready(function () {
+		$(document).on('click', ".jquery-delete", function (e) {
+			var order_id = $(this).attr('rel');
+			layer.confirm('您确定要退款？', {
+				skin: 'layer-ext-demo', 
+				area: ['50%', 'auto'], //宽高
+				btn: ['是的', '不'], //按钮
+				shade: false //不显示遮罩
+			}, function () {
+				$.post("<{:U('ding/refund')}>", {order_id: order_id}, function (result) {
+					if (result.status == "success") {
+						layer.msg(result.msg);
+						setTimeout(function () {
+							location.reload();
+						}, 1000);
+					} else {
+						layer.msg(result.msg);
+					}
+				}, 'json');
+			});
+		});
+	});
+</script>
+
+</div>
+
+<include file="public:footer"/>

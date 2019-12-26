@@ -1,0 +1,194 @@
+<include file="public:header" /> 
+<include file="mall:top"/>
+<include file="public:nav2"/>
+
+
+<div class="content zy_content">
+<!--删选开始-->
+	<div class="goods_flBox">
+            <ul>
+                <if condition="!empty($selArr)">
+                    <li class="goods_flListLf">
+                        <ul>
+                            <li class="goods_flLi"><a class="goods_flLiA" href="<{:U('crowd/index')}>">全部</a></li>
+                            <li class="goods_flLi goods_flLix">&gt;</li>
+                            <script>
+                                $(function () {
+                                    $('.goods_flLiLf .goods_flLiA').hover(function () {
+                                        $(this).parent().find('.goods_flLiLfk').show();
+                                        $(this).addClass("on");
+                                    });
+                                    $('.goods_flLiLf').hover(function () {
+                                    }, function () {
+                                        $(this).find('.goods_flLiLfk').hide();
+                                        $(this).children(".goods_flLiA").removeClass("on");
+                                    });
+                                    $('.goods_flLiFl').hover(function () {
+                                        $(this).parent().find('.goods_flLiLfk').hide();
+                                        $(this).parent().find(".goods_flLiA").removeClass("on");
+                                    });
+                                });
+                            </script>
+                            <if condition="!empty($cat)">
+                                <li class="goods_flLi goods_flLiLf"><a class="goods_flLiA" href="<{:LinkTo('appoint/index',$linkArr,array('cat'=>$cat))}>"><{$cates[$cat]['cate_name']}><em></em></a><a href="<{:LinkTo('crowd/index',$linkArr,array('cat'=>0))}>" class="goods_flLiFl">ｘ</a>
+                                    <div class="goods_flLiLfk"><a href="<{:LinkTo('crowd/index',$linkArr,array('cat'=>0))}>">全部</a>
+                                        <foreach name="cates" item="item">
+                                            <eq name="item.parent_id" value="0">
+                                            |<a <eq name="item.cate_id" value="$cat">class="on"</eq>  href="<{:LinkTo('crowd/index',$linkArr,array('cat'=>$item['cate_id'],'cate_id'=>0))}>"><{$cates[$item['cate_id']]['cate_name']}></a>
+                                            </eq>
+                                        </foreach>
+                                    </div>
+                                </li>
+                                <li class="goods_flLi goods_flLix">&gt;</li>
+                            </if>
+                            <if condition="!empty($cate_id)">
+                                <li class="goods_flLi goods_flLiLf"><a class="goods_flLiA" href="<{:LinkTo('crowd/index',$linkArr,array('cat'=>$cat,'cate_id'=>$cate_id))}>"><{$cates[$cate_id]['cate_name']}><em></em></a><a href="<{:LinkTo('crowd/index',$linkArr,array('cat'=>$cat,'cate_id'=>0))}>" class="goods_flLiFl">ｘ</a>
+                                    <div class="goods_flLiLfk"><a href="<{:LinkTo('crowd/index',$linkArr,array('cat'=>$cat,'cate_id'=>0))}>">全部</a>
+                                        <foreach name="cates" item="item">
+                                            <eq name="item.parent_id" value="$cat">
+                                            |<a <eq name="item.cate_id" value="$cate_id">class="on"</eq> href="<{:LinkTo('crowd/index',$linkArr,array('cat'=>$cat,'cate_id'=>$item['cate_id']))}>"><{$cates[$item['cate_id']]['cate_name']}></a>
+                                            </eq>
+                                        </foreach>
+                                    </div>
+                                </li>
+                                <li class="goods_flLi goods_flLix">&gt;</li>
+                            </if>
+                            <if condition="!empty($area_id)">
+                                <li class="goods_flLi goods_flLiLf"><a class="goods_flLiA" href="<{:LinkTo('crowd/index',$linkArr,array('area'=>$area_id))}>"><{$areas[$area_id]['area_name']}><em></em></a><a href="<{:LinkTo('crowd/index',$linkArr,array('area'=>0,'business'=>0))}>" class="goods_flLiFl">ｘ</a>
+                                    <div class="goods_flLiLfk"><a href="<{:LinkTo('crowd/index',$linkArr,array('area'=>0))}>">全部</a>
+                                        <foreach name="areas" item="item">
+                                        <eq name="item.city_id" value="$city_id">
+                                            |<a <eq name="item.area_id" value="$area_id">class="on"</eq> href="<{:LinkTo('crowd/index',$linkArr,array('area'=>$item['area_id'],'business'=>0))}>"><{$areas[$item['area_id']]['area_name']}></a>
+                                            </eq>
+                                        </foreach>
+                                    </div>
+                                </li>
+                                <li class="goods_flLi goods_flLix">&gt;</li>
+                            </if>
+
+                            <if condition="!empty($business_id)">
+                                <li class="goods_flLi goods_flLiLf"><a class="goods_flLiA" href="<{:LinkTo('crowd/index',$linkArr,array('area'=>$area_id,'business'=>$business_id))}>"><{$bizs[$business_id]['business_name']}><em></em></a><a href="<{:LinkTo('crowd/index',$linkArr,array('area'=>$area_id,'business'=>0))}>" class="goods_flLiFl">ｘ</a>
+                                    <div class="goods_flLiLfk"><a href="<{:LinkTo('crowd/index',$linkArr,array('area'=>$area_id,'business'=>0))}>">全部</a>
+                                        <foreach name="bizs" item="item">
+                                            <eq name="item.area_id" value="$area_id">
+                                            |<a <eq name="item.business_id" value="$business_id">class="on"</eq> href="<{:LinkTo('crowd/index',$linkArr,array('area'=>$area_id,'business'=>$item['business_id']))}>"><{$bizs[$item['business_id']]['business_name']}></a>
+                                            </eq>
+                                        </foreach>
+                                    </div>
+                                </li>
+                                <li class="goods_flLi goods_flLix">&gt;</li>
+                            </if>
+
+                        </ul>
+                    </li>
+                </if>
+
+                <if condition="empty($cat)">
+                    <li class="goods_flList">
+                        <div class="left goods_flList_l">分类：</div>
+                        <div class="left goods_flList_r">
+                            <a class="goods_flListA on" href="<{:LinkTo('crowd/index',$linkArr)}>">全部</a>
+                            <foreach name="cates" item="item">
+                                <eq name="item.parent_id" value="0">
+                                <a class="goods_flListA" href="<{:LinkTo('crowd/index',$linkArr,array('cat'=>$item['cate_id']))}>"><{$cates[$item['cate_id']]['cate_name']}></a>
+                                </eq>
+                            </foreach>
+                        </div>
+                    </li>
+                </if>
+
+                <if condition="!empty($cat) and empty($cate_id)">
+                    <li class="goods_flList">
+                        <div class="left goods_flList_l">分类：</div>
+                        <div class="left goods_flList_r">
+                            <a class="goods_flListA on" href="<{:LinkTo('crowd/index',$linkArr,array('cat'=>$cat))}>">全部</a>
+                            <foreach name="cates" item="item">
+                                <eq name="item.parent_id" value="$cat">
+                                <a class="goods_flListA" href="<{:LinkTo('crowd/index',$linkArr,array('cat'=>$cat,'cate_id'=>$item['cate_id']))}>"><{$cates[$item['cate_id']]['cate_name']}></a>
+                                </eq>
+                            </foreach>
+                        </div>
+                    </li>
+                </if>
+
+                <if condition="empty($area_id)">
+                    <li class="goods_flList">
+                        <div class="left goods_flList_l">地区：</div>
+                        <div class="left goods_flList_r">
+                            <a class="goods_flListA on" href="<{:LinkTo('crowd/index',$linkArr)}>">全部</a>
+                            <foreach name="areas" item="item">
+                              <eq name="item.city_id" value="$city_id">
+                                <a class="goods_flListA" href="<{:LinkTo('crowd/index',$linkArr,array('area'=>$item['area_id']))}>"><{$item.area_name}></a>
+                                </eq>
+                            </foreach>
+                        </div>
+                    </li>
+                </if>
+
+                <if condition="!empty($area_id) and empty($business_id)">
+                    <li class="goods_flList">
+                        <div class="left goods_flList_l">商圈：</div>
+                        <div class="left goods_flList_r">
+                            <a class="goods_flListA on" href="<{:LinkTo('crowd/index',$linkArr)}>">全部</a>
+                            <foreach name="bizs" item="item">
+                                <eq name="item.area_id" value="$area_id">
+                                <a class="goods_flListA" href="<{:LinkTo('crowd/index',$linkArr,array('business'=>$item['business_id']))}>"><{$item.business_name}></a>
+                                </eq>
+                            </foreach>
+                        </div>
+                    </li>
+                </if>
+            </ul>
+        </div>
+        
+        
+       <!--删选结束-->
+<div class="pagewd mt10">
+	<div class="mall_crowd_box">
+      <ul class="slides list_box">
+      	<volist name='list' id='item'>
+            	 <li class="list">
+                    <div class="pub_img"><a href="<{:U('crowd/detail',array('goods_id'=>$item['goods_id']))}>">
+                    <img src="<{:config_img($item['photo'])}>" width="282" height="200" /> 
+                            <div  class="circle-svg indicatorContainer" data-dimension="120" data-text="<{$item['have_price']/$item['all_price']*100|ceil}>%" data-info="" data-width="6" data-fontsize="20" data-percent="<{$item['have_price']/$item['all_price']*100|ceil}>" data-fgcolor="#61a9dc" data-bgcolor="#eee" data-fill="#fff"></div>
+        
+                    </div>
+                    <div class="pub_wz">
+                        <h3 class="overflow_clear mb10"><a href="<{:U('crowd/detail',array('goods_id'=>$item['goods_id']))}>"><{$item.title}></a></h3>
+                        <div class="mall_progressBar mb10">
+                            <div class="mall_progressBar_wrap">
+                                <span class="mall_progressBar_bar" style="width:<{$item['have_price']/$item['all_price']*100}>%;"></span>
+                            </div>
+                            <ul class="mall_progressBar_txt">
+                                <li class="left"><p><span class="graycl">已筹金额</span> <{$item['have_price']/100}></p></li>
+                                <li class="right"><p><span class="graycl">剩余金额</span> 
+                                <if condition="$item['all_price']-$item['have_price'] gt '0'">
+                                <{$item['all_price']/100-$item['have_price']/100}>
+                                <else/>
+                                0
+                                </if></p></li>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                        <a href="<{:U('crowd/detail',array('goods_id'=>$item['goods_id']))}>" class="btn">立即众筹</a>
+                    </div>
+                </li>
+        </volist>
+       
+      </ul>
+      <div class="clear"></div>
+    </div>
+
+    <div class="x">
+        <{$page}>
+    </div>
+</div>
+
+</div>
+<script src="__TMPL__mall/js/jquery.circliful.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$('.indicatorContainer').circliful();
+	});
+</script>
+<include file="public:footer"/>

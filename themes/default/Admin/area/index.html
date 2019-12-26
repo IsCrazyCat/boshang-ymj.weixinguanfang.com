@@ -1,0 +1,69 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">区域设置</li>
+        <li class="li2 li3">区域管理</li>
+    </ul>
+</div>
+<div class="main-jsgl  main-sc">
+    <div class="jsglNr">
+        <div class="selectNr">
+            <div class="left">
+                <{:BA('area/create','','新增区域','load','',600,300)}>
+            </div>
+               <div class="right">
+              <form method="post" action="<{:U('area/index')}>">
+             
+                    <div class="seleHidden" id="seleHidden">
+                        <span>城市</span>
+                        <select id="city_id" name="city_id" class="select">
+                            <option value="0">请选择...</option>
+                            <foreach name="citys" item="var">
+                                <option value="<{$var.city_id}>"  <eq name="var.city_id" value="$city_id">selected="selected"</eq> ><{$var.name}></option>                
+                            </foreach>
+                        </select>
+                    <input type="text" name="keyword" value="<{$keyword}>" class="inptText" /><input type="submit" value="  搜索"  class="inptButton" />
+                    </div>
+                    
+            </form>
+            </div>
+        </div>
+        <form target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td><input type="checkbox" class="checkAll" rel="area_id" /></td>
+                        <td>ID</td>
+                        <td>区域名称</td>
+                        <td>所在城市</td>
+                        <td>排序</td>
+                        <td>操作</td>   
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_area_id" type="checkbox" name="area_id[]" value="<{$var.area_id}>" /></td>
+                            <td><{$var.area_id}></td>
+                            <td><{$var.area_name}></td>
+                            <td><{$citys[$var['city_id']]['name']}></td>
+                            <td><{$var.orderby}></td>
+                            <td>
+                                <{:BA('business/index',array("area_id"=>$var["area_id"]),'商圈管理','','remberBtn')}>
+                                <{:BA('area/edit',array("area_id"=>$var["area_id"]),'编辑','load','remberBtn',600,300)}>
+                                <{:BA('area/delete',array("area_id"=>$var["area_id"]),'删除','act','remberBtn')}>
+                            </td>
+                        </tr>
+                    </foreach>
+                </table>
+                  <{$page}>
+            </div>
+            <div class="selectNr">
+                <div class="left">
+                    <{:BA('area/delete','','批量删除','list',' a2')}>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+<include  file='public:footer'/>       

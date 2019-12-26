@@ -1,0 +1,47 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">砸金蛋</a> > <a>中奖</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <form method="post" action="<{:U('shake/sn')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">
+            优惠卷成员管理
+            </div>
+           
+        </div>
+    </div>
+    </form>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>优惠卷</td>
+            <td>用户昵称</td>
+            <td>sn号</td>
+            <td>是否使用</td>
+            <td>使用时间</td>
+            <td>创建时间</td>
+            <td>操作</td>
+        </tr>
+
+        <foreach name="list" item="var">
+            <tr>
+                <td><{$detail.title}></td>
+                <td><{$var.nickname}></td>
+                <td><{$var.sn}></td>
+                <td><if condition='$var["is_use"] eq 1'> 已使用<else />未使用</if></td>
+                <td><{$var.use_time}></td>
+                <td><{$var.dateline|date='Y-m-d H:i:s',###}></td>
+                <td>
+                    <a mini='confirm' class="radius3 sjgl_an tuan_topbt" href="<{:U('shake/snedit',array('sn_id'=>$var['sn_id']))}>">改变使用状态</a>
+                    <a mini='confirm' class="radius3 sjgl_an tuan_topbt" href="<{:U('shake/sndelete',array('sn_id'=>$var['sn_id']))}>">删除</a>
+                </td>
+            </tr>
+        </foreach>
+    </table>
+    <{$page}>
+</div>
+
+<include  file='public:footer'/>

@@ -1,0 +1,22 @@
+<include file='public:header'/>  <header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('near/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			附近<{$keyword}>
+		</div>
+	</header>
+	
+	
+	<div class="near-list">
+		<ul id="near-list">
+		</ul>
+	</div>
+	<script>
+		$(document).ready(function () {
+			loaddata('<{$nextpage}>', $("#near-list"), true);
+		});
+	</script>
+
+		
+<include file='public:footer'/>    

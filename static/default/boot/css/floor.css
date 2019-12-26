@@ -1,0 +1,35 @@
+/*楼层navs选项样式*/
+.floor{margin-top:15px;}
+        .floor-header{padding:0;height:40px;}
+            .floor-header ul li{height:40px; line-height:40px;float:left;list-style: none;}
+                .floor-header ul li a{font-size:14px; color:#333333;padding:2px 15px;display:block;height:40px;}
+                .floor-header ul li.active a{border:2px solid #7cbb2e; border-bottom:0; background:#ffffff;padding:0 13px;height:40px;}
+            .floor-header h2{width:190px; height:40px; line-height:40px; font-size:16px; color:#333333;float:left;margin:0;}
+            .floor-header .nav-li{ height:40px;float:left;margin:0;padding:0;}
+            .floor-header .nav-li li{float:left;}
+/*楼层主体部分样式*/
+ .floor-body .pull-left,.floor-body .pull-left img{width:190px; height:535px; float:left;}
+ .floor-body .pull-right{width:1010px; height:535px;}
+        /*第二页商品列表主体宽度*/
+       .tabs-main .main-list{width:1009px;border-right:1px solid #e4e4e4;}
+       /*第一页商品列表主体宽度*/
+       .main-list{float:left;padding:0;margin:0;width:805px}
+            .main-list li{width:201px; height:268px; border-left:1px solid #e4e4e4; border-bottom:1px solid #e4e4e4;float:left;list-style: none;}
+                .main-list li a{line-height:24px;}
+                .main-list li.colspan-2{width:402px; height:268px;margin:0;}
+                    .main-list li.colspan-2 img{width:398px; height:265px;margin:0;}
+                    .main-list .items .items-thumb{width:170px; height:170px;margin:15px 15px 10px 15px;}
+                    .main-list .items .items-body{padding:0 15px;}
+/*楼层右侧圆形分类*/
+.types{width:205px; border:1px solid #e4e4e4; border-top:0; height:535px; background:#f5f5f5;float:right;}
+    .type-li{padding:20px 8px;margin:0;}
+        .type-li li{margin:5px 0 5px 6px;float:left;list-style: none;}
+            .type-li li a{color:#777;background:url(../../img/type_ico.png) no-repeat 1px 0; height:52px; width:53px; display:block; line-height:53px; text-align:center;}
+            .type-li li a:hover{color:#ffffff;}
+/*商家列表*/
+.brand h2{color:#555555;margin:20px 0 20px 10px;font-weight: normal;font-size:14px;}
+.brand ul{padding:0;}
+    .brand ul li{height:39px; width:80px;margin:10px 0 10px 15px;float:left; list-style: none;}
+        .brand ul li a{width:80px; height:39px;display: block;}
+        .brand ul li a:hover img{border:1px solid #e74f6e; }
+            .brand ul li a img{width:76px; height:35px;vertical-align: top;}

@@ -1,0 +1,46 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">营销管理</a> > <a>红包信息</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <form method="post" action="<{:U('packet/logs')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">
+            红包记录
+       
+            </div>
+
+        </div>
+    </div>
+    </form>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>open_id</td>
+            <td>红包名称</td>
+            <td>兑换方式</td>
+            <td>兑换金额</td>
+            <td>兑换状态</td>
+            <td>创建时间</td>
+            <td>操作</td>
+        </tr>
+        <foreach name="list" item="var">
+            <tr>
+                <td><{$var.open_id}></td>
+                <td><{$packet.title}></td>
+				<td><if condition='$var["type"] eq 1'> 线下兑换<elseif condition='$var["type"] eq 2'>转入会员卡</else>手机充值</if></td>
+                <td><{$var.price}></td>
+				<td><if condition='$var["status"] eq 1'> 已兑奖<else />未兑奖</if></td>
+                <td><{$var.time}></td>
+                <td>
+                    <a mini='confirm' class="radius3 sjgl_an tuan_topbt" href="<{:U('packet/logsdelete',array('id'=>$var['id']))}>">删除</a>
+                </td>
+            </tr>
+        </foreach>
+    </table>
+    <{$page}>
+</div>
+
+<include  file='public:footer'/>

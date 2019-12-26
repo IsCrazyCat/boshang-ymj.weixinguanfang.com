@@ -1,0 +1,41 @@
+<include file='public:header'/>   
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('mart/wait')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			快递发货
+		</div>
+	</header>
+<style>
+.send-form .row{overflow:hidden;border-bottom:thin solid #EEE;padding:0;}
+.send-form .icon{float:left;width:10%;text-align:center;color:#999;height:50px;line-height:60px;overflow:hidden;font-size:16px;}
+.send-form .line-input{border:none;float:left;background:#FFF;height:50px;width:90%;padding-top:12px;overflow:hidden;}
+.send-form .text-select {border: none;float: left;background: #FFF;height: 50px;width: 90%;padding-top: 12px;overflow: hidden;}
+</style>   
+	<div class="send-form">
+        <if condition="$detail['is_daofu'] EQ 1">
+			<form method="post" action="<{:U('mart/express',array('order_id'=>$detail['order_id'],'wait'=>1))}>"  target="x-frame">
+        <else/>
+        	<form method="post" action="<{:U('mart/express',array('order_id'=>$detail['order_id']))}>"  target="x-frame">
+        </if>
+             <div class="row">
+             <span class="icon icon-bus"></span>
+             		<select id="express_id" name="data[express_id]" class="text-select">
+                     	<option value="0">请选择快递公司</option>
+                        <foreach name="logistics" item="var">
+                        <option value="<{$var.express_id}>"><{$var.express_name}></option>         
+                        </foreach>
+                    </select>
+           </div>
+           
+            <div class="row">
+				<span class="icon icon-hand-o-right"></span>
+				<input type="text"  class="line-input" id="express_number" name="data[express_number]" placeholder="填写快递单号" value="" />
+			</div>
+			<div class="blank-40"></div>
+            <div class="container text-center"><button class="button button-block button-big bg-dot" type="submit">确认发货</button></div>
+		</form>
+	</div>
+	
+<include file='public:footer'/>  

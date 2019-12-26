@@ -1,0 +1,69 @@
+<include  file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">酒店</a> > <a>酒店订单</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <form method="post" action="<{:U('hotel/index')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">
+            开始时间：<input type="text" class="radius3 tuan_topser"  name="bg_date" value="<{$bg_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd'});"/>
+            结束时间：<input type="text" class="radius3 tuan_topser"  name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd'});"/>
+            订单编号：<input type="text" name="keyword" value="<{$keyword}>" class="radius3 tuan_topser" />
+            <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/>
+            </div>
+        </div>
+    </div>
+    </form>
+    <div class="tuanfabu_tab">
+        <ul>
+            <li class="tuanfabu_tabli"><a href="<{:U('hotel/room')}>">酒店房间</a></li>
+            <li class="tuanfabu_tabli on"><a href="<{:U('hotel/index')}>">酒店订单</a></li>
+        </ul>
+    </div> 
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>订单ID</td>
+            <td>房间名称</td>
+            <td>房间图片</td>
+            <td>房间类型</td>
+            <td>房间数量</td>
+            <td>房间价格</td>
+            <td>订单总价</td>
+            <td>入住人员</td>
+            <td>预订时间</td>
+            <td>订单状态</td>
+            <td>支付方式</td>
+            <td>下单时间</td>
+            <td>操作</td>
+        </tr>
+        <foreach name="list" item="var">
+            <tr>
+                <td><{$var.order_id}></td>
+                <td><{$rooms[$var['room_id']]['title']}></td>
+                <td style="height: 80px;"><img src="<{:config_img($rooms[$var['room_id']]['photo'])}>"  style="width: 80px;  margin: 0px auto;" /></td>
+                <td><{$roomtype[$rooms[$var['room_id']]['type']]}></td>
+                <td><{$var.num}></td>
+                <td><{$var.price}></td>
+                <td><{$var.amount}></td>
+                <td><{$var.name}>(<{$var.mobile}>)</td>
+                <td><{$var.stime}>--<{$var.ltime}></td>
+                <td><if condition="$var['order_status'] eq -1"><font style="color:red;">已取消</font><elseif condition="$var['order_status'] eq 2"/><font style="color:green;">已完成</font><elseif condition="$var['order_status'] eq 1"/>已付款<else/>待处理</if></td>
+                <td><if condition="$var['online_pay'] eq 1">在线支付<else/>到店付</if></td>
+                <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                <td>
+                    <a class="radius3 sy_c1an" href="<{:U('hotel/detail',array('order_id'=>$var['order_id']))}>">查看</a>
+                <if condition="$var['order_status'] eq 1 or ($var['online_pay'] eq 0 and $var['order_status'] eq 0)"><a class="radius3 sy_c1an" mini="confirm" href="<{:U('hotel/complete',array('order_id'=>$var['order_id']))}>">客户入住</a></if>
+                <if condition="$var['order_status'] neq -1"><a class="radius3 sy_c1an" mini="confirm" href="<{:U('hotel/cancel',array('order_id'=>$var['order_id']))}>">取消订单</a></if>
+                <if condition="$var['order_status'] eq -1"><if condition="$var['closed'] eq 0"><a class="radius3 sy_c1an" mini="confirm" href="<{:U('hotel/delete',array('order_id'=>$var['order_id']))}>">删除订单</a></if></if>
+            </td>
+            </tr>
+        </foreach>
+    </table>
+    <{$page}>
+</div>
+
+<include  file='public:footer'/>

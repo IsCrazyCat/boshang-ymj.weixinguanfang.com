@@ -1,0 +1,37 @@
+<style>
+.pics_img{width:60px; height:50px;float:left;padding-right:5px}
+</style>
+<foreach name='list' item='var'>
+<div class="item">	
+	<div class="line">
+		<div class="x2">
+          <!--如果头像中有-->
+           <img class="pic"  src="<{:config_img($users[$var['user_id']]['face'])}>" />
+        </div>
+		<div class="x10">
+			<h5><{:config_user_name($users[$var['user_id']]['nickname'])}></h5> 
+            <p class="intro"><{$var.contents}></p>
+            <php>$stars= intval(($var['score'])*20);</php>
+			<p class="intro ui-starbar" ><span style="width:<{$stars}>%"></span></p>
+            <span class="intro intro1 float-right "><{$var.create_time|date='Y-m-d H:i',###}></span>
+			<p class="info7 x12">
+				<volist name="pics" id="pic" key="index"> 
+                <eq name="pic.order_id" value="$var['order_id']"> 
+                    <div class="pics" class="ac"  onclick="location='<{:U('mall/img',array('order_id'=>$var['order_id']))}>'">
+                        <img class="pics_img" src="<{:config_img($pic['pic'])}>" >
+                    </div>
+                </eq>
+            </volist> 
+			</p><br/>
+            <if condition="!empty($var['reply'])">
+            <p class="intro x12">商家回复：<a style="color:#FF6430"><{$var.reply}></a></p>
+            <else/>
+            </if>
+		</div>
+	</div>
+</div>
+<div class="blank-10 bg"></div>
+</foreach>
+
+
+

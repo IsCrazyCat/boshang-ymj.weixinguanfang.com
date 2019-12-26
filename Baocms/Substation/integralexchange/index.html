@@ -1,0 +1,131 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1"> 商城</li>
+        <li class="li2">积分商城</li>
+        <li class="li2 li3">积分兑换</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('integralexchange/index')}>"> 
+                    <div class="seleHidden" id="seleHidden">
+                        <div class="seleK"> 
+                            <label>
+                                <input type="hidden" id="user_id" name="user_id" value="<{$user_id|default=''}>" />
+                                <input type="text" name="nickname" id="nickname"  value="<{$nickname}>"   class="text" />
+                                <a mini="select"  w="800" h="600" href="<{:U('user/select')}>" class="sumit">选择用户</a>
+                            </label>
+                            <label>
+                                <span>状态</span>
+                                <select name="audit" class="select">
+                                    <option value="0"  >全部</option>
+                                    <option value="-1" <eq name="audit" value="-1">selected="selected"</eq> >等待审核</option>
+                                    <option value="1" <eq name="audit" value="1">selected="selected"</eq>>正常</option>
+                                </select>
+                            </label>
+                            <label>
+                                <span>商品名称</span>
+                                <input type="text"  class="inptText"   name="keyword" value="<{$keyword|default=''}>" /><input type="submit" value="   搜索"  class="inptButton" />
+                            </label>
+                        </div>
+                    </div> 
+                </form>
+                <a href="javascript:void(0);" class="searchG">高级搜索</a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form method="post" action="<{:U('integralexchange/index')}>">
+            <div class="selectNr selectNr2">
+                <div class="left">
+                    <div class="seleK">
+                        <label>
+                            <input type="hidden" id="user_id" name="user_id" value="<{$user_id|default=''}>" />
+                            <input type="text" name="nickname" id="nickname"  value="<{$nickname}>"   class="text" />
+                            <a mini="select"  w="800" h="600" href="<{:U('user/select')}>" class="seleSj">选择用户</a>
+                        </label>
+                        <label>
+                            <span>商家</span>
+                            <input type="hidden" id="shop_id" name="shop_id" value="<{$shop_id|default=''}>"/>
+                            <input type="text"   id="shop_name" name="shop_name" value="<{$shop_name}>" class="text" />
+                            <a  href="<{:U('shop/select')}>" mini='select' w='800' h='600' class="seleSj">选择商家</a>
+                        </label>
+                        <label>
+                            <span>开始时间</span>
+
+                            <input type="text" name="bg_date" value="<{$bg_date|default=''}>"  onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text" />
+                        </label>
+                        <label>
+                            <span>结束时间</span>
+                            <input type="text" name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text" />
+                        </label>
+                    </div>
+                </div>
+                <div class="right">
+                    <span>商品名称</span>
+                    <input type="text"  class="inptText"   name="keyword" value="<{$keyword|default=''}>" />
+                    <input type="submit" value="   搜索"  class="inptButton" />
+                </div>
+                <div class="clear"></div>
+            </div>
+        </form>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="exchange_id" /></td>
+                        <td class="w50">ID</td>
+                        <td>用户</td>
+                        <td>地址</td>
+                        <td>商品</td>
+                        <td>商家</td>
+                        <td>兑换时间</td>
+                        <td>兑换IP</td>
+                        <td>状态</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_exchange_id" type="checkbox" name="exchange_id[]" value="<{$var.exchange_id}>" /></td>
+                            <td><{$var.exchange_id}></td>
+                            <td><{$users[$var['user_id']]['account']}>(UID:<{$var.user_id}> )</td>
+                            <td>
+                                <{$areas[$addrs[$var['addr_id']]['area_id']]['area_name']}>
+                                <{$business[$addrs[$var['addr_id']]['business_id']]['business_name']}>
+                                <{$addrs[$var['addr_id']]['addr']}>
+                                <br />
+                                <{$addrs[$var['addr_id']]['name']}>
+                                <br />
+                                <{$addrs[$var['addr_id']]['mobile']}>
+                            </td>
+                            <td><{$goods[$var['goods_id']]['title']}></td>
+                            <td>
+                                <{$shops[$var['shop_id']]['shop_name']}>
+                                <br/>
+                                <{$shops[$var['shop_id']]['tel']}>
+                                <br />
+                                <{$shops[$var['shop_id']]['contact']}>
+                            </td>
+                            <td><{$var.create_time|date="Y-m-d H:i:s",###}></td>
+                            <td><{$var.create_ip}></td>
+
+                            <td>
+                        <eq name="var.audit" value="0"> <{:BA('integralexchange/audit',array("exchange_id"=>$var["exchange_id"]),'审核','act','remberBtn')}> <else />已审核</eq>
+                        </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('integralexchange/audit','','批量审核','list','remberBtn')}>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>  
+

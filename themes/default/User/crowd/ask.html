@@ -1,0 +1,27 @@
+<include file="public:header"/>
+<style>
+.list-media-x {margin-top:0rem;}
+ul { padding-left: 0px}
+</style>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:u('crowd/crowd_list',array('aready'=>1))}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			话题
+		</div>
+	<div class="top-signed">
+	</div>
+</header>
+
+<div class="list-media-x" id="list-media">
+<div class="blank-10 bg"></div>
+	<ul></ul>
+</div>	
+
+<script>
+	$(document).ready(function () {
+		loaddata('<{:U("crowd/askdata",array("goods_id"=>$goods_id,"t"=>$nowtime,"p"=>"0000"))}>', $("#list-media ul"), true);
+	});
+</script>
+<include file='crowd:footer'/>

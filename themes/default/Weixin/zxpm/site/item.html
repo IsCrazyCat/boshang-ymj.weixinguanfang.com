@@ -1,0 +1,35 @@
+<{include file="weixin/block/header.html"}>
+<header class="ui-header ui-header-stable ui-border-b ucenterTit">
+	<i class="ui-icon-return ucenterIcon_lt" onClick="history.back()"></i>
+	<h1>施工进度</h1>
+</header>
+<div class="h45"></div>
+<ul class="ui-list ui-list-link ui-list-function ui-border-tb managerCont">
+	<li class="ui-border-t">
+		<div class="ui-list-info">
+			<h4 class="ui-nowrap">施工阶段:<span><{$steps[$detail['step']]}></span></h4>
+		</div>
+	</li> 
+	<li class="ui-border-t">
+		<div class="ui-list-info">
+			<h4 class="ui-nowrap">发布时间:<span><{$detail['dateline']|format:'Y年m月d日 H:i:s'}></span></h4>
+		</div>
+	</li>
+	<li class="ui-border-t">
+		<div class="ui-list-info">
+			<h4 class="ui-nowrap">进度描述:<span><{$detail['content']}></span></h4>
+		</div>
+	</li>
+	<{if $attach}>
+	<li class="ui-border-t">
+		<div class="ui-list-info">
+			<h4 class="ui-nowrap">附加图片:
+				<{foreach $attach as $val}>
+				<span><a href="<{$val['thumb']}>"><img src="<{$val['thumb']}>" width='100%' height='200'/></span></a>
+				<{/foreach}>
+			</h4>
+		</div>
+	</li>
+	<{/if}>
+</ul>
+<{include file="weixin/block/footer.html"}>

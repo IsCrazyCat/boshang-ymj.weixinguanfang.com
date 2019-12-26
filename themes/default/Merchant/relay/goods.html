@@ -1,0 +1,51 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">营销管理</a> > <a>微接力管理</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <form method="post" action="<{:U('help/goods')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">
+         微接力管理
+            </div>
+            <div class="right tuan_topfb_r"><a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('relay/goodscreate',array('relay_id'=>$relay_id))}>">添加微接力+</a></div>
+        </div>
+    </div>
+    </form>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>商品ID</td>
+            <td>微接力</td>
+            <td>奖项标题</td>
+            <td>奖项</td>
+            <td>名额数量</td>
+			<td>排序号</td>
+            <td>奖品图片</td>
+            <td>商家号</td>
+            <td>操作</td>
+        </tr>
+        <foreach name="list" item="var">
+            <tr>
+                <td><{$var.id}></td>
+                <td><{$detail.title}></td>
+                <td><{$var.title}></td>
+                <td><{$var.name}></td>
+                <td><{$var.num}></td>
+                <td><{$var.sort}></td>
+                <td style="height: 80px;"><img src="<{:config_img($var['photo'])}>"  style="width: 80px;  margin: 0px auto;" /></td>
+                <td><{$var.shop_id}></td>
+				
+				<td>
+                    <a class="radius3 sjgl_an tuan_topbt" href="<{:U('relay/goodsedit',array('id'=>$var['id']))}>">编辑</a>
+                    <a mini='confirm' class="radius3 sjgl_an tuan_topbt" href="<{:U('relay/goodsdelete',array('id'=>$var['id']))}>">删除</a>
+                </td>
+            </tr>
+        </foreach>
+    </table>
+    <{$page}>
+</div>
+
+<include  file='public:footer'/>

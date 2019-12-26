@@ -1,0 +1,63 @@
+<title>快递众包中心</title>
+<include file="public:header"/>
+<style>
+.index-top .top-a {background: #989898;}
+#shangjia_tab {border-bottom: 0.00rem #dedede solid !important;}
+</style>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			快递众包中心
+		</div>
+	<div class="top-signed">
+		<a href="<{:U('delivery/login/logout')}>">退出</a>
+	</div>
+</header>
+
+<ul id="shangjia_tab">
+        <li style="width: 50%;"><a href="<{:U('index/index')}>" >物流抢单</a></li>
+        <li style="width: 50%;"><a href="<{:U('index/express')}>"class="on">众包快递</a></li>
+
+</ul>
+
+<div class="index-top">
+	<div class="top-a">
+		<div class="user">	
+		
+			<div class="info">	
+				<p>欢迎（<{$rdv.name}>），<{$rdv.id}>号配送员</p>	
+				<p><span>您还有<{$ing}>单快递未配送，<a href="<{:U('lists/express',array('ss'=>2))}>">快去配送吧&gt;&gt;</a></span></p>	
+                <p>
+					<span>今日配送：<{$today_p}>单</span>
+					<span>今日完成：<{$today_ok}>单</span>
+					<span>总计完成：<{$all_ok}>单</span>
+				</p>
+                
+			</div>	
+		</div>	
+
+	</div>
+	
+
+    
+  
+
+<div class="blank-10 bg"></div>
+
+<div class="panel-list">
+<ul>
+<li><a href="<{:U('lists/express',array('ss'=>0))}>">抢新单：网站目前有（<{$new}>）单待抢配！<i class="icon-angle-right"></i></a></li>
+<li><a href="<{:U('lists/express',array('ss'=>1))}>"></span>配送中:您目前有（<{$ing}>）单在配送中！<i class="icon-angle-right"></i></a></li>
+<li><a href="<{:U('lists/express',array('ss'=>2))}>"></span>您已完成:（<{$ed}>）单<i class="icon-angle-right"></i></a></li>
+</ul>
+</div>
+	
+	
+
+</div>
+
+
+
+<include  file='public:footer'/>

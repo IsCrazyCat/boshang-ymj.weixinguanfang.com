@@ -1,0 +1,26 @@
+<include file='public:header'/>
+<header class="top-fixed bg-yellow bg-inverse">
+<div class="top-back">
+	<a class="top-addr" href="<{:u('crowd/crowd_list',array('aready'=>1))}>"><i class="icon-angle-left"></i></a>
+</div>
+<div class="top-title">
+	添加进展
+</div>
+</header>
+<style>
+.fabu-form .form-content {border: none;resize: none;width: 100%;height:200px;padding: 10px;font-size: 12px;}
+.fabu-form .form-content1 {border: none;resize: none;width: 100%;height: 150px;padding: 10px;font-size: 12px;}
+</style>
+<form class="fabu-form" method="post" target="x-frame" action="<{:U('crowd/project_create',array('goods_id'=>$detail['goods_id']))}>">
+	<div class="line border-bottom">
+		<textarea class="form-content" name="data[content]" placeholder="添加日期进展描述，80字以内"><{$type.content|default=''}></textarea>
+	</div>
+	<div class="container">
+		<div class="blank-30">
+		</div>
+		<button type="submit" class="button button-block button-big bg-dot">添加进展</button>
+		<div class="blank-30">
+		</div>
+	</div>
+</form>
+<include file='crowd:footer'/>

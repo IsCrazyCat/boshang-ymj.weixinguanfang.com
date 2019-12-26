@@ -1,0 +1,59 @@
+<php>$mobile_title = $detail['hotel_name'].'酒店预订';</php>
+<include file="public:header"/>
+ 	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('hotels/detail',array('hotel_id'=>$detail['hotel_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			酒店介绍
+		</div>
+		<div class="top-signed">
+		</div>
+	</header> 
+<style>
+body {background: #fafafa;}
+footer {height: 3.0rem;}
+</style>   
+<div class="page-center-box">
+    <div class="hotel_serv">
+    	<h2>酒店服务</h2>
+        <ul>
+            <li class="list"><em class="ico ico_1"></em>早餐</li>
+            <li class="list"><em class="ico ico_2"></em>WIFI</li>
+            <li class="list"><em class="ico ico_3"></em>吹风机</li>
+            <li class="list"><em class="ico ico_4"></em>行李寄存</li>
+            <li class="list"><em class="ico ico_5"></em>会议室</li>
+            <li class="list"><em class="ico ico_6"></em>接机</li>
+            <li class="list"><em class="ico ico_7"></em>空调</li>
+            <li class="list"><em class="ico ico_8"></em>独立卫生间</li>
+            <li class="list"><em class="ico ico_9"></em>宽带</li>
+        </ul>
+    </div>
+    <div class="hotel_tel">酒店电话：<{$detail.tel}></div>
+    <div class="hotel_infor border_t border_b">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <th>酒店入住：</th>
+                <td><{$detail.in_time}>以后    离店时间：<{$detail.out_time}>以前</td>
+            </tr>
+            <tr>
+                <th>膳食安排：</th>
+                <td><span class="bq">免早餐</span><span class="bq">免中餐</span><span class="bq">免晚餐</span></td>
+            </tr>
+            <tr>
+                <th>基本信息：</th>
+                <td>商务型酒店    2008年开业    2015年最后一次装修    2108间客房    2层高10层</td>
+            </tr>
+        </table>
+    </div>
+    <div class="padding border-bottom" style="background:#f5f5f5;">
+            <div class="line">
+                <span class="x12 text-gray">酒店简介</span>
+            </div>
+        </div>
+        
+    <div class="hotel_intro border_b">
+        <p><{:cleanhtml($detail['details'])}></p>
+    </div>
+</div>
+ <include file="public:footer"/> 

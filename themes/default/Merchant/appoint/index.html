@@ -1,0 +1,62 @@
+<include file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">家政</a> > <a href="<{:U('appoint/room')}>">家政设置</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <form method="post" action="<{:U('appoint/index')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            家政名称：
+            <input type="hidden" name="type_id" id="type_id" value="<{$type_id}>" />
+            <input type="text" name="keyword" value="<{$keyword}>" class="radius3 tuan_topser" />
+            <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/>
+            <div class="right tuan_topfb_r"><a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('appoint/create')}>">添加家政+</a></div>
+        </div>
+    </div>
+    </form>
+    <div class="tuanfabu_tab">
+        <ul>
+            <li class="tuanfabu_tabli tabli_change on"><a href="<{:U('appoint/index')}>">家政项目</a></li>
+            <li class="tuanfabu_tabli tabli_change"><a href="<{:U('appoint/order')}>">家政订单</a></li>
+        </ul>
+    </div>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+          <td>ID</td>  
+          <td>家政项目</td>
+          <td>商家名称</td>
+          <td>标题</td>
+          <td>图片</td>
+          <td>定金</td>
+          <td>工具</td>
+          <td>联系方式</td>
+          <td>操作</td>
+        </tr>
+        <foreach name="list" item="var">
+        
+         <td><{$var.appoint_id}></td>
+         <td><{$cates[$var['cate_id']]['cate_name']}></td>
+         <td><{$shops[$var['shop_id']]['shop_name']}></td>
+         <td><{$var.title}></td>
+         <td><img style="width:60px;" src="<{:config_img($var['photo'])}>"/></td>
+         <td>&yen;<{:round($var['price']/100,2)}>/<{$var.unit}></td>
+         <td><{$var.gongju}></td>
+         <td><{$var.user_name}>/<{$var.user_mobile}></td>
+         <td>
+   			<eq name="var.audit" value="0"> 未审 <else/> 已审核 </eq>
+            <a href="<{:U('appoint/worker',array('appoint_id'=>$var['appoint_id']))}>">技工列表</a>
+            <a href="<{:U('appoint/edit',array('appoint_id'=>$var['appoint_id']))}>">编辑</a>
+            <a href="<{:U('appoint/delete',array('appoint_id'=>$var['appoint_id']))}>">删除</a>
+                       
+         </td>
+       
+            </tr>
+        </foreach>
+    </table>
+    <div class="paging">
+        <{$page}>
+    </div>
+</div>
+<include file='public:footer'/>

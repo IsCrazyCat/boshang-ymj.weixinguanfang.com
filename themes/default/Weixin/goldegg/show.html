@@ -1,0 +1,274 @@
+<include file="public:headergoldegg"/>
+    <body onselectstart="return true;" ondragstart="return false;">
+        
+<script>
+	function reloads() {
+		location.href = location.href;
+	}
+</script>
+ <script>
+ 
+ 
+	
+document.addEventListener("DOMContentLoaded", function(){
+	playbox.init("playbox");
+	//alert('欢迎进入砸金蛋');
+	var shape = document.getElementById("shape");
+	var hitObj = {
+		handleEvent: function(evt){
+			var error = $('#error').val();
+			if(error == ''){
+				if("SPAN" == evt.target.tagName){
+					var audio = new Audio();
+					audio.src = "__TMPL__statics/smashegg.mp3";
+					audio.play();
+
+
+					$.ajax({
+                        url: '<{:U("info/sendsms")}>',
+                        data: 'mobile=' + $("#mobile").val(),
+                        type: 'post'
+                    });					
+					setTimeout(function(){
+						evt.target.classList.toggle("on");
+						$.ajax({
+							url: '<{:U("goldegg/getajax")}>',
+							type: "POST",
+							dataType: "json",
+							async:true,
+							data:{id:<{$Dazpan.lid}>,rid:<{$Dazpan.rid}>,shop_id:'<{$Dazpan.shop_id}>'},
+							success: function(res){
+								if(1 == res.success){
+									evt.target.classList.toggle("luck");
+								}
+								setTimeout(function(){
+									if(1 == res.success){
+										var urls = ["__TMPL__statics/img/coin.png"];
+										getCoin(urls);
+										alert('恭喜您中了'+res.prizetype+'等奖');
+										return;
+									}else{
+										if(1 == res.error){
+
+											alert(res.msg);
+											return;
+										}
+										lqsb();
+
+									}
+
+								}, 2000);
+							}
+						});
+						
+					}, 100);
+				
+				
+				$("#hit").addClass("on").css({left: evt.pageX+"px", top:evt.pageY +"px"});
+			}
+			shape.removeEventListener("click", hitObj, false);
+			}else{
+				alert('您不能参与此活动');	
+			}
+		}
+	}
+	shape.addEventListener("click", hitObj, false);
+}, false);
+</script>
+
+<div class="body pb_10">
+		<input type="hidden" id="error" value="<{$error}>">
+		<div style="position:absolute;left:10px;top:10px;z-index:350;">
+		<a href="javascript:;" id="playbox" class="btn_music" onClick="playbox.init(this).play();" ontouchstart="event.stopPropagation();"></a><audio id="audio" loop src="tpl/static/goldenEgg/wap/default.mp3" style="pointer-events:none;display:none;width:0!important;height:0!important;"></audio>
+	</div>
+	<section class="stage">
+		<img src="__TMPL__statics/img/stage.png" />
+		 <div id="shape" class="cube on">
+	        <div class="plane one"><span><figure>&nbsp;</figure></span></div>
+	        <div class="plane two"><span><figure>&nbsp;</figure></span></div>
+	        <div class="plane three"><span><figure>&nbsp;</figure></span></div>
+	      </div>
+	      <div id="hit" class="hit"></div>
+	</section>
+	<section>
+		<div class="instro_wall">
+        	<script>
+				$(document).ready(function(e) {
+                    $(".instro_wall_tab .list").each(function(e){
+						$(this).click(function(){
+							$(this).parent().find(".list").removeClass("on");
+							$(this).addClass("on");
+							$(".instro_wall_list_box .instro_wall_list").each(function(i){
+								if(e==i){
+									$(this).parent().find(".instro_wall_list").hide();
+									$(this).show();
+								}
+							});
+						});
+					});
+                });
+            </script>
+			<div class="instro_wall_tab">
+                <ul>
+                    <li class="list on">活动介绍</li>
+                    <li class="list">奖项设置</li>
+                    <li class="list">我的中奖</li>
+                    <li class="list">中奖记录</li>
+                </ul>
+                <div class="clear"></div>
+            </div>
+            <div class="instro_wall_list_box">
+            	<div class="instro_wall_list" style="display:block;">
+                	<div class="instro_wall_infor">
+                    	 <p><{$sdetail.info}></p>
+                    	 <p>开始日期：<{$sdetail.stime}></p>
+                    	 <p>截止日期：<{$sdetail.ltime}></p>
+                    </div>
+                </div>
+                <div class="instro_wall_list" style="display:none;">
+                	<div class="instro_wall_li">
+                    	<ul>
+						<if condition = "!empty($sdetail['fist'])">
+                    	    <li class="list">
+                            	<div class="tag"></div>
+                            	<div class="fl" ></div>
+                                <div class="wz">
+                                	<p>奖品名称:<{$sdetail.fist}></p>
+                                	<p>奖品数量:<{$sdetail.fistnums}></p>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+							</if>
+							<if condition = "!empty($sdetail['second'])">
+                            <li class="list">
+                            	<div class="tag" style="background-position:center -40px;"></div>
+                            	<div class="fl"></div>
+                                <div class="wz">
+                                	<p>奖品名称:<{$sdetail.second}></p>
+                                	<p>奖品数量:<{$sdetail.secondnums}></p>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+							</if>
+							<if condition = "!empty($sdetail['third'])">
+                            <li class="list">
+                            	<div class="tag" style="background-position:center -80px;"></div>
+                            	<div class="fl"></div>
+                                <div class="wz">
+                                	<p>奖品名称:<{$sdetail.third}></p>
+                                	<p>奖品数量:<{$sdetail.thirdnums}></p>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+							</if>
+							<if condition = "!empty($sdetail['four'])">
+                            <li class="list">
+                            	<div class="tag" style="background-position:center -120px;"></div>
+                            	<div class="fl" style = "text-align:center;"></div>
+                                <div class="wz">
+                                	<p>奖品名称:<{$sdetail.four}></p>
+                                	<p>奖品数量:<{$sdetail.fournums}></p>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+							</if>
+							<if condition = "!empty($sdetail['five'])">
+                            <li class="list">
+                            	<div class="tag" style="background-position:center -160px;"></div>
+                            	<div class="fl" style = "text-align:center;"></div>
+                                <div class="wz">
+                                	<p>奖品名称:<{$sdetail.five}></p>
+                                	<p>奖品数量:<{$sdetail.fivenums}></p>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+							</if>
+							<if condition = "!empty($sdetail['six'])">
+                            <li class="list">
+                            	<div class="tag" style="background-position:center -200px;"></div>
+                            	<div class="fl" style = "text-align:center;"></div>
+                                <div class="wz">
+                                	<p>奖品名称:<{$sdetail.six}></p>
+                                	<p>奖品数量:<{$sdetail.sixnums}></p>
+                                </div>
+                                <div class="clear"></div>
+                            </li>
+							</if>
+                	    </ul>
+                    </div>
+                </div>
+                <div class="instro_wall_list" style="display:none;">
+                	
+					<volist name='myzitems' id='myzitem'>
+
+                		<ul><div class="instro_wall_infor">
+	                		<li class="list">
+	                            	<div class="tag"></div>
+	                                <div class="wz">
+	                                	<p><{$myzitem.prizes}>:<{$myzitem.prizename}></p>
+	                                	<p>兑换码：<{$myzitem.sn}> 中奖时间：<{$zitem.dateline|date='Y-m-d ',###}></p>
+	                                </div>
+	                                <div class="clear"></div>
+	                        </li></div>
+                    	</ul>
+					</volist>
+                    
+                </div>
+                <div class="instro_wall_list" style="display:none;">
+                	<volist name='zitems' id='zitem'>
+                		<div class="instro_wall_infor">
+                    		<p class="list"><span class="num"></span><{$zitem.nickname}>获得<{$zitem.prizes}>，<{$zitem.prizename}>一部---------<{$zitem.dateline|date='Y-m-d ',###}> </p>
+                    	</div>
+					</volist>
+
+                    
+                </div>
+            </div>
+        </div>
+	</section>
+</div>
+
+<script>
+
+	function lqsb(){
+		var d6 = new iDialog();
+		d6.open({
+			classList: "failed",
+			title:"",
+			close:"",
+			content:'<div class="header"><{$Dazpan.aginfo}></div>\
+				<table><tr>\
+					<td><img src="__TMPL__statics/img/8.png" /></td>\
+				</tr></table>',
+			btns:[
+				{id:"", name:"再砸一次", onclick:"fn.call();", fn: function(self){
+					reloads();
+				}},
+			]
+		});
+	}
+	
+	
+	
+	
+	window.alert = function(str){
+		var d7 = new iDialog();
+		d7.open({
+			classList: "failed",
+			title:"",
+			close:"",
+			content:str,
+			content:'<div class="header">'+str+'</div>\
+				<table><tr>\
+					<td><img src="__TMPL__statics/img/8.png" /></td>\
+				</tr></table>',
+			btns:[
+				{id:"", name:"确定", onclick:"fn.call();", fn: function(self){
+					reloads();
+				}},
+			]
+		});
+	}
+</script>
+	</body>
+</html>

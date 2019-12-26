@@ -1,0 +1,19 @@
+<volist name="list" id="var">
+	<div class="line padding border-bottom">
+		<div class="x3">
+			<a href="<{:u('wap/village/detail',array('village_id'=>$var['village_id']))}>"><img src="__ROOT__/attachs/<{$var.pic}>" width="90%" /></a>
+		</div>
+		<div class="x9">
+			<p>
+				<a class="title" href="<{:u('wap/village/detail',array('village_id'=>$var['village_id']))}>">
+				
+					<{:bao_Msubstr($var['name'],0,30,true )}>
+				</a>
+			</p>
+			<p class="text-gray">地址：<{$var.addr}></p>
+			<p class="text-gray"><if condition="!empty($var[tel])">电话：<{$var.tel}><else />未提供</if></p>
+			<p class=""></p>
+		</div>
+	</div>
+	<div class="blank-10 bg"></div>
+</volist>

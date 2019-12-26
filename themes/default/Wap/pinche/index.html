@@ -1,0 +1,324 @@
+<include file="public:header"/>
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			万人拼车（<{:bao_msubstr($city_name,0,3,false)}>）
+		</div>
+		<div class="top-search" style="display:none;">
+			<form method="post" action="<{:U('pinche/index')}>">
+				<input name="keyword" placeholder="输入搜索的关键字"  />
+				<button type="submit" class="icon-search"></button> 
+			</form>
+		</div>
+		<div class="top-signed">
+			<a id="search-btn" href="javascript:void(0);"><i class="icon-search"></i></a>
+		</div>
+	</header>
+	<script>
+	$(function(){
+		$("#search-btn").click(function(){
+			if($(".top-search").css("display")=='block'){
+				$(".top-search").hide();
+				$(".top-title").show(200);
+			}
+			else{
+				$(".top-search").show();
+				$(".top-title").hide(200);
+			}
+		});
+
+		$("#search-bar li").each(function(e){
+			$(this).click(function(){
+				if($(this).hasClass("on")){
+					$(this).parent().find("li").removeClass("on");
+					$(this).removeClass("on");
+					$(".serch-bar-mask").hide();
+				}
+				else{
+					$(this).parent().find("li").removeClass("on");
+					$(this).addClass("on");
+					$(".serch-bar-mask").show();
+				}
+				$(".serch-bar-mask .serch-bar-mask-list").each(function(i){
+					if(e==i){
+						$(this).parent().find(".serch-bar-mask-list").hide();
+						$(this).show();
+					}
+					else{
+						$(this).hide();
+					}
+					$(this).find("li").click(function(){
+						$(this).parent().find("li").removeClass("on");
+						$(this).addClass("on");
+					});
+				});
+			});
+		});
+		});
+    </script>
+
+	
+
+    
+
+    <div id="filter2" class="filter2">
+
+    <ul class="tab clearfix">
+
+      <li class="item">
+
+        <a href="javascript:void(0);">
+
+        <if condition="empty($cate_id)">
+
+        <span id="str_e_node">选择分类</span>
+
+        <elseif condition="$cate_id eq 1"/>
+
+        <span id="str_b_node" style="color:#f60;">车找人</span>
+
+        <elseif condition="$cate_id eq 2"/>
+
+        <span id="str_b_node" style="color:#f60;">人找车</span>
+
+        <elseif condition="$cate_id eq 3"/>
+
+        <span id="str_b_node" style="color:#f60;">车找货</span>
+
+        <elseif condition="$cate_id eq 4"/>
+
+        <span id="str_b_node" style="color:#f60;">货找车</span>
+
+        </if>
+
+        
+
+        <em></em>
+
+        </a>
+
+      </li>
+
+      <li class="item">
+
+        <a href="javascript:void(0);"> 
+
+        <if condition="!empty($area_id)">
+
+        <span id="str_b_node" style="color:#f60;"><{$areass[$area_id]['area_name']}></span>
+
+        <else/>
+
+        <span id="str_d_node">选择地区</span>
+
+        </if>
+
+        <em></em>
+
+        </a>
+
+      </li>
+
+      <li class="item">
+
+        <a href="javascript:void(0);">
+
+         <if condition="empty($order)">
+
+        <span id="str_e_node">选择排序</span>
+
+        <elseif condition="$order eq 1"/>
+
+        <span id="str_b_node" style="color:#f60;">默认排序</span>
+
+        <elseif condition="$order eq 2"/>
+
+        <span id="str_b_node" style="color:#f60;">发布时间</span>
+
+        <elseif condition="$order eq 3"/>
+
+        <span id="str_b_node" style="color:#f60;">距离排序</span>
+
+        </if>
+
+        <em></em>
+
+        </a>
+
+      </li>
+
+    </ul>
+
+    
+
+    <div class="inner" style=" display:none">
+
+        <ul>
+
+       <li class="<if condition='empty($cate_id)'> style="color:red;"</if>"><a href="<{:U('pinche/index')}>" >全部</a></li>
+
+				<if condition="$cat">    
+
+					<li class="on"><a href="<{:LinkTo('pinche/index',array('cate_id'=>$cate_id))}>"><{$shopcates[$cat]['cate_name']}></a></li>
+
+				</if>   
+
+				<foreach name="getPincheCate" item="var" key="index">    
+
+						<li <if condition="$var.cate_id eq $cat"> style="color:red;"</if>> 
+
+							<a title="<{$var}>" href="<{:LinkTo('pinche/index',array('cate_id'=>$index))}>"><{$var}></a>
+
+						</li>
+
+				 </foreach>
+
+               
+
+
+
+            </ul>
+
+    
+
+    </div>
+
+    
+
+    <div class="inner" style=" display:none">
+
+      <ul id="inner2">
+
+        <li class="item">
+
+        <a class="rights" href="<{:LinkTo('pinche/index',array('area_id'=>$area_id))}>">全部地区</a>
+
+        </li>
+
+       <foreach name="areas" item="var">
+
+            <php>if($var['city_id'] == $city_id){</php>         
+
+                <li <if condition="$var.cate_id eq $cat"> style="color:red;"</if>> 
+
+                <a href="<{:LinkTo('pinche/index',array('area_id'=>$var['area_id']))}>"><{$var.area_name}></a>
+
+                </li>
+
+            <php>}</php>      
+
+        </foreach>
+
+       
+
+      </ul><!--1级end-->
+
+    
+
+    </div>
+
+    
+
+    <div class="inner" style="display:none;">
+
+              <ul>
+
+              <li <if condition="$_GET['order'] eq 3"> style="color:red;"</if> > 
+
+					<a href="<{:LinkTo('pinche/index',array('area'=>$area_id,'business'=>$business_id,'order'=>3))}>">距我最近</a>
+
+				</li>
+
+				<li <if condition="$_GET['order'] eq 2"> style="color:red;"</if> >
+
+					<a href="<{:LinkTo('pinche/index',array('area'=>$area_id,'business'=>$business_id,'order'=>2))}>">发布时间</a>
+
+				</li>
+
+                <li <if condition="$_GET['order'] eq 1"> style="color:red;"</if> >
+
+					<a href="<{:LinkTo('pinche/index',array('area'=>$area_id,'business'=>$business_id,'order'=>1))}>">默认排序</a>
+
+				</li>
+
+             
+
+            </ul>
+
+      </div>
+
+      
+
+      <div id="parent_container" class="inner_parent" style="display:none;">
+
+        <div class="innercontent"></div>
+
+      </div>
+
+      <div id="inner_container" class="inner_child" style="display:none;">
+
+        <div class="innercontent"></div>
+
+      </div>
+
+    
+
+</div>
+
+<!--end-->    
+
+
+
+<div id="fullbg" class="fullbg" style="display: none; height: 250px;">
+
+<i class="pull2"></i>
+
+</div>
+
+
+
+<div class="container border-bottom">
+
+		<div class="blank-10"></div>
+
+		<p><span class="text-dot">今天共有<{$counts['pinche_day']}>条信息：</span>过期信息自动删除，<{:bao_msubstr($city_name,0,12,false)}>交通执法大队黑车举报电话<{$CONFIG.site.tel}>,<a class="button button-small bg-dot" href="<{:u('wap/pinche/index')}>">刷新本页</a></p>
+
+	</div>
+
+    
+
+    
+
+    <div id="coupon-list" class="coupon-list"></div>
+
+    <script>
+
+        $(document).ready(function () {
+
+			showFilter({ibox:'filter2',content1:'parent_container',content2:'inner_container',fullbg:'fullbg'});
+
+            loaddata('<{$nextpage}>', $("#coupon-list"), true);
+
+        });
+
+    </script>
+
+<div class="mall-cart">
+
+		<a href="<{:u('pinche/create')}>">
+
+		<div class="round radius-circle"><div class="badge-corner"><i class="icon-pencil-square-o"></i></div></div>
+
+		</a>
+
+	</div>
+
+<include file='public:footer'/>   
+
+
+
+    
+
+   

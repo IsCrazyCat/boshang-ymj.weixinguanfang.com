@@ -1,0 +1,136 @@
+<include  file='public:header'/>
+<div class="local">
+    当前位置:  商城订单
+</div>
+<div class="action">
+    <em>注意：</em>
+        配送员要把配送的清单发聩给后台管理员，后台管理员确认一下发货；<br />
+        所以如果确定其他的产品都没有问题的情况下可以一键发货！<br />
+        如果是货到付款，将不会直接形成商家资金记录；需要手动在商家资金那边输入资金！<br />
+</div>
+<div class="listBox clfx">        
+
+    <div class="cl"></div>
+    <div class="reginDataBox" >
+        <form method="post" action="<{:U('order/delivery')}>">
+            <table cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <td width="400">
+                        开始时间<input type="text" name="bg_date" value="<{$bg_date|default=''}>" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});"  class="inputData" />
+                        结束时间<input type="text" name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'});"  class="inputData" />
+                    </td>
+
+                    <td>
+                        <div class="lt">
+                            <input type="hidden" id="user_id" name="user_id" value="<{$user_id|default=''}>" />
+                            <input type="text" name="nickname" id="nickname"  value="<{$nickname}>"   class="manageInput w80" />
+                        </div>
+                        <a mini="select"  w="800" h="600" href="<{:U('user/select')}>" class="remberBtn">选择用户</a>
+                    </td>
+
+
+
+                    <td>
+                        订单编号：<input type="text" name="keyword" value="<{$keyword}>" class="remberinput" /> <input type="submit" class="remberSubmit" value="搜索" />
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <div class="cl"></div>
+    <form  target="baocms_frm" method="post">
+        <table cellpadding="0"  cellspacing="0" width="100%" class="rembertable">
+            <tr class="no">
+                <th><input type="checkbox" class="checkAll" rel="order_id" />ID</th>
+                <th>用户</th>
+                <th>总价值</th>
+                <th>创建时间</th>
+                <th>创建IP</th>
+                <th>收货地址</th>
+                <th>操作</th>
+            </tr>
+            <foreach name="list" item="order">
+                <tr class="no">
+                    <td><input class="child_order_id" type="checkbox" name="order_id[]" value="<{$order.order_id}>" /> <{$order.order_id}></td>
+                    <td><{$users[$order['user_id']]['account']}></td>
+                    <td><{:round($order['total_price']/100,2)}></td>
+                    <td><{$order.create_time|date='Y-m-d H:i:s',###}></td>
+                    <td><{$order.create_ip}></td>
+                   
+                    <td>
+                        <{$areas[$addrs[$order['addr_id']]['area_id']]['area_name']}>、
+                        <{$business[$addrs[$order['addr_id']]['business_id']]['business_name']}>、
+
+                        <{$addrs[$order['addr_id']]['addr']}>
+                        <br/>
+                        <{$addrs[$order['addr_id']]['name']}>
+                        <{$addrs[$order['addr_id']]['mobile']}>
+
+                    </td>
+                     <td>
+                        <{:BA('order/distribution',array('order_id'=>$order['order_id']),'一键发货','act','remberBtn')}>
+                     </td>
+                </tr>
+
+                <tr class="no">
+                    <td colspan="7">
+
+                        <table cellpadding="0"  cellspacing="0" width="90%" class="" style=" padding: 5px; margin-left: 5%;  ">
+                            <tr class="no">
+                                <th>商品名称</th>
+                                <th>供应商</th>
+                                <th>数量</th>
+                                <th>单价</th>
+                                <th>总价</th>
+                                <th>商家地址</th>
+                                <th>操作</th>
+                            </tr>    
+                            <foreach name="shops" item="shop">
+                                <foreach name="goods" item="good">
+
+
+                                    <if condition="($good['shop_id'] eq $shop['shop_id']) AND ($good['order_id'] eq $order['order_id'])">    
+                                        <tr class="no">
+                                            <td><{$products[$good['goods_id']]['title']}></td>
+                                            <td>
+                                                <{$shop.shop_name}>
+                                            </td>
+                                            <td><{$good.num}></td>
+                                            <td><{:round($good['price']/100,2)}></td>
+                                            <td><{:round($good['total_price']/100,2)}></td>
+                                            
+                                            <td>
+                                                <{$areas[$shop['area_id']]['area_name']}>、
+                                                <{$business[$shop['business_id']]['business_name']}>、
+                                                <{$shop.addr}>,<{$shop.tel}>
+                                            </td>
+                                            <td>
+                                                <eq name="good.status" value="1">
+                                                <{:BA('order/distribution',array('id'=>$good['id']),'发货','act','remberBtn')}>
+                                                <else />
+                                                   <{$goodtypes[$good['status']]}>
+                                                </eq>
+                                            </td>
+                                        </tr>
+                                    </if>
+                                </foreach>
+                            </foreach>
+
+
+                        </table>
+
+                    </td>                    
+                </tr>
+            </foreach>
+            <tr>
+                <td colspan="20" align="left">
+
+                    <div class="lt" style="margin-left: 50px;">
+                        <{$page}>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<include  file='public:footer'/>       

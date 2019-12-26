@@ -1,0 +1,291 @@
+<include file="public:header"/>
+<link href="/static/default/wap/other/jquery-ui.css" rel="stylesheet" />
+<script src="/static/default/wap/other/jquery-ui.js"></script> 
+<script src="__TMPL__statics/js/jscookie.js"></script>
+<script src="/static/default/wap/js/jquery.event.drag-1.5.min.js"></script>
+<script src="/static/default/wap/js/jquery.touchSlider.js"></script>
+<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('booking/detail',array('shop_id'=>$detail['shop_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			在线订座
+		</div>
+		<div class="top-signed">
+		</div>
+</header> 
+<style>
+.www_hatudou_com_row .icon-angle-right { font-size:18px;float: right;}
+.www_hatudou_com_row .padding-top{ display:block}
+
+</style>   
+
+<!--立即预约弹出层-->
+<div class="hatudou_booking_mask">
+    <div class="maskOne">
+    	<div class="title">立即预约 <a href="javascript:;" class="close fr"></a></div>
+        <div class="cont">
+            <p class="font_size14 font_line24"><{$detail.shop_name}>&nbsp;&nbsp;<{$detail.orders}>人已定！</p>
+            <div class="btn_box">
+                <a href="<{:U('booking/menu',array('shop_id'=>$detail['shop_id']))}>" class="pub_btn">在线点菜</a>
+                <a id="order_btn" href="javascript:void(0);" class="pub_btn bgcl1">直接下单</a>
+            </div>
+        </div>
+    </div>
+    <div class="mask_bg"></div>
+</div>
+<script>
+	$(document).ready(function() {
+		$(".hatudou_booking_show").click(function(){
+			$(".hatudou_booking_mask .maskOne").show();
+			$(".hatudou_booking_mask .mask_bg").show();
+		});
+		
+		$(".seatYuyue_num_show").click(function(){
+			$(".hatudou_booking_mask .maskOne").show();
+			$(".hatudou_booking_mask .mask_bg").show();
+		});
+		$(".hatudou_booking_mask .list").click(function(){
+			$(".hatudou_booking input").val($(this).html());
+			$(".hatudou_booking_mask .maskOne").hide();
+			$(".hatudou_booking_mask .mask_bg").hide();
+		});
+		
+		$(".hatudou_booking_show").click(function(){
+			$("hatudou_booking_mask .maskOne").show();
+			$(".hatudou_booking_mask .mask_bg").show();
+		});
+		$(".hatudou_booking_mask .list").click(function(){
+			$(".hatudou_booking_show input").val($(this).html());
+			$(".hatudou_booking_mask .maskOne").hide();
+			$(".hatudou_booking_mask .mask_bg").hide();
+		});
+		
+		$(".maskOne .close").click(function(){
+			$(".maskOne").hide();
+			$(".mask_bg").hide();
+		});
+	});
+</script>
+<!--立即预约弹出层end-->
+
+
+<form method="post" id="ding_form" class="www_hatudou_com_form"> 
+	<div class="padding border-bottom">
+		<div class="line">
+			<span class="x2">人数：</span>
+			<span class="x10">
+					<select name='ding_num' id="ding_num" class="text-select">
+                   	 <option value="">请选择人数</option>
+						<volist name='room' id='item'>
+                        	<option <eq name="item" value="$ding_num">selected="selected"</eq> ><{$item}></option>
+						</volist>
+					</select>
+			</span>
+		</div>
+	</div>  
+<div class="padding border-bottom">
+		<div class="line">
+			<span class="x2">日期：</span>
+			<php>$t = date('Y-m-d',time());</php>
+			<span class="x10"><input class="date datepicker text-input" id='ding_date' type="text" name="ding_date" value="<{$ding_date}>" /></span>
+		</div>
+</div>
+<div class="padding border-bottom">
+		<div class="line">
+			<span class="x2">时间：</span>
+			<span class="x10">
+					<select id="ding_time" name="ding_time" class="text-select">
+                    	 <option value="">请选择时间</option>
+                         <volist name='get_booking_shop_cfg' id='item'>
+                            <option <eq name="item" value="$ding_time">selected="selected"</eq> ><{$item}></option>
+                        </volist>
+					</select>
+			</span>
+		</div>
+</div>
+<!--选择包厢开始-->
+<div class="blank-10 bg"></div>
+<div class="www_hatudou_com_row address_bg">
+    <a  id="sub_btn" target="x-frame"  href="<{:U('booking/screen',array('shop_id'=>$detail['shop_id']))}>">
+        <if condition="$room_detail">
+            <span class="x10">
+                <i class="icon-clone"></i> <{$room_detail['name']}>【更换】 <i class="icon-flag-o"></i> <{$types[$room_detail['type_id']]}>
+                <p>包厢介绍：<{$room_detail['intro']}><input id="room_id" name="room_id" type="hidden" value="<{$room_id}>"></p>
+            </span>
+        <else/>
+            <span class="x10">
+               <i class="icon-clone"></i> 点击选择包厢【更换】<input id="room_id" name="room_id" type="hidden" value="">
+            </span>
+        </if>
+        
+        <span class="x2">
+            <i class="icon-angle-right padding-top"></i>
+        </span>
+    </a>
+</div>
+<div class="blank-10 bg"></div>        
+<!--选择包厢结束-->   
+
+<div class="padding border-bottom">
+	<div class="line">
+		<span class="x2">姓名：</span>
+		<span class="x10"><input id='name' class="text-input" type="text" name="name" value="<{$name}>"  placeholder="<if condition="!empty($MEMBER['nickname'])"><{$MEMBER.nickname}><else/>请输入您的姓名</if>"/></span>
+	</div>
+</div>
+<div class="padding border-bottom">
+	<div class="line">
+		<span class="x2">手机：</span>
+		<span class="x10"><input id='mobile' class="text-input"  type="text" name="mobile" value="<{$mobile}>"  placeholder="<if condition="!empty($MEMBER['mobile'])"><{$MEMBER.mobile}><else/>请输入手机号码</if>"/></span>
+	</div>
+</div>
+<div class="padding border-bottom">
+	<div class="line">
+		<span class="x2">备注：</span>
+		<span class="x10"><input id='note' class="text-input"  type="text" name="note" value="<{$note}>"  placeholder="填写备注"/></span>
+	</div>
+</div>
+</div>
+</form>
+
+<if condition="$dingmenus">
+        <div class="seatYuyue_menu border_b mt10 mb10">
+            <div class="title border_t border_b">您已点菜单</div>
+            <ul>
+                <foreach name="dingmenus" item="item">
+                    <li class="list"><span class="name"><{$item['menu_name']}></span><span class="num black9">￥<{:round($item['ding_price']/100,1)}></span><span class="num black9">x<{$item.cart_num}></span><span class="black9 right">￥<{:round($item['total_price']/100,1)}></span></li>
+                </foreach>
+            </ul>
+        </div>
+</if>
+    
+    
+ 
+<nav class="cart-bar">
+	<div class="tudou_result">
+        <input type="button" value="立即预约" id="sub_btn" class="long_btn <if condition="empty($dingmenus)">hatudou_booking_show<else/>cart_btn</if> button button-block  bg-dot">
+	</div>
+</nav> 
+
+
+
+
+
+ <script>
+    $(document).ready(function(){
+        $("#sub_btn").click(function(){
+            var note = $("#note").val();
+            var mobile = $("#mobile").val();
+            var name = $("#name").val();
+            var ding_date = $("#ding_date").val();
+            var ding_time = $("#ding_time").val();
+            var ding_num = $("#ding_num").val();
+			var room_id = $("#room_id").val();
+            var ding_type = $("#ding_type").val();
+            var sex = $('input[name="sex"]:checked').val();
+            SetCookie('note',note);
+            SetCookie('mobile',mobile);
+            SetCookie('name',name);
+            SetCookie('sex',sex);
+            SetCookie('ding_date',ding_date);
+            SetCookie('ding_time',ding_time);
+            SetCookie('ding_num',ding_num);
+			SetCookie('room_id',room_id);
+            SetCookie('ding_type',ding_type);
+        })
+        
+        $("#order_btn").click(function(){
+            var url = "<{:U('booking/orderCreate',array('shop_id'=>$detail['shop_id']))}>";
+            var ding_form = $("#ding_form").serialize();
+            var is_app = "<{$is_app}>";
+            $.post(url, ding_form, function (data) {
+                if (data.status == 'login') {
+                    setTimeout(function () {
+                        if (!is_app) {
+                            window.location.href = "<{:U('wap/passport/login')}>";
+                        } else {
+                            <?php if ($is_android){?>
+                            window.jsObj.goLogin();
+                            <?php }else{?>
+                             goload();
+                            <?php }?>
+                        }
+                    }, 1000)
+                } else if (data.status == 'success') {
+                    layer.msg(data.msg);
+                     var link = "<{:U('booking/pay',array('order_id'=>oooo))}>";
+                    setTimeout(function () {
+                        window.location.href = link.replace('oooo', data.order_id);
+                    }, 1000);
+                } else {
+                    layer.msg(data.msg);
+                }
+            }, 'json')
+        })
+        
+        $(".cart_btn").click(function(){
+            var url = "<{:U('booking/orderCreate',array('shop_id'=>$detail['shop_id']))}>";
+            var ding_form = $("#ding_form").serialize();
+            $.post(url, ding_form, function (data) {
+                if (data.status == 'login') {
+                    ajaxLogin();
+                } else if (data.status == 'success') {
+                    layer.msg(data.msg);
+                     var link = "<{:U('booking/pay',array('order_id'=>oooo))}>";
+                    setTimeout(function () {
+                        window.location.href = link.replace('oooo', data.order_id);
+                    }, 1000);
+                } else {
+                    layer.msg(data.msg);
+                }
+            }, 'json')
+        })
+        function SetCookie(name, value){
+                var Days = 30; 
+                var exp = new Date();    
+                exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+                document.cookie = name + "=" + value + ";expires=" + exp.toGMTString() +";path=/";
+            }
+            
+            
+    })
+</script>   
+ <script>
+	jQuery(function($){
+		$.datepicker.regional['zh-CN'] = {
+			closeText: '关闭',
+			prevText: '&#x3c;上月',
+			nextText: '下月&#x3e;',
+			currentText: '今天',
+			monthNames: ['一月','二月','三月','四月','五月','六月',
+			'七月','八月','九月','十月','十一月','十二月'],
+			monthNamesShort: ['一','二','三','四','五','六',
+			'七','八','九','十','十一','十二'],
+			dayNames: ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],
+			dayNamesShort: ['周日','周一','周二','周三','周四','周五','周六'],
+			dayNamesMin: ['日','一','二','三','四','五','六'],
+			weekHeader: '周',
+			dateFormat: 'yy-mm-dd',
+			firstDay: 1,
+			isRTL: false,
+			showMonthAfterYear: true,
+			yearSuffix: '年'};
+		$.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+	});
+	$(function() {
+		$('.datepicker').datepicker({
+			beforeShow: function() {
+				$(this).attr("disabled", true);
+			},
+			onClose: function() {
+				$(this).attr("disabled", false);
+			}
+		});
+	});
+</script>
+
+
+
+<iframe id="x-frame" name="x-frame" style="display:none;"></iframe>
+</body>
+</html>

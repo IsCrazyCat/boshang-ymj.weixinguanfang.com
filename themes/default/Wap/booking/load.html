@@ -1,0 +1,28 @@
+<foreach name="list" item="var">
+<li class="line">
+	<div class="x4">
+    
+		<img src="<{:config_img($var['photo'])}>">
+	</div>
+	<div class="x8">
+		<h5><{$var.menu_name}> <span class="text-small float-right">已点 <em class="dian-num" id="dian-num-<{$var.menu_id}>"><{$cartgoods[$var[menu_id]]['cart_num']|default="0"}></em></span></h5>
+		<p class="text-small">
+			<if condition="$var['is_sale'] eq 1">
+			<if condition="$var['ding_price'] lt $var['price']">
+			<span class="tag bg-yellow">惠</span>
+			</if>
+			</if>
+			<if condition="$var['is_tuijian'] eq 1">
+			<span class="tag bg-blue">荐</span>
+			</if>
+			<if condition="$var['is_new'] eq 1">
+			<span class="tag bg-dot">新</span>
+			</if>
+		</p>
+		<p class="price"><span>&yen;<{:round($var['ding_price']/100,2)}></span> <del class="text-small text-gray">&yen;<{:round($var['price']/100,2)}></del></p>
+	</div>
+	<a class="item-addcart" val="<{:round($var['ding_price']/100,2)}>" did="<{$var.menu_id}>" href="<{:U('ding/add',array('shop_id'=>$var['shop_id'],'menu_id'=>$var['menu_id']))}>">
+		<div class="txt txt-small radius bg-green"><i class="icon-plus"></i></div>
+	</a>
+</li>
+</foreach>

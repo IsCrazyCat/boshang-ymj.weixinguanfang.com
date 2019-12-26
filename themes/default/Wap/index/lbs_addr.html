@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<title>
+			<if condition="!empty($mobile_title)">
+				<{$mobile_title}>_</if>
+			<{$CONFIG.site.sitename}>会员专区
+		</title>
+		<meta name="keywords" content="<{$mobile_keywords}>" />
+		<meta name="description" content="<{$mobile_description}>" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+		<link rel="stylesheet" href="/static/default/wap/css/base.css">
+		<link rel="stylesheet" href="/static/default/wap/css/<{$ctl}>.css?V=2" />
+		<script src="/static/default/wap/js/jquery.js"></script>
+		<script src="/static/default/wap/js/base.js"></script>
+		<script src="/static/default/wap/other/layer.js"></script>
+		<script src="/static/default/wap/other/roll.js"></script>
+		<script src="/static/default/wap/js/public.js"></script>
+		<script src="/static/default/wap/js/mobile_common.js"></script>
+		<script src="/static/default/wap/js/iscroll-probe.js"></script>
+        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=C9613fa45f450daa331d85184c920119"></script>
+		<script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
+		<script>
+			function bd_encrypt(gg_lat, gg_lon){
+				var x_pi = 3.14159265358979324 * 3000.0 / 180.0;
+				var x = gg_lon;
+				var y = gg_lat;
+				var z = Math.sqrt(x * x + y * y) + 0.00002 * Math.sin(y * x_pi);
+				var theta = Math.atan2(y, x) + 0.000003 * Math.cos(x * x_pi);
+				var bd_lon = z * Math.cos(theta) + 0.0065;
+				var bd_lat = z * Math.sin(theta) + 0.006;
+				$.ajax({
+					type: "GET",
+					url: "/wap/near/csdwpl/",
+					dataType: "json",
+					data: {
+						lat: bd_lat,
+						lng: bd_lon
+					},
+					success: function(data) {
+						if(data.cityid == 9999) {
+							//layer.msg('您当前所在：'+data.city+'站');
+						} else if(data.moren == 1) {
+							//alert(data.moren);
+							layer.open({
+								type: 1,
+								title: '城市设置',
+								skin: 'layer-ext-moon', //加上边框
+								area: ['90%', 'auto'], //宽高
+								content: '<div class="chengshi"><div class="dingwei">目前定位地区:<b>' + data.city + '</b></div><div class="dyts">您上次访问<b>' + data.mcity + '</b>分站点，是否切换至</div><div class="dybt"><div class="btn1"><a href="/wap/city/change/city_id/' + data.mcityid + '.html">' + data.mcity + '分站</a></div><div class="btn2"><a href="/wap/city/change/city_id/' + data.cityid + '.html">' + data.city + '分站</a></div></div></div>'
+							});
+						} else if(data.cityid == 0) {
+							layer.open({
+								type: 1,
+								title: '城市设置',
+								skin: 'layer-ext-moon', //加上边框
+								area: ['90%', 'auto'], //宽高
+								content: '<div class="chengshi"><div class="dingwei">目前定位地区:<b>' + data.city + '</b></div><div class="dyts">目前暂时未开通该地区同城配送服务，默认前往主站，快递配送</div><div class="dybt"><div class="btn1"><a href="/wap/city/change/city_id/1.html">确定</a></div><div class="btn2"><a href="/wap/city/">切换城市</a></div></div></div>'
+							});
+						} else {
+							layer.open({
+								type: 1,
+								title: '城市设置',
+								skin: 'layer-ext-moon', //加上边框
+								area: ['90%', 'auto'], //宽高
+								content: '<div class="chengshi"><div class="dingwei">目前定位地区:<b>' + data.city + '</b></div><div class="dyts">如您要赠送给其他地区亲友，可切换城市免运费配送</div><div class="dybt"><div class="btn1"><a href="/wap/city/change/city_id/' + data.cityid + '.html">确定</a></div><div class="btn2"><a href="/wap/city/">切换城市</a></div></div></div>'
+							});
+						}
+					}
+				});
+			}
+			navigator.geolocation.getCurrentPosition(function(position) {
+				bd_encrypt(position.coords.latitude, position.coords.longitude);
+			});
+		</script>
+	</head>
+
+<style>
+.chengshi {padding:10px;}
+.dingwei {text-align:center;line-height:20px;border-bottom:1px solid #C3C1C1;padding-bottom:10px;margin-bottom:10px;}
+.dyts {text-align:center;line-height:20px;font-size:14px;color:#74777B;}
+.dybt {background:#fff;width:100%;padding:10px;overflow:hidden;}
+.btn1 a,.btn2 a {width:49.8%;line-height:35px;text-align:center;color:#fff;background:#BD1A1F;float:left;border-radius:5px;}
+.btn2 a {float:right;}
+
+</style>
+<body>

@@ -1,0 +1,54 @@
+<include file='public:header'/>    
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:u('wap/ele/pay',array('order_id'=>$detail['order_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			外卖订单留言
+		</div>
+	</header>
+
+	
+<style>
+.icon-angle-right{ float:right; font-size:20px;}
+.layui-layer-molv .layui-layer-title { background-color: #F8F8F8; border-bottom: 1px solid #eee;color: #333;}
+.divButtons{ width:50%;display: initial;padding:0px;}.text-area { width: 100%;border: thin solid #eee;resize: none; margin-top:10px; border-radius: 4px;}
+</style> 
+   
+
+	<form class="pay-form" action="<{:U('ele/message',array('order_id'=>$detail['order_id']))}>" method="post"  target="x-frame">
+	
+		<!--填写备注-->
+        <div class="line">
+            <div class="container">
+                <textarea rows="5"  id="sum" name="message" type="number" min="1"   class="text-area" placeholder="请输入内容"> <{$detail['message']}></textarea>
+            </div>
+        </div>        
+        <div class="line padding" id="divButtons" style="text-align: center">
+        
+          <volist name='tagsarray' id='var' key='index'>
+          <input type="button" class="button button-small bg-yellow margin-top" value="<{$var}>" /> &nbsp;                                 
+          </volist>
+
+        </div>
+       <!--填写END-->
+       
+    <script type="text/javascript">
+		$(function(){
+			$('#divButtons .button').click(function() {
+				$('#sum').val(this.value);
+			});
+		});
+	</script>
+    
+    <div class="container">
+		<div class="blank-30"></div>
+		<button type="submit" class="button button-block button-big bg-dot">提交</button>
+		<div class="blank-30"></div>
+	</div>
+    
+    
+   </form>     
+        
+<iframe id="x-frame" name="x-frame" style="display:none;"></iframe>	
+ 

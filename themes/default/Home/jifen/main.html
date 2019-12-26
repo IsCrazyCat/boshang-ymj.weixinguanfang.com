@@ -1,0 +1,83 @@
+<include  file='public:header'/>  
+<include  file='public:top'/>  
+<div class="content" style="float: none;">
+    <div class="jifenC">
+        <div class="jifenC1">
+            <div class="left">
+                <div class="jifenC1_hdBox">
+                    <!-- 代码 开始 -->
+                    <div class="jifenC1_liBox" id="hs_rrr">    
+                        <ul>
+                            <calldata mdl="Ad" where=" bg_date ELT '{$today}' AND end_date EGT '{$today}' AND city_id IN ({$city_ids}) AND site_id=24 AND closed=0" limit="0,3" cache="21600" order="orderby asc">
+                                <li><a target="_blank" href="<{:U('app/ad/click',array('ad_id'=>$item['ad_id'],'aready'=>1))}>" title="<{$item.title}>" ><img src="<{:config_img($item['photo'])}>" width="950" height="360" /></a></li>
+                            </calldata>
+                        </ul>                
+                    </div>
+                    <div class="jifenC1_liBox_ctrl" id="hs_r_bbb"></div>
+                    <!-- 代码 结束 -->
+                </div>
+            </div>
+            <div class="right">
+                <div class="jifenC1_hy"><img src="__PUBLIC__/img/jf.jpg" width="228" height="142" /><a class="jifenC1_hylq" href="#jifenC4">领取会员卡</a></div>
+                <div class="jifenC1_hyk">
+                    <div class="jifenC1_hyk_sm">会员卡说明</div>
+                    <p>成功绑定生活通会员卡后，在商户任意一家都可以优惠消费。商家的返积分可以兑换精美商品、还有定期会员专享活动。更多优惠等你来......</p>
+                </div>
+            </div>
+        </div>
+        <div class="jifenC2">
+            <div class="jifenC_bt">
+                <div class="lef"><span class="jifenC_btB">商家联盟</span>您可以领取任意以下商家的会员卡，在其商家的店铺可以享受一系列优惠活动</div>
+                <div class="rig"><a target="_blank" href="<{:U('vip/index')}>">更多》</a></div>
+            </div>
+            <ul class="jifenC2_ul">
+                <calldata mdl="Shop" where=" card_date EGT '{$today}' AND closed=0 AND audit=1" limit="0,18" format="true" cache="21600" order="orderby asc">  
+                <li>
+                    <div class="jifenC2_liBox"><a target="_blank" href="<{:U('jifen/shop',array('shop_id'=>$item['shop_id']))}>"><img src="<{:config_img($detail['photo'])}>" width="160" height="110" />
+                            <span class="jifenC2_liBox_sj">商家：<span title="<{$item.shop_name}>" class="jifenC2_liBox_sjnr"><{$item['shop_name']}></span></span>
+                            <span class="jifenC2_liBox_sj">地址：<span title="<{$item.addr}>" class="jifenC2_liBox_sjnr"><{$item['addr']}></span></span>
+                            <span class="jifenC2_liBox_yh">优惠：<span class="jifenC2_liBox_sjnr"><{$item['shopdetail']['discounts']}></span></span>
+                        </a></div>
+                </li>
+                </calldata>
+            </ul>
+        </div>
+        <div class="jifenC3">
+            <div class="jifenC_bt">
+                <div class="lef"><span class="jifenC_btB">热门兑换</span>您可以领取任意以下商家的会员卡，在其商家的店铺可以享受一系列优惠活动</div>
+                <div class="rig"><a target="_blank" href="<{:U('jifen/index')}>">更多》</a></div>
+            </div>
+            <ul class="jifenC3_ul">
+                <calldata mdl="Integralgoods" where="closed=0 AND audit=1" limit="0,10" cache="10800" order="orderby asc">
+                <li>
+                    <div class="jifenC3_liBox"><a href="<{:U('jifen/detail',array('goods_id'=>$item['goods_id']))}>">
+                    
+                    <img src="<{:config_img($item['face_pic'])}>" width="206" height="243" /><span class="jifenC3_liBox_wz"><{$item.title}></span><span class="jifenC3_liBox_fz"><span class="lef"><{$item.integral}>积分</span><span class="rig">价值：￥<{$item['price']}></span></span></a></div>
+                </li>
+                </calldata>
+            </ul>
+        </div>
+        <div class="jifenC4" id="jifenC4">
+            <div class="jifenC4_bt"><span>会员卡使用说明</span></div>
+            <ul class="jifenC4_ul">
+                <li class="jifenC4_liY">
+                    <div class="jifenC4_liY_Nr"><span>领取会员卡</span><p>去联盟商家领取会员卡</p></div>
+                </li>
+                <li class="jifenC4_li_fxj">&nbsp;</li>
+                <li class="jifenC4_liY">
+                    <div class="jifenC4_liY_Nr"><span>享受优惠</span><p>持卡在任意商铺消费都会享受优惠</p></div>
+                </li>
+                <li class="jifenC4_li_fxj">&nbsp;</li>
+                <li class="jifenC4_liY">
+                    <div class="jifenC4_liY_Nr"><span>反馈积分</span><p>用户消费后商家会返一定的积分</p></div>
+                </li>
+                <li class="jifenC4_li_fxj">&nbsp;</li>
+                <li class="jifenC4_liY">
+                    <div class="jifenC4_liY_Nr"><span>兑换商品</span><p>用户可以用积分兑换精美礼品</p></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<include file="public:footer"/>

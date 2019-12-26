@@ -1,0 +1,153 @@
+<include file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">支付设置</li>
+        <li class="li2 li3">支付日志</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+               <!-- <a target="_blank" href="<{:U('home/payment/tool')}>">微信支付订单查询</a>
+
+                <a target="_blank" href="<{:U('home/payment/download')}>">微信支付对账单下载</a>-->
+            </div>
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('paymentlogs/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <span>订单编号（支付编号）:</span>
+                        <input type="text" name="keyword" value="<{$keyword}>" class="inptText"/><input type="submit"
+                                                                                                        value="   搜索"
+                                                                                                        class="inptButton"/>
+                    </div>
+                </form>
+                <a href="javascript:void(0);" class="searchG">高级搜索</a>
+
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form method="post" action="<{:U('paymentlogs/index')}>">
+            <div class="selectNr selectNr2">
+                <div class="left">
+                    <div class="seleK">
+                        <label><span>开始时间</span><input type="text" name="bg_date" value="<{$bg_date|default=''}>"
+                                                       onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"
+                                                       class="text"/></label>
+                        <label><span>结束时间</span><input type="text" name="end_date" value="<{$end_date|default=''}>"
+                                                       onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"
+                                                       class="text"/></label>
+                        <input type="hidden" id="user_id" name="user_id" value="<{$user_id|default=''}>"/>
+                        <input class="text" type="text" name="nickname" id="nickname" value="<{$nickname}>"/>
+
+                        <a mini="select" w="800" h="600" href="<{:U('user/select')}>" class="sumit">选择用户</a>
+                    </div>
+                </div>
+                <div class="right">
+                    <input type="submit" value="   搜索" class="inptButton"/>
+                </div>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <form target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"
+                   style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;">
+                <tr>
+                    <td><input type="checkbox" class="checkAll" rel="log_id"/></td>
+                    <td>ID</td>
+                    <td>用户</td>
+                    <td>订单编号</td>
+                    <td>需要支付金额(元)</td>
+                    <td>消费类型</td>
+                    <td>创建时间</td>
+                    <td>创建IP</td>
+                    <td>支付时间</td>
+                    <td>支付IP</td>
+                    <td>是否已经支付</td>
+                    <td>支付类型</td>
+                   <!-- <td>查询</td>
+                    <td>申请退款</td>
+                    <td>操作</td>-->
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_log_id" type="checkbox" name="log_id[]" value="<{$var.log_id}>"/></td>
+                        <td><{$var.log_id}></td>
+                        <td><{$var.user_id}></td>
+                        <td><{$var.order_id}></td>
+                        <td><{:round($var['need_pay']/100,2)}></td>
+                        <td>
+                            <if condition="$var.type eq 'money'">   <span style="color: green">余额充值</span>
+                                <elseif condition="$var.type eq 'ele'"/><span style="color: orange">外卖</span>
+                                <elseif condition="$var.type eq 'gold'"/><span style="color: blueviolet">金块充值</span>
+                                <elseif condition="$var.type eq 'tuan'"/><span style="color: blue">团购/套餐</span>
+                                <elseif condition="$var.type eq 'ding'"/><span style="color: grey">座位预定</span>
+                                <elseif condition="$var.type eq 'goods'"/><span style="color:darkmagenta">商城购物</span>
+                                <else /> <{$var.type}>
+                            </if>
+                        </td>
+                        <td>
+                        
+                        <{$var.create_time|date='Y-m-d H:i:s',###}>
+                       
+                        
+                        </td>
+                        <td><{$var.create_ip}></td>
+                        
+                        <td>
+                        <if condition="!empty($var['pay_time'])">
+                        <{$var.pay_time|date='Y-m-d H:i:s',###}>
+                         <else/>
+                        未支付无支付时间
+                        </if>
+                        </td>
+                        <td><{$var.pay_ip}></td>
+                        <td>
+                            <eq name="var.is_paid" value="1">
+                                <font style="color: green">已支付</font>
+                                <else/>
+                                <font style="color: red">未支付</font>
+                            </eq>
+                        </td>
+                        <td>
+                            
+                            <if condition="$var.code eq ''">
+                                <span style="color: green">未选择支付方式</span>
+                                <elseif condition="$var.code eq 'jsapi'"/><span style="color: orange">微信公众号支付</span>
+                                <elseif condition="$var.code eq 'native'"/><span style="color: blueviolet">微信扫码支付</span>
+                                <elseif condition="$var.code eq 'money'"/><span style="color:red">余额支付</span>
+                                <elseif condition="$var.code eq 'alipay'"/><span style="color: blue">支付宝支付</span>
+                                <elseif condition="$var.code eq 'chinapay'"/><span style="color: grey">银联支付</span>
+                                <elseif condition="$var.code eq 'chinabank'"/><span style="color:bisque">网银在线</span>
+                                <elseif condition="$var.code eq 'tenpay'"/><span style="color:fuchsia">财付通</span>
+                                <elseif condition="$var.code eq 'micro'"/><span style="color:darkcyan">微信刷卡支付</span>
+                                <else /> <{$var.code}>
+                            </if>
+                        </td>
+                        <!--<td>
+                            <a href="<{:U('pchome/payment/b2cQuery',array('log_id'=>$var['log_id']))}>">查询</a>
+                        </td>
+                        <td>
+                            <if condition="$var.is_apply eq 0">
+                                <a href="<{:U('pchome/payment/b2cRefund',array('log_id'=>$var['log_id']))}>">同意退款</a>
+                            </if>
+                        </td>
+                        <td><a href="<{:U('paymentlogs/delete',array('log_id'=>$var['log_id']))}>"
+                               mini='act'>删除</a></td>-->
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                <{:BA('paymentlogs/delete','','批量删除','list','a2')}>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<include file='public:footer'/>

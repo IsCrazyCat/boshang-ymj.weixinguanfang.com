@@ -1,0 +1,23 @@
+<include file="public:header"/>
+<link rel="stylesheet" href="/static/default/wap/css/tieba.css">
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			商家回复
+		</div>
+	</header>
+	<form class="post-form" action="<{:U('dianping/reply',array('dianping_id'=>$detail['dianping_id']))}>" method="post" >
+		<div class="line border-bottom">			
+                <textarea class="form-content" name="reply" placeholder="请输入回复内容"/></textarea>			
+		</div>
+		<div class="blank-10 clearfix"></div>
+		<div class="container">
+			<div id="uploader" class="uploader">
+				<button class="button bg-green margin-small-right" type="submit">确认回复</button>
+				<div id="filelist" class="uploader-list"></div>
+			</div>
+		</div>
+	</form>
+<include file='public:footer'/>  

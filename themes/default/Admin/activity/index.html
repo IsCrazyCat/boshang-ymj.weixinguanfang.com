@@ -1,0 +1,106 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">功能</li>
+        <li class="li2">活动管理</li>
+        <li class="li2 li3">活动列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span> 活动请谨慎操作！</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('activity/create','','添加内容')}>
+            </div>
+            <div class="right">
+                <form  method="post"  action="<{:U('activity/index')}>"> 
+
+                    <div class="seleHidden" id="seleHidden">
+                        <div class="seleK">
+                            <label>
+                                <input type="hidden" id="shop_id" name="shop_id" value="<{$shop_id|default=''}>"/>
+                                <input type="text"   id="shop_name" name="shop_name" value="<{$shop_name}>" class="inptText" />
+                                <a  href="<{:U('shop/select')}>" mini="select" w="800" h="600" class="sumit">活动商家</a> 
+                            </label>
+                            <label>
+                                <span>活动类型</span>
+                                <select id="cate_id" name="cate_id" class="selecttop w120"  >
+                                    <option value="" <eq name="var.cate_id" value="0">selected="selected"</eq> >请选择</option>
+                                    <foreach name="cates" item="var">
+                                        <option value="<{$var.cate_id}>"  <eq name="var.cate_id" value="$cate_id">selected="selected"</eq> ><{$var.cate_name}></option>                
+                                    </foreach>
+                                </select>
+                            </label>
+                            <span>活动标题</span>
+                            <input type="text"  class="inptText" name="keyword" value="<{$keyword}>"  />
+                            <input type="submit" value=" 搜索"  class="inptButton" />
+                        </div>
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="activity_id" /></td>
+                        <td class="w50">活动ID</td>  
+                        <td>活动类型</td>
+                        <td>商家名称</td>
+                        <td class="w80">活动标题</td>
+                        <td>活动图片</td>
+                        <td>价格</td>
+                        <td>活动开始时间</td>
+                        <td>活动结束时间</td>
+                        <td>报名截止时间</td>
+                        <!--<td>活动地址</td>-->
+                        <td>是否审核</td>
+                        <td>参加人数</td>
+                        <td>活动创建时间</td>
+                        <td>活动创建IP</td>
+                        <td>操作</td>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_activity_id" type="checkbox" name="activity_id[]" value="<{$var.activity_id}>" /> </td>
+                            <td><{$var.activity_id}></td>
+                            <td><{$cates[$var['cate_id']]['cate_name']}></td>
+                            <td><{$shops[$var['shop_id']]['shop_name']}></td>
+                            <td><{$var.title}></td>
+                            <td><img src="<{:config_img($var['photo'])}>" class="w120" /></td>
+                            <td><{$var.price}></td>
+                            <td><{$var.bg_date}></td>
+                            <td><{$var.end_date}></td>
+                            <td><{$var.sign_end}></td>
+                            <!--<td><{$var.addr}></td>-->
+                            <td><eq name="var.audit" value="0">待确认<else/>已确认</eq></td>
+                        <td><{$var.sign_num}></td>
+                        <td><{$var.create_time|date="Y-m-d H:i:s",###}></td>
+                        <td><{$var.create_ip}></td>
+                        <td>
+                            <{:BA('activitysign/index',array("activity_id"=>$var["activity_id"]),'查看报名','','remberBtn')}>
+                            <{:BA('activity/edit',array("activity_id"=>$var["activity_id"]),'编辑','','remberBtn')}>
+                            <{:BA('activity/delete',array("activity_id"=>$var["activity_id"]),'删除','act','remberBtn')}>
+                            <eq name="var.audit" value="0"> <{:BA('activity/audit',array("activity_id"=>$var["activity_id"]),'审核','act','remberBtn')}> </eq>
+
+                        </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('activity/delete','','批量删除','list',' a2')}>
+                     <{:BA('activity/audit','','批量审核','list','remberBtn')}>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>  
+

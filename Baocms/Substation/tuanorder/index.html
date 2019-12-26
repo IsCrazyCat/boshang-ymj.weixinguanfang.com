@@ -1,0 +1,137 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商城</li>
+        <li class="li2">套餐</li>
+        <li class="li2">套餐订单</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('tuanorder/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <span>订单编号</span>
+                        <input type="text" name="keyword" id="keyword"  value="<{$keyword}>" class="inptText" /><input type="submit" value="   搜索"  class="inptButton" />
+                    </div> 
+                </form>
+                <a href="javascript:void(0);" class="searchG">高级搜索</a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form method="post" action="<{:U('tuanorder/index')}>"> 
+            <div class="selectNr selectNr2">
+                <div class="left">
+                    <div class="seleK">
+                        <label>
+                            <span> 开始时间</span>
+                            <input type="text" name="bg_date" value="<{$bg_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w120" />
+                        </label>
+                        <label>
+                            <span>结束时间</span>
+                            <input type="text" name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w120" />
+                        </label>
+                        <label>
+                            <span>状态</span>
+                            <select name="st" class="select w80">
+                                <option value="999">请选择</option>
+                               <option <eq name="st" value="1">selected="selected"</eq>  value="1">已付款</option>
+                                <option <eq name="st" value="1">selected="selected"</eq>  value="-1">货到付款</option>
+                                <option <eq name="st" value="0">selected="selected"</eq>  value="0">等待付款</option>
+                                <option <eq name="st" value="3">selected="selected"</eq>  value="3">正在退款</option>
+                                <option <eq name="st" value="4">selected="selected"</eq>  value="4">已退款</option>
+                                <option <eq name="st" value="4">selected="selected"</eq>  value="8">已完成</option>
+                            </select>
+                        </label>
+                        <label>
+                            <input type="hidden" id="shop_id" name="shop_id" value="<{$shop_id|default=''}>"/>
+                            <input class="text" type="text"   id="shop_name" name="shop_name" value="<{$shop_name}>"/>
+                            <a mini="select"  w="1000" h="800" href="<{:U('shop/select')}>" class="sumit">选择商家</a>
+                        </label>
+                        <label>
+                            <input type="hidden" id="user_id" name="user_id" value="<{$user_id|default=''}>" />
+                            <input type="text" name="nickname" id="nickname"  value="<{$nickname}>"   class="text" />
+                            <a mini="select"  w="1000" h="800" href="<{:U('user/select')}>" class="sumit">选择用户</a>
+                        </label>
+                        <label>
+                            <span>订单编号</span>
+                            <input type="text" name="keyword" id="keyword"  value="<{$keyword}>" class="inptText w120" />
+                        </label>
+                    </div>
+                </div>
+                <div class="right">
+                    <input type="submit" value="   搜索"  class="inptButton" />
+                </div>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="order_id" /></td>
+                    <td class="w50">ID</td>
+                    <td>用户</td>
+                    <td>套餐产品</td>
+                    <td>图片</td>
+                    <td>数量</td>
+                    <td>商家</td>
+                    <td>总价值</td>
+                    <td>使用积分</td>
+                    <td>需要支付</td>
+                    <td>创建时间</td>
+                    <td>状态</td>
+
+                    <td>操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_order_id" type="checkbox" name="order_id[]" value="<{$var.order_id}>" /> </td>
+                        <td><{$var.order_id}></td>
+                        <td><{$users[$var['user_id']]['account']}></td>
+                        <td><{$tuan[$var['tuan_id']]['title']}></td>
+                        <td>
+                            <img width="60" style=" margin:0 5px;" src="<{:config_img($tuan[$var['tuan_id']]['photo'])}>" />
+                        </td>
+                        <td><{$var.num}></td>
+                        <td><{$shops[$var['shop_id']]['shop_name']|default='本站'}></td>
+                        <td><{:round($var['total_price']/100,2)}></td>
+                        <td><{$var.use_integral}></td>
+                        <td><{:round($var['need_pay']/100,2)}></td>
+                        <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                        <td>
+                            <if condition="$var['status'] eq -1">
+                            <a class="tuan_topbt">到店付</a>	
+                          <elseif condition="$var['status'] eq 0"/>
+                            <a class="tuan_topbt">未付款</a>
+                          <elseif condition="$var['status'] eq 1"/>
+                            <a class="tuan_topbt">已付款</a>
+                          <elseif condition="$var['status'] eq 3"/>
+                            <a class="tuan_topbt">正在退款</a>
+                          <elseif condition="$var['status'] eq 4"/>
+                            <a class="tuan_topbt">已退款</a>
+                          <elseif condition="$var['status'] eq 8"/>
+                             <a class="tuan_topbt">已完成</a>
+                          </if>
+                    </td>
+
+                    <td>
+                        <{:BA('tuanorder/delete',array("order_id"=>$var["order_id"]),'删除','act','remberBtn')}>
+                    </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                <{:BA('tuanorder/delete','','批量删除','list','a2')}>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>       

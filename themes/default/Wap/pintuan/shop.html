@@ -1,0 +1,31 @@
+<php>$seo_title = $detail['name'];</php>
+<include file='public:header'/> <header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('pintuan/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			拼团商家
+		</div>
+	</header>
+
+	
+
+	<div class="padding border-bottom">
+		<{$detail['name']}> <span class="float-right"></span>
+	</div>
+	<div class="padding border-bottom">
+		地址：<{$detail['address']}> 
+	</div>
+	<if condition="!empty($detail[telephone])">
+	<div class="padding border-bottom">
+		电话：<a href="tel:<{$detail['tel']}>"><{$detail['tel']}></a>
+	</div>
+	</if>
+	<div class="padding border-bottom">
+		<span class="text-small text-yellow">
+		入驻<{$CONFIG[site][sitename]}>，开启互联网+ 新营销之旅 !<br />咨询热线 <a class="margin-small-left" href="tel:<{$detail['tel']}><"><i class="icon-phone"></i> <{$detail['tel']}></a>
+		</span>
+
+	</div>
+
+<include file='public:footer'/>  

@@ -1,0 +1,390 @@
+<include file='public:header'/>
+<div class="mainBt">
+	<ul>
+		<li class="li1">设置</li>
+		<li class="li2">基本设置</li>
+		<li class="li2 li3">站点设置</li>
+	</ul>
+</div>
+<p class="attention">
+	<span>注意：</span>这个设置和全局有关系
+</p>
+<form target="baocms_frm" action="<{:U('setting/site')}>" method="post">
+	<div class="mainScAdd">
+		<div class="tableBox">
+			<table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px" style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#fff;">
+			<tr>
+				<td class="lfTdBt">
+					站点名称：
+				</td>
+				<td class="rgTdBt">
+					<input type="text" name="data[sitename]" value="<{$CONFIG.site.sitename}>" class="scAddTextName " />
+					<code>注意这个不是网站的Title，一般建议是网站的品牌名，需要提现自动付款联系</code>
+				</td>
+			</tr>
+			<tr>
+				<td class="lfTdBt">
+					站点网址：
+				</td>
+				<td class="rgTdBt">
+					<input type="text" name="data[host]" value="<{$CONFIG.site.host}>" class="scAddTextName " />
+					<code>例如：http://www.baocms.cn 如果你在二级目录下面就需要带上二级目录</code>
+				</td>
+			</tr>
+			<tr>
+				<td class="lfTdBt">
+					站点根域名：
+				</td>
+				<td class="rgTdBt">
+					<input type="text" name="data[hostdo]" value="<{$CONFIG.site.hostdo}>" class="scAddTextName " />
+					<code>例如：baocms.cn 用于分站二级域名，这里的域名一定要泛解析，否则失效！</code>
+				</td>
+			</tr>
+			<tr>
+				<td class="lfTdBt">
+					图片域名：
+				</td>
+				<td class="rgTdBt">
+					<input type="text" name="data[imgurl]" value="<{$CONFIG.site.imgurl}>" class="scAddTextName " />
+					<code>例如：http://www.baocms.cn 一般情况下是和站点网址一样，如果做了CDN加速一般就可能是其他的域名</code>
+				</td>
+			</tr>
+<!--			<tr>-->
+<!--				<td class="lfTdBt">-->
+<!--					android下载地址：-->
+<!--				</td>-->
+<!--				<td class="rgTdBt">-->
+<!--					<input type="text" name="data[android]" value="<{$CONFIG.site.android}>" class="scAddTextName " />-->
+<!--					<code>android下载地址</code>-->
+<!--				</td>-->
+<!--			</tr>-->
+<!--			<tr>-->
+<!--				<td class="lfTdBt">-->
+<!--					IOS下载地址：-->
+<!--				</td>-->
+<!--				<td class="rgTdBt">-->
+<!--					<input type="text" name="data[ios]" value="<{$CONFIG.site.ios}>" class="scAddTextName " />-->
+<!--					<code>IOS下载地址</code>-->
+<!--				</td>-->
+<!--			</tr>-->
+			<tr>
+				<td class="lfTdBt">
+					网站LOGO：
+				</td>
+				<td class="rgTdBt">
+					<div style="width: 300px;height: 100px; float: left;">
+						<input type="hidden" name="data[logo]" value="<{$CONFIG.site.logo}>" id="data_logo" />
+						<div id="fileToUpload">
+							上传网站LOGO
+						</div>
+					</div>
+					<div style="width: 300px;height: 100px; float: left;">
+						<img id="logo_img" width="120" height="80" src="<{:config_img($CONFIG[site][logo])}>" />
+						<a href="<{:U('setting/attachs')}>">缩略图设置</a>
+                        <{$CONFIG.attachs.sitelogo.thumb}>
+					</div>
+					<script>                                            
+						var width_sitelogo = '<{:thumbSize($CONFIG[attachs][sitelogo][thumb],0)}>';                         
+						var height_sitelogo = '<{:thumbSize($CONFIG[attachs][sitelogo][thumb],1)}>';                         
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"sitelogo"))}>',                             
+						pick: '#fileToUpload',                             
+						resize: true,  
+						compress : {width: width_sitelogo,height: height_sitelogo,quality: 80,allowMagnify: false,crop: true}                       
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_logo").val(resporse.url);                             
+						$("#logo_img").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+				</td>
+			</tr>
+<!--			<tr>-->
+<!--				<td class="lfTdBt">-->
+<!--					微信二维码：-->
+<!--				</td>-->
+<!--				<td class="rgTdBt">-->
+<!--					<div style="width: 300px;height: 100px; float: left;">-->
+<!--						<input type="hidden" name="data[wxcode]" value="<{$CONFIG.site.wxcode}>" id="data_wxcode" />-->
+<!--						<div id="fileToUpload_wxcode">-->
+<!--							上传微信二维码-->
+<!--						</div>-->
+<!--					</div>-->
+<!--					<div style="width: 300px;height: 100px; float: left;">-->
+<!--						<img id="wxcode_img" width="120" height="80" src="<{:config_img($CONFIG[site][wxcode])}>" />-->
+<!--					</div>-->
+<!--					<script>                                                                -->
+<!--						var uploader = WebUploader.create({                             -->
+<!--						auto: true,                             -->
+<!--						swf: '/static/default/webuploader/Uploader.swf',                             -->
+<!--						server: '<{:U("app/upload/uploadify",array("model"=>"shopphoto"))}>',                             -->
+<!--						pick: '#fileToUpload_wxcode',                             -->
+<!--						resize: true,  -->
+<!--					});                                                 -->
+<!--					uploader.on( 'uploadSuccess', function( file,resporse) {                             -->
+<!--						$("#data_wxcode").val(resporse.url);                             -->
+<!--						$("#wxcode_img").attr('src',resporse.url).show();                         -->
+<!--					});                                                -->
+<!--					uploader.on( 'uploadError', function( file ) {                             -->
+<!--						alert('上传出错');                         -->
+<!--					});                     -->
+<!--                    </script>-->
+<!--				</td>-->
+<!--			</tr>-->
+			<tr>
+				<td class="lfTdBt">
+					客服QQ：
+				</td>
+				<td class="rgTdBt">
+					<input type="text" name="data[qq]" value="<{$CONFIG.site.qq}>" class="scAddTextName " />
+					<code>前台模板显示调用！</code>
+				</td>
+			</tr>
+			<tr>
+				<td class="lfTdBt">
+					电话：
+				</td>
+				<td class="rgTdBt">
+					<input type="text" name="data[tel]" value="<{$CONFIG.site.tel}>" class="scAddTextName " />
+					<code>前台模板显示调用！</code>
+				</td>
+			</tr>
+			<tr>
+				<td class="lfTdBt">
+					邮件：
+				</td>
+				<td class="rgTdBt">
+					<input type="text" name="data[email]" value="<{$CONFIG.site.email}>" class="scAddTextName " />
+					<code>前台模板显示调用！</code>
+				</td>
+			</tr>
+<!--			<tr>-->
+<!--				<td class="lfTdBt">-->
+<!--					ICP备案：-->
+<!--				</td>-->
+<!--				<td class="rgTdBt">-->
+<!--					<input type="text" name="data[icp]" value="<{$CONFIG.site.icp}>" class="scAddTextName " />-->
+<!--					<code>前台模板显示调用！</code>-->
+<!--				</td>-->
+<!--			</tr>-->
+			<tr>
+				<td class="lfTdBt">
+					站点标题：
+				</td>
+				<td class="rgTdBt">
+					<input type="text" name="data[title]" value="<{$CONFIG.site.title}>" class="scAddTextName " />
+					<code>seo设置中调用</code>
+				</td>
+			</tr>
+<!--			<tr>-->
+<!--				<td class="lfTdBt">-->
+<!--					站点关键字：-->
+<!--				</td>-->
+<!--				<td class="rgTdBt">-->
+<!--					<textarea name="data[keyword]" cols="50" rows="5"><{$CONFIG.site.keyword}></textarea>-->
+<!--					<code>seo设置中调用，建议认真填写！</code>-->
+<!--				</td>-->
+<!--			</tr>-->
+			<tr>
+				<td class="lfTdBt">
+					站点描述：
+				</td>
+				<td class="rgTdBt">
+					<textarea name="data[description]" cols="50" rows="5"><{$CONFIG.site.description}></textarea>
+					<code>seo设置中调用</code>
+				</td>
+			</tr>
+<!--			<tr>-->
+<!--				<td class="lfTdBt">-->
+<!--					网站头部信息：-->
+<!--				</td>-->
+<!--				<td class="rgTdBt">-->
+<!--					<textarea name="data[headinfo]" cols="150" rows="8"><{$CONFIG.site.headinfo}></textarea>-->
+<!--					<code>首页顶部的信息在这里删除！一般情况下无需填写！</code>-->
+<!--				</td>-->
+<!--			</tr>-->
+<!--			<tr>-->
+<!--				<td class="lfTdBt">-->
+<!--					统计代码：-->
+<!--				</td>-->
+<!--				<td class="rgTdBt">-->
+<!--					<textarea name="data[tongji]" cols="50" rows="5"><{$CONFIG.site.tongji}></textarea>-->
+<!--					<code>模板中调用，有统计代码的填写在这里，或者直接添加模板里面。</code>-->
+<!--				</td>-->
+<!--			</tr>-->
+			  <tr>
+                    <td class="lfTdBt">默认城市：</td>
+                    <td class="rgTdBt">
+                        <select name="data[city_id]" class="selectOption">
+                            <?php  foreach($citys as $val){?>
+                            <option <?php if($val['city_id'] == $CONFIG['site']['city_id']) echo 'selected="selected"' ;?> value="<{$val.city_id}>"><{$val.name}></option>
+                            <?php }?>
+                        </select>
+                        <code>请填写您的默认城市。</code>
+                    </td>
+                </tr>
+			<tr>
+				<td class="lfTdBt" style="padding-right: 0px;">
+					城市中心地图坐标：
+				</td>
+				<td class="rgTdBt">
+                        经度  
+					<input type="text" name="data[lng]" value="<{$CONFIG.site.lng}>" class="scAddTextName " />
+                        纬度 
+					<input type="text" name="data[lat]" value="<{$CONFIG.site.lat}>" class="scAddTextName " />
+					<code>关系到全局默认，请认真填写，这里的默认城市坐标应该跟站点设置里面的坐标一致，切记！</code>
+				</td>
+			</tr>
+			<tr>
+				<td class="lfTdBt">
+					自动收货时间：
+				</td>
+				<td class="rgTdBt">
+                        商城
+					<input type="text" name="data[goods]" value='<{$CONFIG.site.goods}>' style="width: 50px;"  class="scAddTextName " />（天）
+<!--                        外卖-->
+<!--					<input type="text" name="data[ele]" value='<{$CONFIG.site.ele}>' style="width: 50px;"  class="scAddTextName " />（小时）-->
+<!--                    <code>这里直接是影响商家中心用户自动确认收货的时间，请认真填写，一般外卖3小时，商城7天</code>-->
+				</td>
+			</tr>
+<!--			<tr>-->
+<!--				<td class="lfTdBt">-->
+<!--					贴吧发帖免审核：-->
+<!--				</td>-->
+<!--				<td class="rgTdBt">-->
+<!--					<label><input type="radio" name="data[postaudit]" <eq name="CONFIG.site.postaudit" value="1">checked="checked"</eq> value="1"  />开启</label>-->
+<!--					<label><input type="radio" name="data[postaudit]" <eq name="CONFIG.site.postaudit" value="0">checked="checked"</eq>  value="0"  />不开启</label>-->
+<!--					<code>开启之后帖子发布免审核！</code>-->
+<!--				</td>-->
+<!--			</tr>-->
+<!--			<tr>-->
+<!--				<td class="lfTdBt">-->
+<!--					贴吧回帖免审核：-->
+<!--				</td>-->
+<!--				<td class="rgTdBt">-->
+<!--					<label><input type="radio" name="data[replyaudit]" <eq name="CONFIG.site.replyaudit" value="1">checked="checked"</eq> value="1"  />开启</label>-->
+<!--					<label><input type="radio" name="data[replyaudit]" <eq name="CONFIG.site.replyaudit" value="0">checked="checked"</eq>  value="0"  />不开启</label>-->
+<!--					<code>开启之后帖子发布免审核！</code>-->
+<!--				</td>-->
+<!--			</tr>-->
+<!--			<tr>-->
+<!--				<td class="lfTdBt">-->
+<!--					小区发帖免审核：-->
+<!--				</td>-->
+<!--				<td class="rgTdBt">-->
+<!--					<label><input type="radio" name="data[xiaoqu_post_audit]" <eq name="CONFIG.site.xiaoqu_post_audit" value="1">checked="checked"</eq> value="1"  />开启</label>-->
+<!--					<label><input type="radio" name="data[xiaoqu_post_audit]" <eq name="CONFIG.site.xiaoqu_post_audit" value="0">checked="checked"</eq>  value="0"  />不开启</label>-->
+<!--					<code>开启之后小区帖子发布免审核！</code>-->
+<!--				</td>-->
+<!--			</tr>-->
+<!--			<tr>-->
+<!--				<td class="lfTdBt">-->
+<!--					小区回帖免审核：-->
+<!--				</td>-->
+<!--				<td class="rgTdBt">-->
+<!--					<label><input type="radio" name="data[xiaoqu_reply_audit]" <eq name="CONFIG.site.xiaoqu_reply_audit" value="1">checked="checked"</eq> value="1"  />开启</label>-->
+<!--					<label><input type="radio" name="data[xiaoqu_reply_audit]" <eq name="CONFIG.site.xiaoqu_reply_audit" value="0">checked="checked"</eq>  value="0"  />不开启</label>-->
+<!--					<code>开启之后小区回帖发布免审核！</code>-->
+<!--				</td>-->
+<!--			</tr>-->
+<!--			<tr>-->
+<!--				<td class="lfTdBt">-->
+<!--					新闻评论免审核：-->
+<!--				</td>-->
+<!--				<td class="rgTdBt">-->
+<!--					<label><input type="radio" name="data[article_reply_audit]" <eq name="CONFIG.site.article_reply_audit" value="1">checked="checked"</eq> value="1"  />开启</label>-->
+<!--					<label><input type="radio" name="data[article_reply_audit]" <eq name="CONFIG.site.article_reply_audit" value="0">checked="checked"</eq>  value="0"  />不开启</label>-->
+<!--					<code>开启后新闻评论免审核！小心使用！</code>-->
+<!--				</td>-->
+<!--			</tr>-->
+<!--			<tr>-->
+<!--				<td class="lfTdBt">-->
+<!--					物业通知免审核：-->
+<!--				</td>-->
+<!--				<td class="rgTdBt">-->
+<!--					<label><input type="radio" name="data[xiaoqu_news_audit]" <eq name="CONFIG.site.xiaoqu_news_audit" value="1">checked="checked"</eq> value="1"  />开启</label>-->
+<!--					<label><input type="radio" name="data[xiaoqu_news_audit]" <eq name="CONFIG.site.xiaoqu_news_audit" value="0">checked="checked"</eq>  value="0"  />不开启</label>-->
+<!--					<code>开启之后物业发送通知免审核，自己看吧，怕就不要开启自动！</code>-->
+<!--				</td>-->
+<!--			</tr>-->
+<!--			<tr>-->
+<!--				<td class="lfTdBt">-->
+<!--					部落发帖免审核：-->
+<!--				</td>-->
+<!--				<td class="rgTdBt">-->
+<!--					<label><input type="radio" name="data[tribeaudit]" <eq name="CONFIG.site.tribeaudit" value="1">checked="checked"</eq> value="1"  />开启</label>-->
+<!--					<label><input type="radio" name="data[tribeaudit]" <eq name="CONFIG.site.tribeaudit" value="0">checked="checked"</eq>  value="0"  />不开启</label>-->
+<!--					<code>开启之后帖子发布免审核！</code>-->
+<!--				</td>-->
+<!--			</tr>-->
+<!--            -->
+<!--            <tr>-->
+<!--				<td class="lfTdBt">-->
+<!--					分类信息免审核：-->
+<!--				</td>-->
+<!--				<td class="rgTdBt">-->
+<!--					<label><input type="radio" name="data[fabu_life_audit]" <eq name="CONFIG.site.fabu_life_audit" value="1">checked="checked"</eq> value="1"  />开启</label>-->
+<!--					<label><input type="radio" name="data[fabu_life_audit]" <eq name="CONFIG.site.fabu_life_audit" value="0">checked="checked"</eq>  value="0"  />不开启</label>-->
+<!--					<code>发布分类信息是不是免审核，请谨慎选择！</code>-->
+<!--				</td>-->
+<!--			</tr>-->
+			<tr>
+				<td class="lfTdBt">
+					微信自动绑定：
+				</td>
+				<td class="rgTdBt">
+					<label><input type="radio" name="data[weixin]" <eq name="CONFIG.site.weixin" value="1">checked="checked"</eq> value="1"  />开启</label>
+					<label><input type="radio" name="data[weixin]" <eq name="CONFIG.site.weixin" value="0">checked="checked"</eq>  value="0"  />不开启</label>
+					<code>开启后微信端会自动跳转到绑定账号，如果已经绑定账号将自动登录！</code>
+				</td>
+			</tr>
+			<tr>
+				<td class="lfTdBt">
+					全局通知手机号码
+				</td>
+				<td class="rgTdBt">
+					<input type="text" name="data[config_mobile]" value="<{$CONFIG.site.config_mobile}>" class="scAddTextName " />
+					<code>填写有有的场景需要通知给管理员的手机号！</code>
+				</td>
+			</tr>
+			<tr>
+				<td class="lfTdBt">
+					全局通知邮箱
+				</td>
+				<td class="rgTdBt">
+					<input type="text" name="data[config_email]" value="<{$CONFIG.site.config_email}>" class="scAddTextName " />
+					<code>这里是在必要情况下，给站长发邮箱的时候的接受信箱。</code>
+				</td>
+			</tr>
+			<tr>
+				<td class="lfTdBt">
+					是否关闭网站：
+				</td>
+				<td class="rgTdBt">
+					<label><input type="radio" name="data[web_close]" <eq name="CONFIG.site.web_close" value="1">checked="checked"</eq> value="1"  />开启</label>
+					<label><input type="radio" name="data[web_close]" <eq name="CONFIG.site.web_close" value="0">checked="checked"</eq>  value="0"  />关闭</label>
+					<code style="color:#F00">关闭之后前台打不开哦，突发情况以及备案的时候可以关闭，其他时候不要去动！关闭后不影响后台跟商家后台！</code>
+				</td>
+			</tr>
+			<tr>
+				<td class="lfTdBt">
+					关闭网站原因：
+				</td>
+				<td class="rgTdBt">
+					<textarea name="data[web_close_title]" cols="50" rows="4"><{$CONFIG.site.web_close_title}></textarea>
+					<code>这里填写关站原因，将会显示到前台首页！如果不关闭网站不需要填写~</code>
+				</td>
+			</tr>
+			</table>
+		</div>
+		<div class="smtQr">
+			<input type="submit" value="确认保存" class="smtQrIpt"/>
+		</div>
+	</div>
+</form>
+<include file='public:footer'/>

@@ -1,0 +1,100 @@
+<include file='public:header'/>    
+<style>
+.xiaoqu-search { margin-top:2rem;}
+.list-media-x { margin-top: 2.0rem;}
+.list-media-x p {margin: 0;margin-top: .0rem;font-size: 12px;line-height: 20px;}
+</style>
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('worker/index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			商家预约管理
+		</div>
+		<div class="top-share">
+		</div>
+	</header>
+	
+
+
+    
+
+
+<style>ul { padding-left: 0px;}</style>
+<!-- 筛选TAB -->
+<ul id="shangjia_tab">
+        <li style="width: 50%;"><a href="<{:U('yuyue/index')}>" class="on">预约列表</a></li>
+        <li style="width: 50%;"><a href="<{:U('yuyue/used')}>">消费确认</a></li>
+</ul>
+
+  
+
+<div class="list-media-x" id="list-media">
+	<ul>
+<div class="blank-10 bg"></div>
+<foreach name="list" item="var">  
+<li class="line ">
+      <dt><a class="x9">姓名：<{$var.name}></a><a class="x3 text-right">预约ID:<{$var.yuyue_id}></a></dt>
+        
+      <dd class="zhong">
+         <div class="12">
+            
+            <p class="text-gray">手机：<{$var.mobile}></p>
+            <p class="text-gray">预约人数：<if condition="$var['number'] eq 10"><{$var.number}>人（及以上）<else /><{$var.number}>人 </if></p>
+            <p class="text-gray">电子消费券：<a class="text-dot"><{$var.code}></a></p>
+            <p class="text-gray">预约时间：<{$var.yuyue_date}>&nbsp;&nbsp;<{$var.yuyue_time}></p>
+         </div>
+      </dd>
+         
+      <if condition="!empty($var['content'])">  
+      <dt>
+         <div class="x12">
+           <span class="margin-right">留言信息：<{$var.content}></span>
+         </div>
+      </dt> 
+       </if>     
+      <dl>
+         <p class="text-left padding-top x6"><a class="text-smal text-dot1" style=" font-size:12px; letter-spacing:0px;"><{$var.create_time|date='Y-m-d H:i:s',###}></a></p>
+           
+          
+         <p class="text-right padding-top x6"> 
+         <eq name="var.used" value="1"> 
+         <a class="button button-small bg-gray">已使用</a>
+         <else/>
+         <a href="<{:U('worker/yuyue/used2',array('yuyue_id'=>$var['yuyue_id']))}>" class="button button-small bg-dot">确认消费</a>
+         </eq>
+         
+          </p>
+      </dl>
+    </li>
+ 
+    <div class="blank-10 bg"></div>
+   </foreach>   
+  </ul>
+</div> 
+
+<div class="blank-20"></div>
+<div class="container login-open">
+<h5 style="text-align:center"><{$page}><!--分页代码不要忘记加--> </h5>
+</div>
+
+        
+
+        
+
+
+
+
+
+
+
+
+
+		
+
+<include file="public:footer"/>
+
+
+
+
+

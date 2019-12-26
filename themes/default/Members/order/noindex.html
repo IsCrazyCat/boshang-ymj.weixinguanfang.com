@@ -1,0 +1,64 @@
+<include file="public:header" /> 
+<div class="content_right">
+    <div class="tgdd">
+        <div class="tgdd_nr">
+            <table border="0" cellspacing="0" width="100%"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; text-align:center;">
+                <tr class="tgdd_nrt">
+                    <td>套餐订单</td>
+                    <td>数量</td>
+                    <td>总价</td>
+                    <td>使用积分</td>
+                    <td>RMB</td>
+                    <td>订单状态</td>
+                    <td>操作</td>
+                </tr>
+                <volist name="list" id="var">
+                    <tr class="tgdd_nrBh">
+                        <td colspan="7" style="text-align:left;">订单编号：<span class="tgdd_bh"><{$var.order_id}></span></td>
+                    </tr>
+                    <tr class="tgdd_nrC">
+                        <td style="text-align:left;" width="335px"><div class="tgdd_tw">
+                                <div class="left"><a class="myInfor_sx" target="_blank" href="<{:u('home/tuan/detail',array('tuan_id'=>$var['tuan_id']))}>">
+                                
+                                <img src="<{:config_img($tuan[$var['tuan_id']]['photo'])}>" width="81" height="60" /></a></div>
+                                <div class="lef"><a class="myInfor_sx" target="_blank" href="<{:u('home/tuan/detail',array('tuan_id'=>$var['tuan_id']))}>"><{$tuan[$var['tuan_id']]['title']}></a><p>有效期至：<{$tuan[$var['tuan_id']]['fail_date']}></p><p>商家：<a class="myInfor_sx" target="_blank" href="<{:u('home/shop/detail',array('shop_id'=>$var['shop_id']))}>"><{$shops[$var['shop_id']]['shop_name']|default='本站'}></a></p></div>
+                            </div></td>
+                        <td class="tgdd_nrCtd"><{$var.num}></td>
+                        <td class="tgdd_nrCtd">&yen;<{:round($var['total_price']/100,2)}></td>
+                        <td class="tgdd_nrCtd"><{$var.use_integral}></td>
+                        <td class="tgdd_nrCtd">&yen;<{:round($var['need_pay']/100,2)}></td>
+                        <td class="tgdd_nrCtd">
+                            <eq name="var.status" value="0">                               
+                                <a class="myInfor_sx" target="_blank" href="<{:u('home/tuan/pay',array('order_id'=>$var['order_id']))}>">去付款</a>
+                            <else />
+                                <eq name="var.status" value="-1">       
+                                    到店付
+                                <else />
+                                	<php>
+                                    	$tc = D('TuanCode');
+                                        $rtc = $tc -> where('order_id ='.$var['order_id']) -> find();
+                                    </php>
+                                    <eq name="rtc.is_used" value="1">
+                                            <a class="myInfor_sx myInfor_sx_fk" href="javascript:void(0)">已完成</a>
+                                            <if condition="$dianping[$var['order_id']]['order_id'] eq null">
+                                                <a class="myInfor_sx" href="<{:U('dianping/tuandianping',array('order_id'=>$var['order_id']))}>">点评</a>     
+                                            <else/>
+                                                <a class="myInfor_sx myInfor_sx_fk" href="javascript:void(0)">已评价</a>
+                                            </if>
+                                        <else/>
+                                            已付款  未消费
+                                    </eq>
+                                </eq>
+                            </eq>
+                        </td>
+                        <td align="center"><a mini='confirm' class="tgdd_del" href="<{:U('order/delete',array('order_id'=>$var['order_id']))}>">删除</a></td>
+                    </tr>
+                </volist>
+            </table> 
+            <div class="x"><{$page}></div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<include file="public:footer"/>

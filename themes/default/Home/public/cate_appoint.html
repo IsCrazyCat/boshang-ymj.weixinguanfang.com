@@ -1,0 +1,38 @@
+<div class="menu_fllist2">
+    <php>$k = 0;</php>            
+   <foreach name="appointcates" item="item">
+   	<eq name="item.parent_id" value="0"> 
+        <php>$k++;</php>
+        <div <if condition="$i == 1">class="item2 bo"<else/>class="item2"</if> >
+            <h3>
+                <div class="left ico ico_<{$k}>"></div>
+                <div class="wz">
+                	<a class="bt1" title="<{$item}>" target="_blank" href="<{:U('appoint/index',array('cat'=>$item['cate_id']))}>"> <{:msubstr($item['cate_name'],0,4,'utf-8',false)}></a>
+                    <div class="bt2">
+                		 <php>$i=0;</php>
+							<foreach name="appointcates" item="var">
+								<if condition="$var['parent_id'] eq $item['cate_id'] AND $i lt 5">
+									<php>$i++;</php>
+									<if condition="$i lt 4">
+										 <a title="<{$var['cate_name']}>" target="_blank" href="<{:U('appoint/index',array('cat'=>$var['cate_id']))}>"><{:msubstr($var['cate_name'],0,4,'utf-8',false)}></a>
+									</if>
+								</if>
+							</foreach>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </h3>
+            <div class="menu_flklist2">
+                <div class="menu_fl2t"><a title="<{$item.cate_name}>" target="_blank" href="<{:U('appoint/index',array('cat'=>$item['cate_id']))}>"><{:msubstr($item['cate_name'],0,4,'utf-8',false)}></a></div>
+                <div class="menu_fl2nr">
+                    <foreach name="appointcates" item="var">
+						<if condition="$var['parent_id'] eq $item['cate_id']">
+							<a href="<{:U('appoint/index',array('cat'=>$var['cate_id']))}>"><{:msubstr($var['cate_name'],0,4,'utf-8',false)}></a>
+						</if>
+					</foreach>
+                </div>
+            </div>
+        </div>
+        </eq>
+    </foreach>
+</div>

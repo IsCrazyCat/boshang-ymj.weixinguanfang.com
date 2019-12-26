@@ -1,0 +1,157 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">当前位置</li>
+        <li class="li2">快递</li>
+        <li class="li2 li3">添加快递众包</li>
+    </ul>
+</div>
+<form  target="baocms_frm" action="<{:U('express/create')}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                
+                  <tr>
+                    <td class="lfTdBt">所在区域：</td>
+                    <td class="rgTdBt">
+                        
+                        <select name="data[city_id]" id="city_id" style="float: left;" class="seleFl w210"></select>
+                       <select name="data[area_id]" id="area_id" style="float: left;"  class="seleFl w210"></select>
+
+                    </td>
+                </tr>
+                 <script src="<{:U('app/datas/cityarea')}>"></script>
+                <script>
+                    var city_id = 0;
+                    var area_id = 0;
+                    function changeCity(cid){
+                        var area_str = '<option value="0">请选择.....</option>';
+                        for(a in cityareas.area){
+                           if(cityareas.area[a].city_id ==cid){
+                                if(area_id == cityareas.area[a].area_id){
+                                    area_str += '<option selected="selected" value="'+cityareas.area[a].area_id+'">'+cityareas.area[a].area_name+'</option>';
+                                }else{
+                                     area_str += '<option value="'+cityareas.area[a].area_id+'">'+cityareas.area[a].area_name+'</option>';
+                                }  
+                            }
+                        }
+                        $("#area_id").html(area_str);
+                    }
+                    $(document).ready(function(){
+                        var city_str = '<option value="0">请选择.....</option>';
+                        for(a in cityareas.city){
+                           if(city_id == cityareas.city[a].city_id){
+                               city_str += '<option selected="selected" value="'+cityareas.city[a].city_id+'">'+cityareas.city[a].name+'</option>';
+                           }else{
+                                city_str += '<option value="'+cityareas.city[a].city_id+'">'+cityareas.city[a].name+'</option>';
+                           }  
+                        }
+                        $("#city_id").html(city_str);
+                        if(city_id){
+                            changeCity(city_id);
+                        }
+                        $("#city_id").change(function(){
+                            city_id = $(this).val();
+                            changeCity($(this).val());
+                        });
+                        
+                        $("#area_id").change(function () {
+                            var url = '<{:U("business/child",array("area_id"=>"0000"))}>';
+                            if ($(this).val() > 0) {
+                                var url2 = url.replace('0000', $(this).val());
+                                $.get(url2, function (data) {
+                                    $("#business_id").html(data);
+                                }, 'html');
+                            }
+
+                        });
+                    });
+                </script>
+                
+               <tr>
+                    <td class="lfTdBt">用户：</td>
+                    <td class="rgTdBt">
+                        <div class="lt">
+                            <input type="hidden" id="user_id" name="data[user_id]" value="<{$detail.user_id|default=''}>" class="manageInput" />
+                            <input type="text" name="nickname" id="nickname"  value="" />
+                        </div>
+                        <a mini="select"  w="800" h="600" href="<{:U('user/select')}>" class="remberBtn">选择用户</a>
+                    </td>
+                </tr>
+                
+                
+                  
+
+                <tr>
+                    <td class="lfTdBt">标题：</td>
+                    <td class="rgTdBt"><input type="text" name="data[title]" value="<{$detail.title|default=''}>" class="manageInput" />
+					<code>快递的标题</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="lfTdBt">寄件人姓名：</td>
+                    <td class="rgTdBt"><input type="text" name="data[from_name]" value="<{$detail.from_name|default=''}>" class="manageInput" />
+					<code>寄件人姓名</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="lfTdBt">寄件人手机：</td>
+                    <td class="rgTdBt"><input type="text" name="data[from_mobile]" value="<{$detail.from_mobile|default=''}>" class="manageInput" />
+					<code>请填写13位数的正确的手机号码</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="lfTdBt">寄件人地址：</td>
+                    <td class="rgTdBt"><input type="text" name="data[from_addr]" value="<{$detail.from_addr|default=''}>" class="manageInput" />
+					<code>寄件人地址</code>
+                    </td>
+                </tr>
+                
+               
+               
+                <tr>
+                    <td class="lfTdBt">收件人姓名：</td>
+                    <td class="rgTdBt"><input type="text" name="data[to_name]" value="<{$detail.to_name|default=''}>" class="manageInput" />
+					<code>收件人姓名</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="lfTdBt">收件人手机：</td>
+                    <td class="rgTdBt"><input type="text" name="data[to_mobile]" value="<{$detail.to_mobile|default=''}>" class="manageInput" />
+					<code>请填写13位数的正确的手机号码</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="lfTdBt">收件人地址：</td>
+                    <td class="rgTdBt"><input type="text" name="data[to_addr]" value="<{$detail.to_addr|default=''}>" class="manageInput" />
+					<code>收件人地址</code>
+                    </td>
+                </tr>
+                
+                
+                <tr>
+                    <td class="lfTdBt">地图：</td>
+                    <td class="rgTdBt">
+                        <div class="lt">
+                            经度<input type="text" name="data[lng]" id="data_lng" value="<{$detail.lng|default=''}>" class="scAddTextName w200" />
+                            纬度 <input type="text" name="data[lat]" id="data_lat" value="<{$detail.lat|default=''}>" class="scAddTextName w200" />
+                        </div>
+                        <a style="margin-left: 10px;" mini="select"  w="600" h="600" href="<{:U('public/maps')}>" class="seleSj">百度地图</a>
+                </tr> 
+        
+        
+           
+    </table>
+
+<div class="smtQr"><input type="submit" value="确认添加" class="smtQrIpt" /></div>
+
+</form>
+</div>
+</div>
+<include  file='public:footer'/>       

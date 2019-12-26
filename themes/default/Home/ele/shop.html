@@ -1,0 +1,379 @@
+<include file="public:header" /> 
+<include file="public:top"/>
+<script src="/Public/js/my97/WdatePicker.js"></script>
+<script src="/static/default/pc/js/dqq.js"></script>
+<script src="__TMPL__statics/js/jquery.cookie.js?v=20150718"></script>
+<script>
+    $(function () {
+        $(".right_img2").mouseover(function () {
+            $(".rig_xt").show();
+            $(".rig_xt").mouseover(function () {
+                $(".rig_xt").show();
+            })
+            $(".rig_xt").mouseout(function () {
+                $(".rig_xt").hide();
+            });
+        });
+        /* 点菜 */
+    });
+</script>
+<style>
+#cart_waimai .del{cursor: pointer;}
+</style>
+<div class="nav">
+    <div class="navList">
+        <ul>
+            <li class="navListAll zy_navListAll"><i class="nav-bz left"></i><span class="navListAllt">全部套餐分类<em></em></span>
+                <div class="shadowy navAll">
+                    <include file="public:cate"/>
+                </div>
+            </li>
+            <li class="navLi"><a class="navA <if condition='$ctl eq ele and $act eq index'>on</if> " href="<{:U('ele/index')}>">首页</a></li>
+            <li class="navLi"><a class="navA <if condition='$ctl eq ele and $act eq takeout'>on</if>" href="<{:U('ele/takeout')}>">身边外卖</a></li>
+            <li class="navLi"><a class="navA " href="<{:U('ele/index',array('new'=>1))}>">今日新单</a></li>
+            <li class="navLi"><a class="navA" href="<{:U('ele/index',array('hot'=>1))}>">热门疯抢</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="content zy_content content2">
+    <div class="evalOne">
+        <ul class="eval_ul">
+            <li class="eval_li1">
+                <img width="100" height="70" src="<{:config_img($shop['logo'])}>" class=""/>
+            </li>
+            <li class="eval_li2">
+                <p class="furit"><{$shop.shop_name}></p>
+                <if condition="!empty($shop['score'])">
+                <p><span class="spxq_qgpstarBg"><span class="spxq_qgpstar spxq_qgpstar<{$shop.score}>">&nbsp;</span></span></p>
+                <else/>
+                <p>该店铺暂未收到评价</p>
+                </if>
+                
+                <p>电话：<{$shop['tel']}></p>
+            </li>
+            <li class="eval_li3">
+                <p>餐厅地址：<{$shop.addr}></p>
+                <p>营业时间：<{$ex.business_time}></p>
+            </li>
+            <li class="eval_de">
+                <p><span class="eval_num"><{:round($shop['score']/10,1)}></span>分</p>
+                <p>商家评分</p>
+            </li>
+            <li class="eval_de">
+                <p class=""><span class="eval_num"><{$detail.distribution}></span>分钟<img src="__TMPL__statics/images/tp_19.png"></p>
+                <p>平均送餐时间</p>
+            </li>
+            <li class="eval_sc">
+                <a mini="act" href="<{:U('shop/favorites',array('shop_id'=>$detail['shop_id']))}>">
+                    <p><img src="__TMPL__statics/images/tp_20.png" onclick="on()" id="image"></p>
+                    <p>收藏</p>
+                </a>
+                <p class="app_red">(<{$shop['fans_num']}>)</p>
+            </li>
+        </ul>
+    </div>
+  
+    <!--店铺介绍-->
+   <div class="evalOne" style="margin-top:15px;">
+        <ul class="eval_ul">
+            <li class="eval_sc2" style="padding-bottom: 10px;">
+                <a>商家公告：<{:cleanhtml($detail['intro'])}></a>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="app">
+        <div class="appraise">
+            <ul class="pizz">
+                <li class="on"><a href="<{:U('ele/shop',array('shop_id'=>$detail['shop_id']))}>">产品分类</a></li>
+                <li><a href="<{:U('ele/evaluate',array('shop_id'=>$detail['shop_id']))}>">评价</a></li>
+            </ul>
+        </div>
+        <div>
+            <ul class="appraise_3 appra">
+                <foreach name="cates" item="item">
+                  <li <eq name="item.cate_id" value="$cate">class="on"</eq> ><a href="<{:LinkTo('ele/shop',$linkArr,array('cate'=>$item['cate_id']))}>"><{$item.cate_name}></a><code>(<{$item.num}>)</code></li>
+                </foreach>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $(".tabNew_sp1 input").click(function () {
+                if ($(this).prop('checked') == true) {
+                    location.href = $(this).attr('rel');
+                } else {
+                    location.href = $(this).attr('data');
+                }
+            });
+        });
+        </script>
+
+    <div class="between">
+        <div class="cen_l left">
+            <div class="tabNew newDiv">
+                <div class="tabNew_1">
+                    <span class="left tabNew_sp1"><label <if condition="$is_new eq 1"> class="on seat-check"<else/>class="seat-check"</if> ><input type="checkbox" name="is_new"  <eq name="is_new" value="1">checked="checked"</eq>  rel="<{:LinkTo('ele/shop',$linkArr,array('is_new'=>1))}>"  data="<{:LinkTo('ele/shop',$linkArr,array('is_new'=>0))}>"/></label> 新品</span>
+                    <span class="left tabNew_sp1"><label <if condition="$is_hot eq 1"> class="on seat-check"<else/>class="seat-check"</if> ><input type="checkbox" name="is_hot"  <eq name="is_hot" value="1">checked="checked"</eq>  rel="<{:LinkTo('ele/shop',$linkArr,array('is_hot'=>1))}>"  data="<{:LinkTo('ele/shop',$linkArr,array('is_hot'=>0))}>"/></label> 热门</span>
+                    <span class="left tabNew_sp1"><label <if condition="$is_tuijian eq 1"> class="on seat-check"<else/>class="seat-check"</if> ><input type="checkbox" name="is_tuijian"  <eq name="is_tuijian" value="1">checked="checked"</eq>  rel="<{:LinkTo('ele/shop',$linkArr,array('is_tuijian'=>1))}>"  data="<{:LinkTo('ele/shop',$linkArr,array('is_tuijian'=>0))}>"/></label> 招牌</span>
+
+                    <ul class="right">  
+                        <li><a href="<{:LinkTo('ele/shop',$linkArr,array('order'=>'d'))}>">默认排序</a><span class="tabNew_sp">|</span> </li>
+                        <li><a href="<{:LinkTo('ele/shop',$linkArr,array('order'=>'n'))}>">销量<img src="__TMPL__statics/images/tp_24.png"></a><span class="tabNew_sp">|</span> </li>
+                        <li><a href="<{:LinkTo('ele/shop',$linkArr,array('order'=>'p'))}>">价格 <img src="__TMPL__statics/images/tp_25.png"></a></li>
+                    </ul>
+                </div>
+                <div class="tabNew_2">
+                    <ul id="food_lists">
+                        <foreach name="list" item="item">
+                            <li>                           
+                                <div class="tabNew_div opimagAdd">
+                                    <img src="<{:config_img($item['photo'])}>" width="189" height="142">
+                                    <a class="jq_addcart opimagAdd_link" id="price_<{$item['product_id']}>" rel="<{$item.product_id}>" data="<{$item.product_name}>" price="<{:round($item['price']/100,2)}>" href="javascript:void(0);">来一份</a>
+                                </div>                            
+                                <div class="tabNew_div3">
+                                    <div class="left tabNew_p">    
+                                        <p><{:bao_msubstr($item['product_name'],0,10,false)}></p>
+                                        <p class="shou_num">月售<{$item.month_num}>份</p>
+                                        <p>￥<{:round($item['price']/100,2)}>/份</p>
+                                    </div>
+                                    <div style="padding-top: 50px;" class="right">
+                                         <a class="jq_addcart" id="price_<{$item['product_id']}>" rel="<{$item['product_id']}>" data="<{$item.product_name}>" price="<{:round($item['price']/100,2)}>" goods_img="<{:config_img($item['photo'])}>" href="javascript:void(0);"><img src="__TMPL__statics/images/tp_26.png"></a>
+                                    </div>
+                                </div>
+                            </li>
+                        </foreach>
+                    </ul>
+                </div>
+ <div class='x'><{$page}></div>
+            </div>
+
+        </div>
+        <div id="cart_waimai" class="cart">
+            <div class="title">电脑下单不享优惠了哦，优惠手机下单专享</div>
+            <form id="forms"  method="post">
+                <div class="box">
+                    <table width="100%">
+                        <tr class="tit">
+                            <td width="40%" class="food">菜名</td>
+                            <td width="30%">份数</td>
+                            <td width="20%">单价</td>
+                            <td width="10%">操作</td>
+                        </tr>
+                    </table>                                
+                    <div class="center">
+                        <table width="100%" id="food_list">
+                            <if condition="!empty($eleproducts)">
+                                <foreach name="eleproducts" item="item">
+                                    <tr id="jq_tr_<{$item.product_id}>">
+                                        <td class="food"><{$item.product_name}></td>
+                                    <if condition="$item.shop_id neq $detail['shop_id']">
+                                        <td class="numinput">
+                                            <div class="cuts" rel="<{$item.product_id}>">-</div>
+                                            <div><input type="text" readonly="readonly" id="jq_num_<{$item.product_id}>" name="num[<{$item.product_id}>]" value="<{$item.cart_num}>"></div>  
+                                            <div class="adds" rel="<{$item.product_id}>">+</div>
+                                        </td>
+                                        <else/>
+                                        <td class="numinput">
+                                            <div class="cut" rel="<{$item.product_id}>">-</div>
+                                            <div><input type="text" readonly="readonly" id="jq_num_<{$item.product_id}>" name="num[<{$item.product_id}>]" value="<{$item.cart_num}>"></div>  
+                                            <div class="add" rel="<{$item.product_id}>">+</div>
+                                        </td>
+                                    </if>
+                                        <td><{:round($item['price']/100,2)}></td>
+                                         <td><div class="del" rel="<{$item.product_id}>">×</div></td>
+                                    </tr>
+                                </foreach>
+                            </if>
+                        </table>
+
+                    </div>
+
+                    <php>$cha = round($detail['since_money']/100,2) - round($total_money/100,2);</php>
+                    <div class="count"><if condition="$total_money LT $detail['since_money']"><p><span id="since" style="display: inline-block;">还差￥<{$cha}>起送</span><else/><span id="since" style="display: inline-block;">可以起送</span></p></if>
+                        <p>共 <span class="c" id="food_count"><{$cartnum|default='0'}></span> 份,总计<span class="c price">￥</span>
+                            <span class="c price" id="food_money"><{:round($total_money/100,2)}></span></p>
+                    </div>
+                </div>
+                <div class="btn btns"><input type="button" id="sub" value="立即下单"> <input type="button" id="clearcart" style="background-color:#f3f3f3; color:#444;" value="清空"></div>
+            </form>
+        </div>
+
+        <script>
+
+            //购物车parseInt
+            function getCart() {
+                var res = new Array();
+                var cart = $.cookie('eleproducts');
+                if (cart) {
+                    local = cart.split('|');
+                    for (a in local) {
+                        res.push(local[a]);
+                    }
+                }
+                return res;
+            }
+
+
+
+            function setCart(product_id, num) {
+                var res = getCart();
+                var status = false;
+                var total = 0;
+                var money = parseFloat($("#food_money").html());
+                for (a in res) {
+                    local = String(res[a]);
+                    goo = local.split('_');
+                    total += parseInt(goo[1]);
+                    if (parseInt(goo[0]) == product_id) {
+                        status = true;
+                        money += parseFloat($("#price_" + product_id).attr('price')) * parseInt(num);
+                        if ((parseInt(goo[1]) + parseInt(num)) < 0) {
+                            $("jq_tr_" + product_id).remove();
+                        } else {
+                            res.splice(a, 1, parseInt(goo[0]) + '_' + (parseInt(goo[1]) + num));
+                            $("#jq_num_" + product_id).val(parseInt(goo[1]) + parseInt(num));
+                        }
+                    }
+                }
+
+                if (status == false) {
+                    money += parseFloat($("#price_" + product_id).attr('price')) * parseInt(num);
+                    res.push(product_id + '_' + num);
+                }
+
+                money = money.toFixed(2);
+                total += num;
+                var since_money = "<{:round($detail['since_money']/100,2)}>";
+                var cha = (parseFloat(since_money) - money).toFixed(2);
+                if (cha >0) {
+                    $("#since").html("还差￥" + cha + "起送").css("color", "#FE4D3D");
+                } else {
+                    $("#since").html("可以起送").css("color", "#333");
+                }
+
+                $.cookie('eleproducts',  res.join("|"), { path: '/', expires: 7 });
+                $("#food_count").html(total);
+                $("#food_money").html(money);
+            }
+
+
+            $(document).ready(function () {
+                 $(".jq_addcart").click(function () {
+                    var product_id = parseInt($(this).attr('rel'));
+                    var product_name = $(this).attr('data');
+                    var price = parseFloat($(this).attr('price'));
+                    //var num = parseInt($("#jq_num_" + $(this).attr('rel')).val());
+                    var str = "";
+                    str += '<tr id="jq_tr_' + product_id + '">';
+                    str += '<td class="food">' + product_name + '</td>';
+                    str += '<td class="numinput">';
+                    str += '<div class="cut" rel="' + product_id + '">-</div>';
+                    str += '<div><input type="text" readonly="readonly" id="jq_num_' + product_id + '" name="num[' + product_id + ']" value="1"></div>';
+                    str += '<div class="add" rel="' + product_id + '">+</div></td>';
+                    str += '<td>' + price + '</td>';
+					
+				    str += '<td><div class="del" rel="' + product_id + '">×</div></td>';
+					
+					//str += '<td>×</td></tr>';
+					
+					
+					
+                    if ($("#jq_tr_" + product_id).length <= 0) {
+                        $("#food_list").append(str);
+                    }
+					var top1 = $(this).offset().top;
+					var left1 = $(this).offset().left;
+					var top2 = $("#food_list").offset().top;
+					var left2 = $("#food_list").offset().left;
+					$("#smallcarbox img").attr("src",$(this).attr('goods_img')).attr("top1",top1).attr("left1",left1).attr("top2",top2).attr("left2",left2);
+					$("#smallcarbox").css({"top":top1+"px","left":left1+"px"}).show().animate({"top":top2+"px","left":left2+"px"},1000,function(){
+						$("#smallcarbox").hide();
+					});
+                    setCart(product_id, 1);
+                });
+
+
+                $("#food_list").on('click', '.cut', function () {
+                    var obj = $("#jq_num_" + $(this).attr('rel'));
+                    var product_id = $(this).attr('rel');
+                    var num = parseInt(obj.val());
+                    if (num > 0) {
+                        num--;
+                        obj.val(num);
+                        setCart(product_id, -1);
+                    }
+                });
+
+                $("#food_list").on('click', '.add', function () {
+                    var obj = $("#jq_num_" + $(this).attr('rel'));
+                    var product_id = $(this).attr('rel');
+                    var num = parseInt(obj.val());
+                    num++;
+                    obj.val(num);
+                    setCart(product_id, 1);
+                })
+				//删除单个产品购物车
+				 $("#food_list").on('click', '.del', function () {
+                    var obj = $("#jq_num_" + $(this).attr('rel'));
+                    var product_id = $(this).attr('rel');
+                    var num = parseInt(obj.val());
+			
+                    setCart(product_id, -num);
+					layer.msg("删除成功");
+                    window.location.reload(true);
+                })
+
+                $("#sub").click(function () {
+                    var forms = $("#forms").serialize();
+                    var shop_id = "<{$shop.shop_id}>";
+                    $.post("<{:U('ele/order')}>", forms, function (result) {
+                        if (result.status == "login") {
+                            ajaxLogin();
+                        } else if (result.status == "more") {
+                            layer.confirm(result.msg, {
+                                area: '200px', //宽高
+                                btn: ['是的', '不'], //按钮
+                                shade: false //不显示遮罩
+                            }, function () {
+                                $.post("<{:U('ele/delother')}>", {shop_id:shop_id}, function (data) {
+                                    if (data.status == "success") {
+                                        layer.msg(data.msg);
+                                        setTimeout(function () {
+                                            location.reload();
+                                        }, 1000);
+                                    } else {
+                                        layer.msg(data.msg);
+                                    }
+                                }, 'json');
+                            });
+
+                        $('.layui-layer-btn0').css('background', '#2fbdaa');
+                        } else if (result.status == "success") {
+                            $.cookie('eleproducts', null,{ path: '/', expires: 7 });
+                            layer.msg(result.msg, function () {
+                                setTimeout(function () {
+                                    window.location.href = result.url;
+                                }, 1000)
+                            });
+                        } else {
+                            layer.msg(result.msg);
+                        }
+                    }, 'json');
+                });
+
+                $("#clearcart").click(function () {
+                    $.cookie('eleproducts', null,{ path: '/', expires: 7 });
+                    layer.msg("清除成功");
+                    window.location.reload(true);
+                });
+            });
+        </script>
+
+    </div>
+</div>
+
+<include file="public:footer"/>
+

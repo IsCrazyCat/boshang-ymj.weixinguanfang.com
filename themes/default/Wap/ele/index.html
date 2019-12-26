@@ -1,0 +1,226 @@
+<include file="ele:headnear"/>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=qfbt1AS4SZZvfZvSXE0A1Mx2"></script>
+<style>
+.top-fixed .top-title {width: 70%;}
+.cate-wrap{font-size:0;background-color:#fff;border-bottom:1px solid #f3f3f3;width:100%;overflow:hidden;}
+.cate-wrap li{box-sizing:border-box;width:25%;float:left}
+.icon2{color:#555;font-size:16px;text-align:center;display:block;padding:.6rem 0}
+.cate-img{background-size:6rem auto;display:inline-block}
+.cate-img img{width:2.6rem;height:2.6rem}
+.cate-desc{display:block}
+.cate-desc{padding-top:.4rem}
+</style>
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<if condition="empty($keyword)">
+        	<if condition="$is_weixin">
+				<div class="top-title"><i class="icon-map-marker"></i> <span id="local-addr"></span></div>
+            <else/>
+            	<div class="top-title">在线订餐</div>
+            </if>
+        </if>
+		<div class="top-search" style="<if condition="empty($keyword)">display:none;</if>">
+			<form method="post" action="<{:U('ele/index')}>">
+				<input name="keyword" placeholder="<{$keyword|default='输入外卖的关键字'}>"  />
+				<button type="submit" class="icon-search"></button> 
+			</form>
+		</div>
+        <if condition="empty($keyword)">
+		<div class="top-signed">
+			<a id="search-btn" href="javascript:void(0);"><i class="icon-search"></i></a>
+		</div>
+        </if>
+        <div id="allmap" style="display:none;"></div>
+	</header>
+  	<script type="text/javascript">
+	$(function(){
+		$("#search-btn").click(function(){
+			if($(".top-search").css("display")=='block'){
+				$(".top-search").hide();
+				$(".top-title").show(200);
+			}
+			else{
+				$(".top-search").show();
+				$(".top-title").hide(200);
+			}
+		});
+	});
+	</script>	
+	<script>
+	$(document).ready(function () {
+		reset();
+	});	
+	function reset() {
+		var addr = $("#local-addr").html();
+		$("#local-addr").html("定位中……");
+		var map = new BMap.Map("allmap");
+		var point = new BMap.Point(116.331398,39.897445);
+		map.centerAndZoom(point,12);
+		var geolocation = new BMap.Geolocation();
+		geolocation.getCurrentPosition(function(r){
+			if(this.getStatus() == BMAP_STATUS_SUCCESS){
+				var mk = new BMap.Marker(r.point);
+				map.addOverlay(mk);
+				map.panTo(r.point);
+				lat=r.point.lat;
+				lng=r.point.lng;
+				getlat(lng,lat);
+				$('#lbs_lat').val(lat);
+				$('#lbs_lng').val(lng);
+				$("#addr").html(lng+','+lat);
+			}
+			else {
+			}        
+		},{enableHighAccuracy: true})
+		}
+		function getlat(lng,lat){
+		var map = new BMap.Map("allmap"); 
+		var point = new BMap.Point(lng,lat);
+		map.centerAndZoom(point,12);
+		var geoc = new BMap.Geocoder();    
+		var pt = point;
+		geoc.getLocation(pt, function(rs){
+				var addComp = rs.addressComponents;
+				$("#local-addr").html(addComp.city + addComp.district + addComp.street + addComp.streetNumber);
+				$('#lbs_addr').val(addComp.city + addComp.district + addComp.street + addComp.streetNumber);
+			});        
+		}
+	</script>
+    
+     <if condition="empty($cate) && empty($business_id) && empty($order) && empty($keyword)">
+        <ul class="cate-wrap bbOnepx">
+            <volist name="elecate" id="item" key="index">
+                    <php>$i = $index + 1;</php> 
+                        <li>
+                            <a class="icon2" href="<{:LinkTo('ele/index',array('cate'=>$index))}>" tongji_tag="m_home_job_new">
+                                <span class="cate-img" id="job"><img src="/static/default/wap/image/ele/ele_cate_<{$i}>.png" /></span>
+                                <span class="cate-desc"><{$item}></span>
+                            </a>
+                        </li>
+            </volist>
+        </ul>
+    </if>
+    
+    <div id="filter2" class="filter2">
+    <ul class="tab clearfix">
+       <li class="item">
+        <a href="javascript:void(0);"> 
+            <if condition="!empty($cate)">
+            	<volist name="elecate" id="item" key="index">
+                	<if condition="$cate eq $index">
+                		<span id="str_b_node" style="color:#f60"> <{$item}></span>
+                    </if>
+                </volist>
+            <else/>
+                <span id="str_b_node">选择分类</span>
+            </if>
+            <em></em>
+        </a>
+      </li>
+       <li class="item">
+        <a href="javascript:void(0);"> 
+        <if condition="!empty($business)">
+            <span id="str_b_node" style="color:#f60;"><{$bizs[$business]['business_name']}></span>
+            <else/>
+                <if condition="!empty($area)">
+               <span id="str_b_node" style="color:#f60;"><{$areass[$area]['area_name']}></span>
+                <else/>
+                <span id="str_d_node">选择地区</span>
+                </if>
+            </if><em></em>
+        </a>
+      </li>
+       <li class="item">
+            <a href="javascript:void(0);">
+            <if condition="empty($order)">
+                <span id="str_e_node">选择排序</span>
+            <elseif condition="$order eq a"/>
+                <span id="str_b_node" style="color:#f60;">智能排序</span>
+            <elseif condition="$order eq q"/>
+                <span id="str_b_node" style="color:#f60;">起送价最低</span>
+            <elseif condition="$order eq v"/>
+            	<span id="str_b_node" style="color:#f60;">送餐速度最快</span>
+            <elseif condition="$order eq d"/>
+                <span id="str_b_node" style="color:#f60;">距离最近</span>
+            <elseif condition="$order eq s"/>
+                <span id="str_b_node" style="color:#f60;">销量最高</span>
+            </if>
+            <em></em>
+            </a>
+      </li>
+    </ul>
+    
+    <div class="inner" style=" display:none">
+      <ul>
+       <li ><a  <if condition="empty($cate)">style="color:red;"</if> href="<{:LinkTo('ele/index',$linkArr,array('cate'=>0))}>">全部</a></li>
+       <volist name="elecate" id="item" key="index">
+       <li><a <if condition="$cate eq $index">style="color:red;"</if> href="<{:LinkTo('ele/index',$linkArr,array('cate'=>$index))}>"><{$item}></a></li>
+       </volist>
+       </ul>
+    </div>
+    
+    <div class="inner" style=" display:none">
+      <ul id="inner2">
+        <li class="item">
+        <a class="rights" href="<{:LinkTo('ele/index',array('cat'=>$cat))}>">全部地区</a>
+        </li>
+       <foreach name="areas" item="var">
+           <php>if($var['city_id'] == $city_id){</php>         
+            <li id="cat_<{$var['cate_id']}>"><a class="rights hasUlLink" title="<{$var.cate_name}>" href="javascript:void(0);>"><{$var.area_name}></a>
+               <ul id="items0">  
+               <li><a href="<{:LinkTo('ele/index',array('cat'=>$cat,'area'=>$area_id))}>" class="<if condition='empty($business_id)'>on</if>">全部商圈</a></li>
+                <foreach name="bizs" item="product">
+                   <if condition="$product.area_id eq $var['area_id']"> 
+                       <li><a title="<{$product.business_name}>" href="<{:LinkTo('ele/index',array('cat'=>$var['cate_id'],'area'=>$var['area_id'],'business'=>$product['business_id']))}>"> <{$product.business_name}></a>
+                            
+                   </if>
+                </foreach>
+               </ul>
+             </li>
+          <php>}</php>      
+        </foreach>
+       
+      </ul><!--1级end-->
+    
+    </div>
+    
+    <div class="inner" style="display:none;">
+        <ul>
+          <li><a <eq name="order" value="a"> style="color:red;"</eq> href="<{:LinkTo('ele/index',$linkArr,array('order'=>a))}>">智能排序</a></li>
+          <li><a <eq name="order" value="q"> style="color:red;"</eq> href="<{:LinkTo('ele/index',$linkArr,array('order'=>q))}>">起送价最低</a></li>
+          <li><a <eq name="order" value="v"> style="color:red;"</eq> href="<{:LinkTo('ele/index',$linkArr,array('order'=>v))}>">送餐速度最快</a></li>
+          <li><a <eq name="order" value="d"> style="color:red;"</eq> href="<{:LinkTo('ele/index',$linkArr,array('order'=>d))}>">距离最近</a></li>
+          <li><a <eq name="order" value="s"> style="color:red;"</eq> href="<{:LinkTo('ele/index',$linkArr,array('order'=>s))}>">销量最高</a></li>
+         </ul>
+      </div>
+      
+      <div id="parent_container" class="inner_parent" style="display:none;">
+        <div class="innercontent"></div>
+      </div>
+      <div id="inner_container" class="inner_child" style="display:none;">
+        <div class="innercontent"></div>
+      </div>
+    
+</div>
+<!--end-->    
+
+<div id="fullbg" class="fullbg" style="display: none; height: 250px;">
+<i class="pull2"></i>
+</div>
+
+
+
+	<ul id="shop-list" class="shop-list"></ul>
+
+	<script>
+	
+		showFilter({ibox:'filter2',content1:'parent_container',content2:'inner_container',fullbg:'fullbg'});
+
+		$(document).ready(function () {
+			loaddata('<{$nextpage}>', $("#shop-list"), true);
+		});
+	</script>
+
+<include file="public:footer"/>

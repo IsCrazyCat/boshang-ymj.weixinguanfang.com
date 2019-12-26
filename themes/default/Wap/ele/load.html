@@ -1,0 +1,24 @@
+<foreach name="list" item="var">
+<li class="line" >
+	<a class="ac" onclick="liclick(this);" href="javascript:;">
+		<div class="x4">
+        
+			<img url="<{:config_img($var['photo'])}>" src="<{:config_img($var['photo'])}>">
+		</div>
+		<div class="x8">
+			<h5><{$var.product_name}></h5>
+			<p class="price"><span class="unit_price">&yen;<{:round($var['price']/100,2)}></span></p>
+			<h1 style="display:none"><{$var.desc}></h1>
+		</div>
+	</a>
+    
+<div class="num-input">
+<div class="btn jq_jian" val="<{:round($var['price']/100,2)}>" did="<{$var.product_id}>" onclick="dec(this);">-</div>
+<div class="input"><input type="text" class="ordernum" readonly="readonly" value="<{$var.cart_num}>" /></div>
+<div class="btn active jq_addcart" val="<{:round($var['price']/100,2)}>" did="<{$var.product_id}>" onclick="addcart(this);" >+</div>
+</div>
+                                
+                                
+                                
+</li>
+</foreach>

@@ -1,0 +1,85 @@
+<include file='public:header'/>    
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('running/detail',array('running_id'=>$running['running_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			跑腿订单支付
+		</div>
+	</header>
+
+	
+
+	<form class="pay-form" action="<{:U('running/pay2',array('running_id'=>$running['running_id']))}>" method="post"  target="x-frame">
+    <div class="blank-10"></div>
+		<div class="row">
+			<span class="float-left">支付编号：</span>
+			<span class="float-right"><{$running.running_id}></span>
+		</div>
+		<hr />
+        <if condition="!empty($running['price'])">
+		<div class="row">
+			<span class="float-left">支付价格：</span>
+			<span class="float-right">&yen;<{:round($running['price']/100,2)}>元</span>
+		</div>
+		<hr />
+        </if>
+        <div class="row">
+			<span class="float-left">跑腿费用：</span>
+			<span class="float-right">&yen;<{:round($running['freight']/100,2)}>元</span>
+		</div>
+		<hr />
+        <div class="row">
+			<span class="float-left">实际支付：</span>
+			<span class="float-right">&yen;<{:round($running['need_pay']/100,2)}>元</span>
+		</div>
+		<hr />
+        <div class="row">
+			<span class="float-left">跑腿需求：</span>
+			<span class="float-right"><{$running['title']}></span>
+		</div>
+        <div class="blank-10"></div>
+		<div class="blank-10 bg"></div>
+   
+        
+       <!--填写END-->
+
+		<ul id="pay-method" class="pay-method">
+			<foreach name="payment" item="var">
+			<li data-rel="<{$var.code}>" class="media media-x payment">
+				<a class="float-left"  href="javascript:;">
+					<img src="/static/default/wap/image/pay/<{$var.mobile_logo}>">
+				</a>
+				<div class="media-body">
+					<div class="line">
+						<div class="x10">
+						<{$var.name}><p>推荐已安装<{$var.name}><{$var.id}>客户端的用户使用</p>
+						</div>
+						<div class="x2">
+							<span class="radio txt txt-small radius-circle bg-green"><i class="icon-check"></i></span>
+						</div>
+					</div>
+				</div>
+			</li>
+			</foreach>
+		</ul>
+		<input id="code" type="hidden" name="code" value="" />
+		
+		<div class="text-center padding-left padding-right margin-large-top">
+			<button type="submit" class="button button-big button-block bg-yellow  submit">提交订单</button>
+		</div>
+		
+		<div class="blank-20"></div>
+	</form>
+</div>
+<script>
+		$("#pay-method li").click(function(){
+				var code = $(this).attr("data-rel");
+				$("#code").val(code);
+				$("#pay-method li").each(function(){
+					$(this).removeClass("active");
+				});
+				$(this).addClass("active");
+			});
+    </script>
+<iframe id="x-frame" name="x-frame" style="display:none;"></iframe>

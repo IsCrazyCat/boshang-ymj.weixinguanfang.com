@@ -1,0 +1,56 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">基本设置</li>
+        <li class="li2 li3">微店设置</li>
+    </ul>
+</div>
+<p class="attention"><span>注意：</span>
+这里主要是在程序开发的过程中需要调用某个特定类型的微店，这里填入的对应值是商家分类的ID！如果需要做二次开发可以在这个页面配置或者直接在模版里面调用分类ID！
+</p>
+<form  target="baocms_frm" action="<{:U('setting/weidian')}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">便利店：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[bianlidian]" value="<{$CONFIG.weidian.bianlidian}>" class="scAddTextName w150" />
+                        <code>便利店对应的商家分类ID</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">鲜花店：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[xianhuadian]" value="<{$CONFIG.weidian.xianhuadian}>" class="scAddTextName w150" />
+                        <code>鲜花店对应的商家分类ID</code>
+                    </td>
+                </tr>
+             <tr>
+                    <td class="lfTdBt">生鲜店：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[shengxiandian]" value="<{$CONFIG.weidian.shengxiandian}>" class="scAddTextName w150" />
+                        <code>生鲜店对应的商家分类ID</code>
+                    </td>
+                </tr>
+                 <tr>
+                    <td class="lfTdBt">烤鸭店：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[kaoyadian]" value="<{$CONFIG.weidian.kaoyadian}>" class="scAddTextName w150" />
+                        <code>烤鸭店对应的商家分类ID</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">蛋糕店：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[dangaodian]" value="<{$CONFIG.weidian.dangaodian}>" class="scAddTextName w150" />
+                        <code>蛋糕店对应的商家分类ID</code>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>   

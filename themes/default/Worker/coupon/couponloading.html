@@ -1,0 +1,32 @@
+		<foreach name="list" item="item">
+		<li class="line tuan-card">
+			<div class="x8">
+				<div class="card-l">
+					<p>名称：<{:bao_Msubstr($coupon[$item['coupon_id']]['title'],0,16,false)}></p>
+					<p>商家：<em class="text-yellow margin-right"><{:bao_Msubstr($shops[$item['shop_id']]['shop_name'],0,16,false)}></i></em>
+                    <p>密码：<em class="text-yellow margin-right"><{$item.code}></i></em>
+                       <if condition="($item['is_used'] eq 0) or ($coupon[$item['coupon_id']]['expire_date'] lt $today) ">
+					   <if condition="$item['is_used'] eq 1">已使用<else/><span class="text-green">未使用</span></if>
+					<p>有效期：<{$coupon[$item['coupon_id']]['expire_date']}>  <a class="margin-left text-dot" href="<{:u('wap/shop/detail',array('shop_id'=>$item['shop_id']))}>">去使用</a></p>
+					   <else />
+					   已过期   <a class="margin-left text-dot"  href="<{:U('/worker/coupon/coupondel',array('download_id'=>$item['download_id']))}>">删除</a>
+					   </if>
+					</p>
+				</div>
+
+			</div>
+			<div class="x4">
+				<div class="card-r">
+					<a href="<{:U('/worker/coupon/weixin',array('download_id'=>$item['download_id']))}>">
+						<img src="/static/default/pc/image/wx.png" />
+						<p>点击查看二维码</p>
+					</a>
+				</div>
+			</div>
+		</li>
+		<div class="blank-10 bg"></div>
+
+            
+       </foreach>
+            
+</div>

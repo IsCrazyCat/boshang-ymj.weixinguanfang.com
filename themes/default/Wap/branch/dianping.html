@@ -1,0 +1,39 @@
+<include  file='public:header'/>  
+<style>
+.container { margin-top: 2rem;}
+</style>
+<script src="/static/default/wap/js/dialog.js"></script>
+<link href="/static/default/wap/css/dianping.css" rel="stylesheet">
+	
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('shop/branches',array('shop_id'=>$detail['shop_id'],'branch_id'=>$detail['branch_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<{$detail.name}>
+		</div>
+        <div class="top-ping">
+        <a href="<{:u('user/dianping/index',array('shop_id'=>$detail['shop_id'],'branch_id'=>$detail['branch_id']))}>" class="top-addr icon-pencil-square-o"></a>
+		</div>
+	</header>
+    
+<style>
+ul{ padding-left:0px;}
+</style>     
+<ul id="shangjia_tab">
+     <li style="width:25%;"><a href="<{:U('shop/branches',array('shop_id'=>$detail['shop_id'],'branch_id'=>$detail['branch_id']))}>" >首页</a></li>
+     <li style="width:25%;"><a href="<{:U('branch/tuan',array('shop_id'=>$detail['shop_id'],'branch_id'=>$detail['branch_id']))}>">套餐</a></li>
+     <li style="width:25%;"><a href="<{:U('branch/dianping',array('shop_id'=>$detail['shop_id'],'branch_id'=>$detail['branch_id']))}>" class="on">评价</a></li>
+     <li style="width:25%;"><a href="<{:U('shop/detail',array('shop_id'=>$detail['shop_id']))}>">总店</a></li>
+</ul>
+	
+ <div id="coupon-list" class="coupon-list2"></div>
+    <script>
+        $(document).ready(function () {
+            loaddata('<{$nextpage}>', $("#coupon-list"), true);
+        });
+    </script>
+	
+
+
+<include  file='public:footer'/>   

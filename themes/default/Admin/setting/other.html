@@ -1,0 +1,119 @@
+<include  file='public:header'/>
+<style>.lfTdBt {width: 250px;}</style>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">基本设置</li>
+        <li class="li2 li3">其他设置</li>
+    </ul>
+</div>
+<p class="attention"><span>注意：</span>其他设置在这里</p>
+<form  target="baocms_frm" action="<{:U('setting/other')}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+            
+               <tr>
+                    <td class="lfTdBt">PC全局搜索显示文字：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[pc_search_title]" value="<{$CONFIG.other.pc_search_title}>" class="scAddTextName w150" />
+						<code>PC全局搜索显示的文字，比如：海报、节日、等</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="lfTdBt">WAP全局搜索显示文字：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[wap_search_title]" value="<{$CONFIG.other.wap_search_title}>" class="scAddTextName w150" />
+						<code>手机端全局搜索显示的文字</code>
+                    </td>
+                </tr>
+                
+                
+                <tr>
+                    <td class="lfTdBt">PC模板主色调：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[color]" value="<{$CONFIG.other.color}>" class="scAddTextName w150" />
+						<code>请填写比如：#ccc 之类的颜色代码</code>
+                    </td>
+                </tr>
+                
+                
+                <tr>
+                    <td class="lfTdBt">美洽帐号UID：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[mechat]" value="<{$CONFIG.other.mechat}>" class="scAddTextName w150" />
+						<code>使用本模块需注册美洽账号并获取帐号ID信息!http://meiqia.com/，针对新模板的，niu模板无效</code>
+                    </td>
+
+                </tr>
+                
+                <tr>
+                    <td class="lfTdBt">是否开启手机版美洽客服：</td>
+                    <td class="rgTdBt">
+                        <label><input type="radio" name="data[mechataudit]" <eq name="CONFIG.other.mechataudit" value="1">checked="checked"</eq> value="1"  />开启</label>
+                        <label><input type="radio" name="data[mechataudit]"  <eq name="CONFIG.other.mechataudit" value="0">checked="checked"</eq>  value="0"  />不开启</label>
+                        <code>开启之后手机版就显示在线客服，针对新模板的，niu模板无效</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="lfTdBt">手机访问PC页面自动跳转到手机版：</td>
+                    <td class="rgTdBt">
+                        <label><input type="radio" name="data[url_jump]" <eq name="CONFIG.other.url_jump" value="1">checked="checked"</eq> value="1"  />开启</label>
+                        <label><input type="radio" name="data[url_jump]"  <eq name="CONFIG.other.url_jump" value="0">checked="checked"</eq>  value="0"  />不开启</label>
+                        <code>开启之后手机访问PC页面自动跳转到手机版！</code>
+                    </td>
+                </tr>
+                
+                 <tr>
+                    <td class="lfTdBt">是否开启手机底部炫酷导航：</td>
+                    <td class="rgTdBt">
+                        <label><input type="radio" name="data[footeraudit]" <eq name="CONFIG.other.footeraudit" value="1">checked="checked"</eq> value="1"  />开启</label>
+                        <label><input type="radio" name="data[footeraudit]"  <eq name="CONFIG.other.footeraudit" value="0">checked="checked"</eq>  value="0"  />不开启</label>
+                        <code>开启之后手机版就显点击弹出那个导航菜单，针对新模板的，niu模板无效</code>
+                    </td>
+                </tr>
+                
+                 <tr>
+                    <td class="lfTdBt">是否开启手机底部导航：</td>
+                    <td class="rgTdBt">
+                        <label><input type="radio" name="data[footer]" <eq name="CONFIG.other.footer" value="1">checked="checked"</eq> value="1"  />开启</label>
+                        <label><input type="radio" name="data[footer]"  <eq name="CONFIG.other.footer" value="0">checked="checked"</eq>  value="0"  />不开启</label>
+                        <code>这个是针对niucms的底部导航模板的</code>
+                    </td>
+                </tr>
+                
+                
+                  <tr>
+                    <td class="lfTdBt">手机WAP导航开启图片模式：</td>
+                    <td class="rgTdBt">
+                        <label><input type="radio" name="data[wap_navigation]" <eq name="CONFIG.other.wap_navigation" value="1">checked="checked"</eq> value="1"  />开启</label>
+                        <label><input type="radio" name="data[wap_navigation]"  <eq name="CONFIG.other.wap_navigation" value="0">checked="checked"</eq>  value="0"  />不开启</label>
+                        <code>就是WAP导航是显示你传的图片还是您写的fontawesome图标，开启显示图片模式，不开启显示ioc图标模式</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="lfTdBt">是否开启LBS识别地区：</td>
+                    <td class="rgTdBt">
+                        <label><input type="radio" name="data[wap_index_addr]" <eq name="CONFIG.other.wap_index_addr" value="1">checked="checked"</eq> value="1"  />开启</label>
+                        <label><input type="radio" name="data[wap_index_addr]"  <eq name="CONFIG.other.wap_index_addr" value="0">checked="checked"</eq>  value="0"  />不开启</label>
+                        <code>开启后自动弹出地区选择，基础版本默认不带此功能</code>
+                    </td>
+                </tr>
+                 <tr>
+                    <td class="lfTdBt">开启自动弹出绑定微信：</td>
+                    <td class="rgTdBt">
+                        <label><input type="radio" name="data[check_connect_uid]" <eq name="CONFIG.other.check_connect_uid" value="1">checked="checked"</eq> value="1"  />开启</label>
+                        <label><input type="radio" name="data[check_connect_uid]"  <eq name="CONFIG.other.check_connect_uid" value="0">checked="checked"</eq>  value="0"  />不开启</label>
+                        <code>用户登录wap会员中心后，必须强制绑定微信【非微信登录用户】才能浏览，不开启不默认绑定，如果开启就是强制性的</code>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>       
+

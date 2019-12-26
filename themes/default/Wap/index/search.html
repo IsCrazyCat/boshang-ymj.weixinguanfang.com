@@ -1,0 +1,85 @@
+<include  file='public:header'/>    
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			综合搜索
+		</div>
+	</header>
+
+
+    <script>
+        $(document).ready(function () {
+            $("#search-type li").click(function () {
+                $("#search-form").prop('action', $(this).attr('rel'));
+				$("#select-btn").html($(this).html());
+				$("#search-type").toggle();
+            });
+			
+            $("#select-btn").click(function () {
+                $("#search-type").toggle();
+            });
+        });
+    </script>
+	
+	
+	<div class="container">
+	
+	<style>
+		
+		.search-box{padding-top:60px;height:50px;display:inline;margin-top:20px;}
+		.search-select{width:20%;float:left;height:40px;background:#FFF;border:thin solid #DDD;cursor:pointer;display:inline;position:relative;}
+		.search-select span{width:100%;height:40px;text-align:center;line-height:40px;display:block;}
+		.search-select .search-type {z-index:999;background:#FFF;border:thin solid #DDD;border-top:none;display:none;position:absolute;top:39px;left:-1px;width:104%;list-style:none;padding:0;}
+		.search-select .search-type li{height:35px;line-height:35px;border-bottom:thin solid #DDD;text-align:center;}
+		.search-select .search-type li:last-child{border:none;}
+		.search-text{width:60%;float:left;height:40px;background:#FFF;border:thin solid #DDD;cursor:pointer;border-left:none!important;border-right:none!important;}
+		.search-text input{border:none;height:38px;border-radius:none;padding-left:10px;width:100%;}
+		.search-btn {background:#F60;width:20%;height:40px;text-align:center;line-height:40px;float:left;display:inline;overflow:hidden;}
+		.search-btn input{width:100%;height:38px;text-align:center;line-height:40px;float:left;padding:0;background:#F60;border:none;color:#FFF;}
+		
+		.search-hot{margin-top:20px;padding:20px 0;}
+		.search-hot .hot-hd{height:30px;width:100%;line-height:30px;overflow:hidden;}
+		.search-hot .hot-bd{overflow:hidden;list-style:none;padding:0;}
+		.search-hot .hot-bd li{width:20%;float:left;height:30px;line-height:30px;}
+		
+	</style>
+		<div class="blank-30"></div>
+		<div class="mui-content-padded">
+			<div class="search-box">
+				<form id="search-form"  method="post" action="<{:U('shop/index')}>">
+					<div class="search-select">
+						<span id="select-btn">商家</span>
+						<ul id="search-type" class="search-type">
+							<li rel="<{:U('shop/index')}>">商家</option>
+							<li rel="<{:U('tuan/index')}>">套餐</option>
+							<li rel="<{:U('mall/index')}>">商品</option>
+							<li rel="<{:U('life/index')}>">信息</option>
+							<li rel="<{:U('huodong/index')}>">活动</option>
+						</ul>
+					</div>
+					<div class="search-text">
+						<input type="text" placeholder="输入您要搜索的内容" value="<{$keyword}>" name="keyword"/>
+					</div>
+					<div class="search-btn">
+						<input type="submit" rel="search-form" value="搜索" />
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		<div class="blank-20"></div>
+		
+        <div class="search-hot">
+            <div class="hot-hd">热词搜索</div>
+            <ul class="hot-bd">
+                <volist name="keys" id="item" key="index">
+                    <li <if condition="$index%4 eq 0">style="margin-right:0px;"</if> ><a <if condition="$item['type'] eq 1 || $item['type'] eq 0">style="color:#3186f9;"  href="<{:U('shop/index',array('keyword'=>$item['keyword']))}>"<elseif condition="$item['type'] eq 2"/>style="color:#ff2121;" href="<{:U('tuan/index',array('keyword'=>$item['keyword']))}>"<elseif condition="$item['type'] eq 4"/>style="color:#d71fed;"  href="<{:U('mall/index',array('keyword'=>$item['keyword']))}>"<elseif condition="$item['type'] eq 3"/>style="color:#ff2121;"  href="<{:U('life/index',array('keyword'=>$item['keyword']))}>"</if>  ><{$item.keyword}></a></li>
+                </volist>
+            </ul>
+        </div>
+
+	</div>
+
+<include  file='public:footer'/>      	

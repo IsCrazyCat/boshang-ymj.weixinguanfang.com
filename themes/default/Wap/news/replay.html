@@ -1,0 +1,136 @@
+<php>$seo_title = $detail['title'];</php>
+<include  file='public:header'/>
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('news/detail',array('article_id'=>$detail['article_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			查看评论
+		</div>
+		<div class="top-share">
+			<a href="javascript:void(0);" id="share-btn"><i class="icon-share"></i></a>
+		</div>
+	</header>
+	<div id="share-box" class="share-box">
+		<div class="dialog-mask"></div>
+			<ul class="line">
+				<li class="-mob-share-weibo x3">
+					<img src="/static/default/wap/image/share/share-weibo.png" />
+					<p>新浪微博</p>
+				</li>
+				<li class="-mob-share-tencentweibo x3">
+					<img src="/static/default/wap/image/share/share-twb.png" />
+					<p>腾讯微博</p>
+				</li>
+				<li class="-mob-share-qzone x3">
+					<img src="/static/default/wap/image/share/share-qzone.png" />
+					<p>QQ空间</p>
+				</li>
+				
+				<li class="-mob-share-qq x3">
+					<img src="/static/default/wap/image/share/share-py.png" />
+					<p>QQ好友</p>
+				</li>
+				<li class="-mob-share-weixin x3">
+					<img src="/static/default/wap/image/share/share-weixin.png" />
+					<p>微信</p>
+				</li>
+				<li class="-mob-share-renren x3">
+					<img src="/static/default/wap/image/share/share-renren.png" />
+					<p>人人网</p>
+				</li>
+				<li class="-mob-share-kaixin x3">
+					<img src="/static/default/wap/image/share/share-kaixin.png" />
+					<p>开心网</p>
+				</li>
+				<li id="mui-card-close" class="mui-card-close x3">
+					<img src="/static/default/wap/image/share/share-close.png" />
+					<p>关闭</p>
+				</li>
+			</ul>
+		<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=890ab8bbdb3c"></script>
+	</div>
+	<script>
+		$(document).ready(function () {
+			$("#share-box").hide();
+			$("#share-btn").click(function () {
+				$("#share-box").toggle();
+			});
+			$("#mui-card-close").click(function () {
+				$("#share-box").hide();
+			});
+		});
+	</script>
+	
+	<div class="blank-10"></div>
+	<div class="line padding-left text-dot"><h4>评论：<{$detail.title}></h4></div>
+	<div class="blank-10"></div>
+	<div class="tab" data-toggle="click">
+		<div class="tab-head">
+			<span class="tab-more padding-right"><a href="<{:U('news/detail',array('article_id'=>$detail['article_id']))}>">查看原文章</a></span>
+			<ul class="tab-nav padding-left">
+				<li class="active"><a href="#tab-list">网友评论</a></li>
+				<li><a href="#tab-post">我要回复</a></li>
+			</ul>
+		</div>
+	
+		<div class="tab-body">
+			<div class="tab-panel active" id="tab-list">
+				<div id="comm-list" class="comm-list">
+				</div>
+			</div>
+			<div class="tab-panel" id="tab-post">
+				<form class="form padding-left padding-right" action="<{:U('news/post')}>"  method="post">
+					<input type="hidden" value="0" name="data[parent_id]" />
+					<input type="hidden" value="<{$detail.article_id}>" name="data[post_id]" />
+					<div class="blank-10"></div>
+					<div class="form-group">
+						<div class="field">
+							<textarea class="input" name="data[content]" row="5" placeholder="输入评论内容"></textarea>
+						</div>
+					</div>
+					<div class="blank-10"></div>
+					<div class="form-button"><button class="button" type="submit">提交回复</button></div>
+				</form>
+				<div class="blank-20"></div>
+			</div>
+		</div>
+	</div>
+	<script>
+	$(document).ready(function () {
+		loaddata('<{$nextpage}>', $("#comm-list"), true);
+	});
+	//点击"回复"按钮显示或隐藏回复输入框
+	$("body").delegate(".comment-reply","click",function(){
+		var uid = "<{$MEMBER[user_id]}>";
+		if(uid==""){
+			location.href = "<{:U('passport/login')}>";
+		}else{
+			if($(this).next().length>0){//判断出回复div已经存在,去除掉
+				$(this).next().remove();
+			 }else{//添加回复div
+				$(".comment-reply").next().remove();//删除已存在的所有回复div	
+				//添加当前回复div
+				var parent_id = $(this).attr("comment_id");//要回复的评论id
+				
+				var divhtml = "";
+				if('off'!=$(this).attr("replyswitch")){//二级评论回复后三级评论不再提供回复功能,将关闭属性附加到"提交回复"按钮"
+					divhtml = "<form class='form margin-small' action='/mobile/news/post.html'  method='post'><input type='hidden' value='"+<{$detail.article_id}>+"' name='data[post_id]' ><input type='hidden' value='"+parent_id+"' name='data[parent_id]' ><div class='div-reply-txt'><textarea name='data[content]' class='input'></textarea><div style='margin-top:5px;text-align:right;'><button class='comment-submit button' type='submit' >提交回复</button></div></div></form>";
+				}		 	
+				$(this).after(divhtml);
+			 }
+		}
+	});
+	$("body").delegate(".zan","click",function(){
+		var url = $(this).attr("rel");
+		var id = $(this).attr("id");
+		
+		$.get(url,function(result){
+			$("#"+id).find("em").html(result);
+			alert("点赞成功！");
+		});
+		
+	});
+	
+	</script>	
+<include  file='public:footer'/> 

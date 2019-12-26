@@ -1,0 +1,17 @@
+<foreach name="tuans" item="item">
+<div class="rush-content">
+    <div class="list-img">
+        <a title="<{$item.title}>" href="<{:U('tuan/detail',array('tuan_id'=>$item['tuan_id']))}>"><img src="<{:config_img($item['photo'])}>"></a>
+    </div>
+    <div class="list-content">
+        <a title="<{$item.title}>" href="<{:U('tuan/detail',array('tuan_id'=>$item['tuan_id']))}>">
+            <p class="overflow_clear"><{$item.title}></p>
+            <p class="c_h h15 overflow_clear"><{:msubstr($item['intro'],0,20)}></p>
+            <p>
+            <span class="price price-two">￥<{:round($item['tuan_price']/100,2)}></span>
+            <span class="sell"><{$item.d}></span>
+            </p>
+        </a>
+    </div>
+</div>
+</foreach>

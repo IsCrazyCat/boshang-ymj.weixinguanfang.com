@@ -1,0 +1,77 @@
+/*卖场列表*/
+.market-list .item{overflow:hidden;padding:10px 0;border-bottom:thin solid #EEE;display:block;position:relative;}
+.market-list .item .pic{float:left;width:100px;height:80px;width:80px;}
+.market-list .item .des{float:left;width:100%;padding-left:90px;position:absolute;left:0;}
+.market-list .item .des h5{overflow:hidden;margin-bottom:5px;width:100%;}
+.market-list .item .des .distance{float:right;}
+.market-list .item .des .addr{padding:5px 0;font-size:12px;color:#999;}
+.market-list .item .des .info{padding:5px 0;font-size:12px;}
+
+/*幻灯图片*/
+.focus{ width:100%;margin:0 auto; position:relative; overflow:hidden;   }
+.focus .hd{ width:100%; height:11px; position:absolute; z-index:1; bottom:5px; text-align:center;  }
+.focus .hd ul{ display:inline-block; height:10px; padding:3px 5px; background-color:rgba(255,255,255,0.7);-webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px; font-size:0; vertical-align:top;}
+.focus .hd ul li{display:inline-block; width:5px; height:5px; -webkit-border-radius:5px; -moz-border-radius:5px; border-radius:5px; background:#8C8C8C; margin:0 5px; vertical-align:top; overflow:hidden;   }
+.focus .hd ul .on{ background:#FE6C9C;  }
+.focus .bd{position:relative; z-index:0; }
+.focus .bd li img{width:100%;max-height:180px;background:url(images/loading.gif) center center no-repeat;  }
+.focus .bd li a{ -webkit-tap-highlight-color:rgba(0, 0, 0, 0); }
+
+.index-guide{border-bottom:thin solid #eee;}
+.index-guide span{width:25%;display:block;float:left;}
+.index-guide .col{width:100%;padding:5% 15%;display:block;color:#999;text-align:center;}
+.index-guide .col img{width:80%;}
+.index-guide .col p{margin:0;height:30px;line-height:30px;text-align:center;width:100%;overflow:hidden;font-size:12px;}
+
+.spread-intro li {
+    padding: 0.8rem;
+    border-bottom: 1px #DEDEDE solid;
+    line-height: 0.25rem;list-style-type:none;
+}
+.border-bottom ul{  padding-left:0px}
+.border-bottom ul li{list-style-type:none;padding: 0.8rem;}
+/*卖场详情*/
+.market-detail p{margin:0;}
+.market-detail ul{padding:0;list-style:none;}
+.market-detail h4{height:40px;line-height:40px;}
+.market-detail .hd-list li{overflow:hidden;padding:10px;border-top:thin solid #eee;}
+.market-detail .hd-list a{display:block;}
+.market-detail .hd-list h5{float:left;}
+.market-detail .hd-list span{float:right;color:#999;font-size:12px;}
+
+/*活动内容*/
+.hd-detail{width:100%;padding:10px;}
+.hd-detail h1{font-size:18px;font-weight:700;text-align:center;}
+.hd-detail .detail-des{height:30px;line-height:30px;text-align:center;color:#999;}
+.hd-detail .detail-des span{margin-right:10px;}
+.hd-detail .detail-read{font-size:14px;line-height:20px;background:#FFF;width:100%;word-break:break-all;}
+.hd-detail .detail-read img{max-width:100%!important;}
+.hd-detail .detail-read p{text-indent:0;margin:5px 0;}
+
+
+/* 店铺列表 */
+.shop-list .item{overflow:hidden;padding:10px 0;border-bottom:thin solid #EEE;display:block;position:relative;}
+.shop-list .item .pic{float:left;width:100px;height:80px;width:80px;}
+.shop-list .item .des{float:left;width:100%;padding-left:90px;position:absolute;left:0;}
+.shop-list .item .des h5{overflow:hidden;margin-bottom:5px;width:100%;}
+.shop-list .item .des .distance{float:right;}
+.shop-list .item .des .addr{padding:5px 0;font-size:12px;color:#999;}
+.shop-list .item .des .info{padding:5px 0;}
+
+/*三格标题*/
+.main-title {text-align:center;padding:10px 0;}
+.main-title h2{height:20px;line-height:20px;font-size:16px;}
+.main-title p{margin:0;font-size:12px;color:#999;}
+.main-title hr{margin:20px 0;}
+
+/*主页列表*/
+.main-tuan {overflow:hidden;}
+.main-tuan ul{list-style:none;padding:0;}
+.main-tuan li{padding:10px 0;border-bottom:thin solid #eee;}
+.main-tuan li img{float:left;border-radius:3px;overflow:hidden;}
+.main-tuan li .des {padding-left:5px;}
+.main-tuan li .des h5{height:20px;line-height:20px;overflow:hidden;}
+.main-tuan li .des .intro{height:20px;line-height:20px;color:#999;overflow:hidden;margin:0;font-size:12px;}
+.main-tuan li .des .info {color:#F60;font-size:11px;margin:0;overflow:hidden;}
+.main-tuan li .des .info del{color:#999;margin-left:20px;}
+.main-tuan li .des .info em{font-size:14px;}

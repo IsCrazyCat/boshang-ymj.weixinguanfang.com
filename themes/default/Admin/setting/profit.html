@@ -1,0 +1,139 @@
+<include  file='public:header'/>
+<style>
+.lfTdBt { width: 200px;}
+.profit{ text-align:center; color:#fff; font-weight:bold; background:#00C;}
+</style>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">分销</li>
+        <li class="li2 li3">分销设置</li>
+    </ul>
+</div>
+
+<p class="attention"><span>注意：</span>这里是分销设置，不要搞错了，设置不一样的，右边有具体说明</p>
+<form  target="baocms_frm" action="<{:U('setting/profit')}>" method="post">
+
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+               
+
+                
+
+                <!--分销开始-->
+                
+                
+<tr>
+    <td class="lfTdBt">开启三级分销功能：</td>
+    <td class="rgTdBt">
+    <label><input type="radio" name="data[profit]" <eq name="CONFIG.profit.profit" value="1">checked="checked"</eq> value="1"  />开启分销</label>
+    <label><input type="radio" name="data[profit]"  <eq name="CONFIG.profit.profit" value="0">checked="checked"</eq>  value="0"  />关闭分销</label>
+    <code>不运营分销的可以关闭。</code>
+    </td>
+</tr>
+
+
+                <tr>
+                    <td class="lfTdBt">拥有分销权限用户最低等级：</td>
+                    <td class="rgTdBt">
+						<select name="data[profit_min_rank_id]" class="seleFl w200">
+							<option value="0">不限制</option>
+							<foreach name="ranks" item="item">           
+								<option <eq name="item.rank_id" value="$CONFIG.profit.profit_min_rank_id">selected="selected"</eq> value="<{$item.rank_id}>"><{$item.rank_name}></option>
+							</foreach>
+						</select>
+					</td>
+                </tr>
+
+                <tr>
+                    <td class="lfTdBt">推荐时效：</td>
+                    <td class="rgTdBt"><input type="number" min="1" max="1000" name="data[profit_expire]" value='<{$CONFIG.profit.profit_expire}>' class="scAddTextName w150" />小时<code>访问者点击某推荐人的网址后，在此时间段内注册、下单，均认为是该推荐人所介绍的</code></td>
+                </tr>
+                <tr>
+                
+                <tr><td class="rgTdBt profit" colspan = "2"> 推荐积分奖励，不建议填写，谢谢！</td></tr>
+                
+
+                    <td class="lfTdBt">一级会员注册分成积分数：</td>
+                    <td class="rgTdBt"><input type="number" min="0" max="1000" name="data[profit_integral1]" value='<{$CONFIG.profit.profit_integral1}>' class="scAddTextName w150" /> <code>填写%，默认留空就行，不要填写即可</code></td>
+                </tr>
+                <tr>
+
+                    <td class="lfTdBt">二级会员注册分成积分数：</td>
+                    <td class="rgTdBt"><input type="number" min="0" max="1000" name="data[profit_integral2]" value='<{$CONFIG.profit.profit_integral2}>' class="scAddTextName w150" /><code>填写%，默认留空就行，不要填写即可</code></td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">三级会员注册分成积分数：</td>
+                    <td class="rgTdBt"><input type="number" min="0" max="1000" name="data[profit_integral3]" value='<{$CONFIG.profit.profit_integral3}>' class="scAddTextName w150" /><code>填写%，默认留空就行，不要填写即可</code></td>
+
+                </tr>
+                
+                <tr><td class="rgTdBt  profit" colspan = "2" >下面全局控制，默认不写，除非你整站一个提成方式</td></tr>
+                
+                <tr>
+
+                    <td class="lfTdBt">一级会员订单分成比例：</td>
+                    <td class="rgTdBt"><input type="number" min="0" max="100" name="data[profit_rate1]" value='<{$CONFIG.profit.profit_rate1}>' class="scAddTextName w150" />% &nbsp;<code style="color:#F00">如需单个产品控制分成比例、这里留空</code></td>
+                </tr>
+                <tr>
+
+                    <td class="lfTdBt">二级会员订单分成比例：</td>
+                    <td class="rgTdBt"><input type="number" min="0" max="100" name="data[profit_rate2]" value='<{$CONFIG.profit.profit_rate2}>' class="scAddTextName w150" />% &nbsp;<code style="color:#F00">如需单个产品控制分成比例、这里留空</td>
+
+                </tr>
+        
+
+                <tr>
+
+                    <td class="lfTdBt">三级会员订单分成比例：</td>
+                    <td class="rgTdBt"><input type="number" min="0" max="100" name="data[profit_rate3]" value='<{$CONFIG.profit.profit_rate3}>' class="scAddTextName w150" />% &nbsp;<code style="color:#F00">如需单个产品控制分成比例、这里留空</td>
+                </tr>
+
+                <tr><td class="rgTdBt  profit" colspan = "2" >下面是优惠买单分成设置</td></tr>
+
+
+                <td class="lfTdBt">一级会员优惠买单分成比例：</td>
+                    <td class="rgTdBt"><input type="number" min="0" max="1000" name="data[breaks_profit_rate1]" value='<{$CONFIG.profit.breaks_profit_rate1}>' class="scAddTextName w150" /> <code>填写0.几，3等级加起来必须小于1</code></td>
+                </tr>
+                <tr>
+
+                    <td class="lfTdBt">二级会员优惠买单分成比例：</td>
+                    <td class="rgTdBt"><input type="number" min="0" max="1000" name="data[breaks_profit_rate2]" value='<{$CONFIG.profit.breaks_profit_rate2}>' class="scAddTextName w150" /><code>填写0.几，3等级加起来必须小于1</code></td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">三级会员优惠买单分成比例：</td>
+                    <td class="rgTdBt"><input type="number" min="0" max="1000" name="data[breaks_profit_rate3]" value='<{$CONFIG.profit.breaks_profit_rate3}>' class="scAddTextName w150" /><code>填写0.几，3等级加起来必须小于1</code></td>
+
+                </tr>
+                
+           <tr><td class="rgTdBt  profit" colspan = "2" >下面是文章打赏或者帖子打赏的分成设置</td></tr>
+           
+           
+            <td class="lfTdBt">一级会员打赏分成比例：</td>
+                    <td class="rgTdBt"><input type="number" min="0" max="1000" name="data[donate_profit_rate1]" value='<{$CONFIG.profit.donate_profit_rate1}>' class="scAddTextName w150" /> <code>文章/帖子打赏比例填写0.几，3等级加起来必须小于1</code></td>
+                </tr>
+                <tr>
+
+                    <td class="lfTdBt">二级会员打赏分成比例：</td>
+                    <td class="rgTdBt"><input type="number" min="0" max="1000" name="data[donate_profit_rate2]" value='<{$CONFIG.profit.donate_profit_rate2}>' class="scAddTextName w150" /><code>文章/帖子打赏比例填写0.几，3等级加起来必须小于1</code></td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">三级会打赏分成比例：</td>
+                    <td class="rgTdBt"><input type="number" min="0" max="1000" name="data[donate_profit_rate3]" value='<{$CONFIG.profit.donate_profit_rate3}>' class="scAddTextName w150" /><code>文章/帖子打赏比例填写0.几，3等级加起来必须小于1</code></td>
+
+                </tr>
+                
+                
+
+            </table>
+
+        </div>
+
+        <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+
+    </div>
+
+</form>
+
+<include  file='public:footer'/>       

@@ -1,0 +1,110 @@
+<script> 
+	var BAO_PUBLIC = "__PUBLIC__"; 
+	var BAO_ROOT = "__ROOT__"; 
+	var BAO_SURL = "<{$CONFIG['site']['host']}>__SELF__"
+</script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+<script>
+$(function(){
+	var newurl = BAO_SURL.replace(/\?\S+/,'');
+	var stitle = "<{$config['title']}>"; 
+	var sdesc = "<{$config['title']}>";
+	var surl = newurl+'?fuid=<{:getuid()}>';	
+	var catchpic = $('img');
+	var lcatchpic = "<{$CONFIG['site']['host']}>" + $('img').eq(0).attr("src");
+	$('img').each(function(){
+		if($(this).width() >= 60){
+			lcatchpic = $(this).attr("src");
+			if(lcatchpic.indexOf("http://") < 0){
+				lcatchpic = "<{$CONFIG['site']['host']}>" + lcatchpic;
+			}
+			return false;
+		};
+	});
+	
+	var spic = "<{$CONFIG['site']['host']}>"+BAO_PUBLIC+'/img/logo.jpg';
+	if(catchpic.length > 0){
+		spic = lcatchpic;
+		
+	}
+	console.log(lcatchpic);
+	wx.config({
+	debug: false,
+	appId: '<{$signPackage.appId}>',
+    timestamp: '<{$signPackage.timestamp}>',
+    nonceStr: '<{$signPackage.nonceStr}>',
+    signature: '<{$signPackage.signature}>',
+	jsApiList: [
+	'checkJsApi',
+	'onMenuShareTimeline',
+	'onMenuShareAppMessage',
+	'onMenuShareQQ',
+	'onMenuShareWeibo',
+	'onMenuShareQZone'
+	]
+	});
+	wx.ready(function(){
+		wx.onMenuShareTimeline({
+			title: stitle, 
+			link: surl, 
+			imgUrl: spic,
+			success: function () { 
+				alert("分享成功!");
+			},
+			cancel: function () { 
+				alert("分享失败!");
+			}
+		});
+		wx.onMenuShareAppMessage({		
+			title: stitle,
+			desc: sdesc, // 分享描述
+			link: surl, 
+			imgUrl: spic,
+			type: '', // 分享类型,music、video或link，不填默认为link
+			dataUrl: '', // 如果type是music或video，则要提供数据链接，默认为空
+			success: function () { 
+				alert("分享成功!");
+			},
+			cancel: function () { 
+				alert("分享失败!");
+			}
+		});
+		wx.onMenuShareQQ({
+			title: stitle,
+			desc: sdesc, // 分享描述
+			link: surl, 
+			imgUrl: spic,
+			success: function () { 
+			   alert("分享成功!");
+			},
+			cancel: function () { 
+			   alert("分享失败!");
+			}
+		});
+		wx.onMenuShareWeibo({
+			title: stitle,
+			desc: sdesc, // 分享描述
+			link: surl, 
+			imgUrl: spic,
+			success: function () { 
+			  alert("分享成功!");
+			},
+			cancel: function () { 
+				alert("分享失败!");
+			}
+		});	
+		wx.onMenuShareQZone({
+			title: stitle,
+			desc: sdesc, // 分享描述
+			link: surl, 
+			imgUrl: spic,
+			success: function () { 
+			   alert("分享成功!");
+			},
+			cancel: function () { 
+				alert("分享失败!");
+			}
+		});	
+	});
+})	
+</script>	

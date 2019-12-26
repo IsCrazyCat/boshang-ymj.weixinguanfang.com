@@ -1,0 +1,153 @@
+<include file='public:header_amazeui'/>  
+<script src="__TMPL__statics/js/jscookie.js"></script>
+<body >
+<style>
+/*css重写*/
+body{background: #f5f5f5;}
+.am-header-default {background: rgba(0,0,0,.5);}
+.am-header-default .am-header-nav a.back{position: absolute;left: 0;top: 0;width: 50px; bottom: 0;}	
+.am-header-default .am-header-nav a.back:after {content: '';display: inline-block;width: 10px;height: 10px;border-top: 2px solid #fff;border-left: 2px solid #fff;-webkit-transform: rotate(-45deg);transform: rotate(-45deg);}
+.am-header-default .am-header-title a{ font-size:14px;}
+.container{-webkit-column-width:150px;-moz-column-width:150px;-o-colum-width:150px;-webkit-column-gap:1px;-moz-column-gap:1px;-o-column-gap:1px;}
+.container li {padding: 5px;}
+/*am兼容*/
+.am-gotop-fixed .am-active {opacity: .7;}
+.am-gotop-fixed {z-index: 1;border-radius: 50%;right: 24px; bottom: 60px;width: 40px; min-height: 40px;}
+.am-gotop-fixed .am-gotop-icon {line-height: 40px;background-color: #FF5500;}
+.am-icon-chevron-up:before { color: #FFFFFF;}
+
+.ni-banner{position:relative;width:100%;height:180px;border-bottom:1px solid #ddd}
+.ni-banner .ni-banner-cover,.ni-banner .ni-banner-img{position:absolute;top:0;left:0;width:100%;height:100%}
+.ni-banner .ni-banner-cover{background-color:rgba(0,0,0,.28)}
+.ni-banner .ni-banner-wrap{position:absolute;top:97px;left:0;padding:0 20px}
+.ni-banner .ni-banner-user-img{float:left}
+.ni-banner .ni-banner-user-img img{width:44px;height:44px;border-radius:22px}
+.ni-banner .ni-banner-detail{margin-left:66px}
+.ni-banner .ni-banner-detail h1{font-size:16px;line-height:22px;font-weight:700;color:#fff;overflow:hidden;max-height:43px;text-overflow:-o-ellipsis-lastline;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.ni-banner .ni-banner-detail p{font-size:12px;line-height:14px;color:#ccc;margin-top:9px}
+.diary_view_list .diary_detail{background-color:#FFFFFF;margin-top:10px;border-bottom:1px solid #E8E8E8}
+.diary_view_list .diary_detail h2{font-size:18px;padding:8px 10px;border-bottom:1px solid #E9E9E9}
+.diary_view_list .diary_detail h2:before{content:'';background-color:#00B394;width:3px;height:18px;display:inline-block;margin-right:12px;vertical-align:middle}
+.diary_view_list .diary_detail h2 em{font-size:13px;font-weight:300;line-height:25px;color:#969696;font-style: normal;}
+.diary_view_list .diary_detail .diary_items_box{margin:10px;font-size:14px;color:#999;line-height:24px}
+.diary_items_photo{margin-left:-2%}
+.diary_items_photo li{width:31%;float:left;margin:5px 0 5px 2%}
+.de-sider-box{background:#FFFFFF;margin-top:10px}
+.de-sider-box h1{font-size:16px;line-height:38px;padding:0 10px;border-bottom:1px solid #E8E8E8}
+.de-sider-box ul li{padding:0}
+.de-sider-box ul li .am-gallery-item {padding: 5px;}
+.de-sider-box ul li .am-gallery-item a{display:inline-block;width: 100%;overflow: hidden}
+.de-sider-box .am-gallery-default .am-gallery-title{margin-top:5px;}
+
+.am-navbar a.am-btn-warning{color:#FFF}
+.am-navbar{background-color:#FFF;box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);}
+.am-navbar ul.b_price{width:auto;margin:0 10px}
+.am-navbar .b_price .price{font-size:30px;color:#F63}
+.am-navbar .b_price .price:before{font-size:22px;margin-right:3px}
+.am-navbar .b_price .price del{font-size:14px;color:#888}
+
+</style>
+
+
+
+
+<header id="header" class="homeHeader page_view">
+    <div class="left"><a class="ico-back" href="<{:U('booking/rooms',array('shop_id'=>$detail['shop_id']))}>"><span><i></i></span></a></div>
+    <div class="cent">
+    	<span class="shop_name">包厢图片详情</span>	
+    </div>
+    <div class="head-icon">
+        <!--<a class="ico-my" data-am-offcanvas="{target: '#offcanvas'}"> <span><i></i></span></a>-->
+    </div>
+</header>
+
+<section class="ni-banner">
+    <img class="ni-banner-img" src="<{:config_img($detail['photo'])}>">
+    <div class="ni-banner-cover">
+        <div class="ni-banner-wrap">
+            <div class="ni-banner-user-img"><img src="<{:config_img($booking['photo'])}>"/></div>
+            <div class="ni-banner-detail">
+                <h1><{$detail['name']}></h1>
+                <p>容纳人数：<{$types[$detail['type_id']]}> 最低消费： &yen;<{:round($detail['money']/100,2)}></p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<div class="diary_view_list">
+    <div class="diary_detail" id="diary_4">
+    <h2>
+        <em class="am-fr">
+        <volist name="cfg" id="v" key="index">
+             <if condition="$bookingsetting['start_time'] eq $index" ><{$v}></if>
+        </volist>
+        -
+        <volist name="cfg" id="v" key="index">
+             <if condition="$bookingsetting['end_time'] eq $index" ><{$v}></if>
+        </volist>
+ 
+        
+        </em>
+    <{$booking['shop_name']}></h2>
+        <div class="diary_items_box">
+        <p class="diary_items_text"><{:$detail['intro']}><br></p>
+            <ul class="diary_items_photo am-cf am-no-layout" data-am-widget="gallery" data-am-gallery="{pureview:'true'}">
+                <foreach name="list" item="item">
+                    <li><img src="<{:config_img($item['pic_id'])}>" /></li>
+                </foreach>
+        
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+
+<div data-am-widget="navbar" class="am-navbar am-cf am-navbar-default  am-no-layout">
+    <ul class="b_price am-cf">
+        <li class="btn am-fr">
+           <a href="<{:U('booking/rooms',array('shop_id'=>$detail['shop_id']))}>" class="am-btn am-btn-warning am-radius am-btn-sm am-margin-right-xs">返回选择</a>
+           <a href="javascript:void(0);" id="sub_btn" class="am-btn am-btn-warning am-radius am-btn-sm">预订包厢</a>
+        </li>
+    </ul>
+</div>
+
+
+<div data-am-widget="gotop" class="am-gotop am-gotop-fixed am-no-layout am-active">
+<a href="#top"><span class="am-gotop-title"></span><i class="am-gotop-icon am-icon-chevron-up"></i></a>
+</div> 
+
+<script>
+    $(document).ready(function(){
+        $("#sub_btn").click(function(){
+            var room_id = "<{$detail['room_id']}>";
+			if(room_id=="" || room_id=="0"){
+				layer.msg('选择失败，请修改订餐人数再选择试试', function(){
+					setTimeout(function () {
+					   window.location.href = "<{:U('booking/ding',array('shop_id'=>$detail['shop_id']))}>";
+					}, 1000);
+				});
+			}else{
+				layer.msg('恭喜您选择包厢成功，正在为您跳转', function(){
+					SetCookie('room_id',room_id);
+					setTimeout(function () {
+					   window.location.href = "<{:U('booking/ding',array('shop_id'=>$detail['shop_id']))}>";
+					}, 1000);
+				});
+			}
+				
+        })
+		
+	 function SetCookie(name, value){
+        var Days = 30; 
+        var exp = new Date();    
+        exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+        document.cookie = name + "=" + value + ";expires=" + exp.toGMTString() +";path=/";
+     }
+			
+	})
+</script>
+
+   
+<include file='public:footer_amazeui'/>  

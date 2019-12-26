@@ -1,0 +1,160 @@
+<include file='public:header'/>    
+<style>
+.xiaoqu-search { margin-top:2rem;}
+.list-media-x { margin-top: 0.0rem !important;}
+.list-media-x p {margin-top: .01rem; line-height:20px;font-size: 12px;}
+</style>
+
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:u('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			商城产品列表
+		</div>
+		<div class="top-share">
+        <a  href="javascript:void(0);" id="cate-btn" class="top-addr icon-chevron-down"> 添加</a>
+		</div>
+	</header>
+    
+   <div class="serch-bar-mask" id="cate_menu" style="display:none;top:50px;">
+		<div class="serch-bar-mask-list">
+			<ul>
+            <li><a href="<{:u('goods/create')}>">添加商品</a></li>
+            <li><a href="<{:u('mart/goodscate')}>">添加商品分类</a></li>
+			</ul>
+		</div>
+	</div>
+	<script>
+		$(document).ready(function () {
+			$("#cate-btn").click(function () {
+				$("#cate_menu").toggle();
+			});
+			
+			$("#cate_menu ul li a").click(function () {
+				$("#cate_menu").toggle();
+			});
+
+		});
+	</script>  
+
+	<div class="line xiaoqu-search">
+		<form method="post"  action="<{:U('mart/index')}>" id="form1" class="form1">
+			<div class="form-group">
+				<div class="field">
+					<div class="input-group">
+						<span class="addbtn"><button type="button" class="button icon-search"></button></span>
+						<input type="text" class="input" name="keyword" size="50" value="<{$keyword}>" placeholder="商品名称"  />
+						<span class="addbtn"><button type="submit" class="button">搜索</button></span>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+    
+
+<style>ul { padding-left: 0px;}</style>
+<!-- 筛选TAB -->
+<if condition="$SHOP['is_pei'] eq 0">
+<ul id="shangjia_tab">
+        <li style="width:50%;"><a href="<{:U('mart/index')}>" class="on">商城商品</a></li>
+        <li style="width:50%;"><a href="<{:U('mart/all')}>">全部订单</a></li>
+</ul>    
+<else/>
+<ul id="shangjia_tab">
+        <li style="width: 25%;"><a href="<{:U('mart/index')}>" class="on">商城商品</a></li>
+        <li style="width: 25%;"><a href="<{:U('mart/order')}>">卖出商品</a></li>
+        <li style="width: 25%;"><a href="<{:U('mart/wait')}>">付款订单</a></li>
+        <li style="width: 25%;"><a href="<{:U('mart/wait2')}>">货到付款</a></li>
+</ul>  
+</if>
+
+    
+
+<div class="list-media-x" id="list-media">
+	<ul>
+<div class="blank-10 bg"></div>
+<foreach name="list" item="var">   
+<li class="line ">
+      <dt><a class="x3">商品ID：<{$var.goods_id}></a><a class="x9 text-right">发布日期：<{$var.create_time|date='Y-m-d',###}></a></dt>
+        
+      <dd class="zhong">
+        <div class="x4">
+               <img src="<{:config_img($var['photo'])}>"  style="width:90%;">
+               <if condition="$var['profit_enable'] eq 1">
+               <span class="album" style="width:30px;">分销</span>
+               </if>
+         </div>
+            
+         <div class="8">
+            <p class="text-small">标题：<{:bao_msubstr($var['title'],0,24,false)}></p>
+            <p class="text-small">已售：<{$var.sold_num}>&nbsp; 库存：<{$var.num}>/<{$var.guige}></p>
+            <if condition="$var['use_integral'] gt 0">
+            <p class="text-gray">可使用积分：<span class="text-dot"><{$var.use_integral}></span></p>
+            <else/>
+            <p class="text-gray">未设置积分抵现</p>
+            </if>
+            
+            <if condition="$var['mobile_fan'] gt 0">
+            <p class="text-gray">手机下单立减：<span class="text-dot"><{$var['mobile_fan']}></span></p>
+            <else/>
+            <p class="text-gray">未设置手机下单立减</p>
+            </if>
+            <p class="text-small">
+               <span class="text-dot1 margin-right">销售价：<span class="text-dot">&yen;<{$var.mall_price}></span>&nbsp;   </span>
+            </p>
+         </div>
+      </dd>
+            
+      <dl>
+         <p class="text-right padding-top x12"> 
+         <eq name="var.audit" value="0">
+         	<a class="button button-small bg-gray">待审</a>
+         <else/>
+             <a class="button button-small bg-dot">正常</a>
+             <a href="<{:u('wap/mall/detail',array('goods_id'=>$var['goods_id']))}>" class="button button-small bg-dot">详情</a>
+         </eq>
+             <a href="<{:u('goods/edit',array('goods_id'=>$var['goods_id']))}>" class="button button-small bg-dot">编辑</a>
+             <a href="javascript:void(0);" rel="<{$var.goods_id}>"  class="jquery-delete button button-small bg-dot">删除</a>
+          </p>
+      </dl>
+    </li>
+ 
+    <div class="blank-10 bg"></div>
+   </foreach>   
+  </ul>
+</div> 
+
+<div class="blank-20"></div>
+<div class="container login-open">
+<h5 style="text-align:center"><{$page}><!--分页代码不要忘记加--> </h5>
+</div>
+
+<script>
+	$(document).ready(function () {
+		$(document).on('click', ".jquery-delete", function (e) {
+			var goods_id = $(this).attr('rel');
+			layer.confirm('您确定要删除该商品？', {
+				skin: 'layer-ext-demo', 
+				area: ['50%', 'auto'], 
+				btn: ['是的', '不'], 
+				shade: false 
+			}, function () {
+				$.post("<{:U('mart/delete2')}>", {goods_id: goods_id}, function (result) {
+					if (result.status == "success") {
+						layer.msg(result.msg);
+						setTimeout(function () {
+							location.reload();
+						}, 1000);
+					} else {
+						layer.msg(result.msg);
+					}
+				}, 'json');
+			});
+		});
+	});
+</script>
+
+<include file="public:footer"/>    
+

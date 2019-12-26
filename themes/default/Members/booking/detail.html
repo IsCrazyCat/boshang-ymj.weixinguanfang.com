@@ -1,0 +1,116 @@
+<include file="public:header"/>
+<!--左侧内容-->
+<div class="content_right"> 
+	<p class="hotel_ts fontcl2">
+            <if condition="!$detail['order_status']">
+                等待支付<small class="black9"></small><a mini='confirm' href="<{:U('members/booking/cancel',array('order_id'=>$detail['order_id']))}>" class="btn right">取消订单</a>
+            <elseif condition="$detail['order_status'] eq 1"/>
+                订单已支付 
+                    <a mini='confirm' href="<{:U('members/booking/cancel',array('order_id'=>$detail['order_id']))}>" class="btn right">取消订单</a>
+            <elseif condition="$detail['order_status'] eq -1"/>
+                订单已取消
+            <else/>
+                订单已完成
+                <eq name="detail.comment_status" value="0">
+                    <a href="<{:U('members/booking/comment',array('order_id'=>$detail['order_id']))}>" class="btn right">去评价</a>
+                <else/>
+                    已评价
+                </eq>
+            </if>
+        </p>
+    <div class="hotel_orddtl_box mb20">
+    	<div class="title">预订信息</div>
+        <div class="hotel_orddtl_infor">
+        	<ul>
+        	    <li class="list">订单号：<span class="fontcl2"><{$detail.order_id}></span></li>
+                <li class="list">商家名称：<span class="fontcl2"><{$shop.shop_name}></span></li>
+                <li class="list">商家地址：<span class="fontcl2"><{$shop.addr}></span></li>
+                <li class="list">预订时间：<span class="fontcl2"><{$detail.ding_date}>&nbsp;&nbsp;<{$detail.ding_time}></span></li>
+                <li class="list">预计人数：<{$detail.ding_num}></li>
+                <li class="list">点餐价格：<span class="fontcl2"><{:round($detail['menu_amount']/100,1)}>元(不需要支付)</span></li>
+                <li class="list">定金：<span class="fontcl2"><{:round($detail['amount']/100,1)}>元</span></li>
+    	    </ul>
+        </div>
+        <div class="hotel_orddtl_infor">
+        	<ul>
+                <li class="list">预订姓名：<span class="fontcl2"><{$detail.name}></span></li>
+                <li class="list">手机号码：<span class="fontcl2"><{$detail.mobile}></span></li>
+    	    </ul>
+        </div>
+        <div class="hotel_orddtl_infor">
+        	<ul>
+                <li class="list">补充说明：<span class="blackcl9"><{$detail.note|default='无'}></span></li>
+    	    </ul>
+        </div>
+    </div>
+    
+    <if condition="!empty($room)">
+        <div class="hotel_orddtl_box mb20">
+            <div class="title mb20">包厢详情</div>
+            <div class="hotel_orddtl_tabl mb20">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr class="title">
+                        <th class="first">包厢ID</th>
+                        <th>图片</th>
+                        <th>容纳人数</th>
+                        <th>名称</th>
+                        <th class="last">说明</th>
+                    </tr>
+                        <tr>
+                            <td>
+                               <{$room['room_id']}>
+                            </td>
+                            <td><div class="tuw">
+                                	<img src="<{:config_img($room['photo'])}>" width="125" height="100">
+                                </div></td>
+                            <td> <{$types[$room['type_id']]}></td>
+                            <td><{$room['name']}></td>
+                            <td><{$room['intro']}></td>
+                        </tr>
+                </table>
+            </div>
+        </div>
+    </if>
+    
+    
+    <if condition="!empty($list)">
+        <div class="hotel_orddtl_box mb20">
+            <div class="title mb20">点餐详情</div>
+            <div class="hotel_orddtl_tabl mb20">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr class="title">
+                        <th class="first">菜名</th>
+                        <th>数量</th>
+                        <th>价格</th>
+                        <th>已售</th>
+                        <th class="last">总价</th>
+                    </tr>
+                    <foreach name="list" item="item">
+                        <tr>
+                            <td>
+                                <div class="tuw">
+                                	<img src="<{:config_img($menus[$item['menu_id']]['photo'])}>" width="125" height="100"><{$item['menu_name']}>
+                                </div>
+                            </td>
+                            <td><{$item.num}>份</td>
+                            <td>￥<{:round($item['price']/100,1)}></td>
+                            <td><{$menus[$item['menu_id']]['sold_num']}>份</td>
+                            <td><p class="price"><span class="fontcl2">￥<big><{:round($item['amount']/100,1)}></big></span></p></td>
+                        </tr>
+                    </foreach>
+                </table>
+            </div>
+        </div>
+    </if>
+    
+        <if condition="!$detail['order_status'] and $detail['amount'] gt 0">        
+        <div class="hotel_tongji">
+            在线应支付<span class="price">￥<{:round($detail['amount']/100,1)}></span>
+            <a href="<{:U('pchome/booking/pay',array('order_id'=>$detail['order_id']))}>" class="btn">去支付</a>
+        </div>
+        </if>
+</div>
+<!--左侧内容end-->
+</div>
+</div>
+<include file="public:footer"/>

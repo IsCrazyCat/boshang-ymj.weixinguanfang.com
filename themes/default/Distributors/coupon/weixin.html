@@ -1,0 +1,25 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:u('distributors/coupon/download')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			优惠劵详情
+		</div>
+	<div class="top-signed">
+	</div>
+</header>
+
+<div class="panel-list" style="background: #FBFBFB;">
+	<ul><li><a href="javascript:;">优惠劵验证码：<em style="font-size:16px; color:#F00 "><{$detail['code']}></em></a></li></ul>
+</div>
+
+
+<div class="container">
+	<div class="padding-large">
+            <img width="100%" src="<{:config_img($file)}>" />
+            <p>请使用微信或者浏览器扫描，验证成功即可享受优惠！</p>
+	</div>
+</div>
+
+<include  file='public:footer'/>

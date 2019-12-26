@@ -1,0 +1,125 @@
+<php>$mobile_title = $detail['title'];</php>
+<include  file='public:header'/>   
+<style>
+.icon-angle-right{ float:right; font-size:20px;}
+.layui-layer-molv .layui-layer-title { background-color: #F8F8F8;border-bottom: 1px solid #eee; color: #333;}
+</style> 
+	<header class="top-fixed bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('pinche/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			拼车详情
+		</div>
+		<div class="top-search" style="display:none;">
+			<form method="post" action="<{:U('pinche/index')}>">
+				<input name="keyword" placeholder="输入拼车的关键字"  />
+				<button type="submit" class="icon-search"></button> 
+			</form>
+		</div>
+		<div class="top-signed">
+			<a id="search-btn" href="javascript:void(0);"><i class="icon-search"></i></a>
+		</div>
+	</header>  
+	 <script>
+		$(function(){
+			$("#search-btn").click(function(){
+				if($(".top-search").css("display")=='block'){
+					$(".top-search").hide();
+					$(".top-title").show(200);
+				}
+				else{
+					$(".top-search").show();
+					$(".top-title").hide(200);
+				}
+			});
+			$("#search-bar li").each(function(e){
+				$(this).click(function(){
+					if($(this).hasClass("on")){
+						$(this).parent().find("li").removeClass("on");
+						$(this).removeClass("on");
+						$(".serch-bar-mask").hide();
+					}
+					else{
+						$(this).parent().find("li").removeClass("on");
+						$(this).addClass("on");
+						$(".serch-bar-mask").show();
+					}
+					$(".serch-bar-mask .serch-bar-mask-list").each(function(i){
+						if(e==i){
+							$(this).parent().find(".serch-bar-mask-list").hide();
+							$(this).show();
+						}
+						else{
+							$(this).hide();
+						}
+						$(this).find("li").click(function(){
+							$(this).parent().find("li").removeClass("on");
+							$(this).addClass("on");
+						});
+					});
+				});
+			});
+		});
+	</script>
+
+	<div class="hd-detail">
+		<div class="detail-pic">
+			<img src="<{:config_img($detail['photo'])}>"/>
+			<p>
+             <if condition="$detail['cate_id'] eq 1">
+                【车找人】
+                <elseif condition="$detail['cate_id'] eq 2"/>
+                【人找车】
+                <elseif condition="$detail['cate_id'] eq 3"/>
+                【车找货】
+                <elseif condition="$detail['cate_id'] eq 4"/>
+                【货找车】
+                </if>
+            <{$areass[$detail['area_id']]['area_name']}>-<{$detail['toplace']}> 
+            <if condition="!empty($detail['middleplace'])">
+                -途经（<{$detail['middleplace']}>）
+            </if>
+            </p>
+		</div>      
+
+		<div class="blank-10 bg"></div>
+		<div class="detail-info">
+			<h1>相关信息</h1>
+            <p>出发城市-区域：<{$citys[$detail['city_id']]['name']}>-<{$areass[$detail['area_id']]['area_name']}> -> <{$detail.toplace}></p>
+            <if condition="!empty($detail['middleplace'])">
+            <p class="text-dot">途径地：<{$detail.middleplace}></p>
+            </if>
+            <if condition="!empty($detail['community_id'])">
+            <php>
+            $community =  D('Community')->where(array('community_id'=>$detail['community_id']))->find();
+            $name = $community['name'];
+            </php>
+            <p>所在小区：<a href="<{:u('Property/index',array('community_id'=>$detail['community_id']))}>"><{$name}> </a></p>
+            </if>
+			<p>出发时间：<{$detail.start_time}></p>
+			<p>具体时间：<{$detail.start_time_more}></p>
+			<p>
+             <if condition="$detail['cate_id'] eq 1">
+                可乘坐人数：<{$detail.num_1}>
+                <elseif condition="$detail['cate_id'] eq 2"/>
+                需要乘坐人数：<{$detail.num_2}>
+                <elseif condition="$detail['cate_id'] eq 3"/>
+                可装吨数：<{$detail.num_3}>
+                <elseif condition="$detail['cate_id'] eq 4"/>
+                需要吨数：<{$detail.num_4}>
+                </if>
+            </p>
+
+            <p>联系电话：<{$detail.mobile}> <a href="tel:<{$detail.mobile}>" class="button button-small bg-blue text-right">联系对方</a></p>
+		</div>
+		<div class="blank-10 bg"></div>
+        <if condition="!empty($detail['details'])">
+		<div class="detail-info">
+			<h1>拼车说明</h1>
+			<p><{$detail.details}></p>
+		</div>
+		</if>
+	</div>
+
+<include  file='public:footer'/>

@@ -1,0 +1,42 @@
+	<style>
+	.foot-fixed .foot-item { width: 20%;}
+	</style>
+    <if condition="$worker['is_dianping'] eq 0">
+	<style>.foot-fixed .foot-item span.icon-commenting, .foot-fixed .foot-item span.dianping{ color: #D7D5D5;}</style>
+	</if>
+    <if condition="$worker['is_appoint'] eq 0">
+	<style>.foot-fixed .foot-item span.icon-paw, .foot-fixed .foot-item span.appoint{ color: #D7D5D5;}</style>
+	</if>
+    <if condition="$worker['tuan'] eq 0">
+	<style>.foot-fixed .foot-item span.icon-tags, .foot-fixed .foot-item span.tuan{ color: #D7D5D5;}</style>
+	</if>
+    <footer class="foot-fixed">		
+    <a class="foot-item <if condition="($ctl eq 'index') AND ($act neq 'more')">active</if>" href="<{:U('index/index')}>">		
+    	<span class="icon icon-home"></span>		
+        	<span class="foot-label">首页</span>		
+            </a>		
+
+            <a class="foot-item <eq name="ctl" value="tuan">active</eq>" href="<{:U('tuan/used')}>">		
+            	<span class="icon icon-tags"></span>			
+                <span class="foot-label tuan">套餐劵</span>
+            </a>		
+            <a class="foot-item <eq name="ctl" value="appoint">active</eq>" href="<{:U('appoint/index')}>">			
+                <span class="icon icon-paw"></span>			
+                <span class="foot-label appoint">家政</span>		
+            </a>
+            
+            <a class="foot-item <eq name="ctl" value="message">active</eq>" href="<{:U('message/index')}>">			
+                <span class="icon icon-volume-up"></span>			
+                <span class="foot-label">通知</span>		
+            </a>		
+
+            <a class="foot-item <eq name="ctl" value="dianping">active</eq>" href="<{:U('dianping/index')}>">			
+                <span class="icon icon-commenting"></span>			
+                <span class="foot-label dianping">点评</span>		
+            </a>	
+         
+
+     </footer>	
+     <iframe id="x-frame" name="x-frame" style="display:none;"></iframe>
+	</body>
+</html>

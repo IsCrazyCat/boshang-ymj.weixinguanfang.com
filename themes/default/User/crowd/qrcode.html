@@ -1,0 +1,24 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:u('crowd/detail',array('order_id'=>$detail['order_id']))}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">我的众筹劵</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+<div class="panel-list" style="background: #FBFBFB;">
+	<ul><li><a href="javascript:;">众筹劵：<em style="font-size:16px; font-weight:bold; color:#F00 "><{$detail['code']}></em></a></li></ul>
+</div>
+
+ <div class="container">           
+	<div class="padding-large">
+            <img width="100%" src="__ROOT__/attachs/<{$file}>" />
+            <p>该众筹券价值为: <span class="text-dot"><{:round($detail['price']/100,2)}> 元</span> </p>
+	</div>
+</div>
+    <div class="container text-center">
+        <a class="button button-block button-big bg-blue" href="<{:u('crowd/detail',array('order_id'=>$detail['order_id']))}>">众筹详情</a>  
+    </div>
+<include  file='public:footer'/>

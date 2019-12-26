@@ -1,0 +1,13 @@
+	<foreach name="list" item="item">
+	<php>$distance = getDistanceCN($item['lat'],$item['lng'],$lat,$lng);</php>
+	<li>
+		<h5><a href="<{:U('near/detail',array('id'=>$item['uid']))}>"><{$item.name}></a><span>(<{$distance}>)</span></h5>
+		<p>地址:<{$item.address}> </p>
+		<if condition="!empty($item[telephone])">
+		<php>$tel = explode(',',$item['telephone']);</php>
+		<p class="tel">
+		电话：<foreach name="tel" item="var"><a href="tel:<{$var}>"><{$var}></a></foreach>
+		</p>
+		</if>
+	</li>
+	</foreach>

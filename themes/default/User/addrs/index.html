@@ -1,0 +1,190 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+    
+    
+       <if condition="$type eq 1">
+	   <a class="top-addr" href="<{:u('wap/ele/pay',array('order_id'=>$order_id))}>"><i class="icon-angle-left"></i></a>
+       <elseif condition="$type eq 2"/> 
+       <a class="top-addr" href="<{:u('wap/mall/pay',array('order_id'=>$order_id))}>"><i class="icon-angle-left"></i></a>
+       <elseif condition="$type eq 3"/> 
+       <a class="top-addr" href="<{:u('wap/mart/pay',array('order_id'=>$order_id))}>"><i class="icon-angle-left"></i></a>
+       <else/>
+       <a class="top-addr" href="<{:U('information/index')}>"><i class="icon-angle-left"></i></a>
+       </if>
+        
+        
+	</div>
+		<div class="top-title">
+			收货地址设置
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+    
+    <script src="<{:U('app/datas/cab',array('name'=>'cityareas'))}>"></script>  <!-- 获取下拉 -->
+     
+    
+    <script type="text/javascript" language="javascript">
+    	$(document).ready(function(){
+			
+			//添加
+			$('.add_addr').click(function(){
+			
+				layer.open({
+					type: 1,
+					title:'新增地址',
+					skin: 'layer-ext-default', //加上边框
+					area: ['90%', '340px'], //宽高
+					content: '<div class="form-x form-auto"><div class="line margin-top"><div class="x2 label text-center"><label>姓名</label></div><div class="x10 field"><input type="text" class="input input-auto" id="name" name="name" size="10"  value=""></div></div>   <div class="line margin-top"><div class="x2 label text-center"><label>地区</label></div><div class="x10 field form-inline"><select id="city_id" name="city_id"  class="input margin-small-right input-auto"><option value="0">请选择...</option></select><select id="area_id" name="area_id" class="input  margin-small-right input-auto"><option value="0">请选择...</option></select><select id="business_id" name="business_id" class="input input-auto"><option value="0">请选择...</option></select></div></div><div class="line margin-top"><div class="x2 label text-center"><label>手机</label></div><div class="x10 field"><input type="text" class="input input-auto" name="mobile" id="mobile" value=""></div></div><div class="line margin-top"><div class="x2 label text-center"><label>地址</label></div><div class="x10 field"><input type="text" class="input input-auto" size="25" name="addr" id="addr" value="" /></div></div><div class="line margin-top"><div class="x10 float-right"><input class="button bg-blue addr_post" type="submit" value="添加地址" /></div></div></div>'
+				});
+				$('.layui-layer-title').css('color','#ffffff').css('background','#2fbdaa');
+
+				get_option();
+				
+				
+				$('.addr_post').click(function(){
+					var name = $('#name').val();
+					var city_id = $('#city_id').val();
+					var area_id = $('#area_id').val();
+					var business_id = $('#business_id').val();
+					var mobile = $('#mobile').val();
+					var addr = $('#addr').val();
+					
+					$.post('<{:U("wap/addr/add_addr")}>',{name:name,city_id:city_id,area_id:area_id,business_id:business_id,mobile:mobile,addr:addr},function(result){										
+						if(result.status == 'success'){
+							layer.msg(result.msg);
+							setTimeout(function(){
+								location.reload(true);
+							},3000);
+						}else{
+							layer.msg(result.msg,{icon:2});
+						}														
+					},'json');
+				
+				})
+				
+			
+			})
+			
+			
+			
+			//修改
+			$('.edit_addr').click(function(){
+			
+				var val = $(this).attr('val');
+				var a = $(this).attr('a');
+				var b = $(this).attr('b');
+				var c = $(this).attr('c');
+				var n = $(this).attr('n');
+				var m = $(this).attr('m');
+				var addr = $(this).attr('addr');
+				
+				layer.open({
+					type: 1,
+					title:'修改地址',
+					skin: 'layer-ext-demo', //加上边框
+					area: ['90%', '340px'], //宽高
+					content: '<div class="form-x form-auto"><div class="line margin-top"><div class="x2 label text-center"><label>姓名</label></div><div class="x10 field"><input type="text" class="input input-auto" id="name" name="name" size="10"  value="'+n+'"></div></div>   <div class="line margin-top"><div class="x2 label text-center"><label>地区</label></div><div class="x10 field form-inline"><select id="city_ids" name="city_id"  class="input margin-small-right input-auto"><option value="0">请选择...</option></select><select id="area_ids" name="area_id" class="input  margin-small-right input-auto"><option value="0">请选择...</option></select><select id="business_ids" name="business_id" class="input input-auto"><option value="0">请选择...</option></select></div></div><div class="line margin-top"><div class="x2 label text-center"><label>手机</label></div><div class="x10 field"><input type="text" class="input input-auto" name="mobile" id="mobile" value="'+m+'"></div></div><div class="line margin-top"><div class="x2 label text-center"><label>地址</label></div><div class="x10 field"><input type="text" class="input input-auto" size="25" name="addr" id="addr" value="'+addr+'" /></div></div><div class="line margin-top"><div class="x10 float-right"><input class="button bg-blue edit_post" type="submit" value="立即修改"  val="'+val+'" /></div></div></div>'
+				});
+				
+				$('.layui-layer-title').css('color','#ffffff').css('background','#2fbdaa');
+				
+				get_option();
+				
+				changeCAB(c,a,b);
+				
+				$('.edit_post').click(function(){
+					var addr_id = $(this).attr('val');
+					var name = $('#name').val();
+					var city_id = $('#city_ids').val();
+					var area_id = $('#area_ids').val();
+					var business_id = $('#business_ids').val();
+					var mobile = $('#mobile').val();
+					var addr = $('#addr').val();
+					$.post('<{:U("wap/addr/edit_addr")}>',{name:name,city_id:city_id,area_id:area_id,business_id:business_id,mobile:mobile,addr:addr,addr_id:addr_id},function(result){										
+						if(result.status == 'success'){
+							layer.msg(result.msg);
+							setTimeout(function(){
+								location.reload(true);
+							},3000);
+						}else{
+							layer.msg(result.msg,{icon:2});
+						}														
+					},'json');
+				})
+			})
+		})
+
+    </script>
+
+ <style>
+ .list-media-x{ margin-top:0rem;}
+ </style>   
+    
+    <div class="list-media-x" id="list-media">
+	<ul>
+    
+    <volist name="addr" id="item">
+    <div class="line padding border-bottom">
+		<div class="x12">
+        <p class="text-gray"><{$item.name}>,<{$item.mobile}></p>
+			<p class="text-gray"><{$citys[$item['city_id']]['name']}> <{$areas[$item['area_id']]['area_name']}> <{$business[$item['business_id']]['business_name']}> <{$item.addr}></p>
+		</div>
+	</div>
+	<div class="line padding">
+		<span class="text-right  x12">
+        <eq name="item.is_default" value="1">
+        <a class="button button-small bg-blue">当前默认</a>
+        <else/>
+        <a target="x-frame" class="button button-small bg-dot" href="<{:u('wap/addr/update_addr',array('addr_id'=>$item['addr_id'],'type'=>$type,'order_id'=>$order_id))}>">
+        <if condition="!empty($type)">
+        选择收货地址
+        <else/>
+        设为默认
+        </if>
+        </a>
+        </eq>
+        <a href="#" val="<{$item.addr_id}>" a="<{$item.area_id}>" b="<{$item.business_id}>" c="<{$item.city_id}>" n="<{$item.name}>" m="<{$item.mobile}>" addr="<{$item.addr}>" class="button button-small bg-blue edit_addr">修改地址</a>
+        <a href="javascript:void(0);" rel="<{$item.addr_id}>" class="jquery-delete button button-small bg-gray">删除</a>
+        
+        </span>
+	</div>
+	<div class="blank-10 bg"></div>
+    </volist>
+  
+  </ul>
+</div>
+	
+	<div class="container">
+		<div class="blank-30"></div>
+		<a href="javascript:void(0);" id="add_addr" class="button button-block button-big bg-blue text-center add_addr">新增收货地址</a>
+	</div>
+</ul>
+
+ <script>
+	$(document).ready(function () {
+		$(document).on('click', ".jquery-delete", function (e) {
+			var addr_id = $(this).attr('rel');
+			layer.confirm('您确定要删除该地址？', {
+				skin: 'layer-ext-demo', 
+				area: ['50%', 'auto'], //宽高
+				btn: ['是的', '不'], //按钮
+				shade: false //不显示遮罩
+			}, function () {
+				$.post("<{:U('addrs/delete')}>", {addr_id: addr_id}, function (result) {
+					if (result.status == "success") {
+						layer.msg(result.msg);
+						setTimeout(function () {
+							location.reload();
+						}, 1000);
+					} else {
+						layer.msg(result.msg);
+					}
+				}, 'json');
+			});
+		});
+	});
+</script>  
+<include  file='public:footer'/>  

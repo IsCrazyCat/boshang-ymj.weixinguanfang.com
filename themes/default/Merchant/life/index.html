@@ -1,0 +1,77 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">其他</a> > <a href="">生活信息</a> > <a>生活信息</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t tuanfabu_top">
+            <div class="left tuan_topser_l">分类信息通过审核后才能显示，分类信息可以置顶也可以加急处理; 置顶 7金块/周,27金块/月; 加急 7金块/周,27金块/月;免费刷新每天只能使用一次</div>
+        </div>
+    </div>
+    <form method="post" action="<{:U('life/index')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">关键字：<input type="text" class="radius3 tuan_topser"  name="keyword" value="<{$keyword}>"/><input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/></div>
+        </div>
+    </div>
+    </form>
+    <div class="tuanfabu_tab">
+        <ul>
+            <li class="tuanfabu_tabli on"><a href="<{:U('life/index')}>">生活信息</a></li>
+            <li class="tuanfabu_tabli "><a target="_blank" href="<{:u('home/life/fabu')}>">发布信息</a></li>
+        </ul>
+    </div> 
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>标题</td>
+            <td>分类</td>
+            <td>地区</td>
+            <td>商圈</td>
+            <td>创建时间</td>
+            <td>状态</td>
+            <td>推广</td>
+        </tr>
+        <foreach name="list" item="var">
+            <tr>
+                <td><{$var.title}></td>
+                <td><{$cates[$var['cate_id']]['cate_name']}></td>
+                <td><{$areas[$var['area_id']]['area_name']}></td>
+                <td><{$business[$var['business_id']]['business_name']}></td>
+                <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                <td><eq name="var.audit" value="0">等待审核<else/>正常</eq></td>
+                <td>
+    
+                    <eq name="var.audit" value="1">
+    
+                <if condition="$var['top_date'] EGT $today">
+                    <p style="margin-top: 10px; color: red;"> 
+                        已置顶(<{$var.top_date}>到期)
+                    </p>
+                    <else />
+                    <p>
+                        <a mini='confirm' href="<{:U('life/top',array('life_id'=>$var['life_id'],'day'=>7))}>">置顶7天</a> <a mini='confirm'  href="<{:U('life/top',array('life_id'=>$var['life_id'],'day'=>30))}>">置顶30天</a>
+                    </p>
+                </if>
+                <if condition="$var['urgent_date'] EGT $today">
+                    <p style="margin-top: 10px; color: green;"> 
+                        已加急(<{$var.urgent_date}>到期)
+                    </p>
+                    <else />
+                    <p style="margin-top: 10px;">
+                        <a mini='confirm'  href="<{:U('life/urgent',array('life_id'=>$var['life_id'],'day'=>7))}>">加急7天</a> <a mini='confirm'  href="<{:U('life/urgent',array('life_id'=>$var['life_id'],'day'=>30))}>">加急30天</a>
+                    </p>
+                </if>
+                </eq>
+    
+                <p style="margin-top: 10px;">
+                    <a mini='confirm' href="<{:U('life/flush',array('life_id'=>$var['life_id']))}>">免费刷新</a> 
+                </p>
+                </td>
+            </tr>
+        </foreach>
+    </table>
+    <{$page}>
+</div>
+<include  file='public:footer'/>

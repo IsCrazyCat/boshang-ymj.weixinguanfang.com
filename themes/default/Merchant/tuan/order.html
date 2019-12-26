@@ -1,0 +1,138 @@
+<include  file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<div class="sjgl_lead">
+    <ul>
+         <li><a href="#">商家管理</a> > <a href="">套餐</a> > <a>订单管理</a></li>
+    </ul>
+</div>
+<style>
+.tuan_table2 td.left1 { width:100%;}
+</style>
+<div class="tuan_content">
+    <form method="post" action="<{:U('tuan/order')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">
+            开始时间：<input type="text" class="radius3 seleFl"  name="bg_date" value="<{$bg_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"/>
+            结束时间：<input type="text" class="radius3 seleFl"  name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"/>
+            订单编号：<input type="text" name="keyword" value="<{$keyword}>" class="radius3 seleFl" />
+            状态：<select name="st" class="seleFl w80">
+                        <option value="999">请选择</option>
+                        <option <eq name="st" value="1">selected="selected"</eq>  value="1">已付款</option>
+                        <option <eq name="st" value="1">selected="selected"</eq>  value="-1">货到付款</option>
+                        <option <eq name="st" value="0">selected="selected"</eq>  value="0">等待付款</option>
+                        <option <eq name="st" value="3">selected="selected"</eq>  value="3">正在退款</option>
+                        <option <eq name="st" value="4">selected="selected"</eq>  value="4">已退款</option>
+                        <option <eq name="st" value="4">selected="selected"</eq>  value="8">已完成</option>
+                    </select>
+            <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/>
+            </div>
+        </div>
+    </div>
+    </form>
+     <include file='tuan:nav'/>
+
+
+<div class="blank-20"></div>
+     <table class="tuan_table3" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#F9F9F9;">
+            <td width="310">详情</td>
+            <td>单价</td>
+            <td>数量</td>
+            <td>总价</td>
+            <td>买家信息</td>
+            <td>订单状态</td>
+            <td>实付金额</td>
+            <td>其他信息</td>
+     </table>
+     <div class="blank-10"></div>
+        <form  target="baocms_frm" method="post">
+        
+<foreach name="list" item="var"> 
+              
+  <table  class="tuan_table1"  width="100%" border="0"> 
+  <tr class="tr_left_2" <eq name="order.status" value="0">style="background:#f9f9f9;"<else/>style="background:#EAF8FF;"</eq> >
+    <td class="left10" colspan="5">
+        订单ID：<span class="mallorder_jg"><{$var.order_id}></span>
+        <span class="td_top_1">标题： <{$tuan[$var['tuan_id']]['title']}>
+        <span class="td_top_1">买家联系方式：<{$users[$var['user_id']]['mobile']}>  &nbsp;&nbsp;&nbsp; 交易时间：<{$var.create_time|date='Y-m-d H:i:s',###}></span>
+    </td>
+  </tr>
+  
+  
+  <tr>
+    <td class="td_left_1"> 
+        <table  class="tuan_table2" width="100%" border="0">
+          <tr class="tr_left_1">
+            <td class="left1">
+            <!--商品展示开始-->
+            <div class="index__production___yfP3y" >
+                <a target="_blank"  href="<{:u('home/tuan/detail',array('tuan_id'=>$var['tuan_id']))}>" class="index__pic___TScfk" >
+                    <img src="<{:config_img($tuan[$var['tuan_id']]['photo'])}>" >
+                </a>
+                <div class="index__infos___A6XLq" >
+                    <p> <a href="<{:u('home/tuan/detail',array('tuan_id'=>$var['tuan_id']))}>" target="_blank" >
+                        <span><{$tuan[$var['tuan_id']]['intro']}></span></a>
+                    </p>
+                </div>
+            </div>
+           <!--商品展示END-->
+            
+            </td>
+            <td class="left2">&yen;<{:round($var['total_price']/100,2)}></td>
+            <td class="left3"><{$var.num}></td>
+            <td class="left4">&yen;<{:round($var['need_pay']/100,2)}></td>
+            <td class="left5"> 
+            	  
+            </td>
+          </tr>
+         
+        </table>
+    
+    
+    
+    </td>
+    <td class="left6" width="9%">
+    <{$users[$var['user_id']]['account']}>
+    <eq name="var.is_mobile" value="1"><br/><img src="/themes/default/Merchant/statics/images/mobile.png" /></eq>
+    
+    </td>
+    <td class="left7" width="8%">
+    <eq name="var.is_daofu" value="1">货到付款 ---</eq>
+     				<if condition="$var['status'] eq -1">
+                    <a>到店付</a>	
+                  <elseif condition="$var['status'] eq 0"/>
+                    <a>未付款</a>
+                  <elseif condition="$var['status'] eq 1"/>
+                    <a>已付款</a>
+                  <elseif condition="$var['status'] eq 3"/>
+                    <a>正在退款</a>
+                  <elseif condition="$var['status'] eq 4"/>
+                    <a>已退款</a>
+                  <elseif condition="$var['status'] eq 8"/>
+                     <a>已完成</a>
+                  </if>
+         <br/> 
+    <a class="radius3 sy_c1an" href="<{:U('tuan/detail',array('order_id'=>$var['order_id']))}>">订单详细</a>
+     </td>
+    <td class="left8"width="10%">
+        <if condition="!empty($var['mobile_fan'])">
+        手机下单立减：&yen;<{:round($var['mobile_fan']/100,2)}>元<br/>
+        </if>
+        <if condition="!empty($var['use_integral'])">
+        积分抵扣： &yen;<{:round($var['use_integral']/100,2)}>元<br/>
+        </if>
+        <span>实际付款：&yen;<{:round($var['need_pay']/100,2)}></span>
+  
+    </td>
+    <td class="left9"width="9%"><eq name="var.is_dianping" value="1">已点评<else/>未评</eq></td>
+  </tr>
+ 
+</table>
+<br/>
+</foreach>
+
+    <{$page}>
+</div>
+
+<include  file='public:footer'/>

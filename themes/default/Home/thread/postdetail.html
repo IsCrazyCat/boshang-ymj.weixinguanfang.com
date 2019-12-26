@@ -1,0 +1,333 @@
+<include  file='public:header'/> 
+<include  file='public:top'/> 
+<include  file='public:nav2'/>
+<link rel="stylesheet" type="text/css" href="/static/default/webuploader/webuploader.css">
+<script src="/static/default/webuploader/webuploader.min.js"></script>  
+<style>
+.tribe_topic_fabiao .uploadImg {overflow: hidden;}
+</style>
+<div class="pagewd">
+    <!--页面位置-->
+    <div class="spxq_loca"><a href="<{:U('index/index')}>">首页</a>&gt;&gt;
+    <a href="<{:U('thread/index')}>">部落</a>&gt;&gt;
+    <a href="<{:U('thread/detail',array('thread_id'=>$detail['thread_id']))}>"><{$tribe.thread_name}>部落</a>&gt;&gt;
+    <a href="javascript:void(0);"><{$detail.title}></a></div>
+    <!--页面位置end-->
+    <!--详情-->
+    <div class="tribeDelt_box">
+        <div class="tribeDelt_from">
+            <div class="box"><img src="<{:config_img($auth['face'])}>" width="90" height="90" class="left" />
+                <div class="pub_wz">
+                    <p class="name"><{:config_user_name($auth['nickname'])}></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="tribeDelt_nr">
+            
+        	<h1><{$detail.title}></h1>
+                
+            <p class="graycl mb20"><{$detail.create_time|date='Y-m-d H:i',###}> 查看<{$detail.views}><span class="ml10">回复<{$detail.reply_num}></span></p>
+            <div class="nr">
+                <p><{:cleanhtml($detail['details'])}></p>
+                <foreach name="pics" item="item">
+                    <div class="txt_center mb10"><img src="<{:config_img($item['photo'])}>" /></div>
+                </foreach>
+                <div class="share bdsharebuttonbox spxq_qgFx tongji_num" data-tag="share_1" >
+                    <if condition="$detail['is_zan']">
+                        <a href="javascript:void(0);"><em class="ico ico_1"></em>(<{$detail.zan_num}>)</a>
+                    <else/>
+                        <a class="zan_btn" href="javascript:void(0);"><em class="ico ico_1"></em><{$detail.zan_num}></a>
+                    </if>
+                    <a href="javascript:void(0);" class="das"><em class="ico ico_2"></em>赏(<{$detail.donate_num}>)</a>
+                    <a data-cmd="more" href="javascript:void(0);"><em class="ico ico_3"></em>分享</a>
+                </div>              
+            </div>
+            <script>window._bd_share_config = {share: [{"tag": "share_1", 'bdCustomStyle': '__TMPL__statics/empty.css'}]};
+                with (document)
+                    0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion=' + ~(-new Date() / 36e5)];
+            </script>
+            <!--打赏列表-->
+            <div class="tribeDelt_das_list mb20">
+            	<table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <foreach name="donate" item="item">
+                        <tr>
+                            <td width="300">
+                                    <div class="ml10">
+                                        <img src="<{:config_img($dusers[$item['user_id']]['face'])}>">
+                                        <{:config_user_name($dusers[$item['user_id']]['nickname'])}>
+                                </div>
+                            </td>
+                            <td><p>￥<{$item.money}></p></td>
+                            <td width="160"><p class="time graycl mr10"><{$item.create_time|date='Y-m-d H:i',###}></p></td>
+                        </tr>
+                    </foreach>
+                </table>
+            </div>
+            <!--打赏列表end-->
+            <!--话题推荐-->
+            <div class="tribeDelt_recmd">
+            	<h3>话题推荐</h3>
+                <ul>
+                    <foreach name="tui_list" item="item">
+                        <li class="list"><a href="<{:U('thread/postdetail',array('post_id'=>$item['post_id']))}>"><{$item.title}></a></li>
+                    </foreach>
+                </ul>
+            </div>
+            <!--话题推荐end-->
+            
+        </div>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $(".zan_btn").click(function(){
+                var post_id = "<{$detail.post_id}>";
+                var url = "<{:U('thread/zan')}>";
+                $.post(url,{post_id:post_id},function(data){
+                    if(data.status == 'success'){
+                        layer.msg(data.msg);
+                        setTimeout(function(){
+                            window.location.reload(true);
+                        },1000)
+                    }else{
+                        layer.msg(data.msg);
+                    }
+                },'json')
+            })
+            
+            $(".das").click(function(){
+                layer.open({
+                    type: 1,
+                    title:'请选择打赏金额',
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['360px', 'auto'], //宽高
+                    content: '<div class="check_box"><label><input type="radio" name="donate" value="1"/>打赏1元</label><label><input type="radio" name="donate" value="2"/>打赏2元</label><label><input type="radio" name="donate" value="5"/>打赏5元</label><label><input type="radio" name="donate" value="10"/>打赏10元</label><label><input type="radio" name="donate" value=""/>其他金额</label></div><input type="text" class="donate2" name="donate2" placeholder="请输入打赏金额" value=""/><input type="button" class="sure_das" value="确认打赏"/><p>打赏不可取消，请慎重操作</p>',
+                  });
+            })
+            
+            $(document).on('click','.sure_das',function(){
+                var url = "<{:U('thread/donate')}>";
+                var post_id = "<{$detail.post_id}>";
+                var money1 = $("input[name='donate']:checked").val();
+                var money2 = $(".donate2").val();
+                var money = 0;
+                (money2>0) ? money=money2:money=money1;
+                layer.confirm('您确认要打赏帖子吗？', {
+                    btn: ['是的','不了'] //按钮
+                  }, function(){
+                    $.post(url,{post_id:post_id,money:money},function(data){
+                        if(data.status == 'login'){
+                            ajaxLogin();
+                        }else if(data.status == 'error'){
+                            layer.msg(data.msg);
+                        }else{
+                            layer.msg(data.msg);
+                            setTimeout(function(){
+                                window.location.reload(true);
+                            },1000)
+                        }
+                    },'json')
+                  });
+            })
+            
+        })
+    </script>
+    <style>
+    .layui-layer-page .layui-layer-content{ padding:20px;}
+    .layui-layer-page .layui-layer-content input[type='text']{ width:100%; height:36px; border:1px solid #ccc; background:#fff; margin-bottom:10px; text-indent:10px; font-size:14px;}
+    .layui-layer-page .layui-layer-content input[type='button']{ width:100%; height:40px; border:none; background:#33b095; color:#fff; font-size:16px;}
+    .layui-layer-page .layui-layer-content p{ line-height:28px; color:#999;}
+    .layui-layer-page .layui-layer-content .check_box{ overflow:hidden; margin-bottom:5px;}
+    .layui-layer-page .layui-layer-content .check_box label{ display:block; float:left; margin-right:20px; margin-bottom:10px;}
+    
+    </style>
+    <!--详情end-->
+    <!--评论列表-->
+     <div class="tribeEvlt_box">
+        <foreach name="list" item="item">
+            <div class="tribeDelt_box">
+                <div class="tribeDelt_from">
+                    <div class="box">
+                    	<img src="<{:config_img($users[$item['user_id']]['face'])}>" width="90" height="90" class="left" />
+                        <div class="pub_wz">
+                            <br />
+                            <p class="name mt10"><{:config_user_name($users[$item['user_id']]['nickname'])}></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="tribeDelt_nr">
+                    <div class="nr">
+                        <p class="evlt_nr"><{$item['contents']}></p>
+                        <ul class="img_list">
+                            <volist name="item.pics" id="pic">
+                                <li><img src="<{:config_img($pic['photo'])}>" width="250" height="160"></li>
+                            </volist>
+                        </ul>
+                        <div class="evlt_bottom"><{$item.floor}>楼 <{$item.create_time|date='Y-m-d H:i',###}>
+                            <if condition="$item['user_id'] neq $MEMBER['user_id']">
+                                <span class="reply"><em class="ico"></em>回复</span>
+                            </if>
+                        </div>
+                        <!--回复表单-->
+                        <div class="tribe_topic_fabiao mt10">
+                            <form method="post" id="reply_form_<{$item.comment_id}>">
+                                <input type="hidden" name="reply_user_id" value="<{$item.user_id}>" />
+                                <input type="hidden" name="comment_id" value="<{$item.comment_id}>" />
+                                <input type="hidden" name="post_id" value="<{$detail.post_id}>" />
+                                <textarea name="contents" placeholder="回复<{:config_user_name($users[$item['user_id']]['nickname'])}>：" style="height:100px;"></textarea>
+                                <div><label class="mr10"><input type="radio" name="type" class="check" value="1">只回复该楼</label><label><input type="radio" checked="checked" name="type" class="check" value="2">同时显示</label></div>
+                                <div class="uploadImg mt10 jq_uploads_img">
+                                    <div><label class="sc_btn"><input id="logo_file_<{$item['comment_id']}>" name="logo_file" type="file" multiple="true" value="" /></label></div>
+                                    <script>
+                                        $(document).ready(function(){
+                                          //  upload("<{$item.comment_id}>");
+                                        })
+                                    </script>
+                                    <div class="imgList">
+                                        <ul class="imgList_<{$item.comment_id}>">
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="btn_box mt10">
+                                    <input class="btn reply_btn" rel="<{$item.comment_id}>" type="button" value="评论">
+                                </div>
+                            </form>
+                        </div>
+                        <!--回复表单end-->
+                        <!--回复内容-->
+                        <div>
+                            <volist name="item.replys" id="var">
+                                <div class="tribeEvlt_reply">
+                                    <img src="<{:config_img($var['users']['face'])}>" width="70" height="70" class="left img" />
+                                    <div class="pub_wz">
+                                        <p><big class="maincl"><{:config_user_name($var[users][nickname])}>：</big><{$var.contents}></p>
+                                        <ul class="img_list">
+                                            <volist name="var.pics" id="p">
+                                                <li><img src="<{:config_img($p['photo'])}>" width="215" height="130"></li>
+                                            </volist>
+                                        </ul>
+                                        <p class="txt_right graycl"><{$var.create_time|date='Y-m-d H:i',###}><span class="ml10">评论</span></p>
+                                    </div>
+                                </div>
+                            </volist>
+                        </div>
+                        <!--回复内容end-->
+                    </div>
+                </div>
+            </div>
+         </foreach> 
+        <script>
+            $(document).ready(function() {
+                $(".tribeEvlt_box .evlt_bottom .reply").click(function(){
+                    $(this).parents(".tribeDelt_nr").find(".tribe_topic_fabiao").slideToggle();
+                });
+                $(".tribeEvlt_box .tribe_topic_fabiao .btn2").click(function(){
+                    $(this).parents(".tribeDelt_nr").find(".tribe_topic_fabiao").slideToggle();
+                });
+                $(".reply_btn").click(function(){
+                    var url = "<{:U('thread/reply')}>";
+                    var cid = $(this).attr('rel');
+                    $.post(url,$("#reply_form_"+cid).serialize(),function(data){
+                        if(data.status == 'login'){
+                            ajaxLogin();
+                        }else if(data.status == 'success'){
+                            layer.msg(data.msg);
+                            setTimeout(function(){
+                                window.location.reload(true);
+                            },1000)
+                        }else{
+                            layer.msg(data.msg);
+                        }
+                    },'json')
+                })
+            });
+        </script>
+    </div>
+    <!--评论列表end-->
+    <!--页码-->
+    <div class="x">
+        <{$page}>
+    </div>
+    <!--页码end-->
+    
+   
+            
+            
+    <!--发帖与回复-->
+    <div class="tribeCont_r">
+        <div class="tribe_topic_fabiao"> 
+        	<h3>部落回复</h3>
+                <form method="post" id="reply_form">
+                <input type="hidden" name="post_id" value="<{$detail.post_id}>" />
+                <textarea name="contents" placeholder="请输入内容~"></textarea>
+                
+                
+                <div class="uploadImg mt10 jq_uploads_imgs">
+                    <div class="left">
+                        	<div id="moreToUpload" >上传更多图片</div>
+                         </div>
+							<script>                                
+									var width_thread = '<{:thumbSize($CONFIG[attachs][thread][thumb],0)}>';  //获取宽度                              
+									var height_thread = '<{:thumbSize($CONFIG[attachs][thread][thumb],1)}>'; //获取高度 
+									var uploader = WebUploader.create({                                    
+									auto: true,                                    
+									swf: '/static/default/webuploader/Uploader.swf',                                    
+									server: '<{:U("app/upload/uploadify",array("model"=>"thread"))}>',                                    
+									pick: '#moreToUpload',                                    
+									fileNumberLimit:10,                                    
+									resize: true, 
+									crop: false,  
+									compress : {width:width_thread,height:height_thread,quality: 80,allowMagnify: false,crop: true},														                        
+								});                                                               
+								uploader.on( 'uploadSuccess', function( file,resporse) {                                    
+								var str = '<span style="width: 120px; height: 120px; float: left; margin:0 10px 0 10px; overflow: hidden;">  <img width="200" height="100" src="' + resporse.url + '">  <input type="hidden" name="photos[]" value="' + resporse.url + '" />    <a href="javascript:void(0);">取消</a>  </span>';                                   
+								 $(".jq_uploads_img").append(str);                                
+									 });                                                            
+								 uploader.on( 'uploadError', function( file ) {                                    
+									alert('上传出错');                                
+								 });                                
+								 $(document).on("click", ".jq_uploads_img a", function () {                                    
+									 $(this).parent().remove();                                
+								 });                            
+                             </script>
+                            <div class="jq_uploads_img">
+                                <foreach  name="photos" item="item">
+                                    <span style="width: 120px; height: 120px; float: left; margin-left: 5px; margin-top: 10px;"> 
+                                        <img width="100" height="100" src="<{:config_img($item['photo'])}>">  
+                                        <input type="hidden" name="photos[]" value="<{$item.photo}>" />  
+                                        <a href="javascript:void(0);">取消</a>  
+                                    </span>
+                                </foreach>
+                            </div>	
+                </div>
+                
+                
+                <div class="btn_box mt10">
+                    <input class="btn" id="reply_btn" type="button" value="评论">
+                </div>
+            </form>
+        </div>
+    </div>
+    <!--发帖与回复end-->
+    <script>
+
+        $(document).ready(function(){
+            $("#reply_btn").click(function(){
+                    var url = "<{:U('thread/reply')}>";
+                    $.post(url,$("#reply_form").serialize(),function(data){
+                        if(data.status == 'login'){
+                            ajaxLogin();
+                        }else if(data.status == 'success'){
+                            layer.msg(data.msg);
+                            setTimeout(function(){
+                                window.location.reload(true);
+                            },1000)
+                        }else{
+                            layer.msg(data.msg);
+                        }
+                    },'json')
+                })
+        })
+    </script>
+</div>
+<include file="public:footer"/>

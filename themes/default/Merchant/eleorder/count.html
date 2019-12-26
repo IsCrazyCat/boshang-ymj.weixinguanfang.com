@@ -1,0 +1,102 @@
+<include  file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<script type="text/javascript" language="javascript">
+
+	$(document).ready(function(){
+		$('#load td').mouseover(function(){
+			$(this).find('img.refresh').show();
+		})
+		$('#load td').mouseout(function(){
+			$(this).find('img.refresh').hide();
+		})
+		$('.refresh').click(function(){
+			var val = $(this).attr('val');
+			var img = '<img src=__TMPL__statics/images/loading2.gif />';
+			var span = $(this).parent();
+			var btime = '<{$btime}>';
+			var etime = '<{$etime}>';
+			var pre_btime = '<{$pre_btime}>';
+			var pre_etime = '<{$pre_etime}>';
+			$.post('<{:U("eleorder/delivery_count")}>',{did:val,btime:btime,etime:etime},function(result){
+				if(result.status = 'success'){
+					span.html(img);
+					setTimeout(function(){
+						if(pre_btime && pre_etime){
+							var str = '<span style=color:#999999;>'+pre_btime+'至'+pre_etime+'</span>';
+							span.html(str+'<span style=color:#078e10;>他共配送'+result.count+'单商品!</span>');
+						}else{
+							span.html('<span style=color:#078e10;>他共配送'+result.count+'单商品!</span>');
+						}
+						
+					},1000)
+				}else{
+					span.html(img);
+					setTimeout(function(){
+						span.html(result.message);
+					},1000)
+				}
+				
+			},'json')
+			
+		})
+	})
+
+</script>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">其他</a> > <a href="">外卖设置</a> > <a>确认订单</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <form method="post" action="<{:U('eleorder/count')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            开始时间：<input type="text" class="radius3 tuan_topser"  name="bg_date" value="" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"/>
+            结束时间：<input type="text" class="radius3 tuan_topser"  name="end_date" value="" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"/>
+            <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/>
+        </div>
+    </div>
+    </form>
+     <include file="eleorder:nav"/> <!--引入菜单-->
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>编号</td>
+			<td>订单ID</td>
+            <td>购买人信息</td>
+            <td>配送员信息</td>
+            <td>状态</td>
+            <td>下单时间</td>
+        </tr>
+        <php>
+        	$shop = D('Shop');
+        </php>
+        <volist name="list" id="var">
+            <tr id="load">
+                <td><{$i}></td>
+                <td><{$var.type_order_id}></td>
+                <td><{$var.name}>&nbsp;|&nbsp;<{$var.mobile}>&nbsp;|&nbsp;<{$var.addr}></td>
+                <td><eq name="var.delivery_id" value="0">
+                		<span style="color:#FF0000;">该订单还未被接单!</span>
+                	<else/>
+                    
+                    <php>
+                    $Delivery = D("Delivery")->where(array('user_id'=>$var['delivery_id']))->find();
+                    </php>
+                        <{$Delivery.name}>&nbsp;|&nbsp;<{$Delivery.mobile}>&nbsp;<span><img src="__TMPL__statics/images/refresh.gif" style="vertical-align:middle;display:none;cursor:pointer;" class="refresh" val="<{$var.delivery_id}>" /></span>
+                    </eq></td>
+                <td>
+                	<eq name="var.status" value="0"><span style="color:#FF0000;">货到付款</span></eq>
+                    <eq name="var.status" value="1">已付款</eq>
+                    <eq name="var.status" value="2"><span style="color:#FF0000;">配送中</span></eq>
+                    <eq name="var.status" value="8"><span style="color:#006600;">已完成</span></eq>
+                </td>
+                <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                
+            </tr>
+        </volist>
+    </table>
+    
+    
+    <{$page}>
+</div>
+<include  file='public:footer'/>

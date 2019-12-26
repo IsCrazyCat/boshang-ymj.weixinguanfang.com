@@ -1,0 +1,125 @@
+<include file="public:header"/>
+
+<div class="content_right"> 
+
+<div class="tgdd">
+    <include file="order:nav"/><!--订单导航-->
+    <div class="tgdd_t">
+        <script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+        <form action="<{:U('booking/index')}>" method="post">
+            <div class="search_form"> 
+                <span class="search_form_wz">开始时间</span><input class="search_form_time" type="text" name="bg_date" value="<{$bg_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd'});"  />
+                <span class="search_form_wz">结束时间</span><input class="search_form_time" type="text" name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd'});" />
+                <span class="search_form_wz">状态</span>
+                <select name="st" class="search_form_zt">
+                    <option value="999">请选择</option>
+                    <option <eq name="st" value="0">selected="selected"</eq>  value="0">未付款</option>
+                    <option <eq name="st" value="1">selected="selected"</eq>  value="1">已付款</option>
+                    <option <eq name="st" value="2">selected="selected"</eq>  value="2">已消费</option>
+                    <option <eq name="st" value="-1">selected="selected"</eq>  value="-1">已退款</option>
+                </select>
+                <span class="search_form_wz">订单编号</span>
+                <input type="text" name="keyword" value="<{$keyword}>" class="search_form_ssk" /><input type="submit" class="search_form_ssan" value="搜索" />
+            </div>
+        </form>
+    </div>
+    <div class="tgdd_nr">
+
+
+     <table class="tuan_table3" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#F9F9F9;">
+            <td width="39%">订餐订单</td>
+            <td width="8%">总价</td>
+            <td width="13%">定金</td>
+            <td width="18%">订单状态</td>
+            <td width="15%">操作</td>
+     </table>
+     <div class="blank-10"></div>
+  <foreach name="list" item="order">   
+  <table class="tuan_table1" width="100%" border="0">
+  <tbody><tr class="tr_left_2">
+    <td class="left10" colspan="4">
+    订单编号：<span class="mallorder_jg"><{$order.order_id}></span>
+    <span class="td_top_1">下单时间：<{$order.create_time|date='Y-m-d H:i:s',###}>  </span></td>
+  </tr>
+  <tr>
+
+    <td class="td_left_1"> 
+    <table class="tuan_table2" width="100%" border="0">
+      <tbody><tr class="tr_left_1">
+
+        <td class="left1">
+        <!--商品展示开始-->
+        <div class="index__production___yfP3y">
+        <a target="_blank" href="<{:U('pchome/booking/detail',array('shop_id'=>$order['shop_id']))}>" class="index__pic___TScfk">
+        <img src="<{:config_img($shops[$order['shop_id']]['photo'])}>"><span></span></a>
+
+        <div class="index__infos___A6XLq">
+
+            <p><a href="<{:U('pchome/booking/detail',array('shop_id'=>$order['shop_id']))}>" target="_blank">
+            <span>商家：<{$shops[$order['shop_id']]['shop_name']}></span></a></p>
+
+            <span><p>下单时间：<{$order.create_time|date='Y-m-d H:i:s',###}></p></span>
+            <span><p>订座时间：<{$order['ding_date']}> &nbsp;<{$order['ding_time']}></p></span>
+            <span>
+                <p>
+                    <if condition="!empty($order['room_id'])"><{$room[$order['room_id']]['name']}><else/>大厅</if>
+                    <if condition="empty($order['menu_amount'])">未点菜<else/>已点菜</if>
+                </p>	
+            </span>
+
+        	</div>
+
+		</div>
+
+       <!--商品展示END-->
+        </td>
+        <td class="left2">
+         <foreach name="products" item="product">
+            <if condition="$product['order_id'] eq $order['order_id']">    
+            <li class="mealOrder_nrli"><{$eleproducts[$product['product_id']]['product_name']}>（<{$product.num}>份）</li>
+            </if>
+         </foreach>
+        </td>
+        <td class="left3">￥<{:round(($order['amount']+$order['menu_amount'])/100,1)}><if condition="$order['menu_amount'] gt 0">(点餐金额：￥<{:round($order['menu_amount']/100,1)}>)</if></td>
+        <td class="left5"> </td>
+      </tr>
+    </tbody></table>    
+    </td>
+    <td class="left7" width="15%">
+￥<{:round($order['amount']/100,1)}>
+     </td>
+    <td class="left8" width="20%">
+       <if condition="$order['order_status'] eq 0">
+                <a class="myInfor_sx myInfor_sx_fk" href="<{:U('pchome/booking/pay',array('order_id'=>$order['order_id']))}>" target="_blank">去付款</a>         
+                <elseif condition="$order['order_status'] eq 1" />
+                		已付款
+                <elseif condition="$order['order_status'] eq 2" />
+                		已消费
+                       <if condition="$order['comment_status'] eq 0">
+                       		<a class="myInfor_sx" href="<{:U('booking/comment',array('order_id'=>$order['order_id']))}>">去点评</a>
+                       <else/>
+                       		<a class="myInfor_sx" href="javascript:void(0);">已点评</a>
+                       </if>
+                 <elseif condition="$order['order_status'] eq -1" />
+                 		已取消
+               	</if>
+    </td>
+    <td class="left9" width="15%">
+    <a class="myInfor_sx_fk" href="<{:U('booking/detail',array('order_id'=>$order['order_id']))}>">查看</a>
+	<if condition="$order['order_status'] eq 1 or $order['order_status'] eq 0">
+    	<a mini='confirm' class="tgdd_del" href="<{:U('booking/cancle',array('order_id'=>$order['order_id']))}>">取消订单</a>
+    </if>
+    </td>
+  </tr>
+</tbody>
+</table>
+<br> 
+</foreach>
+        <div class='x'><{$page}></div>
+     </div>
+</div>
+</div>
+</div>
+</div>
+<include file="public:footer"/>

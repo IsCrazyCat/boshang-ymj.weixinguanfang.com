@@ -1,0 +1,16 @@
+.login-box ,.reg-box{background:#FAFAFA;margin-bottom:-30px;}
+.tab{background:#FFF;margin:30px 20px;padding:30px;border:thin solid #DDD;}
+
+.login-box form{background:#FFF;margin:30px 20px;padding:30px;border:thin solid #DDD;}
+.login-box h2{font-size:14px;font-weight:bold;margin-bottom:10px;}
+
+.login-other{overflow:hidden;padding:10px 0;}
+.login-other a{width:40px;height:40px;float:left;margin-right:10px;}
+.login-other span{color:#FFF;font-size:24px;}
+
+.wx-code-box .status{text-align:center;width:256px;}
+.wei-text {font-family:"Microsoft YaHei"!important;padding:10px;}
+.wei-text p{line-height:40px;}
+
+.input-help ul{padding:0;overflow:hidden;padding:5px 0;}
+.input-help li{float:left;margin-right:5px;}

@@ -1,0 +1,127 @@
+<include file="public:header"/>
+<style>
+.txt-small {width: 24px;height: 24px;line-height: 24px;}
+.cart-bar {padding: 0 10px;}
+</style>
+	<script src="/static/default/wap/other/cookie.js"></script>
+	<script src="/static/default/wap/js/ele.js"></script>
+	<header class="top-fixed bg-yellow bg-inverse">
+    
+    <div class="top-back">
+			<if condition="!empty($type)">
+			<a class="top-addr" href="<{:U('shop/ele',array('shop_id'=>$shop_id))}>"><i class="icon-angle-left"></i></a>
+        <else/>
+        	<a class="top-addr" href="<{:U('ele/shop',array('shop_id'=>$shop_id))}>"><i class="icon-angle-left"></i></a>
+        </if>
+		</div>
+        
+        
+		
+		<div class="top-title">
+			我的点餐
+		</div>
+        <div class="top-share">
+		</div>
+	</header>
+    <php>$tt = ($detail['since_money'])-$total['money']*100;</php>
+    <div class="line padding border-bottom">
+		<span class="text-gray">点餐来自：</span><{$detail.shop_name}> <span class="margin-left text-small text-yellow">(满<{:round($detail['since_money']/100,2)}>元起送)</span>
+	</div>
+	
+    <form method="post" id="cart-form"  action="<{:U('ele/order',array('t'=>$nowtime))}>"  target="x-frame">
+    <php>$total_money = 0;</php>
+    <div class="cart-list">
+		<ul>
+			<foreach name="cartgoods" item="item">
+			<li class="line">
+				<div class="x3">
+					<img class="radius-small" src="<{:config_img($item['photo'])}>" />
+				</div>
+				<div class="x9">
+					<h5><a target="_blank" href="<{:U('ele/detail',array('goods_id'=>$item['goods_id']))}>"><{$item.product_name}></a></h5>
+					<p><span class="margin-right">单价：￥<{:round($item['price']/100,2)}></span> 合计：<span class="text-dot">￥<{:round($item['price'] *  $item['cart_num']/100,2)}></span></p>
+					<div class="num-input" rel="<{$item.product_id}>">
+						<div class="txt txt-small radius-small bg-gray jian" rel="<{:round($item['price']/100,2)}>" onClick="dec(this,<{$item['product_id']}>)">-</div>
+						<input value="<{$item['cart_num']}>" name="num[<{$item['product_id']}>]" id="jquery-num" class="txt txt-small num" type="text" readonly="true"/>
+						<div class="txt txt-small radius-small bg-yellow jia" rel="<{:round($item['price']/100,2)}>" onClick="inc(this,<{$item['product_id']}>)">+</div>
+					</div>
+					<div class="del float-right" onClick="removeby(<{$item['product_id']}>)"><i class="icon-trash-o text-yellow"></i></div>
+				</div>
+			</li>
+			<php>$total_money+= $item['price'] *  $item['cart_num'];</php>
+			</foreach>
+		</ul>
+	</div>
+
+
+
+	<nav class="cart-bar">
+		<span class="cart" >
+			<i class="icon-shopping-cart"></i> 
+			<em class=" float-left">已点 <span class="cart-num" id="num"><{$total['num']}></span> </em>
+			<em class="margin-left float-left"><div class="price" id="jquery-total">￥<span class='totalprice'><{:round($total_money/100,2)}></span> <php>$cha = round($tt/100,2);</php><span id="jquery-last" class="jquery-last"><gt name="cha" value="0">还差<span class='cha'><{$cha}></span>元起送</gt></span></div></em>
+		</span>
+		<div class="result">
+			<a href="javascript:void(0);" onClick="$('#cart-form').submit();">
+				<button class="button bg-dot">
+				  进入结算
+				</button>
+			</a>
+		</div>
+	</nav>
+	</form>
+	<iframe id="x-frame" name="x-frame" style="display:none;"></iframe>
+
+<script>
+	var since = "<{$detail['since_money']}>";
+	function dec(o,product_id){
+		var shop_id = "<{$shop_id}>", price = $(o).attr('rel'), cha = 0;
+		window.ele.dec(shop_id,product_id);
+		var count = window.ele.itemcount(product_id);
+		var price = count*price;
+		var totalprice = window.ele.totalprice();
+			cha=(since-totalprice)/100;
+			cha=cha<=0?0:cha;
+		$(o).parent().prev().find('.price').text(price);
+		$(o).parent().find("input[type='text']").val(count);
+		$('.totalprice').text(totalprice);
+		$('.cart-num').text(window.ele.count());
+		var exp = since/100-totalprice;
+		if( exp > 0){
+			$('.jquery-last').html('还差<span class="cha">'+exp+'</span>元起送');
+		}else{
+			$('.jquery-last').text('');
+		}
+		
+	}
+	function inc(o,product_id){
+	 var shop_id = "<{$shop_id}>", price = $(o).attr('rel');
+		window.ele.inc(shop_id,product_id);
+		var count = window.ele.itemcount(product_id);
+		var price = count*price;
+		var totalprice = window.ele.totalprice();
+			cha=since-totalprice;
+			cha=cha<=0?0:cha;
+		$(o).parent().prev().find('.price').text(price);
+		$(o).parent().find("input[type='text']").val(count);
+		$('.totalprice').text(totalprice);
+		$('.cart-num').text(window.ele.count());
+		
+		var exp = since/100-totalprice;
+		if( exp > 0){
+			$('.cha').text(exp);
+		}else{
+			$('.jquery-last').text('');
+		}
+		
+	 }
+	function removeby(pid){
+	   if(window.ele.removeby(pid)){
+			window.location.reload();
+		}else{
+			alert('删除商品失败！');
+		}
+	}
+</script>
+</body>
+</html>	

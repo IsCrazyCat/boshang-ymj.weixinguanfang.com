@@ -1,0 +1,240 @@
+
+
+<include  file='public:header'/>
+
+
+
+<div class="mainBt">
+
+    <ul>
+
+        <li class="li1">商城</li>
+
+        <li class="li2">团购</li>
+
+        <li class="li2 li3">团购列表</li>
+
+    </ul>
+
+</div>
+
+<div class="main-jsgl main-sc">
+
+    <div class="jsglNr">
+
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+
+            <div class="left">
+
+                <{:BA('tuan/create','','添加套餐')}>
+
+            </div>
+
+            <div class="right">
+
+                <form class="search_form" method="post" action="<{:U('tuan/index')}>"> 
+
+                    <div class="seleHidden" id="seleHidden">
+
+                        <div class="seleK">
+
+                            <label>
+
+                                <input type="hidden" id="shop_id" name="shop_id" value="<{$shop_id|default=''}>"/>
+
+                                <input type="text"   id="shop_name" name="shop_name" value="<{$shop_name}>" class="inptText w200" />
+
+                                <a  href="<{:U('shop/select')}>" mini="select" w="800" h="600" class="sumit">选择商家</a>  
+
+                            </label>
+
+                            <label>
+
+                                <span>分类</span>
+
+                                <select id="cate_id" name="cate_id" class="selecttop">
+
+                                    <option value="0">请选择...</option>
+
+                                    <foreach name="cates" item="var">
+
+                                        <eq name="var.parent_id" value="0">
+
+                                        <option value="<{$var.cate_id}>"  <eq name="var.cate_id" value="$cate_id">selected="selected"</eq> ><{$var.cate_name}></option>                
+
+                                        <foreach name="cates" item="var2">
+
+                                            <eq name="var2.parent_id" value="$var.cate_id">
+
+                                            <option value="<{$var2.cate_id}>"  <eq name="var2.cate_id" value="$cate_id">selected="selected"</eq> > &nbsp;&nbsp;<{$var2.cate_name}></option>
+
+                                            </eq>
+
+                                        </foreach>
+
+                                        </eq>
+
+                                    </foreach>
+
+                                </select>
+
+                            </label>
+
+                            <label>
+
+                                <span>状态</span>
+
+                                <select name="audit" class="selecttop">
+
+                                    <option value="0"  >全部</option>
+
+                                    <option value="-1" <eq name="audit" value="-1">selected="selected"</eq> >等待审核</option>
+
+                                    <option value="1" <eq name="audit" value="1">selected="selected"</eq>>正常</option>
+
+                                </select>
+
+                            </label>
+
+                            <label>
+
+                                <span>关键字：</span>
+
+                                <input type="text" name="keyword" id="keyword"  value="<{$keyword}>"   class="inptText" />
+
+                                <input type="submit" value="  搜索"  class="inptButton" />
+
+                            </label>
+
+                        </div>
+
+                    </div> 
+
+                </form>
+
+
+
+                <div class="clear"></div>
+
+            </div>
+
+            <div class="clear"></div>
+
+        </div>
+
+        <form  target="baocms_frm" method="post">
+
+            <div class="tableBox">
+
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+
+                    <tr>
+
+
+
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="tuan_id" /></td>
+
+                        <td class="w50">ID</td>
+
+                        <td>商家</td>
+
+                        <td>套餐标题</td>
+
+                        <td>图片</td>
+
+                        <td>市场价格</td>
+
+                        <td>套餐价格</td>
+
+                        <td>售出数</td>
+
+                        <td>开始时间</td>
+
+                        <td>结束时间</td>
+
+                        <td>创建时间</td>
+
+                        <td>创建IP</td>
+
+                        <td>是否审核</td>
+
+                        <td>操作</td>
+
+
+
+                    </tr>
+
+                    <volist name="list" id="var" key="index"> 
+
+                        <tr>
+
+                            <td><input class="child_tuan_id" type="checkbox" name="tuan_id[]" value="<{$var.tuan_id}>" /> </td>
+
+                            <td><{$var.tuan_id}></td>
+
+                            <td><{$shops[$var['shop_id']]['shop_name']}></td>
+
+                            <td><{$var.title}></td>
+
+                            <td><img src="<{:config_img($var['photo'])}>" class="w80" /></td>
+
+                            <td><{$var.price}></td>
+
+                            <td><{$var.tuan_price}></td>
+
+                            <td><{$var.sold_num}></td>
+
+                            <td><{$var.bg_date}></td>
+
+                            <td><{$var.end_date}></td>
+
+                            <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+
+                            <td><{$var.create_ip_area}><{$var.create_ip}></td>
+
+                            <td><eq name="var.audit" value="0">等待审核<else/>正常</eq></td>
+
+                        <td>
+
+
+
+                            <{:BA('tuan/edit',array("tuan_id"=>$var["tuan_id"]),'编辑','','remberBtn')}>
+
+                            <{:BA('tuan/delete',array("tuan_id"=>$var["tuan_id"]),'删除','act','remberBtn')}>
+
+                            <eq name="var.audit" value="0"> <{:BA('tuan/audit',array("tuan_id"=>$var["tuan_id"]),'审核','act','remberBtn')}> </eq>
+
+                        </td>
+
+                        </tr>
+
+                    </volist>
+
+                </table>
+
+                <{$page}>
+
+            </div>
+
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+
+                <div class="left">
+
+                    <{:BA('tuan/delete','','批量删除','list',' a2')}>
+
+                    <{:BA('tuan/audit','','批量审核','list',' remberBtn')}>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<include  file='public:footer'/>  
+
+
+

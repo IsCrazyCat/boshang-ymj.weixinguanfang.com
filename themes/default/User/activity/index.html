@@ -1,0 +1,32 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('user/member/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			我参加的活动
+		</div>
+	<div class="top-signed">
+
+	</div>
+</header>
+
+<!-- 筛选TAB -->
+<ul id="shangjia_tab">
+        <li style="width: 50%;"><a href="<{:LinkTo('activity/index')}>" class="on">我参加的活动</a></li>
+        <li style="width: 50%;"><a href="<{:LinkTo('user/message/index')}>" >我的信箱</a></li>
+     
+</ul>
+
+
+<div class="list-media-x" id="list-media">
+	<ul></ul>
+</div>	
+
+    
+<script>
+	$(document).ready(function () {	 
+		loaddata('<{:U("activity/load",array("t"=>$nowtime,"p"=>"0000"))}>', $("#list-media ul"), true);
+	});
+</script>
+<include  file='public:footer'/>

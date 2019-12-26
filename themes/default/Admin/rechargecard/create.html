@@ -1,0 +1,40 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">卡密管理</li>
+        <li class="li2 li3">添加充值卡</li>
+    </ul>
+</div>
+<form  target="baocms_frm" action="<{:U('rechargecard/create')}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">卡名：</td>
+                    <td class="rgTdBt"><input type="text" name="data[name]" value="<{$detail.name|default=''}>" class="scAddTextName w210"/>
+                    <code>充值卡名称</code>
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">面额：</td>
+                    <td class="rgTdBt"><input type="text" name="data[value]" value="<{$detail.value|default=''}>" class="scAddTextName w210" />
+                    <code>只能为1以上的整数，不能为小数，比如1元，5元，10元，50元，100元</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">添加数量：</td>
+                    <td class="rgTdBt"><input type="text" name="data[num]" value="" class="scAddTextName w210" />
+                     <code>一次最多添加50-100张，不要填写多了！</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">过期时间：</td>
+                    <td class="rgTdBt"><input type="text" name="data[end_date]" value="<{$detail.end_date|default=''}>" onfocus="WdatePicker();"  class="inputData"  /> <code>超过过期时间，充值卡无法充值。</code>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认添加" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>       

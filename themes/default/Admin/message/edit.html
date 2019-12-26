@@ -1,0 +1,51 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">小区</li>
+        <li class="li2">邻居交友信息</li>
+        <li class="li2 li3">编辑</li>
+    </ul>
+</div>
+<div class="mainScAdd ">
+
+    <div class="tableBox">
+        <form target="baocms_frm" action="<{:U('message/edit',array('msg_id'=>$detail['msg_id']))}>" method="post">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <!--后期考虑发信人
+                <tr>
+                    <td class="lfTdBt">用户：</td>
+                    <td class="rgTdBt">
+                        <div class="lt">
+                            <input type="hidden" id="user_id" name="data[user_id]" value="<{$detail.user_id|default=''}>" class="manageInput" />
+                            <input type="text" name="nickname" id="nickname"  value="<{$user.nickname}>" />
+                        </div>
+                        <a mini="select"  w="800" h="600" href="<{:U('user/select')}>" class="remberBtn">选择用户</a>
+                    </td>
+                </tr> <tr>-->
+               
+              
+              
+              
+               <tr>
+                    <td  class="lfTdBt">详细内容：</td>
+                    <td class="rgTdBt">
+                        <textarea name="data[content]" rows="5" cols="40"><{$detail.content|default=''}></textarea>
+                    </td>
+                </tr>
+                
+                
+              
+                
+                
+              
+                <tr>
+                    <td colspan="2">
+                        <div class="smtQr"><input type="submit" value="确认修改" class="smtQrIpt" /></div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>       

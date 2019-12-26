@@ -1,0 +1,80 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">社区村设置</li>
+        <li class="li2">通知、展示管理</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('village/notice_create',array("village_id"=>$village_id,'type'=>'1'),'添加通知')}>
+            </div>
+              <div class="left">
+                <{:BA('village/notice_create',array("village_id"=>$village_id,'type'=>'2'),'添加展示')}>
+            </div>
+            <div class='right'>   <div class="seleHidden" id="seleHidden">
+                        <span>类型</span>
+                        <select id="typeSel" name="typeSel" class="select">
+                            <option value="0">请选择...</option>
+                            <option value="1">通知</option><option value="2">展示</option>                        </select>
+                   
+                    </div></div>
+            <script>
+                  $(document).ready(function () {
+                      $('#typeSel').change(function(){
+                          switch($('#typeSel').val())
+                          {
+                              case '1':
+                                  window.location="<{:U('village/notice',array('village_id'=>$village_id,'type'=>'1'))}>"
+                                  break;
+                              case '2':
+                                    window.location="<{:U('village/notice',array('village_id'=>$village_id,'type'=>'2'))}>"
+                                  break;
+                          }
+                      })
+                  })
+                </script>
+            <div class="clear"></div>
+       
+    </div>
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td><input type="checkbox" class="checkAll" rel="community_id" /></td>
+                    <td>ID</td>
+                    <td>标题</td>
+                    <td>类型</td>
+                    <td>时间</td>
+                    <td>操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_community_id" type="checkbox" name="id[]" value="<{$var.id}>" /></td>
+                        <td><{$var.id}></td>
+                        <td><{$var.title}></td>
+                        <td><if condition='$var.type eq 1'>通知<else/>展示</if></td>
+                        <td><{$var.addtime|date='Y-m-d H:i:s',###}></td>
+                        <td>
+                            <{:BA('village/notice_edit',array("id"=>$var["id"]),'编辑','','remberBtn')}>
+                            <{:BA('village/notice_delete',array("id"=>$var["id"]),'删除','act','remberBtn')}>
+
+                        </td>
+
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                <{:BA('village/notice_delete','','批量删除','list',' a2')}>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+

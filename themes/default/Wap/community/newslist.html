@@ -1,0 +1,21 @@
+<include file='public:header'/>    
+	<script src="/static/default/wap/other/roll.js"></script>
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:u('community/detail',array('community_id'=>$detail['community_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<{$detail.name}>物业通知
+		</div>
+	</header>
+	<div class="text-list">
+		<ul>
+		</ul>
+	</div>
+
+    <script>
+        $(document).ready(function () {
+            loaddata('<{$next}>', $(".text-list ul"), true);
+        });
+    </script>
+<include file="public:footer"/> 

@@ -1,0 +1,121 @@
+<include  file='public:header'/>
+<style>.lfTdBt {width: 200px;}</style>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">模板设置</li>
+        <li class="li2">登录与注册</li>
+    </ul>
+</div>
+
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>以后关于登录注册的尽量写在这里。</p>
+    <form  target="baocms_frm" action="<{:U('setting/register')}>" method="post">
+        <div class="tableBox">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+              <tr>
+                    <td class="lfTdBt">是否开启注册时候显示推荐人</td>
+                    <td class="rgTdBt">
+       <label><input type="radio" name="data[register_distribution]" <eq name="CONFIG.register.register_distribution" value="1">checked="checked"</eq> value="1"  />开启</label>
+       <label><input type="radio" name="data[register_distribution]"  <eq name="CONFIG.register.register_distribution" value="0">checked="checked"</eq>  value="0"  />关闭</label>
+                        <code>开启后，注册的时候可以填写推荐人ID，此功能必须首先开启分销才有效，否则无效！</code>
+                    </td>
+                </tr>
+        
+                 <tr>
+                    <td class="lfTdBt">PC注册页开启同意协议：</td>
+                    <td class="rgTdBt">
+                        <label><input type="radio" name="data[register_service]" <eq name="CONFIG.register.register_service" value="1">checked="checked"</eq> value="1"  />开启</label>
+                        <label><input type="radio" name="data[register_service]"  <eq name="CONFIG.register.register_service" value="0">checked="checked"</eq>  value="0"  />关闭</label>
+                        <code>开启之后pc注册页面，默认是开启的，关闭后需要用户自己打钩，阅读并同意 服务协议自动打钩！</code>
+                    </td>
+                </tr>
+                
+                
+                <tr>
+                    <td class="lfTdBt">pc注册服务协议url连接：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[register_service_url]" value="<{$CONFIG.register.register_service_url}>" class="manageInput" />
+                        <code>填写有效的http://地址，可以连接文章已可以连接其他地方！</code>
+                    </td>
+                </tr>
+                
+                 <tr>
+                    <td class="lfTdBt">是否强制开启手机号码注册</td>
+                    <td class="rgTdBt">
+                        <label><input type="radio" name="data[register_mobile]" <eq name="CONFIG.register.register_mobile" value="1">checked="checked"</eq> value="1"  />开启</label>
+                        <label><input type="radio" name="data[register_mobile]"  <eq name="CONFIG.register.register_mobile" value="0">checked="checked"</eq>  value="0"  />关闭</label>
+                        <code>开启之后pc注册只能通过手机号码注册，邮箱不能注册，快捷登录不受影响</code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="lfTdBt">PC邮箱注册是否开启验证码</td>
+                    <td class="rgTdBt">
+       <label><input type="radio" name="data[register_yzm]" <eq name="CONFIG.register.register_yzm" value="1">checked="checked"</eq> value="1"  />开启</label>
+       <label><input type="radio" name="data[register_yzm]"  <eq name="CONFIG.register.register_yzm" value="0">checked="checked"</eq>  value="0"  />关闭</label>
+                        <code>正常情况下需要开启，特殊情况下可以选择关闭</code>
+                    </td>
+                </tr>
+                
+     <tr>
+       <td class="lfTdBt">注册时候密码必须几位以上：</td>
+       <td class="rgTdBt">
+       <input type="text" name="data[register_password]" value="<{$CONFIG.register.register_password}>" class="manageInput" />
+       <code>一般填写6，建议6-12的数字，不可填写其他的。</code>
+       </td>
+     </tr>
+     
+<tr>
+<td class="lfTdBt">wap注册开启图片验证码</td>
+<td class="rgTdBt">
+<label><input type="radio" name="data[wap_register_yzm]" <eq name="CONFIG.register.wap_register_yzm" value="1">checked="checked"</eq> value="1"/>开启</label>
+<label><input type="radio" name="data[wap_register_yzm]"  <eq name="CONFIG.register.wap_register_yzm" value="0">checked="checked"</eq> value="0"/>关闭</label>
+<code>正常情况下可以不开启，毕竟手机注册客户体验很重要</code>
+</td>
+</tr>
+
+<tr>
+<td class="lfTdBt">wap注册二次输入密码</td>
+<td class="rgTdBt">
+<label><input type="radio" name="data[wap_register_password2]" <eq name="CONFIG.register.wap_register_password2" value="1">checked="checked"</eq> value="1"/>开启</label>
+<label><input type="radio" name="data[wap_register_password2]"  <eq name="CONFIG.register.wap_register_password2" value="0">checked="checked"</eq> value="0"/>关闭</label>
+<code>开启后就需要重复输入一次密码才能注册</code>
+</td>
+</tr>
+    
+     
+                 <tr>
+                    <td class="lfTdBt">用户密码输错几次锁定：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[register_lock_numl]" value="<{$CONFIG.register.register_lock_numl}>" class="remberinput w80" />
+                        <code>就是用户密码输错多次后自动锁定</code>
+                        
+                        <input type="text" name="data[register_is_lock_time]" value="<{$CONFIG.register.register_is_lock_time}>" class="remberinput w80" />
+                        <code>填写锁定多少秒，正常900秒</code>
+                    </td>
+                </tr>
+                
+      <tr>
+       <td class="lfTdBt">同一IP手机注册几次输入验证码：</td>
+        <td class="rgTdBt">
+         <input type="text" name="data[register_register_ip_num]" value="<{$CONFIG.register.register_register_ip_num}>" class="remberinput w80" />
+          <code>同一IP手机注册几次拦截IP，直到注册成功才解除</code>
+          <input type="text" name="data[register_register_is_lock_time]" value="<{$CONFIG.register.register_register_is_lock_time}>" class="remberinput w80" />
+          <code>每一次拦截时间/秒</code>
+        </td>
+    </tr>
+            
+               
+
+            </table>
+
+        </div>
+
+        <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+
+    </form>
+
+</div>
+
+<include  file='public:footer'/>       

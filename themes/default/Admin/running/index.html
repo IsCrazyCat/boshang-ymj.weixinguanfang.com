@@ -1,0 +1,95 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">频道</li>
+        <li class="li2">跑腿管理</li>
+        <li class="li2 li3">跑腿列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+  <p class="attention"><span>注意：</span>暂时不支持退款操作，运营此模块前先去设置》》》基本设置》》跑腿设置中设置好相关参数</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <!--<{:BA('running/create','','添加跑腿')}>-->
+            </div>
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('running/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                     <label>
+                                <span>状态</span>
+                                <select name="st" class="select w100">
+                                    <option value="999">请选择</option>
+                                    <foreach name="types" key="key" item="item">
+                                        <option <eq name="st" value="$key">selected="selected"</eq>  value="<{$key}>"><{$item}></option>
+                                    </foreach>
+
+                                </select>
+                            </label>
+                        <label>
+                            <span>关键字</span>
+                            <input type="text" name="keyword" value="<{$keyword|default=''}>" class="inptText" />
+                            <input type="submit" value="搜索"  class="inptButton" />
+                        </label>
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+    <div class="selectNr selectNr2">
+
+        <div class="clear"></div>
+    </div>
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="user_id" /></td>
+                    <td class="w50">ID</td>
+                    <td>标题</td>
+                    <td>买家信息</td>
+                    <td>付款金额</td>
+                    <td>跑腿费用</td>
+                    <td>实际支付</td>
+                    <td>发布时间</td>
+                    <td>状态</td>
+                    <td>操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_running_id" type="checkbox" name="running_id[]" value="<{$var.running_id}>" /></td>
+                        <td><{$var.running_id}></td>
+                        <td><{$var.title}></td>
+                        <td>
+                            <{$var.name}>|<{$var.mobile}><br>
+                            <{$var.addr}>
+                        </td>
+                        <td> &yen;<{:round($var['price']/100,2)}></td>
+                        <td> &yen;<{:round($var['freight']/100,2)}></td>
+                        <td> &yen;<{:round($var['need_pay']/100,2)}></td>
+                        <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                        <td>
+                            <{$types[$var['status']]}>
+                        </td>
+                        <td>
+                        <{:BA('running/delete',array("running_id"=>$var["running_id"]),'删除','act','remberBtn')}>
+                        </td>
+                    </tr>
+                </foreach>
+            </table>
+             <{$page}>
+        </div>
+        
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                     <!--<{:BA('running/delete','','批量删除','list','remberBtn')}>-->
+                </div>
+            </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+
+

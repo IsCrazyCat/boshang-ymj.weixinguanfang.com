@@ -1,0 +1,57 @@
+<include file="public:header" /> 
+<include file="public:topOne" />
+<div class="between">
+    <div class="middle" style="min-height:480px;">
+        <div class="all">
+            <div class="all_2">
+                <ul>
+                    <li class="on">1.提交订单<em>&nbsp;</em></li>
+                    <li class="on">2.去支付<em>&nbsp;</em></li>
+                    <li>3.完成<em>&nbsp;</em></li>
+                </ul>               
+            </div>
+            <div class="all_3">
+                <ul class="ul_3">
+                    <li><img src="__TMPL__statics/images/tp_5.png"><p>随时退</p></li>
+                    <li><img src="__TMPL__statics/images/tp_6.png"><p>不满意免单</p></li>
+                    <li><img src="__TMPL__statics/images/tp_7.png"><p>过期退</p></li>
+                </ul>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <form action="<{:U('tuan/pay2',array('order_id'=>$order['order_id']))}>" method="post" target="baocms_frm">
+            <table class="order" width="1200px">
+                <tr>
+                    <td>订单编号</td>
+                    <td>支付类型</td>
+                    <td>支付方式</td>
+                    <td>需要支付</td>
+                </tr>
+                <tr>
+                    <td><{$logs.log_id}></td>
+                    <td><{$types[$logs['type']]}></td>
+                    <td><{$paytype[$logs['code']]['name']}></td>
+                    <td>￥<{:round($logs['need_pay']/100,2)}></td>
+                </tr>
+            </table>
+            <div class="rights payButton">
+
+                <{$button}><input type="button" value="更换支付方式" class="change" />
+            </div>
+            <div class="clear"></div>
+        </form>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        var url = "<{$url}>";
+        $(".change").click(function () {
+            layer.msg("正在跳转，请稍候", {shift:0}, function () {
+                setTimeout(function () {
+                    window.location.href = url;
+                }, 500)
+            });
+        })
+    })
+</script>
+<include file="public:footer"/>

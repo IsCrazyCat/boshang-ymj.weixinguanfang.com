@@ -1,0 +1,29 @@
+<{assign var="tpl_title" value=$site.title}>
+<{include file="weixin/block/header.html"}>
+<style type="text/css">
+	.circle{width:24px;height:24px;line-height:24px;text-align:center;display:block;background:#00AD28;color:#FFFFFF;font-size:13px;border-radius:100px;}
+	
+</style>
+<div class="managerTit">
+	<h2><{$detail['title']}></h2>
+	<p class="gray">
+		<span>区域:<{$detail['city_name']}><{$detail.area_name}></span><span>小区:<{$detail.home_name}></span><span>面积:<{$detail.house_mj}>㎡</span>
+	</p>
+	<p>
+	<a href="<{link ctl='weixin/zxpm/site:additem' arg0=$detail.site_id}>" class="ui-btn ucenter_btn ucenter_orgbtn lbt" >上报进度</a>
+	</p>
+</div>
+
+<ul class="ui-list ui-list-function ui-list-link ui-border-tb ucenterCont_list">
+    <{foreach $progress as $item name=foo}>
+    <li class="ui-border-t">
+        <div class=""></div>
+		<span class="circle"><{$smarty.foreach.foo.index+1}></span>
+        <div class="ui-list-info">
+			 <h4 class="ui-nowrap"><{$steps[$item['step']]}> <span class="fontcl1"><{$item.dateline|format:"Y年m月d日"}></span></h4>
+        </div>
+        <a href="<{link ctl='weixin/zxpm/site:item' arg0=$item.progress_id}>" class="ui-btn ucenter_btn">点击查看</a>
+    </li>		
+    <{/foreach}>
+</ul>
+<{include file="weixin/block/footer.html"}>

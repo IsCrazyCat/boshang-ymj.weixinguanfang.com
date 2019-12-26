@@ -1,0 +1,53 @@
+<include file="public:header" /> 
+<include file="public:topOne" />
+            <div class="between">
+                    <div class="hotel_state">
+                        <div class="list_box">
+                            <ul>
+                                <li class="list">1.提交订单</li>
+                                <li class="list">2.去支付</li>
+                                <li class="list on">3.完成</li>
+                            </ul>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="img img3"></div>
+                    </div>
+                    <table  class="tab_bor">
+                        <tr>
+                            <td><p class="tab_p1"><img src="__TMPL__statics/images/tp_15.png"></p></td>
+                            <td><p class="tab_p2"><{$message}><a href="<{:U('home/farm/index')}>"> &nbsp再去逛逛>></a></p></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><div class="tab_p4"><a href="<{:U('members/farm/index')}>">查看已订农家乐</a></div></td>
+                        </tr>
+                    </table>
+                    <table class="tab_xx" width="100%">
+                        <tr>
+                            <th colspan="6">订单信息</th>
+                        </tr>
+                        <tr>
+                            <td>订单编号：<{$detail.order_id}></td>
+                            <td>下单时间：<{$order.create_time|date='Y-m-d H:i',###}></td>
+                            <td>付款方式：<{$paytype[$detail['code']]['name']}></td>
+                            <td>付款时间：<{$detail.create_time|date='Y-m-d H:i',###}></td>
+                            <td colspan="2">农家乐地址：<{$farm['addr']}></td>
+                        </tr>
+                        <tr>
+                            <th width="150">农家乐信息</th>
+                            <th colspan='2'>套餐名称</th>
+                            <th>预订时间</th>
+                            <th class="tab_fiveTh">总额</th>
+                        </tr>
+                        <tr>
+                            <td><img width="150" src="<{:config_img($farm['photo'])}>"></td>
+                            <td colspan='2'><{$f['title']}></td>
+                            <td><{$order['gotime']|date='Y-m-d h:i:s',###}></td>
+                            <td class="tab_fiveTh"><{$order['amount']}></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4">&nbsp;</td>
+                            <td><p class="pay_total_p">支付总金额：<span>￥<{:round($detail['need_pay']/100,2)}></span></p></td>
+                        </tr>
+                    </table>      
+            </div>
+<include file="public:footer"/>

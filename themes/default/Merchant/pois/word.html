@@ -1,0 +1,38 @@
+
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">包年</a> > <a>购买包年</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+	<div class="radius5 tuan_top">
+        <div class="tuan_top_t tuanfabu_top">
+            <div class="left tuan_topser_l"><strong>注意：</strong> 下面关键词购买后您在黄页系统、微信公众号智能回复能排在第一位，位置稀缺，先下手为强！如果您要购买多个关键词，请联系我们的客服人员！电话：<{$CONFIG[site][tel]}></div>
+        </div>
+    </div>
+    <include  file='pois:nav'/>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td width="250">关键词</td>
+            <td width="120">价格</td>
+            <td width="70">操作</td>
+        </tr>
+        <foreach name="list" item="var">
+        <tr>
+            <tr>
+                <td><{$var.text}></td>
+                <td><{$var.price}> 金块/年</td>
+                <td><a class="text-blue"  href="<{:U('pois/buy',array('word_id'=>$var[word_id]))}>">购买</a>
+                </td>
+            </tr>
+        </tr>
+        </foreach>
+    </table>
+    <div class="paging">
+        <{$page}>
+    </div>
+</div>
+
+<include  file='public:footer'/>
+

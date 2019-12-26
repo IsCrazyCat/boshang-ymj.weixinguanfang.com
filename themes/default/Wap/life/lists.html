@@ -1,0 +1,226 @@
+<include  file='public:header'/>   <header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('life/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		<{$cate.cate_name}>
+	</div>
+    <div class="top-search" style="display:none;">
+			<form method="post" action="<{:U('life/search')}>">
+				<input name="keyword" placeholder="输入关键字"  />
+				<button type="submit" class="icon-search"></button> 
+			</form>
+	</div>
+	<div class="top-share">
+        <a id="search-btn" href="javascript:void(0);"><i class="icon-search"></i></a> 
+		<a href="<{:U('life/fabu',array('cat'=>$_GET['cat']))}>" class="share-btn"><i class="icon-pencil-square-o"></i></a>
+	</div>
+</header>
+
+<script type="text/javascript">
+	$(function(){
+		$("#search-btn").click(function(){
+			if($(".top-search").css("display")=='block'){
+				$(".top-search").hide();
+				$(".top-title").show(200);
+			}
+			else{
+				$(".top-search").show();
+				$(".top-title").hide(200);
+			}
+		});
+		$("#search-bar li").each(function(e){
+			$(this).click(function(){
+				if($(this).hasClass("on")){
+					$(this).parent().find("li").removeClass("on");
+					$(this).removeClass("on");
+					$(".serch-bar-mask").hide();
+				}
+				else{
+					$(this).parent().find("li").removeClass("on");
+					$(this).addClass("on");
+					$(".serch-bar-mask").show();
+				}
+				$(".serch-bar-mask .serch-bar-mask-list").each(function(i){
+					
+					if(e==i){
+						$(this).parent().find(".serch-bar-mask-list").hide();
+						$(this).show();
+					}
+					else{
+						$(this).hide();
+					}
+					$(this).find("li").click(function(){
+						$(this).parent().find("li").removeClass("on");
+						$(this).addClass("on");
+					});
+				});
+			});
+		});
+	});
+	</script>  
+    
+
+
+
+
+<div id="filter2" class="filter2">
+    <ul class="tab clearfix">
+      <li class="item">
+        <a href="javascript:void(0);">
+        <if condition="!empty($area)">
+        <span id="str_b_node" style="color:#f60;"><{$areass[$area]['area_name']}></span>
+        <else/>
+        <span id="str_b_node">地区</span>
+        </if>
+        <em></em>
+        </a>
+      </li>
+      <li class="item">
+        <a href="javascript:void(0);">
+        <if condition="!empty($s1)">
+        <span id="str_b_node" style="color:#f60;"><{:bao_msubstr($attrs['select1'][$s1]['attr_name'],0,3,false)}></span>
+        <else/>
+        <span id="str_b_node"><{$cate['select1']}></span>
+        </if>
+      
+        <em></em>
+        </a>
+      </li>
+      <if condition="!empty($cate['select2'])">
+      <li class="item">
+        <a href="javascript:void(0);"> 
+        <if condition="!empty($s2)">
+        <span id="str_b_node" style="color:#f60;"><{:bao_msubstr($attrs['select2'][$s2]['attr_name'],0,3,false)}></span>
+        <else/>
+        <span id="str_b_node"><{$cate['select2']}></span>
+        </if><em></em>
+        </a>
+      </li>
+      </if>
+      
+      <if condition="!empty($cate['select3'])"> 
+      <li class="item">
+        <a href="javascript:void(0);"> 
+        <if condition="!empty($s3)">
+        <span id="str_b_node" style="color:#f60;"><{:bao_msubstr($attrs['select3'][$s3]['attr_name'],0,3,false)}></span>
+        <else/>
+        <span id="str_b_node"><{$cate['select3']}></span>
+        </if><em></em>
+        </a>
+      </li>
+      </if>
+      
+       <if condition="!empty($cate['select4'])"> 
+      <li class="item">
+        <a href="javascript:void(0);">
+        <if condition="!empty($s4)">
+        <span id="str_b_node" style="color:#f60;"><{:bao_msubstr($attrs['select4'][$s4]['attr_name'],0,3,false)}></span>
+        <else/>
+        <span id="str_b_node"><{$cate['select4']}></span>
+        </if><em></em>
+        </a>
+      </li>
+      </if>
+      
+       <if condition="!empty($cate['select5'])"> 
+      <li class="item">
+        <a href="javascript:void(0);"> 
+        <if condition="!empty($s5)">
+        <span id="str_b_node" style="color:#f60;"><{:bao_msubstr($attrs['select5'][$s5]['attr_name'],0,3,false)}></span>
+        <else/>
+        <span id="str_b_node"><{$cate['select5']}></span>
+        </if><em></em>
+        </a>
+      </li>
+      </if>
+    </ul>
+   
+    <div class="inner" style=" display:none">
+        <ul>
+       <li><a href="<{:LinkTo('life/lists',$linkArr,array('area'=>0))}>">全部地区</a></li>
+			<volist name="areas" id="ae">
+            <php>if($ae['city_id'] == $city_id){</php>
+				<li><a <if condition="$area eq $ae['area_id']"> style="color:red;"</if> href="<{:LinkTo('life/lists',$linkArr,array('area'=>$ae['area_id']))}>"><{$ae.area_name}></a></li>
+                 <php>}</php>
+			</volist>
+        </ul>
+    </div>
+    
+     <div class="inner" style=" display:none">
+        <ul>
+       <li class="on"><a href="<{:LinkTo('life/lists',$linkArr,array('s1'=>0))}>">全部</a></li>
+			<volist name="attrs['select1']" id="select1">
+				<li><a <if condition="$s1 eq $select1['attr_id']"> style="color:red;"</if> href="<{:LinkTo('life/lists',$linkArr,array('s1'=>$select1['attr_id']))}>"><{$select1['attr_name']}></a></li>
+			</volist>
+        </ul>
+    </div>
+    
+     <div class="inner" style=" display:none">
+        <ul>
+      <li class="on"><a href="<{:LinkTo('life/lists',$linkArr,array('s2'=>0))}>">全部</a></li>
+			<volist name="attrs['select2']" id="select2">
+				<li><a <if condition="$s2 eq $select2['attr_id']"> style="color:red;"</if> href="<{:LinkTo('life/lists',$linkArr,array('s2'=>$select2['attr_id']))}>"><{$select2['attr_name']}></a></li>
+			</volist>
+        </ul>
+    </div>
+    
+     <div class="inner" style=" display:none">
+        <ul>
+      <li class="on"><a href="<{:LinkTo('life/lists',$linkArr,array('s3'=>0))}>">全部</a></li>
+			 <volist name="attrs['select3']" id="select3">
+				<li><a <if condition="$s3 eq $select3['attr_id']"> style="color:red;"</if> href="<{:LinkTo('life/lists',$linkArr,array('s3'=>$select3['attr_id']))}>"><{$select3['attr_name']}></a></li>
+			</volist>
+        </ul>
+    </div>
+    
+     <div class="inner" style=" display:none">
+        <ul>
+      <li class="on"><a href="<{:LinkTo('life/lists',$linkArr,array('s4'=>0))}>">全部</a></li>
+			 <volist name="attrs['select4']" id="select4">
+				<li><a <if condition="$s4 eq $select4['attr_id']"> style="color:red;"</if> href="<{:LinkTo('life/lists',$linkArr,array('s4'=>$select4['attr_id']))}>"><{$select4['attr_name']}></a></li>
+			</volist>
+        </ul>
+    </div>
+    
+     <div class="inner" style=" display:none">
+        <ul>
+      <li class="on"><a href="<{:LinkTo('life/lists',$linkArr,array('s5'=>0))}>">全部</a></li>
+			 <volist name="attrs['select5']" id="select5">
+				<li><a <if condition="$s5 eq $select5['attr_id']"> style="color:red;"</if> href="<{:LinkTo('life/lists',$linkArr,array('s5'=>$select5['attr_id']))}>"><{$select5['attr_name']}></a></li>
+			</volist>
+        </ul>
+    </div>
+    
+   
+      
+      <div id="parent_container" class="inner_parent" style="display:none;">
+        <div class="innercontent"></div>
+      </div>
+      <div id="inner_container" class="inner_child" style="display:none;">
+        <div class="innercontent"></div>
+      </div>
+    
+</div>
+<!--end-->    
+
+<div id="fullbg" class="fullbg" style="display: none; height: 250px;">
+<i class="pull2"></i>
+</div>
+
+
+
+<div class="life-list" id="life-list"></div>
+<script>
+	$(document).ready(function () {
+		showFilter({ibox:'filter2',content1:'parent_container',content2:'inner_container',fullbg:'fullbg'});
+		loaddata('<{$nextpage}>', $("#life-list"), true);
+	});
+</script>
+
+<div class="mall-cart">
+		<a href="<{:u('wap/life/release')}>">
+		<div class="round radius-circle"><div class="badge-corner"><i class="icon-pencil-square-o"></i></div></div>
+		</a>
+	</div>
+<include file="public:footer"/>

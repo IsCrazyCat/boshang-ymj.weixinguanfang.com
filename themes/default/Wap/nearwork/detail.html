@@ -1,0 +1,109 @@
+<php>$mobile_title = $detail['title'];</php>
+<include file='public:header'/>    
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('nearwork/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			附近工作
+		</div>
+		<div class="top-share">
+			<a href="javascript:void(0);" id="share-btn"><i class="icon-share"></i></a>
+		</div>
+	</header>
+	<div id="share-box" class="share-box">
+		<div class="dialog-mask"></div>
+			<ul class="line">
+				<li class="-mob-share-weibo x3">
+					<img src="/static/default/wap/image/share/share-weibo.png" />
+					<p>新浪微博</p>
+				</li>
+				<li class="-mob-share-tencentweibo x3">
+					<img src="/static/default/wap/image/share/share-twb.png" />
+					<p>腾讯微博</p>
+				</li>
+				<li class="-mob-share-qzone x3">
+					<img src="/static/default/wap/image/share/share-qzone.png" />
+					<p>QQ空间</p>
+				</li>
+				
+				<li class="-mob-share-qq x3">
+					<img src="/static/default/wap/image/share/share-py.png" />
+					<p>QQ好友</p>
+				</li>
+				<li class="-mob-share-weixin x3">
+					<img src="/static/default/wap/image/share/share-weixin.png" />
+					<p>微信</p>
+				</li>
+				<li class="-mob-share-renren x3">
+					<img src="/static/default/wap/image/share/share-renren.png" />
+					<p>人人网</p>
+				</li>
+				<li class="-mob-share-kaixin x3">
+					<img src="/static/default/wap/image/share/share-kaixin.png" />
+					<p>开心网</p>
+				</li>
+				<li id="mui-card-close" class="mui-card-close x3">
+					<img src="/static/default/wap/image/share/share-close.png" />
+					<p>关闭</p>
+				</li>
+			</ul>
+		<script id="-mob-share" src="http://f1.webshare.mob.com/code/mob-share.js?appkey=890ab8bbdb3c"></script>
+	</div>
+	<script>
+		$(document).ready(function () {
+			$("#share-box").hide();
+			$("#share-btn").click(function () {
+				$("#share-box").toggle();
+				$('html,body').animate({scrollTop:0}, 'slow');
+			});
+			$("#mui-card-close").click(function () {
+				$("#share-box").hide();
+			});
+		});
+	</script>
+	<script src="/static/default/wap/other/roll.js"></script>
+	
+	<div id="tab-box" class="tab-box">
+		<div class="hd">
+			<ul>
+				<li><a href="javascript:void(0);">职位详情</a></li>
+				<li><a href="javascript:void(0);">公司简介</a></li>
+			</ul>
+		</div>
+		<div class="bd">
+			<div class="desc word-desc">
+				<h1><span>职位名称：</span><{$detail.title}></h1>
+				<ul>
+					<li><span>公司名称：</span><{$shop.shop_name}></li>
+					<li><span>工作地点：</span><{$shop.addr}></li>
+					<li><span>薪资待遇：</span><{$detail.money}></li>
+					<li><span>招聘人数：</span><{$detail.num|default='若干'}></li>
+					<li><span>发布时间：</span><{$detail.create_time|date='Y-m-d',###}></li>
+				</ul>
+				<div class="blank-10 bg"></div>
+				<h1><span>职位描述：</span></h1>
+				<ul>
+					<li><span>工作时间：</span><{$detail.work_time}></li>
+					<li><span>岗位要求：</span></li>
+				</ul>
+				<div class="intro">
+					<{$detail.intro}>
+				</div>
+			</div>
+			<div class="desc com-desc">
+				<h1><span>公司名称：</span><{$shop.shop_name}></h1>
+				<ul>
+					<li><span>联系电话：</span><{$shop.tel}></li>
+					<li><span>公司地点：</span><{$shop.addr}></a></li>
+					<li><span>地图导航：</span><a href="<{:U('shop/gps',array('shop_id'=>$detail['shop_id']))}>">到这去<s></s></a></li>
+				</ul>
+				<div class="blank-10 bg"></div>
+				
+			</div>
+		</div>
+	</div>
+	
+	<script>TouchSlide({ slideCell:"#tab-box" });</script>
+	
+<include file="public:footer"/>

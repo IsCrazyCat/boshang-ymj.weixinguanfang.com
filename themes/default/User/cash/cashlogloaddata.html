@@ -1,0 +1,32 @@
+<foreach name="list" item="item">
+	<div class="line padding border-bottom">
+		<div class="x12">
+			<p>提现编号：<{$item['cash_id']}></p>
+            <p class="text-gray">提现金额：&yen; <{:round($item['money']/100,2)}> 元 &nbsp;&nbsp;&nbsp; <if condition="!empty($item['commission'])">手续费：&yen; <{:round($item['commission']/100,2)}>元<else/>无</if></a></p>
+			<p class="text-gray">提现银行：<{$item['bank_name']}></p>
+            <php>$bank_num = substr_replace($item['bank_num'],'****',2,15);</php>
+            <p class="text-gray">银行账户：<{$bank_num}></p>
+            <p class="text-gray">提现户名：<{$item['bank_realname']}></p>
+		</div>
+	</div>
+    
+    <if condition="!empty($item['reason'])">
+    <div class="line padding border-bottom" style="background: #F9F9F9;">
+		<span class="x8">拒绝理由：<{$item['reason']}></span>
+    </div>
+    </if>
+    
+	<div class="line padding">
+		<span class="x8">申请日期：<{$item['addtime']|date='Y-m-d', ###}></span>
+		<span class="x4 text-right">
+        <if condition="$item.status eq 0">
+          <a href="javascript:void(0);" class="button button-small bg-blue">未审</a>
+        <elseif condition="$item.status eq 1" />
+           <a href="javascript:void(0);" class="button button-small bg-dot">通过</a>
+        <else />
+           <a href="javascript:void(0);" class="button button-small bg-gray">拒绝</a>
+        </if>
+        </span>
+	</div>
+	<div class="blank-10 bg"></div>
+</foreach>

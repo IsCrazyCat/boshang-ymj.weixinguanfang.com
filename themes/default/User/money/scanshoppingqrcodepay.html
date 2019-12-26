@@ -1,0 +1,48 @@
+<php>$seo_title=$mobile_title='门店付款(余额支付)';</php>
+<include  file='public:header'/>   
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="javascript:history.back();"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			门店付款(<{$pay_title}>)
+		</div>
+	</header>
+	<div class="tuan-order">
+		<div class="blank-10 bg"></div>
+		<div class="line border-top border-bottom">
+			<div class="container">
+				<div class="x12 row border-bottom">
+					<span class="float-left">
+						支付编号
+					</span>
+					<span class="float-right">
+						<{$logs.log_id}>
+					</span>
+				</div>
+				<div class="x12 row border-bottom">
+					<span class="float-left">
+						付款缘由
+					</span>
+					<span class="float-right">
+						 <{$types[$logs['type']]}>(<{$pay_title}>)
+					</span>
+				</div>
+				<div class="x12 row">
+					<span class="float-left">
+						支付金额
+					</span>
+					<span class="float-right">
+						<{:round($logs['need_pay']/100,2)}>元
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<div class="blank-50"></div>
+	<div class="container">
+	<{$button}>
+	</div>
+	<div class="blank-20"></div>
+<include file='public:footer'/>    

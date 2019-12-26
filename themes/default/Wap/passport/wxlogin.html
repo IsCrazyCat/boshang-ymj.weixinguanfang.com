@@ -1,0 +1,16 @@
+<script src="http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"></script>
+
+<div id="login_container">
+
+</div>
+<script>
+    var obj = new WxLogin({
+        id:"login_container", 
+        appid: "<{$CONFIG.weixin.appid}>", 
+        scope: "snsapi_login", 
+        redirect_uri: "<{$url}>",
+        state: "<{$state}>",
+        style: "",
+        href: ""
+    });   
+</script>

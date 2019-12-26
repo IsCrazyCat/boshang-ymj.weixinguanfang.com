@@ -1,0 +1,19 @@
+<foreach name="tuans" item="item">
+	<li class="x12">
+		<a class="line" href="<{:U('tuan/detail',array('tuan_id'=>$item['tuan_id']))}>" >
+			<div class="container">
+				<img class="x4" src="<{:config_img($item['photo'])}>" />	
+				<div class="des x8">
+					<h5><{$item.title}></h5>
+					<p class="intro">
+						<{:msubstr($item['intro'],0,20)}>
+					</p>
+					<p class="info">
+						<span>￥ <em><{:round($item['tuan_price']/100,2)}></em></span> <del>¥ <{:round($item['price']/100,2)}></del>
+						<span class="text-little float-right badge bg-gray margin-small-top"><{$item.d}></span>
+					</p>
+				</div>
+			</div>
+		</a>
+	</li>
+	</foreach>

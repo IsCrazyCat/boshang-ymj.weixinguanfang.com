@@ -1,0 +1,166 @@
+<include file="public:header"/>
+<div class="content_right">  
+    <div class="tgdd">
+        <div class="tgdd_t">
+            <ul>
+                <li <if condition="$status eq 1 or empty($status)">class="on"</if> ><a href="<{:U('dianping/index',array('status'=>1))}>">商家点评</a></li>
+                <li <if condition="$status eq 2">class="on"</if> ><a href="<{:U('dianping/index',array('status'=>2))}>">套餐点评</a></li>
+                <if condition="$open_mall eq '1' ">
+                <li <if condition="$status eq 6">class="on"</if> ><a href="<{:U('dianping/index',array('status'=>6))}>">商城（微店）点评</a></li>
+                </if>
+                <li <if condition="$status eq 3">class="on"</if> ><a href="<{:U('dianping/index',array('status'=>3))}>">订餐点评</a></li>
+                <if condition="$open_ding eq '1' ">
+                <li <if condition="$status eq 4">class="on"</if> ><a href="<{:U('dianping/index',array('status'=>4))}>">订座点评</a></li>
+                </if>
+
+                <li <if condition="$status eq 5">class="on"</if> ><a href="<{:U('dianping/index',array('status'=>5))}>">家政点评</a></li>
+
+
+            </ul>
+
+        </div>
+
+        <if condition="$status gt 1">
+            <div class="tgdd_t">
+                <ul>
+                    <li <if condition="$st eq 1 or empty($st)">class="on"</if> ><a href="<{:U('dianping/index',array('status'=>$status,'st'=>1))}>">未点评</a></li>
+                    <li <if condition="$st eq 2">class="on"</if> ><a href="<{:U('dianping/index',array('status'=>$status,'st'=>2))}>">已点评</a></li>
+                </ul>
+            </div>
+        </if>
+        <if condition="$st eq 2">
+            <div class="tgdd_nr">
+                 <table class="tuan_table3" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#F9F9F9;">
+            <td width="10%">编号</td>
+            <td width="20%">用户</td>
+            <td width="5%">评分</td>
+            <td width="5%">平均花费</td>
+            <td width="30%">评价时间</td>
+            <td width="20%">评价IP</td>
+            <td width="10%">生效日期</td>
+    </table>
+
+    
+
+    <volist name="list" id="var" key="index">
+    <table class="dianping" width="100%" border="0">
+      <tr class="tr_dianping_1">
+        <td class="td_dianping_1"><{$var.dianping_id}></td>
+        <td class="td_dianping_2"><{$users[$var['user_id']]['nickname']}>(ID:<{$var.user_id}>)</td>
+        <td class="td_dianping_3"><{$var.score}></td>
+        <td class="td_dianping_4"><{$var.cost}></td>
+        <td class="td_dianping_5"><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+        <td class="td_dianping_6"><{$var.create_ip}>(来自<{$var.create_ip_area}>)</td>
+        <td class="td_dianping_7"><{$var.show_date}></td>
+      </tr>
+      <tr class="tr_dianping_2">
+        <td class="td_dianping_12" colspan="2">
+         <!--商品展示开始-->
+        <div class="index__production___yfP3y" >
+        <a  target="_blank"  href="<{:u('home/tuan/detail',array('tuan_id'=>$var['tuan_id']))}>" class="index__pic___TScfk" >
+        <img src="<{:config_img($tuans[$var['tuan_id']]['photo'])}>" ><span></span></a>
+        <div class="index__infos___A6XLq" >
+            <p ><a href="<{:u('home/tuan/detail',array('tuan_id'=>$var['tuan_id']))}>" target="_blank" ><span ></span><span><{$tuans[$var['tuan_id']]['title']}></span><span ></span></a><span></span><span></span></p>
+            <span></span>
+            <p></p>
+            <span></span>
+        	</div>
+		</div>
+
+       <!--商品展示END-->
+
+        </td>
+        <td class="td_dianping_9" colspan="3">
+        点评内容：<{$var.contents}>
+        	<br/><br/>
+            <if condition="$var['pichave'] eq 1">
+             <foreach name="pics" item="item">
+             <if condition="$var['order_id'] eq $item['order_id']">
+             <a target="_blank" href="<{:config_img($item['pic'])}>"><img src="<{:config_img($item['pic'])}>" width="60"/></a>
+              </if>
+             </foreach>
+          </if>
+        </td>
+
+        <td class="td_dianping_10" colspan="2"><if condition="!empty($var['reply'])"><span style="color:#F00">商家回复：<{$var.reply}></span><else/>商家无回复</if></td>
+
+      </tr>
+
+    </table>
+     </volist>
+
+    <br/>
+
+                <div class="x"><{$page}></div>
+            </div>
+            <else/>
+            <div class="tgdd_nr">
+                <table border="0" cellspacing="0" width="100%"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; text-align:center;">
+                    <tr class="tgdd_nrt">
+                        <th>套餐订单</th>
+                        <th>数量</th>
+                        <th>总价</th>
+                        <th>使用积分</th>
+                        <th>RMB</th>
+                        <th>订单状态</th>
+                        <th>操作</th>
+                    </tr>
+
+                    <volist name="list" id="var">
+                        <tr class="tgdd_nrBh">
+                            <td colspan="7" style="text-align:left;text-indent:20px">订单编号：<span class="tgdd_bh"><{$var.order_id}></span></td>
+                        </tr>
+                        <tr class="tgdd_nrC">
+                            <td style="text-align:left;" width="335px"><div class="tgdd_tw">
+                                    <div class="left"><a class="myInfor_sx" target="_blank" href="<{:u('home/tuan/detail',array('tuan_id'=>$var['tuan_id']))}>">
+
+                                    <img src="<{:config_img($tuan[$var['tuan_id']]['photo'])}>" width="81" height="60" /></a></div>
+
+                                    <div class="lef"><a class="myInfor_sx" target="_blank" href="<{:u('home/tuan/detail',array('tuan_id'=>$var['tuan_id']))}>"><{$tuan[$var['tuan_id']]['title']}></a><p>有效期至：<{$tuan[$var['tuan_id']]['fail_date']}></p><p>商家：<a class="myInfor_sx" target="_blank" href="<{:u('home/shop/detail',array('shop_id'=>$var['shop_id']))}>"><{$shops[$var['shop_id']]['shop_name']|default='本站'}></a></p></div>
+
+                                </div></td>
+                            <td class="tgdd_nrCtd"><{$var.num}></td>
+                            <td class="tgdd_nrCtd">&yen;<{:round($var['total_price']/100,2)}></td>
+                            <td class="tgdd_nrCtd"><{$var.use_integral}></td>
+                            <td class="tgdd_nrCtd">&yen;<{:round($var['need_pay']/100,2)}></td>
+                            <td class="tgdd_nrCtd">
+                                <eq name="var.status" value="0">                               
+                                <a class="myInfor_sx myInfor_sx_fk" target="_blank" href="<{:u('home/tuan/pay',array('order_id'=>$var['order_id']))}>">去付款</a>
+
+                        <else />
+                        <eq name="var.status" value="-1">       
+                        到店付
+                        <else />
+                        <php>
+                            $tc = D('TuanCode');
+                            $rtc = $tc -> where(array('order_id'=>$item['order_id'],'is_used'=>1)) -> find();
+                        </php>
+                        <if condition="!empty($rtc)">
+                        <a class="myInfor_sx" href="javascript:void(0)">已完成</a>
+                        <if condition="$var['is_dianping'] eq 0">
+                            <a class="myInfor_sx" href="<{:U('dianping/tuandianping',array('order_id'=>$var['order_id']))}>">点评</a>     
+                            <else/>
+                            <a class="myInfor_sx" href="javascript:void(0)">已评价</a>
+                        </if>
+                        <else/>
+                        <a style="color:#fff;" href="javascript:void(0)">已付款</a><a style="color:#fff;" href="javascript:void(0)">未消费</a>
+                        </if>
+                        </eq>
+                        </eq>
+                        </td>
+                        <td align="center"><a mini='confirm' class="tgdd_del red" href="<{:U('order/delete',array('order_id'=>$var['order_id']))}>">删除</a></td>
+
+                        </tr>
+                    </volist>
+                </table>
+                <div class="x"><{$page}></div>
+            </div>
+        </if>
+    </div> 
+</div>
+</div>
+<include file="public:footer"/>
+
+
+

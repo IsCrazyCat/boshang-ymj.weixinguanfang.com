@@ -1,0 +1,54 @@
+
+.baomsgbox{
+    min-width: 100px;
+ 
+    background: #fff;
+    height: 30px;
+    line-height: 30px;
+    border: 1px   #f58505  double;
+    position: fixed; padding: 0 10px;
+    z-index: 99999;
+    top: 200px;
+    left: 45%;
+    -webkit-box-shadow: 3px 3px #a9a9a9 ;
+    -moz-box-shadow: 3px 3px #a9a9a9;
+    box-shadow: 3px 3px #a9a9a9 ;
+    -moz-border-radius: 5px;      /* Gecko browsers */
+    -webkit-border-radius: 5px;   /* Webkit browsers */
+    border-radius:5px;            /* W3C syntax */
+    display: none;
+}
+.baomsgbox img{
+    float: left;
+    margin-top: 7px;
+    width: 16px; height: 16px;
+    display: block;
+}
+.baomsgbox span{
+    float: left;
+    display: block;
+    margin-left: 5px;
+    font-size: 13px; 
+}
+
+.dialogBox{ width: auto;height: auto; display: none; }
+
+.system-message{ padding: 24px 48px; width: 300px; border: 1px   #f58505  double; position: absolute; top: 300px;left: 40%;background: #fff;}
+.system-message h1{ font-size: 100px; font-weight: normal; line-height: 120px; margin-bottom: 12px; }
+.system-message .jump{ padding-top: 10px}
+.system-message .jump a{ color: #333;}
+.system-message .success,.system-message .error{ line-height: 1.8em; font-size: 36px; }
+.system-message .detail{ font-size: 12px; line-height: 20px; margin-top: 12px; display:none}
+
+.rembertable{ background:#fff}
+.rembertable tr th{ border-bottom:1px solid #eaeaea; color:#656c7e; padding:5px 0 10px 0; font-weight:normal; text-align:left;padding-left: 20px;}
+.rembertable tr td{ text-align:left; padding-left: 20px; height:40px;  overflow:hidden}
+.rembertable .on{  background: #ffeaa8; }
+.listBox{ border:1px solid #ececec; background:#fff; -moz-border-radius: 5px;      -webkit-border-radius: 5px;   border-radius:5px; font:normal 14px/24px 'Microsoft Yahei'; color:#8c98b2; padding:10px 20px;}
+.listBox{ padding:5px}
+
+.pageall{ width: 800px; margin: 0px auto; padding: 20px 0px; line-height: 25px; text-align: center;}
+.pageall .paging span{padding: 0px 10px; margin-right: 5px; }
+.pageall .paging a{ padding: 0px 10px;}
+.pageall .paging a:hover{ background: #FD3C00; display: inline-block; width:auto; color: #fff; }
+.pageall .paging span.current{background: #FD3C00; display: inline-block; width:auto; color: #fff;}

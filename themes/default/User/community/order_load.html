@@ -1,0 +1,98 @@
+
+ <foreach name="list" item="var">
+	<div class="line padding border-bottom border-top">
+		<div class="x12">
+			<p>
+		<a class="title" href="<{:u('Property/feedbackdetail',array('feed_id'=>$item['feed_id']))}>"><{:bao_msubstr($item['title'],0,40,false)}></a>
+			</p>
+			<p class="text-gray x12">编号：<{$var.order_id}> &nbsp;&nbsp;&nbsp;用户：<{$users[$var['user_id']]['nickname']}>(<{$var.user_id}>)</p>
+            <p class="text-gray x12">所属：<{$communitys[$var['community_id']]['name']}>&nbsp;&nbsp;&nbsp; 物业：<{$communitys[$var['community_id']]['property']}></p>
+            <p class="text-gray x12">物业管理员手机：<{$users[$var['user_id']]['mobile']}></p>
+            <p class="text-gray x12">账单时间：<{$var.order_date}></p>
+		</div>
+	</div>
+    
+	<table class="table">
+        <tbody>
+            <tr>
+                <th>水费</th>
+                <th>电费</th>
+                <th>燃气费</th>
+                <th>停车费</th>
+                <th>物业费</th>
+            </tr>
+
+            <tr>
+
+                <td>
+                <if condition="$var['type1']['money'] eq 0">
+                     <a style="font-size:12px; color: #F00;">无</a>
+				<else/>
+                    <{:round($var['type1']['money']/100,2)}>
+                    <if condition="$var['type1']['is_pay'] eq 1">
+                    <a style="font-size:12px; color:#999;">已缴</a>
+                    <else/>	
+     				<a style="font-size:12px;color:#00F;" href="<{:u('wap/community/order',array('community_id'=>$var['community_id'],'order_date'=>$var['order_date']))}>">缴费</a>
+                    </if>		 
+                </if>                                    
+                </td>
+                
+                <td>
+                <if condition="$var['type2']['money'] eq 0">
+                     <a style="font-size:12px; color: #F00;">无</a>
+				<else/>
+                    <{:round($var['type2']['money']/100,2)}>
+                    <if condition="$var['type2']['is_pay'] eq 1">
+                    <a style="font-size:12px; color:#999;">已缴</a>
+                    <else/>	
+     				<a style="color:#00F;" href="<{:u('wap/community/order',array('community_id'=>$var['community_id'],'order_date'=>$var['order_date']))}>">缴费</a>
+                    </if>		 
+                </if>                                    
+                </td>
+                <td>
+                <if condition="$var['type3']['money'] eq 0">
+                     <a style="font-size:12px; color: #F00;">无</a>
+				<else/>
+                    <{:round($var['type3']['money']/100,2)}>
+                    <if condition="$var['type3']['is_pay'] eq 1">
+                    <a style="font-size:12px; color:#999;">已缴</a>
+                    <else/>	
+     				<a style="font-size:12px;color:#00F;" href="<{:u('wap/community/order',array('community_id'=>$var['community_id'],'order_date'=>$var['order_date']))}>">缴费</a>
+                    </if>		 
+                </if>                                    
+                </td>
+                <td>
+                <if condition="$var['type4']['money'] eq 0">
+                     <a style="font-size:12px; color: #F00;">无</a>
+				<else/>
+                    <{:round($var['type4']['money']/100,2)}>
+                    <if condition="$var['type4']['is_pay'] eq 1">
+                    <a style="font-size:12px; color:#999;">已缴</a>
+                    <else/>	
+     				<a style="font-size:12px;color:#00F;" href="<{:u('wap/community/order',array('community_id'=>$var['community_id'],'order_date'=>$var['order_date']))}>">缴费</a>
+                    </if>		 
+                </if>                                    
+                </td>
+                <td>
+                <if condition="$var['type5']['money'] eq 0">
+                     <a style="font-size:12px; color: #F00;">无</a>
+				<else/>
+                    <{:round($var['type5']['money']/100,2)}>
+                    <if condition="$var['type5']['is_pay'] eq 1">
+                    <a style="font-size:12px; color:#999;">已缴</a>
+                    <else/>	
+     				<a style="font-size:12px;color:#00F;" href="<{:u('wap/community/order',array('community_id'=>$var['community_id'],'order_date'=>$var['order_date']))}>">缴费</a>
+                    </if>		 
+                </if>                                    
+                </td>
+
+               
+            </tr>                    
+
+    	</tbody>
+
+	</table>
+
+	<div class="blank-10 bg"></div>
+
+</foreach>

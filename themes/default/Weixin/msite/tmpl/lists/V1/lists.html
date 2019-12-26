@@ -1,0 +1,57 @@
+<{include file="weixin/block/mheader.html"}>
+<style type="text/css">
+.banner{ width:100%; overflow:hidden; position:relative;}
+.banner ul{ position:absolute; left:0; top:0; z-index:10; -webkit-animation:}
+.banner ul li{ float:left; display:table-cell; position:relative}
+.banner li a{ width:100%; height:100%; display:block;}
+.banner li .title{background-color:RGBA(0,0,0,.5); height:30px; color:#fff; line-height:30px; padding-left:10px; position:absolute; left:0; bottom:0; width:100%; z-index:1000;}
+.identify{text-align:right; position:absolute; bottom:0; right:0; z-index:100; height:30px;}
+.identify em{ display:inline-block; margin:10px 5px;-webkit-border-radius: 6px;-moz-border-radius: 6px;
+border-radius: 6px;margin-left: 5px;width: 12px;height: 12px;background: #fff;}
+.identify em.cur{ background-color:#090}
+.identify .fl{ float:left}
+.identify .fr{ float:right}
+.small_pic_list li{ border-top:1px solid #fff; border-bottom:1px solid #ccc; height:80px; overflow:hidden}
+.small_pic_list li a{ display:block; padding:10px 10px 10px 80px; position:relative; min-height:60px; color:#333}
+.small_pic_list li a:active{ background-color:#CCC}
+.small_pic_list li a img{ position:absolute; left:10px; top:10px; width:60px; height:60px;}
+.small_pic_list li a h6{ font-size:18px; font-weight:bold; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.small_pic_list li a p{ color:#999; font-size:13px; line-height:22px;}
+</style>
+<body id="weisite">
+<div class="container">
+    <section class="banner">
+    	<ul>
+            <{foreach $items as $k=>$v}><{if $v@index > 2}><{continue}><{/if}>
+        	<li>
+            	<a href="<{link ctl='weixin/msite:article' arg0=$v.article_id}>"><img src="<{$pager.img}>/<{$v.thumb}>"/></a>
+            	<span class="title"><{$v.title}></span>
+            </li>
+            <{/foreach}>
+        </ul>
+        <div class="identify"><{foreach $items as $k=>$v}><{if $v@index > 2}><{continue}><{/if}><em></em><{/foreach}></div>
+    </section>
+    <ul class="small_pic_list">
+        <{foreach $items as $k=>$v}><{if $v@index < 3}><{continue}><{/if}>
+    	<li>
+        	<a href="<{link ctl='weixin/msite:article' arg0=$v.article_id}>">
+            	<{if $v.thumb}><img src="<{$pager.img}>/<{$v.thumb}>"/><{/if}>
+                <h6><{$v.title}></h6>
+                <p><{$v.intro}></p>
+                <span class="colorless"><{$v.dateline|format}></span>
+            </a>
+        </li>
+        <{/foreach}>
+    </ul>
+    <!-- 分页 -->
+    <div class="page"><{$pager.pagebar}></div>
+</div>
+<!-- 统计代码 -->
+<p class="hide bdtongji"><{$MSITE.tongji}></p>
+<script type="text/javascript">
+$(function(){
+	$.KT.initBanner(true,5000);
+})
+</script>
+</body>
+</html>

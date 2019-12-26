@@ -1,0 +1,53 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">众筹</li>
+        <li class="li2">众筹产品</li>
+        <li class="li2 li3">众筹点餐</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span></p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+           <!-- <div class="left">
+                <{:BA('crowd/project_create',array('goods_id'=>$detail['goods_id']),'添加项目进展')}>  
+            </div>-->
+            <div class="left">
+            	<include file='crowd:nav'/>
+            </div>
+        </div>
+
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        	<td class="w50"><input type="checkbox" class="checkAll" rel="zan_id" /></td>
+                            <td width="50">ID</td>
+                            <td width="200">用户名</td>
+                            <td width="200">类型</td>
+                            <td width="200">时间</td>
+                    </tr>
+                    
+                     <foreach name="meals" item="var">
+                        <tr>
+                            <td><input class="child_zan_id" type="checkbox" name="zan_id[]" value="<{$var.zan_id}>" /></td>
+                            <td ><{$var.zan_id}></td>
+                            <td><{$users[$var['uid']]['nickname']}></td>
+                            <td><if condition="$var[type] EQ 'zan'">用户赞了该众筹<else/>该众筹被关注</if></td>
+                            <td><{$var.dateline|date='Y-m-d H:i:s',###}></td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                   <{:BA('crowd/index','','返回众筹列表')}>
+                   <!--<{:BA('crowd/ask_delete','','批量删除','list','a1')}>-->
+                </div>
+            </div>
+        </form>
+    </div>
+    <include  file='public:footer'/>       

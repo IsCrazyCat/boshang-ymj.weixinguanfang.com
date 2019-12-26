@@ -1,0 +1,33 @@
+<include file='public:header'/>  
+<link href="/static/default/wap/css/dianping.css" rel="stylesheet">  
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('ele/shop',array('shop_id'=>$detail['shop_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<{$detail.shop_name}>
+		</div>
+		<div class="top-share">
+			<a href="#" id="share-btn"></a>
+		</div>
+	</header>  
+<style>
+#coupon-list{margin-top: 2rem;}
+</style>	
+	
+<ul id="shangjia_tab">
+   <li class="x4"><a href="<{:U('ele/shop',array('shop_id'=>$detail['shop_id']))}>">商品</a></li>
+   <li class="x4"><a href="<{:U('ele/detail',array('shop_id'=>$detail['shop_id']))}>">商家</a></li>
+   <li class="x4"><a href="<{:U('ele/dianping',array('shop_id'=>$detail['shop_id']))}>" class="on">评价</a></li>
+</ul>    
+ <div id="coupon-list" class="coupon-list">
+     <div class="blank-10 bg"></div>
+     <ul>
+    </ul>
+ </div>
+    <script>
+        $(document).ready(function () {
+            loaddata('<{:U("ele/dianpingloading",array("shop_id"=>$detail["shop_id"],"p"=>"0000"))}>', $("#coupon-list ul"), true);
+        });
+    </script>
+<include file='public:footer'/>   

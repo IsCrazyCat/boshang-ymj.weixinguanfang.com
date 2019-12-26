@@ -1,0 +1,45 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">管理员管理</li>
+        <li class="li2">角色管理</li>
+        <li class="li2 li3">角色权限</li>
+    </ul>
+</div>
+<p class="attention"><span>当前用户组：</span><{$detail.role_name}></p>
+<form  target="baocms_frm" action="<{:U('role/auth',array('role_id'=>$role_id))}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+
+                <foreach name="menus" item="var">
+                    <if condition="($var.parent_id eq 0) and ($var.is_show eq 1) ">  
+                        <foreach name="menus" item="var2">
+                            <eq name="var2.parent_id" value="$var.menu_id">
+                            <if condition="$var2.is_show eq 1">   
+                                <tr>
+                                    <td style="text-align: left;padding-left: 10px; font-size: 14px;"> <input type="checkbox" class="checkAll" rel="<{$var2.menu_id}>" value="" /><b><{$var.menu_name}></b> > <{$var2.menu_name}> </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: left;padding-left: 10px;">
+                                <foreach name="menus" item="var3">
+                                    <eq name="var3.parent_id" value="$var2.menu_id">
+                                    <label style="font-size: 14px;"> <input class="child_<{$var2.menu_id}>" type="checkbox" name="menu_id[]" <in name="var3.menu_id" value="$menuIds">checked="checked"</in> value="<{$var3.menu_id}>" /> <{$var3.menu_name}></label>
+                                    </eq>
+                                </foreach>   
+                                </td>  
+                                </tr>
+                            </if>     
+                            </eq>
+                        </foreach>       
+                    </if>
+                </foreach> 
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确定授权" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>       
+
+
+

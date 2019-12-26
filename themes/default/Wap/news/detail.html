@@ -1,0 +1,258 @@
+<php>$mobile_title = $detail['title'];</php>
+<include  file='public:header'/>
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('news/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<{$cate[cate_name]}>
+		</div>
+		 <div class="top-search" style="display:none;">
+			<form method="post" action="<{:U('news/index')}>">
+				<input name="keyword" placeholder="输入新闻的关键字"  />
+				<button type="submit" class="icon-search"></button> 
+			</form>
+		</div>
+        <div class="top-signed">
+			<a id="search-btn" href="javascript:void(0);"><i class="icon-search"></i></a>
+		</div>
+	</header>
+<style>
+.comm-list img {width: 30px;height: 30px;}
+.media, .media .media {border-bottom: thin solid #EEE;}
+.comm-list .level-1 p {border-bottom: 0;}
+.form-button{ padding:5px 10px;}
+.comm-list p a.amount {color: #06C1AE;}
+.form-button a.x5{ margin-right:10px;}
+.layui-layer-page .layui-layer-content{ padding:20px;}
+.layui-layer-page .layui-layer-content input[type='text']{ width:100%; height:36px; border:1px solid #ccc; background:#fff; margin-bottom:10px; text-indent:10px; font-size:14px;}
+.layui-layer-page .layui-layer-content input[type='button']{ width:100%; height:40px; border:none; background:#33b095; color:#fff; font-size:16px;}
+.layui-layer-page .layui-layer-content p{ line-height:28px; color:#999;}
+.layui-layer-page .layui-layer-content .check_box{ overflow:hidden; margin-bottom:5px;}
+.layui-layer-page .layui-layer-content .check_box label{ display:block; float:left; margin-right:20px; margin-bottom:10px;}
+#pay-video{overflow: hidden; position: relative;display: initial;}
+#video{ width:100%;height:auto;margin:auto;}
+
+
+</style>	
+	<script>
+	$(function(){
+		$("#search-btn").click(function(){
+			if($(".top-search").css("display")=='block'){
+				$(".top-search").hide();
+				$(".top-title").show(200);
+			}
+			else{
+				$(".top-search").show();
+				$(".top-title").hide(200);
+			}
+		});
+
+		});
+    </script>
+	<div class="detail">
+		<div class="blank-10"></div>
+		<h1><{$detail.title}></h1>
+        <p class="detail-des" id="pay-video">
+            <if condition="!empty($detail['video'])"><!--如果有-->
+                <video id="video" controls="" preload="none" mediagroup="myVideoGroup" poster="<{:config_img($detail['video_photo'])}>"> 
+                      <source id="mp4" src="<{$detail['video']}>" type="video/mp4"> 
+                </video> 
+            </if>
+            <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script> 
+            <script> 
+                document.getElementById('car_audio').play(); 
+                document.addEventListener("WeixinJSBridgeReady", function () { 
+                    document.getElementById('car_audio').play(); 
+                    document.getElementById('video').play(); 
+                }, false); 
+            </script> 
+		</p>
+
+		 <p class="detail-des">
+			<span>发布日期：<{$detail.create_time|date='Y-m-d',###}></span>
+			<span>总浏览：<{$detail.views}></span>
+		</p>
+		<div class="detail-read">
+			<{$detail.details}> 
+		</div>
+	</div>
+    
+
+
+
+   
+    <div class="blank-10 bg"></div>
+    <div class="container" style="padding:10px 0;">
+		<div class="x12 form-button">
+           <a class="x5 button button-small bg-blue text-center" target="x-frame"  href="<{:U('news/zan',array('article_id'=>$detail['article_id']))}>">赞(<{$detail.zan}>)</a >
+           <a  href="javascript:void(0);" class="x5 button button-small bg-dot text-center das">打赏(<{$detail.donate_num}>)</a>
+       </div>
+	</div>
+    <div class="blank-10 bg"></div>
+    
+    
+     <script>
+        $(document).ready(function(){
+            $(".das").click(function(){
+                layer.open({
+                    type: 1,
+                    title:'请选择打赏金额',
+                    skin: 'layui-layer-rim', //加上边框
+                    area: ['90%', '280px'], //宽高
+                    content: '<div class="check_box"><label><input type="radio" name="donate" value="1"/>打赏1元</label><label><input type="radio" name="donate" value="2"/>打赏2元</label><label><input type="radio" name="donate" value="5"/>打赏5元</label><label><input type="radio" name="donate" value="10"/>打赏10元</label></div><input type="text" class="donate2" name="donate2" placeholder="请输入打赏金额" value=""/><input type="button" class="sure_das" value="确认打赏"/><p>打赏不可取消，请慎重操作</p>',
+                  });
+            })
+            
+            $(document).on('click','.sure_das',function(){
+                var url = "<{:U('news/donate')}>";
+                var article_id = "<{$detail.article_id}>";
+                var money1 = $("input[name='donate']:checked").val();
+                var money2 = $(".donate2").val();
+                var money = 0;
+                (money2>0) ? money=money2:money=money1;
+                layer.confirm('您确认要打赏帖子吗？', {
+                    btn: ['是的','不了'] //按钮
+                  }, function(){
+                    $.post(url,{article_id:article_id,money:money},function(data){
+                        if(data.status == 'login'){
+                            ajaxLogin();
+                        }else if(data.status == 'error'){
+                            layer.msg(data.msg);
+                        }else{
+                            layer.msg(data.msg);
+                            setTimeout(function(){
+                                window.location.reload(true);
+                            },1000)
+                        }
+                    },'json')
+                  });
+            })
+            
+        })
+    </script>
+
+    
+    <div class="sec-title">	
+		<div class="divider"></div>	
+		<span>推荐文章</span>
+	</div>
+    
+    <div class="list-media-x" id="list-media">
+	<ul>
+    <foreach name="rands" item="var">
+    <li class="line" onclick="location='<{:U('news/detail',array('article_id'=>$var['article_id']))}>'">
+          <dd class="zhong">
+            <div class="x3">
+                   <img src="<{:config_img($var['photo'])}>" style="width:90%;">
+                   </div>
+             <div class="9">
+                <p class="text-small"><{:bao_Msubstr($var['title'],0,18)}></p>
+                <p class="text-gray" style="font-size:12px;"><{:bao_Msubstr($var['details'],0,16)}>...</p>     
+                <p class="text-small">
+                  <i class="icon-commenting-o"></i> <em><{$var.views}></em>
+				  <i class="icon-clock-o"></i> <em><{$var.create_time|date='Y-m-d',###}></em>
+                </p>
+             </div>
+          </dd>
+     </li>
+     </foreach>
+     </ul>
+    </div>
+           
+    <div class="blank-10 bg"></div>        
+	<div class="blank-10"></div>
+    <if condition="$detail.valuate eq 0"><!--是0才开启评论-->
+	<div class="tab" data-toggle="click">
+		<div class="tab-head">
+			<ul class="tab-nav padding-left">
+				<li class="active"><a href="#tab-list">网友评论</a></li>
+				<li><a href="#tab-post">我要回复</a></li>
+			</ul>
+		</div>
+	
+		<div class="tab-body">
+			<div class="tab-panel active" id="tab-list">
+				<div class="comm-list">
+					<if condition="empty($list)">
+						<p>暂时还没有评论，虚位以待很久了，赶紧来抢沙发把！</p>
+					</if>
+					<volist name="list" id="data">	 
+					<div class="media media-x level-1">	  				
+						<a class="float-left" href="#"><img  class="radius" src="<{:config_img($users[$data['user_id']]['face'])}> " /></a>
+						<div class="media-body">
+							<strong><{:config_user_name($data['nickname'])}></strong>
+							<{$data.content}>
+							<p><{:formatTime($data['create_time'])}> 
+                            <a class="zan" id="cmt-<{$data['comment_id']}>" href="javascript:void(0);" rel="<{:U('news/zans',array('comment_id'=>$data['comment_id']))}>">
+                            	<i class="icon-thumbs-up"></i>赞(<em><{$data.zan}></em>)
+                            </a>
+                          
+                            </p>
+
+						</div>
+					</div>
+					</volist>
+				</div>
+			</div>
+			<div class="tab-panel" id="tab-post">
+				<form class="form padding-left padding-right" action="<{:U('news/post')}>"  method="post">
+					<input type="hidden" value="0" name="data[parent_id]" />
+					<input type="hidden" value="<{$detail.article_id}>" name="data[post_id]" />
+					<div class="blank-10"></div>
+					<div class="form-group">
+						<div class="field">
+							<textarea class="input" name="data[content]" row="5" placeholder="输入评论内容"></textarea>
+						</div>
+					</div>
+					<div class="blank-10"></div>
+					<div class="form-button"><button class="button" type="submit">提交回复</button></div>
+				</form>
+				<div class="blank-20"></div>
+			</div>
+		</div>
+	</div>
+	
+	<script>
+	//点击"回复"按钮显示或隐藏回复输入框
+	$("body").delegate(".comment-reply","click",function(){
+		var uid = "<{$MEMBER[user_id]}>";
+		if(uid==""){
+			location.href = "<{:U('passport/login')}>";
+		}else{
+			if($(this).next().length>0){//判断出回复div已经存在,去除掉
+				$(this).next().remove();
+			 }else{//添加回复div
+				$(".comment-reply").next().remove();//删除已存在的所有回复div	
+				//添加当前回复div
+				var parent_id = $(this).attr("comment_id");//要回复的评论id
+				
+				var divhtml = "";
+				if('off'!=$(this).attr("replyswitch")){//二级评论回复后三级评论不再提供回复功能,将关闭属性附加到"提交回复"按钮"
+					divhtml = "<form class='form margin-small' action='/wap/news/post.html'  method='post'><input type='hidden' value='"+<{$detail.article_id}>+"' name='data[post_id]' ><input type='hidden' value='"+parent_id+"' name='data[parent_id]' ><div class='div-reply-txt'><textarea name='data[content]' class='input'></textarea><div style='margin-top:5px;text-align:right;'><button class='comment-submit button' type='submit' >提交回复</button></div></div></form>";
+				}		 	
+				$(this).after(divhtml);
+			 }
+		}
+	});
+	//点赞开始
+	$(".zan").click(function(){
+		var url = $(this).attr("rel");
+		var id = $(this).attr("id");
+		$.get(url,function(result){
+			if(result == "0"){
+				layer.msg("您已经点赞过了！",{icon:2});
+			}else{
+				layer.msg("点赞成功！",{icon:1});
+				$("#"+id).find("em").html(result);
+				$("#"+id).addClass("amount");
+				$("#"+id).removeClass("zan");
+			}
+		});
+	});
+	
+	</script>	
+   </if>
+    
+    
+<include  file='public:footer'/> 

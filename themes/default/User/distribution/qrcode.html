@@ -1,0 +1,28 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('distribution/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			二维码
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+
+<div class="list-media-x" id="list-media">
+	<ul>
+		<div class="container">
+
+			<div class="padding-large">
+				<img src="__ROOT__/attachs/<{$file}>" width="100%" />
+			</div>
+			<p class="text-center"></p>
+
+		</div>
+
+	</ul>
+</div>
+
+<include  file='distribution:footer'/>

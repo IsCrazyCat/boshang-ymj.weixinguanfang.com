@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8">
+		<title><if condition="!empty($seo_title)"><{$seo_title}>_</if><{$CONFIG.site.sitename}></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+		<link rel="stylesheet" href="/static/default/wap/css/base.css">
+		<link rel="stylesheet" href="/static/default/wap/css/<{$ctl}>.css"/>
+		<script src="/static/default/wap/js/jquery.js"></script>
+		<script src="/static/default/wap/js/base.js"></script>
+		<script src="/static/default/wap/other/layer.js"></script>
+		<script src="/static/default/wap/other/roll.js"></script>
+		<script src="/static/default/wap/js/public.js"></script>
+        <script src="__TMPL__statics/js/baocms.js"></script>
+        
+        
+       <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=C9613fa45f450daa331d85184c920119"></script>
+       <script type="text/javascript" src="http://developer.baidu.com/map/jsdemo/demo/convertor.js"></script>
+		<script type="text/javascript">
+			var position_option = {
+							enableHighAccuracy: true
+						};
+			navigator.geolocation.getCurrentPosition(getPositionSuccess, getPositionError, position_option);
+			function getPositionSuccess( position ){
+					var gg_lat = position.coords.latitude;
+					var gg_lon = position.coords.longitude;
+					bd_encrypt(position.coords.latitude, position.coords.longitude);
+			}
+			function getPositionError(error) {
+				switch (error.code) {
+					case error.TIMEOUT:
+						alert("连接超时，请刷新页面");
+						break;
+					case error.PERMISSION_DENIED:
+						alert("您拒绝了使用位置共享服务，查询已取消，默认跳转到主站");
+						break;
+					case error.POSITION_UNAVAILABLE:
+						alert("获取位置信息失败");
+						break;
+				}
+				
+			}
+			function bd_encrypt(gg_lat, gg_lon){//GPS坐标
+			var xx = gg_lon;
+			var yy = gg_lat;
+			var gpsPoint = new BMap.Point(xx,yy);
+			
+			BMap.Convertor.translate(gpsPoint,0,translateCallback);
+			
+			function translateCallback(point){
+			   var page =  "/wap/near/dingwei/lat/"+point.lat+"/lng/"+point.lng+".html";
+							$.get(page, function (data) {
+								if(data == '1'){
+									$.get("/wap/near/address.html", function (data) {
+										if(data!=''){
+											$("#local-addr").html(data);
+										}else{
+											$("#local-addr").html("暂时没有获取到定位信息!");
+										}
+									}, 'html');
+								}
+							}, 'html');
+				}
+			}	window.location.href='<{$CONFIG.site.host}>/wap/';
+		}
+		</script>
+
+
+        
+	</head>
+	<body>

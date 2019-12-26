@@ -1,0 +1,48 @@
+<foreach name="list" item="var">
+<li>	
+      <php>if($var[bsti] == 0){</php>
+		<a class="item line" href="<{:U('ele/shop',array('shop_id'=>$var['shop_id']))}>">
+		<div class="x3">
+			<img src="<{:config_img($shops[$var['shop_id']]['photo'])}>">
+		</div>
+		<div class="x9">
+				<h5><{$var['shop_name']}>
+					<eq name="var.is_pay" value="1"> <span class="fu">付</span></eq>
+					<eq name="var.is_fan" value="1"> <span class="fan">返</span></eq>
+					<eq name="var.is_new" value="1"><span class="jian">减</span></eq>
+				</h5>				
+                <p class="des-star">
+					<span class="ui-starbar"><span style="width:<{:round($shops[$var['shop_id']]['score']*2,2)}>%"></span></span>
+					<span class="float-right"><{$var.d}>/<span class=""><{$var['distribution']}>分钟</span></span>
+				</p>
+				<p class="des-addr">
+                <i class="mui-icon mui-icon-location"></i>
+                &yen;<{:round($var['since_money']/100,2)}>起送/配送费 &yen;<{:round($var['logistics']/100,2)}>/已售<{$var['sold_num']}>
+                </p>
+                <p class="des-addr"><i class="icon-map-marker"></i> <{$shops[$var['shop_id']]['addr']}></p>
+		</div></a>
+       <php>}else{</php>
+        <a class="item line" href="javascript:;" style="background: #FBFAFA;">
+		<div class="x3">
+			<img src="<{:config_img($shops[$var['shop_id']]['photo'])}>">
+		</div>
+		<div class="x9">
+				<h5><{$var['shop_name']}><b style="margin-left:5px; color:#F00; font-weight:normal;">(休息中)</b>
+					<eq name="var.is_pay" value="1"> <span class="fu">付</span></eq>
+					<eq name="var.is_fan" value="1"> <span class="fan">返</span></eq>
+					<eq name="var.is_new" value="1"><span class="jian">减</span></eq>
+				</h5>
+                <p class="des-star">
+					<span class="ui-starbar"><span style="width:<{:round($shops[$var['shop_id']]['score']*2,2)}>%"></span></span>
+					<span class="float-right"><{$var.d}>/<span class=""><{$var['distribution']}>分钟</span></span>
+				</p>
+				<p class="des-addr">
+                <i class="mui-icon mui-icon-location"></i>
+                &yen;<{:round($var['since_money']/100,2)}>起送/配送费 &yen;<{:round($var['logistics']/100,2)}>/已售<{$var['sold_num']}>
+                </p>
+                <p class="des-addr"><i class="icon-map-marker"></i> <{$shops[$var['shop_id']]['addr']}></p>
+		</div>	
+        </a>
+       <php>}</php>
+</li>
+</foreach>

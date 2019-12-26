@@ -1,0 +1,36 @@
+<include  file='public:header'/>
+<style>.lfTdBt {width: 150px;}</style>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">基本设置</li>
+        <li class="li2 li3">搜索设置</li>
+    </ul>
+</div>
+
+<p class="attention"><span>注意：这个单独卖</span></p>
+<form  target="baocms_frm" action="<{:U('setting/search')}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+            
+                <tr>
+                    <td class="lfTdBt">wap搜索显示默认关键字：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[keyword]" value="<{$CONFIG.search.keyword}>" class="scAddTextName w150" />
+						<code>wap搜索显示默认关键字！</code>
+                    </td>
+                </tr>
+           
+            </table>
+
+        </div>
+
+        <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+
+    </div>
+
+</form>
+
+<include  file='public:footer'/>       
+

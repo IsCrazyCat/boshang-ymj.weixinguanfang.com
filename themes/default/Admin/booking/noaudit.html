@@ -1,0 +1,134 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">预订</li>
+        <li class="li2">预订管理</li>
+        <li class="li2 li3">预订待审核列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>这里显示待审核的商家</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('booking/create','','添加预订商家')}>
+            </div>
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('booking/noaudit')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <span>关键字(电话或商户名称)</span>
+                        <input type="text" name="keyword" value="<{$keyword}>" class="inptText" /><input type="submit" value="   搜索"  class="inptButton" />
+                    </div> 
+                </form>
+                <a href="javascript:void(0);" class="searchG">高级搜索</a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form method="post" action="<{:U('booking/noaudit')}>">
+            <div class="selectNr selectNr2">
+                <div class="left">
+                    <div class="seleK">
+                        <label>
+                            <span>区域：</span>
+                             <select name="city_id" id="city_id"  class="select w100"></select>
+                            <select name="area_id" id="area_id"  class="select w100"></select>
+                     
+                        </label>
+                <script src="<{:U('app/datas/cityarea')}>"></script>
+                <script>
+                    var city_id = <?php echo (int)$city_id;?>;
+                    var area_id = <?php echo (int)$area_id;?>;
+                    function changeCity(cid){
+                        var area_str = '<option value="0">请选择.....</option>';
+                        for(a in cityareas.area){
+                           if(cityareas.area[a].city_id ==cid){
+                                if(area_id == cityareas.area[a].area_id){
+                                    area_str += '<option selected="selected" value="'+cityareas.area[a].area_id+'">'+cityareas.area[a].area_name+'</option>';
+                                }else{
+                                     area_str += '<option value="'+cityareas.area[a].area_id+'">'+cityareas.area[a].area_name+'</option>';
+                                }  
+                            }
+                        }
+                        $("#area_id").html(area_str);
+                    }
+                    $(document).ready(function(){
+                        var city_str = '<option value="0">请选择.....</option>';
+                        for(a in cityareas.city){
+                           if(city_id == cityareas.city[a].city_id){
+                               city_str += '<option selected="selected" value="'+cityareas.city[a].city_id+'">'+cityareas.city[a].name+'</option>';
+                           }else{
+                                city_str += '<option value="'+cityareas.city[a].city_id+'">'+cityareas.city[a].name+'</option>';
+                           }  
+                        }
+                        $("#city_id").html(city_str);
+                        if(city_id){
+                            changeCity(city_id);
+                        }
+                        $("#city_id").change(function(){
+                            city_id = $(this).val();
+                            changeCity($(this).val());
+                        });
+                    });
+                </script>
+                        <label>
+                            <span>关键字:</span>
+                            <input type="text" name="keyword" value="<{$keyword}>" class="inptText" />
+                        </label>
+                    </div>
+                </div>
+                <div class="right">
+                    <input type="submit" value="   搜索"  class="inptButton" />
+                </div>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="shop_id" /></td>
+                    <td class="w50">ID</td>
+                    <td>商家名称</td>
+                    <td>商家图片</td>
+                    <td>商家电话</td>
+                    <td>商家地址</td>
+                    <td>平均消费</td>		
+                    <td>状态</td>
+                    <td>入住时间</td>
+                    <td class="w360">操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_shop_id" type="checkbox" name="shop_id[]" value="<{$var.shop_id}>" /></td>
+                        <td><{$var.shop_id}></td>
+                        <td><{$var.shop_name}></td>
+                        <td><img src="<{:config_img($var['photo'])}>" class="w80" /></td>
+                        <td><{$var.tel}></td>
+                        <td><{$var.addr}></td>
+                        <td><{$var.price}></td>
+                        <td><if condition="$var.audit eq 0">未审核<elseif condition="$var.audit eq 2"/><font style="color: red;">已拒绝</font></if></td>
+                        <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                    <td>
+                    <{:BA('booking/audit',array("shop_id"=>$var["shop_id"]),'审核','act','remberBtn')}>
+                    <if condition="$var.audit neq 2"><{:BA('ding/refuse',array("shop_id"=>$var["shop_id"]),'拒绝','load','remberBtn',400,250)}></if>
+                    <{:BA('booking/edit',array("shop_id"=>$var["shop_id"]),'编辑','','remberBtn')}>
+                    <{:BA('booking/delete',array("shop_id"=>$var["shop_id"]),'删除','act','remberBtn')}>
+                    </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                <{:BA('booking/delete','','批量删除','list',' a2')}>
+                <{:BA('booking/audit','','批量审核','list',' remberBtn')}>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+
+

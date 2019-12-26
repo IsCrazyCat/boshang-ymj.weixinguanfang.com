@@ -1,0 +1,113 @@
+<include  file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="javascript:void(0);">物业账单--包括水、电、燃气、停车、物业费。注意：账单设置需从小区业主处进入</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <form method="post" action="<{:U('order/index',array('user_id'=>$user_id))}>">
+        <div class="radius5 tuan_top">
+            <div class="tuan_top_t">
+                <div class="left tuan_topser_l">
+                    开始时间：<input type="text" class="radius3 tuan_topser"  name="bg_date" value="<{$bg_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM'});"/>
+                    结束时间：<input type="text" class="radius3 tuan_topser"  name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM'});"/>
+                    <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/>
+                </div>
+                <if condition="!empty($user_id)"><div class="right tuan_topfb_r"><a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('order/create',array('user_id'=>$user_id))}>">添加账单+</a></div></if>
+            </div>
+        </div>
+    </form>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>账单编号</td>
+            <td>账单用户</td>
+            <td>用户手机</td>
+            <td>账单时间</td>
+            <td>水费</td>
+            <td>电费</td>
+            <td>燃气费</td>
+            <td>停车费</td>
+            <td>物业费</td>
+            <td>操作</td>
+        </tr>
+        <foreach name="list" item="var">
+            <tr>
+                <td><{$var.order_id}></td>
+                <td><{$users[$var['user_id']]['nickname']}>(<{$var.user_id}>)</td>
+                <td><{$users[$var['user_id']]['mobile']}></td>
+                <td><{$var.order_date}></td>
+                
+                <td>
+                
+                <if condition="$var['type1']['money'] eq 0">
+                未设置
+                
+                <else/>
+                <{:round($var['type1']['money']/100,2)}>
+                <php>
+                $var1 = $var['type1']['is_pay']
+                </php>
+                (<if condition="$var1 eq 1">已缴清<else/>未缴</if>)
+                </if>
+                </td>
+                
+                 <td>
+                <if condition="$var['type2']['money'] eq 0">
+                未设置
+                <else/>
+                <{:round($var['type2']['money']/100,2)}>
+                <php>
+                $var2 = $var['type2']['is_pay']
+                </php>
+                (<if condition="$var2 eq 1">已缴清<else/>未缴</if>)
+                </if>
+                </td>
+                
+                 <td>
+                <if condition="$var['type3']['money'] eq 0">
+                未设置
+                <else/>
+                <{:round($var['type3']['money']/100,2)}>
+                <php>
+                $var3 = $var['type3']['is_pay']
+                </php>
+                (<if condition="$var3 eq 1">已缴清<else/>未缴</if>)
+                </if>
+                </td>
+                
+                 <td>
+                <if condition="$var['type4']['money'] eq 0">
+                未设置
+                <else/>
+                <{:round($var['type4']['money']/100,2)}>
+                <php>
+                $var4 = $var['type4']['is_pay']
+                </php>
+                (<if condition="$var4 eq 1">已缴清<else/>未缴</if>)
+                </if>
+                </td>
+                
+                 <td>
+                <if condition="$var['type5']['money'] eq 0">
+                未设置
+                <else/>
+                <{:round($var['type5']['money']/100,2)}>
+                <php>
+                $var5 = $var['type5']['is_pay']
+                </php>
+                (<if condition="$var5 eq 1">已缴清<else/>未缴</if>)
+                </if>
+                </td>
+                
+                
+                <td>
+                <a class="radius3 sy_c1an" href="<{:U('order/edit',array('order_id'=>$var['order_id']))}>">修改</a>
+                <!--<a class="radius3 sy_c1an" mini='comfirm' href="<{:U('owner/pdelete',array('owner_id'=>$var['owner_id'],'pay_id'=>$var['pay_id']))}>">删除</a> -->
+            </td>
+            </tr>
+        </foreach>
+    </table>
+</div>
+
+<include  file='public:footer'/>

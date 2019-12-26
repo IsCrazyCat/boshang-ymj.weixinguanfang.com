@@ -1,0 +1,63 @@
+<include file="public:header"/>
+<style>
+ul{ padding-left:0px;}
+.list-media-x p { font-weight: normal;}
+.top-fixed .top-title {padding:0;margin-top: -2px;}
+.button-toolbar .button-group a{background: none;color: #FFF;}
+.button-toolbar .button-group a.active{background: #fff;color: #06C1AE;}
+</style>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('member/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+            <div class="button-toolbar">
+                <div class="button-group">
+                    <a class="block button active" href="<{:LinkTo('tuan/index',array('aready'=>0))}>">订单</a>
+                    <a class="block button" href="<{:LinkTo('tuancode/index')}>">套餐劵</a>
+                </div>
+            </div>
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+
+<!-- 筛选TAB -->
+
+<ul id="shangjia_tab">
+        <li style="width:16.66666667%;"><a href="<{:LinkTo('tuan/index',array('aready'=>0))}>" <eq name='aready' value='0'>class="on"</eq>>待付款</a></li>
+        <li style="width:16.66666667%;"><a href="<{:LinkTo('tuan/index',array('aready'=>-1))}>" <eq name='aready' value='-1'>class="on"</eq>>到店付</a></li>
+        <li style="width:16.66666667%;"><a href="<{:LinkTo('tuan/index',array('aready'=>1))}>" <eq name='aready' value='1'>class="on"</eq>>已付款</a></li>
+        <li style="width:16.66666667%;"><a href="<{:LinkTo('tuan/index',array('aready'=>3))}>" <eq name='aready' value='3'>class="on"</eq>>待退款</a></li>
+        <li style="width:16.66666667%;"><a href="<{:LinkTo('tuan/index',array('aready'=>4))}>" <eq name='aready' value='4'>class="on"</eq>>已退款</a></li>
+        <li style="width:16.66666667%;"><a href="<{:LinkTo('tuan/index',array('aready'=>8))}>" <eq name='aready' value='8'>class="on"</eq>>已完成</a></li>
+</ul>
+
+
+
+<!--<if condition="empty($list)">
+   <if condition="$aready eq '' || $aready eq -1 || $aready eq 1 || $aready eq 3 || $aready eq 4 || $aready eq 8">
+   <div class="www_hatudou_com_my_fav">
+        <div class="www_hatudou_com_no_data">
+            <img src="/static/default/wap/image/no_data.png">
+            <p>
+                没有相关数据， <a href="<{:LinkTo('wap/tuan/index')}>" class="xi2">去套餐逛逛</a>
+            </p>
+        </div>
+    </div>
+    </if>
+</if>-->
+
+<div class="list-media-x" id="list-media">
+	<ul></ul>
+</div>	
+
+
+<script>
+	$(document).ready(function () {
+		loaddata('<{:U("tuan/orderloading",array("aready"=>$aready,"p"=>"0000"))}>', $("#list-media ul"), true);
+	});
+</script>
+
+<include  file='public:footer'/>

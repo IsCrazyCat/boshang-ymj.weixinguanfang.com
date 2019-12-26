@@ -1,0 +1,62 @@
+<include file="public:header"/>
+
+<header class="top-fixed bg-yellow bg-inverse">
+
+	<div class="top-back">
+
+		<a class="top-addr" href="<{:U('user/member/index')}>"><i class="icon-angle-left"></i></a>
+
+	</div>
+
+		<div class="top-title">
+
+			消息中心
+
+		</div>
+
+	<div class="top-signed">
+
+		<include file="public:message"/>
+
+	</div>
+
+</header>
+
+<div class="blank-10 bg"></div>
+
+<div class="panel-list">
+
+	<ul>
+
+		<li>
+
+			<a href="<{:u('user/message/index')}>">
+
+				系统通知&nbsp; <font>总(<{$msg_common}>)条</font>&nbsp; <font>私信(<b><{$msg_qita}></b>)条</font>
+
+				<i class="icon-angle-right"></i>
+
+			</a>
+
+		</li>
+
+		<li>
+
+			<a href="<{:u('wap/message/index')}>">
+
+				小区收信箱&nbsp; <font>共(<{$message}>)条</font>&nbsp; <font>今日(<b><{$counts.message_xiaoqu}></b>)条</font>
+
+                <i class="icon-angle-right"></i>
+
+			</a>
+
+		</li>
+
+		
+	</ul>
+
+</div>
+
+
+
+<include file='public:footer'/>

@@ -1,0 +1,241 @@
+<include file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">员工管理</a> > <a href="">员工</a> > <a>添加员工</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">添加添加员工后，员工在手机版个人中心，我的信息里面打开同意邀请后方可登陆员工管理平台，平台地址您的域名后面worker，不懂联系：120-585-022</div>
+        </div>
+    </div> 
+    <div class="tabnr_change  show">
+        <form method="post"  action="<{:U('worker/create')}>"  target="baocms_frm">
+            <table class="tuanfabu_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">用户编号：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[user_id]" value="" class="tuanfabu_int tuanfabu_intw2" />
+                            <code>填写用户在网站的UID【PC用户中心首页可以看到】,不懂联系qq：120--585--022</code>
+                        </div></td>
+                </tr>
+                
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">员工姓名：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[name]" value="" class="tuanfabu_int tuanfabu_intw2" />
+                            <code>填写员工的真实姓名</code>
+                        </div></td>
+                </tr>
+
+
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">员工座机：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[tel]" value="" class="tuanfabu_int tuanfabu_intw2" />
+                            <code>填写座机号码，或者公司号码</code>
+                        </div></td>
+                </tr>
+                
+                
+                
+                                <tr>
+                    <td width="120"><p class="tuanfabu_t">员工手机：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[mobile]" value="" class="tuanfabu_int tuanfabu_intw2" />
+                            <code>填写员工的手机号码</code>
+                        </div></td>
+                </tr>
+                
+                
+                
+                                <tr>
+                    <td width="120"><p class="tuanfabu_t">QQ：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[qq]" value="<{$detail.qq|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+                            <code>填写员工的QQ号码</code>
+                        </div></td>
+                </tr>
+                
+                
+                
+                                <tr>
+                    <td width="120"><p class="tuanfabu_t">员工微信：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[weixin]" value="<{$detail.weixin|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+                            <code>填写员工的微信号码</code>
+                        </div></td>
+                </tr>
+                
+                
+                
+                                <tr>
+                    <td width="120"><p class="tuanfabu_t">员工职务</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[work]" value="<{$detail.work|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+                            <code>员工所担任的职务</code>
+                        </div></td>
+                </tr>
+
+
+
+              <tr>
+                    <td width="120"><p class="tuanfabu_t">联系地址：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[addr]" value="<{$detail.addr|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+                            <code>填写员工的联系地址或者公司地址</code>
+                        </div></td>
+                </tr>
+
+
+
+                 <tr>
+                    <td width="120"><p class="tuanfabu_t">团购权限：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <label><span>是</span>
+                            <input style="width: 20px; height: 20px;" type="radio" name="data[tuan]" value="1" checked="checked">
+                            </label>
+                            <label><span style="margin-left: 20px;">否</span>
+                            <input style="width: 20px; height: 20px;" type="radio" name="data[tuan]" value="0" >
+                            </label>
+                           
+                            
+                        </div></td>
+                </tr>
+                
+
+                
+<!--                  <tr>-->
+<!--        <td width="120"><p class="tuanfabu_t">优惠权限：</p></td>-->
+<!--        <td><div class="tuanfabu_nr">-->
+<!--        <label><span>是</span>-->
+<!--        <input style="width: 20px; height: 20px;" type="radio" name="data[coupon]" value="1"  checked="checked" >-->
+<!--        </label>-->
+<!--        <label><span style="margin-left: 20px;">否</span>-->
+<!--        <input style="width: 20px; height: 20px;" type="radio" name="data[coupon]" value="0" >-->
+<!--        </label>-->
+<!--        </div></td>-->
+<!--      </tr>-->
+      
+       <tr>
+        <td width="120"><p class="tuanfabu_t">商城权限：</p></td>
+        <td><div class="tuanfabu_nr">
+        <label><span>是</span>
+        <input style="width: 20px; height: 20px;" type="radio" name="data[is_mall]" value="1" >
+        </label>
+        <label><span style="margin-left: 20px;">否</span>
+        <input style="width: 20px; height: 20px;" type="radio" name="data[is_mall]" value="0" checked="checked" >
+        </label>
+        </div></td>
+      </tr>
+<!--      -->
+<!--      <tr>-->
+<!--        <td width="120"><p class="tuanfabu_t">订座权限：</p></td>-->
+<!--        <td><div class="tuanfabu_nr">-->
+<!--        <label><span>是</span>-->
+<!--        <input style="width: 20px; height: 20px;" type="radio" name="data[is_ding]" value="1" >-->
+<!--        </label>-->
+<!--        <label><span style="margin-left: 20px;">否</span>-->
+<!--        <input style="width: 20px; height: 20px;" type="radio" name="data[is_ding]" value="0" checked="checked">-->
+<!--        </label>-->
+<!--        </div></td>-->
+<!--      </tr>-->
+<!--      -->
+<!--      <tr>-->
+<!--        <td width="120"><p class="tuanfabu_t">分类权限：</p></td>-->
+<!--        <td><div class="tuanfabu_nr">-->
+<!--        <label><span>是</span>-->
+<!--        <input style="width: 20px; height: 20px;" type="radio" name="data[is_life]" value="1" >-->
+<!--        </label>-->
+<!--        <label><span style="margin-left: 20px;">否</span>-->
+<!--        <input style="width: 20px; height: 20px;" type="radio" name="data[is_life]" value="0"  checked="checked">-->
+<!--        </label>-->
+<!--        </div></td>-->
+<!--      </tr>-->
+<!--            -->
+<!--            -->
+<!--      <tr>-->
+<!--        <td width="120"><p class="tuanfabu_t">招聘权限：</p></td>-->
+<!--        <td><div class="tuanfabu_nr">-->
+<!--        <label><span>是</span>-->
+<!--        <input style="width: 20px; height: 20px;" type="radio" name="data[is_job]" value="1" checked="checked">-->
+<!--        </label>-->
+<!--        <label><span style="margin-left: 20px;">否</span>-->
+<!--        <input style="width: 20px; height: 20px;" type="radio" name="data[is_job]" value="0">-->
+<!--        </label>-->
+<!--        </div></td>-->
+<!--      </tr> -->
+<!--      -->
+<!--       <tr>-->
+<!--        <td width="120"><p class="tuanfabu_t">预约权限：</p></td>-->
+<!--        <td><div class="tuanfabu_nr">-->
+<!--        <label><span>是</span>-->
+<!--        <input style="width: 20px; height: 20px;" type="radio" name="data[is_yuyue]" value="1"  checked="checked" checked="checked">-->
+<!--        </label>-->
+<!--        <label><span style="margin-left: 20px;">否</span>-->
+<!--        <input style="width: 20px; height: 20px;" type="radio" name="data[is_yuyue]" value="0" >-->
+<!--        </label>-->
+<!--        </div></td>-->
+<!--      </tr>  -->
+<!--      -->
+<!--      <tr>-->
+<!--        <td width="120"><p class="tuanfabu_t">点评权限：</p></td>-->
+<!--        <td><div class="tuanfabu_nr">-->
+<!--        <label><span>是</span>-->
+<!--        <input style="width: 20px; height: 20px;" type="radio" name="data[is_dianping]" value="1"  checked="checked">-->
+<!--        </label>-->
+<!--        <label><span style="margin-left: 20px;">否</span>-->
+<!--        <input style="width: 20px; height: 20px;" type="radio" name="data[is_dianping]" value="0" >-->
+<!--        </label>-->
+<!--        </div></td>-->
+<!--      </tr> -->
+      
+       <tr>
+        <td width="120"><p class="tuanfabu_t">文章权限：</p></td>
+        <td><div class="tuanfabu_nr">
+        <label><span>是</span>
+        <input style="width: 20px; height: 20px;" type="radio" name="data[is_news]" value="1"  checked="checked">
+        </label>
+        <label><span style="margin-left: 20px;">否</span>
+        <input style="width: 20px; height: 20px;" type="radio" name="data[is_news]" value="0" >
+        </label>
+        </div></td>
+      </tr> 
+
+
+<!--  <tr>-->
+<!--        <td width="120"><p class="tuanfabu_t">家政权限：</p></td>-->
+<!--        <td><div class="tuanfabu_nr">-->
+<!--        <label><span>是</span>-->
+<!--        <input style="width: 20px; height: 20px;" type="radio" name="data[is_appoint]" value="1" <eq name="detail.is_appoint" value="1" >checked="checked"</eq> >-->
+<!--        </label>-->
+<!--        <label><span style="margin-left: 20px;">否</span>-->
+<!--        <input style="width: 20px; height: 20px;" type="radio" name="data[is_appoint]" value="0" <eq name="detail.is_appoint" value="0">checked="checked"</eq>>-->
+<!--        </label>-->
+<!--        </div></td>-->
+<!--      </tr>   -->
+<!--      -->
+<!--      -->
+<!--        <tr>-->
+<!--        <td width="120"><p class="tuanfabu_t">订座权限：</p></td>-->
+<!--        <td><div class="tuanfabu_nr">-->
+<!--        <label><span>是</span>-->
+<!--        <input style="width: 20px; height: 20px;" type="radio" name="data[is_booking]" value="1" <eq name="detail.is_booking" value="1" >checked="checked"</eq> >-->
+<!--        </label>-->
+<!--        <label><span style="margin-left: 20px;">否</span>-->
+<!--        <input style="width: 20px; height: 20px;" type="radio" name="data[is_booking]" value="0" <eq name="detail.is_booking" value="0">checked="checked"</eq>>-->
+<!--        </label>-->
+<!--        </div></td>-->
+<!--      </tr>   -->
+                          
+
+            </table>
+            <div class="tuanfabu_an">
+                <input type="submit" class="radius3 sjgl_an tuan_topbt" value="确认发布" />
+            </div>
+        </form>
+    </div> 
+</div>
+<include  file='public:footer'/>

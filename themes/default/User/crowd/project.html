@@ -1,0 +1,42 @@
+<include file="public:header"/>
+<style>
+.list-media-x {margin-top:0rem;}
+ul { padding-left: 0px}
+</style>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:u('crowd/crowd_list',array('aready'=>1))}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			项目进展
+		</div>
+	<div class="top-signed">
+    	<a href="<{:U('crowd/project_create',array('goods_id'=>$detail['goods_id']))}>" class="top-addr icon-plus"> 新增</a>
+	</div>
+</header>
+
+
+<div class="list-media-x" id="list-media">
+<div class="blank-10 bg"></div>
+	<ul>
+        <foreach name="meals" item="var">
+           <li class="line">
+            <dt> <a class="x3">编号：<{$var.project_id}></a><a class="x9">日期：<{$var.dateline|date='Y-m-d H:i:s',###}></a></dt>
+            <dd class="zhong">
+                <div class="x12">
+                    <p class="text-small">
+                        <span class="text-dot1 margin-right">描述：<{$var.content}></span>
+                    </p>
+              </div>
+             </dd>
+            <dl>
+              <p class="text-right padding-top x12">
+                 <a class="button button-small bg-yellow" target="x-frame"  href="<{:U('crowd/project_delete',array('project_id'=>$var['project_id']))}>">删除</a>    
+             </p>
+           </dl>
+        </li>
+        <div class="blank-10 bg"></div>
+    </foreach>
+    </ul>
+</div>	
+<include file='crowd:footer'/>

@@ -1,0 +1,151 @@
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+
+<title>套餐码确认 - 员工确认中心</title>
+
+<link href="/themes/default/Store/statics/css/style.css" rel="stylesheet" type="text/css">
+
+<link href="/themes/default/Store/statics/css/reset.css" rel="stylesheet" type="text/css">
+<link href="/themes/default/Store/statics/css/css_1.css" rel="stylesheet" type="text/css">
+
+
+<script src="/themes/default/Store/statics/js/jquery.js"></script>
+
+<script src="/themes/default/Store/statics/js/zepto.js"></script>
+
+<script src="/themes/default/Store/statics/js/js.js"></script>
+
+<script src="/themes/default/Store/statics/js/public.js?v=20150610"></script>
+
+<script src="/Public/js/web.js?v=20150610"></script>
+
+<script src="/Public/js/my97/WdatePicker.js?v=20150625"></script>
+
+<script src="/themes/default/Store/statics/js/layer/layer.js"></script>
+
+<script> var BAO_PUBLIC = '/Public';
+
+            var BAO_ROOT = '';</script>
+
+<script>
+
+$(function(){
+
+	$(".sygg_closs").click(function(){
+
+		$(this).parent(".sygg").hide();
+
+	});
+
+});
+
+</script>
+
+</head>
+
+
+
+<body>
+
+    <iframe id="baocms_frm" name="baocms_frm" style="display:none;"></iframe>
+
+<header>
+	<i class="left"><a href="<{:U('index/index')}>" id="icon_goback"></a></i>
+    <div class="title">套餐码确认</div>
+    <!-- i class="right"><a href="#">+发布套餐</a></i -->
+</header>
+
+<script>
+	$(function(){
+		$(".sh_search_more_int .center").click(function(){
+				$(this).find(".sh_search_more_pull").toggle();
+		});
+		$(".sh_search_more_pull li").click(function(){
+				$(".sh_search_more_int .center input").val($(this).html());
+				v = $(this).attr('v');
+				$('#st').val(v);
+		});
+	});
+</script>
+
+<section>
+<div class="sh_prompt_infor_box">
+    	<p>每个空里面输入一个！可新增同时确认多个，最多确认10个！</p>
+        
+    </div>
+
+	<!-- div class="sh_buy_tab mb10">
+	    <ul>
+            <li class="on"><a href="<{:U('yuangong/ygtuan')}>">套餐码确认</a></li>
+            <li><a href="<{:U('yuangong/ygcoupon')}>">优惠券确认</a></li>
+            <div class="clear"></div>
+        </ul>
+	</div -->
+    
+    <form method="post" action="<{:U('yuangong/ygtuan')}>" target="baocms_frm">
+    <div class="sh_buy_tab_box">
+    	<div class="sh_buy_content">
+        	<div class="sh_buy_add_btn"><input class="btn" type="button" id="add" value="新增+"></div>
+            <div class="sh_list_public_box" id="jq_code">
+                <ul>
+                    <li class="list_box mb10 tuaned_int" style="border-top:1px solid #dedede;margin-bottom:0.3rem !important">
+                        <div class="sh_buy_add_int">
+                        	<input name="code[1]" class="text" type="text" value=""> <code id="code_1"></code>
+                            <input class="sh_buy_add_int_del" type="button" value="移除">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="sh_login_nr"><input class="btn mt30" type="submit" value="确认消费"></div>
+        </div>
+    </div>
+    </form>
+    	
+    
+</section>
+
+
+<script>
+ function used(id, msg, type) {
+            $("#code_" + id).html(msg);
+            switch (type) {
+                case 1:
+                    $("#code_" + id).css('color', 'green');
+                    break;
+                case 2:
+                    $("#code_" + id).css('color', 'orange');
+                    break;
+                case 3:
+                    $("#code_" + id).css('color', 'red');
+                    break;
+            }
+        }
+var code_num = 1;
+$(document).ready(function (e) {
+	$(document).on('click', '.sh_buy_add_int_del', function () {
+		$(this).parents(".tuaned_int").remove();
+	});
+	$("#add").click(function () {
+		code_num++;
+		var str = '<li class="list_box mb10 tuaned_int" style="border-top:1px solid #dedede;margin-bottom:0.3rem !important"><div class="sh_buy_add_int">';
+		str += '<input name="code[' + code_num + ']" class="text" type="text" value="" />';
+		str += '<code id="code_' + code_num + '"></code>';
+		str += '<input class="sh_buy_add_int_del" type="button" value="移除"></div></li>';
+		$("#jq_code ul").append(str);
+	});
+	$('#submit').click(function () {
+		$('form').submit()
+	});
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+	<foreach name="list" item="item">
+	<li>
+		<h5><a href="<{:U('biz/detail',array('pois_id'=>$item['pois_id']))}>"><{$item.name}></a><span> <i class="icon-map-marker"></i> (<{$item.d}>)</span></h5>
+		<p>地址:<{$item.address}> </p>
+		<p class="tel">
+		<if condition="!empty($item[telephone])">电话<a href="tel:<{$item.telephone}>"><{$item.telephone}></a><else/>暂无联系方式 </if>
+         <if condition="$item['status'] eq 1">
+				<a class="text-dot" href="<{:U('biz/yuyue',array('pois_id'=>$item['pois_id']))}>"><i class="icon-tty"></i> 我要预约</a>
+            <elseif condition="$item['status'] eq 0"/>
+                <a class="" target="x-frame" href="<{:U('biz/claim',array('pois_id'=>$item['pois_id']))}>"><i class="icon-street-view"></i> 我要认领</a>
+            <elseif condition="$item['status'] eq -1"/>
+                <a class="text-gray"><i class="icon-tint"></i> 认领中</a>
+           </if>
+		</p>
+
+	</li>
+	</foreach>

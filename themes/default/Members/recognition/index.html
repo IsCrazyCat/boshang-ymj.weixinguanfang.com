@@ -1,0 +1,64 @@
+<include file="public:header"/>
+<div class="content_right">
+<div class="tgdd">
+    <div class="tgdd_nr">
+    <div class="x"><div class="paging"> 
+    <if condition="$list eq null">
+    <span style="border:none;">您还未认领商家，赶快去认领吧，或者<a style="color:#00F; border:none;" href="<{:u('home/shop/apply')}>">申请</a>一个商家！</span>
+    <else/>
+    <span>注意：一个账户只能认领一个商家哦~审核通过后可通过当前账户管理商家！登录账户密码与您当前的网站账户密码一致！</span>
+    </if>     
+
+     </div></div>
+
+        <table border="0" cellspacing="0" width="100%"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; text-align:center;">
+            <tr class="tgdd_nrt">
+                <th>我认领的商家</th>
+                <th>姓名/手机</th>
+                <th>申请理由</th>
+                <th>是否审核通过</th>
+                <th>管理员留言</th>
+            </tr>
+
+            <foreach name="list" item="var">
+
+                <tr class="tgdd_nrC">
+
+                    <td style="text-align:left;" width="335px"><div class="tgdd_tw"> 
+
+                            <div class="left"><a target="_blank" href="<{:u('home/shop/detail',array('shop_id'=>$var['shop_id']))}>">
+                            
+                            <img src="<{:config_img($shops[$var['shop_id']]['photo'])}>" width="81" height="60" /></a></div>
+
+                            <div class="lef"><a class="myChange_sp" href="<{:u('home/shop/detail',array('shop_id'=>$var['shop_id']))}>">商家：<{$shops[$var['shop_id']]['shop_name']}></a><p>认领时间：<{$var.create_time|date='Y-m-d H:i:s',###}> </p><p>认领码：<{$var.code}></p></div>
+
+                        </div></td>
+
+                    <td class="tgdd_nrCtd"><{$var.name}>/<{$var.mobile}></td>
+
+                    <td class="tgdd_nrCtd"><{$var.content}></td>
+
+                    <td class="tgdd_nrCtd"><eq name="var.audit" value="1"> 已通过审核 <a class="myInfor_sx myInfor_sx_fk" href="<{:u('merchant/login/index')}>">登录</a> <else/> 未通过 </eq></td>
+
+                    <td class="tgdd_nrCtd"><a style="color:#F00;font-weight:bold"> <{$var.reply}></a></td>
+
+                </tr>
+
+            </foreach>
+
+        </table>
+
+       
+
+    </div>
+
+</div>
+
+</div>
+
+</div></div>
+
+<include file="public:footer"/>
+
+
+

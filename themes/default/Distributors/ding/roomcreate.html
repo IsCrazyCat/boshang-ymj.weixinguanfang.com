@@ -1,0 +1,134 @@
+<include  file='public:header'/>   
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:u('distributors/ding/room')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		添加包厢
+	</div>
+</header>
+
+<style>
+.fabu-form .form-content {border: none;resize: none;width: 100%;height: 80px;padding: 10px;font-size: 12px;}
+.fabu-form .form-content1 {border: none;resize: none;width: 100%;height: 150px;padding: 10px;font-size: 12px;}
+.shuxing{width: 20px; height: 20px;margin-bottom: 10px;}
+.radio{ width:20px; height:20px; margin:0 5px;} 
+</style>
+
+<form class="fabu-form" method="post"  target="x-frame" action="<{:U('ding/roomcreate')}>">
+
+<div class="blank-10"></div>
+<div class="Upload-img-box">
+   <div  id="fileToUpload">上传图片</div>
+   <div class="Upload-img">
+   <div class="list-img loading" style="display:none;"><img src=""></div>
+   <div class="list-img jq_photo" style="display:none;"></div>
+  </div>
+</div>
+    <script>
+    	var width_dingroom = '<{:thumbSize($CONFIG[attachs][dingroom][thumb],0)}>';                     
+		var height_dingroom = '<{:thumbSize($CONFIG[attachs][dingroom][thumb],1)}>';  
+        var uploader = WebUploader.create({                 
+			auto: true,                             
+			swf: '/static/default/webuploader/Uploader.swf',                             
+			server: '<{:U("app/upload/uploadify",array("model"=>"dingroom"))}>',                             
+			pick: '#fileToUpload',                             
+			resize: true,    
+			compress : {width:width_dingroom,height:height_dingroom,quality:60,allowMagnify: false,crop: true}//裁剪       
+        });
+        //监听文件处理
+        uploader.on( 'beforeFileQueued', function( file ) {
+            $(".loading").show();
+            if(file.size > 1024000){
+                uploader.option( 'compress', {
+                    width:width_dingroom,//这里裁剪长度
+                    quality:60
+                });
+            }
+        });
+        //上传成功替换页面图片
+        uploader.on( 'uploadSuccess', function( file,resporse) {
+            $(".loading").hide();
+            var str = '<img src="'+resporse.url+'"><input type="hidden" name="data[photo]" value="' + resporse.url + '" />';
+            $(".jq_photo").show().html(str);
+        });
+        //上传失败提醒
+        uploader.on( 'uploadError', function( file ) {
+            alert('上传出错');
+        });
+
+        $(document).ready(function () {
+            $(document).on("click", ".photo img", function () {
+                $(this).parent().remove();
+            });
+        });
+    </script>
+
+
+
+<div class="blank-10 bg border-top"></div>
+<div class="row">
+	<div class="line">
+		<span class="x3">包厢名称：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[name]" value="<{$detail.name|default=''}>" />
+		</span>
+	</div>
+</div>
+
+<div class="row">
+	<div class="line">
+		<span class="x3">包厢大小：</span>
+		<span class="x8">
+			<select  name="data[type_id]" id="data[type_id]" class="text-select">
+				<option value="0" selected="selected">请选择</option>
+                <?php foreach($types as $key=>$val){?>
+                <option value="<{$key}>" <?php if($key == $detail['type_id']) echo  'selected="selected"';?> ><{$val}></option>
+                <?php }?>
+			</select>
+		</span>
+
+	</div>
+</div>
+
+<div class="row">
+	<div class="line">
+		<span class="x3">包厢说明：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[intro]" value="<{$detail.intro|default=''}>" />
+		</span>
+	</div>
+</div>
+
+<div class="row">
+	<div class="line">
+		<span class="x3">消费金额：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[money]" value="<{:round($detail['money']/100,2)}>" />
+		</span>
+	</div>
+</div>
+
+<div class="row">
+    <div class="line">
+       <span class="x3">可预订？</span>
+       <span class="x9">
+        <label><input class="radio" type="radio" <?php if($detail['closed'] == 1) echo 'checked="checked"';?>  name="data[closed]" id="data[is_bao]" value="1"/>不能预定</label>
+        <label><input  class="radio" type="radio" <?php if($detail['closed'] == 0) echo 'checked="checked"';?>  name="data[closed]" id="data[is_bao]" value="0"/>可预定</label>
+       </span>
+    </div>
+ </div>
+
+
+
+	<div class="container">
+		<div class="blank-30"></div>
+		<button  type="submit" class="button button-block button-big bg-dot">确认添加</button>
+		<div class="blank-30"></div>
+	</div>
+</form>
+
+
+    
+   
+<include  file='public:footer_ding'/>

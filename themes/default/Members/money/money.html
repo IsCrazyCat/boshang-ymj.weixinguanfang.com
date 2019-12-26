@@ -1,0 +1,59 @@
+<include file="public:header"/>
+<div class="content_right">
+	<div class="tgdd">
+		<include file="money:nav"/>
+		<form method="post" action="<{:U('money/moneypay')}>" >
+            <div class="password_nr">
+                <div class="password_input">
+                    <if condition="!empty($CONFIG[cash][is_recharge])">
+                       <if condition="!empty($CONFIG[cash][recharge_full_1]) && !empty($CONFIG[cash][recharge_give_1]) && ($CONFIG[cash][recharge_full_1] GT $CONFIG[cash][recharge_give_1])">
+                       单笔充值满：<a style="color:#F00">&yen;<{$CONFIG[cash][recharge_full_1]}> </a> 元,送：<{$CONFIG[cash][recharge_give_1]}> 元
+                       </if>
+                       &nbsp;&nbsp;&nbsp;&nbsp;
+                       <if condition="!empty($CONFIG[cash][recharge_full_2]) && !empty($CONFIG[cash][recharge_give_2]) && ($CONFIG[cash][recharge_full_2] GT $CONFIG[cash][recharge_give_2])">
+                       单笔充值满：<a style="color:#F00">&yen;<{$CONFIG[cash][recharge_full_2]}> </a> 元,送：<{$CONFIG[cash][recharge_give_2]}> 元
+                       </if>
+                       &nbsp;&nbsp;&nbsp;&nbsp;
+                       <if condition="!empty($CONFIG[cash][recharge_full_3]) && !empty($CONFIG[cash][recharge_give_3]) && ($CONFIG[cash][recharge_full_3] GT $CONFIG[cash][recharge_give_3])">
+                      单笔充值满：<a style="color:#F00">&yen;<{$CONFIG[cash][recharge_full_3]}> </a> 元,送：<{$CONFIG[cash][recharge_give_3]}> 元
+                       </if>
+                   </if>
+                </div>
+				<div class="password_input">
+					<div class="left">充值金额</div>
+					<div class="lef">
+						<input  class="Confirm" type="text" name="money" />
+					</div>
+				</div>
+				<div class="password_input">
+					<div class="left">支付方式</div>
+					<div class="lef">
+						<foreach name="payment" item="var">
+							<eq name="var.is_open" value="1">
+								<if condition="$var['code'] neq 'money' and  $var['code'] neq 'weixin' ">
+									<dd>
+										<label><em>
+											<input class="pay_int" value="<{$var.code}>" name="code" type="radio" />
+											</em><img src="__PUBLIC__/images/<{$var.logo}>" /></label>
+									</dd>
+								</if>
+							</eq>
+						</foreach>
+					</div>
+				</div>
+				<div class="password_subm">
+					<input class="submit" type="submit" value="确认信息" />
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+</div>
+<script type="text/javascript">
+	$('.password_input .lef dd').click(function(){
+		$('.password_input .lef dd').removeClass('current');	
+		$(this).addClass('current');	
+		
+	});
+</script>
+<include file="public:footer"/> 

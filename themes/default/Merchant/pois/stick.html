@@ -1,0 +1,50 @@
+
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">包年</a> > <a>我的包年</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+	<div class="radius5 tuan_top">
+        <div class="tuan_top_t tuanfabu_top">
+            <div class="left tuan_topser_l"><strong>注意：</strong> 下列为您包年置顶的信息，在微信上对公众号说关键字，就可以排在第一位，位置稀缺，先下手为强！过期7天后会被取消掉哦！</div>
+        </div>
+    </div>
+    <include  file='pois:nav'/>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td width="100">关键词编号</td>
+            <td width="250">关键词</td>
+            <td width="120">绑定黄页</td>
+            <td width="130">到期时间</td>
+            <td width="150">费用</td>
+            <td width="80">状态</td>
+            <td width="70">操作</td>
+        </tr>
+        <php>$now=time();</php>
+        <foreach name="list" item="var">
+        <tr>
+            <tr>
+				<td><{$var.word_id}></td>
+                <td><{$var.text}></td>
+                <td><{$poiss[$var[pois_id]][name]}></td>
+                <td><{$var.over_time|date='Y-m-d',###}></td>
+                <td>&yen;<{$var.price}> 元</td>
+                <td> <if condition="$var[over_time] GT $now"><span class="text-green">正常</span><else /><span class="text-dot">过期</span></if></td>
+                <td>
+                 <a class="text-blue"  mini="act" href="<{:U('pois/renew',array('word_id'=>$var[word_id]))}>">续费</a>
+                </td>
+                
+                
+            </tr>
+        </tr>
+        </foreach>
+    </table>
+    <div class="paging">
+        <{$page}>
+    </div>
+</div>
+
+<include  file='public:footer'/>
+

@@ -1,0 +1,21 @@
+<include file='public:header'/>    
+	<script src="/static/default/wap/other/roll.js"></script>
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('village/detail',array('village_id'=>$detail['village_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<{$detail.name}>-全部工作人员
+		</div>
+	</header>
+		<div class="xiaoqu-list">
+		<ul id="xiaoqu-list">
+		</ul>
+	</div>
+
+    <script>
+        $(document).ready(function () {
+            loaddata('<{$next}>', $(".xiaoqu-list ul"), true);
+        });
+    </script>
+<include file="public:footer"/> 

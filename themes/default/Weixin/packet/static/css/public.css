@@ -1,0 +1,53 @@
+@charset "utf-8";
+html { background: #FFFFFF; }
+body, h1, h2, h3, h4, h5, h6, p, blockquote, pre, dl, dd, fieldset, form, input, select, textarea, figure ,div,form,img,ul,ol,li,i,b,table,tr,td,th,fieldset,label,legend{ margin:0;padding:0;}
+body { font-size: 14px; font-family: "Microsoft YaHei", "Helvetica Neue", "Hiragino Sans GB", "Segoe UI", Tahoma, Arial, STHeiti, sans-serif; _font-family: Tahoma, Arial, Helvetica, STHeiti, sans-serif; color: #333333; font-weight:normal; font-style:normal;}
+ul, ol, menu { list-style: none; margin: 0; padding: 0; }
+table { border-collapse: collapse; border-spacing: 0; }
+fieldset, a img, iframe { border: 0 none; }
+address, em, i { font-style: normal; }
+input, select, button { vertical-align: middle; }
+input, textarea, select { *font-size: 100%; }
+button { overflow: visible; }
+a,img,a img{border:0px;}
+a{text-decoration:none;cursor:pointer;transition:all 0.2s ease-in-out;-o-transition:all 0.2s ease-in-out;-webkit-transition:all 0.2s ease-in-out;-moztransition:all 0.2s ease-in-out; color:#333;}
+a:hover{text-decoration:none; color:#fe7902;}
+input.text,select.text,textarea.text{outline:none; border:1px solid #e3e3e3; height:26px; line-height:26px; padding:3px 0px 3px 5px;font-size:12px; color:#555;} 
+textarea{ outline:none; resize:none; border:1px solid #e3e3e3; font-size:12px;}
+input.check{ vertical-align:middle; margin-right:2px;}
+img{ vertical-align:top;}
+.lt{float:left;}
+.rt{float:right;}
+.cl{ height: 0; line-height: 0; font-size: 0; clear: both;}
+.clearfix { display: block; *zoom: 1; }
+.none{ display:none;}
+
+.fontcl1{ color:#42b8f1;}
+.fontcl2{ color:#ff6600;}
+.pointcl{ color:#fd0202;}
+.graycl{ color:#999;}
+.whitecl{ color:#fff;}
+.blackcl{ color:#000;}
+.pagewd{ width:1200px; margin:0px auto;min-width:1200px;}
+.smallpage{ width:1000px;margin:0px auto; min-width:1000px;}
+.mt20{margin-top:20px;}
+.mb10{ margin-bottom:10px;}
+.mb20{ margin-bottom:20px;}
+.unline{ border-bottom:1px solid #eee;}
+.blue_bg { background-color: #3C79C3; color: #FFFFFF; }
+.indent { text-indent: 2em; }
+p{line-height:30px; font-size: 14px; font-family: "Microsoft Yahei"; }
+.btn{ display:inline-block;text-decoration:none; cursor:pointer;transition:all 0.2s ease-in-out;-o-transition:all 0.2s ease-in-out;-webkit-transition:all 0.2s ease-in-out;-moztransition:all 0.2s ease-in-out;  height:35px; line-height:35px; opacity:1; filter:alpha(opacity=100); text-align:center;}
+.btn:hover{ opacity:0.8;filter:alpha(opacity=80);}
+.rap{ white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
+
+.articleBox{ font-size:14px; line-height:30px;}
+.articleBox p a{color:#f60;text-decoration:underline}
+.articleBox p{margin:15px 0;}
+.articleBox h2{padding-left:30px;height:40px;line-height:40px;}
+
+.pad20{ padding:20px;}
+/*以上为通用样式部分*/
+
+
+

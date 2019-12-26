@@ -1,0 +1,40 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="javascript:void(0);">小区管理</a> > <a href="javascript:void(0);">编辑物业通知</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="tabnr_change  show">
+        <form method="post"  action="<{:U('news/edit',array('news_id'=>$detail['news_id']))}>"  target="baocms_frm">
+            <table class="tuanfabu_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">标题：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[title]" value="<{$detail.title|default=''}>" style="width: 300px;" class="tuanfabu_int tuanfabu_intw2" />
+                        </div></td>
+                </tr>
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">简介：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[intro]" value="<{$detail.intro|default=''}>" style="width: 300px;"  class="tuanfabu_int tuanfabu_intw2" />
+                        </div></td>
+                </tr>
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">内容：</p></td>
+                    <td><div class="tuanfabu_nr" style="width: 400px; height: 250px;">
+                            <textarea style="width: 360px; height: 240px;" placeholder="请输入通知内容" name="data[details]" row="5" ><{$detail.details}></textarea>
+                        </div></td>
+                </tr>
+            </table>
+            <div class="tuanfabu_an">
+                <input type="submit" class="radius3 sjgl_an tuan_topbt" value="确认编辑" />
+            </div>
+        </form>
+    </div> 
+</div>
+<include  file='public:footer'/>
+
+
+
+

@@ -1,0 +1,75 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">套餐</a> > <a>设置多套餐</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">发布套餐需要知道套餐的套餐ID，并且需要分别给主套餐和副套餐创建一个套餐名</div>
+            <div class="right tuan_topfb_r"><a class="radius3 sjgl_an tuan_topbt jq_add" rel="1" href="javascript:void(0);">新增一个+</a></div>
+        </div>
+    </div> 
+    <div class="tabnr_change  show">
+        <form  target="baocms_frm" action="<{:U('tuan/setting',array('tuan_id'=>$detail['tuan_id']))}>" method="post">
+            <table class="tuanfabu_table" id="jq_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="200" align="center"><p class="tuanfabu_nr">套餐套餐ID：</p></td>
+                    <td width="400" align="center"><div class="tuanfabu_nr">套餐名称</div></td>
+                    <td width="200" align="center"><div class="tuanfabu_nr">操作</div></td>
+                </tr>
+                <tr>
+                    <td width="120" align="center"><p class="tuanfabu_nr">主套餐(<{$detail['tuan_id']}>)</p></td>
+                    <td align="center">
+                        <div class="tuanfabu_nr">
+                            <input type="text" name="name" value="<{$name['name']}>" class="tuanfabu_int tuanfabu_intw2" />
+                        </div>
+                    </td>
+                    <td width="200" align="center"><div class="tuanfabu_nr">这里是主套餐设置</div></td>
+                </tr>
+                <volist name="meals" id="item" key="index">
+                    <tr>
+                        <td width="200" align="center">
+                            <div class="tuanfabu_nr">
+                                <input type="text" name="data[<{$index}>][id]" value="<{$item.id}>" class="tuanfabu_int tuanfabu_intw2" />
+                            </div>
+                        </td>
+                        <td width="400" align="center">
+                            <div class="tuanfabu_nr">
+                                <input type="text" name="data[<{$index}>][name]" value="<{$item.name}>" class="tuanfabu_int tuanfabu_intw2" />
+                            </div>
+                        </td>
+                        <td width="200" align="center">
+                            <div class="tuanfabu_nr">
+                                <a class="jq_delete" href="javascript:void(0);">删除</a>
+                            </div>
+                        </td>
+                    </tr>
+                </volist>
+
+            </table>
+            <script>
+                var num_1 = 0;
+                $(document).ready(function () {
+                    $(document).on('click', '.jq_delete', function () {
+                        $(this).parent().parent().parent().remove();
+                    });
+
+                    $(".jq_add").click(function () {
+                        var rel = $(this).attr('rel');
+                        num_1++;
+                        var str = '<tr><td width="200" align="center"><div class="tuanfabu_nr"><input type="text" name="data[' + num_1 + '][id]" value="" class="tuanfabu_int tuanfabu_intw2" /></div></td><td width="400" align="center"><div class="tuanfabu_nr"><input type="text" name="data[' + num_1 + '][name]" value="" class="tuanfabu_int tuanfabu_intw2" /></div></td><td width="200" align="center"><div class="tuanfabu_nr"><a class="jq_delete" href="javascript:void(0);">删除</a></div></td></tr>';
+                        $("#jq_table").append(str);
+                    });
+                });
+
+
+            </script>
+            <div class="tuanfabu_an">
+                <input type="submit" class="radius3 sjgl_an tuan_topbt" value="确认发布" />
+            </div>
+        </form>
+    </div> 
+</div>
+<include  file='public:footer'/>

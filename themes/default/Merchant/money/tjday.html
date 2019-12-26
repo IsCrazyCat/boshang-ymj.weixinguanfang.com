@@ -1,0 +1,116 @@
+<include  file='public:header'/>
+
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+
+<div class="sjgl_lead">
+
+    <ul>
+
+        <li><a href="#">结算</a> > <a href="">资金记录</a> > <a>余额日志</a></li>
+
+    </ul>
+
+</div>
+
+<div class="tuan_content">
+
+    <form method="post" action="<{:U('money/tjday')}>">
+
+    <div class="radius5 tuan_top">
+
+        <div class="tuan_top_t">
+
+            <div class="left tuan_topser_l">
+
+             开始时间：<input type="text" class="radius3 tuan_topser"  name="bg_date" value="<{$bg_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd'});"/>
+
+            结束时间：<input type="text" class="radius3 tuan_topser"  name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd'});"/>       
+
+            <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    </form>
+
+   <include  file='money:nav'/>
+
+    <script src="__PUBLIC__/js/highcharts/highcharts.js"></script>
+
+
+      <script>
+
+                            $(function () {
+
+                            $('#container2').highcharts({
+
+                            title: {
+
+                            text: '日结算金额时间段（<{$bg_date}> - <{$end_date}>）内趋势',
+
+                                    x: - 20 //center
+
+                            },
+
+                                    subtitle: {
+
+                                    text: "<{$SHOP['shop_name']}>",
+
+                                            x: - 20
+
+                                    },
+
+                                    xAxis: {
+
+                                    categories: [<{$data.d}>]
+
+                                    },
+
+                                    yAxis: {
+
+                                    title: {
+
+                                    text: '单位元'
+
+                                    },
+
+                                            plotLines: [{
+
+                                            value: 0,
+
+                                                    width: 1,
+
+                                                    color: '#808080'
+
+                                            }]
+
+                                    },
+
+                                    series: [{
+
+                                    name: '结算金额',
+
+                                            data: [<{$data.price}>]
+
+                                    }]
+
+                            });
+
+                            });</script>
+
+                        <div id="container2">
+
+
+
+                        </div>
+
+    
+
+</div>
+
+
+
+<include  file='public:footer'/>

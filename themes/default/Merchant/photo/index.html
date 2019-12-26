@@ -1,0 +1,77 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">系统设置</a> > <a href="">店铺管理</a> > <a>店铺环境图</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">上传修改商家的店铺环境图，修改之后需要点下方的更新按钮才能生效</div>
+        </div>
+    </div> 
+    <include  file='shop:nav'/>
+    <div class="tabnr_change show">
+    <table  cellpadding="0"  cellspacing="0" width="100%" class="tuan_table" >
+    <form class="fabu-form" method="post"  target="baocms_frm" action="<{:U('photo/photo_create')}>">
+     <tr>
+            <td class="lfTdBt"> 商铺环境图尺寸：<{$CONFIG.attachs.shop_environment.thumb}></td>
+            <td class="rgTdBt">
+              <input type="hidden" name="data[photo]" value="" id="data_logo" />
+             <div id="fileToUpload" >上传环境图</div>
+           </td>
+           <td> <img id="logo_img" width="80" height="60"  src="<{:config_img($SHOP2['logo'])}>" /></td>
+           <td> <input id="logo_file" name="data[title]" type="text" class="tuanfabu_int tuanfabu_intw2" value=""  placeholder="输入标题" /></td>
+           <td>  <button  type="submit" class="radius3 sjgl_an tuan_topbt">先点我上传环境图</button></td>
+	 </form>
+     </tr>
+                    <script>                                            
+						var width_shop_environment = '<{:thumbSize($CONFIG[attachs][shop_environment][thumb],0)}>';                         
+						var height_shop_environment = '<{:thumbSize($CONFIG[attachs][shop_environment][thumb],1)}>';                         
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"shop_environment"))}>',                             
+						pick: '#fileToUpload',                             
+						resize: true,  
+						compress : {width: width_shop_environment,height: height_shop_environment,quality: 80,allowMagnify: false,crop: true}                                           
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_logo").val(resporse.url);                             
+						$("#logo_img").attr('src',resporse.url).show(); 
+					                     
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+       
+
+    	<form  method="post" action="<{:U('photo/update')}>" target="baocms_frm">
+    	<table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr style="background-color:#eee;">
+                <td>图片</td>
+                <td>标题</td>
+                <td>排序</td>
+                <td>审核状态</td>
+                <td>上传时间</td>
+                <td>操作</td>
+            </tr>
+            <foreach name="list" item="var">
+                <tr>
+                    <td style="height:50px;"><img src="<{:config_img($var['photo'])}>" style="width:60px; margin: 0px auto;" /></td>
+                    <td><input type="text" class="tuanfabu_int tuanfabu_intw2" name="title[<{$var.pic_id}>]" value="<{$var.title}>" /></td>
+                    <td><input type="text" class="tuanfabu_int tuanfabu_intw2" style="width: 50px" name="orderby[<{$var.pic_id}>]" value="<{$var.orderby}>" /></td>
+                    <td><eq name="var.audit" value="0">等待审核<else/>正常</eq></td>
+                    <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                    <td>
+                        <a mini='confirm' href="<{:U('photo/delete',array('pic_id'=>$var['pic_id']))}>">删除图片</a>
+                    </td>
+                </tr>
+            </foreach>
+        </table>
+        <div class="tuanfabu_an"><input type="submit" class="radius3 sjgl_an tuan_topbt" value="确认保存" /></div>
+
+        </form>
+    </div> 
+<include  file='public:footer'/>

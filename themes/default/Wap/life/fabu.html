@@ -1,0 +1,457 @@
+<include  file='public:header'/> 
+<link rel="stylesheet" type="text/css" href="/static/default/wap/other/webuploader.css"> 
+<script src="/static/default/wap/other/webuploader.js"></script> 
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('life/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		发布<{$cate.cate_name}>
+	</div>
+</header>
+
+<style>
+#login-input input.mapinputs{ width:48%; float:left; margin-right:5px;}
+#login-input input.mapinputs2{ width:100%; float:left; margin:10px 0px;}
+</style>
+
+<form class="fabu-form" method="post"  target="x-frame" action="<{:U('life/fabu',array('cat'=>$cate['cate_id']))}>">
+
+<div class="blank-10"></div>
+
+
+
+<div class="Upload-img-box">
+   <div  id="fileToUpload">上传主图</div>
+   <div class="Upload-img">
+   <div class="list-img loading" style="display:none;"><img src=""></div>
+   <div class="list-img jq_photo" style="display:none;"></div>
+  </div>
+</div>
+    <script>
+    	var width_life = '<{:thumbSize($CONFIG[attachs][life][thumb],0)}>';                     
+		var height_life = '<{:thumbSize($CONFIG[attachs][life][thumb],1)}>'; 
+		var pic_wap_quality = '<{$CONFIG[attachs][pic_wap_quality][thumb]}>';  
+        var uploader = WebUploader.create({                 
+			auto: true,                             
+			swf: '/static/default/webuploader/Uploader.swf',                             
+			server: '<{:U("app/upload/uploadify",array("model"=>"life"))}>',                             
+			pick: '#fileToUpload',   
+			resize: true,
+			accept: {
+				title: 'Images',
+				extensions: 'gif,jpg,jpeg,png',
+				mimeTypes: 'image/*'//只永许上传JPG格式文件
+			}, 
+			compress : {width: width_life,height: height_life,quality: pic_wap_quality,allowMagnify: false,crop: true}   
+        });
+        //监听文件处理
+        uploader.on( 'beforeFileQueued', function( file ) {
+            $(".loading").show();
+            if(file.size > 1024000){
+                uploader.option( 'compress', {
+                    width:width_life,//这里裁剪长度
+                    quality:70
+                });
+            }
+        });
+		
+        uploader.on( 'uploadSuccess', function( file,resporse) {
+            $(".loading").hide();
+            var str = '<img src="'+resporse.url+'"><input type="hidden" name="data[photo]" value="' + resporse.url + '" />';
+            $(".jq_photo").show().html(str);
+        });
+        uploader.on( 'uploadError', function( file ) {
+            alert('上传出错');
+        });
+
+        $(document).ready(function () {
+            $(document).on("click", ".photo img", function () {
+                $(this).parent().remove();
+            });
+        });
+    </script>
+<div class="blank-10"></div>
+<div class="blank-10 bg"></div>
+<div class="blank-10"></div>
+ <div class="Upload-img-box">
+   <div  id="moreToUpload">上传更多详情图</div>
+   <div class="Upload-img">
+   <div class="list-img loading_photo" style="display:none;"><img src=""></div>
+   <div class="list-img jq_photo_photo" style="display:none;"></div>
+       <div class="jq_photo1">
+       </div>
+  </div>
+</div>
+    <script>
+    	var width_lifepic = '<{:thumbSize($CONFIG[attachs][lifepic][thumb],0)}>';                     
+		var height_lifepic = '<{:thumbSize($CONFIG[attachs][lifepic][thumb],1)}>'; 
+		var pic_wap_quality = '<{$CONFIG[attachs][pic_wap_quality][thumb]}>';  
+        var uploader = WebUploader.create({                 
+			auto: true,                             
+			swf: '/static/default/webuploader/Uploader.swf',                             
+			server: '<{:U("app/upload/uploadify",array("model"=>"lifepic"))}>',                             
+			pick: '#moreToUpload',
+			fileNumberLimit:10,//最大文件个数                        
+			resize: true,    
+			accept: {
+				title: 'Images',
+				extensions: 'gif,jpg,jpeg,png',
+				mimeTypes: 'image/*'//只永许上传JPG格式文件
+			}, 
+			compress : {width: width_lifepic,height: height_lifepic,quality: pic_wap_quality,allowMagnify: false,crop: true}     
+        });
+        //监听文件处理
+        uploader.on( 'beforeFileQueued', function( file ) {
+            $(".loading_photo").show();
+            if(file.size > 1024000){
+                uploader.option( 'compress', {
+                    width:width_lifepic,//这里裁剪长度
+                    quality:60
+                });
+            }
+        });
+        uploader.on( 'uploadSuccess', function( file,resporse) {
+            $(".loading_photo").hide();
+            var str = '<img src="'+resporse.url+'"><input type="hidden" name="photo[]" value="' + resporse.url + '" />';
+            $(".jq_photo1").append(str);  
+        });
+        uploader.on( 'uploadError', function( file ) {
+            alert('上传出错');
+        });
+
+        $(document).ready(function () {
+            $(document).on("click", ".photo img", function () {
+                $(this).parent().remove();
+            });
+        });
+    </script>
+
+
+<div class="blank-10 bg border-top"></div>
+<div class="row">
+	<div class="line">
+		<span class="x3">标题</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[title]" value="<{$detail.title|default=''}>" />
+		</span>
+	</div>
+</div>
+
+
+
+<if condition="!empty($cate['text1'])"> 
+<div class="row">
+	<div class="line">
+		<span class="x3"><{$cate.text1}></span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[text1]" value="<{$detail.text1|default=''}>" />
+		</span>
+	</div>
+</div>
+</if>
+
+<if condition="!empty($cate['text2'])"> 
+<div class="row">
+	<div class="line">
+		<span class="x3"><{$cate.text2}></span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[text2]" value="<{$detail.text2|default=''}>" />
+		</span>
+	</div>
+</div>
+</if>
+
+<if condition="!empty($cate['text3'])"> 
+<div class="row">
+	<div class="line">
+		<span class="x3"><{$cate.text3}></span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[text3]" value="<{$detail.text3|default=''}>" />
+		</span>
+	</div>
+</div>
+</if>
+
+<if condition="!empty($cate['num1'])"> 
+<div class="row">
+	<div class="line">
+		<span class="x3"><{$cate.num1}></span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[num1]" value="<{$detail.num1|default=''}>" />
+		</span>
+	</div>
+</div>
+</if>
+
+<if condition="!empty($cate['num2'])"> 
+<div class="row">
+	<div class="line">
+		<span class="x3"><{$cate.num2}></span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[num2]" value="<{$detail.num2|default=''}>" />
+		</span>
+	</div>
+</div>
+</if>
+
+<if condition="!empty($cate['select1'])"> 
+<div class="row">
+	<div class="line">
+		<span class="x3"><{$cate.select1}></span>
+		<span class="x9">
+			<select name="data[select1]" class="text-select">
+				<foreach name="attrs.select1" item="item">
+				<option value="<{$item.attr_id}>" <eq name="detail.select1" value="$item.attr_id">selected="selected"</eq> ><{$item.attr_name}></option>
+				</foreach>
+			</select>
+		</span>
+	</div>
+</div>
+</if>
+
+<if condition="!empty($cate['select2'])"> 
+<div class="row">
+	<div class="line">
+		<span class="x3"><{$cate.select2}></span>
+		<span class="x9">
+			<select name="data[select2]" class="text-select">
+				<foreach name="attrs.select2" item="item">
+				<option value="<{$item.attr_id}>" <eq name="detail.select2" value="$item.attr_id">selected="selected"</eq> ><{$item.attr_name}></option>
+				</foreach>
+			</select>
+		</span>
+	</div>
+</div>
+</if>
+
+<if condition="!empty($cate['select3'])"> 
+<div class="row">
+	<div class="line">
+		<span class="x3"><{$cate.select3}></span>
+		<span class="x9">
+			<select name="data[select3]" class="text-select">
+				<foreach name="attrs.select3" item="item">
+				<option value="<{$item.attr_id}>" <eq name="detail.select3" value="$item.attr_id">selected="selected"</eq> ><{$item.attr_name}></option>
+				</foreach>
+			</select>
+		</span>
+	</div>
+</div>
+</if>
+
+<if condition="!empty($cate['select4'])"> 
+
+<div class="row">
+	<div class="line">
+		<span class="x3"><{$cate.select4}></span>
+		<span class="x9">
+			<select name="data[select4]" class="text-select">
+				<foreach name="attrs.select4" item="item">
+				<option value="<{$item.attr_id}>" <eq name="detail.select4" value="$item.attr_id">selected="selected"</eq> ><{$item.attr_name}></option>
+				</foreach>
+			</select>
+		</span>
+	</div>
+</div>
+</if>
+
+<if condition="!empty($cate['select5'])"> 
+<div class="row">
+	<div class="line">
+		<span class="x3"><{$cate.select5}></span>
+		<span class="x9">
+			<select name="data[select5]" class="text-select">
+				<foreach name="attrs.select5" item="item">
+				<option value="<{$item.attr_id}>" <eq name="detail.select5" value="$item.attr_id">selected="selected"</eq> ><{$item.attr_name}></option>
+				</foreach>
+			</select>
+		</span>
+	</div>
+</div>
+</if>
+
+<script>
+	$(document).ready(function (e) {
+		$("#area_id").change(function () {
+			var url = '<{:U("life/business",array("area_id"=>"0000"))}>';
+			if ($(this).val() > 0) {
+				var url2 = url.replace('0000', $(this).val());
+				$.get(url2, function (data) {
+					$("#business_id").html(data);
+				}, 'html');
+			}
+		});
+	});
+</script>
+
+<div class="row">
+	<div class="line">
+		<span class="x3">地域</span>
+		<span class="x4">
+			<select name="data[area_id]" id="area_id" class="text-select">
+				<option value="0" selected="selected">选择地区</option>
+				<foreach name="areas" item="var">
+                <php>if($var['city_id'] == $city_id){</php>
+				<option value="<{$var.area_id}>" <eq name="var.area_id" value="$detail.area_id">selected="selected"</eq>><{$var.area_name}></option>
+				<php>}</php>
+                </foreach>
+			</select>
+		</span>
+		<span class="x5">
+			<select name="data[business_id]" id="business_id" class="text-select">
+				<option value="0" selected="selected">← 选择地区</option>
+			</select>
+		</span>
+	</div>
+</div>
+
+<div class="row">
+	<div class="line">
+		<span class="x3">联系人</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[contact]" value="<{$detail.contact|default=''}>" />
+		</span>
+	</div>
+</div>
+<div class="row">
+	<div class="line">
+		<span class="x3">电话</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[mobile]" value="<{$detail.mobile|default=''}>" />
+		</span>
+	</div>
+</div>
+<div class="row">
+	<div class="line">
+		<span class="x3">QQ号码</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[qq]" value="<{$detail.qq|default=''}>" />
+		</span>
+	</div>
+</div>
+<div class="row">
+	<div class="line">
+		<span class="x3">地址</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[addr]" value="<{$detail.addr|default=''}>" />
+		</span>
+	</div>
+</div>
+<div class="blank-10 bg"></div>
+<div class="line padding border-bottom">		
+        <div id="login-input">
+                        <span class="mr10"><input type="text" name="data[lng]" id="lng" value="<{$lng|default=''}>" class="mapinputs w100" /></span>
+                        <span><input type="text" name="data[lat]" id="lat" value="<{$lat|default=''}>" class="w100 mapinputs" /></span>
+                        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7b92b3afff29988b6d4dbf9a00698ed8"></script>
+                        <div class="top" style="width:100%; margin-bottom: 20px;">
+                            <div id="r-result"><input type="text" id="suggestId" class="mapinputs2" size="20"  placeholder="输入地址搜索" value="" /></div>    
+                        </div>
+                        <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+                        <div id="allmap" style="width: 100%; height:300px; padding:10px;"></div>
+                        <script type="text/javascript">
+                            var map = new BMap.Map("allmap");
+                            var lng = "<{$lng}>";
+                            var lat = "<{$lat}>";
+                            if (!lng && !lat) {
+                                map.centerAndZoom("合肥");
+                                var point = new BMap.Point(117.260852, 31.825717);
+                            } else {
+                                map.centerAndZoom(new BMap.Point(lng, lat), 15);
+                                var point = new BMap.Point(lng, lat);
+                            }
+                            map.centerAndZoom(point, 15);
+                            var marker = new BMap.Marker(point); 
+                            map.clearOverlays();
+                            map.addOverlay(marker);              
+                            marker.setAnimation(BMAP_ANIMATION_BOUNCE); 
+                            function showPoint(e) {
+                                document.getElementById('lat').value = e.point.lat;
+                                document.getElementById('lng').value = e.point.lng;
+                                var p = new BMap.Point(e.point.lng, e.point.lat);
+                                var mk = new BMap.Marker(p);
+                                map.clearOverlays();
+                                map.addOverlay(mk);
+                                mk.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                            }
+                            map.enableScrollWheelZoom(true);
+                            map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+                            map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}));  
+                            map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT, type: BMAP_NAVIGATION_CONTROL_PAN})); 
+                            map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, type: BMAP_NAVIGATION_CONTROL_ZOOM})); 
+                            map.addEventListener("click", showPoint);
+                            function G(id) {
+                                return document.getElementById(id);
+                            }
+
+                            var ac = new BMap.Autocomplete(//建立一个自动完成的对象
+                                    {"input": "suggestId"
+                                        , "location": map
+                                    });
+
+                            ac.addEventListener("onhighlight", function (e) {  
+                                var str = "";
+                                var _value = e.fromitem.value;
+                                var value = "";
+                                if (e.fromitem.index > -1) {
+                                    value = _value.province + _value.city + _value.district + _value.street + _value.business;
+                                }
+                                str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+
+                                value = "";
+                                if (e.toitem.index > -1) {
+                                    _value = e.toitem.value;
+                                    value = _value.province + _value.city + _value.district + _value.street + _value.business;
+                                }
+                                str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+                                G("searchResultPanel").innerHTML = str;
+                            });
+
+                            var myValue;
+                            ac.addEventListener("onconfirm", function (e) {   
+                                var _value = e.item.value;
+                                myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+                                G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+
+                                setPlace();
+                            });
+
+                            function setPlace() {
+                                map.clearOverlays();   
+                                function myFun() {
+                                    var pp = local.getResults().getPoi(0).point;   
+                                    map.centerAndZoom(pp, 18);
+                                    map.addOverlay(new BMap.Marker(pp)); 
+                                }
+                                var local = new BMap.LocalSearch(map, {
+                                    onSearchComplete: myFun
+                                });
+                                local.search(myValue);
+                            }
+
+                        </script>
+                </div>                    
+	</div>
+
+<div class="blank-10 bg"></div>    
+<!--商家地图结束-->
+
+<div class="padding">
+	<div class="line">
+		<span class="x3">详细说明</span>
+	</div>
+</div>
+<div class="line">
+	<div class="container">
+		<textarea rows="5" name="details" class="text-area" placeholder="请输入内容"></textarea>
+	</div>
+</div>
+
+	<div class="container">
+		<div class="blank-30"></div>
+		<button  type="submit" class="button button-block button-big bg-dot">发布信息</button>
+		<div class="blank-30"></div>
+	</div>
+
+</form>
+<include  file='public:footer'/>

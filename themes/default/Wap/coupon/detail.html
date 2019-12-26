@@ -1,0 +1,111 @@
+<php>$mobile_title = $detail['title'];</php>
+<include  file='public:header'/>   
+<style>
+.icon-angle-right{ float:right; font-size:20px;}
+.layui-layer-molv .layui-layer-title { background-color: #F8F8F8;border-bottom: 1px solid #eee; color: #333;}
+.bg-gray{background-color: #999 !important;}
+</style> 
+	<header class="top-fixed bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('coupon/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			优惠劵详情
+		</div>
+		<div class="top-search" style="display:none;">
+			<form method="post" action="<{:U('coupon/index')}>">
+				<input name="keyword" placeholder="输入优惠劵的关键字"  />
+				<button type="submit" class="icon-search"></button> 
+			</form>
+		</div>
+		<div class="top-signed">
+			<a id="search-btn" href="javascript:void(0);"><i class="icon-search"></i></a>
+		</div>
+	</header>  
+	 <script>
+		$(function(){
+			$("#search-btn").click(function(){
+				if($(".top-search").css("display")=='block'){
+					$(".top-search").hide();
+					$(".top-title").show(200);
+				}
+				else{
+					$(".top-search").show();
+					$(".top-title").hide(200);
+				}
+			});
+		});
+	</script>
+	
+	<div class="hd-detail">
+		<div class="detail-pic">
+			<img src="<{:config_img($detail['photo'])}>"/>
+			<p><{$detail.title}></p>
+		</div>      
+		<div class="detail-ctrl">
+			<span><em><{$detail.downloads}></em>人已成功领取</span>
+            <php>
+            $mobile = substr_replace($MEMBER['mobile'],'****',3,4);
+            </php>
+            
+            <!--如果有绑定手机号-->
+            <if condition="empty($MEMBER['mobile'])">
+              <a class="btn-sign float-right" id="bind_mobile" href="javascript:void(0);">绑定手机后下载</a>	
+            <else/>
+                <if condition="$detail['num'] GT 0">
+                	<a class="btn-sign float-right"  href="<{:U('coupon/download',array('coupon_id'=>$detail['coupon_id']))}>">立刻领取</a>	
+                <else/>
+                	<a class="btn-sign float-right bg-gray"  href="<{:U('coupon/index')}>">没库存了</a>	
+                </if>
+            </if>
+				
+            
+		</div>
+		<div class="blank-10 bg"></div>
+		<div class="detail-info">
+			<h1>优惠劵详情</h1>
+<!--            <p>满减说明：满&yen;<{:round($detail['full_price']/100,2)}>元&nbsp;&nbsp;减&yen;<{:round($detail['reduce_price']/100,2)}>元</p>-->
+			<p>满减说明：浡莱克会员减免工时费和滤芯费</p>
+            <p>可领数量：<{$detail.num}>张</p>
+            <p>单人可领：<{$detail.limit_num}>张</p>
+            <p>剩余数量：<{$detail['num']}>张</p>
+            <p>有效期限：<{$detail.expire_date}></p>
+			<p>浏览次数：<{$detail.views}>次</p>
+			<p>使用方式：出示优惠券号码，<{$shop.shop_name}>商城下单抵现，有效期限：<{$detail.expire_date}>，请下载后及时使用！</p>
+		</div>
+		<div class="blank-10 bg"></div>
+		<div class="detail-info">
+			<h1>优惠简介</h1>
+			<p><{$detail.intro}></p>
+		</div>
+		<div class="blank-10 bg"></div>
+		<div class="detail-info">
+			<h1>商家信息</h1>
+			<p>提供商家：<a href="<{:U('shop/detail',array('shop_id'=>$detail['shop_id']))}>"><{$shop.shop_name}></a></p>
+			<if condition="$ex['near'] neq null">
+			<p>提供店铺：<{$ex.near}></p>
+			</if>
+			<p>联系电话：<a href="tel:<{$shop.tel}>"><{$shop.tel}></a></p>
+			<p>商家地址：<{$shop.addr}></p>
+			<p>位置导航：<a href="<{:U('shop/gps',array('shop_id'=>$detail['shop_id']))}>">到这里去</a></p>
+		</div>
+<!--		<div class="blank-10 bg"></div>-->
+<!--		<div class="detail-con">-->
+<!--			<div class="con-hd">使用指南</div>-->
+<!--			<div class="con-bd">-->
+<!--				<img src="/static/default/wap/image/coupon/method.png" />-->
+<!--			</div>-->
+<!--		</div>		-->
+	</div>
+
+
+<script>
+
+	$('#bind_mobile').click(function(){
+		check_user_mobile('<{:U("wap/tuan/tuan_sendsms")}>','<{:U("wap/tuan/tuan_mobile")}>');
+	})
+</script>
+
+
+
+<include  file='public:footer'/>

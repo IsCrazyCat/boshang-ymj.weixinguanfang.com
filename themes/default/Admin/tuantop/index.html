@@ -1,0 +1,84 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">广告</li>
+        <li class="li2">套餐</li>
+        <li class="li2 li3">套餐置顶</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('tuan/index','','套餐列表')}>
+            </div>
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('tuantop/index')}>"> 
+                    <div class="seleHidden" id="seleHidden">
+                        <div class="seleK">
+                                <span>套餐关键字：</span>
+                                <input type="text" name="keyword" id="keyword"  value="<{$keyword}>"   class="inptText" />
+                                <input type="submit" value="  搜索"  class="inptButton" />
+                            </label>
+                        </div>
+                    </div> 
+                </form>
+
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="tuan_id" /></td>
+                        <td class="w50">ID</td>
+                        <td>商家</td>
+                        <td>套餐标题</td>
+                        <td>图片</td>
+                        <td>套餐价格</td>
+                        <td>售出数</td>
+                        <td>结束时间</td>
+                        <td>置顶时间</td>
+                        <td>操作</td>
+
+                    </tr>
+                    <volist name="list" id="var" key="index"> 
+                        <tr>
+                            <td><input class="child_tuan_id" type="checkbox" name="tuan_id[]" value="<{$var.tuan_id}>" /> </td>
+                            <td><{$var.tuan_id}></td>
+                            <td><{$shops[$var['shop_id']]['shop_name']}></td>
+                            <td><{$var.title}> &nbsp;&nbsp; <eq name="var.audit" value="0">待审<else/>正常</eq></td>
+                            <td><img src="<{:config_img($var['photo'])}>" class="w80" /></td>
+                            <td><{$var.tuan_price}></td>
+                            <td><{$var.sold_num}></td>
+                            <td><{$var.end_date}></td>
+                            <td>
+                            <if condition="!empty($var['top_date'])">
+                            <a style="color:#F00; font-weight:bold;"><{$var.top_date}></a>
+                            <else/>
+                            暂无置顶
+                            </if>
+                            </td>
+                        <td>
+                        <{:BA('tuantop/top',array("tuan_id"=>$var["tuan_id"],'day'=>7),'置顶7天','act','remberBtn')}>
+                        <{:BA('tuantop/top',array("tuan_id"=>$var["tuan_id"],'day'=>30),'置顶30天','act','remberBtn')}>
+                        <{:BA('tuantop/edit',array("tuan_id"=>$var["tuan_id"]),'编辑','load','remberBtn',400,250)}>
+                        </td>
+                        </tr>
+                    </volist>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>  
+

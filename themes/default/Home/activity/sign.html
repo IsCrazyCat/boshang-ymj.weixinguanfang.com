@@ -1,0 +1,36 @@
+<div class="dhPop">
+    <h2><span class="bao_closed"></span>活动报名</h2>
+    <form method="post" target="baocms_frm" action="<{:U('activity/sign',array('activity_id'=>$detail['activity_id']))}>">
+        <table cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td align="right">联系人：</td>
+                <td><input type="text" name="data[name]" class="dhInput" value="<if condition="$MEMBER.nickname neq null"><{$MEMBER.nickname}></if>" /></td>
+            </tr>
+            <tr>
+                <td align="right">手机号：</td>
+                <td><input type="text" class="dhInput" name="data[mobile]" value="<if condition="$MEMBER.mobile neq null"><{$MEMBER.mobile}></if>" /></td>
+            </tr>
+            <tr>
+                <td align="right">人数：</td>
+                <td>
+                    <select name="data[num]" class="dhSelect">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td align="right"></td>
+                <td><input style="cursor: pointer; margin-bottom: 20px;" class="subBtn" type="submit" value="确认报名" /></td>
+            </tr>
+        </table>
+    </form>
+</div>

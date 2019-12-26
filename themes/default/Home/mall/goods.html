@@ -1,0 +1,41 @@
+ <ul>
+ <foreach name="cart_goods" item="item">
+ <php>$item = reset($item);</php>
+     <li class="topTwo_cart_list">
+         <a class="jq_delete del" rel="<{$item.goods_spec}>" val="<{$item.content}>" href="javascript:void(0);">删除</a>
+        <div class="pub_img left"><a href="<{:U('mall/detail',array('goods_id'=>$item['goods_id']))}>"><img src="<{:config_img($item['photo'])}>" width="80" height="60" /></a></div>
+        <div class="pub_wz">
+            <p class="overflow_clear"><a href="<{:U('mall/detail',array('goods_id'=>$item['goods_id']))}>"><{$item.title}></a></p>
+            <P class="price pointcl">¥<{:round($item['mall_price']/100,2)}> x <{$item.buy_num}> = <{:round($item['mall_price'] *  $item['buy_num']/100,2)}></P>
+        </div>
+        <div class="clear"></div>
+    </li>
+</foreach> 
+ </ul>
+ <div class="see_more"><a href="<{:U('mall/cart')}>">查看我的购物车</a></div>                 
+ <script>       
+        $(".jq_delete").click(function () {
+            var goods_spec = $(this).attr('rel');
+            var content = $(this).attr('val');
+            layer.confirm('您确定要删除该商品？', {
+                title:'删除商品',
+                area: ['150px', '150px'], //宽高
+                btn: ['是的', '不'], //按钮
+                shade: false //不显示遮罩
+            }, function () {
+
+                $.post("<{:U('mall/cartdel')}>", {goods_spec: goods_spec}, function (result) {
+                    if (result.status == "success") {
+                        layer.msg(result.msg);
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1000);
+                    } else {
+                        layer.msg(result.msg);
+                    }
+                }, 'json');
+            });
+            $('.layui-layer-btn0').css('background', '#2fbdaa');
+        });
+</script>
+                   

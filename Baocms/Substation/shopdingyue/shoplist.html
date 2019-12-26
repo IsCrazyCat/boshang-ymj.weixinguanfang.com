@@ -1,0 +1,117 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">订阅列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>此处是参加订阅的商家列表</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">            
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('shopdingyue/shoplist')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <select name="audit" class="inptText">                         
+                        <option <if condition="$audit_status eq 1 "> selected</if>  value='1'>已审核</option>
+                        <option <if condition="$audit_status eq ':0' "> selected</if> value=':0'>未审核</option>
+                        <option <if condition="$audit_status eq 1 "> selected</if>  value='-1'>失败</option>
+                        </select>
+                        <input type="submit" value="   搜索"  class="inptButton" />
+                    </div> 
+                </form>
+                <a href="javascript:void(0);" class="searchG">高级搜索</a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form method="post" action="<{:U('shopdingyue/shoplist')}>">
+            <div class="selectNr selectNr2">
+                <div class="left">
+                    <div class="seleK">
+                        <label>
+                            <input type="hidden" id="user_id" name="user_id" value="<{$user_id|default=''}>"/>
+                            <input class="text" type="text"   name="nickname" id="nickname"  value="<{$nickname}>" />
+                            <a mini="select"  w="1000" h="800" href="<{:U('user/select')}>" class="sumit">选择用户</a>
+                        </label>
+                        <label>
+                            <input type="hidden" id="shop_id" name="shop_id" value="<{$shop_id|default=''}>"/>
+                            <input class="text" type="text"   id="shop_name" name="shop_name" value="<{$shop_name}>" />
+                            <a mini="select"  w="1000" h="800" href="<{:U('shop/select')}>" class="sumit">选择商家</a>
+                        </label>
+                        <label>
+                            <span>关键字:</span>
+                            <input type="text" name="keyword" value="<{$keyword}>" class="inptText" />
+                        </label>
+                    </div>
+                </div>
+                <div class="right">
+                    <input type="submit" value="   搜索"  class="inptButton" />
+                </div>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="yuyue_id" /></td>
+                    <td class="w50">ID</td>
+                    <td>用户</td>
+                    <td>商家</td>
+                    <td>地区列表</td>
+                    <td>分类列表</td>
+                    <td>状态</td>
+                    <td>时间</td>
+                    <td>审核</td>
+                    <td>操作</td>
+
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_yuyue_id" type="checkbox" name="yuyue_id[]" value="<{$var.yuyue_id}>" /></td>
+                        <td> <{$var.dingyue_id}></td>
+                        <td><{$var.uid}></td>
+                        <td><{$var.shop_id}></td>
+                        <td><{$var.sitelist}></td>
+                        <td><{$var.catlist}></td>
+                        <td><{$var.status}></td>
+                        <td><{$var.create_time}></td>                        
+                        <if condition="$var.audit eq 1"> 
+	                    <td>通过</td>
+						<elseif condition="$var.audit eq 0"/>
+						<td>审核中</td>   
+						<elseif condition="$var.audit eq -1"/>
+						<td>失败</td>
+						<else /> 
+						<td>未审核</td>
+						</if>
+						
+						<td> 
+						<if condition="$var.audit eq 0"> 
+						    <a href="<{:U('shopdingyue/auditok',array('dingyue_id'=>$var['dingyue_id']))}>">通过</a>     
+						    <a href="<{:U('shopdingyue/auditno',array('dingyue_id'=>$var['dingyue_id']))}>">不通过</a>
+					     </if>
+				     <if condition="$var.audit eq 1">     
+					    <a href="<{:U('shopdingyue/auditno',array('dingyue_id'=>$var['dingyue_id']))}>">取消</a>
+				     </if>
+				     <if condition="$var.audit eq -1">     
+					    <a href="<{:U('shopdingyue/auditok',array('dingyue_id'=>$var['dingyue_id']))}>">通过</a>     
+				     </if>
+						 </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                <{:BA('shopyuyue/delete','','批量删除','list',' a2')}>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+
+

@@ -1,0 +1,32 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">大鱼模板管理</li>
+        <li class="li2 li3">添加大鱼模板</li>
+    </ul>
+</div>
+    <p class="attention"><span>注意：</span>如果没有模板ID请登录-><a style="color: red;" href="http://www.alidayu.com/" target="_ablank">阿里大鱼</a></p>
+<form  target="baocms_frm" action="<{:U('dayu/create')}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">模板名：</td>
+                    <td class="rgTdBt"><input type="text" name="data[dayu_name]" class="manageInput" /></td>
+                </tr><tr>
+                    <td class="lfTdBt">本地调用：</td>
+                    <td class="rgTdBt"><input type="text" name="data[dayu_local]" class="manageInput" /></td>
+                </tr><tr>
+                    <td class="lfTdBt">模板ID：</td>
+                    <td class="rgTdBt"><input type="text" name="data[dayu_tag]" class="manageInput" /></td>
+                </tr><tr>
+                    <td class="lfTdBt">说明：</td>
+                    <td class="rgTdBt"><textarea  name="data[dayu_note]" cols="50" rows="10" ></textarea></td>
+                </tr>
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认添加" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>       

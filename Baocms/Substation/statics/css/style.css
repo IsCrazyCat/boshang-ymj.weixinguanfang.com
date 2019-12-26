@@ -1,0 +1,74 @@
+@charset "utf-8";.bottom_box{width:100%;position:relative;height:1200px}
+.bottom_box .leftMenu{background:#495B6C;left:0;padding-top:10px;text-align:center;top:0;z-index:5;position:absolute;width:200px;height:100%}
+.bottom_box .leftMenu .menuClik{padding:10px;overflow:hidden;height:auto;    border-bottom: 1px solid #415160;}
+.bottom_box .leftMenu .menuClik .left{display:block;font-family:"微软雅黑";font-size:12px;color:#FFF;height:32px;width:52px;background-color:#1f7ac8;margin-right:12px;line-height:32px;background-image:url(../images/ico_03.png);background-repeat:no-repeat;background-position:8px center;text-align:left;padding-left:32px;cursor:pointer}
+.bottom_box .leftMenu .menuClik .center{display:block;font-family:"微软雅黑";font-size:12px;color:#FFF;height:32px;width:52px;background-color:#094;line-height:32px;text-align:center;background-image:url(../images/ico_05.png);background-repeat:no-repeat;background-position:8px center;text-align:left;padding-left:32px;cursor:pointer}
+.bottom_box .leftMenu .leftMenu_ul{display:block;width:198px;border-right-width:1px;border-bottom-width:1px;border-left-width:1px;border-right-style:solid;border-left-style:solid;position:relative;height:auto;border-top-color: #506274;border-right-color: #506274;
+    border-bottom-color: #506274;}
+.bottom_box .leftMenu .leftMenu_ul .leftMenu_li{height:auto;    border-top: 1px solid #506274;
+    border-bottom: 1px solid #415160;background-repeat:no-repeat;background-position:center top;font-size:14px;line-height:45px;color:#307bcb;text-align:left;position:relative;font-family:"微软雅黑";width:198px;display:block;z-index:0}
+.leftMenu_li .leftMenu_a{display:block;background-image:url(../images/leftico_13.png);background-repeat:no-repeat;background-position:168px center;color:#c9d4f6;position:relative;padding-left:30px;font-size:12px;text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);}
+.leftNav2{width:199px;height:auto;background-color:#415160;border-bottom-width:0px;border-bottom-style:solid;border-bottom-color:#415160;display:none}
+.leftNav2 li{font-family:"微软雅黑";font-size:14px;line-height:30px;color:#c9d4f6}
+.leftNav2 li:hover{font-family:"微软雅黑";font-size:14px;line-height:30px;color:#fff;background-color:#09C;}
+.leftNav2 li a{text-indent:50px;font-size:12px;color:#c9d4f6;width:196px;display:block; text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);}
+.curHover{color:#c9d4f6!important;border-left:3px solid #fff;background-color:#2E3943}
+.currents{background-image:url(../images/leftico_on_13.png)!important}
+.current{height:28px;line-height:28px;padding:0 10px;background:#09c;color:#fff!important;border-radius:3px;border:1px solid #09c}
+.rightMenu{margin-left:200px;height:100%}
+
+.main-sc .jsglNr .tableBox table tr td a.common1 {
+    background-color: #09c;
+    height: 20px;
+    font-family: "微软雅黑";
+    font-size: 12px;
+    line-height: 20px;
+    color: #FFF;
+    display: inline-block;
+    border-radius: 0px;
+	padding:0px 7px;
+    background-repeat: no-repeat;
+    background-position: 20px center;
+    margin-right: 20px;
+	-moz-border-radius: 50%;      /* Gecko browsers */
+    -webkit-border-radius: 50%;   /* Webkit browsers */
+    border-radius:50%px;            /* W3C syntax */
+
+}
+
+.main-sc .jsglNr .tableBox table tr td a.common2 {
+    background-color: #F00;
+    height: 20px;
+    font-family: "微软雅黑";
+    font-size: 12px;
+    line-height: 20px;
+    color: #FFF;
+    display: inline-block;
+    border-radius: 0px;
+	padding:0px 7px;
+    background-repeat: no-repeat;
+    background-position: 20px center;
+    margin-right: 20px;
+
+  margin-right: 20px;
+	-moz-border-radius: 50%;      /* Gecko browsers */
+    -webkit-border-radius: 50%;   /* Webkit browsers */
+    border-radius:50%px;            /* W3C syntax */
+}
+.selectInput{display: block; width:120px;
+    border-radius: 3px;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+   }
+	.selectInput, .select{ -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;}

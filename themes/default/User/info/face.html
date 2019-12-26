@@ -1,0 +1,64 @@
+﻿<include file="public:header"/>
+<link rel="stylesheet" type="text/css" href="/static/default/webuploader/webuploader.css">
+<script src="/static/default/webuploader/webuploader.min.js"></script>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('information/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			修改头像
+		</div>
+	<div class="top-signed">
+		<a href="<{:u('wap/message/index')}>"><i class="icon-envelope"></i></a>
+	</div>
+</header>
+<div class="container">
+	<div class="blank-10"></div>
+	<p>当前头像</p>
+	<img class="txt txt-big radius-circle bg-green" src="<{$MEMBER.face|default='__ROOT__/attachs/default.jpg'}>" />
+	<div class="blank-20"></div>
+	<div class="form-group">
+		<div class="field">
+			<div id="fileToUpload" >新头像</div>
+			<p class="text-gray text-small">图片建议大小为300X300像素，形状为正方形。</p>
+		</div>
+	</div>
+	<span id="images"></span>
+</div>
+
+		<script>
+		var uploader = WebUploader.create({	
+			auto: true,//自动上传
+			swf: '/static/default/webuploader/Uploader.swf',
+			server: '<{:U("app/upload/upload",array("model"=>"user"))}>',
+			pick: '#fileToUpload',
+			resize: true,
+			compress:{width:300,height:300,quality: 80,allowMagnify: false,crop: true},
+		});
+		
+		uploader.on( 'uploadSuccess', function( file,resporse) {
+			var str = '<div class="blank-10 border-bottom"></div><div class="blank-10"></div><div class="list-img"><img style="width:150px;height:150px;" src="' + resporse.url + '"><input type="hidden" name="photos[]" id="photos" value="' + resporse.url + '" /><div class="blank-10 border-bottom"><a href="javascript:void(0);" class="button button-block button-big bg-dot text-center">立即使用</a></div>';
+			$("#images").html(str);
+		});
+		
+		uploader.on( 'uploadError', function( file ) {
+			alert('上传出错');
+		});
+		$(document).ready(function () {
+			$(document).on("click", "#images a", function () {
+				var avatar = ($('#photos').val());
+				$.post('<{:U("information/upload_face")}>',{avatar:avatar},function(result){
+					if(result.status='success'){
+						layer.msg(result.message,{icon:1});
+						setTimeout(function(){
+							location.href = '<{:U("user/member/index")}>';
+						},1000)
+					}else{
+						layer.msg(result.message,{icon:2});
+					}
+				},'json');
+			});
+		
+		});
+		</script>
+<include file='public:footer'/> 

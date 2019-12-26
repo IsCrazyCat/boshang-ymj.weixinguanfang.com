@@ -1,0 +1,30 @@
+<include  file='public:header'/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		积分兑换
+	</div>
+</header>
+
+<!-- 筛选TAB -->
+<ul class="line line-cate">
+	<li class="x4">
+		<a <eq name="order" value="x">class="active"</eq> href="<{:LinkTo('jifen/index',array('order'=>'x'))}>">热门</a>
+	</li>
+	<li class="x4">
+		<a <eq name="order" value="t">class="active"</eq> href="<{:LinkTo('jifen/index',array('order'=>'t'))}>">推荐</a>
+	</li>
+	<li class="x4">
+		<a <if condition="($order eq 'd') OR ($order eq '')">class="active"</if> href="<{:LinkTo('jifen/index',array('order'=>'d'))}>">全部</a>
+	</li>
+</ul>
+
+<ul id="item-list" class="item-list"></ul>
+<script>
+	$(document).ready(function () {
+		loaddata('<{$nextpage}>', $("#item-list"), true);
+	});
+</script>	
+<include file="public:footer"/>

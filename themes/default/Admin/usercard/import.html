@@ -1,0 +1,26 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">会员</li>
+        <li class="li2">会员卡管理</li>
+        <li class="li2 li3">批量导入</li>
+    </ul>
+</div>
+<form   action="<{:U('usercard/import')}>" enctype="multipart/form-data" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+              <tr>
+                    <td class="lfTdBt">选择文件：</td>
+                    <td class="rgTdBt">
+                        <input type="file" name="csv" value=""  />
+                        <code>和商家合作后，商家原有的会员卡号，如果刷卡机能读得出来，那么可以整合商家的已有卡号！<a href="__PUBLIC__/import.csv">导入样本</a></code>
+                    </td>
+                </tr>
+               
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="分析会员卡" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>       

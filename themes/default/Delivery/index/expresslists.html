@@ -1,0 +1,66 @@
+<title>配送快递记录</title>
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('index/money')}>" ><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			配送快递记录
+		</div>
+	<div class="top-signed">
+		<a href="<{:U('delivery/login/logout')}>">退出</a>
+	</div>
+</header>
+
+
+
+<ul id="shangjia_tab">
+        <li style="width: 50%;"><a href="<{:U('index/lists',array('id'=>$rdv['id']))}>" >物流订单</a></li>
+        <li style="width: 50%;"><a href="<{:U('index/expresslists',array('id'=>$rdv['id']))}>" class="on">快递订单</a></li>
+</ul>
+
+
+<!-- 筛选TAB -->
+
+<div class="line tab-bar">
+	<div class="button-toolbar">
+		<div class="button-group">
+			<a class="block button bg-dot active" href="#">快递订单列表，共(<{$count}>)条</a>
+		</div>
+	</div>
+</div>
+
+
+<div class="container1">
+<div class="list-media-x" id="list-media">
+	<ul>
+
+<foreach name="list" item="var">
+    <li class="line padding">
+        <div class="x12">
+            <p class="text-small">订单号:<{$var.express_id}> &nbsp;&nbsp;|&nbsp;&nbsp;
+            状态：<eq name="var.status" value="0"><span style="color:#f6b300;">未处理</span></eq>
+                 <eq name="var.status" value="1"><span style="color:#f6b300;">已接单</span></eq>
+                 <eq name="var.status" value="2"><span style="color:#ff0000;">已完成</span></eq>
+                       
+
+            <p class="text-small">寄件人信息：<{$var.from_name}>&nbsp;&nbsp;|&nbsp;&nbsp;<{$var.from_addr}>&nbsp;&nbsp;|&nbsp;&nbsp;<{$var.from_mobile}></p>
+            <p class="text-small">收件人信息：<{$var.to_name}>&nbsp;&nbsp;|&nbsp;&nbsp;<{$var.to_addr}>&nbsp;&nbsp;|&nbsp;&nbsp;<{$var.to_mobile}></p>
+            <p class="text-small">寄件时间：<{$var.create_time|date='Y-m-d H:i:s',###}></p>
+
+
+</div>
+</li>
+<div class="blank-10 bg"></div>
+
+
+</foreach>
+
+ 
+  </ul>
+</div> 
+</div> 
+
+
+
+<include  file='public:footer'/>

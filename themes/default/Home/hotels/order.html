@@ -1,0 +1,282 @@
+<include file="public:header" /> 
+<include file="public:topOne"/>
+<script type="text/javascript" src="__TMPL__statics/js/dateRange.js"></script>
+<link rel="stylesheet" type="text/css" href="__TMPL__statics/css/dateRange.css"/>
+<!--主体内容-->
+<div class="pagewd">
+    <div class="hotel_state">
+        <div class="list_box">
+            <ul>
+                <li class="list on">1.提交订单</li>
+                <li class="list">2.去支付</li>
+                <li class="list">3.完成</li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+        <div class="img img1"></div>
+    </div>
+    <div class="hotel_ord_box mb20">
+    	<h2  class="mb20"><{$hotel.hotel_name}></h2>
+        <div class="hotel_ord_infor">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <th>酒店信息</th>
+                    <th>入住时间</th>
+                    <th>房间数</th>
+                    <th width="80">单价</th>
+                    <th width="80">总价</th>
+                </tr>
+                <tr>
+                    <td>
+                    	<p class="graycl"><{$detail.title}></p>
+                        <p class="graycl">酒店房型：<{$roomtype[$detail['type']]}><if condition="$detail['is_zc'] eq 1">-有早餐</if></p>
+                        <p class="graycl">宽带： <if condition="$detail['is_kd'] eq 1">提供<else/>无</if></p>
+                    </td>
+                    <td>
+                    	<div class="hotel_soso">
+                            <div id="date_demo" style=" height: 44px; float: left; color: #fff;">
+                                <div class="int_box time left"><span class="wz">入住</span><input type="text" value="<{$into_time}>" readonly="readonly" id="ft"/><em class="ico ico_2"></em></div>
+                                <div class="int_box time left"><span class="wz">退房</span><input type="text" value="<{$out_time}>" readonly="readonly" id="tt"/><em class="ico ico_2"></em></div>
+                            </div>
+                            <span class="day">共<span id="night_num"></span>晚</span>
+                            <div class="clear"></div>
+                        </div>
+                    </td>
+                    <td>
+                    	<div class="hotel_jiajian">
+                        	<input type="button" class="jian" value="-">
+                                <input type="text" class="num" id="jq_num" value="1"/>
+                            <input type="button" class="jia" value="+">
+                        </div>
+                    </td>
+                    <td>￥<{$detail.price}>/晚</td>
+                    <td>￥<span id="jqtotal">0</span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <script>
+        function test() {
+            var price = "<{$detail.price}>";
+            var stime = $("#ft").val();
+            var ltime = $("#tt").val();
+            if(ltime&&stime){
+                if(ltime <= stime){
+                    layer.msg('选择时间不正确');
+                    //return false;
+                }
+            }
+            var night_num =  get_night(stime,ltime);
+            var num = $("#jq_num").val();
+            var total = Math.round(price * num * night_num*100)/100;
+            $("#night_num").html(night_num);
+            $("#jqtotal").html(total);
+            $(".price").html(total);
+        }
+        $(document).ready(function(){
+            var price = "<{$detail.price}>";
+            function changetotal(num,night_num) {
+                $(".price").html(Math.round(price * num * night_num*100)/100);
+                $("#jqtotal").html(Math.round(price * num * night_num*100)/100);
+            }
+            
+            var dateRange = new pickerDateRange('date_demo', {
+            //aRecent90Days : 'aRecent7DaysDemo3', //最近7天
+            isTodayValid : true,
+            startDate : "<{$into_time}>",
+            endDate : "<{$out_time}>",
+            needCompare : true,
+            //isSingleDay : true,
+            shortOpr : false,
+            //dayRangeMax : 30,
+            defaultText : ' 至 ',
+            inputTrigger : 'input_trigger_demo3',
+            theme : 'ta',
+            success : function(obj) {
+                    $("#ft").val(obj.startDate);
+                    $("#tt").val(obj.endDate);
+                    var stime = $("#ft").val();
+            var ltime = $("#tt").val();
+            var night_num =  get_night(stime,ltime) ||0;
+            var num = $("#jq_num").val();
+            var total = Math.round(price * num * night_num*100)/100 ||0;
+            $("#night_num").html(night_num);
+            $("#jqtotal").html(total);
+            $(".price").html(total);
+            }
+        });
+        dateRange.setNextMonth();
+
+            var stime = $("#ft").val();
+            var ltime = $("#tt").val();
+            var night_num =  get_night(stime,ltime) ||0;
+            var num = $("#jq_num").val();
+            var total = Math.round(price * num * night_num*100)/100 ||0;
+            $("#night_num").html(night_num);
+            $("#jqtotal").html(total);
+            $(".price").html(total);
+
+
+            // + - 房间数量
+            $(".jia").click(function () {
+                var night_num = $("#night_num").html();
+                var num = $("#jq_num").val();
+                num++;
+                $("#jq_num").val(num);
+                changetotal(num,night_num);
+            });
+            $(".jian").click(function () {
+                var night_num = $("#night_num").html();
+                var num = $("#jq_num").val();
+                if (num > 1) {
+                    num--;
+                }else{
+                    layer.msg('不能再少了');
+                }
+                $("#jq_num").val(num);
+                changetotal(num,night_num);
+            });
+            $("#jq_num").keyup(function () {
+                var night_num = $("#night_num").html();
+                var num = $("#jq_num").val();
+                if (num <= 0) {
+                    $("#jq_num").val(1);
+                    changetotal($(this).val(),night_num);
+                } else {
+                    changetotal($(this).val(),night_num);
+                }
+            });
+
+        })
+    </script>
+    <div class="hotel_ord_box mb20">
+    	<h2  class="mb20">联系人信息<small class="graycl">（请真实填写入住房间数及人数，否则入住时会收取额外费用）</small></h2>
+        <div class="hotel_ord_user">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <th><span class="pointcl">*</span>入住人姓名：</th>
+                    <td>
+                    	<input type="text" id="realname"  value="<if condition="$MEMBER.nickname neq null"><{$MEMBER.nickname}></if>"><span class="ts"><em></em>请输入实际入住人姓名，每个房间只需填１位。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th><span class="pointcl">*</span>手机号码：</th>
+                    <td>
+                    	<input type="text" id="mobile"  value="<if condition="$MEMBER.mobile neq null"><{$MEMBER.mobile}></if>"><span class="ts"><em></em>订单信息会发送至您的手机，请保持手机畅通。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th><span class="pointcl">*</span>最晚到店时间：</th>
+                    <td>
+                        <select id="last_time" style="width: 100px;">
+                            <for start="0" end="24">
+                                <option <if condition="$i eq 14">selected="selected"</if> value="<{$i}>:00"><{$i}>:00</option>
+                            <option value="<{$i}>:30"><{$i}>:30</option>
+                        </for>
+                        </select>
+                        <span class="ts"><em></em>通常酒店14:00办理入住，早到可能需要稍作等待。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>补充说明：</th>
+                    <td>
+                    	<textarea id="note"></textarea>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!--
+    <div class="hotel_ord_box mb20">
+    	<h2 class="mb20">住宿偏好/收据</h2>
+        <div class="hotel_recpt">
+        	<div><span class="tit">收据</span>需要电子收据<span class="checkbox_int ml10"><input type="checkbox"></span></div>
+            <script>
+				$(document).ready(function() {
+                    $(".checkbox_int").click(function(){
+						if($(this).hasClass("on")){
+							$(this).removeClass("on");
+						}
+						else{
+							$(this).addClass("on");
+						}
+					});
+                });
+            </script>
+            <p class="graycl mb20">代理商无法开具纸质发票，只提供电子收据，预订成功后通过<br>电子邮件发送。</p>
+            <div><span class="tit">收据抬头</span><input type="text" placeholder="请输入个人/单位名称"></div>
+        </div>
+    </div>
+    -->
+    <p class="graycl">不可退：订单确认后不可取消或变更。如未入住，扣除全部费用。</p>
+    <p class="graycl mb20">预订说明：办理入住时间：14:00    办理退房时间：12:00</p>
+    <div class="hotel_payWay mb20">
+        <ul>
+            <label><li class="list"><span class="radioBox_int on mr10" rel="online_pay"><input type="radio" name="online_pay" value="1" checked="checked"></span>在线支付</li></label>
+            <label><li class="list"><span class="radioBox_int mr10" rel="dao_pay"><input type="radio" name="online_pay" value="0"></span>到店付</li></label>
+        </ul>
+        <script>
+            $(document).ready(function() {
+                $(".radioBox_int").click(function(){
+                    $(".hotel_tongji").hide();
+                    $("#"+$(this).attr('rel')).show();
+                    if($(this).hasClass("on")){
+                        $(".radioBox_int").removeClass("on");
+                        $(this).addClass("on");
+                    }else{
+                        $(".radioBox_int").removeClass("on");
+                        $(this).addClass("on");
+                    }
+                });
+            });
+        </script>
+    </div>
+    <div class="hotel_tongji" id="online_pay">
+        在线应支付：<span class="fontcl1">￥<span class="price">0</span></span><a href="javascript:void(0);" class="btn">去付款</a>
+    </div>
+    <div class="hotel_tongji" id="dao_pay" style="display: none;">
+        <a href="javascript:void(0);" class="btn">确认订单</a>
+    </div>
+</div>
+<script>
+    $(".btn").click(function(){
+        var online_pay = $('input[name="online_pay"]:checked').val();
+        var stime = $("#ft").val();
+        var ltime = $("#tt").val();
+        var num = $("#jq_num").val();
+        var last_time = $('#last_time option:selected') .val();
+        var realname = $("#realname").val();
+        var mobile = $("#mobile").val();
+        var note = $("#note").val();
+        var room_id = "<{$detail.room_id}>";
+        var url = "<{:U('hotels/orderCreate')}>";
+        if(stime >= ltime){
+            layer.msg('选择时间不正确');
+            return false;
+        }else{
+            $.post(url,{online_pay:online_pay,stime:stime,ltime:ltime,num:num,last_time:last_time,realname:realname,mobile:mobile,note:note,room_id:room_id},function(data){
+                if(data.status == 'login'){
+                    ajaxLogin();
+                }else if(data.status == 'success'){
+                    layer.msg(data.msg);
+                    var link = "<{:U('hotels/pay',array('order_id'=>oooo))}>";
+                    var link2 = "<{:U('members/hotels/detail',array('order_id'=>oooo))}>";
+                    setTimeout(function () {
+                        if(data.online_pay == 1){
+                            window.location.href = link.replace('oooo', data.order_id);
+                        }else{
+                            window.location.href = link2.replace('oooo', data.order_id);
+                        }
+                    }, 1000);
+                    
+                }else{
+                    layer.msg(data.msg);
+                }
+            },'json')
+        }
+    })
+    
+    
+</script>
+<!--主体内容结束-->
+<include file="public:footer"/>

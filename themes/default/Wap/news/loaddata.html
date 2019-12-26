@@ -1,0 +1,21 @@
+<foreach name="list" item="var"> 
+<li class="line" onclick="location='<{:U('news/detail',array('article_id'=>$var['article_id']))}>'">
+          <dd class="zhong">
+            <div class="x3">
+                   <img src="<{:config_img($var['photo'])}>" style="width:90%;">
+                   </div>
+             <div class="9">
+                <p class="text-small"><{:bao_Msubstr($var['title'],0,18)}>...</p>
+                <p class="text-gray" style="font-size:12px;"><{:bao_Msubstr($var['details'],0,16)}>...</p>     
+                <p class="text-small">
+                  <i class="icon-commenting-o"></i> <em><{$var.views}></em>
+				  <i class="icon-clock-o"></i> <em><{$var.create_time|date='Y-m-d',###}></em>
+                </p>
+             </div>
+          </dd>
+</li>  
+
+<eq name='key' value='3'>第一条不一样的代码写这里</eq>
+
+
+</foreach>

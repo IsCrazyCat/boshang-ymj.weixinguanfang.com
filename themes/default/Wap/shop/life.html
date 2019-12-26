@@ -1,0 +1,35 @@
+<include  file='public:header'/>   
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('shop/detail',array('shop_id'=>$detail['shop_id']))}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		分类信息
+	</div>
+	<div class="top-share">
+		<a href="<{:U('life/index')}>" class="share-btn"><i class="icon-pencil-square-o"></i></a>
+	</div>
+</header>
+
+<style>
+.life-list { margin-top:0rem;}
+ul{ padding-left:0px;}
+</style>        
+<ul id="shangjia_tab">
+        <li style="width:16.66666667%;"><a href="<{:U('shop/detail',array('shop_id'=>$detail['shop_id']))}>">首页</a></li>
+        <li style="width:16.66666667%;"><a href="<{:U('shop/tuan',array('shop_id'=>$detail['shop_id']))}>">套餐</a></li>
+        <li style="width:16.66666667%;"><a href="<{:U('shop/life',array('shop_id'=>$detail['shop_id']))}>" class="on">信息</a></li>
+        <li style="width:16.66666667%;"><a href="<{:U('shop/coupon',array('shop_id'=>$detail['shop_id']))}>" >优惠</a></li>
+        <li style="width:16.66666667%;"><a href="<{:U('shop/news',array('shop_id'=>$detail['shop_id']))}>">新闻</a></li>
+        <li style="width:16.66666667%;"><a href="<{:U('shop/dianping',array('shop_id'=>$detail['shop_id']))}>">评价</a></li>
+</ul>
+
+
+<div class="blank-40"></div>
+<div class="life-list" id="life-list"></div>
+<script>
+	$(document).ready(function () {
+		loaddata('<{$nextpage}>', $("#life-list"), true);
+	});
+</script>
+<include file="public:footer"/>

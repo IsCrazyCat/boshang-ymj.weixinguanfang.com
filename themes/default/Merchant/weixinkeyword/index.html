@@ -1,0 +1,49 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">营销管理</a> > <a href="">微信营销</a> > <a>关键词回复</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t tuanfabu_top">
+            <div class="left tuan_topser_l">关键字必须要开通微信合作和配置好微信内容才能生效！</div>
+        </div>
+    </div>
+    <form method="post" action="<{:U('weixinkeyword/index')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">关键字：<input type="text" class="radius3 tuan_topser"  name="keyword" value="<{$keyword}>"/><input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/></div>
+            <div class="right tuan_topfb_r"><a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('weixinkeyword/create')}>">添加关键字+</a></div>
+        </div>
+    </div>
+    </form>
+    <div class="tuanfabu_tab">
+        <ul>
+              <li class="tuanfabu_tabli tabli_change "><a href="<{:U('weixin/index')}>">绑定公众账号</a></li>
+            <li class="tuanfabu_tabli tabli_change"><a href="<{:U('weixin/menu')}>">自定义菜单</a></li>
+            <li class="tuanfabu_tabli tabli_change on"><a href="<{:U('weixinkeyword/index')}>">关键字回复</a></li>
+        </ul>
+    </div> 
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>关键字</td>
+            <td>类型</td>
+            <td>内容</td>
+            <td>操作</td>
+        </tr>
+        <foreach name="list" item="var">
+            <tr>
+                <td><{$var.keyword}></td>
+                <td><{$var.type}></td>
+                <td><{$var.contents}></td>
+                <td>
+                    <a href="<{:U('weixinkeyword/edit',array('keyword_id'=>$var['keyword_id']))}>">编辑</a> | 
+                    <a mini='confirm' href="<{:U('weixinkeyword/delete',array('keyword_id'=>$var['keyword_id']))}>">删除</a>
+                </td>
+            </tr>
+        </foreach>
+    </table>
+    <{$page}>
+</div>
+<include  file='public:footer'/>

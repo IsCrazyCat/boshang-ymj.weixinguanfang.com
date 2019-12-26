@@ -1,0 +1,96 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家</a> > <a href="">商家优惠</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">商家可以设置折扣优惠或者满减优惠，但是暂不支持两种优惠共享</div>
+        </div>
+    </div> 
+    <include  file='shop:nav'/>
+    <div class="tabnr_change  show">
+        <form method="post"  action="<{:U('shopyouhui/index')}>"  target="baocms_frm">
+            <table class="tuanfabu_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">优惠状态：</p></td>
+                    <td><div class="tuanfabu_nr">
+                        <if condition="$youhui.is_open eq 1"><span style="color: green;">开启中</span><else/><span style="color: red;">关闭</span></if>
+                        </div>
+                    </td>
+                </tr>
+                
+                 <tr>
+                    <td width="120"><p class="tuanfabu_t">审核状态：</p></td>
+                    <td><div class="tuanfabu_nr">
+                        <if condition="$youhui.audit eq 1"><span style="color: green;">已审核</span><else/><span style="color: red;">未审核</span></if>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">优惠类型：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <label><input class="yh_type" type="radio" rel="0" name="data[type_id]" value="0" <eq name="youhui.type_id" value="0">checked="checked"</eq>  class="cjinput" />折扣</label> 
+                            <label><input class="yh_type" type="radio" rel="1" name="data[type_id]" value="1" <eq name="youhui.type_id" value="1">checked="checked"</eq>  class="cjinput" />满减</label> 
+                        </div></td>
+                </tr>
+                <tr class="jq_tr jq_tr_0">
+                    <td width="120"><p class="tuanfabu_t">折扣优惠：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="hidden" name="data[yh_id]" value="<{$youhui.yh_id}>"/>
+                            <input type="text" name="data[discount]" value="<{$youhui.discount|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+                        </div></td>
+                </tr>
+                <tr class="jq_tr jq_tr_1">
+                    <td width="120"><p class="tuanfabu_t">满减优惠：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="hidden" name="data[yh_id]" value="<{$youhui.yh_id}>"/>
+                            满<input type="text" name="data[min_amount]" value="<{$youhui.min_amount|default=''}>" class="tuanfabu_int" />
+                            减<input type="text" name="data[amount]" value="<{$youhui.amount|default=''}>" class="tuanfabu_int" />
+                        </div></td>
+                </tr>
+                
+                 <tr>
+                <td><p class="tuanfabu_t">买单二维码</td>
+                <td>
+                    <div class="tuanfabu_nr">
+                       <img style="width:40px" src="__ROOT__/attachs/<{$file}>"/>
+                         <code><a style="color:#00F" target="_blank" href="__ROOT__/attachs/<{$file}>">点击下载二维码，新窗口打开，另存到电脑上，然后打印出来客户扫码即可买单！</a></code>
+                    </div>
+                </td>
+            </tr>
+            
+            
+            </table>
+            <div class="tuanfabu_an">
+                <if condition="$youhui.is_open eq 1">
+                	<a href="<{:U('shopyouhui/close')}>" mini="act" class="radius3 sjgl_an tuan_topbt">关闭</a>
+                <else/>
+                	<a href="<{:U('shopyouhui/open')}>" mini="act" class="radius3 sjgl_an tuan_topbt">开启</a>
+                </if>
+                <input type="submit" class="radius3 sjgl_an tuan_topbt" value="确认提交" />
+            </div>
+        </form>
+    </div> 
+</div>
+<script>
+    $(document).ready(function(){
+        var fullcut = "<{$youhui.type_id}>";
+        if(fullcut == 1){
+            var tag = 1;
+        }else{
+            var tag = 0;
+        }
+        $(".yh_type").click(function(){
+            $(".jq_tr").hide();
+            $(".jq_tr_"+$(this).attr('rel')).show();
+        })
+        $(".yh_type").eq(tag).click();
+    })
+</script>
+<include  file='public:footer'/>  
+
+

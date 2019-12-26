@@ -1,0 +1,29 @@
+<include file="public:header"/>
+<style>ul { padding-left: 0px;}</style>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('member/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			我的农家乐
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+<!-- 筛选TAB -->
+<ul id="shangjia_tab">
+        <li style="width:50%;"><a href="<{:LinkTo('farm/index',array('st'=>0))}>" <eq name='st' value='0'>class="on"</eq>>进行中</a></li>
+        <li style="width:50%;"><a href="<{:LinkTo('farm/index',array('st'=>1))}>" <eq name='st' value='1'>class="on"</eq>>已完成</a></li>
+</ul>
+
+<div class="list-media-x" id="list-media">
+<div class="blank-10 bg"></div>
+	<ul></ul>
+</div>	
+<script>
+    $(document).ready(function () {
+        loaddata('<{:U("farm/loaddata/",array("st"=>$st,"p"=>"0000"))}>', $("#list-media ul"), true);
+    });
+</script>
+<include  file='public:footer'/>

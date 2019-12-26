@@ -1,0 +1,63 @@
+<include file="public:header"/>
+<include file="public:top"/>
+<div class="content zy_content" id="qg-test" style="min-height: 600px;">
+    <div class="left test-left">
+        <ul>
+            <script>
+                $(function () {
+                    $(".test-list a").click(function () {
+                        $(".test-list a").removeClass("on");
+                        $(this).addClass("on");
+                    });
+                });
+            </script>
+            <li class="test-list">
+                <h3>验证管理</h3>
+                <ul>
+                    <li><a href="<{:U('check/index',array('shop_id'=>$shop_id,'branch_id'=>$branch_id))}>">验证套餐码</a></li>
+                    <li><a href="<{:U('check/coupon',array('shop_id'=>$shop_id,'branch_id'=>$branch_id))}>">验证优惠券</a></li>
+                </ul>
+            </li>
+            <li class="test-list">
+                <h3>消费记录</h3>
+                <ul>
+                    <li><a class="on" href="<{:U('check/tuanlist',array('shop_id'=>$shop_id,'branch_id'=>$branch_id))}>">套餐消费明细</a></li>
+                    <li><a href="<{:U('check/couponlist',array('shop_id'=>$shop_id,'branch_id'=>$branch_id))}>">优惠券消费明细</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <div class="left test-right">
+        <div style="min-height:600px;">
+            <div class="test-tab">
+                <ul>
+                    <li class="on"><a href="javascript:void(0);">套餐码消费明细</a></li>
+                </ul>
+            </div>
+            <div class="test-tab-table">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr bgcolor="#f7f7f7">
+                        <td>套餐码名称</td>
+                        <td>会员</td>
+                        <td>下单时间</td>
+                        <td>过期时间</td>
+                        <td>消费门店</td>
+                        <td>消费时间</td>
+                    </tr>
+                    <foreach name="list" item="item">
+                        <tr>
+                            <td><{$tuans[$item['tuan_id']]['title']}></td>
+                            <td><{$users[$item['user_id']]['nickname']}></td>
+                            <td><{$item.create_time|date='Y-m-d H:i',###}></td>
+                            <td><{$item.fail_date}></td>
+                            <td><{$shops.shop_name}>(<{$branch.name}>)</td>
+                            <td><{$item.used_time|date='Y-m-d H:i',###}></td>
+                        </tr>
+                    </foreach>
+                </table>
+                <div class='x'><{$page}></div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="public:footer"/>

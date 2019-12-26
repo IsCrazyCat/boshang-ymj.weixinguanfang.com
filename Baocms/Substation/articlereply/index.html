@@ -1,0 +1,103 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">文章</li>
+        <li class="li2">文章回复</li>
+        <li class="li2 li3">回复文章</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span> 这里是管理文章回复内容的哦，以前没有，现在新增的东东！</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('articlereply/create','','添加内容')}>  
+            </div>
+            <div class="right">
+                <form method="post" action="<{:U('articlereply/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        
+                        <span>状态</span>
+                        <select class="select w120" name="audit">
+                            <option value="0"  >全部</option>
+                            <option value="-1" <eq name="audit" value="-1">selected="selected"</eq> >等待审核</option>
+                            <option value="1" <eq name="audit" value="1">selected="selected"</eq>>正常</option>
+                        </select>
+                        
+                        <span>   用户ID：</span>   <input type="text" name="user_id" value="<{$user_id|default=''}>" class="inptText w150" />
+                        <input type="submit" class="inptButton" value="  搜索" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#f1f1f1;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="comment_id" /></td>
+                        <td class="w50">ID</td>
+                        <td>文章标题</td>
+                        <td>用户</td>
+                        <td>回复内容</td>
+                        <td>赞</td>
+                        <td>是否审核</td>
+                        <td>操作</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                
+                        <tr bgcolor="#fff" height="48px" style="font-size:14px; color:#545454; text-align:left; line-height:48px;">
+                            <td><input class="child_comment_id" type="checkbox" name="comment_id[]" value="<{$var.comment_id}>" /></td>
+                            <td><{$var.comment_id}></td>
+
+                            
+                            <td><{:bao_msubstr($posts[$var['post_id']]['title'],0,8,false)}><a class="tips" rel="<{$posts[$var['post_id']]['title']}>" style="color: #fff; background: #1ca290; padding: 0px 5px; border-radius:0px; margin-left: 10px; display: inline-block; float: right; height: 20px; line-height: 20px;" href="javascript:void(0)">查看</a></td>
+                            
+                            <td><{$users[$var['user_id']]['account']}>(<{$var.user_id}>)</td>
+
+                             <td><{:bao_msubstr($var['content'],0,8,false)}><a class="tips" rel="<{$var.content}>" style="color: #fff; background: #1ca290; padding: 0px 5px; border-radius:0px; margin-left: 10px; display: inline-block; float: right; height: 20px; line-height: 20px;" href="javascript:void(0)">查看</a></td>
+                            <td><{$var.zan}></td>
+                            <td>
+                            <if condition="$var.audit eq 1">
+                                <font style="color: green;">已审核</font>
+                                <else/>
+                                <font style="color: red;">待审核</font>
+                            </if>
+                        </td>
+                        <td>
+                            <{:BA('articlereply/edit',array("comment_id"=>$var["comment_id"]),'编辑','','remberBtn')}>
+                            <{:BA('articlereply/delete',array("comment_id"=>$var["comment_id"]),'删除','act','remberBtn')}>
+                            <eq name="var.audit" value="0"> <{:BA('articlereply/audit',array("comment_id"=>$var["comment_id"]),'审核','act','remberBtn')}> </eq>
+                        </td>
+                        </tr>
+                   
+                    </foreach>
+                    
+                    
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('articlereply/delete','','批量删除','list','a2')}>
+                    <{:BA('articlereply/audit','','批量审核','list','remberBtn')}>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    
+     <script>
+       $(document).ready(function (e) {
+    
+			$(".tips").click(function () {
+				var tipnr = $(this).attr('rel');
+				layer.tips(tipnr, $(this), {
+					tips: [4, '#1ca290'],
+					time: 4000
+				});
+			})
+		});
+    </script>
+    
+    <include  file='public:footer'/>       

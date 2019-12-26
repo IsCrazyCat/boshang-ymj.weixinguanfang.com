@@ -1,0 +1,87 @@
+<include file='public:header'/>
+<header class="top-fixed bg-yellow bg-inverse">
+<div class="top-back">
+	<a class="top-addr" href="<{:u('index/index')}>"><i class="icon-angle-left"></i></a>
+</div>
+<div class="top-title">
+		店铺环境图管理
+</div>
+<div class="top-share">
+	<a href="<{:u('shop/photo_create')}>" class="top-addr icon-plus"> 传图片</a>
+</div>
+</header>
+<style>
+ul { padding-left: 0px;}
+.list-media-x {margin-top: 2rem;}
+.xiaoqu-search { margin-top:2rem;}
+</style>
+<!-- 筛选TAB -->
+<ul id="shangjia_tab">
+	<li style="width: 25%;"><a href="<{:u('branch/index')}>">分店管理</a></li>
+	<li style="width: 25%;"><a href="<{:u('worker/index')}>">员工管理</a></li>
+	<li style="width: 25%;"><a href="<{:u('shop/about')}>">基本设置</a></li>
+	<li style="width: 25%;"><a href="<{:u('shop/photo/')}>" class="on" >环境图</a></li>
+</ul>
+<div class="list-media-x" id="list-media">
+	<ul>
+		<div class="blank-10 bg">
+		</div>
+		<foreach name="list" item="var">
+		<li class="line">
+		<dt><a class="x2">ID：<{$var.pic_id}></a><a class="x10 text-right text-gray">上传时间：<{$var.create_time|date='Y-m-d H:i:s',###}></a></dt>
+		<dd class="zhong">
+		<div class="x3">
+			<img src="<{:config_img($var['photo'])}>" style="width:90%;">
+		</div>
+		<div class="9">
+			<if condition="!empty($var['title'])">
+			<p class="text-small">
+				标题：<{$var.title}>
+			</p>
+			<else/>
+			<p class="text-small">
+				未设置标题
+			</p>
+			</if>
+			<p class="text-gray">
+				排序：<{$var.orderby}>
+				<a href="javascript:void(0);" rel="<{$var.pic_id}>" class="jquery-delete button button-small bg-gray ">删除</a>
+				<eq name="var.audit" value="0">
+				<a class="button button-small bg-gray">待审</a>
+				<else/>
+				<a class="button button-small bg-dot">正常</a>
+				</eq>
+			</p>
+		</div>
+		</dd>
+		</li>
+		<div class="blank-10 bg">
+		</div>
+		</foreach>
+	</ul>
+</div>
+<script>
+	$(document).ready(function () {
+		$(document).on('click', ".jquery-delete", function (e) {
+			var pic_id = $(this).attr('rel');
+			layer.confirm('您确定要删除该图片？', {
+				skin: 'layer-ext-demo', 
+				area: ['50%', 'auto'], //宽高
+				btn: ['是的', '不'], //按钮
+				shade: false //不显示遮罩
+			}, function () {
+				$.post("<{:U('shop/photo_delete')}>", {pic_id: pic_id}, function (result) {
+					if (result.status == "success") {
+						layer.msg(result.msg);
+						setTimeout(function () {
+							location.reload();
+						}, 1000);
+					} else {
+						layer.msg(result.msg);
+					}
+				}, 'json');
+			});
+		});
+	});
+</script>
+<include file='public:footer'/>

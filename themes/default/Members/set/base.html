@@ -1,0 +1,52 @@
+<include file="public:header"/>
+<div class="content_right">  
+    <div class="tgdd">
+        <include file="set:nav"/>
+        <form method="post"  action="<{:U('set/base')}>"  target="baocms_frm">
+            <div class="password_nr">
+                <div class="password_input">
+                    <div class="left">职业</div>
+                    <div class="lef int_box"><input class="oldPassw" name="job" type="text" value="<{$usersex.job}>" /></div>
+                </div>
+                <div class="password_input">
+                    <div class="left">性别</div>
+                    <div class="lef sex"><input class="radio" name="sex" type="radio" <if condition="$usersex['sex'] eq 1">checked="checked"</if> value="1" />男&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="radio" name="sex" type="radio" <if condition="$usersex['sex'] eq 2">checked="checked"</if> value="2" />女</div>
+                </div>
+                <div class="password_input">
+                    <div class="left">出生日期</div>
+                    <div class="lef select_box">
+                        <select class="sel_year" name="born_year" rel="<{$usersex.born_year|default='2000'}>"></select>年&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <select class="sel_month" name="born_month" rel="<{$usersex.born_month|default='2'}>"></select>月&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <select class="sel_day" name="born_day" rel="<{$usersex.born_day|default='15'}>"></select>日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                </div>
+                <div class="password_input">
+                    <div class="left">星座</div>
+                    <div class="lef select_box">
+                        <select name="star_id">
+                            <php>$i = 1;</php>
+                            <foreach name="stars" item="item">
+                                <option value="<{$i}>" <eq name="usersex.star_id" value="$i">selected="selected"</eq> ><{$item}></option>
+                                <php>$i++;</php>
+                            </foreach>
+                        </select>
+                    </div>
+                </div>
+                <div class="password_subm"><input class="submit" type="submit" value="确认保存" /></div>
+            </div>
+        </form>
+        <script type="text/javascript" src="__TMPL__statics/js/birthday.js"></script>
+        <script>
+            $(function () {
+                $.ms_DatePicker({
+                    YearSelector: ".sel_year",
+                    MonthSelector: ".sel_month",
+                    DaySelector: ".sel_day"
+                });
+                $.ms_DatePicker();
+            });
+        </script> 
+    </div>
+</div>
+</div>
+<include file="public:footer"/>

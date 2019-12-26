@@ -1,0 +1,47 @@
+<include  file='public:header'/>
+
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">套餐</a> > <a>往期套餐</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <form method="post" action="<{:U('tuan/history')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">套餐名称：<input type="text" class="radius3 tuan_topser"  name="keyword" value="<{$keyword}>"/><input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/></div>
+            <div class="right tuan_topfb_r"><a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('tuan/create')}>">发布套餐+</a></div>
+        </div>
+    </div>
+    </form>
+     <include file='tuan:nav'/>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+                <td>套餐名称</td>
+                <td>图片</td>
+                <td>市场价格</td>
+                <td>套餐价格</td>
+                <td>售出数</td>
+                <td>开始时间</td>
+                <td>结束时间</td>
+                <td>是否审核</td>
+        </tr>
+        <foreach name="list" item="var">
+            <tr>
+                <td><{$var.title}></td>
+                <td><img src="<{:config_img($var['photo'])}>" style="width:80px; margin: 0px auto;"  /></td>
+                <td><{$var.price}></td>
+                <td><{$var.tuan_price}></td>
+                <td><{$var.sold_num}></td>
+                <td><{$var.bg_date}></td>
+                <td><{$var.end_date}></td>
+                <td><eq name="var.audit" value="0">等待审核<else/>正常</eq></td>
+            </tr>
+        </foreach>
+    </table>
+    <div class="paging">
+        <{$page}>
+    </div>
+</div>
+
+<include  file='public:footer'/>

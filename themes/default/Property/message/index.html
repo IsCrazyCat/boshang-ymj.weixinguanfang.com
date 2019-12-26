@@ -1,0 +1,52 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">物业管理</a> > <a href="">网站消息</a> > <a>消息列表</a></li>
+    </ul>
+</div>
+
+<div class="tuan_content">
+    <form method="post" action="<{:U('message/index')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">搜索关键字：<input type="text" class="radius3 tuan_topser"  name="keyword" value="<{$keyword}>"/><input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/></div>
+        </div>
+    </div>
+
+    </form>
+
+    <div class="tuanfabu_tab">
+        <ul>
+            <li class="tuanfabu_tabli on"><a href="<{:U('message/index')}>">消息列表</a></li>
+        </ul>
+    </div> 
+
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>消息ID</td>
+            <td>标题</td>
+            <td>是否私信</td>
+            <td>通知时间</td>
+            <td>是否阅读</td>
+            <td>操作</td>
+        </tr>
+
+        <foreach name="list" item="var">
+            <tr>
+                <td><{$var.msg_id}></td>
+                <td><a <if condition="empty($var['views'])"> style="color:#F00"</if>><{$var.title}></a></td>
+                <td><if condition="!empty($var['title'])">私信<else/>全体通知</if></td>
+                <td><{$var.create_time|date='Y-m-d H:i',###}></td>
+                <td><if condition="!empty($var['views'])">已阅<else/><a style="color:#F00">未阅</a></if></td>
+                <td>
+                <a href="<{:U('message/detail',array('msg_id'=>$var['msg_id']))}>">通知详情</a>
+                <if condition="!empty($var['community_id'])">
+                <a mini='confirm' href="<{:U('message/delete',array('msg_id'=>$var['msg_id']))}>">删除</a>
+                </if>
+            </td>
+            </tr>
+        </foreach>
+    </table>
+    <{$page}>
+</div>
+<include  file='public:footer'/>

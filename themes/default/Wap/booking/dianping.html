@@ -1,0 +1,25 @@
+<include file='public:header'/>  
+<style>
+.coupon-list2 {margin-top: 5px;}
+</style>
+ 
+	<script src="/static/default/wap/js/dialog.js"></script>
+<link href="/static/default/wap/css/dianping.css" rel="stylesheet">
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('booking/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			订座评价
+		</div>
+	</header>
+
+	 <div id="coupon-list" class="coupon-list2"></div>
+    <script>
+        $(document).ready(function () {
+            loaddata('<{:U("booking/dianpingloading",array("shop_id"=>$detail["shop_id"],"p"=>"0000"))}>', $("#coupon-list"), true);
+        });
+    </script>
+
+
+<include  file='public:footer'/>

@@ -1,0 +1,451 @@
+<include file='public:header'/>
+<link href="/static/default/wap/other/jquery-ui.css" rel="stylesheet">
+<script src="/static/default/wap/other/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/default/webuploader/webuploader.css">
+<script src="/static/default/webuploader/webuploader.min.js"></script>
+<header class="top-fixed bg-yellow bg-inverse">
+<div class="top-back">
+	<a class="top-addr" href="<{:u('crowd/crowd_list',array('aready'=>1))}>"><i class="icon-angle-left"></i></a>
+</div>
+<div class="top-title">
+	添加众筹
+</div>
+</header>
+<style>
+#login-input input.mapinputs{ width:48%; float:left; margin-right:5px;}
+#login-input input.mapinputs2{ width:100%; float:left; margin:10px 0px;}
+.fabu-form .form-content {border: none;resize: none;width: 100%;height:200px;padding: 10px;font-size: 12px;}
+.fabu-form .form-content1 {border: none;resize: none;width: 100%;height: 150px;padding: 10px;font-size: 12px;}
+.shuxing{width: 20px; height: 20px;margin-bottom: 10px;}
+.Upload-img .jq_photo_more span.resporse_photo, .Upload-img .moreToUpload_img{margin:0 5px 5px 0; float:left; z-index:3;}
+.Upload-img .jq_photo_more span.resporse_photo img, .Upload-img .jq_uploads_img img{width:100%;margin-bottom:3px;}
+.Upload-img .jq_photo_more span.resporse_photo a.resporse_a, .Upload-img .jq_uploads_img .moreToUpload_img a{ font-size:12px; color:#FFF;margin-right: 0px;bottom:0;width:45px;height:20px;line-height:20px;text-align:center;background: #06c1ae;padding: 0 10px;}
+</style>
+<form class="fabu-form" method="post" target="x-frame" action="<{:U('crowd/create')}>">
+	<div class="blank-10">
+	</div>
+	<div class="Upload-img-box">
+		<div id="fileToUpload">
+			上传主图
+		</div>
+		<div class="Upload-img">
+			<div class="list-img loading" style="display:none;">
+				<img src="">
+			</div>
+			<div class="list-img jq_photo" style="display:none;">
+			</div>
+		</div>
+	</div>
+	<script>
+    	var width_goods = '<{:thumbSize($CONFIG[attachs][goods][thumb],0)}>';                     
+		var height_goods = '<{:thumbSize($CONFIG[attachs][goods][thumb],1)}>';  
+        var uploader = WebUploader.create({                 
+			auto: true,                             
+			swf: '/static/default/webuploader/Uploader.swf',                             
+			server: '<{:U("app/upload/uploadify",array("model"=>"goods"))}>',                             
+			pick: '#fileToUpload',                             
+			resize: true,    
+			compress : {width:width_goods,height:height_goods,quality:60,allowMagnify: false,crop: true}//裁剪       
+        });
+        uploader.on( 'beforeFileQueued', function( file ) {
+            $(".loading").show();
+            if(file.size > 1024000){
+                uploader.option( 'compress', {
+                    width:width_goods,//这里裁剪长度
+                    quality:60
+                });
+            }
+        });
+        uploader.on( 'uploadSuccess', function( file,resporse) {
+            $(".loading").hide();
+            var str = '<img src="'+resporse.url+'"><input type="hidden" name="data[photo]" value="' + resporse.url + '" />';
+            $(".jq_photo").show().html(str);
+        });
+        uploader.on( 'uploadError', function( file ) {
+            alert('上传出错');
+        });
+        $(document).ready(function () {
+            $(document).on("click", ".photo img", function () {
+                $(this).parent().remove();
+            });
+        });
+    </script>
+	<!--缩略图开始-->
+	<div class="blank-30"></div>
+	<div class="Upload-img-box">
+		<div id="moreToUpload">
+			更多众筹图
+		</div>
+        <div class="blank-10"></div>
+		<div class="Upload-img">
+			<div class="list-img loading_photo" style="display:none;"></div>
+            <div class="list-img jq_photo_photo" style="display:none;"></div>
+			<div class="jq_photo_more"></div>
+            <div class="jq_uploads_img">
+			</div>
+		</div>
+	</div>
+	<script>
+    	var width_goods_pic = '<{:thumbSize($CONFIG[attachs][goods][thumb],0)}>';                     
+		var height_goods_pic = '<{:thumbSize($CONFIG[attachs][goods][thumb],1)}>'; 
+        var uploader = WebUploader.create({                 
+			auto: true,                             
+			swf: '/static/default/webuploader/Uploader.swf',                             
+			server: '<{:U("app/upload/uploadify",array("model"=>"goods"))}>',                             
+			pick: '#moreToUpload',
+			fileNumberLimit:10,                    
+			resize: true,    
+			accept: {
+				title: 'Images',
+				extensions: 'gif,jpg,jpeg,png',
+				mimeTypes: 'image/*'
+			}, 
+			compress:{width:width_goods_pic,height:height_goods_pic,quality:80,allowMagnify: false,crop: true}     
+        });
+
+        uploader.on( 'beforeFileQueued', function( file ) {
+            $(".loading_photo").show();
+            if(file.size > 1024000){
+                uploader.option( 'compress', {
+                    width:width_tuan_pic,
+                    quality:60
+                });
+            }
+        });
+        uploader.on('uploadSuccess', function( file,resporse) {
+            $(".loading_photo").hide();
+			var str = '<span class="resporse_photo x3"><img src="' + resporse.url + '">  <input type="hidden" name="photos[]" value="' + resporse.url + '" /><a class="resporse_a" href="javascript:void(0);">取消</a> </span>';     
+            $(".jq_photo_more").append(str);  
+        });
+        uploader.on( 'uploadError', function( file ) {
+            alert('上传出错');
+        });
+        $(document).ready(function () {
+            $(document).on("click", ".jq_uploads_img a", function () {
+                $(this).parent().remove();
+            });
+			$(document).on("click", ".jq_photo_more a", function () {
+                $(this).parent().remove();
+            });
+        });
+    </script>
+	<div class="blank-10"></div>
+<!--缩略图结束--> 
+	<div class="blank-10"></div>
+    
+	<div class="blank-10 bg border-top">
+	</div>
+	<div class="row">
+		<div class="line">
+			<span class="x3">众筹名称：</span>
+			<span class="x9">
+			<input type="text" class="text-input" name="data[title]" value="<{$detail.title|default=''}>" />
+			</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="line">
+			<span class="x3">副标题：</span>
+			<span class="x9">
+			<input type="text" class="text-input" name="data[intro]" value="<{$detail.intro|default=''}>" />
+			</span>
+		</div>
+	</div>
+    
+	<div class="row">
+		<div class="line">
+			<span class="x3">众筹分类</span>
+			<span class="x4">
+			<select name="parent_id" id="parent_id" class="text-select">
+				<option value="0" selected="selected">请选择</option>
+				<foreach name="cates" item="var">
+				<eq name="var.parent_id" value="0">
+				<option value="<{$var.cate_id}>"><{$var.cate_name}></option>
+				</eq>
+				</foreach>
+			</select>
+			</span>
+			<span class="x5">
+			<select name="data[cate_id]" id="cate_id" class="text-select">
+				<option value="0" selected="selected">← 选择子分类</option>
+			</select>
+			</span>
+			<script>
+               $(document).ready(function (e) {
+                 $("#parent_id").change(function () {
+                   var url = '<{:U("crowd/child",array("parent_id"=>"0000"))}>';
+					   if ($(this).val() > 0) {
+						  var url2 = url.replace('0000', $(this).val());
+							 $.get(url2, function (data) {
+							 $("#cate_id").html(data);
+						 }, 'html');
+					   }
+                  });
+               });
+        </script>
+		</div>
+	</div>
+	
+    <div class="row">
+        <div class="line">
+            <span class="x3">地区</span>
+            <span class="x4">
+                <select name="data[city_id]" id="city_id" class="text-select">
+                    <option value="0" selected="selected">城市</option>
+                </select>
+            </span>
+            <span class="x4">
+                <select name="data[area_id]" id="area_id" class="text-select">
+                    <option value="0" selected="selected">← 地区</option>
+                </select>
+            </span>
+            
+            
+        </div>
+        <script src="<{:U('app/datas/cab',array('name'=>'cityareas'))}>"></script>
+                    <script>
+                                    var city_id = "<{$detail.city_id}>";
+                                    var area_id = "<{$detail.area_id}>";
+                                    var business_id = "<{$detail.business_id}>";
+                                    
+                                    
+                                    $(document).ready(function () {
+                                        var city_str = ' <option value="0">请选择...</option>';
+                                        for (a in cityareas.city) {
+                                            if (city_id == cityareas.city[a].city_id) {
+                                                city_str += '<option selected="selected" value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+                                            } else {
+                                                city_str += '<option value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+                                            }
+                                        }
+                                        $("#city_id").html(city_str);
+    
+                                        $("#city_id").change(function () {
+                                            if ($("#city_id").val() > 0) {
+                                                city_id = $("#city_id").val();
+                                                var area_str = ' <option value="0">请选择...</option>';
+                                                for (a in cityareas.area) {
+                                                    if (cityareas.area[a].city_id == city_id) {
+                                                        if (area_id == cityareas.area[a].area_id) {
+                                                            area_str += '<option selected="selected" value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                                        } else {
+                                                            area_str += '<option value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                                        }
+                                                    }
+                                                }
+                                                $("#area_id").html(area_str);
+                                                $("#business_id").html('<option value="0">请选择...</option>');
+                                            } else {
+                                                $("#area_id").html('<option value="0">请选择...</option>');
+                                                $("#business_id").html('<option value="0">请选择...</option>');
+                                            }
+    
+                                        });
+    
+                                        if (city_id > 0) {
+                                            var area_str = ' <option value="0">请选择...</option>';
+                                            for (a in cityareas.area) {
+                                                if (cityareas.area[a].city_id == city_id) {
+                                                    if (area_id == cityareas.area[a].area_id) {
+                                                        area_str += '<option selected="selected" value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                                    } else {
+                                                        area_str += '<option value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                                    }
+                                                }
+                                            }
+                                            $("#area_id").html(area_str);
+                                        }
+    
+    
+                                        $("#area_id").change(function () {
+                                            if ($("#area_id").val() > 0) {
+                                                area_id = $("#area_id").val();
+                                                var business_str = ' <option value="0">请选择...</option>';
+                                                for (a in cityareas.business) {
+                                                    if (cityareas.business[a].area_id == area_id) {
+                                                        if (business_id == cityareas.business[a].business_id) {
+                                                            business_str += '<option selected="selected" value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                                        } else {
+                                                            business_str += '<option value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                                        }
+                                                    }
+                                                }
+                                                $("#business_id").html(business_str);
+                                            } else {
+                                                $("#business_id").html('<option value="0">请选择...</option>');
+                                            }
+    
+                                        });
+    
+                                    });
+                    </script> 
+                    
+    </div>
+	<div class="row">
+		<div class="line">
+			<span class="x3">众筹金额：</span>
+			<span class="x9">
+			<input type="text" class="text-input" name="data[all_price]" value="<{$detail.all_price|default='0'}>" />
+			</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="line">
+			<span class="x3">众筹佣金：</span>
+			<span class="x9">
+			<input type="text" class="text-input" name="data[commission]" value="<{$detail.commission|default=''}>" />
+			</span>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="line">
+			<span class="x3">过期时间：</span>
+			<span class="x9">
+			<input type="text" class="text-input line-input datepicker" id="svctime2" name="data[ltime]" size="30" readonly="readonly" value="<{$detail['ltime']}>" placeholder="选择结束时间" />
+			</span>
+		</div>
+	</div>
+	
+	<div class="blank-10 bg"></div>
+	<div class="line border-bottom">
+		<textarea class="form-content" name="data[details]" placeholder="众筹详情,建议不超过100字！"></textarea>
+	</div>
+    <div class="blank-10 bg"></div>    
+    
+    <!--商家地图开始-->
+<div class="line padding border-bottom">		
+        <div id="login-input">
+                        <span class="mr10"><input type="text" name="data[lng]" id="lng" value="<{$detail.lng|default=''}>" class="mapinputs w100" /></span>
+                        <span><input type="text" name="data[lat]" id="lat" value="<{$detail.lat|default=''}>" class="w100 mapinputs" /></span>
+                        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7b92b3afff29988b6d4dbf9a00698ed8"></script>
+                        <div class="top" style="width:100%; margin-bottom: 20px;">
+                            <div id="r-result"><input type="text" id="suggestId" class="mapinputs2" size="20"  placeholder="输入地址搜索" value="" /></div>    
+                        </div>
+                        <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+                        <div id="allmap" style="width: 100%; height:300px; padding:10px;"></div>
+                        <script type="text/javascript">
+                            // 百度地图API功能
+                            var map = new BMap.Map("allmap");
+                            var lng = "<{$lng}>";
+                            var lat = "<{$lat}>";
+                            if (!lng && !lat) {
+                                map.centerAndZoom("合肥");
+                                var point = new BMap.Point(117.260852, 31.825717);
+                            } else {
+                                map.centerAndZoom(new BMap.Point(lng, lat), 15);
+                                var point = new BMap.Point(lng, lat);
+                            }
+                            map.centerAndZoom(point, 15);
+                            var marker = new BMap.Marker(point);  // 创建标注
+                            map.clearOverlays();
+                            map.addOverlay(marker);              // 将标注添加到地图中
+                            marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                            function showPoint(e) {
+                                document.getElementById('lat').value = e.point.lat;
+                                document.getElementById('lng').value = e.point.lng;
+                                var p = new BMap.Point(e.point.lng, e.point.lat);
+                                var mk = new BMap.Marker(p);
+                                map.clearOverlays();
+                                map.addOverlay(mk);
+                                mk.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                            }
+                            map.enableScrollWheelZoom(true);
+                            map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+                            map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}));  
+                            map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT, type: BMAP_NAVIGATION_CONTROL_PAN})); 
+                            map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, type: BMAP_NAVIGATION_CONTROL_ZOOM})); 
+                            map.addEventListener("click", showPoint);
+                            function G(id) {
+                                return document.getElementById(id);
+                            }
+
+                            var ac = new BMap.Autocomplete(//建立一个自动完成的对象
+                                    {"input": "suggestId"
+                                        , "location": map
+                                    });
+
+                            ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
+                                var str = "";
+                                var _value = e.fromitem.value;
+                                var value = "";
+                                if (e.fromitem.index > -1) {
+                                    value = _value.province + _value.city + _value.district + _value.street + _value.business;
+                                }
+                                str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+
+                                value = "";
+                                if (e.toitem.index > -1) {
+                                    _value = e.toitem.value;
+                                    value = _value.province + _value.city + _value.district + _value.street + _value.business;
+                                }
+                                str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+                                G("searchResultPanel").innerHTML = str;
+                            });
+
+                            var myValue;
+                            ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
+                                var _value = e.item.value;
+                                myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+                                G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+
+                                setPlace();
+                            });
+
+
+                            function setPlace() {
+                                map.clearOverlays();    //清除地图上所有覆盖物
+                                function myFun() {
+                                    var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+                                    map.centerAndZoom(pp, 18);
+                                    map.addOverlay(new BMap.Marker(pp));    //添加标注
+                                }
+                                var local = new BMap.LocalSearch(map, {//智能搜索
+                                    onSearchComplete: myFun
+                                });
+                                local.search(myValue);
+                            }
+
+                        </script>
+                </div>                    
+	</div>
+
+<div class="blank-10 bg"></div>    
+<!--商家地图结束-->
+
+	
+	<div class="container">
+		<div class="blank-30">
+		</div>
+		<button type="submit" class="button button-block button-big bg-dot">添加众筹</button>
+		<div class="blank-30">
+		</div>
+	</div>
+</form>
+<script>
+		jQuery(function($){
+			$.datepicker.regional['zh-CN'] = {
+				closeText: '关闭',
+				prevText: '&#x3c;上月',
+				nextText: '下月&#x3e;',
+				currentText: '今天',
+				monthNames: ['一月','二月','三月','四月','五月','六月',
+				'七月','八月','九月','十月','十一月','十二月'],
+				monthNamesShort: ['一','二','三','四','五','六',
+				'七','八','九','十','十一','十二'],
+				dayNames: ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],
+				dayNamesShort: ['周日','周一','周二','周三','周四','周五','周六'],
+				dayNamesMin: ['日','一','二','三','四','五','六'],
+				weekHeader: '周',
+				dateFormat: 'yy-mm-dd',
+				firstDay: 1,
+				isRTL: false,
+				showMonthAfterYear: true,
+				yearSuffix: '年'};
+			$.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+		});
+		$(function() {
+			$( ".datepicker" ).datepicker();
+		});
+	</script>
+<include file='crowd:footer'/>

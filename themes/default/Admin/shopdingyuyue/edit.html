@@ -1,0 +1,127 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">商家预约</li>
+        <li class="li2 li3">编辑预约</li>
+    </ul>
+</div>
+
+
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">订单详情</div>
+        </div>
+    </div> 
+    <div class="tabnr_change show">
+    	
+    	<table class="tuanfabu_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="120"><p class="tuanfabu_t">订单号：</p></td>
+                <td><div class="tuanfabu_nr">
+                <{$arr.order_no}>
+                </div></td>
+            </tr>
+            
+             <tr>
+                <td width="120"><p class="tuanfabu_t">地点：</p></td>
+                <td><div class="tuanfabu_nr">
+                <{$arr.room_id}>
+                </div></td>
+            </tr>
+            
+             <tr>
+                <td width="120"><p class="tuanfabu_t">预约时间：</p></td>
+                <td><div class="tuanfabu_nr">
+                <{$arr.last_date}> &nbsp;<{$arr.last_t}>
+                </div></td>
+            </tr>
+            
+            <tr>
+                <td width="120"><p class="tuanfabu_t">预计人数：</p></td>
+                <td><div class="tuanfabu_nr">
+                <{$arr.number}> 
+                </div></td>
+            </tr>
+            
+             <tr>
+                <td width="120"><p class="tuanfabu_t">支付定金：</p></td>
+                <td><div class="tuanfabu_nr">
+                <{:round($arr['need_price']/100,2)}> 元 &nbsp;&nbsp; (<if condition="$arr[status] eq 1"> 未消费 <elseif condition="$arr[status] eq 2"/> 已消费 <elseif condition="$arr[status] eq -1"/> 已退款 <else/>未支付</if>)
+                </div></td>
+            </tr>
+            
+             <tr>
+                <td width="120"><p class="tuanfabu_t">联系人：</p></td>
+                <td><div class="tuanfabu_nr">
+                <{$arr.name}> &nbsp;（<if condition="$sex eq 2">女士<else/>先生</if>）
+                </div></td>
+            </tr>
+            
+            <tr>
+                <td width="120"><p class="tuanfabu_t">电话：</p></td>
+                <td><div class="tuanfabu_nr">
+                	<{$arr.mobile}> 
+                </div></td>
+            </tr>
+            
+            <tr>
+                <td width="120"><p class="tuanfabu_t">买家留言：</p></td>
+                <td><div class="tuanfabu_nr">
+                	<{$arr.tip}> 
+                </div></td>
+            </tr>
+        </table>
+         <if condition="$arr[menu][0][0] gt 0">
+        <div style="margin-top:10px;"></div>
+        <table class="tuanfabu_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        	
+            <tr>
+                <td width="20%"><p class="tuanfabu_nr">菜名</p></td>
+                <td width="20%"><div class="tuanfabu_nr">缩略图</div></td>
+                <td width="20%"><p class="tuanfabu_nr">优惠价</p></td>
+                <td width="20%"><p class="tuanfabu_nr">数量</p></td>
+                <td width="20%"><p class="tuanfabu_nr">单价</p></td>
+            </tr>
+            <volist name='arr.menu' id='item'>
+            	<tr>
+                    <td width="20%"><p class="tuanfabu_nr"><{$menu[$item[0]][menu_name]}></p></td>
+                    <td width="20%"><div class="tuanfabu_nr"><img style="margin: 10px auto; width: 120px;" src="__ROOT__/attachs/<{$menu[$item[0]][photo]}>" /></div></td>
+                    <td width="20%"><p class="tuanfabu_nr"><{:round($menu[$item[0]][ding_price]/100,2)}>元</p></td>
+                    <td width="20%"><p class="tuanfabu_nr"><{$item[1]}></p></td>
+                    <td width="20%"><p class="tuanfabu_nr"><{:round($menu[$item[0]][ding_price]*$item[1]/100,2)}>元</p></td>
+                </tr>
+            </volist>
+            <tr>
+            	<td colspan="6" class="tuanfabu_t"> 总价 ： <{:round($order[total_price]/100,2)}>元  支付定金：  <{:round($order[need_price]/100,2)}>元</td>
+            </tr>
+            
+        </table>
+        </if>
+        <if condition="$arr[status] eq 1">
+            <div class="tuanfabu_an">
+                <form class="inline" target="baocms_frm" action="<{:U('dingorder/edit',array('order_id'=>$order_id))}>" method="post">
+                    <input type="hidden" name="status" value="2" />
+                    <input type="submit" class="radius3 sjgl_an tuan_topbt" value="设为已消费" />
+                </form>
+                <form class="inline" id='myform' target="baocms_frm" action="<{:U('dingorder/edit',array('order_id'=>$order_id))}>" method="post" >
+                    <input type="hidden" name="status" value="-1" />
+                    <input type="button" onclick="msg()" class="radius3 sjgl_an tuan_topbt" value="退款"   />
+                </form>
+            </div>
+        </if>
+        
+        <script language="javascript">
+		 function msg(){
+		 if (confirm("您确认要退款吗？"))
+		 	$('#myform').submit();
+		 }
+		</script>
+        
+    </div> 
+</div>
+        
+        
+        
+<include  file='public:footer'/>       

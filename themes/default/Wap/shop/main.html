@@ -1,0 +1,131 @@
+<include file="public:header"/>
+
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			服务网点
+		</div>
+		<div class="top-search" style="display:none;">
+			<form method="post" action="<{:U('shop/index')}>">
+				<input name="keyword" placeholder="输入商家的关键字"  />
+				<button type="submit" class="icon-search"></button> 
+			</form>
+		</div>
+		<div class="top-signed">
+			<a id="search-btn" href="javascript:void(0);"><i class="icon-search"></i></a>
+		</div>
+	</header>
+	<script>
+	$(function(){
+		$("#search-btn").click(function(){
+			if($(".top-search").css("display")=='block'){
+				$(".top-search").hide();
+				$(".top-title").show(200);
+			}
+			else{
+				$(".top-search").show();
+				$(".top-title").hide(200);
+			}
+		});
+	});
+	</script>
+	
+	<div class="line">
+		<div id="roll" class="roller">
+			<div class="bd">
+				<ul>
+				<calldata mdl="Ad" where="closed=0 AND site_id=53 and bg_date ELT '{$today}' AND end_date EGT '{$today}' " limit="0,5" cache="43200" order="orderby asc">
+				<li><a href="<{$item.link_url}>" target="_blank" ><img src="__ROOT__/attachs/<{$item.photo}>" /></a></li>
+				</calldata>
+				</ul>
+			</div>
+			<div class="hd">
+				<ul></ul>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">	
+		TouchSlide({ 
+			slideCell:"#roll",
+			titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+			mainCell:".bd ul", 
+			effect:"leftLoop", 
+			autoPage:true //自动分页
+		});
+	</script>
+	
+	<div class="cate-list">
+		<php>$i=0; foreach($shopcates as $val){if($val['parent_id'] == 0){$i++;</php>	
+		<div class="classify" data-id="cate-<{$i}>"  data-click="0">
+			<a href="<{:U('shop/index',array('cat'=>$val['cate_id']))}>" class="fl">
+			<img src="/static/default/wap/image/shop/cate-<{$val['cate_id']}>.png"  class="sublogo">	
+			</a>
+			<div class="info">	
+				<div class="title"><a href="<{:U('shop/index',array('cat'=>$val['cate_id']))}>"><{$val['cate_name']}></a></div>	
+				<div class="subtitle">
+					<php> $a = 0 ;foreach($shopcates as $v){if($v['parent_id'] == $val['cate_id']){ $a++;if($a<3){</php>
+					<{$v['cate_name']}>、
+					<php>}}}</php>
+					<{$val['title']}>
+				</div>	
+			</div>	
+			<img src="/static/default/wap/image/shop/ic_arrow_down_black.png"  class="cate-arrow" id="cate-<{$i}>-arrow">	
+		</div>	
+		<div class="subclass" id="cate-<{$i}>">	
+			<php>
+				$k =0;
+				$items = array();
+				foreach($shopcates as $v){
+				if($v['parent_id'] == $val['cate_id']){
+					$items[] = $val;
+					$k++;
+					$y = $k%3;
+			</php>
+			<if condition = "$y eq 1">
+			<div class="row">	
+				<div class="col fw flipcard brb"><a href="<{:U('shop/index',array('cat'=>$v['cate_id']))}>" ><{$v.cate_name}></a></div>
+			<elseif condition = "$y eq 2" />
+				<div class="col fw flipcard brb"><a href="<{:U('shop/index',array('cat'=>$v['cate_id']))}>" ><{$v.cate_name}></a></div>
+			<elseif condition = "$y eq 0" />
+				<div class="col fw flipcard br"><a href="<{:U('shop/index',array('cat'=>$v['cate_id']))}>" ><{$v.cate_name}></a></div>	
+			</div>
+			</if>
+			<php>}} $x = $k%3; </php>
+			<if condition = "$x eq 1">
+				<div class="col fw flipcard brb">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+				<div class="col fw flipcard br">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+			</div>
+			</if>
+			<if condition = "$x eq 2">
+				<div class="col fw flipcard br">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+			</div>
+			</if>
+		</div>
+		<php>}}</php>
+
+<script>	
+$(document).ready(function(){
+	$(".classify").click(function(){
+		var click = $(this).attr("data-click");
+		var cate = $(this).attr("data-id");
+		if (click == "0") {	
+			// 点开	
+			$(this).attr("data-click","1");
+			var bid = cate + "-arrow";
+			$('#'+bid).attr("src","/static/default/wap/image/shop/ic_arrow_up_black.png");	
+			$('#'+cate).css("display","block");
+		}else{	
+			// 关闭	
+			$(this).attr("data-click","0");
+			var bid = cate + "-arrow";
+			$('#'+bid).attr("src","/static/default/wap/image/shop/ic_arrow_down_black.png");	
+			$('#'+cate).css("display","none");
+		}	
+	});
+
+});
+
+</script>
+<include file="public:footer"/>

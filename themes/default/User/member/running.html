@@ -1,0 +1,36 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			跑腿完成支付
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+
+
+<div class="panel-list">
+	<ul>
+		<li><a href="javascript:;">订单编号：<em class="text-gray"><{$running.running_id}></em></a></li>
+        <li><a href="javascript:;">订单编号：<em class="text-gray"><{$running.create_time|date='Y-m-d H:i',###}></em></a></li>
+	</ul>
+</div>
+<div class="blank-10 bg"></div>
+<div class="panel-list">
+	<ul>
+        <li><a href="javascript:;">付款方式：<em class="text-gray"><{$paytype[$detail['code']]['name']}></em></a></li>
+        <li><a href="javascript:;">订单总额：<em class="text-gray">&yen;<{:round($running['need_pay']/100,2)}></em></a></li>
+        <li><a href="javascript:;">地址：<em class="text-gray"><{$running['addr']}></em></a></li>
+	</ul>
+</div>
+
+<div class="blank-20"></div>
+<div class="line text-center">
+	<a class="button bg-dot" href="<{:U('user/running/detail',array('running_id'=>$running['running_id']))}>">查看详情</a>
+	<a class="button bg-main" href="<{:U('user/running/index')}>">继续逛逛</a>
+</div>
+<div class="blank-20"></div>
+<include  file='public:footer'/>    

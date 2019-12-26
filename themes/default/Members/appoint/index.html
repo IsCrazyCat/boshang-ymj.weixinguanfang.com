@@ -1,0 +1,77 @@
+<include file="public:header"/>
+<style>
+.tgdd_nrt {background-color: #fff;}
+</style>
+<div class="content_right">  
+    <div class="tgdd">
+    <include file="order:nav"/><!--订单导航-->
+        <div class="tgdd_nr">
+            <table border="0" cellspacing="0" width="100%"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; text-align:center;">
+                <tr class="tgdd_nrt">
+                    <th>家政（头像）</th>
+                    <th>技师【姓名】</th>
+                    <th>工具/价格</th>
+                    <th>上门服务时间</th>
+                    <th>家政介绍</th>
+                    <th>操作</th>
+                </tr>
+
+                <volist name="list" id="item" key="index">
+                    <tr class="tgdd_nrt">
+                        <td><div class="activityImg"><a target="_blank" href="<{:u('home/appoint/detail',array('appoint_id'=>$item['appoint_id']))}>">
+                        <img style=" margin:5px 0px;" width="60" src="<{:config_img($appoint[$item['appoint_id']]['photo'])}>" /></a></div></td>
+                        
+                        <td>
+                        <if condition="!empty($item['worker_id'])">
+                        	<{$worker[$item['worker_id']]['name']}>/<{$worker[$item['worker_id']]['mobile']}>
+                        <else/>
+                         	<{$appoint[$item['appoint_id']]['user_name']}>/<{$appoint[$item['appoint_id']]['user_mobile']}>
+                        </if>
+                        
+                        
+                        </td>
+                        <td><{$appoint[$item['appoint_id']]['gongju']}>
+                        /<{:round($appoint[$item['appoint_id']]['price']/100,2)}>(<{$appoint[$item['appoint_id']]['unit']}>)</td>
+                         <td><{$item.svctime}></td>
+                         <td>
+                        <a class="tips myInfor_sx myInfor_sx_fk" rel="<{:cleanhtml($appoint[$item['appoint_id']]['contents'])}>" href="javascript:void(0)">查看介绍</a>
+                        </td>
+
+                        <td>
+                    
+            <if condition="$item['status'] eq 0">
+                  <a class="appoint_button"  href="<{:U('wap/appoint/pay',array('order_id'=>$item['order_id']))}>">去付款</a>
+                  <a  mini='confirm'  class="appoint_button" href="<{:U('appoint/orderdel',array('order_id'=>$item['order_id']))}>">取消订单</a>
+             <elseif condition="$item[status] eq 1" />
+                  <a class="appoint_button" >已付款</a>
+                  <a  mini='confirm'   class="appoint_button"  href="<{:U('appoint/refund',array('order_id'=>$item['order_id']))}>">申请退款</a>
+             <elseif condition="$item[status] eq 2" />
+                  <a  mini='confirm'  class="appoint_button" href="<{:U('appoint/confirm_complete',array('order_id'=>$item['order_id']))}>">确认完成</a>
+             <elseif condition="$item[status] eq 3" />
+                  <a class="appoint_button" >已付款</a>
+                  <a  mini='confirm'   class="appoint_button"  href="<{:U('appoint/cancel_refund',array('order_id'=>$item['order_id']))}>">取消退款</a>
+             <elseif condition="$item[status] eq 4" />
+                  <a class="appoint_button" >已退款</a>
+                  <a  mini='confirm'  class="appoint_button" href="<{:U('appoint/orderdel',array('order_id'=>$item['order_id']))}>">删除订单</a>
+             <elseif condition="$item[status] eq 8" />
+                  <a class="appoint_button" >完成</a>
+                  <if condition="$item['comment_status'] eq 1">
+                      <a class="appoint_button" >已点评</a>
+                  <else/>
+                      <a class="appoint_button" >去手机版点评</a>
+                      <!--<a class="appoint_button" href="<{:U('appoint/comment',array('order_id'=>$item['order_id']))}>">去点评</a>-->
+                  </if>
+             </if>    
+       
+            
+                        </td>
+                    </tr>
+                </volist>
+            </table>
+            <div class="x"><{$page}></div>
+        </div>
+    </div>
+</div>
+</div>
+<include file="public:footer"/>
+

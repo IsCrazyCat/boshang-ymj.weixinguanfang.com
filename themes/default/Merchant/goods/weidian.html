@@ -1,0 +1,330 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">系统设置</a> > <a href="">微店管理</a> > <a>微店文字资料</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">微店文字资料介绍微店的基本信息 </div>
+        </div>
+    </div> 
+    <div class="tuanfabu_tab">
+        <ul>
+            <li class="tuanfabu_tabli tabli_change on"><a href="<{:U('goods/weidian')}>">微店资料</a></li>
+        </ul>
+    </div>
+    <div class="tabnr_change  show">
+        <form method="post"  action="<{:U('goods/weidian')}>" target="baocms_frm">
+            <table class="tuanfabu_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+                <php>if(!$weidian){</php>
+                <tr>
+                    <td><p class="tuanfabu_t">店铺名称：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[weidian_name]" value="<notempty name="weidian.weidian_name"><{$weidian.weidian_name}><else/><{$the_shop.shop_name}></notempty>" class="tuanfabu_int tuanfabu_intw2" />
+                        </div></td>
+                </tr>
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">店铺地址：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[addr]" value="<notempty name="weidian.addr"><{$weidian.addr}><else/><{$the_shop.addr}></notempty>" class="tuanfabu_int tuanfabu_intw2" />
+                        </div></td>
+                </tr>
+                
+     
+                
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">分类：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <select name="data[cate_id]" id="cate_id" class="tuanfabu_int tuanfabu_intw2">
+                                <option value="">=选择=</option>
+                                 <foreach name="cates" item="var">
+                                 <eq name="var.parent_id" value="0">
+                                     <option value="<{$var.cate_id}>"  <eq name="var.cate_id" value="$detail.cate_id">selected="selected"</eq> >
+                                     
+                                     <{$var.cate_name}></option>              
+                                     
+                                     
+                                      <foreach name="cates" item="var2">
+                                    <eq name="var2.parent_id" value="$var.cate_id">
+                                    <option value="<{$var2.cate_id}>"  <eq name="var2.cate_id" value="$detail.cate_id">selected="selected"</eq> > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<{$var2.cate_name}></option>
+                                    </eq>
+                                </foreach>
+                                     
+                                     </eq>  
+                                </foreach>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+                
+                
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">城市地区：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <select name="data[city_id]" id="city_id" class="tuanfabu_int tuanfabu_intw2"></select>
+                            <select name="data[area_id]" id="area_id" class="tuanfabu_int tuanfabu_intw2"></select>
+                        </div></td>
+                </tr>
+                <script src="<{:U('app/datas/cityarea')}>"></script>
+                <script>
+                            var city_id = <?php echo (int)$city_id; ?> ;
+                            var area_id = <?php echo (int)$area_id; ?> ;
+                            function changeCity(cid){
+                            var area_str = '<option value="0">请选择.....</option>';
+                                    for (a in cityareas.area){
+                            if (cityareas.area[a].city_id == cid){
+                            if (area_id == cityareas.area[a].area_id){
+                            area_str += '<option selected="selected" value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                            } else{
+                            area_str += '<option value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                            }
+                            }
+                            }
+                            $("#area_id").html(area_str);
+                            }
+                    $(document).ready(function(){
+                    var city_str = '<option value="0">请选择.....</option>';
+                            for (a in cityareas.city){
+                    if (city_id == cityareas.city[a].city_id){
+                    city_str += '<option selected="selected" value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+                    } else{
+                    city_str += '<option value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+                    }
+                    }
+                    $("#city_id").html(city_str);
+                            if (city_id){
+                    changeCity(city_id);
+                    }
+                    $("#city_id").change(function(){
+                    city_id = $(this).val();
+                            changeCity($(this).val());
+                    });
+                    });                </script>
+                <tr>
+                    <td><p class="tuanfabu_t">营业时间：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[business_time]" value="<{$weidian.business_time|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+                        </div></td>
+                </tr>
+                <php>}else{
+                </php>
+                <tr>
+                    <td><p class="tuanfabu_t">您的信息：</p></td>
+                    <td><div class="tuanfabu_nr" style="color:#999999;">
+                            <{$weidian.weidian_name}>,<{$weidian.addr}>,<{$weidian.cate_id}>,<{$weidian.city_id}>,<{$weidian.area_id}>,<{$weidian.business_time}>&nbsp;<span style="color:#ff0000;">* 基本信息不可修改</span>
+                        </div></td>
+                </tr>
+                <php>
+                    }</php>
+               
+               
+               
+                <tr>
+                 <td><p class="tuanfabu_t">微店形象照：</p></td>
+                 <td><div class="tuanfabu_nr">
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <input type="hidden" name="data[pic]" value="<{$weidian.pic}>" id="data_img" />
+                        <div id="fileToUpload" >微店形象照</div>
+                    </div>
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <img id="image_show" width="80" height="80"  src="<{:config_img($weidian['pic'])}>" />
+                        <a href="<{:U('setting/attachs')}>">缩略图设置</a>
+                        <{$CONFIG.attachs.shopphoto.thumb}>
+                    </div>
+                    <script>                                            
+						var width_good = '<{:thumbSize($CONFIG[attachs][shopphoto][thumb],0)}>';                         
+						var height_good = '<{:thumbSize($CONFIG[attachs][shopphoto][thumb],1)}>';                         
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"shopphoto"))}>',                             
+						pick: '#fileToUpload',                             
+						resize: true,    
+						compress : {width: width_good,height: height_good,quality: 80,allowMagnify: false,crop: true}                                          
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_img").val(resporse.url);                             
+						$("#image_show").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+                    </div>
+                </td>
+            </tr>
+            
+            
+              
+                
+                
+                
+                <tr>
+                 <td><p class="tuanfabu_t">微店logo：</p></td>
+                 <td><div class="tuanfabu_nr">
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <input type="hidden" name="data[logo]" value="<{$weidian.logo}>" id="data_img2" />
+                        <div id="fileToUpload1" >微店logo</div>
+                    </div>
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <img id="image_show2" width="80" height="80"  src="<{:config_img($weidian['logo'])}>" />
+                        <a href="<{:U('setting/attachs')}>">缩略图设置</a>
+                        <{$CONFIG.attachs.shopphoto.thumb}>
+                    </div>
+                    <script>                                            
+						var width_good = '<{:thumbSize($CONFIG[attachs][shopphoto][thumb],0)}>';                         
+						var height_good = '<{:thumbSize($CONFIG[attachs][shopphoto][thumb],1)}>';                         
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"shopphoto"))}>',                             
+						pick: '#fileToUpload1',                             
+						resize: true,    
+						compress : {width: width_good,height: height_good,quality: 80,allowMagnify: false,crop: true}                                          
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_img2").val(resporse.url);                             
+						$("#image_show2").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+                    </div>
+                </td>
+            </tr>
+            
+                
+            
+                
+              
+              <!--购买须知开始--> 
+                <tr><td><p class="tuanfabu_t">微店详情：</p></td> <td><div class="tuanfabu_nr">
+                <script type="text/plain" id="data_details" name="details" style="width:800px;height:360px;"><{$weidian.details}></script>
+                <link rel="stylesheet" href="/Public/qiniu_ueditor/themes/default/css/ueditor.min.css" type="text/css">
+                <script type="text/javascript" charset="utf-8" src="/Public/qiniu_ueditor/ueditor.config.js"></script>
+                <script type="text/javascript" charset="utf-8" src="/Public/qiniu_ueditor/ueditor.all.min.js"></script>
+                <script type="text/javascript" src="/Public/qiniu_ueditor/lang/zh-cn/zh-cn.js"></script>
+                <script>
+                    um = UE.getEditor('data_details', {
+                        lang: 'zh-cn',
+						toolbars:[['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'backcolor', 'fontsize', 'fontfamily', 'justifyleft', 'justifyright', 'justifycenter', 'justifyjustify', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', 'link', 'unlink', 'map', 'template', 'background','inserttable','print','attachment',  'emotion',  'snapscreen','insertimage', 'music', 'insertvideo']],  
+                        });
+                </script>
+                </div></td></tr>
+                <!--购买须知结束-->
+                                        
+                                        
+                                        
+                                        
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">分店坐标：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <input type="text" name="data[lng]" id="lng" value="<notempty name="weidian.lng"><{$weidian.lng}><else/><{$the_shop.lng}></notempty>" class="tuanfabu_int tuanfabu_intw2" /> 经度
+                            <input type="text" name="data[lat]" id="lat" value="<notempty name="weidian.lat"><{$weidian.lat}><else/><{$the_shop.lat}></notempty>" class="tuanfabu_int tuanfabu_intw2" /> 纬度
+                        </div></td>
+                </tr>
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">地图：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7b92b3afff29988b6d4dbf9a00698ed8"></script>
+                            <div class="top" style="width:700px; margin-bottom: 20px;">
+                                <div id="r-result">请输入:<input type="text" id="suggestId" class="mapinputs tuanfabu_int tuanfabu_intw2" size="20" value="合肥" /></div>    
+                            </div>
+                            <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+                            <div id="allmap" style="width: 600px; height:500px;"></div>
+                            <script type="text/javascript">
+
+                                        // 百度地图API功能
+                                        var map = new BMap.Map("allmap");
+                                        var lng = "<{$CONFIG['site']['lng']}>";
+                                        var lat = "<{$CONFIG['site']['lat']}>";
+                                        if (!lng && !lat){
+                                map.centerAndZoom("合肥");
+                                        var point = new BMap.Point(117.260852, 31.825717);
+                                } else{
+                                map.centerAndZoom(new BMap.Point(lng, lat), 15);
+                                        var point = new BMap.Point(lng, lat);
+                                }
+                                map.centerAndZoom(point, 15);
+                                        var marker = new BMap.Marker(point); // 创建标注
+                                        map.clearOverlays();
+                                        map.addOverlay(marker); // 将标注添加到地图中
+                                        marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                                        function showPoint(e) {
+                                        document.getElementById('lat').value = e.point.lat;
+                                                document.getElementById('lng').value = e.point.lng;
+                                                var p = new BMap.Point(e.point.lng, e.point.lat);
+                                                var mk = new BMap.Marker(p);
+                                                map.clearOverlays();
+                                                map.addOverlay(mk);
+                                                mk.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                                        }
+                                map.enableScrollWheelZoom(true);
+                                        map.addControl(new BMap.NavigationControl()); //添加默认缩放平移控件
+                                        map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL})); //右上角，仅包含平移和缩放按钮
+                                        map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT, type: BMAP_NAVIGATION_CONTROL_PAN})); //左下角，仅包含平移按钮
+                                        map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, type: BMAP_NAVIGATION_CONTROL_ZOOM})); //右下角，仅包含缩放按钮
+                                        map.addEventListener("click", showPoint);
+                                        function G(id) {
+                                        return document.getElementById(id);
+                                        }
+
+                                var ac = new BMap.Autocomplete(//建立一个自动完成的对象
+                                {"input": "suggestId"
+                                        , "location": map
+                                });
+                                        ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
+                                        var str = "";
+                                                var _value = e.fromitem.value;
+                                                var value = "";
+                                                if (e.fromitem.index > - 1) {
+                                        value = _value.province + _value.city + _value.district + _value.street + _value.business;
+                                        }
+                                        str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+                                                value = "";
+                                                if (e.toitem.index > - 1) {
+                                        _value = e.toitem.value;
+                                                value = _value.province + _value.city + _value.district + _value.street + _value.business;
+                                        }
+                                        str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+                                                G("searchResultPanel").innerHTML = str;
+                                        });
+                                        var myValue;
+                                        ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
+                                        var _value = e.item.value;
+                                                myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+                                                G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+                                                setPlace();
+                                        });
+                                        function setPlace() {
+                                        map.clearOverlays(); //清除地图上所有覆盖物
+                                                function myFun() {
+                                                var pp = local.getResults().getPoi(0).point; //获取第一个智能搜索的结果
+                                                        map.centerAndZoom(pp, 18);
+                                                        var kk = new BMap.Marker(pp);
+                                                        map.addOverlay(kk); //添加标注
+                                                        kk.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                                                }
+                                        var local = new BMap.LocalSearch(map, {//智能搜索
+                                        onSearchComplete: myFun
+                                        });
+                                                local.search(myValue);
+                                        }
+
+                            </script>
+                        </div></td>
+                </tr>
+
+
+
+            </table>
+            <div class="tuanfabu_an">
+                <input type="submit" class="radius3 sjgl_an tuan_topbt" value="确认保存" />
+            </div>
+        </form>
+    </div> 
+</div>
+<include  file='public:footer'/>

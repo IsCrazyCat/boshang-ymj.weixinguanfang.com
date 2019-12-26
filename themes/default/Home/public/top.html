@@ -1,0 +1,139 @@
+<include file="public:topOne" /> 
+<style>
+.liOne {z-index: 999;}
+.common-banner--floor {width:1200px;}
+.common-banner--newtop {width:1200px; height: 60px;margin:0px auto 0; border: none;padding: 0;overflow: hidden;}
+.common-banner {position: relative;text-align: center;}
+.common-banner--newtop .common-banner__sheet {width: 100%;}
+.common-banner--floor .color--left { left: 0;}
+.common-banner--floor .color {position: absolute; width: 50%;height: 60px;margin: 0;padding: 0;border: none;}
+.common-banner--floor .color--right {right: 0;}
+.common-banner--floor .common-banner__link { position: absolute;top: 0;left: 50%;width: 1170px; height: 60px; margin-left: -585px;}
+.common-banner--newtop .common-banner__link { display: block;z-index: 9;}
+.common-banner img { vertical-align: top;}
+.cf:after {display: block;clear: both;height: 0;overflow: hidden;visibility: hidden;}
+.common-banner--floor .close {z-index:10;}
+.common-banner .close {position: absolute;top:8px;right:8px;background:url(/themes/default/Pchome/statics/images/tp_54.png) no-repeat center center;}
+.common-close--iconfont-small { padding: 8px;}
+</style>
+
+
+
+<calldata mdl="Ad" where=" closed=0 AND site_id=67 AND  city_id IN ({$city_ids}) and bg_date ELT '{$today}' AND end_date EGT '{$today}' " limit="0,1" cache="21600" order="orderby asc"> 
+<div class="J-hub J-banner-newtop ui-slider common-banner common-banner--newtop common-banner--floor log-mod-viewed J-banner-stamp-active" >
+            <div class="common-banner__sheet cf">
+                <div class="color color--left" style="background:#83d8f5"></div>
+                <div class="color color--right" style="background:#83d8f5"></div>
+                <a class="common-banner__link" target="_blank" href="<{$item.link_url}>" >
+                     <img  src="<{:config_img($item['photo'])}>" width="1200" height="60" >
+                </a>
+            </div><a href="javascript:void(0)" class="F-glob F-glob-close common-close--iconfont-small close" title="关闭"></a>
+</div>
+</calldata>
+<script>
+    $(document).ready(function () {
+		$(".common-close--iconfont-small").click(function () {
+            $(".common-banner").hide();
+        });
+    });
+</script>
+<div class="topTwo">
+    <div class="left">
+        <if condition="!empty($CONFIG['site']['logo'])">
+          <if condition="!empty($city['photo'])">
+            <h1><a href="<{:u('home/index/index')}>"><img src="<{:config_img($city['photo'])}>" width="215" height="65" /></a></h1>
+            <else/>
+            <h1><a href="<{:u('home/index/index')}>"><img src="<{:config_img($CONFIG['site']['logo'])}>" /></a></h1>
+        </if> 
+        </if> 
+        <div class="changeCity">
+            <p class="changeCity_name"><{$city_name}></p>
+            <a href="<{:u('home/city/index')}>" class="graycl changeCity_link">更换城市</a>
+        </div>
+    </div>
+    <div class="right searchBox_r">
+    <script>
+		$(document).ready(function () {
+			$(".selectList li a").click(function () {
+				$("#search_form").attr('action', $(this).attr('rel'));
+				$("#selectBoxInput").html($(this).html());
+				$('.selectList').hide();
+			});
+
+			$(".selectList a").each(function(){
+				if($(this).attr("cur")){
+					$("#search_form").attr('action', $(this).attr('rel'));
+					$("#selectBoxInput").html($(this).html());                                
+				}
+			})
+		});
+	</script>
+
+        <div class="searchBox">
+        	<form id="search_form"  method="post" action="<{:u('home/all/index')}>">
+            <div class="selectBox"> <span class="select"  id="selectBoxInput">全部</span>
+                <div  class="selectList">
+                    <ul>
+<li><a href="javascript:void(0);" <?php if($ctl == 'all'){?> cur='true'<?php }?> rel="<{:u('home/all/index')}>">全部</a></li>
+<li><a href="javascript:void(0);" <?php if($ctl == 'shop'){?> cur='true'<?php }?> rel="<{:u('home/shop/index')}>">商家</a></li>
+<li><a href="javascript:void(0);" <?php if($ctl == 'tuan'){?> cur='true'<?php }?>rel="<{:u('home/tuan/index')}>">套餐</a></li>
+<li><a href="javascript:void(0);" <?php if($ctl == 'life'){?> cur='true'<?php }?>rel="<{:u('home/life/index')}>">生活</a></li>
+<li><a href="javascript:void(0);" <?php if($ctl == 'mall'){?> cur='true'<?php }?>rel="<{:u('home/mall/index')}>">商品</a></li>
+<li><a href="javascript:void(0);" <?php if($ctl == 'news'){?> cur='true'<?php }?>rel="<{:u('home/news/index')}>">新闻</a></li>
+
+                    </ul>        
+
+                </div>
+            </div>
+
+            <input type="text" class="text" <if condition="$ctl neq ding">name="keyword" value="<{$keyword|default='输入您要搜索的内容'}>"</if> onclick="if (value == defaultValue) {
+                        value = '';
+                        this.style.color = '#000'
+                    }"  onBlur="if (!value) {
+                                value = defaultValue;
+                                this.style.color = '#999'
+                            }" />
+
+            <input type="submit" class="submit" value="搜索" />
+            </form>
+        </div>
+
+        <div class="hotSearch">
+            <php>$a =1;</php>
+            <calldata mdl="Keyword" where="" limit="0,8" cache="43200" order="key_id desc">
+                <if condition="$item['type'] eq 0 or $item['type'] eq 1">
+                    <a href="<{:u('home/shop/index',array('keyword'=>$item['keyword']))}>"><{$item.keyword}></a>
+                <elseif condition="$item['type'] eq 2"/>
+                    <a href="<{:u('home/tuan/index',array('keyword'=>$item['keyword']))}>"><{$item.keyword}></a>
+                <elseif condition="$item['type'] eq 3"/>
+                    <a href="<{:u('home/life/index',array('keyword'=>$item['keyword']))}>"><{$item.keyword}></a>
+                <elseif condition="$item['type'] eq 4"/>
+                    <a href="<{:u('home/mall/index',array('keyword'=>$item['keyword']))}>"><{$item.keyword}></a>
+                </if>
+            </calldata>
+        </div>
+    </div>
+    
+    <php>
+    	  $pcl__goods = cookie('goods_spec');
+     	  $cartnum =  (int)array_sum($pcl__goods);
+    	</php>
+    	<div class="topTwo_cart_box right" id='cart'><em class="ico"></em>购物车<span id="num" class="num"><{$cartnum|default='0'}></span>
+            <div class="topTwo_cart_list_box">
+                <div class="box"  id='cart_show'>
+                </div>
+            </div>
+        </div>
+    
+    <div class="clear"></div>
+</div>
+
+<script>
+$('#cart').hover(function(){
+	var link = "<{:U('pchome/mall/goods')}>";
+	$("#cart_show").load(link);
+});
+</script>
+
+
+

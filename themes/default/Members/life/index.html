@@ -1,0 +1,104 @@
+<include file="public:header"/>
+<div class="content_right">  
+<div class="tgdd">
+
+
+   <div class="tgdd_t password_t">
+        <ul>
+            <li class="on"><a href="<{:U('life/index')}>">分类信息列表</a></li>
+            <li><a href="<{:U('shopdingyue/base')}>">订阅设置</a></li>
+            <li><a href="<{:U('shopdingyue/index')}>">我的订阅</a></li>
+            <li><a href="<{:U('sms/index')}>">购买短信</a></li>
+            <li><a href="<{:U('money/money')}>">余额充值</a></li>
+            <a style="display: inline-block; float: right; margin-right: 10px;" class="myInfor_sx" href="<{:u('home/life/fabu')}>">发布信息</a>
+        </ul>
+    </div>
+    
+
+    
+    <div class="tgdd_nr">
+       <div class="blank-20"></div>
+     <table class="tuan_table3" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#F9F9F9;">
+            <td width="35%">标题</td>
+            <td width="12%">分类</td>
+            <td width="13%">地区-商圈</td>
+            <td width="18%">推广</td>
+            <td width="15%">状态</td>
+     </table>
+     <div class="blank-10"></div>
+  <foreach name="list" item="var">
+  <table class="tuan_table1" width="100%" border="0">
+  <tbody><tr class="tr_left_2">
+    <td class="left10" colspan="4">
+    信息编号：<span class="mallorder_jg"><{$var.life_id}></span>
+    <span class="td_top_1">发布时间：<{$var.create_time|date='Y-m-d H:i',###}>  </span></td>
+  </tr>
+  <tr>
+    <td class="td_left_1"> 
+    
+    <table class="tuan_table2" width="100%" border="0">
+      <tbody><tr class="tr_left_1">
+      
+        <td class="left1">
+       <{$var.title}>
+        </td>
+        <td class="left2">
+       
+        </td>
+        <td class="left3"><{$cates[$var['cate_id']]['cate_name']}> </td>
+       
+      </tr>
+     
+    </tbody></table>    
+    </td>
+    <td class="left7" width="15%">
+    <{$areas[$var['area_id']]['area_name']}>-
+    <{$business[$var['business_id']]['business_name']}>
+     </td>
+    <td class="left8" width="20%">
+   <if condition="$var['top_date'] EGT $today">
+                    <p style="color:red;"> 
+                        已置顶(<{$var.top_date}>到期)
+                    </p>
+                    <else />
+                    <p>
+                        <a class="myInfor_sx" mini="confirm" href="<{:U('life/lifetop',array('life_id'=>$var['life_id'],'day'=>7))}>">置顶7天</a> <a mini="confirm" class="myInfor_sx" href="<{:U('life/lifetop',array('life_id'=>$var['life_id'],'day'=>30))}>">置顶30天</a>
+                    </p>
+                </if>
+                <if condition="$var['urgent_date'] EGT $today">
+                    <p style=" color: green;"> 
+                        已加急(<{$var.urgent_date}>到期)
+                    </p>
+                    <else/>
+                    <p>
+                        <a mini="confirm" class="myInfor_sx" href="<{:U('life/lifeurgent',array('life_id'=>$var['life_id'],'day'=>7))}>">加急7天</a> <a mini="confirm" class="myInfor_sx" href="<{:U('life/lifeurgent',array('life_id'=>$var['life_id'],'day'=>30))}>">加急30天</a>
+                    </p>
+                </if>
+                </eq>
+                <p>
+                    <a mini='confirm' class="myInfor_sx" href="<{:U('life/lifeflush',array('life_id'=>$var['life_id']))}>">免费刷新</a> 
+                </p>
+
+    </td>
+    <td class="left9" width="15%">
+   <eq name="var.audit" value="0">
+   <a  href="javascript:void(0);">等待审核</a>
+   <else/>
+   <a  href="javascript:void(0);">正常&nbsp;</a>
+   <a  href="<{:U('life/edit',array('life_id'=>$var['life_id']))}>">编辑</a>
+   </eq>
+   <a  href="<{:U('life/del',array('life_id'=>$var['life_id']))}>" mini="confirm">删除</a>
+    </td>
+  </tr>
+ 
+</tbody>
+</table>
+<br/> 
+</foreach>
+        <div class="x"><{$page}></div>
+    </div>
+</div> 
+</div>
+</div>
+<include file="public:footer"/>

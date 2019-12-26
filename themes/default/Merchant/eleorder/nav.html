@@ -1,0 +1,20 @@
+<div class="tuanfabu_tab">
+ <ul>
+ <if condition="$ding['is_pei'] neq 0">
+   <li class="tuanfabu_tabli tabli_change <eq name="ctl" value="ele">on</eq>"><a href="<{:U('ele/index')}>">外卖设置</a></li>
+   <li class="tuanfabu_tabli tabli_change <if condition="($ctl neq 'ele') AND ($act eq 'index')">on</if>"><a href="<{:U('eleorder/index')}>">确认订单</a></li>
+   <li class="tuanfabu_tabli tabli_change <eq name="act" value="wait">on</eq>" ><a href="<{:U('eleorder/wait')}>">配送中</a></li>
+   <li class="tuanfabu_tabli tabli_change <eq name="act" value="wait_refunded">on</eq>"><a href="<{:U('eleorder/wait_refunded')}>">待退款</a></li>
+   <li class="tuanfabu_tabli tabli_change <eq name="act" value="refunded">on</eq>"><a href="<{:U('eleorder/refunded')}>">已退款</a></li>
+   <li class="tuanfabu_tabli tabli_change <eq name="act" value="over">on</eq>"><a href="<{:U('eleorder/over')}>">已完成</a></li>
+ <else/>
+   <li class="tuanfabu_tabli tabli_change <eq name="ctl" value="ele">on</eq>"><a href="<{:U('ele/index')}>">外卖设置</a></li>
+   <li class="tuanfabu_tabli tabli_change <eq name="act" value="whole">on</eq>"><a href="<{:U('eleorder/whole')}>">全部订单【配】</a></li>
+   <li class="tuanfabu_tabli tabli_change <eq name="act" value="wait">on</eq>"><a href="<{:U('eleorder/wait')}>">等待处理【配】</a></li>
+   <li class="tuanfabu_tabli tabli_change <eq name="act" value="wait_refunded">on</eq>"><a href="<{:U('eleorder/wait_refunded')}>">待退款【配】</a></li>
+   <li class="tuanfabu_tabli tabli_change <eq name="act" value="refunded">on</eq>"><a href="<{:U('eleorder/refunded')}>">已退款【配】</a></li>
+   <li class="tuanfabu_tabli tabli_change <eq name="act" value="count">on</eq>"><a href="<{:U('eleorder/count')}>">订单统计【配】</a></li>
+ </if>
+ </ul>
+</div> 
+

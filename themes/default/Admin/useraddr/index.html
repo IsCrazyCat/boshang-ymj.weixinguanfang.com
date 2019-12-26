@@ -1,0 +1,120 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">会员</li>
+        <li class="li2">收货地址</li>
+        <li class="li2 li3">地址列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('useraddr/create','','添加内容')}>
+            </div>
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('useraddr/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <span>关键字</span>
+                        <input type="text" name="keyword" value="<{$keyword}>" class="inptText" /><input type="submit" value="   搜索"  class="inptButton" />
+                    </div> 
+                </form>
+                <a href="javascript:void(0);" class="searchG">高级搜索</a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form method="post" action="<{:U('useraddr/index')}>">
+            <div class="selectNr selectNr2">
+                <div class="left">
+                    <div class="seleK">
+                        <label>
+                            <span>区域：</span>
+                            <select name="area_id" id="area_id" class="select w100">
+                                <option value="0">请选择...</option>
+                                <foreach name="areas" item="var">
+                                    <option value="<{$var.area_id}>"  <eq name="var.area_id" value="$area_id">selected="selected"</eq> ><{$var.area_name}></option>
+                                </foreach>   
+                            </select>
+                        </label>
+                        <label>
+                            <span>商圈：</span>
+                            <select name="business_id" id="business_id" class="select w100">
+                                <option value="0">请选择...</option>
+                                <foreach name="business" item="var">
+                                    <option value="<{$var.business_id}>"  <eq name="var.business_id" value="$business_id">selected="selected"</eq> ><{$var.business_name}></option>
+                                </foreach>   
+                            </select>
+                        </label>
+                        <script>
+                            $(document).ready(function (e) {
+                                $("#area_id").change(function () {
+                                    var url = '<{:U("business/child",array("area_id"=>"0000"))}>';
+                                    if ($(this).val() > 0) {
+                                        var url2 = url.replace('0000', $(this).val());
+                                        $.get(url2, function (data) {
+                                            $("#business_id").html(data);
+                                        }, 'html');
+                                    }
+                                });
+                            });
+                        </script>
+                        <label>
+                            <input type="hidden" id="user_id" name="user_id" value="<{$user_id|default=''}>"/>
+                            <input class="text" type="text"   name="nickname" id="nickname"  value="<{$nickname}>" />
+                            <a mini="select"  w="1000" h="800" href="<{:U('user/select')}>" class="sumit">选择用户</a>
+                        </label>
+                        <label>
+                            <span>关键字:</span>
+                            <input type="text" name="keyword" value="<{$keyword}>" class="inptText" />
+                        </label>
+                    </div>
+                </div>
+                <div class="right">
+                    <input type="submit" value="   搜索"  class="inptButton" />
+                </div>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="addr_id" /></td>
+                    <td class="w50">ID</td>
+                    <td>用户</td>
+                    <td>地区</td>
+                    <td>收货人</td>
+                    <td>手机号码</td>
+                    <td>具体地址</td>
+                    <td>操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_addr_id" type="checkbox" name="addr_id[]" value="<{$var.addr_id}>" /></td>
+                        <td><{$var.addr_id}></td>
+                        <td><{$users[$var['user_id']]['account']}>(<{$var.user_id}>)</td>
+                        <td><{$areas[$var['area_id']]['area_name']}>-<{$business[$var['business_id']]['business_name']}></td>
+                        <td><{$var.name}></td>
+                        <td><{$var.mobile}></td>
+                        <td><{$var.addr}></td>
+                        <td>
+                            <{:BA('useraddr/edit',array("addr_id"=>$var["addr_id"]),'编辑','','remberBtn')}>
+                            <{:BA('useraddr/delete',array("addr_id"=>$var["addr_id"]),'删除','act','remberBtn')}>
+                        </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                <{:BA('useraddr/delete','','批量删除','list',' a2')}>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+
+

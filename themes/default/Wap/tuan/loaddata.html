@@ -1,0 +1,104 @@
+ <script>
+                function daojishi(id) {
+                    var t = Math.floor($("#" + id).attr('rel'));
+                    t--;
+                    var d = Math.floor(t / 60 / 60 / 24);
+                    var h = Math.floor(t / 60 / 60 % 24);
+                    var m = Math.floor(t / 60 % 60);
+                    var s = Math.floor(t % 60);
+                    if (d < 10) {
+                        d = '0' + d;
+                    }
+                    if (h < 10) {
+                        h = '0' + h;
+                    }
+                    if (m < 10) {
+                        m = '0' + m;
+                    }
+                    if (s < 10) {
+                        s = '0' + s;
+                    }
+                    $("#" + id).attr('rel', t);
+                    $("#" + id).html(d + ':' + h + ':' + m + ':' + s);
+                }
+            </script>
+
+
+
+
+<foreach name="shops" item="var">
+    <div class="tuan-shop">
+<!--        <div class="shop-con">-->
+<!--            <div class="shop-name"><a title="<{$var.shop_name}>" href="<{:U('shop/detail',array('shop_id'=>$var['shop_id']))}>"><{$var.shop_name}></a></div>-->
+<!--            <div class="shop-tags">  -->
+<!--                &lt;!&ndash;暂时可以不用开始&ndash;&gt;-->
+<!--                <if condition="$var['is_renzheng'] eq 1"> <span class="z">证</span>  </if>-->
+<!--                <gt name="var.card_date" value="$today"><span class="k">卡</span></gt>-->
+<!--                <gt name="var.wei_date" value="$today"> <span class="w">微</span></gt>-->
+<!--                <if condition="$var['is_ding'] eq 1"> <span class="d">订</span></if>-->
+<!--                <gt name="var.yuyue_date" value="$today"><span class="d">订</span></gt>-->
+<!--                &lt;!&ndash;暂时可以不用结束&ndash;&gt;     -->
+<!--                <div class="shop-local"><span class="mui-icon mui-icon-location"></span><{$var.d}></div>-->
+<!--            </div>-->
+<!--        </div>		-->
+        
+        
+        <div class="main-tuan">
+		<ul>		
+        <foreach name="list" item="item">		
+        <eq name="item.shop_id" value="$var['shop_id']">	
+        
+        
+        
+        
+           <php>
+                                if($item['bg_date'] <= $today && $item['end_date'] > $today){
+
+                                $tt = strtotime($item['end_date'])-time();
+                                $item['djs_time'] = $tt;
+                                $item['djs_str'] = '距结束';
+
+                                }elseif($item['bg_date'] >$today){
+                                $tt = strtotime($item['bg_date'])-time();
+                                $item['djs_time'] = $tt;
+                                $item['djs_str'] = '距开始';
+
+                                }
+                            </php>
+                            <script type="text/javascript" language="javascript">
+                                setInterval(function () {
+                                    daojishi("daojishi_<{$item.tuan_id}>");
+                                }, 1000);
+                            </script>
+                            
+                            
+                            	
+        <li>
+			<a class="line" href="<{:U('tuan/detail',array('tuan_id'=>$item['tuan_id']))}>" >
+				<div class="container">
+                    <div>
+                        <img class="x4" src="<{:config_img($item['photo'])}>" style="height:120px" />
+                    </div>
+					<div class="des x8">
+						<h5 style="font-size: 12px"><{$item.title}></h5>
+						<span class="intro" style="margin-top: 10px">
+							<em class="clock_ico"></em>
+<!--                            <span><{$item.intro}></span>-->
+                            <span>原价<{:round($item['price']/100,2)}>元车辆保养套餐</span><br>
+                            <span>会员减免工时费送双滤芯</span>
+						</p>
+						<p class="info" style="margin-top: 10px">
+							<span>￥ <em><{:round($item['tuan_price']/100,2)}></em></span> <del>¥ <{:round($item['price']/100,2)}></del>
+                            
+							<span class="text-little float-right badge bg-yellow margin-small-top padding-right">已售<{$item.sold_num}></span>
+						</p>
+					</div>
+				</div>
+			</a>
+		</li>		
+        </eq>		
+       </foreach>
+		</ul>		
+        </div>
+    </div>
+</foreach>

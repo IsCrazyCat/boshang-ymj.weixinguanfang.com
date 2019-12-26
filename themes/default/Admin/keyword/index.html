@@ -1,0 +1,78 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">当前位置</li>
+        <li class="li2"> 搜索关键字设置</li>
+
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span> </p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('keyword/create','','添加关键字')}>
+            </div>
+            <div class="right">
+                <form class="" method="post"  action="<{:U('keyword/index')}>"> 
+
+                    <div class="seleHidden" id="seleHidden">
+                        <lable>
+                        <span style="margin-top: 3px;">类型</span>
+                        <select name="type" id="type" class="selecttop" style="margin-top:0px">
+                            <for start='0' end='3'>
+                                <option value="<{$i}>"  <eq name="i" value="$type">selected="selected"</eq>>
+                                <{$types[$i]}>
+                                </option>
+                            </for>
+
+                        </select>
+                   </lable>
+                            <span>关键字</span>
+                            <input type="text"  class="inptText" name="keys" value="<{$keyword}>"  />
+
+                            <input type="submit" value=" 搜索"  class="inptButton" />
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td><input type="checkbox" class="checkAll" rel="key_id" /></td>
+                        <td>ID</td>
+                        <td>关键字</td>
+                        <td>所属类型</td>
+                        <td>操作</td>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_key_id" type="checkbox" name="key_id[]" value="<{$var.key_id}>" /> </td>
+                            <td><{$var.key_id}></td>
+                            <td><{$var.keyword}></td>
+                            <td><{$types[$var['type']]}></td>
+                            <td>
+                                <{:BA('keyword/edit',array("key_id"=>$var["key_id"]),'编辑','','remberBtn')}>
+                                <{:BA('keyword/delete',array("key_id"=>$var["key_id"]),'删除','act','remberBtn')}>
+                            </td>
+                        </tr>
+                    </foreach>
+                    <tr>
+                        <td colspan="20">
+                            <{:BA('keyword/delete','','批量删除','list','piliangcaozuo')}>
+
+                        </td>
+                    </tr>
+                </table>
+                <{$page}>
+
+            </div>
+
+
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>  
+

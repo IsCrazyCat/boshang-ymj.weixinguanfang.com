@@ -1,0 +1,57 @@
+<include file="public:header"/>
+<style>
+.list-media-x {margin-top:0rem;}
+ul { padding-left: 0px}
+</style>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:u('crowd/crowd_list',array('aready'=>1))}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			项目设置
+		</div>
+	<div class="top-signed">
+    	<a href="<{:U('crowd/type_create',array('goods_id'=>$detail['goods_id']))}>" class="top-addr icon-plus"> 添加</a>
+	</div>
+</header>
+
+
+<div class="list-media-x" id="list-media">
+<div class="blank-10 bg"></div>
+	<ul>
+        <foreach name="meals" item="var">
+           <li class="line">
+            <dt> <a class="x12">支持项目编号：<{$var.type_id}></a></dt>
+            <dd class="zhong">
+                <div class="x3">
+                   <img src="<{:config_img($var['img'])}>" width="70" height="70">
+                </div>
+                <div class="x9">
+                    <p><a href="<{:U('wap/crowd/detail',array('goods_id'=>$var['goods_id']))}>"><{$var['title']}></a></p>
+                    <p class="text-small">
+                        <span class="text-dot1 margin-right">支持价格：&yen;<{$var['price']/100}>元</span>
+                        <span class="text-dot1 margin-right">限购人数：<{$var.max_num}>人</span>
+                    </p>
+                    <p class="text-small">
+                    	<span class="text-dot1 margin-right">购买运费：&yen;<{$var['yunfei']/100}>元</span>
+                        <span class="text-dot1 margin-right">发货天数：<{$var.fahuo}>天</span>
+                    </p>
+                    <p class="text-small">
+                        <span class="text-dot1 margin-right">已筹金额：&yen;<{$var.have_num}>元</span>
+                        <span class="text-dot1 margin-right">是否抽奖：<eq name="var.choujiang" value="0">否<else/>是</eq></span>
+                    </p>
+              </div>
+             </dd>
+            <dl>
+              <p class="text-right padding-top x12">
+                 <a class="button button-small bg-blue" href="<{:U('crowd/type_edit',array('type_id'=>$var['type_id']))}>">编辑</a>
+                 <a class="button button-small bg-yellow" href="<{:U('crowd/type_delete',array('type_id'=>$var['type_id']))}>">删除</a>    
+             </p>
+           </dl>
+        </li>
+        <div class="blank-10 bg"></div>
+    </foreach>
+    </ul>
+</div>	
+
+<include file='crowd:footer'/>

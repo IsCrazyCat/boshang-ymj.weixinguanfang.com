@@ -1,0 +1,55 @@
+<include file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商品</li>
+        <li class="li2">商品规格</li>
+    </ul>
+</div>
+<form target="baocms_frm" action="<{:U('Goodsattr/addEditSpec')}>" method="post" >
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px" style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#fff;">
+            
+             <tr>
+                <td align="right" class="lfTdBt"> 规格名称</td>
+                <td class="rgTdBt">
+                    <input type="text" id="name" name="name" value="<{$spec.name}>" class="scAddTextName w160"/>
+                </td>
+            </tr>
+             <tr>
+                <td align="right" class="lfTdBt">所属商品类型</td>
+                <td class="rgTdBt">                
+                  <select name="type_id" id="type_id">
+                      <option value="">请选择</option>
+                      <volist name="goodsTypeList" id="vo">
+                      <option value="<{$vo[id]}>" <if condition="$vo[id] eq $spec[type_id]">selected="selected"</if>><{$vo[name]}></option>
+                      </volist>                                        
+                 </select>
+                </td>
+            </tr>     
+            
+            <tr>
+                <td class="lfTdBt">能否进行检索：</td>
+                <td class="rgTdBt">
+                <input type="radio" value="0" name="search_index" <if condition="$spec[search_index] eq 0">checked="checked"</if>  .>不需要检索
+                <input type="radio" value="1" name="search_index" <if condition="($spec[search_index] eq 1) or ($spec[search_index] eq NULL)">checked="checked"</if>  />关键字检索
+                </td>
+            </tr>
+            
+              <tr>
+                <td class="lfTdBt">规格项：</td>
+                <td class="rgTdBt">
+                  <textarea rows="5" cols="30" name="items"><{$spec.items}></textarea>
+                </td>
+            </tr>
+                
+            </table>
+        </div>
+        <div class="smtQr">
+          <input type="hidden" name="id" value="<{$spec.id}>">
+          <input type="submit" value="确认保存" class="smtQrIpt"/>
+        </div>
+    </div>
+</form>
+<include file='public:footer'/>
+

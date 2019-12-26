@@ -1,0 +1,89 @@
+<include  file='public:header'/>  
+<include  file='public:top'/>  
+<include  file='public:nav2'/>  
+<div class="city_container">
+    <div class="city_content">
+    
+  <style>
+  .city_container .searchBox {
+    border: 2px solid #06c1ae;
+    width: 484px; margin:auto;  margin:20px;
+    height: 38px;
+    position: relative;
+}
+  
+  </style>  
+    <div class="searchBox ">
+        	<form id="search_form" method="post" action="<{:U('city/index')}>">
+            <input type="text" class="text" name="keyword2" value="<{$keyword2|default='请输入城市名称'}>" onclick="if (value == defaultValue) {
+                        value = '';
+                        this.style.color = '#000'
+                    }"  onBlur="if (!value) {
+                                value = defaultValue;
+                                this.style.color = '#999'
+                            }" /> 
+            <input type="submit" class="submit" value="搜索">
+            </form>
+        </div>
+        
+        
+        <if condition="empty($keyword2)">
+        <div class="city_list">
+            <h3>热门城市：</h3>
+            <p>
+            <foreach name="citys" item="item">
+            	<php>$i=0;</php>
+            	<php>if($item['is_open']=='1'){</php>
+                
+                   <if condition="$item['domain'] eq 1">
+                
+                	<a href="http://<{$item.pinyin}>.<{$hostdo}>" <if condition="$item['city_id'] eq $city_id">class="current"</if> ><{$item.name}></a>
+                   <else/>
+                     <a href="/<{$item.pinyin}>" <if condition="$item['city_id'] eq $city_id">class="current"</if> ><{$item.name}></a>
+                            
+                   </if>
+                   
+           		<php>$i++;}</php>
+            </foreach>
+            </p>
+        </div>
+        <else/>
+        
+        <div class="cities_list">
+            <h2> <a style="color:#fff;" href="<{:U('city/index')}>">查看全部城市列表</a> </h2>
+        </div>
+        </if>
+        
+        
+        
+        <div class="cities_list">
+            <h2>
+                按拼音首字母选择<span class="arrow">»</span>
+            </h2>
+            <ol class="hasallcity">
+                <foreach name="citylists" item="item">
+                    <li>
+                        <p class="cf">
+                            <span class="label">
+                                <strong><{$key}></strong>
+                            </span>
+                            <span>
+                                <volist name="item" id="var" key="i">
+                                  <if condition="$var['domain'] eq 1">
+                                    <a class="" href="http://<{$var.pinyin}>.<{$hostdo}>" ><{$var.name}></a>
+                                  <else/>
+                                    
+                                    <a class="" href="/<{$var.pinyin}>" ><{$var.name}></a>
+                                  </if>
+                                </volist>
+                            </span>
+                        </p>
+                    </li>
+                </foreach>
+            </ol>
+        </div>
+    </div>
+</div>
+
+
+<include file="public:footer"/>

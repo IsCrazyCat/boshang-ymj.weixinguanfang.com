@@ -1,0 +1,25 @@
+<include file="public:header"/>
+	<header class="top-fixed bg-yellow bg-inverse transparent" id="header">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('member/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			信息发布中心
+		</div>
+		<div class="top-share">
+			<include file="public:message"/>
+		</div>
+	</header>
+   
+<div class="blank-10 bg"></div>
+<div class="panel-list">
+	<ul>
+        <if condition="$open_life eq 1"> <li><a href="<{:U('wap/life/release')}>">发布分类信息<i class="icon-angle-right"></i></a></li></if>
+        <if condition="$open_thread eq 1"><li><a href="<{:U('wap/thread/lists')}>">发布帖子<i class="icon-angle-right"></i></a></li></if>
+        <if condition="$open_pinche eq 1"><li><a href="<{:U('wap/pinche/create')}>">发布拼车<i class="icon-angle-right"></i></a></li></if>
+        <if condition="$open_crowd eq 1"><li><a href="<{:U('crowd/create')}>">发布众筹<i class="icon-angle-right"></i></a></li></if>
+        <if condition="$open_running eq 1"><li><a href="<{:U('running/create')}>">发布跑腿<i class="icon-angle-right"></i></a></li></if>
+	</ul>
+</div>
+<div class="blank-10 bg"></div>
+<include  file='public:footer'/>

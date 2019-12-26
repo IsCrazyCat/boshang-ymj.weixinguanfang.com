@@ -1,0 +1,96 @@
+<include  file='ele:header'/>  
+<div class="cl"></div>
+<div class="main">
+    <div class="tjbox">
+        <h3 class="tjLocal" style="margin-top:20px;">订餐进行需要三步</h3>
+        <h3 class="biaot"><img src="__TMPL__statics/images/tj1.jpg" /></h3>
+        <form method="post" target="baocms_frm" action="<{:U('ele/order',array('t'=>$nowtime))}>">
+            <table cellpadding="0" cellspacing="0" width="100%" class="itemSub">
+                <tr>
+                    <th width="61%">菜品</th>
+                    <th width="10%">数量</th>
+                    <th width="15%">单价/总价</th>
+                    <th width="14%">操作</th>
+                </tr>
+                <php>$total_money = 0;</php>
+                <foreach name="cartgoods" item="item">
+                    <tr>
+                        <td class="td1"><a target="_blank" href="<{:U('ele/shop',array('shop_id'=>$item['shop_id']))}>">
+                        
+                        <img src="<{:config_img($item['photo'])}>" width="71" height="48" /></a><a href="<{:U('ele/shop',array('shop_id'=>$item['shop_id']))}>" title="<{$item.product_name}>" target="_blank"><{$item.product_name}></a>
+      
+                        </td>
+                        <td><div class="addnum"><em data="<{$item.product_id}>" class="jq_jian">-</em><input type="text" value="<{$item.cart_num}>" rel="<{:round($item['price']/100,2)}>" name="num[<{$item['product_id']}>]" class="ordernum" /><em data="<{$item.product_id}>" class="e2 jq_jia">+</em></div>
+                        </td>
+                        <td>￥<{:round($item['price']/100,2)}>  / <span id="jq_total_<{$item.product_id}>">￥<{:round($item['price'] *  $item['cart_num']/100,2)}></span></td>
+                        <td><a mini="act" href="<{:U('ele/delete2',array('product_id'=>$item['product_id'],'t'=>$nowtime))}>">删除</a>
+                        </td>
+                    <php>
+                        $total_money+= $item['price'] *  $item['cart_num'];
+                    </php>
+                    </tr>
+
+                </foreach>
+                <tr class="td2">
+                    <td colspan="4">应付总金额：<code><span id="jq_total">￥<{:round($total_money/100,2)}></span></code></td>
+                </tr>
+                <script>
+                    function changetotal(obj) {
+                        var money = obj.parent().find('.ordernum').attr('rel');
+                        var num = obj.parent().find('.ordernum').val();
+                        var total = Math.round(money * num*100)/100;
+                        $("#jq_total_" + obj.attr('data')).html('￥' + total);
+                        changealltotal();
+                    }
+
+                    function changealltotal() {
+
+                        var total_price = 0;
+                        $(".ordernum").each(function () {
+                            total_price += $(this).val() * $(this).attr('rel');
+                        });
+                        $("#jq_total").html('￥' + total_price);
+                    }
+                    $(document).ready(function (e) {
+                        $(".jq_jian").click(function () {
+                            var v = $(this).parent().find(".ordernum").val();
+                            if (v > 1) {
+                                v--;
+                                $(this).parent().find(".ordernum").val(v);
+                            }
+
+                            changetotal($(this));
+
+                        });
+                        $(".jq_jia").click(function () {
+                            var v = $(this).parent().find(".ordernum").val();
+                            if (v < 99) {
+                                v++;
+                                $(this).parent().find(".ordernum").val(v);
+                            }
+                            changetotal($(this));
+                        });
+
+                        $(".ordernum").change(function () {
+                            if ($(this).val() < 1) {
+                                $(this).val('1');
+                            }
+                            if ($(this).val() > 99) {
+                                $(this).val('99');
+                            }
+                            changetotal($(this));
+                        });
+                    });
+                </script>
+            </table>
+            <div class="subTj">
+                <input style="cursor: pointer;" type="submit" class="subBtn" value="提交订单" />
+            </div>
+        </form>
+    </div>
+</div>
+<div class="cl"></div>
+<!--main end-->
+
+
+<include file="public:footer"/>

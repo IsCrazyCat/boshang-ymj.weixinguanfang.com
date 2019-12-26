@@ -1,0 +1,43 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">农家乐</a> > <a>编辑套餐</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">编辑套餐，价格暂不支持小数，结算价格必须小于套餐价格</div>
+        </div>
+    </div> 
+    <div class="tabnr_change  show">
+        <form method="post"  action="<{:U('farm/editpackage',array('pid'=>$detail['pid']))}>"  target="baocms_frm">
+    	<table class="tuanfabu_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="120"><p class="tuanfabu_t">套餐名称：</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[title]" value="<{$detail.title|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+                </div></td>
+            </tr>
+         
+            <tr>
+                <td width="120"><p class="tuanfabu_t">房间价格：</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[price]" value="<{$detail.price|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+                </div></td>
+            </tr>
+            <tr>
+                <td width="120"><p class="tuanfabu_t">结算价格：</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[jiesuan_price]" value="<{$detail.jiesuan_price|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+                </div></td>
+            </tr>
+         
+        </table>
+        <div class="tuanfabu_an">
+        <input type="submit" class="radius3 sjgl_an tuan_topbt" value="确认发布" />
+        </div>
+        </form>
+    </div> 
+</div>
+<include  file='public:footer'/>

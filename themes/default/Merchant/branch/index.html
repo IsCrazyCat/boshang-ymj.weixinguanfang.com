@@ -1,0 +1,106 @@
+<include  file='public:header'/>
+
+<div class="sjgl_lead">
+
+    <ul>
+
+        <li><a href="#">商家管理</a> > <a href="">分店管理</a> > <a>分店列表</a></li>
+
+    </ul>
+
+</div>
+
+<div class="tuan_content">
+    <form method="post" action="<{:U('branch/index')}>">
+
+    <div class="radius5 tuan_top">
+
+        <div class="tuan_top_t">
+
+            <div class="left tuan_topser_l">分店名称或者地址：<input type="text" class="radius3 tuan_topser"  name="keyword" value="<{$keyword}>"/><input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/></div>
+
+            <div class="right tuan_topfb_r"><a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('branch/create')}>">添加分店+</a></div>
+
+        </div>
+
+    </div>
+
+    </form>
+
+
+
+   <include  file='shop:nav'/>
+ 
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+
+        <tr style="background-color:#eee;">
+
+            <td>分店名称</td>
+
+            <td>分店LOGO</td>
+
+            <td>城市-地区-商圈</td>
+
+            <td>手机号码</td>
+
+            <td>营业时间</td>
+
+            <td>地址</td>
+
+            <td>粉丝数量</td>
+
+            <td>浏览次数</td>
+
+            <td>创建时间</td>
+
+            <td>操作</td>
+
+        </tr>
+
+
+
+        <foreach name="list" item="var">
+
+            <tr>
+
+                <td><{$var.name}></td>
+
+                <td><img src="<{:config_img($var['photo'])}>" style="width:60px;" /></td>
+
+                <td><{$city[$var['city_id']]['name']}>-<{$area[$var['area_id']]['area_name']}>-<{$business[$var['business_id']]['business_name']}></td>
+
+                <td><{$var['telephone']}></td>
+
+                <td><{$var['business_time']}></td>
+
+                <td><{$var.addr}></td>
+
+                <td><{$var.fans_num}></td>
+
+                <td><{$var.view}></td>
+
+                <td><{$var.create_time|date='Y-m-d H:i',###}></td>
+
+                <td>
+
+                <a href="<{:U('branch/edit',array('branch_id'=>$var['branch_id']))}>">编辑</a>
+
+                <a mini='confirm' href="<{:U('branch/delete',array('branch_id'=>$var['branch_id']))}>">删除</a>
+
+                <a href="<{:U('branch/manage',array('branch_id'=>$var['branch_id']))}>">设置口令</a>
+
+                <a target="_blank" href="<{:u('home/check/index',array('shop_id'=>$var['shop_id'],'branch_id'=>$var['branch_id']))}>">管理地址</a>
+
+            </td>
+
+            </tr>
+
+        </foreach>
+
+    </table>
+
+    <{$page}>
+
+</div>
+
+<include  file='public:footer'/>

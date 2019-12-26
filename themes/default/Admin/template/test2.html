@@ -1,0 +1,76 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">模板管理</li>
+        <li class="li2">网站风格</li>
+        <li class="li2 li3">首页频道</li>
+    </ul>
+</div>
+<p class="attention"><span>注意：</span>模板的配置,比如餐饮频道选择“餐饮美食”分类的话，则填写“1”即可；若购物楼层选择“生活用品”，则填写生活用的分类ID “6”即可</p>
+<form  target="baocms_frm" action="<{:U('template/settings',array('theme'=>$theme))}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+
+              
+                <tr>
+                    <td class="lfTdBt"><h1 style="font-size: 16px;">购物楼层设置：</h1></td>
+                    <td class="rgTdBt">&nbsp;<code>购物楼层为商品分类的一级分类</code></td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">第一楼层：</td>
+                    <td class="rgTdBt">
+                        楼层名称：<input type="text" name="data[floor][first][name]" value="<{$datas.floor.first.name}>" class="scAddTextName w120" />
+                        分类：<input type="text" name="data[floor][first][value]" value="<{$datas.floor.first.value}>" class="scAddTextName w120" />
+                        广告位置：<input type="text" name="data[floor][first][ad]" value="<{$datas.floor.first.ad}>" class="scAddTextName w120" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">第二楼层：</td>
+                    <td class="rgTdBt">
+                        楼层名称： <input type="text" name="data[floor][second][name]" value="<{$datas.floor.second.name}>" class="scAddTextName w120" />
+                        分类：<input type="text" name="data[floor][second][value]" value="<{$datas.floor.second.value}>" class="scAddTextName w120" />
+                        广告位置：<input type="text" name="data[floor][second][ad]" value="<{$datas.floor.second.ad}>" class="scAddTextName w120" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">第三楼层：</td>
+                    <td class="rgTdBt">
+                        楼层名称： <input type="text" name="data[floor][third][name]" value="<{$datas.floor.third.name}>" class="scAddTextName w120" />
+                        分类：<input type="text" name="data[floor][third][value]" value="<{$datas.floor.third.value}>" class="scAddTextName w120" />
+                        广告位置：<input type="text" name="data[floor][third][ad]" value="<{$datas.floor.third.ad}>" class="scAddTextName w120" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">第四楼层：</td>
+                    <td class="rgTdBt">
+                        楼层名称： <input type="text" name="data[floor][fourth][name]" value="<{$datas.floor.fourth.name}>" class="scAddTextName w120" />
+                        分类：<input type="text" name="data[floor][fourth][value]" value="<{$datas.floor.fourth.value}>" class="scAddTextName w120" />
+                        广告位置：<input type="text" name="data[floor][fourth][ad]" value="<{$datas.floor.fourth.ad}>" class="scAddTextName w120" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">第五楼层：</td>
+                    <td class="rgTdBt">
+                        楼层名称： <input type="text" name="data[floor][fifth][name]" value="<{$datas.floor.fifth.name}>" class="scAddTextName w120" />
+                        分类：<input type="text" name="data[floor][fifth][value]" value="<{$datas.floor.fifth.value}>" class="scAddTextName w120" />
+                        广告位置：<input type="text" name="data[floor][fifth][ad]" value="<{$datas.floor.fifth.ad}>" class="scAddTextName w120" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">第六楼层：</td>
+                    <td class="rgTdBt">
+                        楼层名称： <input type="text" name="data[floor][sixth][name]" value="<{$datas.floor.sixth.name}>" class="scAddTextName w120" />
+                        分类：<input type="text" name="data[floor][sixth][value]" value="<{$datas.floor.sixth.value}>" class="scAddTextName w120" />
+                        广告位置：<input type="text" name="data[floor][sixth][ad]" value="<{$datas.floor.sixth.ad}>" class="scAddTextName w120" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>       
+
+
+

@@ -1,0 +1,142 @@
+<include  file='public:header'/>   
+<link rel="stylesheet" type="text/css" href="/static/default/webuploader/webuploader.css">
+<script src="/static/default/webuploader/webuploader.min.js"></script>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('worker/index/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		添加文章
+	</div>
+</header>
+
+<style>
+.fabu-form .form-content {border: none;resize: none;width: 100%;height: 80px;padding: 10px;font-size: 12px;}
+.fabu-form .form-content1 {border: none;resize: none;width: 100%;height: 150px;padding: 10px;font-size: 12px;}
+</style>
+
+<form class="fabu-form" method="post"  target="x-frame" action="<{:U('news/create')}>">
+
+<div class="blank-10"></div>
+<div class="Upload-img-box">
+   <div  id="fileToUpload">上传图片</div>
+   <div class="Upload-img">
+   <div class="list-img loading" style="display:none;"><img src=""></div>
+   <div class="list-img jq_photo" style="display:none;"></div>
+  </div>
+</div>
+    <script>
+    	var width_shopnews = '<{:thumbSize($CONFIG[attachs][shopnews][thumb],0)}>';                     
+		var height_shopnews = '<{:thumbSize($CONFIG[attachs][shopnews][thumb],1)}>';  
+        var uploader = WebUploader.create({                 
+			auto: true,                             
+			swf: '/static/default/webuploader/Uploader.swf',                             
+			server: '<{:U("app/upload/uploadify",array("model"=>"shopnews"))}>',                             
+			pick: '#fileToUpload',                             
+			resize: true,    
+			compress : {width:width_shopnews,height:height_shopnews,quality:60,allowMagnify: false,crop: true}//裁剪       
+        });
+        //监听文件处理
+        uploader.on( 'beforeFileQueued', function( file ) {
+            $(".loading").show();
+            if(file.size > 1024000){
+                uploader.option( 'compress', {
+                    width:width_shopnews,//这里裁剪长度
+                    quality:60
+                });
+            }
+        });
+        //上传成功替换页面图片
+        uploader.on( 'uploadSuccess', function( file,resporse) {
+            $(".loading").hide();
+            var str = '<img src="'+resporse.url+'"><input type="hidden" name="data[photo]" value="' + resporse.url + '" />';
+            $(".jq_photo").show().html(str);
+        });
+        //上传失败提醒
+        uploader.on( 'uploadError', function( file ) {
+            alert('上传出错');
+        });
+
+        $(document).ready(function () {
+            $(document).on("click", ".photo img", function () {
+                $(this).parent().remove();
+            });
+        });
+    </script>
+
+
+
+<div class="blank-10 bg border-top"></div>
+<div class="row">
+	<div class="line">
+		<span class="x3">文章标题：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[title]" value="<{$detail.title|default=''}>" />
+		</span>
+	</div>
+</div>
+
+<div class="row">
+	<div class="line">
+		<span class="x3">文章分类</span>
+		<span class="x4">
+			<select name="parent_id" id="parent_id" class="text-select">
+				<option value="0" selected="selected">请选择</option>
+				<foreach name="cates" item="var">
+                	<eq name="var.parent_id" value="0">
+					<option value="<{$var.cate_id}>"><{$var.cate_name}></option>
+					</eq>
+                </foreach>
+			</select>
+		</span>
+		<span class="x5">
+			<select name="data[cate_id]" id="cate_id" class="text-select">
+				<option value="0" selected="selected">← 选择子分类</option>
+			</select>
+		</span>
+                         <script>
+                                $(document).ready(function (e) {
+                                    $("#parent_id").change(function () {
+                                        var url = '<{:U("news/child",array("parent_id"=>"0000"))}>';
+                                        if ($(this).val() > 0) {
+                                            var url2 = url.replace('0000', $(this).val());
+                                            $.get(url2, function (data) {
+                                                $("#cate_id").html(data);
+                                            }, 'html');
+                                        }
+                                    });
+                                });
+                            </script>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="line">
+		<span class="x3">关键字：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[keywords]" value="<{$detail.keywords|default=''}>" />
+		</span>
+	</div>
+</div>
+<div class="blank-10 bg"></div>
+<div class="line border-bottom">
+	<textarea class="form-content" name="data[profiles]" placeholder="添加简介,建议不超过30字"></textarea>
+</div>
+
+       
+<div class="line border-bottom">
+	<textarea class="form-content1" name="data[details]" placeholder="添加文章内容，建议不超过200字，如需上传文章详情图，请到使用电脑编辑！"></textarea>
+</div> 
+<div class="blank-10 bg"></div>        
+
+
+	<div class="container">
+		<div class="blank-30"></div>
+		<button  type="submit" class="button button-block button-big bg-dot">添加文章</button>
+		<div class="blank-30"></div>
+	</div>
+</form>
+
+
+<include  file='public:footer'/>

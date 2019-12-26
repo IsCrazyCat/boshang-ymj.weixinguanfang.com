@@ -1,0 +1,68 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">系统设置</a> > <a href="">评价管理</a> > <a>点评管理</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t tuanfabu_top">
+            <div class="left tuan_topser_l">如果收到恶意评价，可以联系网站客服：<{$CONFIG.site.tel}></div>
+        </div>
+    </div>
+    <include  file='dianping:nav'/>
+     <table class="tuan_table3" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#F9F9F9;">
+            <td width="10%">编号</td>
+            <td width="20%">用户</td>
+            <td width="5%">评分</td>
+            <td width="5%">平均花费</td>
+            <td width="30%">评价时间</td>
+            <td width="20%">评价IP</td>
+            <td width="10%">生效日期</td>
+    </table>
+    <foreach name="list" item="var">
+    <table class="dianping" width="100%" border="0">
+      <tr class="tr_dianping_1">
+        <td class="td_dianping_1"><{$var.dianping_id}></td>
+        <td class="td_dianping_2"><{$users[$var['user_id']]['nickname']}>(ID:<{$var.user_id}>)</td>
+        <td class="td_dianping_3"><{$var.score}></td>
+        <td class="td_dianping_4"><{$var.cost}></td>
+        <td class="td_dianping_5"><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+        <td class="td_dianping_6"><{$var.create_ip}>(来自<{$var.create_ip_area}>)</td>
+        <td class="td_dianping_7"><{$var.show_date}></td>
+      </tr>
+      <tr class="tr_dianping_2">
+        <td class="td_dianping_12" colspan="2">
+        <php>
+        $shop = D('Shop') -> where('shop_id ='.$var['shop_id']) -> find();
+        </php> 
+         <!--商品展示开始-->
+        <div class="index__production___yfP3y" >
+        <a  target="_blank"  href="<{:U('home/shop/detail',array('shop_id'=>$shop['shop_id']))}>" class="index__pic___TScfk" >
+        <img src="<{:config_img($shop['photo'])}>" ><span></span></a>
+        <div class="index__infos___A6XLq" >
+            <p><a href="<{:U('home/shop/detail',array('shop_id'=>$shop['shop_id']))}>" target="_blank" ><span><{$shop['shop_name']}></span></a></p>
+        	</div>
+		</div>
+       <!--商品展示END-->
+        </td>
+        <td class="td_dianping_9" colspan="3">
+        点评内容：<{$var.contents}>
+        	<br/><br/>
+            <if condition="!empty($var['pichave'])">
+             <foreach name="pics" item="item">
+             <if condition="$var['order_id'] eq $item['order_id']"> 
+             <a target="_blank" href="<{:config_img($item['pic'])}>"><img src="<{:config_img($item['pic'])}>" width="60"/></a>
+            </if>
+         </foreach>
+         </if>
+        </td>
+        <td class="td_dianping_10" colspan="2"><if condition="!empty($var['reply'])"><span style="color:#F00">商家回复：<{$var.reply}></span><else/><a mini="load" h="400" w="500"  class="td_btn" href="<{:U('dianping/waimaireply',array('order_id'=>$var['order_id']))}>">点击回复</a></if></td>
+      </tr>
+    </table>
+    </foreach>
+    <br/>
+   <{$page}>
+</div>
+<include  file='public:footer'/>

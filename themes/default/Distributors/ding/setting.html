@@ -1,0 +1,106 @@
+<include  file='public:header'/>   
+
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:u('distributors/ele/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		订座基本配置
+	</div>
+</header>
+
+<style>
+.fabu-form .form-content {border: none;resize: none;width: 100%;height: 80px;padding: 10px;font-size: 12px;}
+.fabu-form .form-content1 {border: none;resize: none;width: 100%;height: 150px;padding: 10px;font-size: 12px;}
+.radio{ width:20px; height:20px; margin:0 5px;} 
+</style>
+
+<form class="fabu-form" method="post"  target="x-frame" action="<{:U('ding/setting')}>">
+
+<div class="blank-10 bg border-top"></div>
+<div class="row">
+	<div class="line">
+		<span class="x3">通知手机：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[mobile]" value="<{$detail.mobile|default=''}>" />
+		</span>
+	</div>
+</div>
+
+<div class="row">
+	<div class="line">
+		<span class="x3">定金：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[money]" value="<{:round($detail['money']/100,2)}>" />
+		</span>
+	</div>
+</div>
+
+<div class="row">
+	<div class="line">
+		<span class="x3">相隔时间：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[bao_time]" value="<{$detail.bao_time}>" />
+		</span>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="line">
+		<span class="x3">营业时间：</span>
+		<span class="x4">
+			<select name="data[start_time]" id="data[start_time]" class="text-select">
+				<option value="0" selected="selected">请选择</option>
+				<?php foreach($cfg as $key=>$val){?>
+                            <option value="<{$key}>" <?php if($key == $detail['start_time']) echo  'selected="selected"';?> ><{$val}></option>
+                            <?php }?>
+			</select>
+		</span>
+        <span class="x5">
+			<select  name="data[end_time]" id="data[end_time]" class="text-select">
+				<?php foreach($cfg as $key=>$val){?>
+                            <option value="<{$key}>" <?php if($key == $detail['end_time']) echo  'selected="selected"';?> ><{$val}></option>
+                 <?php }?>
+			</select>
+		</span>
+
+	</div>
+</div>
+
+
+
+
+ <div class="row">
+    <div class="line">
+       <span class="x3">包厢有位：</span>
+       <span class="x9">
+       <label><input class="radio" type="radio" <?php if($detail['is_bao'] == 1) echo 'checked="checked"';?>  name="data[is_bao]" id="data[is_bao]" value="1"/>有</label>
+       <label><input class="radio"  type="radio" <?php if($detail['is_bao'] == 0) echo 'checked="checked"';?>  name="data[is_bao]" id="data[is_bao]" value="0"/>无</label>
+       </span>
+    </div>
+ </div>
+ 
+  <div class="row">
+    <div class="line">
+       <span class="x3">大厅有位：</span>
+       <span class="x9">
+       <label><input class="radio"  type="radio" <?php if($detail['is_ting'] == 1) echo 'checked="checked"';?>  name="data[is_ting]" id="data[is_ting]" value="1"/>有</label>
+       <label><input  class="radio" type="radio" <?php if($detail['is_ting'] == 0) echo 'checked="checked"';?>  name="data[is_ting]" id="data[is_ting]" value="0"/>无</label>
+       </span>
+    </div>
+ </div>
+ 
+
+             
+   
+<div class="container">
+                <div class="blank-30"></div>
+                <button type="submit" class="button button-block button-big bg-dot">确认修改</button>
+                <div class="blank-30"></div>
+            </div>
+
+</form>
+
+
+<include file="public:footer_waimai"/>

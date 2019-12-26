@@ -1,0 +1,28 @@
+
+<div class="shmenu">
+    <div class="shmenubox">
+        <div class="shcenter">商户中心</div>
+        <ul>
+            <li <if condition="$ctl  eq  'index'">class="index"</if>><a href="<{:U('index/index')}>">首页</a></li>
+            <li <if condition="$ctl  eq  'info' ||  $ctl eq 'shop' ||  $ctl eq 'gold'||  $ctl eq 'photo' ">class="index"</if>><a    href="<{:U('info/password')}>">设置</a></li>
+            <li <if condition="$ctl  eq  'tuan'">class="index"</if>><a href="<{:U('tuan/index')}>">套餐</a></li>
+            <li <if condition="$ctl  eq  'coupon'||$ctl  eq  'yuyue'">class="index"</if>><a href="<{:U('coupon/index')}>">优惠券</a></li>
+            <li <if condition="$ctl  eq  'goods'||$ctl  eq  'order'">class="index"</if>><a href="<{:U('goods/index')}>">商品</a></li>
+            <li <if condition="$ctl  eq  'expand'|| $ctl  eq  'dianping'">class="index"</if>><a href="<{:U('expand/index')}>">营销</a></li>
+            <li  <if condition="$ctl  eq  'weixin'">class="index"</if>><a href="<{:U('weixin/index')}>">微商铺</a></li>
+            <li <if condition="$ctl  eq  'money'">class="index"</if>><a href="<{:U('money/index')}>">结算</a></li>
+        </ul>
+        <div class="ucenter">
+            <a href="<{:U('index/index')}>"><img src="__ROOT__/attachs/<{$MEMBER.face|default='default.jpg'}>" width="60" height="60"></a>
+            <div class="coin"></div>
+            <div class="jInfo">
+                <div class="setting"><a href="<{:U('shop/about')}>">商户设置</a></div>
+                <div class="password"><a href="<{:U('info/password')}>">密码修改</a></div>
+                <div class="recharge"><a href="<{:U('gold/index')}>">立刻充值</a></div>
+                <div class="loginout"><a href="<{:U('login/logout')}>">退出登录</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="cl"></div>
+<div  style=" margin: 0 auto; min-height: 600px; overflow: hidden" >

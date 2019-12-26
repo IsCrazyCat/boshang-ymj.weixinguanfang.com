@@ -1,0 +1,149 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">会员管理</li>
+        <li class="li2 li3">会员管理</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>用户帐号只允许是手机号码或者邮件，如果开启了UC整合，那么修改密码请在UC里面操作！另外后台注册的用户不会写入到UC的</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('user/create','','添加会员','load','',700,600)}>
+            </div>
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('user/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <label>
+                            <span>账户</span>
+                            <input type="text" name="account" value="<{$account}>" class="inptText" />
+                        </label>
+                        
+                          <label>
+                            <span>手机号码</span>
+                            <input type="text" name="mobile" value="<{$mobile}>" class="inptText" />
+                        </label>
+                        <label>
+                            <span>昵称</span>
+                            <input type="text" name="nickname" value="<{$nickname}>" class="inptText" />
+                            <input type="submit" value="   搜索"  class="inptButton" />
+                        </label>
+                    </div> 
+                </form>
+                <a href="javascript:void(0);" class="searchG">高级搜索</a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form method="post" action="<{:U('user/index')}>">
+            <div class="selectNr selectNr2">
+                <div class="left">
+                    <div class="seleK">
+                        <label>
+                            <span>账户</span>
+                            <input type="text" name="account" value="<{$account}>" class="inptText" />
+                        </label>
+                        <label>
+                            <span>昵称</span>
+                            <input type="text" name="nickname" value="<{$nickname}>" class="inptText" />
+                        </label>
+                        <label>
+                            <span>手机号码</span>
+                            <input type="text" name="mobile" value="<{$mobile}>" class="inptText" />
+                        </label>
+                        <label>
+                            <span>扩展字段</span>
+                            <input type="text" name="ext0" value="<{$ext0}>" class="inptText" />
+                        </label>
+                        <label>
+                            <span>用户等级：</span>
+                            <select name="rank_id" class="select w100">
+                                <option value="0">请选择</option>
+                                <foreach name="ranks" item="item">           
+                                    <option <eq name="item.rank_id" value="$rank_id">selected="selected"</eq>  value="<{$item.rank_id}>"><{$item.rank_name}></option>
+                                </foreach>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+                <div class="right">
+                    <input type="submit" value="   搜索"  class="inptButton" />
+                </div>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="user_id" /></td>
+                    <td class="w50">ID</td>
+                    <td>账户（昵称）</td>
+                    <td>会员等级</td>
+                    <td>账户余额</td>
+                    <td>注册时间(IP)</td>
+                    <td>状态</td>
+                    <td class="w150">操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_user_id" type="checkbox" name="user_id[]" value="<{$var.user_id}>" /></td>
+                        <td><{$var.user_id}></td>
+                        <td>
+                        <if condition="!empty($var['account'])">
+                        账户：<{$var.account}><br/>
+                        </if>
+                        昵称：<{$var.nickname}>
+                        </td>
+                        <td>
+                        等级：vip<{$var['rank_id']}><br/>
+                        </td>
+                        <td>
+                        余额：<{:round($var['money']/100,2)}><br/>
+                        积分：<{$var.integral}>
+                        
+                        </td>
+                        <td>
+                        <{$var.reg_time|date='Y-m-d H:i:s',###}><br/>
+                        <{$var.reg_ip}>(<{$var.reg_ip_area}>)
+                        </td>
+
+
+                        <td>
+                    <if condition="$var.closed eq 0">
+                        <font style="color: green;">正常</font>
+                        <elseif condition="$var.closed eq 1" />
+                        <font style="color: red;">已删除</font>
+                        <else />
+                        <font style="color: gray;">等待激活</font>
+                    </if>
+                    </td>
+                    <td class="w150">
+                        <{:BA('user/integral',array("user_id"=>$var["user_id"]),'积分','load','remberBtn_small',600,350)}>
+                        <{:BA('user/money',array("user_id"=>$var["user_id"]),'余额','load','remberBtn_small',600,350)}>
+                        <{:BA('user/edit',array("user_id"=>$var["user_id"]),'编辑','load','remberBtn_small',700,600)}>
+                        <{:BA('user/delete',array("user_id"=>$var["user_id"]),'删除','act','remberBtn_small')}>
+                        <eq name="var.closed" value="-1">
+                        <{:BA('user/audit',array("user_id"=>$var["user_id"]),'审核通过','act','remberBtn_small')}>
+                        </eq>        
+                        <a target="_blank" href="<{:U('user/manage',array('user_id'=>$var['user_id']))}>" class="remberBtn_small">管理用户</a>
+                    </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                <{:BA('user/audit','','批量审核','list',' remberBtn')}>
+                <{:BA('user/delete','','批量删除','list',' a2')}>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+
+

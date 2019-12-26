@@ -1,0 +1,49 @@
+<foreach name="list" item="item">
+<li class="line ">
+        <dt>
+            <a class="x4">支付编号：<{$item.log_id}></a>
+            <a class="x8 text-right" href="<{:U('cloud/detail',array('log_id'=>$item['log_id']))}>">  
+                <{:bao_msubstr($cloudgoods[$item['goods_id']]['title'],0,12,false)}> <span class=" icon-angle-right"></span> 
+            </a>
+        </dt>
+  <dd class="zhong">
+        <div class="x3">
+            <a href="<{:U('wap/cloud/detail',array('googs_id'=>$item['googs_id']))}>">
+            	<img src="<{:config_img($cloudgoods[$item['goods_id']]['photo'])}>" width="70" height="70" style="width:90%;">
+            </a>
+        </div>
+        <div class="x9">
+            <p><{$cloudgoods[$item['goods_id']]['title']}></p>
+            <p class="text-small">
+				<span class="text-dot1 margin-right">下单时间：<{$item.create_time|date='Y-m-d H:i:s',###}></span>
+			</p>
+            <p class="text-small">
+				<span class="text-dot1 margin-right">
+                 类型：  <eq name="item.type" value="1">1元区</eq>
+                        <eq name="item.type" value="2">5元区</eq>
+                        <eq name="item.type" value="3">10元区</eq>
+                </span>
+			</p>
+            <p class="text-small">
+				<span class="text-dot1 margin-right">
+                 支付总额：&yen;<{:round($item['money']/100,2)}></span>
+                </span>
+			</p>
+      </div>
+    </dd>
+        
+      
+      <dl>
+      <p class="text-right padding-top">
+          <a class="button button-little bg-dot"  href="<{:U('cloud/detail',array('log_id'=>$item['log_id']))}>">查看详情</a>
+             <if condition="$item['status'] eq 0">
+                  <a class="button button-little bg-dot"  href="<{:U('wap/cloud/pay',array('log_id'=>$item['log_id']))}>">去付款</a>
+                  <a target="x-frame" class="button button-little bg-gray" href="<{:U('cloud/delete',array('log_id'=>$item['log_id']))}>">删除订单</a>
+             <elseif condition="$item[status] eq 1" />
+                  <a class="button button-little bg-dot" >已付款</a>
+             </if>       
+       </p>     
+      </dl>
+    </li>
+	<div class="blank-10 bg"></div>
+</foreach>

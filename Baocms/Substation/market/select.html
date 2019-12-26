@@ -1,0 +1,74 @@
+<include  file='public:header'/>
+    <div class="main-jsgl main-sc">
+    <div class="jsglNr">
+        <div class="selectNr">
+            
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('market/select')}>"> 
+                    <div class="seleHidden" id="seleHidden">
+                        <span>区域：</span>
+                        <select name="area_id" id="area_id" style="margin-top:8px;margin-right:100px" class="select">
+                            <option value="0">请选择...</option>
+                            <foreach name="areas" item="var">
+                                <option value="<{$var.area_id}>"  <eq name="var.area_id" value="$area_id">selected="selected"</eq> ><{$var.area_name}></option>
+                            </foreach>   
+                        </select>
+                       
+                        <span> 关键字(电话或商场名称)：</span>
+                         <input type="text" name="keyword" id="keyword"  value="<{$keyword}>"   class="inptText" />
+                        <input type="submit" value="搜索"  class="inptButton" />
+
+                    </div> 
+                </form>
+
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+    
+    <form  target="baocms_frm" method="post">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+            <tr>
+                <td>ID</td>
+                <td>所在区域商圈</td>
+                <td>商铺名称</td>
+                <td>店铺电话</td>
+            </tr>
+            <foreach name="list" item="var">
+                <tr>
+                    <td><input  rel="<{$var.market_name}>"  type="radio" name="market_id" value="<{$var.market_id}>" /></td>
+                    <td> <{$var.market_id}></td>
+                    <td><{$areas[$var['area_id']]['area_name']}>-<{$business[$var['business_id']]['business_name']}></td>
+                    <td><{$var.market_name}></td>
+                    <td><{$var.tel}></td>
+                </tr>
+            </foreach>
+            <tr>
+                <td colspan="20" align="left">
+                    <div class="lt" style="margin-left: 50px;">
+                        <{$page}>
+                    </div>
+                </td>
+            </tr>
+             <tr>
+                <td colspan="20" align="center">
+                    <div class="smtQr"><input type="button" id="select_btn" value="确定选择" class="smtQrIpt" /></div>
+                      
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script>
+    $(document).ready(function(e){
+        $("#select_btn").click(function(){
+            $("input[name='market_id']").each(function(a){
+                if($(this).prop("checked") == true){
+                    parent.selectCallBack('market_id','market_name',$(this).val(),$(this).attr('rel'));   
+                }          
+            });          
+        });
+        
+    });
+</script>
+

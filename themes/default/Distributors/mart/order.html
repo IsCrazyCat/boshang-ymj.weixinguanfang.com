@@ -1,0 +1,182 @@
+<include file='public:header'/>  
+<style>
+.xiaoqu-search1 { margin-top:2rem;}
+.list-media-x { margin-top: 0.0rem !important;}
+.list-media-x p {margin-top: .01rem; line-height:20px;font-size: 12px;font-weight: normal;}
+</style>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>  
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:u('distributors/index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			全部订单
+		</div>
+		<div class="top-share">
+        <a  href="javascript:void(0);" id="cate-btn" class="top-addr icon-chevron-down"> 添加</a>
+		</div>
+	</header>
+     <div class="serch-bar-mask" id="cate_menu" style="display:none;top:50px;">
+		<div class="serch-bar-mask-list">
+			<ul>
+            <li><a href="<{:u('distributors/goods/create')}>">添加商品</a></li>
+            <li><a href="<{:u('distributors/mart/goodscate')}>">添加商品分类</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<script>
+		$(document).ready(function () {
+			$("#cate-btn").click(function () {
+				$("#cate_menu").toggle();
+			});
+			$("#cate_menu ul li a").click(function () {
+				$("#cate_menu").toggle();
+			});
+		});
+	</script>  
+
+
+   <script>
+	$(function(){
+		$(".sh_search_more_int .center").click(function(){
+				$(this).find(".sh_search_more_pull").toggle();
+		});
+		$(".sh_search_more_pull li").click(function(){
+				$(".sh_search_more_int .center input").val($(this).html());
+				v = $(this).attr('v');
+				$('#st').val(v);
+		});
+	});
+</script> 
+
+	<div class="xiaoqu-search1">
+		<form method="get" action="<{:U('mart/order')}>">
+        <div class="sh_search_more">
+            <div class="sh_search_more_time mb10">
+                <div class="fl left"><input type="text" placeholder="开始时间" onBlur="if (!value) { value = defaultValue; this.style.color = '#999' }" onClick="if (value == defaultValue) { value = ''; this.style.color = '#000' }" name="bg_date" value="<{$bg_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"></div>
+                <div class="fr right"><input type="text" placeholder="结束时间"  onBlur="if (!value) { value = defaultValue; this.style.color = '#999' }" onClick="if (value == defaultValue) { value = ''; this.style.color = '#000' }" name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"></div>
+                <div class="clear"></div>
+            </div>
+            <div class="sh_search_more_int">
+                <div class="fl left"><input type="text" placeholder="订单编号" name="keyword" value="<{$keyword}>" ></div>
+                <div class="fl center">
+                	<input type="text" value="<{$types[$st]|default='请选择'}>"> 
+                    <input value="" name="st" id="st" type="hidden" />
+                    <div class="sh_search_more_pull" style="display:none;">
+                        <ul>
+                            <li <if condition="$st eq 0">class="on"</if>  v="0">等待付款</li>
+                            <li <if condition="$st eq 1">class="on"</if>  v="1">等待发货</li>
+                            <li <if condition="$st eq 2">class="on"</if>  v="2">仓库已捡货</li>
+                            <li <if condition="$st eq 4">class="on"</if>  v="4">申请退款中</li>
+                            <li <if condition="$st eq 5">class="on"</if>  v="5">已退款</li>
+                            <li <if condition="$st eq 8">class="on"</if> i v="8">已完成配送</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="fr right"><input class="btn" type="submit" value="搜索"></div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        </form>
+	</div>
+
+ <style>ul { padding-left: 0px;}</style>
+<!-- 筛选TAB -->
+<ul id="shangjia_tab">
+        <li style="width: 25%;"><a href="<{:U('mart/index')}>">商城商品</a></li>
+        <li style="width: 25%;"><a href="<{:U('mart/order')}>" class="on">全部订单</a></li>
+        <li style="width: 25%;"><a href="<{:U('mart/wait')}>">付款订单</a></li>
+        <li style="width: 25%;"><a href="<{:U('mart/wait2')}>">货到付款</a></li>
+</ul>    
+
+<div class="list-media-x" id="list-media">
+	<ul>
+    <div class="blank-10 bg"></div>
+    <foreach name="list" item="order">    
+    <li class="line" <eq name="order.is_daofu" value="1">style="background:#FFF4F4;" </eq> >
+      <dt><a class="x3">订单ID：<{$order.order_id}></a><a class="x9 text-right">交易时间：<{$order.create_time|date='Y-m-d H:i:s',###}> </a></dt>
+    <foreach name="goods" item="good">
+    <eq name="good.order_id" value="$order.order_id"> <!--循环商品开始-->
+      <dd class="zhong">
+        <div class="x2">
+               <img src="<{:config_img($products[$good['goods_id']]['photo'])}>"  style="width:90%;">
+         </div>
+         <div class="10">
+            <p class="text-gray">名称：<{$products[$good['goods_id']]['title']}></p>
+                 <if condition="!empty($good[key_name])">
+                 <p class="text-gray">规格：<{$good.key_name}></p>
+              </if>           
+            <p class="text-gray">单价：<{:round($good['price']/100,2)}> * <{$good['num']}> = <{:round($good['total_price']/100,2)}></p>
+            <p class="text-gray"><if condition="$order['status'] neq 0  && $order['is_daofu'] neq 0"><{$goodtypes[$good['status']]}></if></p>
+         </div>
+      </dd>
+      </eq>
+    </foreach>
+     <!--循环商品开始--> 
+      <!--如果不是到付就显示--> 
+      <eq name="order.is_daofu" value="0">         
+      <dt>
+         <div class="x12">
+          <if condition="!empty($order['need_pay'])">
+          <p class="text-small">总价：<{:round($order['total_price']/100,2)}>
+           <if condition="!empty($order['use_integral'])">
+          - 积分抵现：<{:round($order['use_integral']/100,2)}>元（消耗<{$order['use_integral']}>积分）
+           </if>
+           <if condition="!empty($order['mobile_fan'])">
+           -手机优惠：<{:round($order['mobile_fan']/100,2)}>元
+           </if>
+           <if condition="!empty($order['express_price'])">
+           +运费：<{:round($order['express_price']/100,2)}>元
+           </if>
+           =实付金额：<a class="text-dot"><{:round($order['need_pay']/100,2)}></a>元
+           </p>
+           <else/>
+           <p class="text-small">该订单还未支付</p>
+           </if>
+         </div>
+      </dt> 
+     </eq>
+      <!--信息end-->   
+      
+
+     <!--收货地址开始-->          
+      <dt>
+         <div class="x12">
+           <p class="text-gray">买家姓名：<{$users[$order['user_id']]['account']}></p>
+
+           <p class="text-gray">收货地址：
+           <{$addrs[$order['address_id']]['xm']}>-
+           <{$addrs[$order['address_id']]['tel']}>-
+           <{$addrs[$order['address_id']]['area_str']}>-
+           <{$addrs[$order['address_id']]['info']}></p>
+         </div>
+
+      </dt> 
+
+      <!--地址end-->       
+      <dl>
+        <p class="text-right padding-top x12">
+        <eq name="order.is_mobile" value="1"><a class="button button-small bg-main">手机订单</a></eq>
+ 		<eq name="order.is_daofu" value="1">
+        <a class="button button-small bg-blue">货到付款</a>
+        <else/>
+        <a class="button button-small bg-dot"><{$types[$order['status']]}></a>  
+        </eq>
+		<a href="<{:U('mart/detail',array('order_id'=>$order['order_id']))}>" class="button button-small bg-yellow">详情</a> 
+        </p>
+      </dl>
+    </li>
+
+    <div class="blank-10 bg"></div>
+   </foreach>   
+  </ul>
+
+</div> 
+
+<div class="blank-20"></div>
+<div class="container login-open">
+<h5 style="text-align:center"><{$page}><!--分页代码不要忘记加--> </h5>
+</div>
+<include file="public:footer"/>    
+

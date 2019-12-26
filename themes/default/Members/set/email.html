@@ -1,0 +1,63 @@
+<include file="public:header"/>
+<div class="content_right">  
+<div class="tgdd">
+   <include file="set:nav"/>
+    <if condition="!empty($MEMBER['email'])">
+        <div class="address_mr">
+            <ul>
+                <li><a class="address_xq left" href="javascript:void(0);">恭喜您已经通过邮箱认证：<b style="color: red;"><{$MEMBER.email}></b></a></li>
+            </ul>
+        </div>
+        <else/>
+
+        <div class="password_input email_rz">
+            <div class="left">邮箱：</div>
+            <div class="lef"><input id="email" class="oldPassw" name="email" id="mobile" type="text" /><input type="button" class="email_lkrz"  id="jq_send" value="立刻认证"/></div>   
+        </div>
+        <div class="password_input" style="margin-top: 20px;">
+            <div class="left">&nbsp;</div>
+            <div style="display: none; font-size: 14px; color: #F21700;" class="lef jq_show">邮件已经发送到您的邮箱！亲可以进入邮箱点击相关链接进行认证！如果没有收到可以重新发送</div>
+        </div>
+
+    </if>
+    <script type="text/javascript">
+        var email_timeout;
+        var email_count = 200;
+        var email_lock = 0;
+        $(function () {
+            $("#jq_send").click(function () {
+                if ($("#email").val() == '') {
+                    alert('请填写要认证的邮件！');
+                } else {
+                    if (email_lock == 0) {
+                        $.ajax({
+                            url: '<{:U("info/sendemail")}>',
+                            data: 'email=' + $("#email").val(),
+                            type: 'post'
+                        });
+                        email_count = 200;
+                        $('#jq_send').attr("disabled", "disabled");
+                        BtnCount();
+                        email_lock = 1;
+                        $(".jq_show").show();
+                    }
+                }
+            });
+        });
+        BtnCount = function () {
+            if (email_count == 0) {
+                $('#jq_send').removeAttr("disabled");
+                $('#jq_send').val("重新发送");
+                email_lock = 0;
+                clearTimeout(email_timeout);
+            }
+            else {
+                email_count--;
+                $('#jq_send').val("重新发送(" + email_count.toString() + ")秒");
+                email_timeout = setTimeout(BtnCount, 1000);
+            }
+        };
+    </script>
+</div>
+</div>
+<include file="public:footer"/>

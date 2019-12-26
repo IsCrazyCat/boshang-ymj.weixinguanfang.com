@@ -1,0 +1,156 @@
+<include  file='public:header'/>   
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('life/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		查找手机号码
+	</div>
+	<div class="top-share">
+	</div>
+</header>
+
+<style>
+ul { padding-left: 0px;}
+.xiaoqu-search{padding:15px;background:#fafafa;border-bottom:thin solid #eee;padding-bottom:5px}
+.xiaoqu-list p {height: 20px;line-height: 20px; margin: 0;color: #999;font-size: 12px;overflow: hidden;}
+p{margin-bottom:0px;}
+.list-media-x{ margin-top:0rem;}
+.list-media-x p {margin-top: .01rem; line-height:20px;font-size: 12px;}
+.list-media-x li dd.zhong{display:block;padding:10px;overflow:hidden;width:100%;border-bottom:1px #eee solid}
+.list-media-x li dd.zhong span.album{ font-size:12px; color:#FFF;margin-right: 0px;position:absolute;right:10%;bottom:0;width:45px;height:20px;line-height:20px;text-align:center;background: #06c1ae;}
+.list-media-x li dd.zhong a img{padding-bottom:0}
+.mod-2 h4 {height:30px;line-height:30px;}
+.mod-2 h4 a.text-right{ float:right;}
+.mod-1 a {display: -webkit-inline-box; color:#F00;}
+.layui-layer-molv .layui-layer-title{background-color: #F8F8F8 !important;border-bottom: 1px solid #eee !important;color: #333 !important;}
+</style>
+
+
+	<div class="line xiaoqu-search">
+		<form method="post"  action="<{:U('life/phonedelete')}>" id="form1" class="form1">
+			<div class="form-group">
+				<div class="field">
+					<div class="input-group">
+						<span class="addbtn"><button type="button" class="button icon-search"></button></span>
+						<input type="text" class="input" name="keyword" size="50" value="<{$keyword}>" placeholder="输入手机号搜索"  />
+						<span class="addbtn"><button type="submit" class="button">搜索</button></span>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+<script type="text/javascript" language="javascript">
+    	$(document).ready(function(){		
+			//删除手机号码
+			$('.edit_addr').click(function(){
+				var val = $(this).attr('val');
+				var mobile = $(this).attr('mobile');
+				layer.open({
+					type: 1,
+					title:'删除分类信息',
+					skin: 'layui-layer-molv', //加上边框
+					area: ['90%', '340px'], //宽高
+					content: '<div class="form-auto form-x padding-big"><div class="form-group"><div class="label"><label>手机号</label></div><div class="field form-inline"><input class="input input-auto" name="mobile" id="mobile" value="'+mobile+'" placeholder="填写手机号码" size="20" type="text" readonly><button class="button margin-top bg-yellow" id="jq_send">获取验证码</button></div></div><div class="form-group"><div class="label"><label>验证码</label></div><div class="field"><input class="input input-auto" name="yzm" id="yzm" value="" size="10" placeholder="填写验证码" type="text"></div></div><div class="form-button"><button id="go_mobile" class="button bg-yellow edit_post" type="submit" val="'+val+'">确认删除</button></div></div>'
+				});
+				
+				//获取验证码
+				var mobile_timeout;
+				var mobile_count = 100;
+				var mobile_lock = 0;
+				$(function () {
+					$("#jq_send").click(function () {
+						if (mobile_lock == 0) {
+							mobile_lock = 1;
+							$.ajax({
+								url: '<{:U("wap/life/life_mobile")}>',
+								data: 'mobile=' + $("#mobile").val(),
+								type: 'post',
+								success: function (data) {
+									if (data.status == 'success') {
+										mobile_count = 60;
+										layer.msg(data.msg,{icon:1});
+										BtnCount();
+									} else {
+										mobile_lock = 0;
+										layer.msg(data.msg,{icon:2});
+									}
+								}
+							});
+						}
+			
+					});
+				});
+				BtnCount = function () {
+					if (mobile_count == 0) {
+						$('#jq_send').html("重新发送");
+						mobile_lock = 0;
+						clearTimeout(mobile_timeout);
+					}
+					else {
+						mobile_count--;
+						$('#jq_send').html("重新发送(" + mobile_count.toString() + ")秒");
+						mobile_timeout = setTimeout(BtnCount, 1000);
+					}
+				};
+				
+	
+					$("#go_mobile").click(function () {
+						
+				
+						
+									var life_id = $(this).attr('val');
+					var mobile = $('#mobile').val();
+					var yzm = $('#yzm').val();
+					$.post('<{:U("wap/life/delete")}>',{life_id:life_id,mobile:mobile,yzm:yzm},function(result){										
+						if(result.status == 'success'){
+							layer.msg(result.msg);
+							setTimeout(function(){
+								location.reload(true);
+							},3000);
+						}else{
+							layer.msg(result.msg,{icon:2});
+						}														
+					},'json');
+						
+						});
+					
+		
+				
+				//获取验证码结束
+		
+				//提交处理返回结果
+				$('.layui-layer-title').css('color','#ffffff').css('background','#2fbdaa');
+				get_option();
+				changeCAB(c,a,b);
+				
+				
+			})
+		})
+
+    </script>
+
+<div class="blank-10 bg"></div>
+<div class="life-list" id="life-list">
+
+
+
+<!--如果是空-->
+ <if condition="empty($list)">
+<div class="container">
+		<div class="blank-10"></div>
+		<p><span class="text-dot">小提示：</span> 请输入您的手机号搜索分类信息，通过验证后即可删除。调试程序时候搜：17194348715</p>
+	</div>
+</if>
+
+
+<foreach name="list" item="var">
+	<li class="mod-1">
+	  <div class="des flex">
+		<h4 onclick="location='<{:U('life/detail',array('life_id'=>$var['life_id']))}>'"><{$var['title']}></h4>
+	    <p><{$var.addr}> / <{:formatTime($var['create_time'])}> &nbsp; <a href="#" val="<{$var.life_id}>" mobile="<{$var.mobile}>" class="text-right edit_addr">[ 删除 ]</a></p>
+	  </div>
+	</li>
+</foreach>
+</div>
+<include file="public:footer"/>

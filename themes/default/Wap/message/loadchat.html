@@ -1,0 +1,39 @@
+	<foreach name="list" item="item">
+	<if condition="$item['user_id'] eq $user">
+		<li class="line">
+			<div class="x2">
+            
+           <img  class="radius-big avatar"  src="<{:config_img($users[$item[send_id]][face])}>" />
+            
+            
+            </div>
+			<div class="x10">
+				<div class="chat-ta">
+					<{$item['content']}>
+					<span class="time"><{$item.create_time|date="Y-m-d H:i:s",###}></span>
+				</div>
+			</div>
+		</li>
+	<else />
+		<li class="line">
+			<div class="x10">
+				<div class="chat-wo">
+					<{$item['content']}>
+					<span class="time"><{$item.create_time|date="Y-m-d H:i:s",###}></span>
+				</div>
+			</div>
+			<div class="x2">
+            
+             <!--手机贴吧头像调用-->
+            <?php if(strstr($users[$item[send_id]][face],"http")){ ?>
+            <img  class="radius-big avatar float-right"  src="<{$users[$item[send_id]][face]}>" />
+            <?php }else{ ?>
+            <img class="radius-big avatar float-right"   src="__ROOT__/attachs/<{$users[$item[send_id]][face]|default='default.jpg'}>" />
+            <?php }?>
+            
+            
+            
+            </div>
+		</li>
+	</if>
+	</foreach>

@@ -1,0 +1,165 @@
+<include  file='public:header'/>   
+
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:u('distributors/dingmenu/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		编辑订座菜品
+	</div>
+</header>
+
+<style>
+.fabu-form .form-content {border: none;resize: none;width: 100%;height: 80px;padding: 10px;font-size: 12px;}
+.fabu-form .form-content1 {border: none;resize: none;width: 100%;height: 150px;padding: 10px;font-size: 12px;}
+</style>
+
+<form class="fabu-form" method="post"  target="x-frame" action="<{:U('dingmenu/edit',array('menu_id'=>$detail['menu_id']))}>">
+
+<div class="blank-10"></div>
+<div class="Upload-img-box">
+   <div  id="fileToUpload">上传图片</div>
+   <div class="Upload-img">
+   <div class="list-img loading" style="display:none;"><img src=""></div>
+   <div class="list-img jq_photo" style="display:none;"></div>
+  </div>
+</div>
+    <script>
+    	var width_dingroom = '<{:thumbSize($CONFIG[attachs][dingroom][thumb],0)}>';                     
+		var height_dingroom = '<{:thumbSize($CONFIG[attachs][dingroom][thumb],1)}>';  
+        var uploader = WebUploader.create({                 
+			auto: true,                             
+			swf: '/static/default/webuploader/Uploader.swf',                             
+			server: '<{:U("app/upload/uploadify",array("model"=>"dingroom"))}>',                             
+			pick: '#fileToUpload',                             
+			resize: true,    
+			compress : {width:width_dingroom,height:height_dingroom,quality:60,allowMagnify: false,crop: true}//裁剪       
+        });
+        //监听文件处理
+        uploader.on( 'beforeFileQueued', function( file ) {
+            $(".loading").show();
+            if(file.size > 1024000){
+                uploader.option( 'compress', {
+                    width:width_dingroom,//这里裁剪长度
+                    quality:60
+                });
+            }
+        });
+        //上传成功替换页面图片
+        uploader.on( 'uploadSuccess', function( file,resporse) {
+            $(".loading").hide();
+            var str = '<img src="'+resporse.url+'"><input type="hidden" name="data[photo]" value="' + resporse.url + '" />';
+            $(".jq_photo").show().html(str);
+        });
+        //上传失败提醒
+        uploader.on( 'uploadError', function( file ) {
+            alert('上传出错');
+        });
+
+        $(document).ready(function () {
+            $(document).on("click", ".photo img", function () {
+                $(this).parent().remove();
+            });
+        });
+    </script>
+
+
+<div class="blank-10 bg border-top"></div>
+<div class="row">
+	<div class="line">
+		<span class="x3">菜品名称：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[menu_name]" value="<{$detail.menu_name|default=''}>" />
+		</span>
+	</div>
+</div>
+
+<div class="row">
+	<div class="line">
+		<span class="x3">菜品分类</span>
+		<span class="x9">
+			<select  id="cate_id" name="data[cate_id]" class="text-select">
+				<option value="0" selected="selected">请选择</option>
+				<foreach name="dingcates" item="var">
+					<option value="<{$var.cate_id}>"  <eq name="var.cate_id" value="$detail.cate_id">selected="selected"</eq> ><{$var.cate_name}></option>
+                </foreach>
+			</select>
+		</span>
+
+	</div>
+</div>
+
+<div class="row">
+	<div class="line">
+		<span class="x3">价格：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[price]" value="<{:round($detail[price]/100,2)}>" />
+		</span>
+	</div>
+</div>
+
+<div class="row">
+	<div class="line">
+		<span class="x3">优惠价：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[ding_price]" value="<{:round($detail['ding_price']/100,2)}>" />
+		</span>
+	</div>
+</div>
+
+
+
+
+ <div class="row">
+    <div class="line">
+       <span class="x3">是否新品：</span>
+       <span class="x9">
+           <label><span>是</span>
+           <input style="width: 20px; height: 20px;" type="radio" name="data[is_new]" value="1" <eq name="detail.is_new" value="1" >checked="checked"</eq> >
+           </label>
+           <label><span style="margin-left: 20px;">否</span>
+           <input style="width: 20px; height: 20px;" type="radio" name="data[is_new]" value="0" <eq name="detail.is_new" value="0">checked="checked"</eq>>
+           </label>
+       </span>
+    </div>
+ </div>
+ 
+  <div class="row">
+    <div class="line">
+       <span class="x3">是否推荐：</span>
+       <span class="x9">
+           <label><span>是</span>
+           <input style="width: 20px; height: 20px;" type="radio" name="data[tuijian]" value="1" <eq name="detail.tuijian" value="1" >checked="checked"</eq> >
+           </label>
+           <label><span style="margin-left: 20px;">否</span>
+           <input style="width: 20px; height: 20px;" type="radio" name="data[tuijian]" value="0" <eq name="detail.tuijian" value="0">checked="checked"</eq>>
+           </label>
+       </span>
+    </div>
+ </div>
+ 
+  <div class="row">
+    <div class="line">
+       <span class="x3">是否优惠：</span>
+       <span class="x9">
+         <label><span>是</span>
+         <input style="width: 20px; height: 20px;" type="radio" name="data[is_is_sale]" value="1" <eq name="detail.is_sale" value="1" >checked="checked"</eq> >
+         </label>
+         <label><span style="margin-left: 20px;">否</span>
+         <input style="width: 20px; height: 20px;" type="radio" name="data[is_is_sale]" value="0" <eq name="detail.is_sale" value="0">checked="checked"</eq>>
+         </label>
+       </span>
+    </div>
+ </div>
+             
+   
+<div class="container">
+                <div class="blank-30"></div>
+                <button type="submit" class="button button-block button-big bg-dot">确认编辑</button>
+                <div class="blank-30"></div>
+            </div>
+
+</form>
+
+
+<include file="public:footer_ding"/>

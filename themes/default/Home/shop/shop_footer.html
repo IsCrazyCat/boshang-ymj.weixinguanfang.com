@@ -1,0 +1,137 @@
+ <div class="sd"><div class="bm">
+            <div class="bm_h">
+           	 	<h2><span>商家</span>地图</h2>
+            </div>
+            <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7b92b3afff29988b6d4dbf9a00698ed8"></script>
+                                <div id="allmap" style="width:250px; height:250px;"></div>
+                                <script type="text/javascript">
+                                    // 百度地图API功能
+                                    var map = new BMap.Map("allmap");
+                                    map.centerAndZoom(new BMap.Point("<{$detail.lng}>", "<{$detail.lat}>"), 15);
+                                    var point = new BMap.Point("<{$detail.lng}>", "<{$detail.lat}>");
+                                    map.centerAndZoom(point, 15);
+                                    var marker = new BMap.Marker(point); // 创建标注
+                                    map.clearOverlays();
+                                    map.addOverlay(marker); // 将标注添加到地图中
+                                    marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                                    map.addControl(new BMap.NavigationControl()); //添加默认缩放平移控件
+                                </script>
+                                
+            </div>
+            <div class="bm" style="margin-top:10px;">
+                <div class="bm_h">
+                	<h2><span>商家</span>二维码</h2>
+                </div>
+                <script src="/static/default/pc/js/qrcode.js"></script><!--引入二维码js-->
+                 <script type="text/javascript">
+                            $(function () {
+                                var str = "<{$host}><{:u('wap/shop/detail',array('shop_id'=>$detail['shop_id']))}>";
+                                $("#code_<{$detail.shop_id}>").empty();
+                                $('#code_<{$detail.shop_id}>').qrcode(str);
+                            })
+                          </script>
+                        <style>
+                        .sy_sjcpwx canvas{width: 180px;height: 180px; margin: 0px auto; padding: 10px;background: #fff; }
+                        </style>
+                <div class="bm_c">
+                
+               		 <if condition="!empty($ex['wei_pic'])">
+                   	 	<img src="<{$ex['wei_pic']}>" width="240" />
+                    <else/>
+                         <div class="sy_sjcpwx"  id="code_<{$detail.shop_id}>"></div>
+                    </if>  
+                <p class="hm">扫描商家二维码进入商家手机版</p>
+                </div>
+            </div>
+      
+        </div>
+        </div>
+     </div>
+   </div>  
+   
+   
+<style>
+.dhPop_mask{ z-index:999;}
+</style> 
+   <div class="mask_box dhPop_mask">
+<div class="dhPop">
+    <h2><span class="bao_closed"></span><em id="yuyue_title"></em></h2>
+    <form method="post" id="yuyue_form">
+        <table cellpadding="0" cellspacing="0" width="100%">
+            <tr>
+                <td align="right">联系人：</td>
+                <td><input type="text" name="data[name]" class="dhInput" value="<if condition="$MEMBER.nickname neq null"><{$MEMBER.nickname}></if>" /></td>
+            </tr>
+            <tr>
+                <td align="right">手机号：</td>
+                <td><input type="text" class="dhInput" name="data[mobile]" value="<if condition="$MEMBER.mobile neq null"><{$MEMBER.mobile}></if>" /></td>
+            </tr>
+            <tr>
+                <td align="right">预约日期：</td>
+                <td>
+                    <input type="text" class="dhInput" name="data[yuyue_date]" value="<{$yuyue_date}>" onfocus="WdatePicker({minDate: '<{$today}>'});" />
+                    <select id="yuyue_time" name="data[yuyue_time]" class="dhInput" >
+                        <for start="0" end="24">
+                            <option value="<{$i}>:00"><{$i}>:00</option>
+                            <option value="<{$i}>:30"><{$i}>:30</option>
+                        </for>
+                    </select>
+                    <script>
+                        $("#yuyue_time").val('<{$yuyue_time}>');
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">人数：</td>
+                <td>
+                    <select id="number" name="data[number]" class="dhInput">
+                        <for start="1" end="10">
+                            <option <eq name="number" value="$i">selected="selected"</eq> value="<{$i}>"><{$i}>人</option>
+                        </for>
+                        <option value="10"  <eq name="number" value="10">selected="selected"</eq>>10人及以上</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td  align="right">留言：</td>
+                <td><textarea rows="6" cols="50" name="data[content]"></textarea></td>
+            </tr> 
+            <tr>
+                <td align="right"></td>
+                <td><input style="cursor: pointer; margin-bottom: 20px;" class="subBtn" type="button" value="立即预约" /></td>
+            </tr>
+        </table>
+    </form>
+</div>
+</div>
+
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>  
+<script>
+    $(document).ready(function () {
+        $(".sjsy_ljzx2").click(function () {
+            var url = $(this).attr('rel');
+            $("#yuyue_title").html($(this).attr('data'));
+            $(".mask_box").show();
+            $(".subBtn").click(function(){
+                var yuyue_form = $("#yuyue_form").serialize();
+                $.post(url,yuyue_form,function(data){
+					if(data.status == 'login'){
+                       ajaxLogin();
+                    }else if(data.status == 'success'){
+                        $(".mask_box").hide();
+                        layer.msg(data.msg,{icon:1});
+                            setTimeout(function () {
+                                    window.location.href = data.url;
+                            }, 1000)
+                    }else{
+                        layer.msg(data.msg,{icon:2});
+                    }
+                },'json')
+            })
+        });
+        $(".bao_closed").click(function () {
+            $(".mask_box").hide();
+        });
+    })
+
+</script>

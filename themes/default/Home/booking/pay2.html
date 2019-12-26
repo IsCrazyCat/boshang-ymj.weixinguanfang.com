@@ -1,0 +1,74 @@
+<include  file='public:header'/> <include  file='public:top'/> <include  file='public:nav3'/>
+<div class="between">
+	<div class="bet_bj">
+		<div class="all">
+			<div class="all_2">
+				<ul>
+					<li class="on">1.提交订单<em>&nbsp;</em></li>
+					<li>2.去支付<em>&nbsp;</em></li>
+					<li>3.完成<em>&nbsp;</em></li>
+				</ul>
+			</div>
+			<div class="all_3">
+				<ul class="ul_3">
+					<li><a href="javascript:void(0);"><img src="__PUBLIC__/img/tp_5.png">
+						<p>随时退</p>
+						</a></li>
+					<li><a href="javascript:void(0);"><img src="__PUBLIC__/img/tp_6.png">
+						<p>不满意免单</p>
+						</a></li>
+					<li><a href="javascript:void(0);"><img src="__PUBLIC__/img/tp_7.png">
+						<p>过期退</p>
+						</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="clear"></div>
+		<div class="mode_dingdan">
+		<div class="mode">支付定金</div>
+			<ul class="mode_zx">
+				<li  class="on">在线支付</li>
+			</ul>
+			<form method="post" action="<{:U('booking/pay3',array('order_id'=>$order_id))}>"  target="baocms_frm">
+				<div class="order_type table1">
+					<div class="order_style">
+						<ul class="zfList">
+							<foreach name="payment" item="var">
+								<if condition="$var['code'] neq 'weixin'">
+									<li class="pay-li">
+										<label class="block">
+										<label class="seat-check-radio">
+											<input type="radio" id="code" value="<{$var.code}>" name="code" />
+										</label>
+										<img src="__PUBLIC__/images/<{$var.logo}>">
+										</label>
+									</li>
+								</if>
+							</foreach>
+						</ul>
+						<div class="clear"></div>
+					</div>
+					<div class="order_p1">
+						<div class=" order_s3">支付定金：<span class="order_s4">￥<{:round($order['need_price']/100,2)}></span></div>
+						<div class="">
+							<input type="submit" value="定金支付" />
+						</div>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<script>
+$(function(){
+	$(".seat-check-radio").click(function(){
+		$(".seat-check-radio").removeClass("on");
+		$(this).addClass("on");
+	});
+	$(".order_style ul.zfList li").click(function(){
+		$(".order_style ul.zfList li").removeClass("current");
+		$(this).addClass("current");
+	});
+});
+</script> 
+<include file="public:footer"/> 

@@ -1,0 +1,114 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">商家资质认证</li>
+        <li class="li2 li3">认证列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>商家资质列表，认证后前台无法修改，认证后对应的模板处打标签</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('shop/index','','商家列表')}>
+            </div>
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('audit/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <span>关键字</span>
+                        <input type="text" name="keyword" value="<{$keyword}>" class="inptText" /><input type="submit" value="   搜索"  class="inptButton" />
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form method="post" action="<{:U('audit/index')}>">
+            <div class="selectNr selectNr2">
+                <div class="left">
+                    <div class="seleK">
+                        <label>
+                            <span>分类：</span>
+                            <select id="cate_id" name="cate_id" class="select w100">
+                                <option value="0">请选择...</option>
+                                <foreach name="cates" item="var">
+                                    <eq name="var.parent_id" value="0">
+                                    <option value="<{$var.cate_id}>"  <eq name="var.cate_id" value="$cate_id">selected="selected"</eq> ><{$var.cate_name}></option>                
+                                    <foreach name="cates" item="var2">
+                                        <eq name="var2.parent_id" value="$var.cate_id">
+                                        <option value="<{$var2.cate_id}>"  <eq name="var2.cate_id" value="$cate_id">selected="selected"</eq> > &nbsp;&nbsp;<{$var2.cate_name}></option>
+                                        </eq>
+                                    </foreach>
+                                    </eq>
+                                </foreach>
+                            </select>
+                        </label>
+                       
+                        <label>
+                            <input type="hidden" id="shop_id" name="shop_id" value="<{$shop_id|default=''}>"/>
+                            <input class="text" type="text"   id="shop_name" name="shop_name" value="<{$shop_name}>"/>
+                            <a mini="select"  w="1000" h="800" href="<{:U('shop/select')}>" class="sumit">选择商家</a>
+                        </label>
+                        <label>
+                            <span>关键字:</span>
+                            <input type="text" name="keyword" value="<{$keyword}>" class="inptText" />
+                        </label>
+                    </div>
+                </div>
+                <div class="right">
+                    <input type="submit" value="   搜索"  class="inptButton" />
+                </div>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="audit_id" /></td>
+                    <td class="w50">ID</td>
+                    <td>商家</td>
+                    <td>企业名字</td>
+                    <td>注册号</td>
+                    <td>创建时间</td>
+                    <td>员工电话</td>
+                    <td>创建IP</td>
+                    
+                    <td>状态</td>
+                    <td>操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_audit_id" type="checkbox" name="audit_id[]" value="<{$var.audit_id}>" /></td>
+                        <td><{$var.audit_id}></td>
+                        <td><{$shops[$var['shop_id']]['shop_name']}></td>
+                        <td><{$var.name}></td>
+                        <td><{$var.zhucehao}></td>
+                        <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                        <td><{$var.mobile}></td>
+                        <td><{$var.create_ip_area}><{$var.create_ip}></td>
+                        
+                        <td><eq name="var.audit" value="0">等待审核<else/>正常</eq></td>
+                    <td>
+                        <{:BA('audit/edit',array("audit_id"=>$var["audit_id"]),'编辑','','remberBtn')}>
+                        <{:BA('audit/delete',array("audit_id"=>$var["audit_id"]),'删除','act','remberBtn')}>
+                        <eq name="var.audit" value="0"> <{:BA('audit/audit',array("audit_id"=>$var["audit_id"]),'审核','act','remberBtn')}> </eq>
+
+                    </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+               
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+
+

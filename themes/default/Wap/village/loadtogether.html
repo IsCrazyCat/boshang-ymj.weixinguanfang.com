@@ -1,0 +1,10 @@
+<foreach name="list" item="var">
+	
+			<li class="padding border-bottom">
+				<a class="line" title="<{$var.name}>" href="tel:<{$var.phone}>">
+					<em class="x4"><{:bao_Msubstr($var['name'],0,4,false)}></em>
+					<em class="x8"><{$var.phone}> <span><i class="icon-angle-right"></i></span></em>
+				</a> 
+			</li>
+		
+</foreach>

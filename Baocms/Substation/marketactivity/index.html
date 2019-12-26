@@ -1,0 +1,77 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1"> 当前位置:</li>
+        <li class="li2">商场管理</li>
+
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('marketactivity/create','','新增活动')}>
+            </div>
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('marketactivity/index')}>"> 
+                    <div class="seleHidden" id="seleHidden">
+                        <span>区域</span>
+                        <select name="area_id" id="area_id" class="selecttop">
+                            <option value="0">请选择...</option>
+                            <foreach name="areas" item="var">
+                                <option value="<{$var.area_id}>"  <eq name="var.area_id" value="$area_id">selected="selected"</eq> ><{$var.area_name}></option>
+                            </foreach>   
+                        </select>
+
+
+                        <span> 关键字(活动标题)：</span>
+                        <input type="text" name="keyword" id="keyword"  value="<{$keyword}>"   class="inptText" />
+                        <input type="submit" value="搜索"  class="inptButton" />
+
+                    </div> 
+                </form>
+
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="id" /></td>
+                        <td class="w50">ID</td>
+                        <td>所在区域商圈</td>
+                        <td>商场名称</td>
+                        <td>活动标题</td>
+                        <td>创建时间</td>
+                        <td>操作</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_id" type="checkbox" name="id[]" value="<{$var.id}>" /></td>
+                            <td><{$var.id}></td>
+                            <td><{$areas[$market[$var['market_id']]['area_id']]['area_name']}>-<{$business[$market[$var['market_id']]['business_id']]['business_name']}></td>
+                            <td><{$market[$var['market_id']]['market_name']}></td>
+                            <td><{$var.title}></td>
+                            <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                            <td>
+                                <{:BA('marketactivity/edit',array("id"=>$var["id"]),'编辑','','remberBtn')}>
+                                <{:BA('marketactivity/delete',array("id"=>$var["id"]),'删除','act','remberBtn')}>
+                            </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('marketactivity/delete','','批量删除','list',' a2')}>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>  
+

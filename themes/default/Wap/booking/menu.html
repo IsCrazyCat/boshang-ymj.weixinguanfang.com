@@ -1,0 +1,218 @@
+<include file="public:header"/>
+<script src="/static/default/wap/js/jquery.cookie.js"></script>
+<script src="/static/default/wap/js/jquery.fly.min.js"></script>
+<script src="/static/default/wap/js/requestAnimationFrame.js"></script>
+
+<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('booking/detail',array('shop_id'=>$detail['shop_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<{$detail.shop_name}>
+		</div>
+	</header>
+
+<div class="page-center-box" style="bottom:0.7rem; padding-bottom:0;">
+    <div class="dianpu_cont">
+    	<script>
+            $(document).ready(function(e) {
+                var  public_top = $('.dianpu_left').offset().top; //这个滚动一个条件
+                var  list = Array();
+                $(".dianpu_list_bt").each(function(a){
+                    list[a] = $(this).offset().top;
+                });
+                var num =  $(".dianpu_left li").length;
+                function gundong(){
+                    for(i=0;i<num;i++){
+                        if($(".dianpu_list_bt").eq(i).offset().top <=public_top ){
+                            $(".dianpu_left li").removeClass('on');
+                            $(".dianpu_left li").eq(i).addClass('on');
+                        }
+                    }		
+                }			
+                $('.dianpu_right').scroll(function () {  
+                    gundong();
+                });
+                $(".dianpu_left li").click(function(){				
+                    var index = $(this).index();
+                    $(".dianpu_right").animate({scrollTop: list[index]-public_top+'px'}, 200);
+                });
+            });//商家店铺菜单分类效果结束
+        </script>
+            <div class="dianpu_left fl">
+                <ul>
+                    <volist name="menucates" id="item">
+                        <li <if condition="$i eq 1">class="on"</if> > <a href="javascript:void(0);"><{$item.cate_name}></a></li>
+                    </volist>
+                </ul>
+            </div>
+            <div class="dianpu_right fr">
+                <volist name="menucates" id="item">
+                    <h2 class="dianpu_list_bt" id="dianpu_list_bt<{$i}>"><{$item.cate_name}></h2>
+                    <foreach name="list" item="var">
+                        <if condition="$var['cate_id'] eq $item['cate_id']">
+                            <div class="dianpu_list">
+                                <div class="img fl"><a href="javascript:void(0);"><img src="<{:config_img($var['photo'])}>" width="100" height="100" /></a></div>
+                                <div class="wz" id="price_<{$var.menu_id}>" rel="<{$var.menu_id}>" data="<{$var.menu_name}>" price="<{:round($var['ding_price']/100,2)}>">
+                                    <h3><{$var.menu_name}></h3>
+                                    <p class="black9">已售：<{$var.sold_num}>份</p>
+                                    <p class="fontcl1">￥<{:round($var['ding_price']/100,1)}></p>
+                                    <div class="num_operate dianpu_num">
+                                        <span class="jq_jian"  rel="<{$var.menu_id}>">-</span>    
+                                        <input type="text" class="ordernum text_box jq_num_<{$var.menu_id}>" readonly value="<{$var.cart_num|default='0'}>" />
+                                        <span class="add jq_jia" rel="<{$var.menu_id}>">+</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </if>
+                    </foreach>
+                </volist>
+            <div class="clear"></div>
+	</div>
+</div> 
+<section class="dianpu_footer">
+	<div class="dianpu_fot_shop">
+            <div class="fl"><div class="fl spcart"><i id="num"><{$cart_num|default='0'}></i></div><div class="fl zjia" >合计：<span class="fontcl1 big"><small>￥</small><span id="total_money"><{:round($total_money/100,1)}></span></span></div></div>
+		<div class="fr"><a href="javascript:void(0);" id="ding_sub" class="pub_btn_booking bgcl1">立即预约</a></div>
+		<div class="clear"></div>
+	</div>
+	<div class="dianpu_spin" style="display:none;">
+    	<h2><a href="javascript:void(0);" id="kong" class="empty black9"><em></em>清空所有</a></h2>
+            <div id="cart_list">
+
+            </div>
+	</div>
+	<div class="dianpu_shop_zzc"></div>
+	
+</section>
+<script>
+        $(document).ready(function () {
+                $('.dianpu_fot_shop .spcart').click(function () {
+                    $('.dianpu_footer .dianpu_spin').slideToggle();
+                    if ($('.dianpu_footer .dianpu_shop_zzc').css('display') == 'none') {
+                        $('.dianpu_shop_zzc').show();
+                    }
+                    else {
+                        $('.dianpu_shop_zzc').hide();
+                    }
+                });
+                $('.dianpu_shop_zzc').click(function () {
+                    $('.dianpu_footer .dianpu_spin').hide();
+                    $('.dianpu_shop_zzc').hide();
+                });//底部购物车弹出窗结束
+
+            })
+
+    
+            //购物车parseInt
+			var hostdo ="<{$hostdo}>";
+            function getCart() {
+                var res = new Array();
+                var cart = $.cookie('ding_'+"<{$detail.shop_id}>");
+                if (cart) {
+                    local = cart.split('|');
+                    for (a in local) {
+                        res.push(local[a]);
+                    }
+                }
+                return res;
+            }
+
+            function setCart(product_id, num) {
+                var res = getCart();
+                var status = false;
+                var total = 0;
+                var money = parseFloat($("#total_money").html());
+                for (a in res) {
+                    local = String(res[a]);
+                    goo = local.split('_');
+                    total += parseInt(goo[1]);
+                    if (parseInt(goo[0]) == product_id) {
+                        status = true;
+                        money += parseFloat($("#price_" + product_id).attr('price')) * parseInt(num);
+                        res.splice(a, 1, parseInt(goo[0]) + '_' + (parseInt(goo[1]) + num));
+                        $(".jq_num_" + product_id).val(parseInt(goo[1]) + parseInt(num));
+                    }
+                }
+                if (status == false) {
+                    money += parseFloat($("#price_" + product_id).attr('price')) * parseInt(num);
+                    res.push(product_id + '_' + num);
+                }
+                money = money.toFixed(1);
+                total += num;
+                $.cookie('ding_'+"<{$detail.shop_id}>",  res.join("|"), { path: '/', expires: 7 ,domain:hostdo});
+                $("#num").html(total);
+                $("#total_money").html(money);
+            }
+
+
+            $(document).ready(function () {
+                $(".spcart").click(function(){
+                    $.post("<{:U('booking/get_cart')}>",{shop_id:"<{$detail['shop_id']}>"},function(data){
+                        if(data.status == 'success'){
+                            var str = "";
+                            var list = data.dingmenus;
+                            $.each(list, function (n, value) {
+                                 str += '<div class="dianpu_list dianpu_list_bt">';
+                                 str += '<h3>'+value.menu_name+'<span class="fontcl1">￥'+(parseFloat(value.ding_price/100)).toFixed(1)+'</span></h3>';
+                                 str += '<div class="num_operate dianpu_num"><span class="jq_jian"  rel="'+value.menu_id+'">-</span><input type="text" class="ordernum text_box jq_num_'+value.menu_id+'" readonly="readonly" value="'+value.cart_num+'" ><span class="add jq_jia" rel="'+value.menu_id+'">+</span></div></div>';
+                            });
+                            $('#cart_list').html(str);
+                        }
+                    },'json')
+                })
+                
+                $(document).on('click', '.jq_jian', function () {
+                    var obj = $(".jq_num_" + $(this).attr('rel'));
+                    var product_id = $(this).attr('rel');
+                    var num = parseInt(obj.val());
+                    if (num > 0) {
+                        num--;
+                        obj.val(num);
+                        setCart(product_id, -1);
+                    }
+                });
+                $(document).on('click', '.jq_jia', function () {
+                    var top = 0, left = 0;
+                    var ooffset = $(this).offset();
+                    top = ooffset.top; // + poffset.top + 11;
+                    left = ooffset.left; // + poffset.left + 11;
+                    var offset = $("#num").offset();  //结束的地方的元素
+                    var flyer = $('<div style="width:1.2rem; height:1.2rem;border-radius:0.8rem; background:#1ec0be;position: relative; z-index:101;"></div>');
+                    //if(getAndroidVersion() > 5){ //Android 大于5.0才给抛物线动画
+                        flyer.fly({
+                            start: {left: left,top: top},
+                            end: {
+                                left: offset.left + 10,
+                                top: offset.top + 10,
+                                width: 0,
+                                height: 0
+                            },
+                            onEnd: function () {
+                                this.destory();
+                            }
+                        });
+                    //}
+                    var obj = $(".jq_num_" + $(this).attr('rel'));
+                    var product_id = $(this).attr('rel');
+                    var num = parseInt(obj.val());
+                    num++;
+                    obj.val(num);
+                    setCart(product_id, 1);
+                })
+                $("#ding_sub").click(function () {
+                    layer.msg("正在跳转下单页面");
+                    setTimeout(function () {
+                        window.location.href = "<{:U('booking/ding',array('shop_id'=>$detail['shop_id']))}>";    
+                     }, 1000);
+                    
+                });
+                $("#kong").click(function () {
+                    $.cookie('ding_'+"<{$detail.shop_id}>", null,{ path: '/', expires: 7 ,domain:hostdo});
+                    layer.msg("清除成功");
+                    window.location.reload(true);
+                });
+            });
+        </script> 
+</body>
+</html>

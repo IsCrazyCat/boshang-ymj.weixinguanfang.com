@@ -1,0 +1,65 @@
+<include file="public:header"/>
+<div class="content_right">  
+<div class="tgdd">
+    <include file="set:nav"/>
+    <if condition="!empty($MEMBER['mobile'])">
+        <div class="address_mr">
+            <ul>
+            <php>$mobile = substr_replace($MEMBER['mobile'],'****',3,4);</php>
+                <li>已经通过手机认证：<span class="fontcl2"><{$mobile}></span><a style="margin-left: 20px; display: inline-block; color:red;" href="<{:U('set/mobile2')}>">更换</a></li>
+            </ul>
+        </div>
+        <else/>
+        <form method="post"  action="<{:U('set/mobile')}>"  target="baocms_frm">
+            <div class="password_input email_rz">
+                <div class="left">手机：</div>
+                <div class="lef"><input class="oldPassw" name="mobile" id="mobile" type="text" /><input type="button" class="email_lkrz"  id="jq_send" value="获取验证码"/></div>   
+            </div>
+            <div class="password_input email_rz">
+                <div class="left">验证码：</div>
+                <div class="lef"><input class="oldPassw" style="width: 100px;" name="yzm" id="yzm" type="text" /><code style="margin-left: 20px;">请输入6位手机验证码</code></div>   
+            </div>
+            <div class="password_input" style="margin-top: 20px;">
+                <div class="left">&nbsp;</div>
+                <div class="lef"><input style="margin-left: 0px;" class="email_lkrz" type="submit" value="立刻认证" /></div>
+            </div>
+        </form>
+    </if>
+    <script type="text/javascript">
+        var mobile_timeout;
+        var mobile_count = 100;
+        var mobile_lock = 0;
+        $(function () {
+            $("#jq_send").click(function () {
+                if (mobile_lock == 0) {
+                    mobile_lock = 1;
+                    $.post("<{:U('set/sendsms')}>",{mobile:$("#mobile").val()},function(data){
+                        if(data.status == 'success'){
+                             mobile_count = 60;
+                            layer.msg(data.msg,{icon:1});
+                            BtnCount();
+                        }else{
+                            mobile_lock = 0;
+                            layer.msg(data.msg,{icon:2});
+                        }
+                    },'json');
+                }
+
+            });
+        });
+        BtnCount = function () {
+            if (mobile_count == 0) {
+                $('#jq_send').val("重新发送");
+                mobile_lock = 0;
+                clearTimeout(mobile_timeout);
+            }
+            else {
+                mobile_count--;
+                $('#jq_send').val("重新发送(" + mobile_count.toString() + ")秒");
+                mobile_timeout = setTimeout(BtnCount, 1000);
+            }
+        };
+    </script>
+</div>
+</div>
+<include file="public:footer"/>

@@ -1,0 +1,46 @@
+/*内容搜索*/
+.fav-search{padding:15px;background:#fafafa;border-bottom:thin solid #eee;padding-bottom:5px;}
+/*关注列表*/
+.fav-list{list-style:none;padding:0;}
+.fav-list li{border-bottom:thin solid #eee;}
+.fav-list .line{display:block;padding:10px;width:100%;}
+.fav-list img{width:90%;border:thin solid #eee;border-radius:3px;}
+.fav-list p{height:30px;line-height:30px;overflow:hidden;color:#999;font-size:12px;margin:0;}
+
+/*新闻盒子*/
+.news-item h5{font-weight:bold;}
+.news-item p{font-size:12px;margin:0;}
+
+/*底部菜单*/
+.footer-switch{ font-size:14px;height:50px;border-top: 1px #eee solid; position: fixed; bottom: 0; z-index: 999; background: #FFF; width: 100%;}
+.footer-switch .left{width:20%; text-align:center; padding-top:10px;}
+.footer-switch .switch-btn{ display:inline-block;width:36px;height:30px;background:url("../image/favorites/switch.png") no-repeat center center; background-size:36px 30px;}
+.footer-switch .right{ width:80%;}
+.footer-switch .menu ul{list-style:none;padding:0;}
+.footer-switch .menu-list{ width:33%; float:left; position:relative;}
+.footer-switch .menu-list-small{ display:block; border-left:1px solid #eee; height:50px; line-height:50px; text-align:center; color:#333;}
+.footer-switch .menu-pull{ display:none; position:absolute; bottom:50px; width:100%; text-align:center; box-shadow:0px -2px 3px #999; background:#fff;}
+.footer-switch .menu-pull li{ display:block; line-height:40px; border-bottom:1px solid #eee; text-align:center;}
+.footer-switch .menu-pull li a{ display:block; color:#333;}
+.footer-switch .input-box{ padding:10px; border-left:1px solid #eee; height:50px;display:none;}
+.footer-switch .input-box .text{display:inline-block; border:1px solid #eee; background-color:#fafafa; width:75%; height:30px; float:left; padding:0px; margin:0px; float:left;}
+.footer-switch .button{height:30px;line-height:30px;padding:0 10px;float:right;}
+
+
+/*对话框*/
+.chat-box{margin-bottom:25px;}
+.chat-box .face{width:12%;height:50px;display:block;}
+.chat-box .face img{width:40px;height:40px;border-radius:2px;border:thin solid #eee;}
+.chat-box .chat{width:88%;padding:0 10px;}
+.chat-box .chat div {line-height:22px;border-radius:5px;padding:8px 20px;position: relative;background:#f5f5f5;}
+
+
+
+/*新闻内容*/
+.detail{width:100%;padding:10px;}
+.detail h1{font-size:18px;font-weight:700;}
+.detail .detail-des{height:30px;line-height:30px;text-align:center;color:#999;}
+.detail .detail-des span{margin-right:10px;}
+.detail .detail-read{font-size:14px;line-height:20px;background:#FFF;width:100%;word-break:break-all;}
+.detail .detail-read img{max-width:100%!important;}
+.detail .detail-read p{text-indent:0;margin:5px 0;}

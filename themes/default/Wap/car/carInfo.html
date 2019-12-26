@@ -1,0 +1,111 @@
+<include file="public:header"/>
+    <style>
+        body{
+            background: #f4f3f8;
+        }
+        .carInfo{
+            background: #FFF;
+            height: 280px;
+            width: 80%;
+            margin-left: 10%;
+            margin-top: 20px;
+            border:1px solid #fff;
+            border-radius: 10px;
+        }
+        .carlogo-bg{
+            background:#0a9447;
+            width:100%;
+            height:55px;
+            vertical-align: middle;
+            border-bottom:1px solid;
+            border-radius: 10px;
+        }
+        .carlogo{
+            width:10%;
+            height:45px;
+            line-height: 45px;
+            position: absolute;
+            margin-left: 35%;
+            margin-top: 5px;
+            text-align: center;
+        }
+        .logoimg{
+            height: 100%;
+            width:100%;
+            border-radius: 50%;
+            -moz-border-radius: 50%;
+            -webkit-border-radius: 50%;
+        }
+        .car-detail{
+            position: relative;
+            left: 5%;
+            top:55px;
+            width: 90%;
+            height:45px;
+            line-height: 45px;
+            border-bottom: 1px dashed #e9e9eb;
+            text-align: center;
+        }
+        .goods-btn{
+            background: red;
+            margin-top: 5%;
+            margin-left: 10%;
+            width: 80%;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 10px;
+            text-align: center;
+
+        }
+        .goods-btn a{
+            font-weight: 400;
+            font-size: 18px;
+            color: white;
+        }
+    </style>
+    <div class="top-fixed bg-yellow bg-inverse">
+        <div class="top-back">
+            <a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+        </div>
+        <if condition="empty($keyword)">
+            <div class="top-title">车辆选择</div>
+        </if>
+    </div>
+<body>
+    <div class="carInfo">
+        <div class="carlogo-bg">
+            <div class="carlogo">
+                <img src="<{:config_img($var['photo'])}>" class="logoimg"/>
+            </div>
+            <div class="car-detail">
+                <{$car['name']}>
+            </div>
+            <foreach name="tags" item="tag">
+                <div class="car-detail">
+                    <{$tag}>
+                </div>
+            </foreach>
+
+        </div>
+    </div>
+<!--    <if condition="empty($car['catesInfo']) neq true">-->
+<!--        <foreach name="car['catesInfo']" item="val" index="key">-->
+<!--            <div class="carInfo">-->
+<!--                <div class="carlogo-bg">-->
+<!--                    <div class="carlogo">-->
+<!--                        <{$val['cate_name']}>-->
+<!--                    </div>-->
+
+<!--                </div>-->
+<!--            </div>-->
+<!--        </foreach>-->
+<!--    </if>-->
+        <div class="goods-btn">
+            <a href="<{:U('wap/tuan/index',array('car_id'=>$car['car_id']))}>">查看商品</a>
+        </div>
+</body>
+
+
+<include file='public:footer'/>
+
+

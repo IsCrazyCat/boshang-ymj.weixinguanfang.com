@@ -1,0 +1,90 @@
+<include  file='public:header'/>
+<style>
+.seleHidden .selecttop {margin-right:20px;}
+</style>
+<div class="mainBt">
+    <ul>
+        <li class="li1">众筹</li>
+        <li class="li2">众筹产品</li>
+        <li class="li2 li3">众筹列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>新版众筹是由会员发起，并不是由商家发起</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('crowd/create','','添加众筹')}>  
+            </div>
+            <div class="right">
+                <form method="post" action="<{:U('crowd/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <div class="seleK">
+                            <label>
+                                <input type="hidden" id="shop_id" name="shop_id" value="<{$shop_id|default=''}>"/>
+                                <input type="text"   id="shop_name" name="shop_name" value="<{$shop_name}>" class="inptText w200" />
+                                <a mini="select"  w="1000" h="600" href="<{:U('shop/select')}>" class="sumit">选择商家</a>
+                            </label>
+                        <span>状态：</span>   
+                        <select class="selecttop" name="audit">
+                            <option value="0"  >全部</option>
+                            <option value="-1" <eq name="audit" value="-1">selected="selected"</eq> >等待审核</option>
+                            <option value="1" <eq name="audit" value="1">selected="selected"</eq>>正常</option>
+                        </select>
+                        <span>关键字：</span>  
+                        <input type="text" name="keyword" value="<{$keyword|default=''}>" class="inptText" /><input type="submit" class="inptButton" value="  搜索" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        	<td class="w50"><input type="checkbox" class="checkAll" rel="goods_id" /></td>
+                            <td width="50">众筹ID</td>
+                            <td width="120">众筹图片</td>
+                            <td width="130">众筹名称</td>
+                            <td width="150">众筹过期时间</td>
+                            <td width="80">众筹金额</td>
+                            <td width="70">已筹金额</td>
+                            <td width="70">状态</td>
+                            <td width="300">操作</td>
+                    </tr>
+                    
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_goods_id" type="checkbox" name="goods_id[]" value="<{$var.goods_id}>" /> </td>
+                            <td><{$var.goods_id}></td>
+                            <td><img src="<{:config_img($var['photo'])}>"  style="width:80px; margin: 0px auto;" /></td>
+                            <td><{$var.title}></td>
+                            <td><{$var.ltime}></td>
+                            <td><{:round($var['all_price']/100,2)}></td>
+                            <td style="height: 100px;"><{:round($var['have_price']/100,2)}></td>
+                            <td><eq name="var.audit" value="0">等待审核<else/>正常</eq></td>
+                            <td>
+                                <eq name="var.audit" value="0"><{:BA('crowd/audit',array("goods_id"=>$var["goods_id"]),'审核','act','remberBtn')}></eq>
+                                <{:BA('crowd/lists',array("goods_id"=>$var["goods_id"]),'支持','','remberBtn')}>
+                                <{:BA('crowd/setting',array("goods_id"=>$var["goods_id"]),'项目','','remberBtn')}>
+                                <{:BA('crowd/project',array("goods_id"=>$var["goods_id"]),'进展','','remberBtn')}>
+                                <{:BA('crowd/ask',array("goods_id"=>$var["goods_id"]),'话题','','remberBtn')}>
+                                <{:BA('crowd/follow',array("goods_id"=>$var["goods_id"]),'点赞','','remberBtn')}>
+                                <{:BA('crowd/edit',array("goods_id"=>$var["goods_id"]),'编辑','','remberBtn')}>
+                                <{:BA('crowd/delete',array("goods_id"=>$var["goods_id"]),'删除','act','remberBtn')}>
+                            </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('crowd/delete','','批量删除','list','a2')}>
+                    <{:BA('crowd/audit','','批量审核','list','remberBtn')}>
+                </div>
+            </div>
+        </form>
+    </div>
+    <include  file='public:footer'/>       

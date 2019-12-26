@@ -1,0 +1,141 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">会员管理</li>
+        <li class="li2 li3">推广金结算</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>这里是显示全部已经充值过推广金的会员，可以手动给他的推荐者结算佣金！另外这个金额解冻后不变的，解冻后钱会直接到用户的余额！前台会显示冻结金额为0，后台还是显示代理费用主要为了方便统计！</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+          
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('user/fzmoney')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <label>
+                            <span>是否已经结算</span>
+                            <select id="is_no_frozen" name="is_tui_money" class="selecttop w120"  >
+                                <option value="0">全部</option>
+                                <option  <eq name="is_tui_money" value="1">selected="selected"</eq> value="1">已经结算</option>
+                                <option <eq name="is_tui_money" value="1">selected="selected"</eq> value="999">未结算</option>
+                            </select>
+                        </label>
+                        <label>
+                            <span>是否已经解冻</span>
+                            <select id="is_no_frozen" name="is_no_frozen" class="selecttop w120"  >
+                                <option value="0">全部</option>
+                                <option <eq name="is_no_frozen" value="1">selected="selected"</eq> value="1">已经解冻</option>
+                                <option <eq name="is_no_frozen" value="999">selected="selected"</eq> value="999">未解冻</option>
+                            </select>
+
+                            <input type="submit" value="   搜索"  class="inptButton" />
+                        </label>
+                    </div> 
+                </form>
+               
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+      
+
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td>用户</td>
+                    <td>冻结金</td>
+                    <td>是否已经解冻</td>
+                    <td>六级佣金</td>
+                    <td>五级佣金</td>
+                    <td>四级佣金</td>
+                    <td>三级佣金</td>
+                    <td>二级佣金</td>
+                    <td>一级佣金</td>
+                    <td>操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><{$users[$var['user_id']]['account']}>(UID:<{$var.user_id}>)</td>
+                        <td><{:round($var['frozen_money']/100,2)}>元</td>
+                        <td>
+                           <eq name="var.is_no_frozen" value="0">未解冻<else/>已经解冻</eq>
+                        </td>
+                        <td>
+                        <php> 
+                            if(!empty($users[$var['user_id']]['invite6']) && !empty($inviteUsersex[$users[$var['user_id']]['invite6']]['frozen_money'])){
+                        </php>
+                            <{$inviteUsers[$users[$var['user_id']]['invite6']]['account']}>（佣金：<{$CONFIG.quanming.money6}>元）
+                            <php>}else{</php>
+                            暂无上级
+                            <php>}</php>
+                        </td>
+                        <td>
+                             <php> 
+                            if(!empty($users[$var['user_id']]['invite5']) && !empty($inviteUsersex[$users[$var['user_id']]['invite5']]['frozen_money'])){
+                        </php>
+                            <{$inviteUsers[$users[$var['user_id']]['invite5']]['account']}>（佣金：<{$CONFIG.quanming.money5}>元）
+                            <php>}else{</php>
+                            暂无上级
+                            <php>}</php>
+                            
+                        </td>
+                        <td>
+                             <php> 
+                            if(!empty($users[$var['user_id']]['invite4']) && !empty($inviteUsersex[$users[$var['user_id']]['invite4']]['frozen_money'])){
+                        </php>
+                            <{$inviteUsers[$users[$var['user_id']]['invite4']]['account']}>（佣金：<{$CONFIG.quanming.money6}>元）
+                            <php>}else{</php>
+                            暂无上级
+                            <php>}</php>
+                        </td>
+                        <td>
+                             <php> 
+                            if(!empty($users[$var['user_id']]['invite3']) && !empty($inviteUsersex[$users[$var['user_id']]['invite3']]['frozen_money'])){
+                        </php>
+                            <{$inviteUsers[$users[$var['user_id']]['invite3']]['account']}>（佣金：<{$CONFIG.quanming.money3}>元）
+                            <php>}else{</php>
+                            暂无上级
+                            <php>}</php>
+                        </td>
+                        <td>
+                             <php> 
+                            if(!empty($users[$var['user_id']]['invite2']) && !empty($inviteUsersex[$users[$var['user_id']]['invite2']]['frozen_money'])){
+                        </php>
+                            <{$inviteUsers[$users[$var['user_id']]['invite2']]['account']}>（佣金：<{$CONFIG.quanming.money2}>元）
+                            <php>}else{</php>
+                            暂无上级
+                            <php>}</php>
+                        </td>
+                        <td> 
+                        <php> 
+                            if(!empty($users[$var['user_id']]['invite1']) && !empty($inviteUsersex[$users[$var['user_id']]['invite1']]['frozen_money'])){
+                        </php>
+                            <{$inviteUsers[$users[$var['user_id']]['invite1']]['account']}>（佣金：<{$CONFIG.quanming.money1}>元）
+                            <php>}else{</php>
+                            暂无上级
+                            <php>}</php>
+                           </td>
+
+          
+                    <td>
+                        <if condition="$var.is_tui_money eq 0">
+                        <{:BA('user/fzmoneyyes',array("user_id"=>$var["user_id"]),'发放奖励','','remberBtn')}>
+                        <else/>
+                        已经发放奖励
+                        </if>
+                    </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+ 
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+
+

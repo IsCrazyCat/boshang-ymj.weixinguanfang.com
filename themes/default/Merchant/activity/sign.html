@@ -1,0 +1,51 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+  <ul>
+    <li><a href="#">商家管理</a> > <a href="">活动</a> > <a>报名管理</a></li>
+  </ul>
+</div>
+<div class="tuan_content">
+  <form method="post" action="<{:U('activity/sign')}>">
+    <div class="radius5 tuan_top">
+      <div class="tuan_top_t">
+        <div class="left tuan_topser_l">联系人或电话：
+          <input type="text" class="radius3 tuan_topser" name="keyword" id="keyword"  value="<{$keyword}>" />
+          <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/>
+        </div>
+       
+      </div>
+    </div>
+  </form>
+  <div class="tuanfabu_tab">
+    <ul>
+      <li class="tuanfabu_tabli"><a href="<{:U('activity/index')}>">正在活动</a></li>
+      <li class="tuanfabu_tabli on"><a href="<{:U('activity/sign')}>">报名管理</a></li>
+    </ul>
+  </div>
+  <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr style="background-color:#eee;">
+      <td>报名ID</td>
+      <td>活动标题</td>
+      <td>用户ID</td>
+      <td>人数</td>
+      <td>手机号码</td>
+      <td>姓名</td>
+      <td>报名时间</td>
+      <td>报名IP</td>
+    </tr>
+    <foreach name="list" item="var">
+      <tr>
+        <td><{$var.sign_id}></td>
+        <td><{$activity[$var['activity_id']]['title']}></td>
+        <td><{$var.user_id}></td>
+        <td><{$var.num}></td>
+        <td><{$var.mobile}></td>
+        <td><{$var.name}></td>
+        <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+        <td><{$var.create_ip}></td>
+      </tr>
+    </foreach>
+  </table>
+  <div class="paging"> <{$page}> </div>
+</div>
+<include  file='public:footer'/>

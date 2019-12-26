@@ -1,0 +1,194 @@
+<php>$seo_title = $detail['title'];</php>
+<include  file='public:header'/>
+   <header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<if condition="empty($cat)">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+			<else />
+			<a class="top-addr" href="<{:U('tieba/index')}>"><i class="icon-angle-left"></i></a>
+			</if>
+		</div>
+		<div class="top-title">
+			<{:bao_msubstr($city_name,0,4,false)}>贴吧
+		</div>
+		<div class="top-share">
+			
+		</div>
+	</header>
+    
+    
+    
+    
+    
+    <section class="ui-container">
+    <div id="filter2" class="filter2">
+    <ul class="tab clearfix">
+      <li class="item">
+        <a href="javascript:void(0);">
+            <if condition="!empty($cat)">
+            <span id="str_b_node" style="color:#f60"> <{$sharecates[$cat]['cate_name']}></span>
+            <else/>
+            <span id="str_b_node">选择板块</span>
+            </if>
+            <em></em>
+        </a>
+      </li>
+       <li class="item">
+        <a href="javascript:void(0);">
+            <if condition="empty($essence)">
+            <span id="str_e_node">全部帖子</span>
+            <else/>
+            <span id="str_b_node" style="color:#f60;">只看精华</span>
+            </if>
+            <em></em>
+        </a>
+      </li>
+      <li class="item">
+        <a href="javascript:void(0);">
+            <if condition="empty($order)">
+            <span id="str_e_node">选择排序</span>
+            <elseif condition="$order eq 1"/>
+            <span id="str_b_node" style="color:#f60;">时间排序</span>
+            <elseif condition="$order eq 2"/>
+            <span id="str_b_node" style="color:#f60;">热度排序</span>
+            </if>
+            <em></em>
+        </a>
+      </li>
+    </ul>
+    
+    <div class="inner" style=" display:none">
+      <ul>
+        <li class="item">
+        <a class="rights" href="<{:U('tieba/index')}>">全部分类</a>
+        </li>
+       <foreach name="sharecates" item="var">
+          <if condition="$var.parent_id eq 0">           
+            <li id="cat_<{$var['cate_id']}>">
+                <a class="rights hasUlLink" title="<{$var.cate_name}>" href="javascript:void(0);>"><{$var.cate_name}>
+                </a>
+             
+               <ul id="items0">  
+                <foreach name="sharecates" item="product">
+                   <if condition="$product.parent_id eq $var['cate_id']"> 
+                       <li><a title="<{$product.cate_name}>" href="<{:LinkTo('tieba/index',array('cat'=>$product['cate_id'],'essence'=>$essence,'order'=>$order))}>"> <{$product.cate_name}></a>
+                   </if>
+                </foreach>
+               </ul>
+                       
+             </li>
+          </if>     
+        </foreach>
+      </ul><!--1级end-->
+    </div>
+    
+     <div class="inner" style="display:none;">
+              <ul>
+                <li><a <if condition="empty($essence)"> style="color:red;"</if> href="<{:U('tieba/index',array('cat'=>$cat,'order'=>$order))}>">全部帖子</a></li>
+                <li><a <if condition="!empty($essence)">style="color:red;"</if> href="<{:U('tieba/index',array('cat'=>$cat,'essence'=>'1','order'=>$order))}>">只看精华</a></li>
+
+            </ul>
+      </div>
+      
+
+    <div class="inner" style="display:none;">
+              <ul>
+                <li><a <if condition="$order eq 1"> style="color:red;"</if> href="<{:U('tieba/index',array('cat'=>$cat,'essence'=>$essence,'order'=>'1'))}>">时间排序</a></li>
+                <li><a <if condition="$order eq 2">style="color:red;"</if> href="<{:U('tieba/index',array('cat'=>$cat,'essence'=>$essence,'order'=>'2'))}>">热度排序</a></li>
+            </ul>
+      </div>
+      
+      <div id="parent_container" class="inner_parent" style="display:none;">
+        <div class="innercontent"></div>
+      </div>
+      <div id="inner_container" class="inner_child" style="display:none;">
+        <div class="innercontent"></div>
+      </div>
+    
+</div>
+</section>
+<!--end-->    
+
+<div id="fullbg" class="fullbg" style="display: none; height: 250px;">
+	<i class="pull2"></i>
+</div>
+
+<div id="hideHead">
+	 <div class="card_num">
+	  帖子：<span class="a"><{$count.post}></span> 今日：<span class="b"><{$post_count}></span>  评论：<span class="c"><{$count.reply}></span>
+	 </div>
+	 <div class="sign_btn"><{:bao_msubstr($city_name,0,4,false)}>吧</div>
+     <div class="blank-10"></div>
+ </div>
+ <div class="blank-10 bg"></div>
+	<if condition="empty($cat)">
+	<div class="tie-ding">
+		<ul>
+			<foreach name="ding" item="item">
+			<li><em class="tag bg-dot">置顶</em><a href="<{:U('tieba/detail',array('post_id'=>$item['post_id']))}>"><{$item['title']}></a><span class="icon-angle-right"></span></li>
+			</foreach>
+		</ul>
+	</div>
+	</if>
+    
+    
+    
+    
+	<ul id="tie-list" class="tie-list"></ul>
+	<script>
+		$(document).ready(function () {
+			showFilter({ibox:'filter2',content1:'parent_container',content2:'inner_container',fullbg:'fullbg'});
+			loaddata('<{$nextpage}>', $("#tie-list"), true);
+			//点击"赞"按钮
+			$("body").delegate(".ctrl-zan","click",function(){
+				var postid = $(this).attr("data");
+				var url = "/wap/tieba/zan/post_id/" + postid + ".html";
+			    $.get(url,function(data){
+					if( data == '-1'){
+						layer.msg('你已经赞过该帖了！');
+					}else if( data == '-2'){
+						layer.msg('您还没有登录！');
+					}else{
+						$("#zan-" + postid).find("em").html(data);
+					}
+				},'html');
+				
+			});
+		});
+	</script>
+
+<nav class="foot-bar">
+	<div class="line">
+		<div class="x2">
+			<a class="left-icon" href="<{:U('tieba/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="x8">
+			<div class="line">
+				<span class="x6">
+					<a class="post-icon" href="<{:U('tieba/main')}>">
+						<i class="icon-reorder"></i>
+						分类
+					</a>
+				</span>
+				<span class="x6">
+					<if condition="empty($cat)">
+					<a class="post-icon" href="<{:U('tieba/post')}>">
+						<i class="icon-pencil-square"></i>
+						发帖
+					</a>
+					<else />
+					<a class="post-icon" href="<{:U('tieba/post',array('cat'=>$cat))}>">
+						<i class="icon-pencil-square"></i>
+						发帖
+					</a>
+					</if>
+				</span>
+			</div>
+		</div>
+		<div class="x2">
+			<a class="right-icon" href="<{:u('user/index/index')}>"><i class="icon-ellipsis-v"></i></a>
+		</div>
+	</div>
+</nav>
+</body>
+</html>

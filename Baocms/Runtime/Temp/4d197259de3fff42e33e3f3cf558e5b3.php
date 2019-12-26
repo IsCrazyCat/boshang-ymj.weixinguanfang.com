@@ -1,0 +1,3 @@
+<?php
+//000000086400a:3:{i:1;a:7:{s:7:"rank_id";s:1:"1";s:9:"rank_name";s:12:"普通会员";s:4:"icon";s:4:"vip1";s:5:"icon1";s:4:"vip1";s:8:"prestige";s:3:"300";s:6:"rebate";s:1:"2";s:5:"photo";s:0:"";}i:2;a:7:{s:7:"rank_id";s:1:"2";s:9:"rank_name";s:12:"白金会员";s:4:"icon";s:4:"vip2";s:5:"icon1";s:4:"vip2";s:8:"prestige";s:3:"800";s:6:"rebate";s:1:"3";s:5:"photo";s:0:"";}i:3;a:7:{s:7:"rank_id";s:1:"3";s:9:"rank_name";s:12:"黄金会员";s:4:"icon";s:4:"vip4";s:5:"icon1";s:4:"vip4";s:8:"prestige";s:4:"2000";s:6:"rebate";s:1:"4";s:5:"photo";s:0:"";}}
+?>

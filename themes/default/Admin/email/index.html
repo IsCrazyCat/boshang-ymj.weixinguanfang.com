@@ -1,0 +1,60 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">模版管理</li>
+        <li class="li2 li3">邮件模版</li>
+    </ul>
+</div>
+<div class="main-jsgl">
+    <p class="attention"><span>注意：</span>只有当邮件模版启用的时候才能正常发送邮件！需要开发邮箱联系1%2%0%5%8%5%0%2%2</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin: 10px 20px;">
+            <div class="left">
+                <{:BA('email/create','','添加内容')}>
+            </div>
+        </div>
+        <form target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="email_id" /></td>
+                        <td class="w50">ID</td>
+                        <td>标签</td>
+                        <td>说明</td>
+                        <td class="w80">是否启用</td>
+                        <td class="w120">操作</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_email_id" type="checkbox" name="email_id[]" value="<{$var.email_id}>" /></td>
+                            <td><{$var.email_id}></td>
+                            <td><{$var.email_key}></td>
+                            <td><{$var.email_explain}></td>
+                            <td><eq name="var.is_open" value="1" >是<else/>否</eq></td>
+                        <td>
+                            <{:BA('email/edit',array("email_id"=>$var["email_id"]),'编辑','','remberBtn')}>
+
+                            <eq name="var.is_open" value="0"> 
+                            <{:BA('email/audit',array("email_id"=>$var["email_id"]),'启用','act','remberBtn')}>
+                        <else/>
+                        <{:BA('email/delete',array("email_id"=>$var["email_id"]),'关闭','act','remberBtn')}>
+                        </eq>
+
+                        </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr">
+                <div class="left">
+                    <{:BA('email/delete','','批量关闭','list','a2')}>
+                    <{:BA('email/audit','','批量开启','list','remberBtn')}>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>       
+

@@ -1,0 +1,42 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">功能</li>
+        <li class="li2">广告管理</li>
+        <li class="li2 li3">广告位设置</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <div class="jsglNr">
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox" style="margin-top: 20px; margin-bottom: 20px;">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+              
+                    <volist name="place" id="item" key="pl">
+                        <tr>
+                            <td colspan="4" style="text-align: left; padding-left: 20px; font-size: 16px; font-weight: bold;"><{$item}></td>
+                        </tr>
+                         <tr>
+                         <php>$i=0;</php>
+                        <foreach name="adsite" item="var">
+                            <if condition="$var['site_place'] eq $pl">   
+                                    <td>
+                                        (<{$var.site_id}>)<{$var.site_name}>
+                                        <{:BA('ad/index',array("site_id"=>$var["site_id"]),'管理广告','','remberBtn')}>
+                                    </td>
+                                    <php>$i++; if($i%4==0) echo '</tr><tr>';</php> 
+                                 
+                                 
+                            </if>
+                        </foreach>
+                           </tr>
+                    </volist>
+                   
+                </table>
+              
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>  
+

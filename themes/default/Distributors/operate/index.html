@@ -1,0 +1,212 @@
+<include file='public:header'/>  
+
+	<header class="top-fixed bg-yellow bg-inverse">
+
+		<div class="top-back">
+
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+
+		</div>
+
+		<div class="top-title">
+
+			运营数据中心
+
+		</div>
+
+		<div class="top-share">
+
+			<a href="#" id="cate-btn"></a>
+
+		</div>
+
+	</header>
+
+
+
+<style>
+
+.list-media-x { margin-top: 0rem;}
+
+</style>
+
+<div class="list-media-x" id="list-media">
+
+	<ul>
+
+
+
+    <li class="line padding">
+
+        <div class="x12">
+
+            <p class="text-small">类型：套餐</p>
+
+            <p class="text-small">商品：<{$counts['tuan']}>条套餐，<{$counts['tuan_audit']}>条待审核,总<{$counts['tuan_order']}>订单</p>
+
+            <p class="text-small">数据：今日<{$counts['totay_tuan_order']}>单 ，<{$counts['tuan_order_code_is_used']}>单未验证 <{$counts['tuan_order_code_status']}>单退款中</p>
+
+            <p><a href="<{:u('distributors/tuan/index')}>" class="button button-small bg-dot">套餐详情</a> </p>
+
+
+
+        </div>
+
+    </li>
+
+    <div class="blank-10 bg"></div>
+
+    <li class="line padding">
+
+        <div class="x12">
+
+            <p class="text-small">类型：优惠劵</p>
+
+            <p class="text-small">商品：<{$counts['coupon']}>条优惠劵，<{$counts['coupon_audit']}>条待审核</p> 
+
+            <p class="text-small">数据：今日<{$counts['totay_coupon_download']}>人下载，总下载：<{$counts['coupon_download']}>次，<{$counts['coupon_is_used']}>人未验证。</p>
+
+            <p><a href="<{:u('distributors/coupon/index')}>" class="button button-small bg-dot">优惠劵详情</a> </p>
+
+
+
+        </div>
+
+    </li>
+
+    <div class="blank-10 bg"></div>
+
+     <li class="line padding">
+
+        <div class="x12">
+
+            <p class="text-small">类型：商城</p>
+
+            <p class="text-small">商品：<{$counts['goods']}>个商品，<{$counts['goods_audit']}>个待审核，总<{$counts['goods_order']}>个商城订单</p> 
+
+            <p class="text-small">数据：今日<{$counts['totay_goods_order']}>人下单，正在配送<{$counts['goods_order_two']}>单，已完成<{$counts['goods_order_three']}>单</p>
+
+            <p><a href="<{:u('distributors/mart/index')}>" class="button button-small bg-dot">商城详情</a> </p>
+
+
+
+        </div>
+
+    </li>
+
+    <div class="blank-10 bg"></div>
+
+      <li class="line padding">
+
+        <div class="x12">
+
+            <p class="text-small">类型：外卖</p>
+
+            <p class="text-small">商品：<{$counts['ele']}>条外卖，<{$counts['ele_audit']}>菜品未审核</p> 
+
+            <p class="text-small">数据：今日<{$counts['totay_ele_order']}>人点餐，<{$counts['ele_order']}>总外卖订单<br/>
+
+                	<{$counts['totay_ele_order']}>单等待处理，<{$counts['totay_ele_order']}>单配送中，<{$counts['totay_ele_order']}>单配送完成。</p>
+
+            <p><a href="<{:u('distributors/ele/index')}>" class="button button-small bg-dot">外卖详情</a> </p>
+
+
+
+        </div>
+
+    </li>
+
+  
+    <div class="blank-10 bg"></div>
+
+    <if condition="$ding['is_biz'] neq 0"><!--如果后台开通黄页-->
+
+    <li class="line padding">
+
+        <div class="x12">
+
+            <p class="text-small">类型：黄页</p>
+
+            <p class="text-small">商品：共<{$counts['biz']}>条黄页信息，<{$counts['biz_audit']}>条未审核</p> 
+
+
+
+        </div>
+
+    </li>
+
+    </if>
+
+    <div class="blank-10 bg"></div>
+
+    <li class="line padding">
+
+        <div class="x12">
+
+            <p class="text-small">类型：粉丝</p>
+
+            <p class="text-small">商品：总<{$counts['favorites']}>粉丝</p> 
+
+            <p class="text-small">数据：今日新增粉丝<{$counts['totay_favorites']}>条</p>
+
+            <p><a href="<{:u('distributors/fans/index')}>" class="button button-small bg-dot">粉丝详情</a> </p>
+
+
+
+        </div>
+
+    </li>
+
+  
+
+    <div class="blank-10 bg"></div>
+
+    <li class="line padding">
+
+        <div class="x12">
+
+            <p class="text-small">类型：分类信息</p>
+
+            <p class="text-small">商品：总<{$counts['life']}>条分类信息，<{$counts['life_audit']}>条待审核</p> 
+
+            <p class="text-small">数据：今日<{$counts['goods']}>条</p>
+
+            <p><a href="<{:u('distributors/life/index')}>" class="button button-small bg-dot">分类信息详情</a> </p>
+
+
+
+        </div>
+
+    </li>
+
+  <div class="blank-10 bg"></div>
+
+  
+
+   <li class="line padding">
+
+        <div class="x12">
+
+            <p class="text-small">类型：招聘</p>
+
+            <p class="text-small">商品：总<{$counts['work']}>条，待审核招聘<{$counts['work_audit']}>条。</p> 
+
+            <p><a href="<{:u('distributors/nearwork/index')}>" class="button button-small bg-dot">招聘详情</a> </p>
+
+
+
+        </div>
+
+    </li>
+
+  
+
+    <div class="blank-10 bg"></div>
+
+  </ul>
+
+</div> 
+
+		
+
+<include file="public:footer"/>

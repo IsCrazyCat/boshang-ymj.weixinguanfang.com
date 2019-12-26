@@ -1,0 +1,54 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">营销管理</a> > <a>红包</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <form method="post" action="<{:U('packet/index')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">
+           红包管理
+            </div>
+            <div class="right tuan_topfb_r"><a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('packet/create')}>">添加红包+</a></div>
+        </div>
+    </div>
+    </form>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>活动名称</td>
+            <td>关键词</td>
+            <td>二维码图片</td>
+            <td>红包类型</td>
+            <td>红包属性</td>
+            <td>领取人数</td>
+            <td>领取次数</td>
+			<td>活动时间</td>
+			<td>是否开启</td>
+            <td>操作</td>
+        </tr>
+        <foreach name="list" item="var">
+            <tr>
+                <td><{$var.title}></td>
+                <td><{$var.keyword}></td>
+                 <td style="height: 140px;"><img src="<{:config_img($var['file'])}>"  style="width: 120px; margin: 0px auto;" /></td>
+				<td><if condition="($var['packet_type'] elt 1)">手气红包<else/>普通红包</if></td>
+				<td>发放个数：<{$var.item_num}><br /><if condition="$var['packet_type'] elt 8">总金额：<{$var.item_sum}><br />面额上限：<{$var['item_max']}><else/>单个面额：<{$var.item_unit}></if></td>
+				<td><{$var.people}><if condition="($var['pcount'] gt 0)">已领：<{$var['pcount']}>人</if></td>	
+				<td><{$var.get_number}></td>
+                <td><{$var.start_time}> 至 <{$var.end_time}></td>
+                 <td><if condition="($var['is_open'] elt 1)">已开启<else/>未开启</if></td>
+                <td>
+                    <a class="radius3 sjgl_an tuan_topbt" href="<{:U('packet/edit',array('id'=>$var['id']))}>">修改</a>
+					<a class="radius3 sjgl_an tuan_topbt" href="<{:U('packet/logs',array('id'=>$var['id']))}>">兑换</a>
+                    <a class="radius3 sjgl_an tuan_topbt" href="<{:U('packet/sn',array('id'=>$var['id']))}>">领取</a>
+                    <a mini='confirm' class="radius3 sjgl_an tuan_topbt" href="<{:U('packet/delete',array('id'=>$var['id']))}>">删除</a>
+                </td>
+            </tr>
+        </foreach>
+    </table>
+    <{$page}>
+</div>
+
+<include  file='public:footer'/>

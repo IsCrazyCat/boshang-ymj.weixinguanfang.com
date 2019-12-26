@@ -1,0 +1,68 @@
+<include file='public:header'/>  
+<style>.xiaoqu-search { margin-top:2rem;}</style>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>  
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('worker/index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			套餐劵验证
+		</div>
+		<div class="top-share">
+		</div>
+	</header>
+
+
+    
+
+<style>ul { padding-left: 0px;}</style>
+<ul id="shangjia_tab">
+        <li style="width:20%;"><a href="<{:LinkTo('tuan/order',array('aready'=>0))}>" <eq name='aready' value='0'>class="on"</eq>>待付款</a></li>
+        <li style="width:20%;"><a href="<{:LinkTo('tuan/order',array('aready'=>1))}>" <eq name='aready' value='1'>class="on"</eq>>已付款</a></li>
+        <li style="width:20%;"><a href="<{:LinkTo('tuan/order',array('aready'=>3))}>" <eq name='aready' value='3'>class="on"</eq>>待退款</a></li>
+        <li style="width:20%;"><a href="<{:LinkTo('tuan/order',array('aready'=>4))}>" <eq name='aready' value='4'>class="on"</eq>>已退款</a></li>
+        <li style="width:20%;"><a href="<{:LinkTo('tuan/used')}>" class="on">套餐劵</a></li>
+        
+    </ul>
+    
+
+<div class="blank-40"></div>   
+ 
+
+ <form action="<{:U('tuan/used')}>" method="post" target="x-frame">
+	<div class="line padding border-bottom">
+		<span class="x12">当前待验证：
+        <if condition="$counts['tuan_order_code_is_used'] gt 0">
+        <span class="text-dot"><{$counts['tuan_order_code_is_used']}>单。</span>
+        <else/>
+        暂无
+        </if>
+        
+        </span>
+		
+	</div>
+
+	<div class="line padding border-bottom">
+		<span class="x3">套餐劵：</span>
+		<span class="x9"><input type="text" name="code[1]"  class="text-input text-gray" placeholder="请输入套餐劵"></span>
+		</div>
+	<div class="container">
+		<div class="blank-30"></div>
+		<p><span class="text-dot">小提示：</span> 推荐使用员工扫一扫即可验证！</p>
+	</div>
+	<div class="container">
+		<div class="blank-30"></div>
+		<button class="button button-big button-block bg-dot">提交修改</button>
+		<div class="blank-30"></div>
+        <a href="<{:U('worker/tuan/usedok')}>" class="button button-big button-block bg-blue text-center">验证记录</a>
+	</div>
+</form>
+
+
+
+<include file="public:footer"/>
+
+
+
+
+

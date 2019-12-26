@@ -1,0 +1,145 @@
+<include file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+       <li><a href="">商家等级</a> > <a href="">等级列表</a> >等级权限详情说明</li>
+    </ul>
+</div>
+<style>
+.tuan_topser_l a.red, .red{font-size:14px; font-weight:bold; color:#F00}
+.biankuang{ border:1px #ccc dashed; margin-left:10px;}
+.order_goods_table td {padding:5px;}
+.order_goods_table td.border-right_1px {border-right: 1px solid #EEE;}
+.order_goods_table td p{font-size:14px;}
+.order_goods_table td p.permission_left {padding:7px; width:150px; float:left;}
+.order_goods_table td p.permission_right {padding:7px; width:200px; float:left;}
+</style>
+
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">
+            	当前等级：【<{$detail['grade_name']}>】
+                购买等级费用：<a class="red">&yen; <{:round($detail['money']/100,2)}></a> 元 &nbsp;&nbsp;
+                自动升级商户资金满：<a class="red">&yen; <{:round($detail['gold']/100,2)}></a> 元
+                <p class="biankuang"><{$detail['content']}></p></div>
+             <div class="right tuan_topfb_r">
+                <a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('shop/permission',array('grade_id'=>$detail['grade_id']))}>">刷新当前页面</a>
+                <a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('shop/grade')}>">返回等级列表</a>
+            </div>
+        </div>
+    </div> 
+    
+    <div class="tabnr_change show">
+    	
+    	<table class="order_goods_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td class="border-right_1px">
+                    <p class="permission_left">商城权限：
+                    	<if condition="!empty($detail['is_mall'])"><a class="red">有</a><else/>无</if>
+                    </p>  
+                    <p class="permission_right">可上传商品数量： <{$detail['is_mall_num']}></p> 
+                </td>
+                <td class="border-right_1px">
+                    <p class="permission_left">套餐权限：
+                    	<if condition="!empty($detail['is_tuan'])"><a class="red">有</a><else/>无</if>
+                    </p>  
+                    <p class="permission_right">可上传套餐数量： <{$detail['is_tuan_num']}></p>
+                </td>
+            </tr>
+            <tr>
+                <td class="border-right_1px">
+                    <p class="permission_left">外卖权限：
+                    	<if condition="!empty($detail['is_ele'])"><a class="red">有</a><else/>无</if>
+                    </p>  
+                    <p class="permission_right">可上传外卖菜品数量： <{$detail['is_ele_num']}></p> 
+                </td>
+                <td class="border-right_1px">
+                    <p class="permission_left">商家新闻权限：
+                    	<if condition="!empty($detail['is_news'])"><a class="red">有</a><else/>无</if>
+                    </p>  
+                    <p class="permission_right">可上传商家新闻数量： <{$detail['is_news_num']}></p> 
+                </td>
+            </tr>
+            <tr>
+                <td class="border-right_1px">
+                    <p class="permission_left">酒店权限：
+                    	<if condition="!empty($detail['is_hotel'])"><a class="red">有</a><else/>无</if>
+                    </p>  
+                    <p class="permission_right">可上传酒店房间数量： <{$detail['is_hotel_num']}></p> 
+                </td>
+                <td class="border-right_1px">
+                    <p class="permission_left">定座权限：
+                    	<if condition="!empty($detail['is_booking'])"><a class="red">有</a><else/>无</if>
+                    </p>  
+                    <p class="permission_right">可上传订座菜品数量： <{$detail['is_booking_num']}></p> 
+                </td>
+            </tr>
+ 			<tr>
+                <td class="border-right_1px">
+                    <p class="permission_left">农家乐权限：
+                    	<if condition="!empty($detail['is_farm'])"><a class="red">有</a><else/>无</if>
+                    </p>  
+                    <p class="permission_right">可上传农家乐套餐数量： <{$detail['is_farm_num']}></p> 
+                </td>
+                <td class="border-right_1px">
+                    <p class="permission_left">家政权限：
+                    	<if condition="!empty($detail['is_appoint'])"><a class="red">有</a><else/>无</if>
+                    </p>  
+                    <p class="permission_right">可上传家政数量： <{$detail['is_appoint_num']}></p> 
+                </td>
+            </tr>
+            <tr>
+                <td class="border-right_1px">
+                    <p class="permission_left">活动权限：
+                    	<if condition="!empty($detail['is_huodong'])"><a class="red">有</a><else/>无</if>
+                    </p>  
+                    <p class="permission_right">可上传活动数量： <{$detail['is_huodong_num']}></p> 
+                </td>
+                <td class="border-right_1px">
+                    <p class="permission_left">优惠劵权限：
+                    	<if condition="!empty($detail['is_coupon'])"><a class="red">有</a><else/>无</if>
+                    </p>  
+                    <p class="permission_right">可上传优惠劵数量： <{$detail['is_coupon_num']}></p> 
+                </td>
+            </tr>
+            <tr>
+                <td class="border-right_1px">
+                    <p class="permission_left">分类信息权限：
+                    	<if condition="!empty($detail['is_life'])"><a class="red">有</a><else/>无</if>
+                    </p>  
+                    <p class="permission_right">可上传分类信息数量： <{$detail['is_life_num']}></p> 
+                </td>
+                <td class="border-right_1px">
+                    <p class="permission_left">积分兑换权限：
+                    	<if condition="!empty($detail['is_jifen'])"><a class="red">有</a><else/>无</if>
+                    </p>  
+                    <p class="permission_right">可上传积分兑换数量： <{$detail['is_jifen_num']}></p> 
+                </td>
+            </tr>
+             <tr>
+                <td class="border-right_1px">
+                    <p class="permission_left">云购权限：
+                    	<if condition="!empty($detail['is_cloud'])"><a class="red">有</a><else/>无</if>
+                    </p>  
+                    <p class="permission_right">可上传云购数量： <{$detail['is_cloud_num']}></p> 
+                </td>
+                <td class="border-right_1px"></td>
+            </tr>
+        </table>
+        
+        <php>
+          $new_shop_grade= D('Shopgrade')->find($detail['grade_id']);
+          $old_shop_grade= D('Shopgrade')->find($SHOPGRADE['grade_id']);
+        </php>
+                    
+                    
+            <div class="tuanfabu_an">
+             <if condition="$old_shop_grade['orderby'] Lt $new_shop_grade['orderby']">
+               <a  mini="confirm"  href="<{:U('shop/pay_permission',array('grade_id'=>$detail['grade_id'],'shop_id'=>$SHOP['shop_id']))}>" class="radius3 sjgl_an tuan_topbt">花费 &yen; <{:round($detail['money']/100,2)}>元 购买此等级</a>
+            </if>
+                 <a target="main_frm" href="<{:U('shop/grade')}>" class="radius3 sjgl_an tuan_topbt">返回等级列表看看</a>
+            </div>
+      
+    </div> 
+</div>
+<include file='public:footer'/>

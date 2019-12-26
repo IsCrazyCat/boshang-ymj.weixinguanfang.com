@@ -1,0 +1,45 @@
+
+
+
+	<foreach name="list" item="item">
+	<li class="line">
+		<a href="<{:U('message/xiangxi',array('msg_id'=>$item['msg_id']))}>">
+
+		<div class="x12 item-right">
+			<p class="send"><if condition="$item[send_id] eq 0"><i class="icon-exclamation-circle text-dot"></i>系统信息<else />
+            <span class="fa">发</span>
+            <{$users[$item[send_id]][nickname]}>(发) ->
+            
+            <{$users[$item[user_id]][nickname]}>
+            <php>$user_id = $item['user_id']; 
+                 $user = D('Users')->find($user_id); 
+                 $name = $user['nickname'];
+                 $account = $user['account'];
+            </php>
+            <if condition="!empty($name)"><!--如果用户有账户-->
+               <{$name}>(收)
+            <else/>
+               <{$account}>(收)
+            </if>
+            
+            </if>
+            
+            </p>
+			<p class="desc"><{$item.content}></p>
+			<span class="status">
+				<if condition="$item[read_time] elt 100"><em class="text-green">未读</em><else /><em class="text-gray">已读</em></if>
+			</span>
+            <p class="desc float-right" style="text-align: right;">发布时间：<{$item.create_time|date="Y-m-d H:i:s",###}></p>
+		</div>
+		</a>
+	</li>
+    <div class="blank-10 bg"></div>
+	</foreach>
+    
+    
+    
+
+    
+    
+    
+    

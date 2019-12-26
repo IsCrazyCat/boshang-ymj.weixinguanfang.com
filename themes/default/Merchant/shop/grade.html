@@ -1,0 +1,50 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家等级</a> > <a href="">等级管理</a> > <a>等级列表</a></li>
+    </ul>
+
+</div>
+
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="right tuan_topfb_r"><a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('branch/create')}>">添加分店+</a></div>
+        </div>
+    </div>
+    <include  file='shop:nav'/>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>等级ID</td>
+            <td>等级名称</td>
+            <td>等级图标</td>
+            <td>单独购买需要费用</td>
+            <td>自动升级需要销售额</td>
+            <td>等级说明</td>
+            <td>操作</td>
+        </tr>
+        <foreach name="list" item="var">
+            <tr <if condition="$var['grade_id'] eq $SHOPGRADE['grade_id']">style="background-color:#FDE1E1;" </if> >
+                <td><{$var.grade_id}></td>
+                <td><{$var.grade_name}></td>
+                <td><img style="width:20px;" src="<{:config_img($var['photo'])}>"/></td>
+                <td> &yen; <{:round($var['money']/100,2)}>元</td>
+                <td>&yen; <{:round($var['gold']/100,2)}>元</td>
+                <td><{$var.content}></td>
+                <td>
+                    <php>
+                    $new_shop_grade= D('Shopgrade')->find($var['grade_id']);
+                    $old_shop_grade= D('Shopgrade')->find($SHOPGRADE['grade_id']);
+                    </php>
+                	<a href="<{:U('shop/permission',array('grade_id'=>$var['grade_id']))}>">查看权限</a>
+                    <if condition="$old_shop_grade['orderby'] Lt $new_shop_grade['orderby']">
+                    <a mini="confirm"  href="<{:U('shop/pay_permission',array('grade_id'=>$var['grade_id'],'shop_id'=>$SHOP['shop_id']))}>">购买权限</a>
+                    </if>
+                    
+                </td>
+            </tr>
+        </foreach>
+    </table>
+    <{$page}>
+</div>
+<include  file='public:footer'/>

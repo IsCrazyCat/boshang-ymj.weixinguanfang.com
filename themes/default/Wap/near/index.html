@@ -1,0 +1,303 @@
+<include file='public:headnear'/>  
+
+        
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			附近生活
+		</div>
+		<div class="top-search" style="display:none;">
+			<form method="post" action="<{:U('near/search')}>">
+				<input name="keyword" placeholder="输入搜索关键字"  />
+				<button type="submit" class="icon-search"></button> 
+			</form>
+		</div>
+		<div class="top-signed">
+			<a id="search-btn" href="javascript:void(0);"><i class="icon-search"></i></a>
+		</div>
+	</header>
+	
+	<div class="line">
+		<div class="blank-10"></div>
+		<div class="padding">
+			<i class="icon-map-marker"></i> <span id="local-addr"></span> (<a href="javascript:reset();" class="text-gray" id="local-reset">重新定位</a>)
+		</div>
+	</div>
+	
+
+	<div id="focus" class="focus">
+		<div class="bd">
+			<div class="item-cate">
+				<div class="main-title">
+					<div class="line">
+						<div class="x4"><hr /></div>
+						<div class="x4">
+							<h2>生活服务</h2>
+							<p>LIFE SERVICE</p>
+						</div>
+						<div class="x4"><hr /></div>
+					</div>
+				</div>
+				<div class="container">
+					<ul class="line text-center serv-list">
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'送水',"type"=>1))}>" class="txt radius-circle bg-green">送水</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'快递',"type"=>2))}>" class="txt radius-circle bg-blue">快递</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'厕所',"type"=>3))}>" class="txt radius-circle bg-gray">厕所</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'小区',"type"=>4))}>" class="txt radius-circle bg-dot">小区</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'装修',"type"=>5))}>" class="txt radius-circle bg-yellow">装修</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'公园',"type"=>6))}>" class="txt radius-circle bg-green">公园</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'家政',"type"=>7))}>" class="txt radius-circle bg-blue">家政</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'医院',"type"=>8))}>" class="txt radius-circle bg-dot">医院</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'药店',"type"=>9))}>" class="txt radius-circle bg-dot">药店</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'小吃',"type"=>10))}>" class="txt radius-circle bg-mix">小吃</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'宠物',"type"=>11))}>" class="txt radius-circle bg-gray">宠物</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'交通',"type"=>12))}>" class="txt radius-circle bg-green">交通</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'银行',"type"=>13))}>" class="txt radius-circle bg-yellow">银行</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'政府',"type"=>14))}>" class="txt radius-circle bg-dot">政府</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'通信',"type"=>15))}>" class="txt radius-circle bg-blue">通信</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'工作',"type"=>16))}>" class="txt radius-circle bg-mix">工作</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="item-cate">
+				<div class="main-title">
+					<div class="line">
+						<div class="x4"><hr /></div>
+						<div class="x4">
+							<h2>购物消费</h2>
+							<p>SHOPPING</p>
+						</div>
+						<div class="x4"><hr /></div>
+					</div>
+				</div>
+				<div class="container">
+					<ul class="line text-center serv-list">
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'餐饮',"type"=>17))}>" class="txt radius-circle bg-green">餐饮</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'超市',"type"=>18))}>" class="txt radius-circle bg-blue">超市</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'商场',"type"=>19))}>" class="txt radius-circle bg-gray">商场</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'蛋糕',"type"=>20))}>" class="txt radius-circle bg-dot">蛋糕</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'小吃',"type"=>21))}>" class="txt radius-circle bg-yellow">小吃</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'服装',"type"=>22))}>" class="txt radius-circle bg-red-light">服装</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'家电',"type"=>23))}>" class="txt radius-circle bg-green">家电</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'宾馆',"type"=>24))}>" class="txt radius-circle bg-main">宾馆</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'丽人',"type"=>25))}>" class="txt radius-circle bg-red-light">丽人</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'农贸',"type"=>26))}>" class="txt radius-circle bg-red">农贸</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'外卖',"type"=>27))}>" class="txt radius-circle bg-yellow">外卖</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'数码',"type"=>28))}>" class="txt radius-circle bg-green">数码</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="item-cate">
+				<div class="main-title">
+					<div class="line">
+						<div class="x4"><hr /></div>
+						<div class="x4">
+							<h2>休闲娱乐</h2>
+							<p>LEISURE & DISPORT</p>
+						</div>
+						<div class="x4"><hr /></div>
+					</div>
+				</div>
+				<div class="container">
+					<ul class="line text-center serv-list">
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'休闲',"type"=>29))}>" class="txt radius-circle bg-green">休闲</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'茶楼',"type"=>30))}>" class="txt radius-circle bg-blue">茶楼</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'KTV',"type"=>31))}>" class="txt radius-circle bg-gray">KTV</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'酒吧',"type"=>32))}>" class="txt radius-circle bg-dot">酒吧</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'洗浴',"type"=>33))}>" class="txt radius-circle bg-yellow">洗浴</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'按摩',"type"=>34))}>" class="txt radius-circle bg-red-light">按摩</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'保健',"type"=>35))}>" class="txt radius-circle bg-green">保健</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'健身',"type"=>36))}>" class="txt radius-circle bg-main">健身</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'瑜伽',"type"=>37))}>" class="txt radius-circle bg-red-light">瑜伽</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'农贸',"type"=>38))}>" class="txt radius-circle bg-red">农贸</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'电影',"type"=>39))}>" class="txt radius-circle bg-yellow">电影</a>
+						</li>
+						<li class="x3">
+							<a href="<{:U('near/search',array('keyword'=>'网吧',"type"=>40))}>" class="txt radius-circle bg-blue">网吧</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+		</div>
+		<div class="hd">
+			<ul></ul>
+		</div>
+	</div>
+	
+	<div class="blank-10"></div>
+	<p class="text-small text-gray padding-large-left"><span class="tag bg-dot">小提示</span> 没有想要的？往下搜索更多服务！</p>
+	<div class="blank-10"></div>
+	
+	<div class="main-title">
+		<div class="line">
+			<div class="x4"><hr /></div>
+			<div class="x4">
+				<h2>搜索服务</h2>
+				<p>SEARCH SERVICE</p>
+			</div>
+			<div class="x4"><hr /></div>
+		</div>
+		<div class="blank-60"></div>
+		<div class="line">
+			<div class="x3"></div>
+			<div class="x6">
+				<form class="index-search" action="<{:U('near/search')}>">
+					<input type="text" name="keyword" class="keyword" placeholder="请输入关键字" />
+					<div class="blank-30"></div>
+					<button class="button button-block bg-dot">搜索一下</button>
+					<div class="blank-100"></div>
+					<div class="blank-30"></div>
+				</form>
+			</div>
+			<div class="x3"></div>
+		</div>
+	</div>
+	<div id="allmap" style="width:100%;height:100px;"></div>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=qfbt1AS4SZZvfZvSXE0A1Mx2"></script>
+	<script>
+		$(document).ready(function () {
+			TouchSlide({ 
+				slideCell:"#focus",
+				titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+				mainCell:".bd", 
+				effect:"left", 
+				autoPlay:false,//自动播放
+				autoPage:true, //自动分页
+			});
+			reset();
+			$("#search-btn").click(function(){
+				if($(".top-search").css("display")=='block'){
+					$(".top-search").hide();
+					$(".top-title").show(200);
+				}
+				else{
+					$(".top-search").show();
+					$(".top-title").hide(200);
+				}
+			});
+			
+		});	
+   
+	function reset() {
+		var addr = $("#local-addr").html();
+		$("#local-addr").html("定位中……");
+			// 百度地图API功能
+	var map = new BMap.Map("allmap");
+	var point = new BMap.Point(116.331398,39.897445);
+	map.centerAndZoom(point,12);
+	var geolocation = new BMap.Geolocation();
+	geolocation.getCurrentPosition(function(r){
+		if(this.getStatus() == BMAP_STATUS_SUCCESS){
+			var mk = new BMap.Marker(r.point);
+			map.addOverlay(mk);
+			map.panTo(r.point);
+			lat=r.point.lat;
+			lng=r.point.lng;
+			getlat(lng,lat);
+			//alert('您的位置：'+lng+','+lat);
+			$("#addr").html(lng+','+lat);
+		}
+		else {
+			//alert('failed'+this.getStatus());
+		}        
+	},{enableHighAccuracy: true})
+		
+		}
+		function getlat(lng,lat){
+	//alert('开始获取');
+	var map = new BMap.Map("allmap"); 
+	var point = new BMap.Point(lng,lat);
+	map.centerAndZoom(point,12);
+	var geoc = new BMap.Geocoder();    
+	var pt = point;
+	geoc.getLocation(pt, function(rs){
+			var addComp = rs.addressComponents;
+			//alert(addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+			$("#local-addr").html(addComp.city + addComp.district + addComp.street + addComp.streetNumber);
+		});        
+		}
+		 
+	</script>
+<include file='public:footer'/>  

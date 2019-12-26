@@ -1,0 +1,53 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="javascript:void(0);">其他</a> > <a href="<{:U('yuyue/index')}>">预约列表</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t tuanfabu_top">
+            <div class="left tuan_topser_l">预约客户到店消费，商家在网站确认消费，会对商家的排名有影响！</div>
+        </div>
+    </div>
+    <div class="tuanfabu_tab">
+        <ul>
+            <li class="tuanfabu_tabli on"><a href="<{:U('yuyue/index')}>">预约列表</a></li>
+            <li class="tuanfabu_tabli"><a href="<{:U('yuyue/used')}>">消费确认</a></li>
+        </ul>
+    </div> 
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>称呼</td>
+            <td>手机</td>
+            <td>预约时间</td>
+            <td>预约人数</td>
+            <td>留言</td> 
+            <td>创建时间</td>
+            <td>创建IP</td>
+            <td>是否使用</td>
+        </tr>
+        <foreach name="list" item="var">
+            <tr>
+              
+                    <td style="padding-left: 20px;"><{$var.name}></td>
+                    <td><{$var.mobile}></td>
+                 
+                  
+                   
+               
+                    <td><{$var.yuyue_date}>&nbsp;&nbsp;<{$var.yuyue_time}></td>
+                    <td>
+                <if condition="$var['number'] eq 10"><{$var.number}>人（及以上）<else /><{$var.number}>人 </if>
+                </td>
+                <td><{$var.content}></td>
+                <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                <td><{$var.create_ip}>(来自<{$var.create_ip_area}>)</td>
+                <td><eq name="var.used" value="1"> 已使用 <else/> 未使用 </eq></td>
+            </td>
+            </tr>
+        </foreach>
+    </table>
+    <{$page}>
+</div>
+<include  file='public:footer'/>

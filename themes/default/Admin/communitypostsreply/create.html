@@ -1,0 +1,50 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">智慧小区</li>
+        <li class="li2">回复帖子</li>
+        <li class="li2 li3">添加回复</li>
+    </ul>
+</div>
+<div class="mainScAdd ">
+
+    <div class="tableBox">
+        <form  target="baocms_frm" action="<{:U('communitypostsreply/create')}>" method="post">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">帖子ID：</td>
+                     <td class="rgTdBt"><input type="text" name="data[post_id]" value=" <{$post_id|default=''}>" class="manageInput" />
+                    
+
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">用户：</td>
+                     <td class="rgTdBt">
+                        <div class="lt">
+                            <input type="hidden" id="user_id" name="data[user_id]" value="<{$detail.user_id|default=''}>" class="manageInput" />
+                            <input type="text" name="nickname" id="nickname"  value="" />
+                        </div>
+                        <a mini="select"  w="800" h="600" href="<{:U('user/select')}>" class="remberBtn">选择用户</a>
+                    </td>
+                </tr>
+                
+                
+                  <tr>
+                    <td class="lfTdBt">回复内容：</td>
+                    <td class="rgTdBt">
+                        <textarea name="data[details]" rows="5" cols="40"><{$detail.details|default=''}></textarea>
+                    </td>
+                </tr>
+                
+                
+                
+                    <td colspan="2">
+                        <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>       

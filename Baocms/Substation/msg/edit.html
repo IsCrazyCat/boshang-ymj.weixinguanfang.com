@@ -1,0 +1,70 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">手机</li>
+        <li class="li2">手机消息</li>
+        <li class="li2 li3">编辑消息</li>
+    </ul>
+</div>
+<div class="mainScAdd">
+    <div class="tableBox">
+        <form target="baocms_frm" action="<{:U('msg/edit',array('msg_id'=>$detail['msg_id']))}>" method="post">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">用户：</td>
+                    <td class="rgTdBt">
+                        <div class="lt">
+                            <input type="hidden" id="user_id" name="data[user_id]" value="<{$detail.user_id|default=''}>" class="manageInput" />
+                            <input type="text" name="nickname" id="nickname" class="manageInput w200" value="<{$user.nickname}>" />
+                        </div>
+                        <a mini="select"  w="800" h="600" href="<{:U('user/select')}>" class="seleSj">选择用户</a>
+                    </td>
+                </tr>    <tr>
+                    <td class="lfTdBt">类型：</td>
+                    <td class="rgTdBt">
+                        <select name="data[type]" class="manageSelect w200">
+                            <foreach name="types" item="item" key="key">
+                                <option value="<{$key}>" <eq name="key" value="$detail['type']">selected="selected"</eq> ><{$item}></option>
+                            </foreach>
+                        </select>
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">标题：</td>
+                    <td class="rgTdBt"><input type="text" name="data[title]" value="<{$detail.title|default=''}>" class="manageInput w200" />
+
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">描述：</td>
+                    <td class="rgTdBt"><textarea  name="data[intro]" cols="50" rows="10" ><{$detail.intro|default=''}></textarea>
+
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">外链地址：</td>
+                    <td class="rgTdBt"><input type="text" name="data[link_url]" value="<{$detail.link_url|default=''}>" class="manageInput w200" />
+                        <code>如果填写了外链，那么将会直接打开链接的地址</code>
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">详细内容：</td>
+                    <td class="rgTdBt">
+                        <script type="text/plain" id="data_details" name="data[details]" style="width:800px;height:360px;"><{$detail.details}></script>
+                    </td>
+                </tr>
+                <link rel="stylesheet" href="__PUBLIC__/umeditor/themes/default/css/umeditor.min.css" type="text/css">
+                <script type="text/javascript" charset="utf-8" src="__PUBLIC__/umeditor/umeditor.config.js"></script>
+                <script type="text/javascript" charset="utf-8" src="__PUBLIC__/umeditor/umeditor.min.js"></script>
+                <script type="text/javascript" src="__PUBLIC__/umeditor/lang/zh-cn/zh-cn.js"></script>
+                <script>
+                    um = UM.getEditor('data_details', {
+                        imageUrl: "<{:U('app/upload/editor')}>",
+                        imagePath: '__ROOT__/attachs/editor/',
+                        lang: 'zh-cn',
+                        langPath: UMEDITOR_CONFIG.UMEDITOR_HOME_URL + "lang/",
+                        focus: false
+                    });
+                </script>
+            </table>
+            <div class="smtQr"><input type="submit" value="确认编辑" class="smtQrIpt" /></div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>       

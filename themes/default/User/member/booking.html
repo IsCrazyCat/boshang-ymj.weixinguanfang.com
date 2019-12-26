@@ -1,0 +1,88 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:u('user/index/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			完成支付
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+<div class="panel-list">
+	<ul>
+		<li>
+			<a href="javascript:;">
+				订单编号：
+				<em class="text-gray"><{$order.order_id}></em>
+			</a>
+		</li>
+		<li>
+			<a href="javascript:;">
+				预约时间：<em><{$order.ding_date}> &nbsp;<{$order.ding_time}></em>
+			</a>
+		</li>
+   
+	</ul>
+</div>
+<div class="blank-10 bg"></div>
+<if condition="$dingmenu">
+    <volist name="dingmenu" id="item">
+    <div class="line padding border-bottom">
+        <div class="x3">
+            <img src="<{:config_img($menus[$item['menu_id']]['photo'])}>" width="90%" />
+        </div>
+        <div class="x9">
+            <p class="margin-small"><{$item['menu_name']}></p>
+            <p class="margin-small">
+                <{$item.num}><span class="margin-left">x</span><span class="margin-left">￥<{:round($item['price']/100,1)}></span><span class="margin-left text-dot">=￥<{:round($item['amount']/100,1)}></span>
+            </p>
+        </div>
+    </div>
+    </volist>
+</if>
+<div class="blank-10 bg"></div>
+
+
+<div class="panel-list">
+	<ul>
+		 <li>
+			<a href="javascript:;">
+				支付定金：<em><{:round($detail['need_pay']/100,1)}> 元 &nbsp;&nbsp; (<if condition="$order['order_status'] eq 1"> 未消费 <elseif condition="$order['order_status'] eq 2"/> 已消费 <elseif condition="$order['order_status'] eq -1"/> 已退款 <else/>未支付</if>)</em>
+			</a>
+		</li>
+        
+        <li>
+			<a href="javascript:;">
+				付款方式：<em><{$paytype[$detail['code']]['name']}></em>
+			</a>
+		</li>
+        
+        <li>
+			<a href="javascript:;">
+				结算价格：<em>￥<{:round($detail['need_pay']/100,1)}></em>
+			</a>
+		</li>
+        
+        <li>
+			<a href="javascript:;">
+				地址： &nbsp;&nbsp;&nbsp;<{$shop.addr}>人数：<{$order.ding_num}>
+			</a>
+		</li>
+        
+         <li>
+			<a href="javascript:;">
+				联系人 &nbsp;&nbsp;&nbsp; <{$order.name}> <span style="float: right; display: inline-block;">电话：<{$order.mobile}>
+			</a>
+		</li>
+	</ul>
+</div>
+
+<div class="blank-20"></div>
+<div class="line text-center">
+	<a class="button bg-dot" href="<{:u('user/booking/detail',array('order_id'=>$order['order_id']))}>">查看详情</a>
+	<a class="button bg-main" href="<{:u('wap/booking/index')}>">继续逛逛</a>
+</div>
+<div class="blank-20"></div>
+<include  file='public:footer'/>    

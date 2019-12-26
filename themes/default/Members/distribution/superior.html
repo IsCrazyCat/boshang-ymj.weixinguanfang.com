@@ -1,0 +1,40 @@
+<include file="public:header"/>
+<div class="content_right">   
+<div class="tgdd">
+    <div class="tgdd_t">
+        <ul>
+            <li class="on"><a href="<{:U('distribution/superior')}>">我的上级</a></li>
+        </ul>
+    </div>
+    <div class="tgdd_nr">
+        <table border="0" cellspacing="0" width="100%"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; text-align:center;">
+            <tr class="tgdd_nrC">
+                <td class="tgdd_nrCtd">
+                    <if condition="$MEMBER['fuid1']">
+                        <span class="avatar">
+                       <img src="<{:config_img($fuser['face'])}>" />
+                        </span>
+                        <div class="info" style="max-width: 110px;padding-left:5px;text-align: left;margin:0px auto;white-space: nowrap;">
+                            <p>帐号：<{$fuser.account}></p>
+                            <p>昵称：<{$fuser.nickname}></p>
+                            <p>VIP：<{$fuser['rank_id']}></p>
+                            <p>Email：<{$fuser.email}></p>
+                        </div>
+                        <else/>
+                        <span class="avatar">
+        
+                                <img src="<{:config_img($CONFIG[site][logo])}>" />
+                          
+                        </span>
+                        <div class="info">
+                            <p>平台方</p>
+                        </div>
+                    </if>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+</div>
+</div>
+<include file="public:footer"/>

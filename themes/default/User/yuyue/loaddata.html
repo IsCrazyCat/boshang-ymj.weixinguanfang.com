@@ -1,0 +1,65 @@
+
+<foreach name="list" item="item">
+
+
+  <if condition="$item['type'] eq 1">
+        <php>
+        $biz = D('Biz') -> where('pois_id ='.$item['pois_id']) -> find();
+        </php> 
+	<div class="line padding border-bottom" style="background: #FFF0F0;">
+		<div class="x3">
+			<a href="<{:u('wap/biz/detail',array('pois_id'=>$item['pois_id']))}>"><img src="<{:config_img($biz['photo'])}>" width="90%" /></a>
+		</div>
+		<div class="x9">
+			<p class="text-gray"><a href="<{:u('wap/biz/detail',array('pois_id'=>$item['pois_id']))}>"><{$biz['name']}>(小店)</a></p>
+            <p class="text-gray">小店电子券：<{$item.code}></p>
+            <if condition="!empty($item['used_time'])">
+            <p class="text-dot">使用时间：<{$item.used_time|date='Y-m-d H:i',###}></p>
+            <else/>
+            <p class="text-gray">预约时间：<{$item.yuyue_date}></p>
+            </if>
+		</div>
+	</div>
+	<div class="line padding">
+		<span class="x4 text-gray" style="margin-top:5px;">预约人数：<{$item.number}></span>
+		<span class="x8 text-right">
+        <a href="javascript:void(0);" rel="<{$item.yuyue_id}>" class="jquery-delete button">删除</a>
+         <eq name="item.used" value="0">
+                <a class="button text-green bg-dot">未使用</a>
+				<else/>
+				<a class="button text-green bg-gray">已使用</a>
+				</eq>
+        </span>        
+	</div>
+	<div class="blank-10 bg"></div>
+    
+   <else/> 
+    	<div class="line padding border-bottom">
+		<div class="x3">
+			<a href="<{:u('wap/shop/detail',array('shop_id'=>$item['shop_id']))}>"><img src="__ROOT__/attachs/<{$shops[$item['shop_id']]['photo']}>" width="90%" /></a>
+		</div>
+		<div class="x9">
+			<p class="text-gray"><a href="<{:u('wap/shop/detail',array('shop_id'=>$item['shop_id']))}>"><{$shops[$item['shop_id']]['shop_name']}></a></p>
+            <p class="text-gray">电子券：<{$item.code}></p>
+            <if condition="!empty($item['used_time'])">
+            <p class="text-dot">使用时间：<{$item.used_time|date='Y-m-d H:i',###}></p>
+            <else/>
+            <p class="text-gray">预约时间：<{$item.yuyue_date}><{$item.yuyue_time}></p>
+            </if>
+		</div>
+	</div>
+	<div class="line padding">
+		<span class="x4 text-gray" style="margin-top:5px;">预约人数：<{$item.number}></span>
+		<span class="x8 text-right">
+        <a href="javascript:void(0);" rel="<{$item.yuyue_id}>" class="jquery-delete button">删除</a>
+         <eq name="item.used" value="0">
+                <a class="button text-green bg-dot">未使用</a>
+				<else/>
+				<a class="button text-green bg-gray">已使用</a>
+				</eq>
+        </span>        
+	</div>
+	<div class="blank-10 bg"></div>
+    </if>
+    
+</foreach>

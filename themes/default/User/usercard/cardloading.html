@@ -1,0 +1,13 @@
+<foreach name="list" item="item">
+    <li>       
+        <a href="<{:U('shop/detail',array('shop_id'=>$item['shop_id']))}>"><img style="width: 100px; height: 80px;" src="__ROOT__/attachs/<{$shopdetails[$item['shop_id']]['card_photo']|default='default.jpg'}>" /></a>
+        <div class="des"><p class="title_default"><a href="<{:U('shop/detail',array('shop_id'=>$item['shop_id']))}>"><{$shops[$item['shop_id']]['shop_name']}></a></p>
+            <p class="light"><span>积分：<{$item['integral']}></span></p>
+            <p class="bbt">
+                <span class="color_c">
+                    领取时间：<{$item['create_time']|date="Y-m-d H:i",###}>
+                </span>
+            </p>
+        </div>
+    </li>
+</foreach>

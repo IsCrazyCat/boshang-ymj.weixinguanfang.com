@@ -1,0 +1,94 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">友情链接</li>
+        <li class="li2">添加</li>
+    </ul>
+</div>
+<div class="listBox clfx">
+    <div class="menuManage">
+        <form  target="baocms_frm" action="<{:U('links/create')}>" method="post">
+            <div class="mainScAdd">
+                <div class="tableBox">
+                    <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                                         <tr>
+                        <td class="lfTdBt">所在城市：</td>
+                        <td class="rgTdBt">
+                            <select name="data[city_id]" id="city_id" style="float: left;" class="seleFl w210"></select>
+                        </td>
+                    </tr>
+                    <script src="<{:U('app/datas/cityarea')}>"></script>
+                    <script>
+                        var city_id = <?php echo (int)$detail['city_id'];?>;
+                        function changeCity(cid){
+                            var area_str = '<option value="0">请选择.....</option>';
+                            for(a in cityareas.area){
+                               if(cityareas.area[a].city_id ==cid){
+                                    if(area_id == cityareas.area[a].area_id){
+                                        area_str += '<option selected="selected" value="'+cityareas.area[a].area_id+'">'+cityareas.area[a].area_name+'</option>';
+                                    }else{
+                                         area_str += '<option value="'+cityareas.area[a].area_id+'">'+cityareas.area[a].area_name+'</option>';
+                                    }  
+                                }
+                            }
+                            $("#area_id").html(area_str);
+                        }
+                        $(document).ready(function(){
+                            var city_str = '<option value="0">请选择.....</option>';
+                            for(a in cityareas.city){
+                               if(city_id == cityareas.city[a].city_id){
+                                   city_str += '<option selected="selected" value="'+cityareas.city[a].city_id+'">'+cityareas.city[a].name+'</option>';
+                               }else{
+                                    city_str += '<option value="'+cityareas.city[a].city_id+'">'+cityareas.city[a].name+'</option>';
+                               }  
+                            }
+                            $("#city_id").html(city_str);
+                            if(city_id){
+                                changeCity(city_id);
+                            }
+                            $("#city_id").change(function(){
+                                city_id = $(this).val();
+                                changeCity($(this).val());
+                            });
+                        });
+                    </script>
+                <tr>
+
+                       <tr>
+                            <td class="lfTdBt">链接名称：</td>
+                            <td class="rgTdBt"><input type="text" name="data[link_name]" value="<{$detail.link_name|default=''}>" class="manageInput" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lfTdBt">链接地址：</td>
+                            <td class="rgTdBt"><input type="text" name="data[link_url]" value="<{$detail.link_url|default=''}>" class="manageInput" />
+                                <code>链接地址需要有http://开头</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="lfTdBt">链接邮箱：</td>
+                            <td class="rgTdBt"><input type="text" name="data[link_email]" value="<{$detail.link_email|default=''}>" class="manageInput" />
+                                <code>申请人的邮箱，后台添加的连接可不填写</code>
+                            </td>
+                        </tr>
+                        
+                 	 	<tr>
+                        	<td class="lfTdBt">连接介绍：</td>
+                        	<td class="rgTdBt">
+                            	<textarea name="data[link_intro]" rows="5" cols="40"><{$detail.link_intro}></textarea>
+                                <<code>申请人的网站简短介绍，后台添加的连接可不填写</code>
+                        	</td>
+                    	</tr>
+                        <tr>
+                            <td class="lfTdBt">排序：</td>
+                            <td class="rgTdBt"><input type="text" name="data[orderby]" value="<{$detail.orderby|default=''}>" class="manageInput" />
+                                <code>数字越小排序越高，前台排名取决此数值</code>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="smtQr"><input type="submit" value="确认添加" class="smtQrIpt" /></div>
+            </div>
+        </form>
+    </div>
+</div>

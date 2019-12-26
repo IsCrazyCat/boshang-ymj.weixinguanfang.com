@@ -1,0 +1,28 @@
+<foreach name="list" item="item">
+	<div class="line padding border-bottom" <if condition="empty($item['views'])">  style="background:#FBFBFB;" </if>>
+		
+		<div class="x12">
+			<p>
+				<a class="title" href="<{:U('message/msgshow',array('msg_id'=>$item['msg_id']))}>">
+					<{$item['title']}>
+				</a>
+			</p>
+            <p class="text-gray" style="font-size:12px;">发布时间：<{:formatTime($item['create_time'])}></p>
+		</div>
+	</div>
+	<div class="line padding">
+		<span class="x12 text-right">
+        <a class="button button-small bg-blue" href="<{:U('message/msgshow',array('msg_id'=>$item['msg_id']))}>">详细</a>
+        <if condition="empty($item['views'])">
+        <a class="button button-small bg-dot">未读</a>
+        </if>
+        <if condition="!empty($item['worker_id'])">
+        <a class="button button-small">私信</a>
+        </if>
+        <if condition="!empty($item['worker_id'])">
+        <a target="x-frame" class="button button-small bg-blue" href="<{:U('message/delete',array('msg_id'=>$item['msg_id']))}>">删除</a>
+        </if>
+        </span>
+	</div>
+	<div class="blank-10 bg"></div>
+</foreach>

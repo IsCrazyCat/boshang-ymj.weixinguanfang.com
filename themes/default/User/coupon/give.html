@@ -1,0 +1,53 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('coupon/weixin',array('download_id'=>$detail['download_id']))}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			赠送优惠劵
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+<style>
+.list-media-x{ margin-top:0rem;}
+</style>
+<div class="panel-list">
+	<ul>
+		<li><a href="javascript:;">您的账户：<em class="text-gray"><{$MEMBER['nickname']}></em></a></li>
+	</ul>
+</div>
+<div class="blank-10 bg"></div>
+<div class="list-media-x">
+	<ul>
+		<li class="line padding">
+			<div class="x3">
+				<img style="width:90%;" src="<{:config_img($coupon['photo'])}>">
+			</div>
+			<div class="x9">
+				<p><{$coupon['title']}></p>
+				<p class="text-small padding-top">过期时间：<span class="text-dot"><{$coupon['expire_date']}></span></p>
+			</div>
+		</li>  
+	</ul>
+</div>
+<div class="blank-10 bg"></div>
+<div class="container">
+	<div class="blank-10"></div>
+	<p class="text-small text-dot">小提示：请先输入您赠送给您朋友的手机号码，再点击赠送，如果您的朋友木有手机号系统会自动为您的朋友生成账户密码！</p>
+	<form target="x-frame" id="nick-form" method="post" action="<{:U('coupon/give',array('download_id'=>$detail['download_id']))}>">
+	<div class="form-group">
+		<div class="field">
+			<div class="input-group">
+				<input type="text" id="mobile" class="input" name="mobile" size="50" value="" placeholder="请输入手机号码" />
+			</div>
+		</div>
+	</div>
+	<div class="blank-10"></div>
+	<button id="check-form" type="submit" class="button button-block button-big bg-dot text-center">立即赠送</button>
+	</form>
+</div>
+
+
+<include file='public:footer'/> 

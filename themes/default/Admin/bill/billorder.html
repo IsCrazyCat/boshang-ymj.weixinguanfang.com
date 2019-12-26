@@ -1,0 +1,182 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">支付设置</li>
+        <li class="li2 li3">缴费订单</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>人工处理缴费订单后在此处理订单状态</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="right">
+                <form action="<{:U('bill/billorder')}>" method="post" >
+                    <div class="seleHidden" id="seleHidden">
+                        <span> 缴费类型</span>
+                        <select name="bill_type_id" class="selecttop w100">
+                            <option value="0">全部</option>
+                            <foreach name="billtypes" item="v">
+                            <option value="<{$v.bill_type_id}>" <eq name="v.bill_type_id" value="$bill_type_id">selected="selected"</eq> ><{$v.bill_type_name}></option>
+                            </foreach>
+                        </select>
+
+                        <span>状态</span>
+                        <select name="status" class="selecttop w100">
+                            <option value="-1">全部</option>
+                            <option <eq name="status" value="">selected="selected"</eq> value="0">待处理</option>
+                            <option <eq name="status" value="1">selected="selected"</eq> value="1">已成功</option>
+                            <option <eq name="status" value="2">selected="selected"</eq> value="2">已退款</option>
+                        </select>
+                        <span>关键词</span>
+                        <input type="text"  class="inptText" name="keyword" value="<{$keyword}>"  /><input type="submit" value="   搜索"  class="inptButton" />
+                    </div> 
+                    <a style="display: inline-block;" href="#" class="searchG">高级搜索</a>
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form>
+            <form action="<{:U('bill/billorder')}>"  method="post" >
+                <div class="selectNr selectNr2">
+                    <div class="left">
+                        <div class="seleK">
+                            <label>
+                                <span>开始时间</span>
+                                <input type="text"    name="bg_date" value="<{$bg_date|default=''}>"  onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w150" />
+                                <span>结束时间</span>
+                                <input type="text" name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w150" />
+                            </label>
+                            <label>
+                                <span>用户</span>
+                                <input type="hidden" id="user_id" name="user_id" value="<{$user_id|default=''}>" />
+                                <input type="text" name="nickname" id="nickname"  value="<{$nickname}>"   class="text" />
+                                <a  href="<{:U('user/select')}>" w="800" h="600" mini="select" class="sumit">选择用户</a>
+                            </label>
+                            <label>
+                                <span class="spanOne">关键词</span>
+                                <input type="text"  class="inptText w120" name="keyword" value="<{$keyword}>"  />
+                            </label>
+                        </div>
+                    </div>
+                    <div class="right">
+                        <input type="submit" value="   搜索"  class="inptButton" />
+                    </div>
+            </form>
+            <div class="clear"></div>
+    </div>
+    <form  target="baocms_frm" method="post">         
+        <div class="tableBox">
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50">ID</td>
+                    <td>类型</td>
+                    <td>用户</td>
+                    <td>城市</td>
+                    <td>区域</td>
+                    <td>手机</td>
+                    <td>户名</td>
+                    <td>编号</td>
+                    <td>备注</td>
+                    <td>金额</td>
+                    <td>使用余额</td>
+                    <td>使用利息</td>
+                    <td>创建时间</td>
+                    <td>创建IP</td>
+                    <td>状态</td>
+                    <td>处理时间</td>
+                    <td>处理说明</td>
+                    <td>操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><{$var.bill_order_id}></td>
+                        <td><{$billtypes[$var['bill_type_id']]['bill_type_name']}></td>
+                        <td><{$users[$var['user_id']]['account']}>(UID:<{$var.user_id}>)</td>
+                        <td><{$citys[$var['city_id']]['name']}></td>
+                        <td><{$areas[$var['area_id']]['area_name']}></td>
+                        <td><{$var.mobile}></td>
+                        <td><{$var.realname}></td>
+                        <td><{$var.account}></td>
+                        <td><{$var.memo}></td>
+                        <td><{$var['sum']/100}></td>
+                        <td><{$var['money']/100}></td>
+                        <td><{$var['interest']/100}></td>
+                        <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                        <td><{$var.create_ip}></td>
+                        <td><eq name="var.status" value="0">待处理<else /><eq name="var.status" value="1">已成功<else />已退款</eq></eq></td>
+                        <td><if condition="$var['admin_time']"><{$var.admin_time|date='Y-m-d H:i:s',###}></if></td>
+                        <td><{$var.admin_memo}></td>
+                        <td>
+                            <if condition="$var['status'] eq 0">
+                            <a class="remberBtn confirm"  href="javascript:void(0);" rel="<{$var.bill_order_id}>">确认</a>
+                            <a class="remberBtn refund"  href="javascript:void(0);" rel="<{$var.bill_order_id}>">退款</a>
+                            </if>
+                        </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+            </div>
+        </div>
+        <script src="__PUBLIC__/js/layer/layer.js?v=20150718"></script>
+        <script>
+            $(document).ready(function () {
+                layer.config({
+                    extend: 'extend/layer.ext.js'
+                });
+                $(".confirm").click(function () {
+                    var id = $(this).attr('rel');
+                    var url = "<{:U('bill/process')}>";
+
+                    layer.prompt({formType: 2, value: '', title: '请输入处理说明，并确认'}, function (value) {
+                        //alert(value); //得到value
+                        if (value != "" && value != null) {
+                            $.post(url, {id: id, status: 1,value:value}, function (data) {
+                                if(data.status == 'success'){
+                                    layer.msg(data.msg, {icon: 1});
+                                    setTimeout(function(){
+                                        window.location.reload(true);
+                                    },1000)
+                                }else{
+                                    layer.msg(data.msg, {icon: 2});
+                                }
+                            }, 'json')
+                        } else {
+                            layer.msg('请填写处理说明', {icon: 2});
+                        }
+                    });
+                });
+
+                $(".refund").click(function () {
+                    var id = $(this).attr('rel');
+                    var url = "<{:U('bill/process')}>";
+
+                    layer.prompt({formType: 2, value: '', title: '请输入退款说明，并确认'}, function (value) {
+                        //alert(value); //得到value
+                        if (value != "" && value != null) {
+                            $.post(url, {id: id, status: 2,value:value}, function (data) {
+                                if(data.status == 'success'){
+                                    layer.msg(data.msg, {icon: 1});
+                                    setTimeout(function(){
+                                        window.location.reload(true);
+                                    },1000)
+                                }else{
+                                    layer.msg(data.msg, {icon: 2});
+                                }
+                            }, 'json')
+                        } else {
+                            layer.msg('请填写退款说明', {icon: 2});
+                        }
+                    });
+                })
+            })
+        </script>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  

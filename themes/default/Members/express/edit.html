@@ -1,0 +1,95 @@
+<include  file='public:header'/>
+<div class="content_right">   
+    <div class="tgdd">
+        <form  target="baocms_frm" action="<{:U('express/edit',array('express_id'=>$detail['express_id']))}>" method="post">
+            <div class="addAddress_nr">
+                <p class="addAddress_t">编辑快递信息</p>
+                <ul>
+                    <li>
+                        <div class="left"><span>标题：</span></div>
+                        <div class="lef">
+                            <input type="text" name="data[title]" value="<{$detail.title|default=''}>" class="manageInput w300" />
+                        </div>
+                    </li>
+                    <li>
+                        <div class="left"><span>所在坐标：</span></div>
+                        <div class="lef lt">
+                            <input type="text" name="data[lng]" id="data_lng" value="<{$detail.lng|default=''}>" class="fselect" />经度
+                            <input type="text" name="data[lat]" id="data_lat" value="<{$detail.lat|default=''}>" class="fselect" />纬度
+                        </div>
+                    </li>
+                    <li>
+                        <div class="left"><span>地图坐标：</span></div>
+                        <div class="lef">
+                            <div class="listBox clfx">
+                                <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7b92b3afff29988b6d4dbf9a00698ed8"></script>
+                                <div id="allmap" style="width: 560px; height:500px;"></div>
+                                <script type="text/javascript">
+
+                        // 百度地图API功能
+                        var map = new BMap.Map("allmap");
+                        map.centerAndZoom(new BMap.Point("<{$detail['lng']|default=$city['lng']}>", "<{$detail['lat']|default=$city['lat']}>"), 16);
+                        function selectCallBack(id, name, v1, v2) {
+                            $("#" + id).val(v1);
+                            $("#" + name).val(v2);
+                            var point = new BMap.Point(v1, v2);
+                            var marker = new BMap.Marker(point);  // 创建标注
+                            map.clearOverlays();
+                            map.addOverlay(marker);              // 将标注添加到地图中
+
+                        }
+                        function showInfo(e) {
+                            selectCallBack('data_lng', 'data_lat', e.point.lng, e.point.lat);
+                        }
+                        map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+                        map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}));  //右上角，仅包含平移和缩放按钮
+                        map.addEventListener("click", showInfo);
+                                </script>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="left"><span>寄件人姓名：</span></div>
+                        <div class="lef">
+                            <input type="text" name="data[from_name]" value="<{$detail.from_name|default=''}>" class="manageInput w200" />
+                        </div>
+                    </li>
+                    <li>
+                        <div class="left"><span>寄件人地址：</span></div>
+                        <div class="lef">
+                            <input type="text" name="data[from_addr]" value="<{$detail.from_addr|default=''}>" class="manageInput w200" />
+                        </div>
+                    </li>
+                    <li>
+                        <div class="left"><span>寄件人手机号：</span></div>
+                        <div class="lef">
+                            <input type="text" name="data[from_mobile]" value="<{$detail.from_mobile|default=''}>" class="manageInput w200" />
+                        </div>
+                    </li>
+                    <li>
+                        <div class="left"><span>收件人姓名：</span></div>
+                        <div class="lef">
+                            <input type="text" name="data[to_name]" value="<{$detail.to_name|default=''}>" class="manageInput w200" />
+                        </div>
+                    </li>
+                    <li>
+                        <div class="left"><span>收件人地址：</span></div>
+                        <div class="lef">
+                            <input type="text" name="data[to_addr]" value="<{$detail.to_addr|default=''}>" class="manageInput w200" />
+                        </div>
+                    </li>
+                    <li>
+                        <div class="left"><span>收件人手机号：</span></div>
+                        <div class="lef">
+                            <input type="text" name="data[to_mobile]" value="<{$detail.to_mobile|default=''}>" class="manageInput w200" />
+                        </div>
+                    </li>
+                </ul>
+                <div class="addAddress_bcqx"><input class="bc" type="submit" value="确认保存" /></div>
+            </div>
+
+        </form>
+    </div>
+</div>
+</div>
+<include file="public:footer"/>

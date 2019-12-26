@@ -1,0 +1,22 @@
+<foreach name="list" item="item">
+  <li class="line" onclick="location='<{:U('cloud/detail',array('goods_id'=>$item['goods_id']))}>'">	
+    <div class="x4 detail-base">
+    <img src="<{:config_img($item['photo'])}>">
+    <if condition="$item['type'] EQ 1">
+    	<span class="album">1元云购</span>
+	<elseif condition="$item['type'] EQ 2"/>
+		<span class="album">5元云购</span>
+	<elseif condition="$item['type'] EQ 3"/>
+		<span class="album">10元云购</span>
+	</if>
+    </div>
+		<div class="x8">	
+			<h5><{:bao_msubstr($item['title'],0,32,false)}></h5>
+            <php>$left = $item['price'] - $item['join']; $tt = round($item['join']/$item['price']*100,2);</php>
+            <div class="yiyuan_progres"><span class="yiyuan_progres_bar" style="width:<{$tt}>%;"></span></div>
+			<p class="addr"><{$item.join}>已参与</p>
+            <p class="addr">剩余 <{$left}>次 <eq name="item.type" value="1"><a class="button button-big bg-dot float-right" style="border-radius:0px;">一元专区</a></eq> </p>
+		</div>
+  </li>
+<div class="blank-10 bg"></div>
+</foreach>

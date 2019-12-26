@@ -1,0 +1,97 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">商家管理</li>
+        <li class="li2 li3">商家图片</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span> 由于上传组件是为了以后静态文件分离使用的，所以在删除记录后不会删除对应图片！</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('shoppic/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <span>关键字(电话或商户名称)</span>
+                        <input type="text" name="keyword" value="<{$keyword}>" class="inptText" /><input type="submit" value="   搜索"  class="inptButton" />
+                    </div> 
+                </form>
+                <a href="javascript:void(0);" class="searchG">高级搜索</a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form method="post" action="<{:U('shoppic/index')}>">
+            <div class="selectNr selectNr2">
+                <div class="left">
+                    <div class="seleK">
+                        <label>
+                            <span>状态：</span>
+                            <select class="select w100" name="audit">
+                                <option value="0"  >全部</option>
+                                <option value="-1" <eq name="audit" value="-1">selected="selected"</eq> >等待审核</option>
+                                <option value="1" <eq name="audit" value="1">selected="selected"</eq>>正常</option>
+                            </select>
+                        </label>
+                        <label>
+                            <input type="hidden" id="shop_id" name="shop_id" value="<{$shop_id|default=''}>"/>
+                            <input type="text"   id="shop_name" name="shop_name" value="<{$shop_name}>" class="text w150 sj" />
+                            <a mini="select"  w="1000" h="600" href="<{:U('shop/select')}>" class="seleSj">选择商家</a>
+                        </label>
+
+                        <label>
+                            <span>关键字:</span>
+                            <input type="text" name="keyword" value="<{$keyword}>" class="inptText" />
+                        </label>
+                    </div>
+                </div>
+                <div class="right">
+                    <input type="submit" value="   搜索"  class="inptButton" />
+                </div>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="pic_id" /></td>
+                    <td class="w50">ID</td>
+                    <td>商家</td>
+                    <td>图片</td>
+                    <td>标题</td>
+                    <td>排序</td>
+                    <td>创建时间</td>
+                    <td>创建IP</td>
+                    <td>操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_pic_id" type="checkbox" name="pic_id[]" value="<{$var.pic_id}>" /></td>
+                        <td><{$var.pic_id}></td>
+                        <td><{$shops[$var['shop_id']]['shop_name']}></td>
+                        <td><img src="<{:config_img($var['photo'])}>" width="60" height="60"/></td>
+                        <td><{$var.title}></td>
+                        <td><{$var.orderby}></td>
+                        <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                        <td><{$var.create_ip_area}><{$var.create_ip}></td>
+                        <td>
+                            <{:BA('shoppic/delete',array("pic_id"=>$var["pic_id"]),'删除','act','remberBtn')}>
+                            <eq name="var.audit" value="0"> <{:BA('shoppic/audit',array("pic_id"=>$var["pic_id"]),'审核','act','remberBtn')}> </eq>
+                        </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                <{:BA('shoppic/audit','','批量审核','list',' remberBtn')}>
+                <{:BA('shoppic/delete','','批量删除','list',' a2')}>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  

@@ -1,0 +1,128 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">会员</li>
+        <li class="li2">会员管理</li>
+        <li class="li2 li3">UC整合</li>
+    </ul>
+</div>
+<p class="attention"><span>注意：</span>如果整合后，用户就会和UC同步，需要在论坛的UCENTER里面新增一个应用，新增应用后会有一段代码！将代码对应的选项填入就可完成整合</p>
+<form  target="baocms_frm" action="<{:U('setting/ucenter')}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">UC编码：</td>
+                    <td class="rgTdBt">
+                        <label><input type="radio" name="data[charset]" <eq name="CONFIG.ucenter.charset" value="1">checked="checked"</eq> value="1"  />GBK</label>
+                        <label><input type="radio" name="data[charset]"  <eq name="CONFIG.ucenter.charset" value="0">checked="checked"</eq>  value="0"  />UTF-8</label>
+                        <code>如果您的UCENTER是GBK的就选择GBK会自动转码的！</code>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="lfTdBt">UC_CONNECT：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[UC_CONNECT]" value="<{$CONFIG.ucenter.UC_CONNECT}>" class="scAddTextName w300 " />
+                        <code>对应你在Ucenter里面一段代码的UC_CONNECT属性</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">UC_DBHOST：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[UC_DBHOST]" value="<{$CONFIG.ucenter.UC_DBHOST}>" class="scAddTextName w300 " />
+                        <code>对应你在Ucenter里面一段代码的UC_DBHOST属性</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">UC_DBUSER：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[UC_DBUSER]" value="<{$CONFIG.ucenter.UC_DBUSER}>" class="scAddTextName w300 " />
+                        <code>对应你在Ucenter里面一段代码的UC_DBUSER属性</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">UC_DBPW：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[UC_DBPW]" value="<{$CONFIG.ucenter.UC_DBPW}>" class="scAddTextName w300 " />
+                        <code>对应你在Ucenter里面一段代码的UC_DBPW属性</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">UC_DBNAME：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[UC_DBNAME]" value="<{$CONFIG.ucenter.UC_DBNAME}>" class="scAddTextName w300 " />
+                        <code>对应你在Ucenter里面一段代码的UC_DBNAME属性</code>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="lfTdBt">UC_DBCHARSET：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[UC_DBCHARSET]" value="<{$CONFIG.ucenter.UC_DBCHARSET}>" class="scAddTextName w300 " />
+                        <code>对应你在Ucenter里面一段代码的UC_DBCHARSET属性</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">UC_DBTABLEPRE：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[UC_DBTABLEPRE]" value="<{$CONFIG.ucenter.UC_DBTABLEPRE}>" class="scAddTextName w300 " />
+                        <code>对应你在Ucenter里面一段代码的UC_DBTABLEPRE属性；注意比如选项是`ultrax`.pre_ucenter_那么应该填写<b>ultrax.pre_ucenter_</b></code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">UC_DBCONNECT：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[UC_DBCONNECT]" value="<{$CONFIG.ucenter.UC_DBCONNECT}>" class="scAddTextName w300 " />
+                        <code>对应你在Ucenter里面一段代码的UC_DBCONNECT属性</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">UC_KEY：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[UC_KEY]" value="<{$CONFIG.ucenter.UC_KEY}>" class="scAddTextName w300 " />
+                        <code>对应你在Ucenter里面一段代码的UC_KEY属性</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">UC_API：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[UC_API]" value="<{$CONFIG.ucenter.UC_API}>" class="scAddTextName w300 " />
+                        <code>对应你在Ucenter里面一段代码的UC_API属性</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">UC_CHARSET：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[UC_CHARSET]" value="<{$CONFIG.ucenter.UC_CHARSET}>" class="scAddTextName w300 " />
+                        <code>对应你在Ucenter里面一段代码的UC_CHARSET属性</code>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="lfTdBt">UC_IP：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[UC_IP]" value="<{$CONFIG.ucenter.UC_IP}>" class="scAddTextName w300 " />
+                        <code>对应你在Ucenter里面一段代码的UC_IP属性</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">UC_APPID：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[UC_APPID]" value="<{$CONFIG.ucenter.UC_APPID}>" class="scAddTextName w300 " />
+                        <code>对应你在Ucenter里面一段代码的UC_APPID属性</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">UC_PPP：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[UC_PPP]" value="<{$CONFIG.ucenter.UC_PPP}>" class="scAddTextName w300 " />
+                        <code>对应你在Ucenter里面一段代码的UC_PPP属性</code>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>       

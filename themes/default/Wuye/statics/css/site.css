@@ -1,0 +1,80 @@
+/*loading*/
+
+.bao_loading{
+    display: none;
+    width: 200px;
+    margin: 5px auto;
+    height: 24px;
+    line-height: 24px;
+    background: url(../img/ajax-loader.gif) no-repeat 50px center;
+    background-size: contain;
+    font-size: 14px;
+    font-family: "微软雅黑";
+    color: #000;
+    text-indent: 80px;
+}
+
+/* footer */
+.footer{
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    width: 100%;
+    height: 50px;
+    border-top: 1px solid #ccc;
+}
+.footer ul li{
+    width: 33%;
+    float: left;
+    height: 50px;
+    background: #fff;
+}
+.footer ul li.lst{
+    width: 34%;
+}
+.footer ul li a:hover{
+    background: #00b5c6;
+}
+.footer ul li a.active{
+    background: #00b5c6;
+    color: #fff;
+}
+.footer ul li a{
+    height: 40px;
+    padding: 5px 10px;
+    display: block;
+    text-align: center;
+    color: #666;
+    font-size: 14px;
+}
+.footer ul li:hover a{
+    color: #fff;
+}
+.f1, .f2, .f3{
+    width: 24px;
+    height: 24px;
+    display: block;
+    margin: 0 auto;
+    background-image: url(../img/button-ray.png);
+    background-repeat: no-repeat;
+}
+.footer ul li a:hover .f1, .footer ul li a:hover .f2, .footer ul li a:hover .f3, .footer ul li a:hover .f4 {
+    background-image: url(../img/nav-button.png);
+}
+.footer ul li a.active .f1, .footer ul li a.active .f2, .footer ul li a.active .f3, .footer ul li a.active .f4 {
+    background-image: url(../img/nav-button.png);
+}
+.f1 {
+    background-position: left center;
+}
+.f2 {
+    background-position: -24px center;
+}
+.f3 {
+    background-position: -48px center;
+}
+
+img{
+    display: block;
+    max-width: 100%;
+}

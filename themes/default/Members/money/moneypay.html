@@ -1,0 +1,49 @@
+<include file="public:header"/>
+<div class="content_right">  
+<style>
+.con_right_font .payment {background: none repeat scroll 0 0 #fd3c00;border: 0 none;color: #fff;font-family: "微软雅黑";font-size: 18px; height: 53px;text-align: center;width:180px;float:left;margin-left:120px;margin-top:40px;cursor:pointer}
+.password_nr img {text-align: center;width:180px;float:left;margin-left:120px;margin-top:40px;}
+.con_right_font{ margin-bottom:20px;}
+</style>
+    <div class="con_right">
+        <div class="con_right_nav" style="padding: 10px 0px 20px 0px; font-weight:bold; font-size:18px;">余额充值</div>
+        <div class="con_right_font">
+            <div class="password_nr">
+                <div class="password_input">
+                    <div class="left" style="width:120px;">充值：</div>
+                    <div class="lef" style="line-height:30px; font-size:18px;">&yen;<{:round($money/100,2)}> 元</div>
+                </div>
+                <div class="password_input">
+                    <div class="left" style="width:120px;"><p>需要支付金额：</p></div>
+                    <div class="lef" style="line-height:30px; color:#f12000; font-size:18px;">&yen;<{:round($money/100,2)}> 元</div>
+                </div>
+                <{$button}>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="public:footer"/>
+
+<php>
+ $paymentlogs = D('Paymentlogs')->find($log_id);
+</php>
+<if condition = "$paytype[$paymentlogs['code']]['code'] == native">
+<script type="text/javascript" language="javascript">
+$(document).ready(function(){
+    function check(){
+        $.post('<{:U("money/check",array("log_id"=>$log_id))}>',{is_post:1},function(result){
+            if (result.status == 'success') {
+				layer.msg(result.msg);
+					window.location.href = "<{:U('logs/moneylogs')}>";
+				}
+              },'json');
+            }
+   setInterval(function(){
+       check();
+   },5000);//自动查询有问题的
+})
+</script>
+</if>
+
+ 
+

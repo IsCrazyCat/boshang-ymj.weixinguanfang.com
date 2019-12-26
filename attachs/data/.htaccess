@@ -1,0 +1,5 @@
+RewriteEngine on
+<FilesMatch ".(gz|htaccess|htpasswd|ini|php|sh)$">
+Order Allow,Deny
+Deny from all
+</FilesMatch> 

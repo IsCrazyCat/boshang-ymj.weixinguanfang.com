@@ -1,0 +1,54 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">功能</li>
+        <li class="li2">商场管理</li>
+        <li class="li2 li3">商场楼层</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span></p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('market/flooradd',array('market_id'=>$detail['market_id']),'添加楼层','','remberBtn')}>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="floor_id" /></td>
+                        <td class="w50">ID</td>
+                        <td>楼层</td>
+                        <td>排序</td>
+                        <td>操作</td>
+                    <foreach name="floor" item="var">
+                        <tr>
+                            <td><input class="child_floor_id" type="checkbox" name="floor_id[]" value="<{$var.floor_id}>" /></td>
+                            <td> <{$var.floor_id}></td>
+                            <td><{$var.floor_name}><eq name="var.closed" value="1">（已删除）</eq></td>
+                            <td><{$var.orderby}></td>
+                            <td>
+                                <eq name="var.closed" value="1"><{:BA('market/recovery',array("floor_id"=>$var["floor_id"],'market_id'=>$var['market_id']),'恢复','act','remberBtn')}>
+                                <else/>
+                                <{:BA('market/flooredit',array("floor_id"=>$var["floor_id"],'market_id'=>$var['market_id']),'编辑','','remberBtn')}>
+                                <{:BA('market/floordel',array("floor_id"=>$var["floor_id"],'market_id'=>$var['market_id']),'删除','act','remberBtn')}>
+                                </eq>
+                            </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('market/floordel',array('market_id'=>$detail['market_id']),'批量删除','list','a2')}>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>  
+

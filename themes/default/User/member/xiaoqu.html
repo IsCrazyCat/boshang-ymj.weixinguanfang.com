@@ -1,0 +1,133 @@
+<include file="public:header"/>
+
+<header class="top-fixed bg-yellow bg-inverse">
+
+	<div class="top-back">
+
+		<a class="top-addr" href="<{:U('user/member/index')}>"><i class="icon-angle-left"></i></a>
+
+	</div>
+
+		<div class="top-title">
+
+			小区管理
+
+		</div>
+
+	<div class="top-signed">
+
+		<include file="public:message"/>
+
+	</div>
+
+</header>
+
+<div class="blank-10 bg"></div>
+
+<div class="panel-list">
+
+	<ul>
+
+		<li><a href="<{:u('user/community/index')}>">我加入的小区
+
+        
+
+        <if condition="$community gt 0">
+
+                <font>(<{$community}>)</font> 
+
+                <else/>
+
+                </if>
+
+        
+
+        <i class="icon-angle-right"></i></a></li>
+
+		<li><a href="<{:u('user/community/tongzhi')}>">小区通知<i class="icon-angle-right"></i></a></li>
+
+
+  <li><a href="<{:u('user/community/tieba')}>">我的小区贴吧
+
+        <if condition="$tieba gt 0">
+
+                <font>(<{$tieba}>)</font> 
+
+        <else/>
+
+        </if>
+
+        <if condition="$counts['tieba_today'] neq null">
+
+                <font>今日：(<b><{$counts.tieba_today}></b>)</font>  
+
+        <else/>
+
+        </if> 
+
+        <i class="icon-angle-right"></i></a></li>
+        
+        
+
+       <div class="blank-10 bg"></div>
+		<li><a href="<{:u('user/community/feedback')}>">我的报修
+
+        <if condition="$feedback gt 0">
+
+                <font>(<{$feedback}>)</font> 
+
+        <else/>
+
+        </if>               
+
+                
+
+        <if condition="$counts['feedback_today'] neq null">
+
+                <font>今日：(<b><{$counts.feedback_today}></b>)</font>  
+
+        <else/>
+
+        </if> 
+
+                
+
+                
+
+        <i class="icon-angle-right"></i></a></li>
+
+        <li><a href="<{:u('user/community/order')}>">我的缴费单
+
+        <if condition="$communityorder gt 0">
+
+                <font>(<{$communityorder}>)</font> 
+
+        <else/>
+
+        </if>
+
+        <if condition="$counts['communityorder_today'] neq null">
+
+                <font>今日：(<b><{$counts.communityorder_today}></b>)</font>  
+
+        <else/>
+
+        </if> 
+
+        <i class="icon-angle-right"></i></a></li>
+
+        
+
+       
+
+       
+
+		
+
+	</ul>
+
+</div>
+
+
+
+<include file='public:footer'/>

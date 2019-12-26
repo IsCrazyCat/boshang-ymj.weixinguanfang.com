@@ -1,0 +1,11 @@
+.bd-list ul{list-style:none;padding:0;}
+.bd-list ul li{padding:10px;border-bottom:thin solid #eee;}
+.bd-list img{width:100%;border-radius:5px;}
+.bd-list .desc{padding:0 10px;}
+.bd-list .desc p{font-size:12px;color:#999;margin:0;}
+
+
+.shop-list{list-style:none;padding:0;}
+.shop-list .reason{background:#fafafa;margin-top:10px;padding:10px;font-size:12px;}
+.shop-list .comment{padding:10px;border:thin solid #eee;font-size:12px;}
+.shop-list .detail p{margin:0;font-size:12px;text-indent:0;color:#999;}

@@ -1,0 +1,323 @@
+<include file="public:headercard"/>
+<link rel="stylesheet" type="text/css" href="__TMPL__voucher/static/css/Coupon.css?201150408">
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<body style="background:#feee82;">
+<div class="voucherPage">
+	<img src="__TMPL__voucher/static/img/voucher_img1.png" width="100%" height="" />
+    <div class="voucherPage_cont">
+    	<div class="voucherPage_tab">
+            <ul>
+                <li class="voucherPage_tab_list on"><a href="javascript:;">所有的</a></li>
+                <li class="voucherPage_tab_list"><a href="javascript:;">已领取</a></li>
+                <li class="voucherPage_tab_list"><a href="javascript:;">未领取</a></li>
+            </ul>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="voucherPage_list_box">
+        <div class="voucherPage_list" style="display:block;">
+            <ul>
+				<foreach name="card" item="item" key="k">
+					<if condition="$item['status'] neq 'CARD_STATUS_DELETE'">
+						<if condition="!empty($item['date_info']['end_timestamp'])">
+							<if condition="$item[date_info]['end_timestamp'] lt $time">
+							<li class="list grey">
+							<else/>
+							<li class="list">
+							</if>
+						<else/>
+						<li class="list">
+						</if>	
+                        <div class="fl">
+                                <div class="wz" style=" padding-left:15px;">
+                                   <p class="bt"><{$item.title}></p>
+                                   <p>销券方式：
+										<if condition="$item['code_type'] eq 'CODE_TYPE_TEXT'">
+									
+									文本
+									<elseif  condition="$item['code_type'] eq 'CODE_TYPE_BARCODE'"/>
+									
+									一维码
+									<elseif  condition="$item['code_type'] eq 'CODE_TYPE_QRCODE'"/>
+									
+									二维码
+									<elseif  condition="$item['code_type'] eq 'CODE_TYPE_ONLY_QRCODE'"/>
+									
+									二维码无code显示
+									<elseif  condition="$item['code_type'] eq 'CODE_TYPE_ONLY_BARCODE'"/>
+									
+									一维码无code显示
+									
+									</if> 
+                                   </p>
+                                   <div class="bt">剩余:<{$item.sku.quantity}> </div>
+                                   <input type = 'hidden' id='<{$k}>ext' value='<{$item.wxjscfg.ext}>'>
+                                   <div>
+								   <if condition="!empty($item['date_info']['end_timestamp'])">
+										<if condition="$item['date_info']['end_timestamp'] lt $time">
+                               
+                                   <div><a class="butn">已过期</a></div>
+										<else/>
+                                   	<a class="butn" onClick="addCard('<{$item.id}>','<{$k}>')">立即领取</a>
+										</if>
+											
+									<else/>
+										
+									</if>
+                                   </div>
+                                   <p class="time">有效期: <if condition="!empty($item['date_info']['end_timestamp'])"><{$item['date_info']['end_timestamp']|date='Y-m-d',###}><else/><{$item['date_info']['begin_timestamp']}></if></p>
+                                </div>
+                            </div>
+                            <div class="fr"><span class="cardType on<if condition="!empty($item['date_info']['end_timestamp'])"><if condition="$item['date_info']['end_timestamp'] gt $time"> on </if> </if>">
+							
+							<if condition="$item['code_type'] eq 'DISCOUNT'">
+
+				
+                                    折扣券
+                                    <elseif  condition="$item['card_type'] eq 'GIFT'"/>
+                                
+                                    
+                                    礼品券
+                                    <elseif  condition="$item['card_type'] eq 'CASH'"/>
+                          
+                                    
+                                    代金券
+                                    <elseif  condition="$item['card_type'] eq 'GENERAL_COUPON'"/>
+                                  
+                                    
+                                    通用券
+                                    <elseif  condition="$item['card_type'] eq 'GROUPON'"/>
+                           
+                                    
+                                    团购券
+                                    
+                                    <else/>
+                                    
+                                    其他
+                                    
+                                    </if></span></div>
+                            <div class="clear"></div>
+                        </li>
+                    </if>
+				</foreach> 
+                
+               
+            </ul>
+        </div>
+        <div class="voucherPage_list">
+            <ul>
+				<foreach name="card3" item="item" key="k">
+					<if condition="$item['status'] neq 'CARD_STATUS_DELETE'">
+						  <if condition="empty($item['etime'])">
+								<if condition="$item['etime'] lt $time">
+       
+                         <li class="list grey">
+							<else/>
+                        <li class="list">
+							</if>
+						</if>	
+                        <div class="fl">
+                                <div class="wz" style=" padding-left:15px;">
+                                   <p class="bt"><{$item.title}></p>
+                                 
+                                   <p>销券方式：
+										<if condition="$item['code_type'] eq 'CODE_TYPE_TEXT'">
+											文本
+										<elseif  condition="$item['code_type'] eq 'CODE_TYPE_BARCODE'"/>
+										
+										一维码
+										<elseif  condition="$item['code_type'] eq 'CODE_TYPE_QRCODE'"/>
+										
+										二维码
+										<elseif  condition="$item['code_type'] eq 'CODE_TYPE_ONLY_QRCODE'"/>
+										
+										二维码无code显示
+										<elseif  condition="$item['code_type'] eq 'CODE_TYPE_ONLY_BARCODE'"/>
+										
+										一维码无code显示
+										
+									</if> 
+                                   </p>
+                                   <div class="bt">剩余:<{$item.sku.quantity}> </div>
+                                   <input type = 'hidden' id='<{$k}>ext' value='<{$item.wxjscfg.ext}>'>
+                                   <div>
+								   <if condition="empty($item['etime'])">
+										<if condition="$item['etime'] lt $time">
+                               
+                                   <div><a  class="butn">已过期</a></div>
+										<else/>
+                                   	<a class="butn" onClick="addCard('<{$item.id}>','<{$k}>')">立即领取</a>
+										</if>
+									</if>
+                                   </div>
+                                   <p class="time">有效期: <if condition="!empty($item['etime'])"><{$item.etime|date='Y-m-d',###}><else/><{$item.stime}></if></p>
+                                </div>
+                            </div>
+                            <div class="fr"><span class="cardType  <if condition="empty($item['etime'])"><if condition="$item['etime'] lt $time"> on </if> </if>">
+							
+							<if condition="$item['code_type'] eq 'DISCOUNT'">
+
+				
+                                    折扣券
+                                    <elseif  condition="$item['card_type'] eq 'GIFT'"/>
+                                
+                                    
+                                    礼品券
+                                    <elseif  condition="$item['card_type'] eq 'CASH'"/>
+                          
+                                    
+                                    代金券
+                                    <elseif  condition="$item['card_type'] eq 'GENERAL_COUPON'"/>
+                                  
+                                    
+                                    通用券
+                                    <elseif  condition="$item['card_type'] eq 'GROUPON'"/>
+                           
+                                    
+                                    团购券
+                                    
+                                    <else/>
+                                    
+                                    其他
+                                    
+                                    </if></span></div>
+                            <div class="clear"></div>
+                        </li>
+                    </if>
+				</foreach> 
+            </ul>
+        </div>
+        <div class="voucherPage_list">
+            <ul>
+				<foreach name="card4" item="item" key="k">
+					<if condition="$item['status'] neq 'CARD_STATUS_DELETE'">
+						<if condition="empty($item['etime'])">
+							<if condition="$item['etime'] lt $time">
+
+							<li class="list grey">
+							<else/>
+							<li class="list">
+							</if>
+						</if>	
+                        <div class="fl">
+                                <div class="wz" style=" padding-left:15px;">
+                                   <p class="bt"><{$item.title}></p>
+                                   <p>销券方式：
+										<if condition="$item['code_type'] eq 'CODE_TYPE_TEXT'">
+									
+									文本
+									<elseif  condition="$item['code_type'] eq 'CODE_TYPE_BARCODE'"/>
+									
+									一维码
+									<elseif  condition="$item['code_type'] eq 'CODE_TYPE_QRCODE'"/>
+									
+									二维码
+									<elseif  condition="$item['code_type'] eq 'CODE_TYPE_ONLY_QRCODE'"/>
+									
+									二维码无code显示
+									<elseif  condition="$item['code_type'] eq 'CODE_TYPE_ONLY_BARCODE'"/>
+									
+									一维码无code显示
+									
+									</if> 
+                                   </p>
+                                   <div class="bt">剩余:<{$item.sku.quantity}> </div>
+                                   <input type = 'hidden' id='<{$k}>ext' value='<{$item.wxjscfg.ext}>'>
+                                   <div>
+								   <if condition="empty($item['etime'])">
+										<if condition="$item['etime'] lt $time">
+                               
+                                   <div><a  class="butn">已过期</a></div>
+										<else/>
+                                   	<a class="butn" onClick="addCard('<{$item.id}>','<{$k}>')">立即领取</a>
+										</if>
+									</if>
+                                   </div>
+                                   <p class="time">有效期: <if condition="!empty($item['etime'])"><{$item.etime|date='Y-m-d',###}><else/><{$item.stime}></if></p>
+                                </div>
+                            </div>
+                            <div class="fr"><span class="cardType  <if condition="empty($item['etime'])"><if condition="$item['etime'] lt $time"> on </if> </if>">
+							
+							<if condition="$item['code_type'] eq 'DISCOUNT'">
+
+				
+                                    折扣券
+                                    <elseif  condition="$item['card_type'] eq 'GIFT'"/>
+                                
+                                    
+                                    礼品券
+                                    <elseif  condition="$item['card_type'] eq 'CASH'"/>
+                          
+                                    
+                                    代金券
+                                    <elseif  condition="$item['card_type'] eq 'GENERAL_COUPON'"/>
+                                  
+                                    
+                                    通用券
+                                    <elseif  condition="$item['card_type'] eq 'GROUPON'"/>
+                           
+                                    
+                                    团购券
+                                    
+                                    <else/>
+                                    
+                                    其他
+                                    
+                                    </if></span></div>
+                            <div class="clear"></div>
+                        </li>
+                    </if>
+				</foreach> 
+            </ul>
+        </div>
+    </div>
+</div>
+<script>
+	$(document).ready(function(e) {	
+		$('.voucherPage_tab_list').each(function (e) {
+			$(this).click(function(){
+				$('.voucherPage_tab_list').removeClass("on");
+				$(this).addClass("on");
+				$(".voucherPage_list_box .voucherPage_list").each(function(i){
+					if(e==i){
+						$(".voucherPage_list_box .voucherPage_list").hide();
+						$(this).show();
+					}
+					else{
+						$(this).hide();
+					}
+				});
+			});
+		});
+	});
+</script>
+<script type="text/javascript">
+	  wx.config({
+		  debug: false,
+		  appId: '<{$wxjscfg.appId}>',
+		  timestamp: <{$wxjscfg.timestamp}>,
+		  nonceStr: '<{$wxjscfg.nonceStr}>',
+		  signature: '<{$wxjscfg.signature}>',
+		  jsApiList: [
+			'checkJsApi',
+			'addCard',
+			'chooseCard',
+			'openCard'
+		  ]
+	  });
+
+function addCard(card_id,ext){
+	var e = $('#'+ext+'ext').val();
+    wx.addCard({
+        cardList: [{
+            cardId: card_id,
+            cardExt: e,
+        }], // 需要添加的卡券列表
+        success: function (res) {
+            var cardList = res.cardList; // 添加的卡券列表信息
+        }
+    });
+}
+</script>
+</body>
+</html>

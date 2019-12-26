@@ -1,0 +1,87 @@
+<table>
+  
+    <if condition="!empty($cate['select1'])"> 
+        <tr>
+            <td align="right"><{$cate.select1}>：</td>
+            <td>
+                <select name="data[select1]" class="manageSelect">
+                    <foreach name="attrs" item="item">
+                        <eq name="item.type" value="select1">
+                        <option value="<{$item.attr_id}>"  <eq name="detail.select1" value="$item.attr_id">selected="selected"</eq>  ><{$item.attr_name}>(<{$item.rate}>‰)</option>
+                        </eq>
+                    </foreach>                    
+
+                </select>
+
+            </td>
+        </tr> 
+    </if>
+    <if condition="!empty($cate['select2'])"> 
+        <tr>
+            <td align="right"><{$cate.select2}>：</td>
+            <td>
+                <select name="data[select2]" class="manageSelect">
+                    <foreach name="attrs" item="item">
+                        <eq name="item.type" value="select2">
+                        <option value="<{$item.attr_id}>"  <eq name="detail.select2" value="$item.attr_id">selected="selected"</eq>  ><{$item.attr_name}>(<{$item.rate}>‰)</option>
+                        </eq>
+                    </foreach>                    
+
+                </select>
+
+            </td>
+        </tr> 
+    </if>
+    <if condition="!empty($cate['select3'])"> 
+        <tr>
+            <td align="right"><{$cate.select3}>：</td>
+            <td>
+                <select name="data[select3]" class="manageSelect">
+                    <foreach name="attrs" item="item">
+                        <eq name="item.type" value="select3">
+                        <option value="<{$item.attr_id}>"  <eq name="detail.select3" value="$item.attr_id">selected="selected"</eq>  ><{$item.attr_name}><{$item.rate}>‰)</option>
+                        </eq>
+                    </foreach>                    
+
+                </select>
+
+            </td>
+        </tr> 
+    </if>
+
+
+    <if condition="!empty($cate['select4'])"> 
+        <tr>
+            <td align="right"><{$cate.select4}>：</td>
+            <td>
+                <select name="data[select4]" class="manageSelect">
+                    <foreach name="attrs" item="item">
+                        <eq name="item.type" value="select4">
+                        <option value="<{$item.attr_id}>"  <eq name="detail.select4" value="$item.attr_id">selected="selected"</eq>  ><{$item.attr_name}><{$item.rate}>‰)</option>
+                        </eq>
+                    </foreach>                    
+
+                </select>
+
+            </td>
+        </tr> 
+    </if>
+    
+        <if condition="!empty($cate['select5'])"> 
+        <tr>
+            <td align="right"><{$cate.select5}>：</td>
+            <td>
+                <select name="data[select5]" class="manageSelect">
+                    <foreach name="attrs" item="item">
+                        <eq name="item.type" value="select5">
+                        <option value="<{$item.attr_id}>"  <eq name="detail.select5" value="$item.attr_id">selected="selected"</eq>  ><{$item.attr_name}><{$item.rate}>‰)</option>
+                        </eq>
+                    </foreach>                    
+
+                </select>
+
+            </td>
+        </tr> 
+    </if>
+
+</table>

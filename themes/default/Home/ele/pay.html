@@ -1,0 +1,616 @@
+<include file="public:header"/>
+<include file="public:topOne" />
+<div class="between">
+    <div class="middle" style="margin-bottom: 40px;">
+        <div class="all">
+            <div class="all_2">
+                <ul>
+                    <li class="on">1.提交订单<em>&nbsp;</em></li>
+                    <li class="on">2.去支付<em>&nbsp;</em></li>
+                    <li>3.完成<em>&nbsp;</em></li>
+                </ul>
+            </div>
+
+            <div class="all_3">
+                <ul class="ul_3">
+                    <li><img src="__TMPL__statics/images/tp_5.png">
+                        <p>随时退</p>
+                    </li>
+                    <li><img src="__TMPL__statics/images/tp_6.png">
+                        <p>不满意免单</p>
+                    </li>
+                    <li><img src="__TMPL__statics/images/tp_7.png">
+                        <p>过期退</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+
+
+   <div class="clear"></div>
+
+        <div class="mode_dingdan">
+            <form method="post" id="ele_form">
+                <if condition="!empty($useraddr)">
+                    <div class="order-addres">
+                        <h3><span class="left addlt">收货地址</span> <span class="order-add right addrt">新增收货地址</span>
+                            <p class="clear"></p>
+                        </h3>
+                        <div class="box">
+
+                            <!--默认地址样式-->
+                            <div class="addright_on">
+                                <div class="left">
+                                    <php>$item = $useraddr[0];</php>
+                                    <label><input type="radio" name="addr_id" id="addr_id_<{$item.addr_id}>" <eq name="item.addr_id" value="$item.addr_id">checked="checked"</eq> value="<{$item.addr_id}>"/><span><{$citys[$item['city_id']]['name']}>&nbsp;&nbsp;<{$areas[$item['area_id']]['area_name']}>&nbsp;&nbsp;<{$bizs[$item['business_id']]['business_name']}>&nbsp;&nbsp;<{$item.addr}>（<{$item.name}>收）<{$item.mobile}></span></label>
+                                </div>
+                                <div class="right "><a href="javascript:void(0);" class="order-mr">使用地址</a> <span style="display:none;" id="addr_idss"><{$item.addr_id}></span><span style="display:none;" id="city_idss"><{$citys[$item['city_id']]['name']}></span><span style="display:none;" id="area_idss"><{$areas[$item['area_id']]['area_name']}></span><span style="display:none;" id="business_idss"><{$bizs[$item['business_id']]['business_name']}></span><span style="display:none;" id="addrss"><{$item.addr}></span><span style="display:none;" id="mobiless"><{$item['mobile']}></span><span style="display:none;" id="namess"><{$item['name']}></span> </div>
+                            </div>
+                            <php>$i=0</php>
+                            <foreach name="useraddr" item="item">
+                                <php>$i++;if($i>1){</php>
+                                <div class="addright none">
+                                    <div class="left"><label><input type="radio" name="addr_id" id="addr_id_<{$item.addr_id}>"  value="<{$item.addr_id}>"/><span rel="<{$item.addr_id}>" class="order-mr-change"><{$citys[$item['city_id']]['name']}>&nbsp;&nbsp;<{$areas[$item['area_id']]['area_name']}>&nbsp;&nbsp;<{$bizs[$item['business_id']]['business_name']}>&nbsp;&nbsp;<{$item.addr}>（<{$item.name}>收）<{$item.mobile}></span></label>
+
+                                    </div>
+                                    <div class="right addrightLink none"> <a href="javascript:void(0);" rel="<{$item.addr_id}>" class="order-mr order-mr-change">更换地址</a> <span style="display:none;" id="addr_idss"><{$item.addr_id}></span><span style="display:none;" id="city_idss"><{$citys[$item['city_id']]['name']}></span><span style="display:none;" id="area_idss"><{$areas[$item['area_id']]['area_name']}></span><span style="display:none;" id="business_idss"><{$bizs[$item['business_id']]['business_name']}></span><span style="display:none;" id="addrss"><{$item.addr}></span><span style="display:none;" id="mobiless"><{$item['mobile']}></span><span style="display:none;" id="namess"><{$item['name']}></span> </div>
+                                </div>
+                                <php>}</php>
+                            </foreach>
+                        </div>
+                        <div class="moreAddress">更多地址</div>
+                    </div>
+                    <else/>
+                    <div class="order-addres">
+                        <h3 class="none"><span class="left addlt">收货地址</span> <span class="order-add right addrt">新增收货地址</span></h3>
+                            <div class="box"> </div>
+                            <a id="order-add" class="order-add" style="display: inherit;" href="javascript:void(0);">新增地址+</a> </div>
+                </if>
+                <div class="mode">选择支付方式</div>
+                <ul class="mode_zx">
+                    <li class="on">在线付款</li>
+                    <li>现金支付</li>
+                </ul>
+                <div class="order_type table1">
+                    <div  class="order_style">
+                        <ul class="zfList">
+                            <php>$i = 0;</php>
+                            <foreach name="payment" item="var">
+                                <if condition="$var['code'] neq 'weixin'">
+                                    <?php $i++; ?>
+                                    <li>
+                                        <label class="block">
+                                            <label class="seat-check-radio">
+                                                <input id="code" value="<{$var.code}>" name="code" type="radio" />
+                                            </label>
+                                            <img src="__PUBLIC__/images/<{$var.logo}>">
+                                        </label>
+                                    </li>
+                                </if>
+                            </foreach>
+                        </ul>
+
+                        <div class="clear"></div>
+                        <script>
+                            $(document).ready(function () {
+                                $(".seat-check-radio").click(function () {
+                                    $(".seat-check-radio").removeClass("on");
+                                    $(this).addClass("on");
+                                });
+                                $(".order_style ul.zfList li").click(function () {
+                                    $(".order_style ul.zfList li").removeClass("current");
+                                    $(this).addClass("current");
+                                });
+                                $(".order-addres .addright").mouseover(function () {
+                                    $(this).addClass("current");
+                                    $(this).find('.addrightLink').show();
+                                }).mouseout(function () {
+                                    $(this).removeClass("current");
+                                    $(this).find('.addrightLink').hide();
+                                });
+                                $(".order-addres .moreAddress").click(function () {
+                                    $(".order-addres").find('.addright').slideToggle(500);
+                                });
+                                $(".box").on('click','.order-mr-change',function () {
+                                    var order_id = "<{$order.order_id}>";
+                                    var addr_idd = $(this).attr('rel');
+                                    $.post("<{:U('ele/change_addr')}>", {order_id: order_id, addr_id: addr_idd}, function (data) {
+                                        if (data.status == 'success') {
+                                            var content = '';
+                                            datas = data.res;
+                                            $.each(datas, function (n, value) {
+                                                if (n == 0) {
+                                                    content += '<div class="addright_on"><div class="left"><label>';
+                                                    content += '<input type="radio" name="addr_id" checked="checked" id="addr_id_"'+ value.addr_id +' value="' + value.addr_id + '"/>';
+                                                    content += '<span rel="'+value.addr_id+'" class="order-mr-change">' + value.city + '&nbsp;&nbsp;' + value.area + '&nbsp;&nbsp;' + value.bizs + '&nbsp;&nbsp;' + value.addr + '（' + value.name + '收）' + value.mobile + '</span></label></div>';
+                                                    content += ' <div class="right"><a href="javascript:void(0);" class="order-mr">使用地址</a>';
+                                                    content += '<span id="addr_idss" style="display:none;">' + value.addr_id + '</span><span id="city_idss" style="display:none;">' + value.city_id + '</span><span id="area_idss" style="display:none;">' + value.area_id + '</span><span id="business_idss" style="display:none;">' + value.business_id + '</span><span id="namess" style="display:none;">' + value.name + '</span><span id="addrss" style="display:none;">' + value.addr + '</span><span id="mobiless" style="display:none;">' + value.mobile + '</span>';
+                                                    content += '</div></div>';
+                                                } else {
+                                                    content += '<div class="addright"><div class="left"><label>';
+                                                    content += '<input type="radio" name="addr_id" id="addr_id_"'+ value.addr_id +' value="' + value.addr_id + '"/>';
+                                                    content += '<span rel="'+value.addr_id+'" class="order-mr-change">' + value.city + '&nbsp;&nbsp;' + value.area + '&nbsp;&nbsp;' + value.bizs + '&nbsp;&nbsp;' + value.addr + '（' + value.name + '收）' + value.mobile + '</span></label></div>';
+                                                    content += ' <div class="right"><a rel="'+value.addr_id+'" href="javascript:void(0);" class="order-mr order-mr-change">使用地址</a>';
+                                                    content += '<span id="addr_idss" style="display:none;">' + value.addr_id + '</span><span id="city_idss" style="display:none;">' + value.city_id + '</span><span id="area_idss" style="display:none;">' + value.area_id + '</span><span id="business_idss" style="display:none;">' + value.business_id + '</span><span id="namess" style="display:none;">' + value.name + '</span><span id="addrss" style="display:none;">' + value.addr + '</span><span id="mobiless" style="display:none;">' + value.mobile + '</span>';
+                                                    content += '</div></div>';
+
+                                                }
+                                            });
+                                            $('.box').html(content);
+                                            $(".snew").show();
+                                            layer.msg(data.msg,{icon:1});
+                                        } else {
+                                            layer.msg(data.msg, {icon: 2});
+                                        }
+                                    }, 'json')
+                                });
+                            });
+                        </script> 
+                    </div>
+                </div>
+
+                <div class="order_plus table1" style="display: none;">
+                    <div class="order_style2">
+                        <label class="left">
+                            <label class="seat-check-radio">
+                                <input type="radio" name="code" value="wait">
+                            </label>
+                            <img src="__PUBLIC__/images/tp_11.png">
+                        </label>
+                        <span class="left"> <img src="__TMPL__statics/images/tp_12.png">到店后请出示套餐卷密码给商家，确认领取优惠再付现金</span>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+
+                <div class="order_p1">
+                    <div class="order_s3"> <p>支付：<span class="order_s4">￥<{:round($order['total_price']/100,2)}></span></p>
+                        <if condition="!empty($order['logistics'])"><p>包含送餐费：<code><span class="order_s4">￥<{:round($order['logistics']/100,2)}></span></code></p></if>
+                    </div>
+                    <div> 
+                        <input type="button" name="sub" id="ele_btn" value="去支付">
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </form>
+            
+
+     <div class="clear"></div>
+   <style> .admin {border: 1px rgba(244, 244, 244, 0.99) solid;}</style>    
+
+       <!--PC绑定手机开始--> 
+         <div class="clear"></div>
+                <if condition="!empty($MEMBER['mobile'])">
+                    <div class="admin admin-two"> 您当前使用的手机号：<font class="fontcl2"><{$MEMBER['mobile']}></font> <a id="mobile_change" href="javascript:void(0);">更换手机号</a> </div>
+                    <else/>
+                    <div class="admin admin-two"> 您还未绑定手机号，<a style="padding-left: 0px;" id="mobile_bind" href="javascript:void(0);">立即绑定</a> </div>
+                </if>
+                <div class="clear"></div>
+
+            <script>
+                $(document).ready(function () {
+                    $("#ele_btn").click(function () {
+                        var url = "<{:U('ele/pay2',array('order_id'=>$order['order_id']))}>";
+                        var ele_form = $("#ele_form").serialize();
+                        $.post(url, ele_form, function (data) {
+                            if (data.status == 'login') {
+                                ajaxLogin();
+                            } else if (data.status == 'success') {
+                                $.cookie('eleproduct', null);
+                                layer.msg(data.msg, {icon: 1});
+                                setTimeout(function () {
+                                    window.location.href = data.url;
+                                }, 1500)
+                            } else {
+                                layer.msg(data.msg, {icon: 2});
+                            }
+                        }, 'json')
+                    })
+                })
+            </script>
+            <div class="order-box  pay-order">
+                <table class="order" width="100%">
+                    <tr>
+                        <th style="height: 36px; line-height: 36px;">项目</th>
+                        <th>单价</th>
+                        <th>数量</th>
+                        <th width="120">总价</th>
+                    </tr>
+                    <foreach name="ordergoods" item="item">
+                        <tr>
+                            <td>
+                                <div class="tab_nr">
+                                    <div style="margin-right: 5px;" class="left tab_img">
+                                    <img src="<{:config_img($products[$item['product_id']]['photo'])}>" width="80" height="60" class="img_3"></div>
+                                    <div class="left tab_wz">
+                                        <p class="tab_nr1"><{$products[$item['product_id']]['product_name']}></p>
+                                    </div>
+                                </div>
+                            </td>
+                            <td width="115">
+                                <div class="tab_price">￥<span class="price"><{:round($products[$item['product_id']]['price']/100,2)}></span></div>
+                            </td>
+                            <td width="116"> <{$item['num']}> </td>
+                            <td><{:round($item['total_price']/100,2)}></td>
+                        </tr>
+                    </foreach>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="order-cover" id="addr_add">
+    <div class="add-newdress">
+        <div class="add-newdress2"> <span class="left">添加新地址</span> <img src="__TMPL__statics/images/tp_54.png" class="right add-close"> </div>
+        <form id="address"  method="post">
+            <input type="hidden" name="addrs_id" value="<{$order.addr_id}>"/>
+            <div class="add-message">
+                <p><span>*</span> 联系人：
+                    <input type="text" value="<if condition="$MEMBER.nickname neq null"><{$MEMBER.nickname}><else/></if>" name="name" class="add-text">
+                </p>
+                <p><span>*</span> 地区：
+                    <select id="city_id" name="city_id" style="width: 100px; margin-left: 28px;" class="add-text">
+                        <option value="0">请选择...</option>
+                    </select>
+                    <select id="area_id" name="area_id" style="width: 100px;" class="add-text">
+                        <option value="0">请选择...</option>
+                    </select>
+                    <select id="business_id" name="business_id" style="width: 100px;" class="add-text">
+                        <option value="0">请选择...</option>
+                    </select>
+                </p>
+                <p><span>*</span> 手机号码：
+                    <input type="text" value="<if condition="$MEMBER.mobile neq null"><{$MEMBER.mobile}><else/></if>" name="mobile" class="add-text2">
+                </p>
+                <p><span>*</span> 收货地址：
+                    <input type="text" value="" name="addr" class="add-text2 add-dw">
+                </p>
+            </div>
+            <div class="add-button">
+                <input type="button" id="add_hold" class="add-hold" value="保 存"/>
+                <input type="button" class="add-off" value="取 消"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="order-cover" id="addr_edit">
+    <div class="add-newdress">
+        <div class="add-newdress2"> <span class="left">修改地址</span> <img src="__TMPL__statics/images/tp_54.png" class="right add-close"> </div>
+        <form id="addredit"  method="post">
+            <input type="hidden" name="addrs_id" value="<{$order.addr_id}>"/>
+            <div class="add-message">
+                <input type="hidden" name="addr_id" value="" id="addr_ids">
+                <p><span>*</span> 联系人：
+                    <input type="text" id="names" value="" name="name" class="add-text">
+                </p>
+                <p><span>*</span> 地区：
+                    <select id="city_ids" name="city_id" style="width: 100px; margin-left: 28px;" class="add-text">
+                        <option value="0">请选择...</option>
+                    </select>
+                    <select id="area_ids" name="area_id" style="width: 100px;" class="add-text">
+                        <option value="0">请选择...</option>
+                    </select>
+                    <select id="business_ids" name="business_id" style="width: 100px;" class="add-text">
+                        <option value="0">请选择...</option>
+                    </select>
+                </p>
+                <p><span>*</span> 手机号码：
+                    <input type="text" value="" id="mobiles" name="mobile" class="add-text2">
+                </p>
+                <p><span>*</span> 收货地址：
+                    <input type="text" value="" id="addrs" name="addr" class="add-text2 add-dw">
+                </p>
+            </div>
+            <div class="add-button">
+                <input type="button" id="edit_hold" class="add-hold" value="保 存"/>
+                <input type="button" class="add-off" value="取 消"/>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        $("#add_hold").click(function () {
+            var formss = $("#address").serialize();
+            $.post("<{:u('members/address/address')}>", formss, function (result) {
+                if (result.status == 'success') {
+                    var content = '';
+                    datas = result.res;
+                    $.each(datas, function (n, value) {
+                        if (n == 0) {
+                            content += '<div class="addright_on"><div class="left"><label>';
+                            content += '<input type="radio" name="addr_id" checked="checked"  value="' + value.addr_id + '"/>';
+                            content += '<span>' + value.city + '&nbsp;&nbsp;' + value.area + '&nbsp;&nbsp;' + value.bizs + '&nbsp;&nbsp;' + value.addr + '（' + value.name + '收）' + value.mobile + '</span></label></div>';
+                            content += ' <div class="right"><a href="javascript:void(0);" class="order-mr">使用地址</a>';
+                            content += '<span id="addr_idss" style="display:none;">' + value.addr_id + '</span><span id="city_idss" style="display:none;">' + value.city_id + '</span><span id="area_idss" style="display:none;">' + value.area_id + '</span><span id="business_idss" style="display:none;">' + value.business_id + '</span><span id="namess" style="display:none;">' + value.name + '</span><span id="addrss" style="display:none;">' + value.addr + '</span><span id="mobiless" style="display:none;">' + value.mobile + '</span>';
+                            content += '</div></div>';
+                        } else {
+                            content += '<div class="addright"><div class="left"><label>';
+                            content += '<input type="radio" name="addr_id" value="' + value.addr_id + '"/>';
+                            content += '<span>' + value.city + '&nbsp;&nbsp;' + value.area + '&nbsp;&nbsp;' + value.bizs + '&nbsp;&nbsp;' + value.addr + '（' + value.name + '收）' + value.mobile + '</span></label></div>';
+                            content += ' <div class="right"><a href="javascript:void(0);" class="order-mr">使用地址</a>';
+                            content += '<span id="addr_idss" style="display:none;">' + value.addr_id + '</span><span id="city_idss" style="display:none;">' + value.city_id + '</span><span id="area_idss" style="display:none;">' + value.area_id + '</span><span id="business_idss" style="display:none;">' + value.business_id + '</span><span id="namess" style="display:none;">' + value.name + '</span><span id="addrss" style="display:none;">' + value.addr + '</span><span id="mobiless" style="display:none;">' + value.mobile + '</span>';
+                            content += '</div></div>';
+                        }
+                    });
+                    $('.box').html(content);
+                    $('#addr_add').hide();
+                    $(".snew").show();
+                    $("#order-add").hide();
+                    layer.msg(result.msg);
+                } else {
+                    layer.msg(result.msg);
+                }
+            }, 'json');
+        });
+    })
+
+</script> 
+
+<script>
+    $(document).ready(function () {
+        $("#edit_hold").click(function () {
+            var forms = $("#addredit").serialize();
+            $.post("<{:u('members/address/addredit')}>", forms, function (result) {
+                if (result.status == 'success') {
+                    var content = '';
+                    datas = result.res;
+                    $.each(datas, function (n, value) {
+                        if (n == 0) {
+                            content += '<div class="addright_on"><div class="left"><label>';
+                        } else {
+                            content += '<div class="addright"><div class="left"><label>';
+                        }
+                        content += '<input type="radio" name="addr_id" checked="checked"  value="' + value.addr_id + '"/>';
+                        content += '<span>' + value.city + '&nbsp;&nbsp;' + value.area + '&nbsp;&nbsp;' + value.bizs + '&nbsp;&nbsp;' + value.addr + '（' + value.name + '收）' + value.mobile + '</span></label>';
+                        content += ' <div class="right"><a href="javascript:void(0);" class="order-mr">使用地址</a>';
+                        content += '<span id="addr_idss" style="display:none;">' + value.addr_id + '</span><span id="city_idss" style="display:none;">' + value.city_id + '</span><span id="area_idss" style="display:none;">' + value.area_id + '</span><span id="business_idss" style="display:none;">' + value.business_id + '</span><span id="namess" style="display:none;">' + value.name + '</span><span id="addrss" style="display:none;">' + value.addr + '</span><span id="mobiless" style="display:none;">' + value.mobile + '</span>';
+                        content += '<a href="javascript:void(0);" c="' + value.city_id + '" b="' + value.business_id + '" a="' + value.area_id + '"  class="order-xg">修改地址</a></div></div>';
+
+                    });
+                    $('.box').html(content);
+                    $('#addr_edit').hide();
+                    layer.msg(result.msg);
+                } else {
+                    layer.msg(result.msg);
+                }
+            }, 'json');
+        });
+    })
+</script> 
+<script src="<{:U('app/datas/cab',array('name'=>'cityareas'))}>"></script> 
+<script>
+
+    var city_id = "<{$city_id}>";
+    var area_id = 0;
+    var business_id = 0;
+    $(document).ready(function () {
+        var city_str = ' <option value="0">请选择...</option>';
+        for (a in cityareas.city) {
+            if (city_id == cityareas.city[a].city_id) {
+                city_str += '<option selected="selected" value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+            } else {
+                city_str += '<option value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+            }
+        }
+
+        $("#city_id").html(city_str);
+        $("#city_id").change(function () {
+            if ($("#city_id").val() > 0) {
+                city_id = $("#city_id").val();
+                var area_str = ' <option value="0">请选择...</option>';
+                for (a in cityareas.area) {
+                    if (cityareas.area[a].city_id == city_id) {
+                        if (area_id == cityareas.area[a].area_id) {
+                            area_str += '<option selected="selected" value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                        } else {
+                            area_str += '<option value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                        }
+                    }
+                }
+
+                $("#area_id").html(area_str);
+                $("#business_id").html('<option value="0">请选择...</option>');
+            } else {
+                $("#area_id").html('<option value="0">请选择...</option>');
+                $("#business_id").html('<option value="0">请选择...</option>');
+            }
+        });
+
+        if (city_id > 0) {
+            var area_str = ' <option value="0">请选择...</option>';
+            for (a in cityareas.area) {
+                if (cityareas.area[a].city_id == city_id) {
+                    if (area_id == cityareas.area[a].area_id) {
+                        area_str += '<option selected="selected" value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                    } else {
+                        area_str += '<option value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                    }
+                }
+            }
+            $("#area_id").html(area_str);
+        }
+
+        $("#area_id").change(function () {
+            if ($("#area_id").val() > 0) {
+                area_id = $("#area_id").val();
+                var business_str = ' <option value="0">请选择...</option>';
+                for (a in cityareas.business) {
+                    if (cityareas.business[a].area_id == area_id) {
+                        if (business_id == cityareas.business[a].business_id) {
+                            business_str += '<option selected="selected" value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                        } else {
+                            business_str += '<option value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                        }
+                    }
+                }
+                $("#business_id").html(business_str);
+            } else {
+                $("#business_id").html('<option value="0">请选择...</option>');
+            }
+        });
+        if (area_id > 0) {
+            var business_str = ' <option value="0">请选择...</option>';
+            for (a in cityareas.business) {
+                if (cityareas.business[a].area_id == area_id) {
+                    if (business_id == cityareas.business[a].business_id) {
+                        business_str += '<option selected="selected" value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                    } else {
+                        business_str += '<option value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                    }
+                }
+            }
+            $("#business_id").html(business_str);
+        }
+        $("#business_id").change(function () {
+            business_id = $(this).val();
+        });
+    });</script> 
+
+<script>
+
+    function changeCAB(c, a, b) {
+        $("#city_ids").unbind('change');
+        $("#area_ids").unbind('change');
+        var city_ids = c;
+        var area_ids = a;
+        var business_ids = b;
+        var city_str = ' <option value="0">请选择...</option>';
+        for (b in cityareas.city) {
+            if (city_ids == cityareas.city[b].city_id) {
+                city_str += '<option selected="selected" value="' + cityareas.city[b].city_id + '">' + cityareas.city[b].name + '</option>';
+            } else {
+                city_str += '<option value="' + cityareas.city[b].city_id + '">' + cityareas.city[b].name + '</option>';
+            }
+        }
+
+        $("#city_ids").html(city_str);
+        $("#city_ids").change(function () {
+            if ($("#city_ids").val() > 0) {
+                city_ids = $("#city_ids").val();
+                var area_str = ' <option value="0">请选择...</option>';
+                for (b in cityareas.area) {
+                    if (cityareas.area[b].city_id == city_ids) {
+                        if (area_ids == cityareas.area[b].area_id) {
+                            area_str += '<option selected="selected" value="' + cityareas.area[b].area_id + '">' + cityareas.area[b].area_name + '</option>';
+                        } else {
+                            area_str += '<option value="' + cityareas.area[b].area_id + '">' + cityareas.area[b].area_name + '</option>';
+                        }
+                    }
+                }
+                $("#area_ids").html(area_str);
+                $("#business_ids").html('<option value="0">请选择...</option>');
+            } else {
+                $("#area_ids").html('<option value="0">请选择...</option>');
+                $("#business_ids").html('<option value="0">请选择...</option>');
+            }
+        });
+
+        if (city_ids > 0) {
+            var area_str = ' <option value="0">请选择...</option>';
+            for (b in cityareas.area) {
+                if (cityareas.area[b].city_id == city_ids) {
+                    if (area_ids == cityareas.area[b].area_id) {
+                        area_str += '<option selected="selected" value="' + cityareas.area[b].area_id + '">' + cityareas.area[b].area_name + '</option>';
+                    } else {
+                        area_str += '<option value="' + cityareas.area[b].area_id + '">' + cityareas.area[b].area_name + '</option>';
+                    }
+                }
+            }
+            $("#area_ids").html(area_str);
+        }
+
+        $("#area_ids").change(function () {
+            if ($("#area_ids").val() > 0) {
+                area_ids = $("#area_ids").val();
+                var business_str = ' <option value="0">请选择...</option>';
+                for (b in cityareas.business) {
+                    if (cityareas.business[b].area_id == area_ids) {
+                        if (business_ids == cityareas.business[b].business_id) {
+                            business_str += '<option selected="selected" value="' + cityareas.business[b].business_id + '">' + cityareas.business[b].business_name + '</option>';
+                        } else {
+                            business_str += '<option value="' + cityareas.business[b].business_id + '">' + cityareas.business[b].business_name + '</option>';
+                        }
+                    }
+                }
+                $("#business_ids").html(business_str);
+            } else {
+                $("#business_ids").html('<option value="0">请选择...</option>');
+            }
+        });
+
+        if (area_ids > 0) {
+            var business_str = ' <option value="0">请选择...</option>';
+            for (b in cityareas.business) {
+                if (cityareas.business[b].area_id == area_ids) {
+                    if (business_ids == cityareas.business[b].business_id) {
+                        business_str += '<option selected="selected" value="' + cityareas.business[b].business_id + '">' + cityareas.business[b].business_name + '</option>';
+                    } else {
+                        business_str += '<option value="' + cityareas.business[b].business_id + '">' + cityareas.business[b].business_name + '</option>';
+                    }
+                }
+            }
+            $("#business_ids").html(business_str);
+        }
+        $("#business_ids").change(function () {
+            business_ids = $(this).val();
+        });
+    }
+</script> 
+
+<script>
+    $(function () {
+        $(".order-add").click(function () {
+            $("#addr_add").show();
+        });
+        $(document).on('click', '.order-xg', function () {
+            changeCAB($(this).attr('c'), $(this).attr('a'), $(this).attr('b')); // 在这里修改  123 的值 
+            $("#addr_edit").show();
+            var addr_idss = $(this).parent().find("#addr_idss").html();
+            $("#addr_ids").val(addr_idss);
+            var namess = $(this).parent().find("#namess").html();
+            $("#names").val(namess);
+            var addrss = $(this).parent().find("#addrss").html();
+            $("#addrs").val(addrss);
+            var mobiless = $(this).parent().find("#mobiless").html();
+            $("#mobiles").val(mobiless);
+        });
+        $(".add-off").click(function () {
+            $(".order-cover").hide();
+        })
+
+        $(".add-close").click(function () {
+            $(".order-cover").hide();
+        })
+    })
+</script> 
+
+
+ <script>
+    $(document).ready(function () {
+        var user_id = "<{$MEMBER.user_id}>";
+        var mobile = "<{$MEMBER.mobile}>";
+        if (user_id == '' || user_id == null) {
+            ajaxLogin();
+            $("#mobile_bind").click(function () {
+                ajaxLogin();
+            });
+        } else {
+            if (mobile == '' || mobile == null) {
+                check_user_mobile_for_pc('<{:U("wap/tuan/tuan_sendsms")}>', '<{:U("wap/tuan/tuan_mobile")}>');
+            }
+            $("#mobile_bind").click(function () {
+                check_user_mobile_for_pc('<{:U("wap/tuan/tuan_sendsms")}>', '<{:U("wap/tuan/tuan_mobile")}>');
+            });
+            $("#mobile_change").click(function () {
+                change_user_mobile_for_pc('<{:U("wap/tuan/tuan_sendsms")}>', '<{:U("wap/tuan/tuan_mobile2")}>');
+            });
+        }
+    })
+</script> 
+<include file="public:footer"/> 

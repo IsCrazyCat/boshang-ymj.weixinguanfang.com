@@ -1,0 +1,42 @@
+<include file='public:header'/>  
+<style>
+body { background: #e9f0f5;}
+</style>
+  
+	<script src="/static/default/wap/other/roll.js"></script>
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="javascript:history.back();"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			发送信息
+		</div>
+	</header>
+    
+    <div class="panel-list">
+	<ul><li><a href="javascript:;">您正在给
+                <if condition="!empty($user['nickname'])">
+                 <{$user['nickname']}> 
+                 <else/>
+                   <{$user['account']}> 
+                 </if>
+   
+    
+    &nbsp;&nbsp;ID：(<{$user['user_id']}>)发信息</a></li></ul>
+</div>
+
+
+	<div class="blank-10"></div>
+
+	<form class="chat-form padding" method="post" action="<{:U('message/send_news',array('user_id'=>$user['user_id']))}>" />
+		<div class="line">
+			<textarea name="content" placeholder="输入信息内容，请遵守国家相关法律法规、理性发言！"></textarea>
+		</div>
+		<div class="blank-40"></div>
+		<div class="line">
+		<button class="button button-block bg-green"><i class="icon-send"></i> 立刻发送</button>
+		</div>
+	</form>
+
+
+<include file='public:footer'/>  

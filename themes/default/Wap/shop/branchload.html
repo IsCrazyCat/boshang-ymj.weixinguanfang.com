@@ -1,0 +1,21 @@
+<volist name="list" id="item" key="index">
+	<a class="item" href="<{:U('shop/branches',array('branch_id'=>$item['branch_id'],'shop_id'=>$item['shop_id']))}>">	
+    
+		<img class="pic" src="<{:config_img($item['photo'])}>" />	
+		<div class="des">	
+			<h5><{:msubstr($item['name'],0,6,'utf-8',false)}>
+				<span class="distance"><{$item.d}></span>	
+			</h5>	
+			<div class="info">	
+                <if condition="!empty($item['score'])"> <!--如果价格等于0-->
+					<span class="ui-starbar"><span style="width:<{:round($item['score']*2,2)}>%"></span></span>
+                <else/>
+                	营业时间：<{$item.business_time}>
+                </if>
+			</div>	
+			<span class="addr">	
+				<{:msubstr($item['addr'],0,26,'utf-8',false)}>
+			</span>
+		</div>	
+	</a>
+</volist>

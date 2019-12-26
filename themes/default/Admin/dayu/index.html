@@ -1,0 +1,61 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">大鱼模板管理</li>
+        <li class="li2 li3">大鱼模板</li>
+    </ul>
+</div>
+<div class="main-jsgl">
+    <p class="attention"><span>注意：</span>当模板ID与大鱼平台一致时才能正常发送短信！注意，部分类型模板中没有加入发送短信代码，短信不要那么多，基本的就够了</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin: 10px 20px;">
+            <div class="left">
+                <{:BA('dayu/create','','添加内容')}>
+            </div>
+        </div>
+        <form target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="dayu_id" /></td>
+                        <td class="w50">ID</td>
+                        <td>模板名</td>
+                        <td>本地调用</td>
+                        <td>模板ID</td>
+                        <td>说明</td>
+                        <td class="w120">操作</td>
+                    </tr>
+                    <foreach name="tag" item="var">
+                        <tr>
+                            <td><input class="child_dayu_id" type="checkbox" name="dayu_id[]" value="<{$var.dayu_id}>" /></td>
+                            <td><{$var.dayu_id}></td>
+                            <td><{$var.dayu_name}></td>
+                            <td><{$var.dayu_local}></td>
+                            <td><{$var.dayu_tag}></td>
+                            <td><{$var.dayu_note}></td>
+                            <td>
+                                <{:BA('dayu/edit',array("dayu_id"=>$var["dayu_id"]),'编辑','','remberBtn')}>
+                                
+                        <eq name="var.is_open" value="0"> <{:BA('dayu/audit',array("dayu_id"=>$var["dayu_id"]),'开启','act','remberBtn')}> 
+                        <else />
+                        <{:BA('dayu/delete',array("dayu_id"=>$var["dayu_id"]),'关闭','act','remberBtn')}>
+                        </eq>
+                        
+                            </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr">
+                <div class="left">
+                    <{:BA('dayu/delete','','批量关闭','list','a2')}>
+                    <{:BA('dayu/audit','','批量开启','list','remberBtn')}>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+<include  file='public:footer'/>       

@@ -1,0 +1,178 @@
+<include file="public:header"/>
+<script src="/static/default/wap/js/star.js"></script>
+<style>.list-media-x {margin-top: 0.0rem;}</style>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="javascript:history.back(-1);"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			订座点评
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+
+
+<form method="post" action="<{:U('booking/comment',array('order_id'=>$detail['order_id']))}>"  target="x-frame">
+
+<div class="line padding">
+		<div class="x12">
+			<p class="margin-small-bottom text-gray"><span> 预订“<{$details.shop_name}>”的点评</p>
+		</div>
+	</div>
+ <div class="blank-10 bg"></div>   
+<div class="list-media-x" id="list-media">
+	<ul>
+    <div class="line padding border-bottom">
+		<div class="x3">
+			<img src="<{:config_img($details['photo'])}>" width="90%">
+		</div>
+		<div class="x9">
+			<p><{$details.shop_name}></p>
+			<p class="text-gray">￥<{$details.price}></p>
+			<p class="text-gray"><{$details['addr']}></p>
+		</div>
+	</div>
+   </ul>
+</div>
+<div class="blank-10 bg"></div>	
+
+	<div class="line padding border-bottom">
+		<div class="x3">
+			总体评价：
+		</div>
+		<div class="x9">
+			<span id="jq_star"></span>
+		</div>
+	</div>
+
+	<div class="line padding border-bottom">
+		<div class="x3">
+			口味评分：
+		</div>
+		<div class="x9">
+			<span id="jq_star1"></span>
+		</div>
+	</div>
+	
+	<div class="line padding border-bottom">
+		<div class="x3">
+			环境评分：
+		</div>
+		<div class="x9">
+			<span id="jq_star2"></span>
+		</div>
+	</div>
+	
+	<div class="line padding border-bottom">
+		<div class="x3">
+			服务评分：
+		</div>
+		<div class="x9">
+			<span id="jq_star3"></span>
+		</div>
+	</div>
+<div class="blank-10 bg"></div>
+	
+	
+	<script>
+		$(document).ready(function () {
+			$("#jq_star").raty({
+				numberMax: 5,
+				path: '/static/default/wap/image/',
+				starOff: 'star-off.png',
+				starOn: 'star-on.png',
+				scoreName: 'data[score]'
+			});
+					
+			$("#jq_star1").raty({
+				numberMax: 5,
+				path: '/static/default/wap/image/',
+				starOff: 'star-off.png',
+				starOn: 'star-on.png',
+				scoreName: 'data[kw_score]'
+			});
+	
+			$("#jq_star2").raty({
+				numberMax: 5,
+				path: '/static/default/wap/image/',
+				starOff: 'star-off.png',
+				starOn: 'star-on.png',
+				scoreName: 'data[hj_score]'
+			});
+			$("#jq_star3").raty({
+				numberMax: 5,
+				path: '/static/default/wap/image/',
+				starOff: 'star-off.png',
+				starOn: 'star-on.png',
+				scoreName: 'data[fw_score]'
+			});
+		});
+	</script>
+	
+	
+	
+	
+	<div class="line padding ">
+		<div class="blank-10"></div>
+		<textarea cols="33" rows="5" name="data[contents]" placeholder="还记得这家店吗？写点评记录生活、分享体验" style="border:thin solid #eee;width:100%;resize:none;padding:10px;"></textarea>
+		<div class="blank-10"></div>
+	</div>
+	<div class="blank-10 bg"></div>
+	
+        <link rel="stylesheet" type="text/css" href="/static/default/wap/other/webuploader.css"> 
+        <script src="/static/default/wap/other/webuploader.js"></script> 
+            <div class="Upload-img-box">
+           <div  id="fileToUpload">上传图片</div>
+           <div class="Upload-img">
+           <div class="list-img loading" style="display:none;"><img src=""></div>
+           <div class="list-img jq_photo" style="display:none;"></div>
+          </div>
+        </div>
+            <script>
+                var width_dianping = '<{:thumbSize($CONFIG[attachs][dianping][thumb],0)}>';                     
+                var height_dianping = '<{:thumbSize($CONFIG[attachs][dianping][thumb],1)}>';  
+                var uploader = WebUploader.create({                 
+                    auto: true,                             
+                    swf: '/static/default/webuploader/Uploader.swf',                             
+                    server: '<{:U("app/upload/uploadify",array("model"=>"dianping"))}>',                             
+                    pick: '#fileToUpload',                             
+                    resize: true,    
+                    compress : {width:width_dianping,height:height_dianping,quality:60,allowMagnify: false,crop: true}//裁剪       
+                });
+                uploader.on( 'beforeFileQueued', function( file ) {
+                    $(".loading").show();
+                    if(file.size > 1024000){
+                        uploader.option( 'compress', {
+                            width:width_dianping,//这里裁剪长度
+                            quality:60
+                        });
+                    }
+                });
+                uploader.on( 'uploadSuccess', function( file,resporse) {
+                    $(".loading").hide();
+                    var str = '<img src="'+resporse.url+'"><input type="hidden" name="photos[]" value="' + resporse.url + '" />';
+                    $(".jq_photo").show().html(str);
+                });
+                uploader.on( 'uploadError', function( file ) {
+                    alert('上传出错');
+                });
+        
+                $(document).ready(function () {
+                    $(document).on("click", ".photo img", function () {
+                        $(this).parent().remove();
+                    });
+                });
+            </script>
+                
+            </div>	
+			
+	<div class="container">
+		<div class="blank-20"></div>
+		<button class="button button-big button-block bg-dot">提交确认</button>
+		<div class="blank-20"></div>
+	</div>
+</form>
+    
+<include  file='public:footer'/>

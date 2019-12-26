@@ -1,0 +1,218 @@
+<include  file='public:header'/>   
+<script src="/static/pintuan/common.js" type="text/javascript"></script>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="javascript:history.go(-1)"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		添加拼团收货地址
+	</div>
+</header>
+
+<style>
+.fabu-form .row{padding:10px;border-bottom:thin solid #eee}
+.fabu-form .row .x3{color:#999}
+.fabu-form .text-input{border:none;width:100%}
+.fabu-form .text-select{border:none;width:100%;background:#fff!important}
+.fabu-form .text-area{width:100%;border:thin solid #eee;resize:none}
+#login-input{margin-top:.1rem}
+#login-input input{border:none 0;background:#fff none;width:100%;height:2.4rem;color:#666;text-indent:.1rem;display:block;cursor:pointer;border:solid 1px #eee}
+.fabu-form .form-content {border: none;resize: none;width: 100%;height: 80px;padding: 10px;font-size: 12px;}
+.fabu-form .form-content1 {border: none;resize: none;width: 100%;height: 150px;padding: 10px;font-size: 12px;}
+</style>
+
+
+<form id="add_form" method="post" action="" class="fabu-form" onsubmit="return false;">
+
+<div class="blank-10 bg border-top"></div>
+ <div class="row">
+    <div class="line">
+       <span class="x3">是否默认：</span>
+       <span class="x9">
+           <input  style="width: 20px; height: 20px;" type="radio" name="defaults" id="defaults1" value="0">否&nbsp;&nbsp;&nbsp;&nbsp;
+           <input  style="width: 20px; height: 20px;" type="radio" name="defaults" id="defaults2" value="1">是&nbsp;&nbsp;&nbsp;&nbsp;
+       </span>
+    </div>
+ </div>
+
+
+<div class="row">
+	<div class="line">
+		<span class="x3">收货人：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="addxm"  id="addxm" value="" />
+		</span>
+	</div>
+</div>
+
+<div class="row">
+	<div class="line">
+		<span class="x3">手机号：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="addtel" id="addtel" value="" />
+		</span>
+	</div>
+</div>
+
+
+
+<div class="row">
+	<div class="line">
+                    <span class="x3 tit">省份</span>
+                    <span class="x9">
+                        <select name="province" id="province" class="text-select" onchange="getCity();">
+                            <option value="0">选择省</option>
+                          <foreach name="provinceList" item="var">
+                            <option value="<{$var.id}>"><{$var.name}></option>
+                            </foreach>
+                        </select>
+                    </label>
+                </span>
+  	</div>
+</div>
+<div class="row">
+	<div class="line">
+                    <span class="x3 tit">城市</span>
+                    <span class="x9">
+                        <select  name="city" id="city"  class="text-select"onchange="javascript:getArea();">
+                            <option value="0">选择城市</option>
+                        </select>
+                    </label>
+                    </span>
+    </div>
+</div>
+
+
+<div class="row">
+	<div class="line">
+    <span class="x3 tit">区/县</span>
+    <span class="x9">
+                  
+                        <select name="areas" id="area" class="text-select">
+                            <option value="0">选择区/县</option>
+                        </select>
+                        </span>
+</div>
+</div>
+
+
+
+
+
+
+<div class="line border-bottom">
+	<textarea class="form-content" name="addinfo"  id="addinfo" placeholder="请填写您的详细地址"><{$detail.instructions}></textarea>
+</div>
+
+ 
+             
+   
+<div class="container">
+   <div class="blank-30"></div>
+      <input type="hidden" name="act" value="addsave">
+      <button class="id_add_form_btn button button-block button-big bg-dot" id="add">添加地址</button>
+    <div class="blank-30"></div>
+</div>
+
+</form>
+<script>
+
+var submintStatus = 0;
+$(".id_add_form_btn").click( function () { 
+    
+    if(submintStatus == 1){
+        return false;
+    }
+    var defaults  = $('input[name="defaults"]:checked').val();
+    var addxm       = $("#addxm").val();
+    var addtel      = $("#addtel").val();
+    var province    = $("#province").val();
+    var city        = $("#city").val();
+    var areas        = $("#area").val();
+    var addinfo     = $("#addinfo").val();
+    
+    if(addxm == ""){
+        tusi("必须填写收货人姓名");
+        return false;
+    }
+    if(addtel == ""){
+        tusi("必须填写收货人手机");
+        return false;
+    }
+    
+    if(province == 0){
+        tusi("请选择省份");
+        return false;
+    }
+    if(city == 0){
+        tusi("请选择城市");
+        return false;
+    }
+    if(areas == 0){
+        tusi("请选择县区");
+        return false;
+    }
+    if(addinfo == ""){
+        tusi("请填写详细地址");
+        return false;
+    }
+    
+    submintStatus = 1;
+		$.ajax({
+        type: "GET",
+        url: "<{:U('pintuan/addsave')}>",
+        dataType : "json",
+        data: $('#add_form').serialize(),
+        success: function(data){
+            if(data.status == 200) {
+                tusi("添加成功");
+                setTimeout(function(){window.location.href='<{$buyUrl}>';},500);
+            }else{
+                tusi("添加异常，请重新添加");
+                setTimeout(function(){document.location.reload();},1888);
+            }
+        }
+    });
+});
+
+function getCity(){
+  var province = $("#province").val();
+  $.ajax({
+        type: "GET",
+        url: "<{$CONFIG.site.host}>/wap/pintuan/city/upid/"+province,
+        dataType : "jsonp",
+        jsonpCallback:"jsonpCallback",
+        cache : false,
+        success: function(json){
+            var cityHtml = '<option value="0">选择城市</option>';
+            $.each(json,function(k,v){
+                cityHtml+= '<option value="'+v.id+'">'+v.name+'</option>';
+            })
+            $("#city").html(cityHtml);
+            $("#city").show();
+        }
+    });
+}   
+
+function getArea(){
+  var city = $("#city").val();
+  $.ajax({
+        type: "GET",
+        url: "<{$CONFIG.site.host}>/wap/pintuan/city/upid/"+city,
+        dataType : "jsonp",
+        jsonpCallback:"jsonpCallback",
+        cache : false,
+        success: function(json){
+            var areaHtml = '<option value="0">选择区/县</option>';
+            $.each(json,function(k,v){
+                areaHtml+= '<option value="'+v.id+'">'+v.name+'</option>';
+            })
+            $("#area").html(areaHtml);
+            $("#area").show();
+        }
+    });
+}
+
+</script>
+
+<include file="public:footer"/>

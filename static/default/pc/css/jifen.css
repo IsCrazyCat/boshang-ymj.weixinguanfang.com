@@ -1,0 +1,28 @@
+.vip-goods {border:1px solid #EEE;}
+.vip-goods ul{overflow:hidden;padding:0;}
+.vip-goods .goods-hd{height:40px;line-height:40px;border-bottom:1px solid #EEE;overflow:hidden;}
+.vip-goods .goods-hd h3{font-size:14px;float:left;margin:0 10px;font-weight:bold;}
+.vip-goods .goods-hd span {float:left;line-height:45px;color:#999;}
+.vip-goods .goods-hd a {float:right;margin:0 10px;}
+.vip-goods .goods-bd {overflow:hidden;}
+.vip-goods .goods-bd ul{padding:0;}
+.vip-goods .goods-bd li{border-right:thin solid #DDD;}
+.vip-goods .goods-bd li:hover{background:#FAFAFA;}
+.vip-goods .goods-bd li:hover img{filter:alpha(opacity=50);-moz-opacity:0.5;-khtml-opacity:0.5;opacity:0.5;}
+.vip-goods .goods-bd li a{display:block;padding:10px;height:340px;}
+.vip-goods .goods-bd img{width:250px;}
+.vip-goods .goods-bd p{height:20px;line-height:20px;width:100%;overflow:hidden;margin:8px 0;}
+.vip-goods .goods-bd .jifen{float:left;}
+.vip-goods .goods-bd .jifen em{color:#FF0000;font-weight:bold;}
+.vip-goods .goods-bd .jiazhi{float:right;}
+
+
+.detail-side{width:275px;float:left;padding:10px;}
+.detail-side img{width:250px;height:250px;}
+.detail-side .button{font-size:14px;text-align:center;font-weight:bold;margin-top:10px;}
+
+
+.detail-main{width:840px;float:right;}
+.detail-main .main-info h1{font-size:20px;font-family:"Microsoft YaHei";}
+.detail-main .main-info p{height:30px;line-height:30px;margin:5px 0;font-size:14px;}
+.detail-main .main-info span{margin-right:10px;}

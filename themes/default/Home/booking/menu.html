@@ -1,0 +1,252 @@
+<include  file='public:header'/>
+<include  file='public:top'/>
+<include  file='public:nav2'/>
+<script src="__TMPL__statics/js/jquery.cookie.js?v=20150718"></script>
+
+<div class="pagewd">
+	<div class="spxq_loca"><a href="<{:U('index/index')}>" target="_blank">首页</a> > <a href="<{:U('booking/index')}>" target="_blank">订座</a> ><{$detail.shop_name}></div>
+    <!--排序-->
+    <div class="nearbuy_sxk mt10">
+        <ul>
+            <li class="nearbuy_sxkLi <eq name='order' value='d'>on</eq>"><a class="nearbuy_sxkLiA" href="<{:LinkTo('booking/menu',$linkArr,array('order'=>'d'))}>">默认</a></li>
+            <li class="nearbuy_sxkLi <eq name='order' value='s'>on</eq>"><a class="nearbuy_sxkLiA" href="<{:LinkTo('booking/menu',$linkArr,array('order'=>'s'))}>">销量<em class="em_up"></em></a></li>
+            <li class="nearbuy_sxkLi <eq name='order' value='p'>on</eq>"><a class="nearbuy_sxkLiA" href="<{:LinkTo('booking/menu',$linkArr,array('order'=>'p'))}>">价格<em></em></a></li>
+        </ul>
+    </div>
+    <!--排序end-->
+    <!--菜品类-->
+    <div class="seat_menuCate mb20">
+    	<div class="title mb10">
+        	<p class="left"><{$detail.shop_name}>以下几类菜品，供您选择：</p>
+                <form method="post" action="<{:LinkTo('booking/menu',$linkArr)}>">
+                    <div class="ser_box right">菜品：<input type="text" class="int" value="<{$keyword}>" name="keyword" placeholder="请输入菜品名称" /><input type="submit" value="" class="btn" /></div>
+                </form>
+            <div class="clear"></div>
+        </div>
+        <div>
+                <a <if condition="empty($cate_id)">class="list on"<else/>class="list"</if> href="<{:LinkTo('booking/menu',$linkArr,array('cate_id'=>0))}>">全部</a>
+            <foreach name="menucates" item="item">
+                <a href="<{:LinkTo('booking/menu',$linkArr,array('cate_id'=>$item['cate_id']))}>" class="list <if condition='$item.cate_id eq $cate_id'>on</if>"><{$item.cate_name}></a>
+            </foreach>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <!--菜品类end-->
+    <!--菜品列表-->
+    <div class="seat_menuList_box mb20">
+        <ul>
+            <foreach name="list" item="item">
+                <li class="seat_menuList">
+                    <div class="pub_img"><a href="javascript:void(0);"><img src="<{:config_img($item['photo'])}>" /></a></div>
+                    <div class="pub_wz">
+                            <h3 class="overflow_clear"><a href="javascript:void(0);"><{$item.menu_name}></a></h3>
+                            <p class="price fontcl1">￥<{:round($item['ding_price']/100,1)}>&nbsp;&nbsp;<del>￥<{:round($item['price']/100,1)}></del></p>
+                        <div class="btn_box">
+                            <span class="left blackcl6">已售<{$item.sold_num}></span>
+                            <a href="javascript:void(0);" id="price_<{$item.menu_id}>" rel="<{$item.menu_id}>" data="<{$item.menu_name}>" price="<{:round($item['ding_price']/100,2)}>" class="btn jq_addcart right"></a>
+                        </div>
+                    </div>
+                </li>
+            </foreach>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="x"> <{$page}> </div>
+    <!--菜品列表end-->
+    <!--推荐菜-->
+    <div class="seat_recmd_tit">推荐菜
+        <a href="javascript:void(0);" id="change_tui" class="more right">换一组<em class="ico"></em></a>
+    </div>
+    <div class="mall_recmd seat_recmd mb20">
+    	<ul id="tui_list">
+            <foreach name="tui_list" item="item">
+                <li class="list">
+                    <p class="bq_box bor1"><span class="bq">推荐</span></p>
+                    <img src="<{:config_img($item['photo'])}>" width="204" height="145">
+                    <h3 class="overflow_clear mt10"><a href="javascript:void(0);" class="blackcl3"><{$item.menu_name}></a></h3>
+                    <p class="price fontcl1">￥<{:round($item['ding_price']/100,1)}>&nbsp;&nbsp;<del>￥<{:round($item['price']/100,1)}></del></p>
+                    <div class="txt_center"><a href="javascript:void(0);" id="price_<{$item.menu_id}>" rel="<{$item.menu_id}>" data="<{$item.menu_name}>" price="<{:round($item['ding_price']/100,2)}>" class="btn jq_addcart"></a></div>
+                </li>
+            </foreach>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <!--推荐菜end-->
+</div>
+<script type="text/javascript" language="javascript">
+                $(document).ready(function () {
+                    $("#change_tui").click(function () {
+                        $.post("<{:U('booking/getTuijian')}>", {shop_id:"<{$detail.shop_id}>"}, function (data) {
+                            if (data.status == 'success') {
+                                var result = '';
+                                var list = data.lists;
+                                $.each(list, function (n, value) {
+                                     result += '<li class="list"><p class="bq_box bor1"><span class="bq">推荐</span></p>';
+                                     result += '<img src="__ROOT__/attachs/'+ value.photo +'" width="204" height="145">';
+                                     result += '<h3 class="overflow_clear mt10"><a href="javascript:void(0);" class="blackcl3">'+value.menu_name+'</a></h3>';
+                                    result += '<p class="price fontcl1">￥'+(parseFloat(value.ding_price/100)).toFixed(1)+'&nbsp;&nbsp;<del>￥'+(parseFloat(value.price/100)).toFixed(1)+'</del></p>';
+                                    
+                                    result +='<div class="txt_center"><a href="javascript:void(0);" id="price_'+value.menu_id+'" rel="'+value.menu_id+'" data="'+value.menu_name+'" price="'+(parseFloat(value.ding_price/100)).toFixed(1)+'" class="btn jq_addcart"></a></div></li>';
+
+                                });
+                                $('#tui_list').html(result);
+                            } else {
+                                layer.msg(data.message);
+                            }
+                        }, 'json');
+                    })
+                })
+            </script>
+        <!--购物车浮动窗-->
+        <div id="cart_waimai" class="cart">
+            <div class="title">电脑下单不享优惠了哦，优惠手机下单专享</div>
+            <div class="box">
+                <table width="100%">
+                    <tr class="tit">
+                        <td width="45%" class="food">菜名</td>
+                        <td width="35%">份数</td>
+                        <td width="20%">价格</td>
+                    </tr>
+                </table>
+                <div class="center">
+                    <table width="100%" id="food_list">
+                        <if condition="!empty($dingmenus)">
+                            <foreach name="dingmenus" item="item">
+                                <tr id="jq_tr_<{$item.menu_id}>">
+                                    <td class="food"><{$item.menu_name}></td>
+                                    <td class="numinput">
+                                        <div class="cut" rel="<{$item.menu_id}>">-</div>
+                                        <div>
+                                            <input type="text" id="jq_num_<{$item.menu_id}>" name="num[<{$item.menu_id}>]" value="<{$item.cart_num}>">
+                                        </div>
+                                        <div class="add" rel="<{$item.menu_id}>">+</div>
+                                    </td>
+                                    <td><{:round($item['ding_price']/100,2)}>元</td>
+                                </tr>
+                            </foreach>
+                        </if>
+                    </table>
+                </div>
+                <div class="count">共 <span class="c" id="food_count"><{$cart_num|default='0'}></span> 份,总计<span>￥</span> <span id="food_money"><{:round($total_money/100,2)}></span>
+                    </if>
+                    <p>需支付定金<span class="c price">￥</span><span class="c price" id="food_money"><{$detail['deposit']}></span></p>
+                </div>
+            </div>
+            <div class="btn btns">
+                <input id="ding_sub" type="button" value="立即订座"><input type="button" id="kong" style="background-color:#f3f3f3; color:#444;" value="清空">
+            </div>
+        </div>
+<script>
+            //购物车parseInt
+			var hostdo ="<{$hostdo}>";
+            function getCart() {
+                var res = new Array();
+                var cart = $.cookie('ding_'+"<{$detail.shop_id}>");
+                if (cart) {
+                    local = cart.split('|');
+                    for (a in local) {
+                        res.push(local[a]);
+                    }
+                }
+                return res;
+            }
+
+            function setCart(product_id, num) {
+                var res = getCart();
+                var status = false;
+                var total = 0;
+                var money = parseFloat($("#food_money").html());
+                for (a in res) {
+                    local = String(res[a]);
+                    goo = local.split('_');
+                    total += parseInt(goo[1]);
+                    if (parseInt(goo[0]) == product_id) {
+                        status = true;
+                        money += parseFloat($("#price_" + product_id).attr('price')) * parseInt(num);
+                        if ((parseInt(goo[1]) + parseInt(num)) < 0) {
+                            $("jq_tr_" + product_id).remove();
+                        } else {
+                            res.splice(a, 1, parseInt(goo[0]) + '_' + (parseInt(goo[1]) + num));
+                            $("#jq_num_" + product_id).val(parseInt(goo[1]) + parseInt(num));
+                        }
+                    }
+                }
+                if (status == false) {
+                    money += parseFloat($("#price_" + product_id).attr('price')) * parseInt(num);
+                    res.push(product_id + '_' + num);
+                }
+                money = money.toFixed(2);
+                total += num;
+                var since_money = "<{:round($detail['since_money']/100,2)}>";
+                var cha = (parseFloat(since_money) - money).toFixed(2);
+                if (cha >0) {
+                    $("#since").html("还差￥" + cha + "起送！").css("color", "#FE4D3D");
+                } else {
+                    $("#since").html("可以起送！").css("color", "#333");
+                }
+
+                $.cookie('ding_'+"<{$detail.shop_id}>",  res.join("|"), { path: '/', expires: 7 ,domain:hostdo });
+                $("#food_count").html(total);
+                $("#food_money").html(money);
+            }
+
+
+            $(document).ready(function () {
+                $(document).on('click', '.jq_addcart', function () {
+                //$(".jq_addcart").click(function () {
+                    var product_id = parseInt($(this).attr('rel'));
+                    var product_name = $(this).attr('data');
+                    var price = parseFloat($(this).attr('price'));
+                    //var num = parseInt($("#jq_num_" + $(this).attr('rel')).val());
+                    var str = "";
+                    str += '<tr id="jq_tr_' + product_id + '">';
+                    str += '<td class="food">' + product_name + '</td>';
+                    str += '<td class="numinput">';
+                    str += '<div class="cut" rel="' + product_id + '">-</div>';
+                    str += '<div><input type="text" readonly="readonly" id="jq_num_' + product_id + '" name="num[' + product_id + ']" value="1"></div>';
+                    str += '<div class="add" rel="' + product_id + '">+</div></td>';
+                    str += '<td>' + price + '元</td></tr>';
+                    if ($("#jq_tr_" + product_id).length <= 0) {
+                        $("#food_list").append(str);
+                    }
+                    setCart(product_id, 1);
+                });
+
+                $("#food_list").on('click', '.cut', function () {
+                    var obj = $("#jq_num_" + $(this).attr('rel'));
+                    var product_id = $(this).attr('rel');
+                    var num = parseInt(obj.val());
+                    if (num > 0) {
+                        num--;
+                        obj.val(num);
+                        setCart(product_id, -1);
+                    }
+                });
+                $("#food_list").on('click', '.add', function () {
+                    var obj = $("#jq_num_" + $(this).attr('rel'));
+                    var product_id = $(this).attr('rel');
+                    var num = parseInt(obj.val());
+                    num++;
+                    obj.val(num);
+                    setCart(product_id, 1);
+                })
+                $("#ding_sub").click(function () {
+                    layer.msg("正在跳转下单页面");
+                    setTimeout(function () {
+                        window.location.href = "<{:U('booking/order',array('shop_id'=>$detail['shop_id']))}>";    
+                     }, 1000);
+                    
+                });
+                $("#kong").click(function () {
+                    $.cookie('ding_'+"<{$detail.shop_id}>", null,{ path: '/', expires: 7 ,domain:hostdo });
+                    layer.msg("清除成功");
+                    window.location.reload(true);
+                });
+
+
+            });
+        </script> 
+
+
+<!--购物车浮动窗end-->
+<include file="public:footer"/>

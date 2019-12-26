@@ -1,0 +1,47 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">词条</a> > <a>购买词条</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">购买"<{$word.text}>"关键词包年服务</div>
+        </div>
+    </div> 
+    <style>
+	.tuanfabu_intw2 {
+    width: 284px !important;
+}
+	</style>
+    <div class="tabnr_change  show">
+        <form method="post"  action="<{:U('pois/pay',array('word_id'=>$word['word_id']))}>"  target="baocms_frm">
+            <table class="tuanfabu_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+            
+            <tr>
+            <td width="620"><p class="tuanfabu_t">您正在购买【<{$word.text}>】的包年服务，并指定到下列黄页，</p></td>
+            <td></td>                      
+            </tr>
+            
+                <tr>
+                    <td width="120"><p class="tuanfabu_t">选择黄页：</p></td>
+                    <td><div class="tuanfabu_nr">
+                            <select id="cate_id" name="pois_id" class="tuanfabu_int tuanfabu_intw2">
+							<foreach name="list" item="item">
+                            <option value="<{$item.pois_id}>"><{$item.name}></option>
+                            </foreach>                                             
+                            </select>
+                        </div></td>
+                </tr>
+                
+                
+            </table>
+            <div class="tuanfabu_an">
+                <input type="submit" class="radius3 sjgl_an tuan_topbt" value="提交购买" />
+            </div>
+        </form>
+    </div> 
+</div>
+<include  file='public:footer'/>
+

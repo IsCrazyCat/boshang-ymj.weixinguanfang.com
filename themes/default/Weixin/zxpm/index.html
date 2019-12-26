@@ -1,0 +1,40 @@
+<{include file="weixin/block/header.html"}>
+<header class="ui-header ui-header-stable ui-border-b ucenterTit">
+	<i class="ui-icon-return ucenterIcon_lt" onClick="history.back()"></i>
+	<h1>我的装修</h1>
+</header>
+<div class="h45"></div>
+<div class="ucenterTop">
+	<div class="ucenterBg"><img src="%THEME%/weixin/static/images/ucenterBg3.jpg" ></div>
+	<ul class="ui-list ui-border-tb">
+		<li class="ui-border-t">
+			<div class="ui-avatar-lg ucenterPic">
+				<span style="background-image:url(<{$mywechat.wx_face}>)"></span>
+			</div>
+			<div class="ui-list-info ucenterText">
+				<h4 class="ui-nowrap"><{$mywechat.wx_nickname}></h4>
+				<p class="ui-nowrap">余额：<font class="fontcl2"><{$sales.money|default:'0'}></font>元</p>
+				<p class="ui-nowrap">积分：<font class="fontcl2"><{$sales.credits|default:'0'}></font>分</p>
+			</div>
+		</li>
+	</ul>
+</div>
+<ul class="ui-list ui-list-link ui-list-function ui-border-tb ucenterCont">
+	<li class="ui-border-t">
+		<div class="ui-list-thumb-s uncenterIco">
+			<span class="icon9"></span>
+		</div>
+		<div class="ui-list-info">
+			<a href="<{link ctl='zxpm/site:index'}>" class="ui-nowrap">项目管理</a>
+		</div>
+	</li>
+	<li class="ui-border-t">
+		<div class="ui-list-thumb-s uncenterIco">
+			<span class="icon8"></span>
+		</div>
+		<div class="ui-list-info">
+			<a href="<{link ctl='member/task:index'}>" class="ui-nowrap">分销推广</a>
+		</div>
+	</li>
+</ul>
+<{include file="weixin/block/footer.html"}>

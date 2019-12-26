@@ -1,0 +1,50 @@
+<include file="public:header" /> 
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		搜索详情
+	</div>
+</header>
+
+
+<style>
+ul { padding-left: 0px;}
+.xiaoqu-search{padding:15px;background:#fafafa;border-bottom:thin solid #eee;padding-bottom:5px}
+.xiaoqu-list p {height: 20px;line-height: 20px; margin: 0;color: #999;font-size: 12px;overflow: hidden;}
+p{margin-bottom:0px;}
+.list-media-x{ margin-top:0rem;}
+.list-media-x p {margin-top: .01rem; line-height:20px;font-size: 12px;}
+.list-media-x li dd.zhong{display:block;padding:10px;overflow:hidden;width:100%;border-bottom:1px #eee solid}
+.list-media-x li dd.zhong span.album{ font-size:12px; color:#FFF;margin-right: 0px;position:absolute;right:10%;bottom:0;width:45px;height:20px;line-height:20px;text-align:center;background: #06c1ae;}
+.list-media-x li dd.zhong a img{padding-bottom:0}
+</style>
+
+
+	<div class="line xiaoqu-search">
+		<form method="post"  action="<{:U('all/index')}>" id="form1" class="form1">
+			<div class="form-group">
+				<div class="field">
+					<div class="input-group">
+						<span class="addbtn"><button type="button" class="button icon-search"></button></span>
+						<input type="text" class="input" name="keyword" size="50" value="<{$keyword}>" placeholder="<{$CONFIG[other][wap_search_title]}>"  />
+						<span class="addbtn"><button type="submit" class="button">搜索</button></span>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+<div class="list-media-x" id="list-media"><ul></ul>
+<div class="blank-10"></div> 
+</div>
+    <script>
+        $(document).ready(function () {
+            loaddata('<{$nextpage}>', $("#list-media ul"), true);
+        });
+    </script>
+       
+<include file="public:footer"/>
+
+

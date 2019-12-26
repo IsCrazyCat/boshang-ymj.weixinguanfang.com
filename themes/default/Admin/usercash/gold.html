@@ -1,0 +1,134 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">商家提现</li>
+        <li class="li2 li3">商家提现管理</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+        	<div class="left">
+                <a>商家总提现【已审】：<{$shop_cash}>元</a>    
+                <a>商家提现佣金【已审】：<{$shop_cash_commission}>元</a>           
+            </div>
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('usercash/shop')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <label>
+                            <span>账户</span>
+                            <input type="text" name="account" value="<{$account}>" class="inptText" />
+                            <input type="submit" value="   搜索"  class="inptButton" />
+                        </label>
+                    </div> 
+                </form>
+                <a href="javascript:void(0);" class="searchG">高级搜索</a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form method="post" action="<{:U('usercash/shop')}>">
+            <div class="selectNr selectNr2">
+                <div class="left">
+                    <div class="seleK">
+                        <label>
+                            <span>账户</span>
+                            <input type="text" name="account" value="<{$account}>" class="inptText" />
+                        </label>
+                    </div>
+                </div>
+                <div class="right">
+                    <input type="submit" value="   搜索"  class="inptButton" />
+                </div>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <form target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="cash_id" /></td>
+                    <td class="w50">ID</td>
+                    <td>会员</td>
+                    <td>账户信息</td>
+                    <td>商户资金</td>
+                    <td>商户资金提现手续费</td>
+                    <td>提现日期</td>
+                    <td>状态</td>
+                    <td>操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_cash_id" type="checkbox" name="cash_id[]" value="<{$var.cash_id}>" <?php if ($var['status'] != 0){echo 'disabled="disabled"';}?> /></td>
+                        <td><{$var.cash_id}></td>
+                        <td><{$var.account}></td>
+                        <td>
+                            <p>户名：<{$var.bank_realname}></p>
+                            <p>银行：<{$var.bank_name}></p>
+                            <p>支行：<{$var.bank_branch}></p>
+                            <p>卡号：<{$var.bank_num}></p>
+                        </td>
+                        <td><{$var['gold'] / 100}> 元</td>
+                        <td><if condition="!empty($var['commission'])">手续费：&yen; <{:round($var['commission']/100,2)}>元<else/>无</if></td>
+                        <td><{$var['addtime']|date='Y-m-d', ###}></td>
+                        <td>
+                    <if condition="$var.status eq 0">
+                        未审
+                        <elseif condition="$var.status eq 1" />
+                        <font color="green">通过</font>
+                        <else />
+                        <font color="red">拒绝</font>
+                    </if>
+                    </td>
+                    <td>
+                    <if condition="$var.status eq 0">
+                        <{:BA('usercash/audit_gold',array("cash_id"=>$var["cash_id"], "status" => 1),'通过','act','remberBtn')}>
+                        <a class="remberBtn jujue"  href="javascript:void(0);" rel="<{$var.cash_id}>">拒绝</a>
+                        <else />
+                        --
+                    </if>
+                    </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <script src="__PUBLIC__/js/layer/layer.js"></script>
+        <script>
+            $(document).ready(function () {
+                layer.config({
+                    extend: 'extend/layer.ext.js'
+                });
+                $(".jujue").click(function () {
+                    var cash_id = $(this).attr('rel');
+                    var url = "<{:U('usercash/jujue_gold')}>";
+                    layer.prompt({formType: 2, value: '', title: '请输入拒绝理由，并确认'}, function (value) {
+                        if (value != "" && value != null) {
+                            $.post(url, {cash_id: cash_id, status: 2,value:value}, function (data) {
+                                if(data.status == 'success'){
+                                    layer.msg(data.msg, {icon: 1});
+                                    setTimeout(function(){
+                                        window.location.reload(true);
+                                    },1000)
+                                }else{
+                                    layer.msg(data.msg, {icon: 2});
+                                }
+                            }, 'json')
+                        } else {
+                            layer.msg('请填写拒绝理由', {icon: 2});
+                        }       
+                    });
+                })
+            })
+        </script>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+
+

@@ -1,0 +1,93 @@
+
+
+<div class="warpBox">
+    <div class="leftbox">
+        <h1><img src="__TMPL__statics/images/logo.jpg" /></h1>
+        <div class="nav">
+            <foreach name="menuList" item="var">
+                <if condition="($var.parent_id eq 0) and ($var.is_show eq 1) ">  
+                    <foreach name="menuList" item="var2">
+                        <eq name="var2.parent_id" value="$var.menu_id">
+                        <if condition="$var2.is_show eq 1">    
+                            <dl rel="<{$var.menu_id}>">
+                                <dt><a href="javascript:void(0);" style="color:#ffffff "><{$var2.menu_name}></a></dt>
+                                <foreach name="menuList" item="var3">
+                                    <eq name="var3.parent_id" value="$var2.menu_id">
+                                    <if condition="$var3.is_show eq 1">    
+                                        <dd style="display: none;"><a href="<{:U($var3['menu_action'])}>" target="main_frm"><{$var3.menu_name}></a></dd>
+                                    </if>     
+                                    </eq>
+                                </foreach>   
+                            </dl>
+                        </if>     
+                        </eq>
+                    </foreach>       
+                </if>
+            </foreach>     
+
+            <script>
+                $(document).ready(function(e){
+                    $(".nav  dt").click(function(){
+                        $(this).parent().find('dd').toggle();
+                            
+                    });
+                });
+            </script>
+
+        </div>
+    </div>
+    <div class="rightbox">
+        <div class="content">
+            <div class="topNav">
+                <div class="leftmenu">
+                    <div class="welcome">
+                        您好！<{$admin.username}>[<{$admin.role_name}>]    <span><a  href="<{:U('login/logout')}>">[退出]</a></span><span>    <a href="/" target="_blank">站点首页</a>    </span>
+                    </div>
+                    <div class="menu">
+                        <ul>
+                            <foreach name="menuList" item="var">
+                                <if condition="($var.parent_id eq 0) and ($var.is_show eq 1) ">  
+                                    <li><a href="javascript:void(0);" class="jq_menu" rel="<{$var.menu_id}>" ><{$var.menu_name}></a></li>
+                                </if>
+                            </foreach>
+                        </ul>
+                        <script>
+                            $(document).ready(function(e){
+                                $(".jq_menu").click(function(){
+                                     
+                                    var rel = $(this).attr('rel');
+                                    $(".jq_menu").removeClass('on');
+                                    $(this).addClass('on');
+                                    $(".nav dl").each(function(a){
+                                        if($(this).attr('rel') == rel){
+                                            $(this).show();
+                                        }else{
+                                            $(this).hide();
+                                        }
+                                    });
+                                });
+                                    
+                                $(".menu li").eq(0).find('.jq_menu').click();
+                            });
+                        </script>
+                    </div>
+                </div>
+                <div class="gxphp">
+                    <div class="linktxt">
+                        <a href="http://www.taobao.com" target="_blank">BAOCMS</a>      <a href="http://bbs.baocms.com/" target="_blank">支持论坛</a>     <a href="http://www.taobao.com/bbs/" target="_blank">帮助？</a>
+                    </div>
+                    <div class="linkhc">
+                        <a href="<{:U('index/index')}>">后台首页</a>
+                        <a target="main_frm" href="<{:U('clean/cache')}>">更新缓存</a>
+                    </div>
+                </div>
+            </div>
+            <div class="contentbox">
+
+                <div class="iframeBox">
+                    <iframe id="main_frm" name="main_frm" src="<{:U('index/main')}>" frameborder="0" width="100%" height="100%"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>	 

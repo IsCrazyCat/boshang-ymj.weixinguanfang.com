@@ -1,0 +1,318 @@
+<include file="public:header" /> 
+<include file="public:top"/>
+<include file="public:nav2"/>
+<script src="/static/default/pc/js/mod/shop.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/default/webuploader/webuploader.css">
+<script src="/static/default/webuploader/webuploader.min.js"></script>  
+<style>
+.zy_content { padding-top: 5px;}
+.mn {overflow: hidden;}
+.layui-layer-page .layui-layer-content{ padding:20px;}
+.layui-layer-page .layui-layer-content input[type='text']{ width:100%; height:36px; border:1px solid #ccc; background:#fff; margin-bottom:10px; text-indent:10px; font-size:14px;}
+.layui-layer-page .layui-layer-content input[type='button']{ width:100%; height:40px; border:none; background:#33b095; color:#fff; font-size:16px;}
+.layui-layer-page .layui-layer-content p{ line-height:28px; color:#999;}
+.layui-layer-page .layui-layer-content .check_box{ overflow:hidden; margin-bottom:5px;}
+.layui-layer-page .layui-layer-content .check_box label{ display:block; float:left; margin-right:20px; margin-bottom:10px;}
+.panorama_url{ width:100%; overflow:hidden;}
+.jq_uploads_img{display: block;height: auto; overflow:hidden;}
+</style>
+
+<div class="content zy_content">
+
+<if condition="!empty($detail['panorama_url'])">
+  <div class="panorama_url">
+      <iframe height="400" width="100%" src="<{$detail.panorama_url}>" frameborder="0" allowfullscreen=""></iframe>
+  </div>
+</if>
+
+
+	<div class="spxq_loca">
+     <a href="<{:U('shop/index')}>">商家 ></a>
+     <a><{$detail.shop_name}></a>
+    </div>
+    
+
+        <div class="body-content c2016">
+        <div class="shop-type c2016">
+            <ul>
+                <li class="a"><a href="<{:U('shop/detail',array('shop_id'=>$detail['shop_id']))}>">首页</a></li>
+                <li><a href="<{:U('shop/about',array('shop_id'=>$detail['shop_id']))}>">商家介绍</a></li>
+                <li><a href="<{:U('shop/photo',array('shop_id'=>$detail['shop_id']))}>">相册</a></li>
+                <li><a href="<{:U('shop/goods',array('shop_id'=>$detail['shop_id']))}>">商品</a></li>
+                <li><a href="<{:U('shop/tuan',array('shop_id'=>$detail['shop_id']))}>">套餐</a></li>
+                <li><a href="<{:U('shop/coupon',array('shop_id'=>$detail['shop_id']))}>">优惠劵</a></li>
+                <li><a href="<{:U('shop/news',array('shop_id'=>$detail['shop_id']))}>">新闻</a></li>
+                <li><a href="<{:U('shop/ping',array('shop_id'=>$detail['shop_id']))}>">点评</a></li>
+            </ul>
+        </div>
+        
+        <!--4-->
+        <div class="banner2016 c2016">
+            <include file="shop:shop_top"/>
+            <div id="aside" class="aside">
+                <div class="photos-container">
+                    <div class="photos">
+                        <a href="<{:U('shop/photo',array('shop_id'=>$detail['shop_id']))}>" target="_blank">
+                        <div style="background: #ddd url(<{:config_img($detail['photo'])}>) no-repeat 0 0; height: 180px; left: -1px; position: absolute; top: -1px; width: 180px; background-size: 100% auto;">
+                        </div>
+                        </a>
+                        <p>
+                            <a class="upload-photo" href="<{:U('shop/photo',array('shop_id'=>$detail['shop_id']))}>" target="_blank">更多商家图片</a><a class="icon"></a><a id="pic-count"> <{$pic}> </a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!--4-->
+        
+        
+        <div class="wp ct2 c2016">
+        <div class="mn">
+        
+        <!--3-->
+        <div class="mod sales-promotion c2016">
+            <h2 class="mod-title c2016">
+            <a class="item current">优惠促销</a>
+            </h2>
+            <div class="group c2016">
+            <!--商品开始-->
+            <calldata mdl="Goods" where="shop_id = {$detail['shop_id']} AND audit=1 AND closed=0" limit="0,4"  cache="21600" order="goods_id desc">
+                <div class="item big">
+                   <p class="title">
+                     <a class="block-link" href="<{:U('mall/detail',array('goods_id'=>$item['goods_id']))}>" target="_blank"><{$item.title}></a>
+                   </p>
+                    <a class="block-link" href="<{:U('mall/detail',array('goods_id'=>$item['goods_id']))}>" target="_blank">
+                    <img class="pic" src="<{:config_img($item['photo'])}>" title="<{$item.title}>"></a>
+                    <span class="price"><em>&yen;</em><{:round($item['mall_price']/100,2)}></span>
+                    <del class="del-price">&yen;<{:round($item['price']/100,2)}></del><i class="tag tag-tuan">商品</i>
+                    <p class="title">结束时间 : <{$item['end_date']}></p>
+                    <span class="sold-count">已售 <{$item['sold_num']}></span>
+                </div>
+              </calldata> 
+              <!--商品结束--> 
+              <!--套餐开始-->
+              <calldata mdl="Tuan" where="shop_id = {$detail['shop_id']} AND audit=1 AND closed=0" limit="0,30"  cache="21600" order="tuan_id desc">
+                <div class="item big">
+                   <p class="title">
+                     <a class="block-link" href="<{:U('tuan/detail',array('tuan_id'=>$item['tuan_id']))}>" target="_blank"><{$item.title}></a>
+                   </p>
+                    <a class="block-link" href="<{:U('tuan/detail',array('tuan_id'=>$item['tuan_id']))}>" target="_blank">
+                    <img class="pic" src="<{:config_img($item['photo'])}>" title="<{$item.title}>"></a>
+                    <span class="price"><em>&yen;</em><{:round($item['tuan_price']/100,2)}></span>
+                    <del class="del-price">&yen;<{:round($item['price']/100,2)}></del><i class="tag tag-tuan">套餐</i>
+                    <p class="title">结束时间 : <{$item['end_date']}></p>
+                    <span class="sold-count">已售 <{$item['sold_num']}></span>
+                </div>
+              </calldata> 
+              <!--套餐结束-->
+              
+              <!--优惠劵开始-->
+              <calldata mdl="Coupon" where="shop_id = {$detail['shop_id']} AND audit=1 AND closed=0" limit="0,30"  cache="21600" order="coupon_id desc">
+                <div class="item big">
+                   <p class="title">
+                     <a class="block-link" href="<{:U('coupon/detail',array('coupon_id'=>$item['coupon_id']))}>" target="_blank"><{$item.title}></a>
+                   </p>
+                    <a class="block-link" href="<{:U('coupon/detail',array('coupon_id'=>$item['coupon_id']))}>" target="_blank">
+                    <img class="pic" src="<{:config_img($item['photo'])}>" title="<{$item.title}>"></a>
+                    <span class="price"><em>关注人数：</em><{$item['views']}></span>
+                    <i class="tag tag-tuan">优惠劵</i>
+                    <p class="title">结束时间 : <{$item.expire_date}></p>
+                    <span class="sold-count">领取人数： <{$item.downloads}></span>
+                </div>
+              </calldata> 
+              <!--优惠劵结束--> 
+                
+            </div>
+        </div>
+<!--结束-->
+        
+        
+        <div class="mod comment">
+            <h2 class="mod-title c2016">
+                <a class="item current"><span>商家</span>图片</a>
+                <span class="y">
+                <a href="<{:U('shop/photo',array('shop_id'=>$detail['shop_id']))}>" class="star-current">更多»</a>
+                </span>
+            </h2>
+            <div class="group c2016 photo_list">
+                <ul>
+                <calldata mdl="Shoppic" where="shop_id = {$detail['shop_id']}" limit="0,30"  cache="21600" order="pic_id desc">
+                    <li><a href="javascript:;" title="<{$item['title']}>"  aid="85" ><img src="<{:config_img($item['photo'])}>"></a></li>
+                </calldata>
+            
+                </ul>
+            </div>
+        </div>
+        <div id="comment" class="mod comment">
+            <h2 class="mod-title c2016 J-tab">
+                <a class="item current" data-type="default"><span>商家</span>点评(共有<{$totalnum}>人参与点评)<span class="sub-title"></span></a>
+                <span class="y">
+                <a href="<{:U('shop/ping',array('shop_id'=>$detail['shop_id']))}>" class="star-current">更多»</a>
+                </span>
+            </h2>
+        
+        <ul class="comment-list J-list">
+        <!--点评开始-->
+        <volist name="list" id="var">
+            <li class="comment-item">
+                <a class="avatar J-avatar" target="_blank" rel="nofollow"><img src="<{:config_img($users[$var['user_id']]['face'])}>"></a>
+                    <p class="user-info">
+                        <span class="y f_12 666">发表时间：<{:formatTime($var['create_time'])}><br><br></span>
+                        <a class="name"><{:config_user_name($users[$var['user_id']]['nickname'])}></a>
+                    </p>
+                <div class="content2">
+                    <p class="shop-info">
+                        <span class="sml-rank-stars sml-str<{:round($var['score']*10,2)}>"></span>
+                        <span class="item">人均<em><{$var.cost}></em>元</span>
+                    </p>
+                <p class="desc"><{$var.contents}></p>
+                <ul class="ml cm c2016">
+               				 <foreach name="pics" item="pic">
+								<eq name="pic.dianping_id" value="$var.dianping_id">
+									<li><img src="<{:config_img($pic['pic'])}>" /></li>
+								</eq>
+							</foreach>
+                </ul>
+                </div>
+            </li>
+        </volist>
+       <!--点评结束-->
+        </ul>
+        
+        <p class="comment-all">
+            <a href="<{:U('shop/ping',array('shop_id'=>$detail['shop_id']))}>" title="" target="_blank" rel="nofollow">更多点评 &gt;&gt;</a>
+            </p>
+        </div>
+        
+        <div class="mod sales-promotion c2016">
+                <h2 class="mod-title c2016">
+                    <a class="item current"><span>我要</span>点评</a>
+                </h2>
+                   <div class="bm">
+                        <div class="bm_c">
+                        <form id="ping-form" class="form-auto"  target="baocms_frm" method="post" action="<{:U('shop/dianping',array('shop_id'=>$detail['shop_id']))}>">
+                        <if condition="!empty($MEMBER)">
+                        <div class="frm-pic uploadImg jq_uploads_imgs">
+								<a class="button input-file" href="javascript:void(0);" id="moreToUpload"> + 添加图片 </a>
+								<span class="pic-input"></span>
+								<span class="pic-tip"><i class="icon-bell"></i> 最多可添加5张照片，文件大小2M以内 </span>
+							</div>
+                            
+                            <div class="blank-10"></div>
+							<ul class="pic-list uploadImg mt10 jq_uploads_imgs" id="jq_photo_list">
+							</ul>
+							<div class="blank-10"></div>
+                            
+                            
+					
+                                        <script>                                
+                                                var width_dianping = '<{:thumbSize($CONFIG[attachs][dianping][thumb],0)}>';                                
+                                                var height_dianping = '<{:thumbSize($CONFIG[attachs][dianping][thumb],1)}>';
+                                                var uploader = WebUploader.create({                                    
+                                                auto: true,                                    
+                                                swf: '/static/default/webuploader/Uploader.swf',                                    
+                                                server: '<{:U("app/upload/uploadify",array("model"=>"dianping"))}>',                                    
+                                                pick: '#moreToUpload',                                    
+                                                fileNumberLimit:2,                                    
+                                                resize: true, 
+                                                crop: false,  
+                                                compress : {width:width_dianping,height:height_dianping,quality: 80,allowMagnify: false,crop: true},														                        
+                                            });                                                               
+                                            uploader.on( 'uploadSuccess', function( file,resporse) {                                    
+                                            var str = '<span style="width:150px; height: 120px; float: left; margin:0 10px 0 10px; overflow: hidden;">  <img width="150" height="100" src="' + resporse.url + '">  <input type="hidden" name="photos[]" value="' + resporse.url + '" />    <a href="javascript:void(0);">取消</a>  </span>';                                   
+                                             $(".jq_uploads_img").append(str);                                
+                                                 });                                                            
+                                             uploader.on( 'uploadError', function( file ) {                                    
+                                                alert('上传出错');                                
+                                             });                                
+                                             $(document).on("click", ".jq_uploads_img a", function () {                                    
+                                                 $(this).parent().remove();                                
+                                             });                            
+                                         </script>
+                                        <div class="pic-list jq_uploads_img">
+                                            <foreach  name="photos" item="item">
+                                                <span style="width: 120px; height: 120px; float: left; margin-left: 5px; margin-top: 10px;"> 
+                                                    <img width="100" height="100" src="<{:config_img($item['photo'])}>">  
+                                                    <input type="hidden" name="photos[]" value="<{$item.photo}>" />  
+                                                    <a href="javascript:void(0);">取消</a>  
+                                                </span>
+                                            </foreach>
+                                        </div>	
+   
+							</if>
+                            
+                            
+                        <div class="comment_selcet">
+                        	<div class="form-star m1-10">
+								<ul>
+									<li>
+										总体评分：
+										<input id="datascore" name="data[score]" type="hidden" value="1" />
+										<span class="star-select" id="star-datascore">
+											<a onMouseOver="javascript:setProfix('datascore_');showStars(1,'datascore');" onMouseOut="javascript:setProfix('datascore_');clearStars('datascore');" href="javascript:setProfix('datascore_');setStars(1,'datascore');"><img id="datascore_1" src="/static/default/pc/image/icon_star_1.gif"></a>
+											<a onMouseOver="javascript:setProfix('datascore_');showStars(2,'datascore');" onMouseOut="javascript:setProfix('datascore_');clearStars('datascore');" href="javascript:setProfix('datascore_');setStars(2,'datascore');"><img id="datascore_2" src="/static/default/pc/image/icon_star_1.gif"></a>
+											<a onMouseOver="javascript:setProfix('datascore_');showStars(3,'datascore');" onMouseOut="javascript:setProfix('datascore_');clearStars('datascore');" href="javascript:setProfix('datascore_');setStars(3,'datascore');"><img id="datascore_3" src="/static/default/pc/image/icon_star_1.gif"></a>
+											<a onMouseOver="javascript:setProfix('datascore_');showStars(4,'datascore');" onMouseOut="javascript:setProfix('datascore_');clearStars('datascore');" href="javascript:setProfix('datascore_');setStars(4,'datascore');"><img id="datascore_4" src="/static/default/pc/image/icon_star_1.gif"></a>
+											<a onMouseOver="javascript:setProfix('datascore_');showStars(5,'datascore');" onMouseOut="javascript:setProfix('datascore_');clearStars('datascore');" href="javascript:setProfix('datascore_');setStars(5,'datascore');"><img id="datascore_5" src="/static/default/pc/image/icon_star_1.gif"></a>
+									   </span>
+									</li>
+									<li>
+										<{$cate.d1}>评分：
+										<input id="datascore1" name="data[d1]" type="hidden" value="1" />
+										<span class="star-select" id="star-datascore1">
+											<a onMouseOver="javascript:setProfix('datascore_');showStars(1,'datascore1');" onMouseOut="javascript:setProfix('datascore1_');clearStars('datascore1');" href="javascript:setProfix('datascore1_');setStars(1,'datascore1');"><img id="datascore1_1" src="/static/default/pc/image/icon_star_1.gif"></a>
+											<a onMouseOver="javascript:setProfix('datascore1_');showStars(2,'datascore1');" onMouseOut="javascript:setProfix('datascore1_');clearStars('datascore1');" href="javascript:setProfix('datascore1_');setStars(2,'datascore1');"><img id="datascore1_2" src="/static/default/pc/image/icon_star_1.gif"></a>
+											<a onMouseOver="javascript:setProfix('datascore1_');showStars(3,'datascore1');" onMouseOut="javascript:setProfix('datascore1_');clearStars('datascore1');" href="javascript:setProfix('datascore1_');setStars(3,'datascore1');"><img id="datascore1_3" src="/static/default/pc/image/icon_star_1.gif"></a>
+											<a onMouseOver="javascript:setProfix('datascore1_');showStars(4,'datascore1');" onMouseOut="javascript:setProfix('datascore1_');clearStars('datascore1');" href="javascript:setProfix('datascore1_');setStars(4,'datascore1');"><img id="datascore1_4" src="/static/default/pc/image/icon_star_1.gif"></a>
+											<a onMouseOver="javascript:setProfix('datascore1_');showStars(5,'datascore1');" onMouseOut="javascript:setProfix('datascore1_');clearStars('datascore1');" href="javascript:setProfix('datascore_');setStars(5,'datascore1');"><img id="datascore1_5" src="/static/default/pc/image/icon_star_1.gif"></a>
+									   </span>
+									</li>
+									<li>
+										<{$cate.d2}>评分：
+										<input id="datascore2" name="data[d2]" type="hidden" value="1" />
+										
+										<span class="star-select" id="star-datascore2">
+											<a onMouseOver="javascript:setProfix('datascore2_');showStars(1,'datascore2');" onMouseOut="javascript:setProfix('datascore2_');clearStars('datascore2');" href="javascript:setProfix('datascore2_');setStars(1,'datascore2');"><img id="datascore2_1" src="/static/default/pc/image/icon_star_1.gif"></a>
+											<a onMouseOver="javascript:setProfix('datascore2_');showStars(2,'datascore2');" onMouseOut="javascript:setProfix('datascore2_');clearStars('datascore2');" href="javascript:setProfix('datascore2_');setStars(2,'datascore2');"><img id="datascore2_2" src="/static/default/pc/image/icon_star_1.gif"></a>
+											<a onMouseOver="javascript:setProfix('datascore2_');showStars(3,'datascore2');" onMouseOut="javascript:setProfix('datascore2_');clearStars('datascore2');" href="javascript:setProfix('datascore2_');setStars(3,'datascore2');"><img id="datascore2_3" src="/static/default/pc/image/icon_star_1.gif"></a>
+											<a onMouseOver="javascript:setProfix('datascore2_');showStars(4,'datascore2');" onMouseOut="javascript:setProfix('datascore2_');clearStars('datascore2');" href="javascript:setProfix('datascore2_');setStars(4,'datascore2');"><img id="datascore2_4" src="/static/default/pc/image/icon_star_1.gif"></a>
+											<a onMouseOver="javascript:setProfix('datascore2_');showStars(5,'datascore2');" onMouseOut="javascript:setProfix('datascore2_');clearStars('datascore2');" href="javascript:setProfix('datascore_');setStars(5,'datascore2');"><img id="datascore2_5" src="/static/default/pc/image/icon_star_1.gif"></a>
+									   </span>
+									</li>
+									<li>
+										<{$cate.d3}>评分：
+										<input id="datascore3" name="data[d3]" type="hidden" value="1" />
+										<span class="star-select" id="star-datascore3">
+											<a onMouseOver="javascript:setProfix('datascore3_');showStars(1,'datascore3');" onMouseOut="javascript:setProfix('datascore3_');clearStars('datascore3');" href="javascript:setProfix('datascore3_');setStars(1,'datascore3');"><img id="datascore3_1" src="/static/default/pc/image/icon_star_1.gif"></a>
+											<a onMouseOver="javascript:setProfix('datascore3_');showStars(2,'datascore3');" onMouseOut="javascript:setProfix('datascore3_');clearStars('datascore3');" href="javascript:setProfix('datascore3_');setStars(2,'datascore3');"><img id="datascore3_2" src="/static/default/pc/image/icon_star_1.gif"></a>
+											<a onMouseOver="javascript:setProfix('datascore3_');showStars(3,'datascore3');" onMouseOut="javascript:setProfix('datascore3_');clearStars('datascore3');" href="javascript:setProfix('datascore3_');setStars(3,'datascore3');"><img id="datascore3_3" src="/static/default/pc/image/icon_star_1.gif"></a>
+											<a onMouseOver="javascript:setProfix('datascore3_');showStars(4,'datascore3');" onMouseOut="javascript:setProfix('datascore3_');clearStars('datascore3');" href="javascript:setProfix('datascore3_');setStars(4,'datascore3');"><img id="datascore3_4" src="/static/default/pc/image/icon_star_1.gif"></a>
+											<a onMouseOver="javascript:setProfix('datascore3_');showStars(5,'datascore3');" onMouseOut="javascript:setProfix('datascore3_');clearStars('datascore3');" href="javascript:setProfix('datascore_');setStars(5,'datascore3');"><img id="datascore3_5" src="/static/default/pc/image/icon_star_1.gif"></a>
+									   </span>
+									</li>
+								</ul>
+							</div>
+                        </div>
+                            <div class="comment_message">
+                                <textarea name="data[contents]" id="contents" class="pt" rows="5" placeholder="请输入描述，建议80字以内"></textarea>
+                            </div>
+                            <div class="comment_input">
+                            人均消费 : <input type="text" name="data[cost]" placeholder="如：20元" id="cost" class="px">
+                            <p><button type="submit" class="pn pnp"><strong>提交</strong></button></p>
+                            </div>
+                        </form>
+                        
+                        </div>
+                        </div>
+                    </div>
+                </div>
+
+
+        
+        
+        
+       <include file="shop:shop_footer"/>  
+
+   
+<include file="public:footer"/>

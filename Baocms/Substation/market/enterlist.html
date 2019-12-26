@@ -1,0 +1,62 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+         <li class="li1">当前位置>
+        <li class="li2"> 入驻列表</li>
+
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <div class="jsglNr">
+        <div class="selectNr">
+            <div class="left">
+                <{:BA('market/enter',array('market_id'=>$detail['market_id']),'添加入驻')}>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+
+                       <td class="w50"><input type="checkbox" class="checkAll" rel="enter_id" /></td>
+                 <td class="w50">ID</td>
+                <td>商场名称</td>
+                <td>入驻商家</td>
+                <td>商家LOGO</td>
+                <td>入驻时间</td>
+                <td>操作</td>
+
+                    </tr>
+                     <foreach name="list" item="var">
+                <tr>
+                    <td><input class="child_enter_id" type="checkbox" name="enter_id[]" value="<{$var.enter_id}>" /> </td>
+                    <td><{$var.enter_id}></td>
+                    <td><{$markets[$var['market_id']]['market_name']}></td>
+                    <td><{$shops[$var['shop_id']]['shop_name']}></td>
+                    <td><img src="__ROOT__/attachs/<{$shops[$var['shop_id']]['logo']}>" class="w80" /></td>
+                    <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                    <td>
+                        <{:BA('market/cancle',array('enter_id'=>$var['enter_id']),'撤销入驻','act','remberBtn')}>
+                        <{:BA('market/enter',array("market_id"=>$var["market_id"]),'商家入驻','','remberBtn')}>
+                    </td>
+                </tr>
+            </foreach>
+                    <tr>
+                        <td colspan="20">
+                            <{:BA('market/cancle','','批量删除','list','piliangcaozuo')}>
+                        </td>
+                    </tr>
+                </table>
+                <{$page}>
+
+            </div>
+
+
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>  
+
+

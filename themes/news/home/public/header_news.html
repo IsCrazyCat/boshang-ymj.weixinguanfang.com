@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="renderer" content="webkit">
+		<title><{$seo_title}></title>
+		<meta name="keywords" content="<{$seo_keywords}>" />
+		<meta name="description" content="<{$seo_description}>" />
+		<link rel="stylesheet" href="/static/default/pc/css/base.css" />
+		<link rel="stylesheet" href="/static/default/pc/css/<{$ctl}>.css" />
+		<script src="/static/default/pc/js/jquery.js"></script>
+		<script src="/static/default/pc/js/respond.js"></script>
+		<script src="/static/default/pc/js/load.js"></script>
+		<script src="/static/default/pc/js/base.js"></script>
+        <!-- 兼容搜索下拉的写法 -->
+        <script src="__TMPL__statics/js/js.js"></script>
+        <!-- 兼容搜索下拉的写法  -->
+        <style>
+		/**/
+		.main-drop {background: #06c1ae;}
+		.navbar {border-bottom: 2px solid #2fbdaa;background-color: #fff;}
+		.navbar .nav li a {color: #333;}
+		.navA:hover, .navA.on{background-color: transparent}
+		</style>
+	</head>
+	<body>
+		<iframe id="x-frame" name="x-frame" style="display:none;"></iframe>
+		<!-- 顶部导航 -->
+		<!-- LOGO栏 -->
+		<include file="public:top" /> 
+		<include  file='public:top_news'/>  

@@ -1,0 +1,48 @@
+<table width="95%">
+    
+    <tr style="height: 40px;">
+        <th>频道标题:<input type="text" class="manageInput w150" name="data[channel_name]" value="<?php echo $channel_name;?>"  /></th>
+        <th>更多链接：<input type="text" class="manageInput w150" name="data[channel_link]" value="<?php echo $channel_link;?>"  /></th>
+        <th>频道商家分类：<input type="text" class="manageInput w150" name="data[cate_id]" value="<?php echo $cate_id;?>"  /></th>
+    </tr>
+    <tr style="height: 40px;">
+        <th>中间广告位ID：<input type="text" class="manageInput w150" name="data[adsite_id]" value="<?php echo $adsite_id;?>"  /></th>
+        <th>中间推荐位ID：<input type="text" class="manageInput w150" name="data[site_id]" value="<?php echo $site_id;?>"  /></th>
+        <th></th>
+    </tr>
+    <tr style="">
+        <th>右侧实用手册：</th>
+        <td colspan="2">
+            <?php for($i=1;$i<=10;$i++){ ?>
+           
+            <p style="height: 40px;">
+                
+                实用手册<?php echo $i;?>：<input type="text" class="manageInput w100" name="data[help][<?php echo $i;?>]" value="<?php echo $help[$i];?>" /> - 
+                连接地址<?php echo $i;?>：<input type="text" class="manageInput w100" name="data[helplink][<?php echo $i;?>]" value="<?php echo $helplink[$i];?>" />
+            </p>
+            
+            <?php }?>
+        </td>        
+    </tr>
+        <tr style="">
+        <th>热门关键字：</th>
+        <td colspan="2">
+            <?php for($i=1;$i<=8;$i++){ ?>
+           
+            <p style="height: 40px;">
+                
+                关键字<?php echo $i;?>：<input type="text" class="manageInput w100" name="data[keyword][<?php echo $i;?>]" value="<?php echo $keyword[$i];?>" /> - 
+                连接地址<?php echo $i;?>：<input type="text" class="manageInput w100" name="data[keywordlink][<?php echo $i;?>]" value="<?php echo $keywordlink[$i];?>" />
+            </p>
+            
+            <?php }?>
+        </td>        
+    </tr>
+    
+    <tr>
+        <td colspan="3">
+            <h1>挂件效果如下</h1>
+            <img src="__ROOT__/Baocms/Lib/Widget/channel/setting.png" />
+        </td>
+    </tr>
+</table>

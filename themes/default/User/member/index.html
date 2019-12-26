@@ -1,0 +1,292 @@
+<include file="public:header"/>
+<style>
+.icon-sign-out, .top-fixed .top-back i { font-size: 18px;}
+.top-fixed {border-bottom: none;}
+.top-fixed .top-search input {border-radius:2px;}
+.top-fixed .top-share, .top-fixed .top-back {padding-right: 0px;}
+.top-fixed .top-title {font-size: 14px;}
+.top-fixed .top-share a {width: 50px !important;}
+p, .p {margin-bottom: 0px;}
+.member-top { margin-top: 0px;}
+</style>
+
+	<header class="top-fixed bg-yellow bg-inverse transparent" id="header">
+		<div class="top-back">
+			<a id="search-btn" href="javascript:void(0);"><i class="icon-search"></i></a>
+		</div>
+		<div class="top-title">
+			会员中心
+		</div>
+        <div class="top-search" style="display:none;">
+			<form method="post" action="<{:U('wap/all/index')}>">
+				<input name="keyword" placeholder="输入关键字"  />
+				<button type="submit" class="icon-search"></button> 
+			</form>
+		</div>
+		<div class="top-share">
+			<include file="public:message"/>
+		</div>
+	</header>
+
+
+<div class="member-top">
+<div class="member-info">
+<div class="user-avatar"> 
+<img src="<{:config_img($MEMBER['face'])}>"> 
+</div>
+<div class="user-name"> 
+<span>
+				<if condition="!empty($MEMBER['nickname'])">
+                <{$MEMBER.nickname}> 
+                <else/>
+                <{$MEMBER.account}> 
+                </if>
+                <sup><{$ranks[$MEMBER['rank_id']]['rank_name']}></sup></span> 
+</div>
+</div>
+<div class="member-collect">
+<span><a href="<{:u('money/index')}>"><em><{:round($MEMBER['money']/100,2)}></em><p>我的余额</p></a> </span>
+<span><a href="<{:u('money/index')}>"><em><{$MEMBER.integral}></em><p>我的积分</p></a> </span>
+<!--<if condition="!empty($open_running)">  -->
+<!--<span><a href="<{:u('running/index')}>"><i class="goods-browse"></i><p>我的跑腿</p></a></span>-->
+<!--</if>-->
+</div>
+</div>
+
+  <script type="text/javascript">
+	$(function(){
+		$("#search-btn").click(function(){
+			if($(".top-search").css("display")=='block'){
+				$(".top-search").hide();
+				$(".top-title").show(200);
+			}
+			else{
+				$(".top-search").show();
+				$(".top-title").hide(200);
+			}
+		});
+		$("#search-bar li").each(function(e){
+			$(this).click(function(){
+				if($(this).hasClass("on")){
+					$(this).parent().find("li").removeClass("on");
+					$(this).removeClass("on");
+					$(".serch-bar-mask").hide();
+				}
+				else{
+					$(this).parent().find("li").removeClass("on");
+					$(this).addClass("on");
+					$(".serch-bar-mask").show();
+				}
+				$(".serch-bar-mask .serch-bar-mask-list").each(function(i){
+					
+					if(e==i){
+						$(this).parent().find(".serch-bar-mask-list").hide();
+						$(this).show();
+					}
+					else{
+						$(this).hide();
+					}
+					$(this).find("li").click(function(){
+						$(this).parent().find("li").removeClass("on");
+						$(this).addClass("on");
+					});
+				});
+			});
+		});
+	});
+	
+
+	</script>  
+    
+
+<!--<div class="member-center">-->
+<!--      <dl class="mt5">-->
+<!--        <dd>-->
+<!--          <ul id="order_ul">-->
+<!--              <li><a href="<{:U('tuan/index')}>"><i class="icon-bookmark-o"></i><p>套餐</p></a></li>-->
+<!--              <if condition="$open_mall eq 1">-->
+<!--              <li><a href="<{:LinkTo('goods/index',array('aready'=>1))}>"><i class="icon-cart-plus"></i><p>购物</p></a></li>-->
+<!--              </if>-->
+<!--              <li><a href="<{:U('eleorder/index')}>"><i class="icon-cutlery"></i><p>外卖</p></a></li>-->
+<!--              <if condition="$open_booking eq 1">-->
+<!--              <li><a href="<{:LinkTo('booking/index')}>"><i class="icon-tty"></i><p>订座</p></a></li>-->
+<!--              </if>-->
+<!--              <li><a href="<{:U('breaks/index')}>"><i class="icon-money"></i><p>买单</p></a></li>-->
+<!--          </ul>-->
+<!--        </dd>-->
+<!--      </dl>-->
+<!--      -->
+<!--</div>-->
+    
+    
+<div class="blank-10 bg"></div>
+<div class="panel-list">
+	<ul>
+
+<li><a href="<{:U('information/index')}>"><span class="icon-gears"></span>我的资料<i class="icon-angle-right"></i></a></li>
+
+<if condition="$is_shop neq null">
+<li><a href="<{:u('distributors/index/index')}>"><span class="icon-home"></span>我的门店<font>（<{$is_shop_name}>）</font><i class="icon-angle-right"></i></a></li>
+</if>
+<php>
+$worker = D('Shopworker')->where(array('user_id'=>$MEMBER['user_id']))->find();
+$user_delivery = D('Delivery')->where(array('user_id'=>$MEMBER['user_id'],'audit'=>1,'closed'=>0))->find();
+</php>
+<if condition="!empty($worker)">
+	<li><a href="<{:U('worker/index/index')}>"><span class="icon-paper-plane-o"></span>店员中心登录<font>（<{$worker['name']}>）</font><i class="icon-angle-right"></i></a></li>
+</if>
+
+<!--<if condition="!empty($user_delivery)">-->
+<!--	<li><a href="<{:U('delivery/index/index')}>"><span class="icon-bus"></span>配送员中心登录<font>（<{$user_delivery['name']}>）</font><i class="icon-angle-right"></i></a></li>-->
+<!--</if>-->
+		<if condition="$profit eq 1"><!--如果开启分销-->
+			<li><a href="<{:U('distribution/index')}>"><span class="icon-cny"></span>我的分成<i class="icon-angle-right"></i></a></li>
+			<else/>
+		</if>
+		<li><a href="<{:U('distribution/qrcode')}>"><span class="icon-qrcode"></span>我的二维码<i class="icon-angle-right"></i></a></li>
+		<li>
+			<a href="<{:U('tuancode/index')}>">
+				<span class="icon-credit-card"></span>
+				我的套餐码&nbsp;
+				<if condition="$code gt 0">
+					<font>待消费：(<b><{$code}></b>)</font>
+					<else/>
+				</if>
+				<i class="icon-angle-right"></i>
+			</a>
+		</li>
+		<li><a href="<{:u('money/index')}>"><span class="icon-money"></span>余额充值<i class="icon-angle-right"></i></a></li>
+
+	</ul>
+
+</div>
+
+<div class="blank-10 bg"></div>
+
+
+
+<div class="panel-list">
+	<ul>
+		<if condition="$open_mall eq 1">
+			<li><a href="<{:LinkTo('goods/index',array('aready'=>1))}>"><span class="icon-star-o"></span>我的订单<i class="icon-angle-right"></i></a></li>
+		</if>
+
+
+		
+<!--<if condition="$open_crowd eq 1">-->
+<!--	<li><a href="<{:U('crowd/index',array('aready'=>1))}>"><span class="icon-users"></span>我的众筹<i class="icon-angle-right"></i></a></li>   -->
+<!--</if>-->
+<!--<if condition="$open_pintuan eq 1">-->
+<!--	<li><a href="<{:U('pintuan/groups')}>"><span class="icon-star-half-o"></span>我的拼团<i class="icon-angle-right"></i></a></li> -->
+<!--</if>-->
+<!--<if condition="$open_hotels eq 1"> -->
+<!--	<li><a href="<{:U('hotels/index')}>"><span class="icon-hotel"></span>我的酒店<i class="icon-angle-right"></i></a></li>      -->
+<!--</if>-->
+<if condition="$open_mall eq 1">
+     <li><a href="<{:U('favorites/index')}>"><span class="icon-star-o"></span>我的商品收藏<i class="icon-angle-right"></i></a></li>    
+</if>
+<!--<if condition="$open_pinche eq 1">  -->
+<!--	<li><a href="<{:U('pinche/index')}>"><span class="icon-car"></span>我的拼车<i class="icon-angle-right"></i></a></li>        -->
+<!--</if>-->
+<!--<if condition="$open_tieba eq 1">        
+    <li><a href="<{:U('tieba/index')}>"><span class="icon-comments"></span>我的贴吧&nbsp; 
+        <if condition="$tieba gt 0">
+        <font>(<{$tieba}>)</font>
+        <else/>
+        </if>  
+        <if condition="$counts['tieba'] neq null">
+        <font>今日：(<b><{$counts.tieba}></b>)</font>  
+        <else/>
+        </if>  
+        <i class="icon-angle-right"></i>
+        </a>
+    </li>
+</if>-->
+<!--<if condition="$open_community eq 1"> -->
+<!--<li><a href="<{:u('user/member/xiaoqu')}>"><span class="icon-ils"></span>我的小区 -->
+<!--				<if condition="$xiaoqu gt 0">-->
+<!--                <font>(<{$xiaoqu}>)</font> -->
+<!--                <else/>-->
+<!--                </if> <i class="icon-angle-right"></i></a>-->
+<!--</li>-->
+<!--</if> -->
+<if condition="$open_huodong eq 1"> 
+<li><a href="<{:U('activity/index')}>"><span class="icon-star-o"></span>我报名的活动<i class="icon-angle-right"></i></a></li>        
+</if>
+        <div class="blank-10 bg"></div>
+
+<!--<if condition="$open_life eq 1">          -->
+<!--    <li>-->
+<!--        <a href="<{:U('life/index')}>"><span class="icon-truck"></span>我的同城信息&nbsp; -->
+<!--        <if condition="$life gt 0">-->
+<!--        <font>(<{$life}>)</font>  -->
+<!--        <else/>-->
+<!--        </if>  -->
+<!--        <i class="icon-angle-right"></i>-->
+<!--        </a>-->
+<!--    </li>  -->
+<!--</if>   -->
+   
+<!--<if condition="$open_jifen eq 1">-->
+<!--    <li>-->
+<!--        <a href="<{:U('exchange/index')}>"><span class="icon-gift"></span>我的礼品&nbsp; -->
+<!--        <if condition="$lipin gt 0">-->
+<!--        <font>(<{$lipin}>)</font>-->
+<!--        <else/>-->
+<!--        </if> -->
+<!--        <i class="icon-angle-right"></i>-->
+<!--        </a>-->
+<!--    </li>-->
+<!--</if> -->
+
+<li>
+		<a href="<{:U('coupon/index')}>">
+				<span class="icon-tags"></span>
+				我的优惠券&nbsp; 
+                <if condition="$coupon gt 0">
+                <font>未使用：(<b><{$coupon}></b>)</font>
+                <else/>
+                </if> 
+				<i class="icon-angle-right"></i>
+			</a>
+		</li>
+
+<!--        <li>-->
+<!--			<a href="<{:U('yuyue/index',array('status'=>2))}>">-->
+<!--				<span class="icon-tty"></span>-->
+<!--				我的预约-->
+<!--                <if condition="$shop_yuyue gt 0">-->
+<!--                <font>未使用：(<b><{$shop_yuyue}></b>)</font>-->
+<!--                <else/>-->
+<!--                </if> -->
+<!--				<i class="icon-angle-right"></i>-->
+<!--			</a>-->
+<!--		</li>-->
+<!--<if condition="$open_cloud eq 1"> -->
+<!--    <li>-->
+<!--        <a href="<{:U('cloud/index')}>"><span class="icon-send"></span>我的一元云购&nbsp; -->
+<!--        <i class="icon-angle-right"></i>-->
+<!--        </a>-->
+<!--    </li>-->
+<!--</if> -->
+
+<!--<if condition="$open_appoint eq 1">  -->
+<!--	<li><a href="<{:U('appoint/index')}>"><span class="icon-umbrella"></span>我的家政<i class="icon-angle-right"></i></a></li>-->
+<!--</if> -->
+<li><a href="<{:u('user/message/index')}>"><span class="icon-volume-up"></span>消息中心<i class="icon-angle-right"></i></a></li>
+
+
+<!--<if condition="$open_running eq 1">        -->
+<!--<li><a href="<{:U('running/index')}>"><span class="icon-plane"></span>我的跑腿&nbsp; <i class="icon-angle-right"></i></a></li>  -->
+<!--</if>         -->
+
+
+	</ul>
+
+</div>
+<div class="blank-10"></div>
+<div class="container text-center">
+		<a class="button button-block button-big bg-dot" href="<{:u('wap/passport/logout')}>">退出后台</a>
+</div>
+
+<include  file='public:footer'/>

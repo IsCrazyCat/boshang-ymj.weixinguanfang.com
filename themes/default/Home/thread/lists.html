@@ -1,0 +1,41 @@
+<include  file='public:header'/> 
+<include  file='public:top'/> 
+<include  file='public:nav2'/>
+<div class="pagewd">
+    <div class="tribeCont mt10">
+    	<div class="left tribeCont_l">
+        	<div class="tribe_cate">
+            	<h3>部落分类</h3>
+                <div>
+                    <ul>
+                        <calldata mdl="Threadcate" where="" limit="0,50" cache="21600" order="orderby asc">
+                            <li class="list"><a <eq name="item.cate_id" value="$cate_id">class="on"</eq> href="<{:U('thread/lists',array('cate_id'=>$item['cate_id']))}>"><{$item.cate_name}></a></li>
+                        </calldata>
+                    </ul>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <div class="right tribeCont_r">
+            <div class="tribeCate_cont">
+                <ul>
+                    <foreach name="list" item="item">
+                        <li class="tribeCate_cont_list">
+                            <a target="_blank" href="<{:U('thread/detail',array('thread_id'=>$item['thread_id']))}>"><img src="<{:config_img($item['photo'])}>" width="90" height="90" class="left" /></a>
+                            <div class="pub_wz">
+                                <p class="name"><a target="_blank" href="<{:U('thread/detail',array('thread_id'=>$item['thread_id']))}>"><{$item.thread_name}></a></p>
+                                <p class="graycl">话题<{$item.posts}><span class="ml10">关注<{$item.fans}></span></p>
+                                <p class="graycl"><{$item.intro}></p>
+                            </div>
+                            <div class="clear"></div>
+                            <a mini='act' href="<{:U('thread/collect',array('thread_id'=>$item['thread_id']))}>" class="btn"><if condition="$item['collect'] eq 1"><b>+</b>取消<else/><b>＋</b>关注</if></a>
+                        </li>
+                    </foreach>
+                </ul>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<include file="public:footer"/>

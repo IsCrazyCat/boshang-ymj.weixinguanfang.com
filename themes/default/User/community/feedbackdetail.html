@@ -1,0 +1,59 @@
+<php>$seo_title = $news[title]; </php>
+<include file='public:header'/>    
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:u('community/feedback')}>">
+            <i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			问题详情
+		</div>
+	</header>
+<style>
+.tab-bar {border-top: thin solid #eee;}
+.border-bottom {border-bottom: 1px #eee dashed !important;}
+</style>	
+	<div class="container">
+		<div class="blank-20"></div>
+		<h4 class="text-center"><{$detail.title}></h4>
+		<p class="text-center border-bottom padding text-small text-gray">
+			<span>发布时间：<{$detail.create_time|date='Y-m-d H:i:s',###}></span>
+		</p>
+        
+		<div class="padding">
+			<{$detail.details}>
+		</div>
+        
+        <if condition="$detail['reply'] eq null">
+         <p class="text-center border-bottom padding text-small text-gray">
+			<span>您还未回复！点击下面按钮回复。</span>
+		</p>
+        
+        <else/>
+        
+        <p class="text-center border-bottom padding text-small text-gray">
+			<span>回复时间：<{$detail.reply_time|date='Y-m-d H:i:s',###}></span>
+		</p>
+        
+        <div class="padding">
+			<{$detail.reply}>
+		</div>
+        
+        </if>
+        
+	</div>
+
+<div class="line tab-bar">
+	<div class="button-toolbar">
+		<div class="button-group">
+        
+        <if condition="$detail['reply'] eq null">
+        <a class="block button bg-dot active" href="javascript:void(0);">等待回复</a>
+        <else/>
+		<a class="block button bg-gray active" href="javascript:void(0);">已回复</a>
+       </if>     
+		</div>
+	</div>
+</div>
+	
+<include  file='public:footer'/>

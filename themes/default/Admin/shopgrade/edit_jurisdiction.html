@@ -1,0 +1,162 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">商家等级</li>
+        <li class="li2 li3">编辑等级权限</li>
+    </ul>
+</div>
+<style>
+.biankuang{ border:1px #666666 dashed; padding:5px;}
+</style>
+<p class="attention"><span>当前等级：</span> 商家审核的时候必须分配等级，您当前编辑的等级<a style="color:#F00; font-size:18px;">【<{$detail['grade_name']}>】</a></p>
+<p class="attention"><span>等级说明：</span><a style="color: #00F" class="biankuang"><{$detail['content']}></a></p>
+<p class="attention"><span>等级费用：</span>单独购买费用：&yen; <{:round($detail['money']/100,2)}>元， &nbsp; 自动升级需要商户资金： &yen;</span><{:round($detail['gold']/100,2)}>元</p>
+<form  target="baocms_frm" action="<{:U('shopgrade/edit_jurisdiction',array('grade_id'=>$detail['grade_id']))}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                
+
+
+
+
+
+     <td class="lfTdBt">商城权限：</td>
+        <td class="rgTdBt">&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="data[is_mall]" value="1" <if condition="$detail.is_mall eq 1"> checked="checked" </if> />是 &nbsp;&nbsp;
+        <input type="radio" name="data[is_mall]" value="0"  <if condition="$detail.is_mall eq 0"> checked="checked" </if>/>否&nbsp;&nbsp;
+        <a class="rgTdBt" style="margin-left:50px;">可发布数量：</a>
+        <input type="text" name="data[is_mall_num]" value="<{$detail.is_mall_num|default=''}>" class="scAddTextName w150" />
+        <code>填写可发布商品数量</code>
+        </td>
+     </tr>
+     
+      <td class="lfTdBt">套餐权限：</td>
+        <td class="rgTdBt">&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="data[is_tuan]" value="1" <if condition="$detail.is_tuan eq 1"> checked="checked" </if> />是 &nbsp;&nbsp;
+        <input type="radio" name="data[is_tuan]" value="0"  <if condition="$detail.is_tuan eq 0"> checked="checked" </if>/>否&nbsp;&nbsp;
+        <a class="rgTdBt" style="margin-left:50px;">可发布数量：</a>
+        <input type="text" name="data[is_tuan_num]" value="<{$detail.is_tuan_num|default=''}>" class="scAddTextName w150" />
+        <code>填写可发布套餐数量</code>
+        </td>
+     </tr>
+     
+      <td class="lfTdBt">外卖权限：</td>
+        <td class="rgTdBt">&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="data[is_ele]" value="1" <if condition="$detail.is_ele eq 1"> checked="checked" </if> />是 &nbsp;&nbsp;
+        <input type="radio" name="data[is_ele]" value="0"  <if condition="$detail.is_ele eq 0"> checked="checked" </if>/>否&nbsp;&nbsp;
+        <a class="rgTdBt" style="margin-left:50px;">可发布数量：</a>
+        <input type="text" name="data[is_ele_num]" value="<{$detail.is_ele_num|default=''}>" class="scAddTextName w150" />
+        <code>填写可发布外卖菜品，建议50-100个</code>
+        </td>
+     </tr>
+     
+      <td class="lfTdBt">商家新闻权限：</td>
+        <td class="rgTdBt">&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="data[is_news]" value="1" <if condition="$detail.is_news eq 1"> checked="checked" </if> />是 &nbsp;&nbsp;
+        <input type="radio" name="data[is_news]" value="0"  <if condition="$detail.is_news eq 0"> checked="checked" </if>/>否&nbsp;&nbsp;
+        <a class="rgTdBt" style="margin-left:50px;">可发布数量：</a>
+        <input type="text" name="data[is_news_num]" value="<{$detail.is_news_num|default=''}>" class="scAddTextName w150" />
+        <code>填写可发布商家新闻数量</code>
+        </td>
+     </tr>
+     
+      <td class="lfTdBt">酒店权限：</td>
+        <td class="rgTdBt">&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="data[is_hotel]" value="1" <if condition="$detail.is_hotel eq 1"> checked="checked" </if> />是 &nbsp;&nbsp;
+        <input type="radio" name="data[is_hotel]" value="0"  <if condition="$detail.is_hotel eq 0"> checked="checked" </if>/>否&nbsp;&nbsp;
+        <a class="rgTdBt" style="margin-left:50px;">可发布数量：</a>
+        <input type="text" name="data[is_hotel_num]" value="<{$detail.is_hotel_num|default=''}>" class="scAddTextName w150" />
+        <code>填写可发布酒店房间数量</code>
+        </td>
+     </tr>
+     
+      <td class="lfTdBt">定座权限：</td>
+        <td class="rgTdBt">&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="data[is_booking]" value="1" <if condition="$detail.is_booking eq 1"> checked="checked" </if> />是 &nbsp;&nbsp;
+        <input type="radio" name="data[is_booking]" value="0"  <if condition="$detail.is_booking eq 0"> checked="checked" </if>/>否&nbsp;&nbsp;
+        <a class="rgTdBt" style="margin-left:50px;">可发布数量：</a>
+        <input type="text" name="data[is_booking_num]" value="<{$detail.is_booking_num|default=''}>" class="scAddTextName w150" />
+        <code>填写可发布定座菜品数量，建议50-100个菜品，这里不控制包间</code>
+        </td>
+     </tr>
+     
+      <td class="lfTdBt">农家乐权限：</td>
+        <td class="rgTdBt">&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="data[is_farm]" value="1" <if condition="$detail.is_farm eq 1"> checked="checked" </if> />是 &nbsp;&nbsp;
+        <input type="radio" name="data[is_farm]" value="0"  <if condition="$detail.is_farm eq 0"> checked="checked" </if>/>否&nbsp;&nbsp;
+        <a class="rgTdBt" style="margin-left:50px;">可发布数量：</a>
+        <input type="text" name="data[is_farm_num]" value="<{$detail.is_farm_num|default=''}>" class="scAddTextName w150" />
+        <code>填写可发布农家乐套餐数量，可根据自己的要求来，一般低等级10个，高等级30个</code>
+        </td>
+     </tr>
+     
+      <td class="lfTdBt">家政权限：</td>
+        <td class="rgTdBt">&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="data[is_appoint]" value="1" <if condition="$detail.is_appoint eq 1"> checked="checked" </if> />是 &nbsp;&nbsp;
+        <input type="radio" name="data[is_appoint]" value="0"  <if condition="$detail.is_appoint eq 0"> checked="checked" </if>/>否&nbsp;&nbsp;
+        <a class="rgTdBt" style="margin-left:50px;">可发布数量：</a>
+        <input type="text" name="data[is_appoint_num]" value="<{$detail.is_appoint_num|default=''}>" class="scAddTextName w150" />
+        <code>填写可发布家政数量，建议1-5个</code>
+        </td>
+     </tr>
+     
+      <td class="lfTdBt">活动权限：</td>
+        <td class="rgTdBt">&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="data[is_huodong]" value="1" <if condition="$detail.is_huodong eq 1"> checked="checked" </if> />是 &nbsp;&nbsp;
+        <input type="radio" name="data[is_huodong]" value="0"  <if condition="$detail.is_huodong eq 0"> checked="checked" </if>/>否&nbsp;&nbsp;
+        <a class="rgTdBt" style="margin-left:50px;">可发布数量：</a>
+        <input type="text" name="data[is_huodong_num]" value="<{$detail.is_huodong_num|default=''}>" class="scAddTextName w150" />
+        <code>填写可发布活动数量，建议2-10个</code>
+        </td>
+     </tr>
+     
+      <td class="lfTdBt">优惠劵权限：</td>
+        <td class="rgTdBt">&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="data[is_coupon]" value="1" <if condition="$detail.is_coupon eq 1"> checked="checked" </if> />是 &nbsp;&nbsp;
+        <input type="radio" name="data[is_coupon]" value="0"  <if condition="$detail.is_coupon eq 0"> checked="checked" </if>/>否&nbsp;&nbsp;
+        <a class="rgTdBt" style="margin-left:50px;">可发布数量：</a>
+        <input type="text" name="data[is_coupon_num]" value="<{$detail.is_coupon_num|default=''}>" class="scAddTextName w150" />
+        <code>填写可发布优惠劵数量</code>
+        </td>
+     </tr>
+     
+      <td class="lfTdBt">分类信息权限：</td>
+        <td class="rgTdBt">&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="data[is_life]" value="1" <if condition="$detail.is_life eq 1"> checked="checked" </if> />是 &nbsp;&nbsp;
+        <input type="radio" name="data[is_life]" value="0"  <if condition="$detail.is_life eq 0"> checked="checked" </if>/>否&nbsp;&nbsp;
+        <a class="rgTdBt" style="margin-left:50px;">可发布数量：</a>
+        <input type="text" name="data[is_life_num]" value="<{$detail.is_life_num|default=''}>" class="scAddTextName w150" />
+        <code>填写可发布分类信息数量</code>
+        </td>
+     </tr>
+     
+      <td class="lfTdBt">积分兑换权限：</td>
+        <td class="rgTdBt">&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="data[is_jifen]" value="1" <if condition="$detail.is_jifen eq 1"> checked="checked" </if> />是 &nbsp;&nbsp;
+        <input type="radio" name="data[is_jifen]" value="0"  <if condition="$detail.is_jifen eq 0"> checked="checked" </if>/>否&nbsp;&nbsp;
+        <a class="rgTdBt" style="margin-left:50px;">可发布数量：</a>
+        <input type="text" name="data[is_jifen_num]" value="<{$detail.is_jifen_num|default=''}>" class="scAddTextName w150" />
+        <code>填写可发布积分兑换数量</code>
+        </td>
+     </tr>
+
+ 	<td class="lfTdBt">云购权限：</td>
+        <td class="rgTdBt">&nbsp;&nbsp;&nbsp;
+        <input type="radio" name="data[is_cloud]" value="1" <if condition="$detail.is_cloud eq 1"> checked="checked" </if> />是 &nbsp;&nbsp;
+        <input type="radio" name="data[is_cloud]" value="0"  <if condition="$detail.is_cloud eq 0"> checked="checked" </if>/>否&nbsp;&nbsp;
+        <a class="rgTdBt" style="margin-left:50px;">可发布数量：</a>
+        <input type="text" name="data[is_cloud_num]" value="<{$detail.is_cloud_num|default=''}>" class="scAddTextName w150" />
+        <code>填写可发布云购数量，建议1-3个就行了</code>
+        </td>
+     </tr>
+
+
+
+    </table>
+</div>
+<div class="smtQr"><input type="submit" value="确认编辑" class="smtQrIpt" /></div>
+</div>
+</form>
+<include  file='public:footer'/>       

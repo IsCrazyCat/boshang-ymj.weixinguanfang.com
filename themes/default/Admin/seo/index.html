@@ -1,0 +1,76 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">模版管理</li>
+        <li class="li2 li3">SEO模板</li>
+    </ul>
+</div>
+<div class="main-jsgl">
+    <p class="attention"><span>注意：</span>标签的设计规则是 控制器加方法名，这样会自动的匹配上的，有点多，请搜索查找。</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin: 10px 20px;">
+            <div class="left">
+                <{:BA('seo/create','','添加模版')}>
+            </div>
+            
+              <div class="right">
+                <form  method="post"  action="<{:U('seo/index')}>"> 
+
+                    <div class="seleHidden" id="seleHidden">
+                        <div class="seleK">
+                            <span>请输入标签搜索：如：index_main，控制器+方法</span>
+                            <input type="text"  class="inptText" name="keyword" value="<{$keyword}>"  />
+                            <input type="submit" value=" 搜索" placeholder="index_index" class="inptButton" />
+                        </div>
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+          
+       
+        
+        
+        </div>
+        <form target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="seo_id" /></td>
+                        <td class="w50">ID</td>
+                        <td>标签</td>
+                        <td>说明</td>
+                        <td>SEO标题</td>
+                        <td>SEO关键字</td>
+                        <td>SEO描述</td>
+                        <td class="w120">操作</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_seo_id" type="checkbox" name="seo_id[]" value="<{$var.seo_id}>"/></td>
+                            <td><{$var.seo_id}></td>
+                            <td><{$var.seo_key}></td>
+                            <td><{$var.seo_explain}></td>
+                            <td><{$var.seo_title}></td>
+                            <td><{$var.seo_keywords}></td>
+                            <td><{$var.seo_desc}></td>
+
+                            <td>
+                                <{:BA('seo/edit',array("seo_id"=>$var["seo_id"]),'编辑','','remberBtn')}>
+                                <{:BA('seo/delete',array("seo_id"=>$var["seo_id"]),'删除','act','remberBtn')}>
+                            </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr">
+                <div class="left">
+                    <{:BA('seo/delete','','批量关闭','list','a2')}>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>       
+

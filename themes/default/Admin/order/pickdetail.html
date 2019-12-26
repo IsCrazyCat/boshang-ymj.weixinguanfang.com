@@ -1,0 +1,50 @@
+<include  file='public:header'/>
+ 
+    <div class="main-jsgl">
+            <p class="attention"><span>注意：</span>捡货清单打印出来后，可以反馈是否已经捡到货了；再发货管理里面可以发货；</p>
+
+        <div class="jsglNr">
+ <div class="tableBox">
+                <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+            <tr class="no">
+                <td style="width: 150px;">商品名称</td>
+                <td style="width: 150px;">供应商</td>
+                <td style="width: 60px;">数量</td>
+                <td style="width: 60px;">单价</td>
+                <td style="width: 60px;">总价</td>
+                <td style="width: 250px;">商家地址</td>
+                <td style="width: 100px;">货到付款</td>
+                <td style="width: 100px;">是否缺货</td>
+            </tr>    
+            <foreach name="shops" item="shop">
+                <foreach name="goods" item="good">
+                    <if condition="($good['shop_id'] eq $shop['shop_id'])">    
+                        <tr class="no">
+                            <td><{$products[$good['goods_id']]['title']}></td>
+                            <td>
+                                <{$shop.shop_name}>
+                            </td>
+                            <td><{$good.num}></td>
+                            <td><{:round($good['price']/100,2)}></td>
+                            <td><{:round($good['total_price']/100,2)}></td>
+                            <td>
+                                <{$areas[$shop['area_id']]['area_name']}>、
+                                <{$business[$shop['business_id']]['business_name']}>、
+                                <{$shop.addr}>,<{$shop.tel}>
+                            </td>
+                            <td>
+                        <eq name="good.is_daofu" value="1"> <font style="color: red;">货到付款</font><else/>在线支付</eq>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </if>
+                </foreach>
+            </foreach>
+            
+            <tr>
+                <td colspan="8"> <input type="button"  onclick="window.print();" value=" 打 印 " /></td>
+            </tr>
+            
+        </table>
+</div>
+<include  file='public:footer'/>       

@@ -1,0 +1,44 @@
+<include file='public:header'/>    
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:u('community/detail',array('community_id'=>$detail['community_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<{$detail.name}>小区代收快递
+		</div>
+		<div class="top-signed">
+			<!--<a href="<{:U('message/index')}>"><i class="icon-envelope"></i></a>-->
+		</div>
+	</header>
+
+<style>
+/*主页列表*/
+.index-tuan ul{list-style:none;padding:0;}
+.index-tuan li{padding:10px 0;border-bottom:thin solid #eee;}
+.index-tuan li:last-child{border:none;}
+.index-tuan li img{float:left;border-radius:3px;overflow:hidden;}
+.index-tuan li .des {padding-left:5px;}
+.index-tuan li .des h5{height:20px;line-height:20px;overflow:hidden;}
+.index-tuan li .des .intro{height:20px;line-height:20px;color:#999;overflow:hidden;margin:0;font-size:12px;}
+.index-tuan li .des .info {color:#F60;font-size:11px;margin:0;overflow:hidden;}
+.index-tuan li .des .info del{color:#999;margin-left:20px;}
+.index-tuan li .des .info em{font-size:14px;}
+</style>
+
+
+<div class="margin-top"></div>
+
+	<div class="line index-tuan">
+		<ul id="index-tuan">
+        
+        开发中。。。。。
+			<!--<script>
+				$(document).ready(function () {
+					loaddata('<{$nextpage}>', $("#index-tuan"),true);
+				});
+			</script>-->
+		</ul>
+	</div>
+
+		
+<include  file='public:footer'/>    

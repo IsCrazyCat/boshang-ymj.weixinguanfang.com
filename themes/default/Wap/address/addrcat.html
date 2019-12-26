@@ -1,0 +1,153 @@
+<include  file='public:header'/>   
+<script src="/static/pintuan/common.js" type="text/javascript"></script>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="javascript:history.go(-1)"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		添加收货地址
+	</div>
+</header>
+
+
+
+<form id="add_form"  target="x-frame" method="post" action="<{:U('address/addrcat',array('type'=>$type,'order_id'=>$order_id,'log_id'=>$log_id))}>" class="fabu-form">
+<input id="type" type="hidden" name="data[type]" value="<{$type}>" />
+<input id="type" type="hidden" name="data[goods_id]" value="<{$goods_id}>" />
+<input id="type" type="hidden" name="data[log_id]" value="<{$log_id}>" />
+<input id="type" type="hidden" name="data[pc_order]" value="<{$pc_order}>" />
+<input id="type" type="hidden" name="data[category]" value="<{$category}>" />
+<div class="blank-10 bg border-top"></div>
+ <div class="row">
+    <div class="line">
+       <span class="x3">是否默认：</span>
+       <span class="x9">
+           <input  style="width: 20px; height: 20px;" type="radio" name="data[defaults]" id="defaults1" value="0">否&nbsp;&nbsp;&nbsp;&nbsp;
+           <input  style="width: 20px; height: 20px;" type="radio" checked="checked"  name="data[defaults]" id="defaults2" value="1">是&nbsp;&nbsp;&nbsp;&nbsp;
+       </span>
+    </div>
+ </div>
+
+
+<div class="row">
+	<div class="line">
+		<span class="x3">收货人：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[addxm]"  id="addxm" value="" />
+		</span>
+	</div>
+</div>
+
+<div class="row">
+	<div class="line">
+		<span class="x3">手机号：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[addtel]" id="addtel" value="" />
+		</span>
+	</div>
+</div>
+
+
+
+<div class="row">
+	<div class="line">
+                    <span class="x3 tit">省份</span>
+                    <span class="x9">
+                        <select name="data[province]" id="province" class="text-select" onchange="getCity();">
+                            <option value="0">选择省</option>
+                          <foreach name="provinceList" item="var">
+                            <option value="<{$var.id}>"><{$var.name}></option>
+                            </foreach>
+                        </select>
+                    </label>
+                </span>
+  	</div>
+</div>
+<div class="row">
+	<div class="line">
+                    <span class="x3 tit">城市</span>
+                    <span class="x9">
+                        <select  name="data[city]" id="city"  class="text-select"onchange="javascript:getArea();">
+                            <option value="0">选择城市</option>
+                        </select>
+                    </label>
+                    </span>
+    </div>
+</div>
+
+
+<div class="row">
+	<div class="line">
+    <span class="x3 tit">区/县</span>
+    <span class="x9">
+                  
+                        <select name="data[areas]" id="area" class="text-select">
+                            <option value="0">选择区/县</option>
+                        </select>
+                        </span>
+</div>
+</div>
+
+
+
+
+
+
+<div class="line border-bottom">
+	<textarea class="form-content" name="data[addinfo]"  id="addinfo" placeholder="请填写您的详细地址"><{$detail.instructions}></textarea>
+</div>
+
+ 
+             
+   
+<div class="container">
+   <div class="blank-30"></div>
+ 
+      <button  type="submit"  class="button button-block button-big bg-dot" id="add">添加地址</button>
+    <div class="blank-30"></div>
+</div>
+
+</form>
+<script>
+
+function getCity(){
+  var province = $("#province").val();
+  $.ajax({
+        type: "GET",
+        url: "<{$CONFIG.site.host}>/wap/pintuan/city/upid/"+province,
+        dataType : "jsonp",
+        jsonpCallback:"jsonpCallback",
+        cache : false,
+        success: function(json){
+            var cityHtml = '<option value="0">选择城市</option>';
+            $.each(json,function(k,v){
+                cityHtml+= '<option value="'+v.id+'">'+v.name+'</option>';
+            })
+            $("#city").html(cityHtml);
+            $("#city").show();
+        }
+    });
+}   
+
+function getArea(){
+  var city = $("#city").val();
+  $.ajax({
+        type: "GET",
+        url: "<{$CONFIG.site.host}>/wap/pintuan/city/upid/"+city,
+        dataType : "jsonp",
+        jsonpCallback:"jsonpCallback",
+        cache : false,
+        success: function(json){
+            var areaHtml = '<option value="0">选择区/县</option>';
+            $.each(json,function(k,v){
+                areaHtml+= '<option value="'+v.id+'">'+v.name+'</option>';
+            })
+            $("#area").html(areaHtml);
+            $("#area").show();
+        }
+    });
+}
+
+</script>
+
+<include file="public:footer"/>

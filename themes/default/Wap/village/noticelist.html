@@ -1,0 +1,21 @@
+<include file='public:header'/>    
+	<script src="/static/default/wap/other/roll.js"></script>
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('village/detail',array('village_id'=>$detail['village_id']))}>">返回</a>
+		</div>
+		<div class="top-title">
+                    <{$detail.name}>--<if condition="$type eq 1">通知<else/>活动展示</if>
+		</div>
+	</header>
+	<div class="text-list">
+		<ul>
+		</ul>
+	</div>
+
+    <script>
+        $(document).ready(function () {
+            loaddata('<{$next}>', $(".text-list ul"), true);
+        });
+    </script>
+<include file="public:footer"/> 

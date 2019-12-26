@@ -1,0 +1,66 @@
+<include  file='public:header'/>
+<div class="local">
+    当前位置：建站 > 轮播图片管理 > 手机轮播管理
+</div>
+<div class="notice">
+    <span>注意：</span> 上传修改商铺的轮播图片，修改之后需要更新才能生效
+</div>
+
+<div class="tlist">
+    <js file='__PUBLIC__/js/uploadify/jquery.uploadify.min.js'/>
+    <link rel="stylesheet" href="__PUBLIC__/js/uploadify/uploadify.css">
+    <table  cellpadding="0"  cellspacing="0" width="100%">
+        <tr>
+            <td width="400">
+                <input id="logo_file" name="logo_file" type="file" multiple="true" value="" />
+            </td>
+            <td>
+                为了好看建议尺寸:<{$CONFIG.attachs.shopbanner.thumb}>
+            </td>
+        </tr> 
+    </table>
+    <script>
+            $("#logo_file").uploadify({
+                'swf': '__PUBLIC__/js/uploadify/uploadify.swf?t=<{$nowtime}>',
+                'uploader': '<{:U("app/upload/shopbanner",array("shop_id"=>$SHOP["shop_id"],"sig"=>$sig))}>',
+                'cancelImg': '__PUBLIC__/js/uploadify/uploadify-cancel.png',
+                'buttonText': '上传图片',
+                'fileTypeExts': '*.gif;*.jpg;*.png',
+                'queueSizeLimit': 10,
+                'onUploadSuccess': function (file, data, response) {
+                    location.href = '<{:U("photo/banner")}>';
+                }
+            });
+    </script>
+    <div class="cl"></div>
+    <form  method="post" action="<{:U('photo/updatebanner')}>" target="baocms_frm">
+        <table cellpadding="0"  cellspacing="0" width="100%">
+            <tr>
+                <th>图片</th>
+                <th>标题</th>
+                <th>排序</th>
+                <th>操作</th>
+            </tr>
+            <foreach name="list" item="var">
+                <tr>
+                    <td style="height: 80px;"><img src="<{:config_img($var['photo'])}>" style="width: 80px; margin: 0px auto;" /></td>
+                    <td><input type="text" class="cjinput" name="title[<{$var.banner_id}>]" value="<{$var.title}>" /></td>
+                    <td><input type="text" class="cjinput" style="width: 50px" name="orderby[<{$var.banner_id}>]" value="<{$var.orderby}>" /></td>
+                    <td>
+                        <a mini='confirm' href="<{:U('photo/deletebanner',array('banner_id'=>$var['banner_id']))}>">删除图片</a>
+                    </td>
+                </tr>
+            </foreach>
+
+            <tr class="bottom">
+                <td colspan="4"><input type="submit" class="cjbtn_new" value="更新" /></td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+</body>
+</html>
+
+
+

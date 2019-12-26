@@ -1,0 +1,64 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">商家管理</li>
+        <li class="li2 li3">商家等级</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>商家的等级图标建议传上去，还有商家内容，那个自动升级那个建议写好一点，中途不要随意更改！注意那个等级权重，不要重复，否则后果自负</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('shopgrade/create','','添加等级')}>
+            </div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="grade_id" /></td>
+                        <td class="w50">ID</td>
+                        <td>等级权重</td>
+                        <td>等级名称</td>
+                        <td>等级图标</td>
+                        <td>独立买需要金额</td>
+                        <td>自动升级需资金</td>
+                        <td>描述</td> 
+                        <td>商家数量</td>
+                        <td>操作</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_grade_id" type="checkbox" name="grade_id[]" value="<{$var.grade_id}>" /></td>
+                            <td><{$var.grade_id}></td>
+                            <td><a style="color:#F00; font-size:18px; font-weight:bold"><{$var.orderby}></a></td>
+                            <td><{$var.grade_name}></td>
+                            <td><img style="width:20px;" src="<{:config_img($var['photo'])}>"/></td>
+                            <td> &yen; <{:round($var['money']/100,2)}>元</td>
+                            <td>&yen; <{:round($var['gold']/100,2)}>元</td>
+                            <td><{$var.content}></td>
+                            <td><{$var.shop_count}></td>
+                            <td>
+                             <{:BA('shopgrade/edit',array("grade_id"=>$var["grade_id"]),'编辑','','remberBtn')}>
+                             <{:BA('shopgrade/edit_jurisdiction',array("grade_id"=>$var["grade_id"]),'权限管理','','remberBtn')}>
+                                <{:BA('shopgrade/delete',array("grade_id"=>$var["grade_id"]),'删除','act','remberBtn')}>
+                            </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('shopgrade/delete','','批量删除','list',' a2')}>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>  
+
+
+

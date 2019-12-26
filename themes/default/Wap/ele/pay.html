@@ -1,0 +1,202 @@
+<include file='public:header'/>    
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('ele/cart')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			订单设定
+		</div>
+	</header>
+
+	<script src="<{:U('app/datas/cab',array('name'=>'cityareas'))}>"></script>  <!-- 获取下拉 -->
+    
+    <script>
+    	$(document).ready(function(){
+			//添加收货地址
+			$('.add_addr').click(function(){
+				var index = layer.open({
+					type: 1,
+					title:'新增收货地址',
+					skin: 'layer-ext-demo', //加上边框
+					area: ['90%', '340px'], //宽高
+					content: '<div class="form-x form-auto"><div class="line margin-top"><div class="x2 label"><label>联系人</label></div><div class="x10 field"><input type="text" class="input input-auto" id="name" name="name" size="10"  value=""></div></div>   <div class="line margin-top"><div class="x2 label"><label>地区</label></div><div class="x10 field form-inline"><select id="city_id" name="city_id"  class="input margin-small-right input-auto"><option value="0">请选择...</option></select><select id="area_id" name="area_id" class="input  margin-small-right input-auto"><option value="0">请选择...</option></select><select id="business_id" name="business_id" class="input input-auto"><option value="0">请选择...</option></select></div></div><div class="line margin-top"><div class="x2 label"><label>手机</label></div><div class="x10 field"><input type="text" class="input input-auto" name="mobile" id="mobile" value=""></div></div><div class="line margin-top"><div class="x2 label"><label>地址</label></div><div class="x10 field"><input type="text" class="input input-auto" size="25" name="addr" id="addr" value="" /></div></div><div class="line margin-top"><div class="x10 float-right"><input class="button bg-dot addr_post" type="submit" value="添加地址" /></div></div></div>'
+				});
+
+				get_option();
+				$('.layui-layer-content').css('padding','15px');
+				
+				$('.addr_post').click(function(){
+					var name = $('#name').val();
+					var city_id = $('#city_id').val();
+					var area_id = $('#area_id').val();
+					var business_id = $('#business_id').val();
+					var mobile = $('#mobile').val();
+					var addr = $('#addr').val();
+					
+					$.post('<{:U("wap/addr/add_addr")}>',{name:name,city_id:city_id,area_id:area_id,business_id:business_id,mobile:mobile,addr:addr},function(result){										
+						if(result.status == 'success'){
+							layer.msg(result.msg,{icon:1});
+							setTimeout(function(){
+								location.reload(true);
+							},2000);
+						}else{
+							layer.msg(result.msg,{icon:2});
+						}														
+					},'json');
+				})
+			});
+
+			//修改
+			$('.edit_addr').click(function(){
+				var val = $(this).attr('val');
+				var a = $(this).attr('a');
+				var b = $(this).attr('b');
+				var c = $(this).attr('c');
+				var n = $(this).attr('n');
+				var m = $(this).attr('m');
+				var addr = $(this).attr('addr');
+				var index = layer.open({
+					type: 1,
+					title:'修改收货地址',
+					skin: 'layer-ext-demo', //加上边框
+					area: ['90%', '340px'], //宽高
+					content: '<div class="form-x form-auto"><div class="line margin-top"><div class="x2 label"><label>联系人</label></div><div class="x10 field"><input type="text" class="input input-auto" id="name" name="name" size="10"  value="'+n+'"></div></div>   <div class="line margin-top"><div class="x2 label"><label>地区</label></div><div class="x10 field form-inline"><select id="city_ids" name="city_id"  class="input margin-small-right input-auto"><option value="0">请选择...</option></select><select id="area_ids" name="area_id" class="input  margin-small-right input-auto"><option value="0">请选择...</option></select><select id="business_ids" name="business_id" class="input input-auto"><option value="0">请选择...</option></select></div></div><div class="line margin-top"><div class="x2 label"><label>手机</label></div><div class="x10 field"><input type="text" class="input input-auto" name="mobile" id="mobile" value="'+m+'"></div></div><div class="line margin-top"><div class="x2 label"><label>地址</label></div><div class="x10 field"><input type="text" class="input input-auto" size="25" name="addr" id="addr" value="'+addr+'" /></div></div><div class="line margin-top"><div class="x10 float-right"><input class="button bg-yellow edit_post" type="submit" value="立即修改"  val="'+val+'" /></div></div></div>'
+				});
+				$('.layui-layer-content').css('padding','15px');
+				get_option();
+				changeCAB(c,a,b);
+				$('.edit_post').click(function(){
+					var addr_id = $(this).attr('val');
+					var name = $('#name').val();
+					var city_id = $('#city_ids').val();
+					var area_id = $('#area_ids').val();
+					var business_id = $('#business_ids').val();
+					var mobile = $('#mobile').val();
+					var addr = $('#addr').val();
+					$.post('<{:U("wap/addr/edit_addr")}>',{name:name,city_id:city_id,area_id:area_id,business_id:business_id,mobile:mobile,addr:addr,addr_id:addr_id},function(result){										
+						if(result.status == 'success'){
+							layer.msg(result.msg,{icon:1});
+							setTimeout(function(){
+								location.reload(true);
+							},2000);
+						}else{
+							layer.msg(result.msg,{icon:2});
+						}														
+					},'json');
+				})
+			})
+			$("#pay-method li").click(function(){
+				var code = $(this).attr("data-rel");
+				$("#code").val(code);
+				$("#pay-method li").each(function(){
+					$(this).removeClass("active");
+				});
+				$(this).addClass("active");
+			});
+			
+		});
+    </script>
+<style>
+.icon-angle-right{ float:right; font-size:20px;}
+.layui-layer-molv .layui-layer-title { background-color: #F8F8F8; border-bottom: 1px solid #eee;color: #333;}
+.divButtons{ width:50%;display: initial;padding:0px;}.text-area { width: 100%;border: thin solid #eee;resize: none; margin-top:10px; :}
+</style>    
+
+	<form class="pay-form" action="<{:U('ele/pay2',array('order_id'=>$order['order_id']))}>" method="post"  target="x-frame">
+		<div class="row">
+			<span class="float-left">订餐总费用：</span>
+			<span class="float-right">￥ <{:round($order['total_price']/100,2)}>
+            <if condition="!empty($order['logistics'])">（含配送费：<{:round($order['logistics']/100,2)}>元）</if></span>
+		</div>
+		<hr />
+		<div class="row">
+			<span class="float-left">请选择收货地址</span>
+			<!--<span class="float-right"><a class="text-dot add_addr" href="javascript:void(0);" >新增收货地址</a></span>-->
+		</div>
+		<hr />
+        
+        
+        
+		<if condition="!empty($useraddr)">
+		<foreach name="useraddr" item="item">
+		<div class="row">
+        <span class="x10">
+			<input type="radio" name="addr_id" id="addr_id" value="<{$item['addr_id']}>" checked="checked" />
+			<{$item.name}> <{$item.mobile}> <a class="text-dot edit_addr" href="#" val="<{$item.addr_id}>" a="<{$item.area_id}>" b="<{$item.business_id}>" c="<{$item.city_id}>" n="<{$item.name}>" m="<{$item.mobile}>" addr="<{$item.addr}>">修改地址</a>
+            <p onclick="location='<{:U("user/addrs/index",array('type'=>1,'order_id'=>$order['order_id']))}>'"><{$citys[$item['city_id']]['name']}> <{$areas[$item['area_id']]['area_name']}> <{$business[$item['business_id']]['business_name']}> <{$item.addr}></p>
+         </span>
+          <span class="x2" onclick="location='<{:U("user/addrs/index",array('type'=>1,'order_id'=>$order['order_id']))}>'"><i class="icon-angle-right padding-top"></i></span>
+		</div>
+		</foreach>
+		<else/>
+		<div class="row">
+			您还没有设置收货地址，赶紧添加一个吧！ <a class="text-dot add_addr" href="javascript:void(0);" >新增收货地址</a>
+		</div>
+		</if>
+		
+        
+        <hr />
+		<div class="row"  onclick="location='<{:U("wap/ele/message",array('order_id'=>$order['order_id']))}>'">
+			<span class="float-left">备注：<if condition="!empty($order['message'])"><{:bao_msubstr($order['message'],0,12,false)}></if></span>
+			<span class="float-right"> <i class="icon-angle-right"></i></span>
+		</div>
+        
+       <!--填写END-->
+
+		<ul id="pay-method" class="pay-method">
+			<foreach name="payment" item="var">
+			<li data-rel="<{$var.code}>" class="media media-x payment">
+				<a class="float-left"  href="javascript:;">
+					<img src="/static/default/wap/image/pay/<{$var.mobile_logo}>">
+				</a>
+				<div class="media-body">
+					<div class="line">
+						<div class="x10">
+						<{$var.name}><p>推荐已安装<{$var.name}><{$var.id}>客户端的用户使用</p>
+						</div>
+						<div class="x2">
+							<span class="radio txt txt-small radius-circle bg-green"><i class="icon-check"></i></span>
+						</div>
+					</div>
+				</div>
+			</li>
+			</foreach>
+<!--			<li data-rel="wait" class="media media-x payment">-->
+<!--				<a class="float-left" href="javascript:;">-->
+<!--					<img src="/static/default/wap/image/pay/dao.png">-->
+<!--				</a>-->
+<!--				<div class="media-body">-->
+<!--					<div class="line">-->
+<!--						<div class="x10">-->
+<!--						货到付款<p>如果您没有网银，可以到店付</p>-->
+<!--						</div>-->
+<!--						<div class="x2">-->
+<!--							<span class="radio txt txt-small radius-circle bg-green"><i class="icon-check"></i></span>-->
+<!--						</div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</li>-->
+		</ul>
+		<input id="code" type="hidden" name="code" value="" />
+		
+		<div class="text-center padding-left padding-right margin-large-top">
+			<button type="submit" class="button button-big button-block bg-yellow  submit">提交订单</button>
+		</div>
+		
+		<div class="blank-20"></div>
+	</form>
+</div>
+    
+ 	<script>
+		<eq name="mobile_open" value="0">
+		$('.submit').click(function(){
+			check_user_mobile('<{:U("wap/tuan/tuan_sendsms")}>','<{:U("wap/tuan/tuan_mobile")}>');
+			return false;
+		});
+    	check_user_mobile('<{:U("wap/tuan/tuan_sendsms")}>','<{:U("wap/tuan/tuan_mobile")}>');
+		$('#mobile_btn').click(function(){
+			check_user_mobile('<{:U("wap/tuan/tuan_sendsms")}>','<{:U("wap/tuan/tuan_mobile")}>');
+		});
+		</eq>
+    </script>
+<include  file='public:footer'/>       

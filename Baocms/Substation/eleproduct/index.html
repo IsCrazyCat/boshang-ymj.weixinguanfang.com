@@ -1,0 +1,88 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">餐饮管理</li>
+        <li class="li2">菜单管理</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <div class="jsglNr">
+        <div class="selectNr" style="border-top: none; margin-top: 0px;">
+            <div class="left">
+            </div>
+            <div class="right">
+                <form method="post" action="<{:U('eleproduct/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <div class="seleK">
+                            <label>
+                                <input type="hidden" id="shop_id" name="shop_id" value="<{$shop_id|default=''}>"/>
+                                <input type="text"   id="shop_name" name="shop_name" value="<{$shop_name}>" class="text w200" />
+                                <a mini="select"  w="1000" h="600" href="<{:U('shop/select')}>" class="sumit">选择商家</a>
+                            </label>
+                            <label>
+                                <span>  关键字：</span>   <input type="text" name="keyword" value="<{$keyword|default=''}>" class="inptText" /><input type="submit" class="inptButton" value="   搜索" /></label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="product_id" /></td>
+                        <td class="w50">ID</td>
+                        <td>菜名</td>
+                        <td>商家</td>
+                        <td>分类</td>
+                        <td>缩略图</td>
+                        <td>价格</td>
+                        <td>结算价格</td>
+                        <td>是否新品</td>
+                        <td>是否热门</td>
+                        <td>是否推荐</td>
+                        <td>卖出数</td>
+                        <td>月卖出数</td>
+                        <td>操作</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_product_id" type="checkbox" name="product_id[]" value="<{$var.product_id}>" /></td>
+                            <td><{$var.product_id}></td>
+                            <td><{$var.product_name}></td>
+                            <td><{$shops[$var['shop_id']]['shop_name']}></td>
+                            <td><{$cates[$var['cate_id']]['cate_name']}></td>
+                            <td><img src="<{:config_img($var['photo'])}>" class="w80" /></td>
+                            <td><{:round($var['price']/100,2)}></td>
+                            <td><{:round($var['settlement_price']/100,2)}></td>
+                            <td><eq name="var.is_new" value="1">新品<else/>无</eq></td>
+                        <td>
+                        <eq name="var.is_hot" value="1">热门<else/>无</eq>
+                        </td>
+                        <td>
+                        <eq name="var.is_tuijian" value="1">推荐<else/>无</eq>
+                        </td>
+                        <td><{$var.sold_num}></td>
+                        <td><{$var.month_num}></td>
+                        <td>
+                            <{:BA('eleproduct/edit',array("product_id"=>$var["product_id"]),'编辑','','remberBtn')}>
+                            <{:BA('eleproduct/delete',array("product_id"=>$var["product_id"]),'删除','act','remberBtn')}>
+                            <eq name="var.audit" value="0"> <{:BA('eleproduct/audit',array("product_id"=>$var["product_id"]),'审核','act','remberBtn')}> </eq>
+                        </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('eleproduct/delete','','批量删除','list','a2')}>
+                    
+                        <{:BA('eleproduct/audit','','批量审核','list','a1')}>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>       

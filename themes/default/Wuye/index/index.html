@@ -1,0 +1,196 @@
+<include file="public:header"/>
+<link rel="stylesheet" href="/static/default/wap/css/wuye.css">
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+	</div>
+		<div class="top-title">
+			物业中心
+		</div>
+	<div class="top-signed">
+		<a href="<{:U('wuye/passport/logout')}>"><i class="icon-sign-out"></i></a>
+	</div>
+</header>
+<div class="blank-10 bg"></div>
+<div class="container">
+		<div class="line detail-base">
+			<div class="x4">
+				<div class="pic">
+                <img  src="<{:config_img($users[$var['user_id']]['face'])}>" />
+                </div>
+			</div>
+			<div class="x8">
+				<h1><{$COMMUNITY.name}>（<{$COMMUNITY.community_id}>）</h1>
+                <p>地址：<{$citys[$COMMUNITY['city_id']]['name']}> - <{$areas[$COMMUNITY['area_id']]['area_name']}> - <{$COMMUNITY.addr}></p>
+                <p>物业：<{$COMMUNITY.property}></p>
+                <p>电话：<{$COMMUNITY.tel}></p>
+                <p>管理员：<{$MEMBER.nickname}></p>
+			</div>
+			
+		</div>
+       </div>
+
+<div class="blank-10 bg"></div>
+<div class="panel-list">
+	<ul>
+    
+       <li>
+			<a href="<{:U('message/index')}>">
+				<span class="icon-envelope"></span>网站通知
+                <font>
+                <if condition="$msg_day gt 0">
+                最新<{$msg_day}>条消息
+                </if>
+                </font>
+				<i class="icon-angle-right"></i>
+			</a>
+		</li>
+        
+		
+        <li>
+			<a href="<{:U('ad/index')}>">
+				<span class="icon-ils"></span>广告管理
+                <font>
+                <if condition="$counts['ad'] gt 0">
+                总<{$counts['ad']}>条广告
+                </if>
+                </font>
+				<i class="icon-angle-right"></i>
+			</a>
+		</li>
+        
+        <li>
+			<a href="<{:U('news/index')}>">
+				<span class="icon-bullhorn"></span>
+				通知管理
+                <font>
+                <if condition="$counts['news'] gt 0">
+                共<{$counts['feedback']}>条
+                </if>
+                <if condition="$counts['news_audit'] gt 0">
+                ，<b><{$counts['news_audit']}></b>待审
+                </if>
+                <if condition="$counts['news_day'] gt 0">
+                ，今日<{$counts['news_day']}>。
+                </if>
+                </font>
+				<i class="icon-angle-right"></i>
+			</a>
+		</li>
+		<li>
+			<a href="<{:U('feedback/index')}>">
+            <span class="icon-gears "></span>
+				便民报修
+				<font>
+                <if condition="$counts['feedback'] gt 0">
+                共<{$counts['feedback']}>条
+                </if>
+                <if condition="$counts['feedback_audit'] gt 0">
+                ，<b><{$counts['feedback_audit']}></b>待审
+                </if>
+                <if condition="$counts['feedback_day'] gt 0">
+                ，今日<{$counts['feedback_day']}>。
+                </if>
+                </font>
+                
+				<i class="icon-angle-right"></i>
+			</a>
+		</li>
+		<li>
+			<a href="<{:U('phone/index')}>">
+				<span class="icon-phone-square"></span>
+				便民电话
+                 <font>
+                <if condition="$counts['phone'] gt 0">
+                共<{$counts['phone']}>条电话
+                </if>
+                </font>
+				<i class="icon-angle-right"></i>
+			</a>
+		</li>
+        
+        <li>
+			<a href="<{:U('neighbor/index')}>">
+				<span class="icon-users"></span>
+				邻居管理
+                 <font>
+                <if condition="$counts['neighbor'] gt 0">
+                共有邻居<{$counts['neighbor']}>人
+                </if>
+                </font>
+				<i class="icon-angle-right"></i>
+			</a>
+		</li>
+        
+        <li>
+			<a href="<{:U('owner/index')}>">
+				<span class="icon-user"></span>
+				业主管理
+                <font>
+                <if condition="$counts['owner'] gt 0">
+                共<{$counts['feedback']}>条
+                </if>
+                <if condition="$counts['owner_audit'] gt 0">
+                ，<b><{$counts['owner_audit']}></b>待审
+                </if>
+                <if condition="$counts['owner_day'] gt 0">
+                ，今日<{$counts['owner_day']}>。
+                </if>
+                </font>
+				<i class="icon-angle-right"></i>
+			</a>
+		</li>
+        
+        <li>
+			<a href="<{:U('order/index')}>">
+				<span class="icon-calendar"></span>业主账单</font> 
+				<i class="icon-angle-right"></i>
+			</a> 
+		</li>
+        
+         <li>
+			<a href="<{:U('logs/index')}>">
+				<span class="icon-file-word-o"></span>
+				财务
+                <font>
+                <if condition="$counts['order'] gt 0">
+                应收<{:round($counts['order']/100,2)}>元
+                </if>
+                <if condition="$counts['order_1'] gt 0">
+                ，已收<{:round($counts['order_1']/100,2)}>元
+                </if>
+                <if condition="$counts['order_0'] gt 0">
+                ，还有<b><{:round($counts['order_0']/100,2)}></b>元未缴。
+                </if>
+                </font>
+				<i class="icon-angle-right"></i>
+			</a>
+		</li>
+        
+        <li>
+			<a href="<{:U('bbs/index')}>">
+				<span class="icon-commenting-o"></span>
+				小区论坛
+                <font>
+                <if condition="$counts['bbs'] gt 0">
+                共<{$counts['bbs']}>条
+                </if>
+                <if condition="$counts['bbs_audit'] gt 0">
+                ，<b><{$counts['bbs_audit']}></b>待审
+                </if>
+                <if condition="$counts['bbs_day'] gt 0">
+                ，今日<{$counts['bbs_day']}>。
+                </if>
+                </font>
+				<i class="icon-angle-right"></i>
+			</a>
+		</li>
+        
+
+	</ul>
+</div>
+<div class="blank-10"></div>
+<div class="container text-center">
+		<a class="button button-block button-big bg-dot" href="<{:U('wuye/passport/logout')}>">注销登录</a>
+</div>
+<div class="blank-20"></div>
+<include  file='public:footer'/>

@@ -1,0 +1,118 @@
+<include  file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">外卖</a> > <a>确认订单（未付款的订单默认不显示，货到付款除外）</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <form method="post" action="<{:U('eleorder/index')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            开始时间：<input type="text" placeholder="开始时间"  class="radius3 tuan_topser"  name="bg_date" value="<{$bg_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"/>
+            结束时间：<input type="text"  placeholder="结束时间" class="radius3 tuan_topser"  name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"/>
+            订单编号：<input type="text" placeholder="输入订单号" name="keyword" value="<{$keyword}>"  class="radius3 tuan_topser" />
+            <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/>
+        </div>
+    </div>
+    </form>
+     <include file="eleorder:nav"/> <!--引入菜单-->
+
+
+<div class="blank-20"></div>
+     <table class="tuan_table3" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#F9F9F9;">
+            <td width="320">详情</td>
+            <td>单价</td>
+            <td>数量</td>
+            <td>总价</td>
+            <td>买家姓名</td>
+            <td>订单状态</td>
+            <td>实付金额</td>
+            <td>订单留言</td>
+     </table>
+     <div class="blank-10"></div>
+        <form  target="baocms_frm" method="post">
+                
+        <foreach name="list" item="var"> 
+                     
+          <table  class="tuan_table1"  width="100%" border="0">
+          <tr class="tr_left_2" <eq name="var.is_daofu" value="1">style="background:#FFEAD2;"<else/>style="background:#EAF8FF;"</eq> >
+            <td class="left10" colspan="5">
+                订单编号：<span class="mallorder_jg"><{$var.order_id}></span>
+                <span class="td_top_1">交易时间：<{$var.create_time|date='Y-m-d H:i:s',###}>
+                <span class="td_top_1">
+                        <if condition="!empty($var['addr_id'])">
+                        收货地址：
+                        <{$areas[$addrs[$var['addr_id']]['area_id']]['area_name']}>、
+                        <{$business[$addrs[$var['addr_id']]['business_id']]['business_name']}>、
+                        <{$addrs[$var['addr_id']]['addr']}>
+                        <{$addrs[$var['addr_id']]['name']}>
+                        <{$addrs[$var['addr_id']]['mobile']}>
+                        </if>
+               </span>
+            </td>
+          </tr>
+          <tr>
+            <td class="td_left_1"> 
+            
+            <foreach name="goods" item="good">
+            <if condition="$good['order_id'] eq $var['order_id']"> 
+            <table  class="tuan_table2" width="100%" border="0">
+              <tr class="tr_left_1">
+              
+                <td class="left1">
+                <!--商品展示开始-->
+                <div class="index__production___yfP3y" >
+                	<a class="index__pic___TScfk" ><img src="<{:config_img($products[$good['product_id']]['photo'])}>" ></a>
+                <div class="index__infos___A6XLq" >
+                    <p ><a><span><{$products[$good['product_id']]['product_name']}></span></a></p>
+                </div>
+                </div>
+               <!--商品展示END-->
+                
+                </td>
+                <td class="left2">&yen;<{:round($products[$good['product_id']]['price']/100,2)}></td>
+                <td class="left3"><{$good['num']}></td>
+                <td class="left4">&yen;<{:round($good['total_price']/100,2)}></td>
+                <td class="left5"></td>
+              </tr>
+             
+            </table>
+            </if>
+            </foreach>
+            
+            </td>
+            <td class="left6" width="9%">
+                <{$users[$var['user_id']]['account']}><br/>
+                <a class="href"  href="<{:U('eleorder/detail',array('order_id'=>$var['order_id'],'type'=>wait))}>">订单详情</a>
+            </td>
+            <td class="left7" width="8%">
+                <eq name="var.is_daofu" value="1"><span style="color:#FF0000;">货到付款</span><br/></eq>
+                 <{$types[$var['status']]}>
+                <br/>
+                <php>$is_pei = D('Shop') -> where('shop_id ='.$var['shop_id']) -> getField('is_pei');</php>
+                <eq name="is_pei" value="0">
+                	<span style="color:#09C;">配送员配送<br/></span>
+                <else/>
+                	<span>商家配送<br/></span>
+                </eq>
+                <eq name="var.is_print" value="1">已打印<br/></eq> 
+            </td>
+            <td class="left8"width="10%">
+                <span>总价：&yen;<{:round($var['total_price']/100,2)}></span><br/>
+                <eq name="var.is_daofu" value="0"><span>结算价：&yen;<{:round($var['settlement_price']/100,2)}></span><br/></eq>
+                <span>含配送费：&yen;<{:round($var['logistics']/100,2)}></span><br/>
+            </td>
+            <td class="left9"width="9%"><{$var['message']}></td>
+          </tr>
+         
+        </table>
+        <br/>
+        </foreach>
+
+
+    <{$page}>
+</div>
+
+<include  file='public:footer'/>

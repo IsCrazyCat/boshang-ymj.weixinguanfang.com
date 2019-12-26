@@ -1,0 +1,90 @@
+<include file='public:header'/>    
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('ele/shop',array('shop_id'=>$detail['shop_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<{$detail.shop_name}>
+		</div>
+		<div class="top-share">
+		</div>
+	</header>  
+<style>
+.x12 { margin-bottom: 8px;}
+#shangjia_tab {border-bottom: .0rem #dedede solid;}
+</style>	
+<ul id="shangjia_tab">
+   <li class="x4"><a href="<{:U('ele/shop',array('shop_id'=>$detail['shop_id']))}>">商品</a></li>
+   <li class="x4"><a href="<{:U('ele/detail',array('shop_id'=>$detail['shop_id']))}>" class="on">商家</a></li>
+   <li class="x4"><a href="<{:U('ele/dianping',array('shop_id'=>$detail['shop_id']))}>">评价</a></li>
+</ul>  
+	
+	<div class="tuan-detail">
+		<div class="line banner">	
+			<img src="<{:config_img($shop['photo'])}>">	
+			<div class="title">
+				<h1><{$detail.shop_name}></h1>
+				<p>月售<{$detail.month_num}>份/总售<{$detail.sold_num}>/&yen;<{:round($detail['since_money']/100,2)}>起送/配送费 &yen;<{:round($detail['logistics']/100,2)}></p>
+			</div>	
+		</div>
+		<div class="line info">
+            <div class="x12">
+				<span class="text-gray">营业时间：<{$ex.business_time}></span>
+			</div>
+            <div class="x12">
+				<span class="text-gray">店铺公告：<{$detail.intro}></span>
+			</div>
+            <div class="x12">
+				<span class="text-gray">联系电话：<{$shop.tel}></span>
+			</div>
+            <div class="x12">
+				<span class="text-gray">店铺地址：<{$shop.addr}></span>
+			</div>
+	   </div>
+       <div class="blank-10 bg"></div>
+       <!--资质认证-->
+       <if condition="$shop['is_renzheng'] eq 1">
+       <php>
+       $Audit= D('Audit')->where('shop_id ='.$detail['shop_id'])->find();
+       </php>
+	   <div class="line info">
+			<div class="x12">
+				<span class="button button-block button-big bg-blue"><{$detail.shop_name}>已通过资质认证</span>
+			</div>
+	   </div>
+       <div class="line info">
+	   <div class="x12">
+	   <a href="<{:U('shop/detail',array('shop_id'=>$detail['shop_id']))}>" class="button button-block button-big bg-dot"><{$detail.shop_name}>去商家逛逛</a>
+	   </div>
+	   </div>
+       <div class="line info">
+       		<if condition="!empty($Audit['name'])">
+                <div class="x12">
+                    <span class="text-gray">企业名称：<{$Audit.name}></span>
+                </div>
+            </if>
+            <if condition="!empty($Audit['addr'])">
+                <div class="x12">
+                    <span class="text-gray">企业注册地址：<{$Audit.addr}></span>
+                </div>
+            </if>
+            <if condition="!empty($Audit['end_date'])">
+                <div class="x12">
+                    <span class="text-gray">营业执照到期时间：<{$Audit.end_date}></span>
+                </div>
+            </if>
+            <if condition="!empty($Audit['photo'])">
+                <div class="x12">
+                    <div class="line banner">	
+                        <img src="<{:config_img($Audit['photo'])}>">	
+                   </div>
+                </div>
+            </if>
+	   </div>
+       </if>
+    <div class="blank-10 bg"></div>
+ <include file='public:footer'/>   
+
+
+
+

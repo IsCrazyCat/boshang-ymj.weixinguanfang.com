@@ -1,0 +1,43 @@
+<foreach name="list" item="item">   
+<li class="line ">
+      <dd class="zhong">
+         <div class="12">
+            <p class="text-small"> 类型：
+                <if condition="$item['cate_id'] eq 1">
+                车找人
+                <elseif condition="$item['cate_id'] eq 2"/>
+                人找车
+                <elseif condition="$item['cate_id'] eq 3"/>
+                车找货
+                <elseif condition="$item['cate_id'] eq 4"/>
+                货找车
+                </if>
+            
+            </p>
+              <php>
+                $start_time = strtotime($item['start_time']);
+               </php>
+            <p class="text-small">出发时间：（<{:pincheTime($start_time)}>/<{$item['start_time_more']}>）</p>
+            <p class="text-small">区域：<{$citys[$item['city_id']]['name']}>-<{$areas[$item['area_id']]['area_name']}>-<{$item['toplace']}> 
+                <if condition="!empty($item['middleplace'])">
+                -途经（<{$item['middleplace']}>）
+                </if>
+                <if condition="$item['cate_id'] eq 1">
+                <{$item['num_1']}>空位
+                <elseif condition="$item['cate_id'] eq 2"/>
+                <{$item['num_2']}>位置
+                <elseif condition="$item['cate_id'] eq 3"/>
+                <{$item['num_3']}>可装吨数
+                <elseif condition="$item['cate_id'] eq 4"/>
+                <{$item['num_4']}>吨数
+                </if>
+                </p>
+            <p class="text-small text-dot">电话：<{$item['mobile']}></p>
+            <if condition="!empty($item['details'])">
+            <p class="text-small text-gray">备注：<{$item['details']}></p>
+            </if>
+            <p class="text-small text-gray">发布日期：<{$item.create_time|date='Y-m-d H:i:s ',###}></p>
+         </div>
+      </dd>
+    </li>
+   </foreach>    

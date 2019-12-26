@@ -1,0 +1,49 @@
+<include  file='public:header'/>
+<style>.lfTdBt {width: 200px;}</style>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">模板设置</li>
+        <li class="li2 立li3">其他配置</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>以后小区上面需要配置的，都尽量在这里写！ </p>
+    <form  target="baocms_frm" action="<{:U('setting/community')}>" method="post">
+        <div class="tableBox">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+            
+               
+                
+                 <tr>
+                    <td class="lfTdBt">小区便民电话有效期：</td>
+                    <td class="rgTdBt">
+                       <input type="text" name="data[community_phone_expiry_date]" value="<{$CONFIG.community.community_phone_expiry_date}>" class="manageInput  w80" />
+                        <code>填写整数，按照天计算，比如填写10就是有效期30天</code>
+                    </td>
+                </tr>
+                
+                 <tr>
+                    <td class="lfTdBt">小区便民电话默认排序：</td>
+                    <td class="rgTdBt">
+                       <input type="text" name="data[community_phone_orderby]" value="<{$CONFIG.community.community_phone_orderby}>" class="manageInput  w80" />
+                       <code>用户提交便民电话申请后的默认排名，一般写10-100</code>
+                    </td>
+                </tr>
+                
+                  <tr>
+                    <td class="lfTdBt">wap手机提交便民电话自动审核：</td>
+                    <td class="rgTdBt">
+                        <label><input type="radio" name="data[community_phone_audit]" <eq name="CONFIG.community.community_phone_audit" value="1">checked="checked"</eq> value="1"  />开启</label>
+                        <label><input type="radio" name="data[community_phone_audit]"  <eq name="CONFIG.community.community_phone_audit" value="0">checked="checked"</eq>  value="0"  />不开启</label>
+                        <code>如果选择开启，用户提交后无需管理员审核，否则需要后台审核后才会显示！</code>
+                    </td>
+                </tr>
+               
+
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+    </form>
+</div>
+<include  file='public:footer'/>       

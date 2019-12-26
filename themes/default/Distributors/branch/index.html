@@ -1,0 +1,94 @@
+<include file='public:header'/>    
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:u('distributors/index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			分店地址
+		</div>
+		<div class="top-share">
+			<a href="<{:u('distributors/branch/create')}>" class="top-addr icon-plus"> 增加</a>
+		</div>
+	</header>
+
+<style>
+ul { padding-left: 0px;}
+.xiaoqu-search { margin-top:2rem;}
+</style>
+<!-- 筛选TAB -->
+<ul id="shangjia_tab">
+        <li style="width: 25%;"><a href="<{:u('distributors/branch/index')}>" class="on">分店管理</a></li>
+        <li style="width: 25%;"><a href="<{:u('distributors/worker/index')}>">员工管理</a></li>
+        <li style="width: 25%;"><a href="<{:u('distributors/shop/about')}>">基本设置</a></li>
+        <li style="width: 25%;"><a href="<{:u('distributors/shop/photo/')}>">环境图</a></li>
+</ul>	
+	
+
+	<div class="line xiaoqu-search">
+		<form method="post"  action="<{:U('branch/index')}>" id="form1" class="form1">
+			<div class="form-group">
+				<div class="field">
+					<div class="input-group">
+						<span class="addbtn"><button type="button" class="button icon-search"></button></span>
+						<input type="text" class="input" name="keyword" size="50" value="<{$keyword}>" placeholder="分店名称/地址"  />
+						<span class="addbtn"><button type="submit" class="button">搜索</button></span>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<div class="xiaoqu-list">
+		<ul id="xiaoqu-list">
+        <volist name="list" id="var">
+        <li class="line">
+                <div class="x10">	
+                    <h5>分店名称：<{$var.name}> </h5>	
+                    <p class="addr">所属城市：<{$city[$var['city_id']]['name']}></p>
+                    <p class="addr">分店地址：<{$area[$var['area_id']]['area_name']}><{$business[$var['business_id']]['business_name']}></p>
+                    <p class="addr">申请时间：<{$var.create_time|date='Y-m-d H:i',###}></eq></p>
+                    <p class="addr">审核状态：<eq name="var.audit" value="0">等待审核<else/>正常</eq></p>
+                </div>
+                <div class="x2">
+                <a class="button button-small bg-blue"  href="<{:u('wap/shop/branches',array('shop_id'=>$var['shop_id'],'branch_id'=>$var['branch_id']))}>">详情</a>
+                <a class="button button-small margin-top bg-dot "  href="<{:U('branch/edit',array('branch_id'=>$var['branch_id']))}>">编辑</a>
+                <a href="javascript:void(0);" rel="<{$var.branch_id}>"  class="jquery-delete button button-small margin-top bg-blue">删除</a>
+                </div>
+        </li>
+        <div class="blank-10 bg"></div>
+        </volist>
+
+</ul> 
+
+<script>
+	$(document).ready(function () {
+		$(document).on('click', ".jquery-delete", function (e) {
+			var branch_id = $(this).attr('rel');
+			layer.confirm('您确定要删除该分店？', {
+				skin: 'layer-ext-demo', 
+				area: ['50%', 'auto'], //宽高
+				btn: ['是的', '不'], //按钮
+				shade: false //不显示遮罩
+			}, function () {
+				$.post("<{:u('distributors/branch/delete')}>", {branch_id: branch_id}, function (result) {
+					if (result.status == "success") {
+						layer.msg(result.msg);
+						setTimeout(function () {
+							location.reload();
+						}, 1000);
+					} else {
+						layer.msg(result.msg);
+					}
+				}, 'json');
+			});
+		});
+	});
+</script>
+
+<div class="blank-20"></div>
+<div class="container login-open">
+<h5 style="text-align:center"><{$page}><!--分页代码不要忘记加--> </h5>
+</div>
+</div>
+<include file="public:footer"/>
+

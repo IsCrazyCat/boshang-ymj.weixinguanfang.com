@@ -1,0 +1,67 @@
+<include file="public:header"/>
+<link rel="stylesheet" href="/static/default/wap/css/mcenter.css">
+
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('activity/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		报名活动
+	</div>
+</header>
+
+
+<form method="post"  action="<{:U('activity/sign',array('activity_id'=>$detail['activity_id']))}>" >
+	
+	
+	<div class="blank-10 bg"></div>
+	<div class="line padding border-bottom">
+		<div class="x3">
+			联系人
+		</div>
+		<div class="x9">
+			 <input data-role="none" class="text-input" type="text" name="data[name]" value="<if condition="$MEMBER.nickname neq null"><{$MEMBER.nickname}><else/></if>"  >
+		</div>
+	</div>
+	<div class="line padding border-bottom">
+		<div class="x3">
+			手机号
+		</div>
+		<div class="x9">
+			  <input type="text" name="data[mobile]" value="<if condition="$MEMBER.mobile neq null"><{$MEMBER.mobile}><else/></if>"  class="text-input datepicker" />
+		</div>
+	</div>
+
+	<div class="line padding border-bottom">
+		<div class="x3">
+			总人数
+		</div>
+		<div class="x9">
+			<select name="data[num]"  class="text-select" >
+				<option value="0">请选择...</option>
+				                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option> 
+			</select>
+		</div>
+	</div>
+	
+
+    <div class="blank-30"></div>
+    <php>if(empty($MEMBER)){</php>
+    <div class="container text-center"><a href="<{:u('wap/passport/login')}>" class="button button-block button-big bg-black" type="submit">立即登录</a></div>
+    <php>}else{</php>
+    <div class="container text-center"><button class="button button-block button-big bg-dot" type="submit">立即报名</button></div>
+    <php>}</php>
+            
+	<div class="blank-30"></div>
+
+</form>
+<include file="public:footer"/>

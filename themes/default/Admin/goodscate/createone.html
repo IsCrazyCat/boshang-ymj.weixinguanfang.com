@@ -1,0 +1,53 @@
+<div class="mainScAdd ">
+    <div class="tableBox">
+        <form  target="baocms_frm" action="<{:U('goodscate/createone',array('parent_id'=>$parent_id))}>" method="post">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">分类：</td>
+                    <td class="rgTdBt"><input type="text" name="data[cate_name]" value="<{$detail.cate_name|default=''}>" class="manageInput" />
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">结算费率：</td>
+                    <td class="rgTdBt"><input type="text" name="data[rate]" value="<{$detail.rate|default=''}>" class="manageInput" />
+                        <code>千分之，比如是千分之60 就填60</code>
+                    </td>
+                </tr>
+                 <tr>
+                    <td class="lfTdBt">单选字段1：</td>
+                    <td class="rgTdBt"><input type="text" name="data[select1]" value="<{$detail.select1|default=''}>" class="manageInput w200" />
+                        <code>不用启用就不填写</code>
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">单选字段2：</td>
+                    <td class="rgTdBt"><input type="text" name="data[select2]" value="<{$detail.select2|default=''}>" class="manageInput w200" />
+                        <code>不用启用就不填写</code>
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">单选字段3：</td>
+                    <td class="rgTdBt"><input type="text" name="data[select3]" value="<{$detail.select3|default=''}>" class="manageInput w200" />
+                        <code>不用启用就不填写</code>
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">单选字段4：</td>
+                    <td class="rgTdBt"><input type="text" name="data[select4]" value="<{$detail.select4|default=''}>" class="manageInput w200" />
+                        <code>不用启用就不填写</code>
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">单选字段5：</td>
+                    <td class="rgTdBt"><input type="text" name="data[select5]" value="<{$detail.select5|default=''}>" class="manageInput w200" />
+                        <code>不用启用就不填写</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">排序：</td>
+                    <td class="rgTdBt"><input type="text" name="data[orderby]" value="<{$detail.orderby|default=''}>" class="manageInput" />
+                        <code>数字越小越高</code>
+                    </td>
+                </tr>
+            </table>
+            <div class="smtQr"><input type="submit" value="确认添加" class="smtQrIpt" /></div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,202 @@
+<include  file='public:header'/> 
+<include  file='public:top'/> 
+<include  file='public:nav2'/>
+<div class="pagewd">
+    <div class="seat_banner mt10">
+        <!--banner-->
+        <div class="flexslider seat_flexslider">
+            <ul class="slides">
+                <li class="list"><a target="_blank" href="#"><img src="__TMPL__statics/images/farm/banner.png" /></a></li>
+                <li class="list"><a target="_blank" href="#"><img src="__TMPL__statics/images/farm/banner.png" /></a></li>
+            </ul>
+        </div>
+        <!--banner结束-->
+        <!--表单-->
+        <div class="seat_form_box">
+            <form action="<{:U('ding/lists')}>" method="post">
+                <select name='area_id' class="long">
+                    <option>去哪玩？</option>
+                    <volist name='areas' id='item'>
+                        <eq name="item.city_id" value="$city_id">
+                            <option value="<{$item.area_id}>" class="search_area"><{$item.area_name}></option>
+                        </eq>
+                    </volist>
+                </select>
+                <select name='cate_id' class="long">
+                    <option>玩什么？</option>
+                    <volist name="cate" id="cc">
+                        <option value="<{$key}>" class="search_cate"><{$cc}></option>
+                    </volist>
+                </select>
+                <select name='group_id' class="long">
+                    <option>适合人群？</option>
+                    <volist name="group" id="gg">
+                        <option value="<{$key}>" class="search_group" val="ss"><{$gg}></option>
+                    </volist>
+                </select>
+                <select name='price' class="long">
+                    <option>价格区间？</option>
+                    <option value="200" class="search_price">200以下</option>
+                    <option value="200" val="300" class="search_price">200-300</option>
+                    <option value="300" val="500" class="search_price">300-500</option>
+                    <option value="500" class="search_price">500以上</option>
+                </select>
+                
+                <input class="btn" type="button" id="search" value="立刻查询" />
+            </form>
+            <div class="style">
+                <p>您还可以选择以下就餐类型：</p><a href="#" class="">朋友聚会</a><a href="#" class="on">家庭游玩</a><a href="#" class="">公司组团</a></div>
+        </div>
+        <!--表单end-->
+        <script>
+            $(document).ready(function(){
+                $('#search').click(function(){
+                    var area_id = $('.search_area:selected').val();
+                    var cate_id = $('.search_cate:selected').val();
+                    var group_id = $('.search_group:selected').val();
+                    var fp = $('.search_price:selected').val();
+                    var tp = $('.search_price:selected').attr('val');
+                    var link = "<{:U('farm/lists',array('area_id'=>__area_id,'play'=>__cate_id,'group'=>__group_id,'fp'=>__fp,'tp'=>__tp))}>";
+                    window.location.href=link.replace('__area_id',area_id).replace('__cate_id',cate_id).replace('__group_id',group_id).replace('__fp',fp).replace('__tp',tp);
+                })
+            })
+        </script>
+    </div>
+    <!--功能-->
+    <div class="farm_fuct">
+        <ul>
+            <volist name="cate" id="c">
+                <li class="list"><a href="<{:U('farm/lists',array('play'=>$key))}>">
+                <img src="__TMPL__statics/images/farm/fuct<{$i}>.png" />
+                <p><{$c}></p></a>
+            </li>
+            </volist>
+            <li class="list"><a href="<{:U('farm/lists')}>">
+            	<img src="__TMPL__statics/images/farm/fuct8.png" />
+                <p>更多</p></a>
+            </li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <!--功能end-->
+    <!--适合群体-->
+    <div class="farm_title">
+        <div class="left title"><em class="ico ico_1"></em>适合群体<img src="__TMPL__statics/images/farm/titleImg1.png" /></div>
+    </div>
+    <div class="farm_group">
+        <ul>
+            <volist name="group" id="g">
+                <li class="list <eq name='key' value='1'>on</eq>"><a href="<{:U('farm/lists',array('group'=>$key))}>">
+                <img src="__TMPL__statics/images/farm/group<{$i}>.jpg" /></a></li>
+            </volist>
+        </ul>
+        <div class="clear"></div>
+        <script>
+            $(document).ready(function() {
+                $(".farm_group .list").hover(function(){
+                    $(".farm_group .list").removeClass("on");
+                    $(this).addClass("on");
+                });
+            });
+        </script>
+    </div>
+    <hr style="border:none; height:0; width:100%; border-bottom:2px dotted #e6e6e6; margin:30px 0;" />
+    <!--适合群体end-->
+    <!--热门推荐-->
+    <div class="farm_title bdcl2">
+        <div class="left title"><em class="ico ico_2"></em>当季热门农家乐<img src="__TMPL__statics/images/farm/titleImg2.png" /></div>
+        <div class="right">
+        	<div class="farm_title_cate left">
+                <volist name="cate" id="ccc">
+                    <a href="<{:U('farm/index',array('cate_id'=>$key))}>" class="<eq name='key' value='$cate_id'>on</eq>"><{$ccc}></a>
+                </volist>
+            </div>
+            <a href="<{:U('farm/lists')}>" class="more left">更多热门农家&gt;&gt;</a>
+        </div>
+    </div>
+    <div class="farm_recmd">
+        <ul>
+            <volist name="hot" id="h">
+            <li class="list">
+                <div class="pub_img"><a href="<{:U('farm/detail',array('farm_id'=>$h['farm_id']))}>">
+                <img src="<{:config_img($h['photo'])}>" width="285" height="200" /><span class="tag">热门农家乐</span></a></div>
+                <div class="pub_wz">
+                	<p class="bt overflow_clear"><a href="#" class="blackcl3"><b>[<{$citys[$h['city_id']]['name']}>]</b> <{$h.farm_name}></a></p>
+                    <P class="graycl line2">地址：<{$h.addr}></P>
+                    <div class="box">
+                        <p class="left fontcl1">好评：<php>echo intval(($h['good_comments']/$h['comments'])*100);</php>%</p>
+                        <p class="right fontcl1">￥<big><{$h.price}></big>起</p>
+                    </div>
+                </div>
+            </li>
+            </volist>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <hr style="border:none; height:0; width:100%; border-bottom:2px dotted #e6e6e6; margin:10px 0 30px;" />
+    <!--热门推荐end-->
+    <!--优选-->
+    <div class="farm_title bdcl3">
+        <div class="left title"><em class="ico ico_3"></em>优选农家乐<img src="__TMPL__statics/images/farm/titleImg3.png" /></div>
+        <div class="right"><a href="<{:U('farm/lists')}>" class="more">更多农家&gt;&gt;</a></div>
+    </div>
+    <div class="farm_recmd">
+        <ul>
+            <volist name="good" id="g">
+            <li class="list">
+                <div class="pub_img"><a href="<{:U('farm/detail',array('farm_id'=>$g['farm_id']))}>"><img src="<{:config_img($h['photo'])}>" width="285" height="200" /></a></div>
+                <div class="pub_wz">
+                	<p class="bt overflow_clear"><a href="#" class="blackcl3"><b>[<{$citys[$g['city_id']]['name']}>]</b> <{$g.farm_name}></a></p>
+                    <P class="graycl line2">地址：<{$g.addr}></P>
+                    <div class="box">
+                        <p class="left fontcl1">好评：<php>echo intval(($g['good_comments']/$g['comments'])*100);</php>%</p>
+                        <p class="right fontcl1">￥<big><{$g.price}></big>起</p>
+                    </div>
+                </div>
+            </li>
+            </volist>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <hr style="border:none; height:0; width:100%; border-bottom:2px dotted #e6e6e6; margin:10px 0 30px;" />
+    <!--优选end-->
+    <!--攻略-->
+    <div class="farm_title bdcl4">
+        <div class="left title"><em class="ico ico_4"></em>农家攻略<img src="__TMPL__statics/images/farm/titleImg4.png" /></div>
+        <div class="right"><a href="<{:U('thread/index')}>" class="more">更多农家攻略&gt;&gt;</a></div>
+    </div>
+    <div class="farm_gonglue">
+        <ul>
+            <volist name="list" id="item">
+            <li class="list">
+                <div class="pub_img"><a href="<{:U('thread/postdetail',array('post_id'=>$item['post_id']))}>">
+                <img src="<{:config_img($item['pic'])}>" width="386" height="248" /></a>
+                	<div class="infor">
+                            <img src="<{:config_img($users[$item['user_id']]['face'])}>" />
+                        <p class="left name fontcl1"><{$users[$item['user_id']]['nickname']}></p>
+                        <p class="right short graycl"><em class="ico"></em><{$item.views}></p>
+                        <p class="right short graycl addr"><!--<em class="ico"></em>--></p>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="pub_wz">
+                	<h3 class="overflow_clear"><a href="<{:U('thread/postdetail',array('post_id'=>$item['post_id']))}>" class="blackcl3"><{$item.title}></a></h3>
+                    <p style="height: 80px; line-height: 20px; overflow: hidden;" class="blackcl6">【<{$item.create_time|date='Y-m-d',###}>】<{:cleanhtml($item['details'])}></p>
+                </div>
+            </li>
+            </volist>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <hr style="border:none; height:0; width:100%; border-bottom:2px dotted #e6e6e6; margin:10px 0 30px;" />
+    <!--攻略end-->
+</div>
+<script>
+$(document).ready(function () {
+	$('.flexslider').flexslider({
+		directionNav: false,
+		pauseOnAction: false
+	});
+});
+</script>
+<include file="public:footer"/>

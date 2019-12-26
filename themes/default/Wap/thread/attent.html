@@ -1,0 +1,26 @@
+<include  file='public:header'/>
+   <header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			关注
+		</div>
+		<div class="top-share">
+		</div>
+	</header>
+    
+    <ul id="shangjia_tab">
+        <li class="x4"><a href="<{:U('thread/index')}>" <if condition="$act eq 'index'">class="on"</if> >推荐</a></li>
+        <li class="x4"><a href="<{:U('thread/lists')}>" <if condition="$act eq 'lists'">class="on"</if> >发现</a></li>
+        <li class="x4"><a href="<{:U('thread/attent')}>" <if condition="$act eq 'attent'">class="on"</if> >关注</a></li>
+    </ul>  
+	<ul id="tie-list" class="tie-list guanzhu_cont">
+    </ul>
+	<script>
+		$(document).ready(function () {
+			loaddata('<{$nextpage}>', $("#tie-list"), true);
+		});
+	</script>
+
+<include file="public:footer"/>

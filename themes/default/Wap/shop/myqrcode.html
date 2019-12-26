@@ -1,0 +1,53 @@
+<include file="public:header"/>
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('shop/detail',array('shop_id'=>$shop['shop_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<{$shop.shop_name}>
+		</div>
+	</header>
+
+	<script>
+		$(document).ready(function () {
+			$("#share-box").hide();
+			$("#share-btn").click(function () {
+				$("#share-box").toggle();
+				$('html,body').animate({scrollTop:0}, 'slow');
+			});
+			$("#mui-card-close").click(function () {
+				$("#share-box").hide();
+			});
+		});
+	</script>
+	
+                
+               
+	<div class="container">
+
+		<div class="padding-large">
+            <div id="qr_container" style="margin:auto; position:relative; width:100%; text-align:center; display:none" ></div>
+            <div id="imgDiv" style="margin:auto; position:relative; width:100%; text-align:center;">
+            
+            
+    <iframe name="topFrame" scrolling="auto" border="1" src="http://=blklube.zmkm0523.com/my/phpqrcode/img.php?shop_id=<{$shop.shop_id}>" height="300px" width="100%">
+     
+    </iframe>
+
+            
+            </div>
+			
+		</div>
+		<p class="text-center">微信里长按识别二维码</p>
+
+	</div>
+
+<script src="__PUBLIC__/js/jquery.qrcode.min.js"></script>
+
+
+<script>
+	
+	
+</script>
+
+<include file="public/footer-shop" />

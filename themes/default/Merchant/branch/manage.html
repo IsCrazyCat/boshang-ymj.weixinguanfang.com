@@ -1,0 +1,31 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">分店</a> > <a>设置口令</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="tabnr_change  show">
+    	<form method="post"  action="<{:U('branch/manage',array('branch_id'=>$detail['branch_id']))}>"  target="baocms_frm">
+    	<table class="tuanfabu_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="120"><p class="tuanfabu_t">分店名称：</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[name]" disabled="disabled" value="<{$detail.name}>" class="tuanfabu_int tuanfabu_intw2" />
+                </div></td>
+            </tr>
+            <tr>
+                <td><p class="tuanfabu_t">分店口令：</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="password" value="<{$detail.password|default=''}>"  class="tuanfabu_int tuanfabu_intw2"/>
+                <code>不能大于32位</code>
+                </div></td>
+            </tr>
+        </table>
+        <div class="tuanfabu_an">
+        <input type="submit" class="radius3 sjgl_an tuan_topbt" value="确认设置" />
+        </div>
+        </form>
+    </div> 
+</div>
+<include  file='public:footer'/>

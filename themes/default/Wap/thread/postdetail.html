@@ -1,0 +1,110 @@
+<php>$mobile_title = $detail['title'];</php>
+<include  file='public:header'/>
+   <header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('thread/detail',array('thread_id'=>$detail['thread_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<{$detail.title}>
+		</div>
+		<div class="top-share">
+		</div>
+	</header>
+<style>
+p, .p {margin-bottom: inherit;line-height: inherit;}
+</style>
+	</script>
+
+	<div class="tie-from">
+		<span class="text-gray">话题来自：</span><a href="<{:U('thread/detail',array('thread_id'=>$detail['thread_id']))}>"><{$tribe.thread_name}></a>
+		<i class="float-right icon-angle-right"></i>
+	</div>
+
+	<div class="tie-detail">
+		<div class="tie-item">
+			<div class="item-head line">
+				<span class="avatar x2">
+            		<img src="<{:config_img($auth['face'])}>" />
+				</span>
+				<span class="info x10">
+					<em><{:config_user_name($auth['nickname'])}></em>
+					<span class="float-right"><{$detail.create_time|date="Y-m-d",###}></span>
+					<p class="title"><{:bao_msubstr($detail['title'],0,25)}></p>
+				</span>
+				<span class="coner"></span>
+			</div>
+			<div class="item-body">
+				<php>$content = $detail['details'];</php>
+                     <foreach name="pics" item="item">
+                         <div style="padding:0.1rem;"><img src="<{:config_img($item['photo'])}>" width="300"  height="170" /></div>
+                    </foreach>
+				<p><{$content}></p>
+				<div class="blank-10"></div>
+				<div class="ctrl">
+                    <a class="ctrl-zan" id="zan_btn"><i class="icon-thumbs-up"></i><em><{$detail['zan_num']}></em></a>
+                    <a class="ctrl-reply"><i class="icon-comments"></i> <em><{$detail['reply_num']}></em></a>
+				</div>
+			</div>
+
+			<if condition="!empty($item['reply'])">
+			<div class="item-foot">
+				<foreach name="item.reply" item="var">
+					<p><em><{:config_user_name($var[user][nickname])}> :</em> <{:msubstr($var['contents'],0,50)}></p>
+				</foreach>
+			</div>
+			</if>
+		</div>
+	</div>
+
+	<div class="blank-10"></div>
+	<div class="reply-title">
+		<h3><i class="icon-commenting-o"></i> 全部回复</h3>
+	</div>
+	<ul id="reply-list" class="reply-list"></ul>
+
+
+
+<nav class="foot-bar">
+	<div class="line">
+		<div class="x2">
+			<a class="left-icon" href="<{:U('thread/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="x8">
+			<div class="line">
+				<span class="x12">
+					<a class="post-icon" href="<{:U('thread/reply',array('post_id'=>$detail['post_id']))}>">
+						<i class="icon-reorder"></i>
+						回复
+					</a>
+				</span>
+			</div>
+		</div>
+		<div class="x2">
+			<a class="right-icon" href="<{:u('user/index/index')}>"><i class="icon-ellipsis-v"></i></a>
+		</div>
+	</div>
+</nav>
+
+<script>
+    $(document).ready(function(){
+		loaddata('<{$nextpage}>', $("#reply-list"), true);
+        $("#zan_btn").click(function(){
+            var post_id = "<{$detail.post_id}>";
+            var url = "<{:U('thread/zan')}>";
+            $.post(url,{post_id:post_id},function(data){
+                if(data.status == 'success'){
+                    layer.msg(data.msg);
+                    setTimeout(function(){
+                        window.location.reload(true);
+                    },1000)
+                }else{
+                    layer.msg(data.msg);
+                }
+            },'json')
+        })
+    })
+</script>
+
+
+</body>
+</html>

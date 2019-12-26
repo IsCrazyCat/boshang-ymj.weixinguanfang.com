@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link type="text/css" rel="stylesheet" href="__TMPL__static/css/public.css?<{$VER}>" />
+<script type="text/javascript"  src="__TMPL__static/script/kt.j.js"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<title>扫码领取卡劵</title>
+<style type="text/css">
+.cardcont { margin-bottom:10px; }
+.cardcont_top { background:#01af63; padding:20px; color:#fff; font-size:14px; }
+.cardcont_top h2 { color:#fff; font-size:18px; }
+.cardcont_bot { text-align:center; border-bottom:1px solid #ddd; width:80%; padding:10px 10%; background:#fff; margin:0px auto; }
+.cardcont_bot .btn { display:inline-block; height:40px; line-height:40px; width:50%; background:#ff6600; font-size:14px; margin:10px 0px; }
+.cardintro { border-top:1px solid #ddd; background:#fff; }
+.cardintro p { border-bottom:1px solid #ddd; padding:10px; line-height:24px; font-size:14px; color:#333; }
+.footer { text-align:center; border-top:1px solid #ddd; line-height:50px; margin-top:20px; font-size:16px; background:#fff; }
+.header { border-bottom:2px solid #01AF63; padding:20px 0px; }
+
+/*.
+
+.tips .icn { font-size:14px; top:-4px; }
+
+.forg { color:#ff6600; }
+
+.farial { font-family:Arial, Helvetica, sans-serif; }
+
+.tips { font:20px/50px 'Microsoft Yahei'; margin:12px 0 30px; }
+
+.tips i { position:relative; top:-6px; }
+
+.cardcont { width:98%; padding:0px 1%; }
+
+.cardcont h3 { font-size:18px; }
+
+.cardcont .cardbox { border:1px solid #eee; border-radius:5px; position:relative; }
+
+.cardcont .cardbox .ltbox { width:30%; background:#f0f0f0; border-bottom:1px dotted #ccc; padding:10px; }
+
+.cardcont .cardbox .rthox { width:63%; position:absolute; right:-5px; top:10px; }
+
+.cardcont .cardbox p,
+
+.cardcont .cardbox h3 { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; line-height:24px; }
+
+*/
+</style>
+</head>
+<body style=" background:#F0EFED; max-width:640px; margin:0px auto">
+<div class="cardcont">
+	<div class="cardcont_top">
+		<div class="header"><img src="<{if $CONFIG.site.logo}><{$pager.img}>/<{$CONFIG.site.logo}><{else}__TMPL__static/images/cardLogo.png<{/if}>" class="logo" style=" max-width:100%; height:auto;"/></div>
+		<h2><{$detail.title}></h2>
+		<p>有效期至：<{$detail.stime}>——<{$detail.etime}></p>
+		<p>商家：<{$detail.brand_name}></p>
+		<if condition="$detail['card_type'] eq 'DISCOUNT'">
+		<p>类型：折扣券</p>
+		<elseif  condition="$detail['card_type'] eq 'GIFT'"/>
+		<p>类型：礼品券</p>
+		<elseif  condition="$detail['card_type'] eq 'CASH'"/>
+		<p>类型：代金券</p>
+		<elseif  condition="$detail['card_type'] eq 'GENERAL_COUPON'"/>
+		<p>类型：通用券</p>
+		<elseif  condition="$detail['card_type'] eq 'GROUPON'"/>
+		<p>类型：团购券</p>
+		<else/>
+		<p>类型：其他</p>
+		</if> </div>
+	<div class="cardcont_bot"> <img  src="<{$codeurl}>" style=" width:100%; height:auto;"/> <if condition="$isling eq 1"> <a onclick="addCard('<{$detail.id}>')" class="btn">立即领取</a> <else/>
+		
+		扫一扫领取卡劵
+		
+		</if> </div>
+</div>
+<input type = 'hidden' id='ext' value='<{$detail.wxjscfg.ext}>'>
+<div class="cardintro">
+	<p>优惠：<{$detail.sub_title}></p>
+	<p>详情：<{$detail.notice}>
+			 <{$detail.service_phone}>
+			 <br>
+			 <{$detail.description}></p>
+</div>
+<div class="footer"><{$CONFIG.site.title}></div>
+</body>
+<script type="text/javascript">
+
+	  wx.config({
+
+		  debug: false,
+
+		  appId: '<{$wxjscfg.appId}>',
+
+		  timestamp: <{$wxjscfg.timestamp}>,
+
+		  nonceStr: '<{$wxjscfg.nonceStr}>',
+
+		  signature: '<{$wxjscfg.signature}>',
+
+		  jsApiList: [
+
+			'checkJsApi',
+
+			'addCard',
+
+			'chooseCard',
+
+			'openCard'
+
+		  ]
+
+	  });
+
+
+
+function addCard(card_id){
+
+	var e = $('#ext').val();
+
+    wx.addCard({
+
+        cardList: [{
+
+            cardId: card_id,
+
+            cardExt: e,
+
+        }], // 需要添加的卡券列表
+
+        success: function (res) {
+
+            var cardList = res.cardList; // 添加的卡券列表信息
+
+        }
+
+    });
+
+}
+
+	</script>
+</html>

@@ -1,0 +1,133 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">订餐管理</li>
+        <li class="li2">餐饮商家</li>
+        <li class="li2 li3">编辑</li>
+    </ul>
+</div>
+<div class="mainScAdd ">
+    <div class="tableBox">
+        <form target="baocms_frm" action="<{:U('ele/edit',array('shop_id'=>$detail['shop_id']))}>" method="post">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+
+                <tr>
+                    <td class="lfTdBt">是否打洋：</td>
+                    <td  class="rgTdBt">
+                        <label> <input type="radio" name="data[is_open]" value="1" <eq name="detail.is_open" value="1">checked="checked"</eq>  />营业中 </label>
+                        <label> <input type="radio" name="data[is_open]" value="0"  <eq name="detail.is_open" value="0">checked="checked"</eq> /> 打烊</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">状态审核：</td>
+                    <td  class="rgTdBt">
+                        <label> <input type="radio" name="data[audit]" value="0" <eq name="detail.audit" value="0">checked="checked"</eq>  />审核中 </label>
+                        <label> <input type="radio" name="data[audit]" value="1"  <eq name="detail.audit" value="1">checked="checked"</eq> /> 通过</label>
+                        <label> <input type="radio" name="data[audit]" value="2"  <eq name="detail.audit" value="2">checked="checked"</eq> /> 拒绝</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">是否支持在线付款：</td>
+                    <td  class="rgTdBt">
+                        <label> <input type="radio" name="data[is_pay]" value="1" <eq name="detail.is_pay" value="1">checked="checked"</eq>  /> 支持</label>
+                        <label> <input type="radio" name="data[is_pay]" value="0"  <eq name="detail.is_pay" value="0">checked="checked"</eq> /> 不支持</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">分类：</td>
+                    <td class="rgTdBt"> 
+                        <foreach name="getEleCate" item="var" key="index">
+                            <label style="margin-right: 10px;"><span><{$var}>：</span><input type="checkbox" name="cate[]" value="<{$index}>"<?php if(in_array($index,$cate)){?> checked="checked" <?php }?> /></label>
+                        </foreach>   
+                </td> 
+                </tr>
+                <tr>
+                    <td class="lfTdBt">是否返利：</td>
+                    <td  class="rgTdBt">
+                        <label> <input type="radio" name="data[is_fan]" value="1" <eq name="detail.is_fan" value="1">checked="checked"</eq>  /> 支持</label>
+                        <label> <input type="radio" name="data[is_fan]" value="0"  <eq name="detail.is_fan" value="0">checked="checked"</eq> /> 不支持</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">最高返利金额：</td>
+                    <td  class="rgTdBt">
+                        <input type="text" name="data[fan_money]" value="<{:round($detail['fan_money']/100,2)}>" class="manageInput" />
+                        <code>比如填写的是9元 那么很可能也只会反1元也可能会返现几角几分！如果填写0就不返利</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">新客户下单立减：</td>
+                    <td  class="rgTdBt">
+                        <label> <input type="radio" name="data[is_new]" value="1" <eq name="detail.is_new" value="1">checked="checked"</eq>  /> 支持</label>
+                        <label> <input type="radio" name="data[is_new]" value="0"  <eq name="detail.is_new" value="0">checked="checked"</eq> /> 不支持</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">满多少钱：</td>
+                    <td  class="rgTdBt"><input type="text" name="data[full_money]" value="<{:round($detail['full_money']/100,2)}>" class="manageInput" />
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">减多少钱：</td>
+                    <td  class="rgTdBt">
+                        <input type="text" name="data[new_money]" value="<{:round($detail['new_money']/100,2)}>" class="manageInput" />
+                        <code>每超过满的金额10元将额外增加一元</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">配送费：</td>
+                    <td  class="rgTdBt"><input type="text" name="data[logistics]" value="<{:round($detail['logistics']/100,2)}>" class="manageInput" />
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">起送价：</td>
+                    <td  class="rgTdBt"><input type="text" name="data[since_money]" value="<{:round($detail['since_money']/100,2)}>" class="manageInput" />
+                        <code>满多少钱才能下单！</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">卖出数：</td>
+                    <td><input type="text" name="data[sold_num]" value="<{$detail.sold_num|default=''}>" class="manageInput" />
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">月卖出数：</td>
+                    <td  class="rgTdBt"><input type="text" name="data[month_num]" value="<{$detail.month_num|default=''}>" class="manageInput" />
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">说明：</td>
+                    <td  class="rgTdBt"><textarea  name="data[intro]" cols="50" rows="10" ><{$detail.intro|default=''}></textarea>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">排序：</td>
+                    <td  class="rgTdBt"><input type="text" name="data[orderby]" value="<{$detail.orderby|default='100'}>" class="manageInput" />
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="lfTdBt">配送：</td>
+                    <td  class="rgTdBt"><input type="text" name="data[distribution]" value="<{$detail.distribution|default='100'}>" class="manageInput" /> 分钟送达
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">结算费率：</td>
+                    <td class="rgTdBt"><input type="text" name="data[rate]" value="<{$detail.rate|default=''}>" class="manageInput" />
+                        <code>千分之，比如是千分之60 就填60，不能写小数点，建议100-150，意思是就是10%-15%</code>
+                    </td>
+                </tr>
+            </table>
+            <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>       

@@ -1,0 +1,19 @@
+<foreach name="goodscates" item="var">
+			<eq name="var.parent_id" value="$cat">
+            <a href="<{:U('mall/index',array('cat'=>$var['cate_id']))}>">
+			<p class="head"><{$var.cate_name}></p>
+			</a>
+            
+            <foreach name="goodscates" item="var2">
+			<eq name="var2.parent_id" value="$var.cate_id">
+				<li>
+					<a href="<{:U('mall/index',array('cat'=>$var2['cate_id']))}>">
+						<img src="/static/default/wap/image/mall/cate-<{$var2['cate_id']}>.png">
+						<p><{$var2.cate_name}></p>
+					</a>
+				</li>
+                
+			</eq>
+			</foreach>
+            </eq>
+			</foreach>

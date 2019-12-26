@@ -1,0 +1,14 @@
+<foreach name="list" item="var">
+<li>
+	<a class="line">
+		<div class="x2"><img src="<{:config_img($goods[$var['goods_id']]['photo'])}>" /></div>
+		<div class="x10 padding-left">
+        	<h5 onclick="location='<{:U('wap/mall/detail',array('goods_id'=>$var['goods_id']))}>'"><{:msubstr($goods[$var['goods_id']]['title'],0,12,'utf-8',false)}></h5>
+            <span class="text-gray margin-right">原价：<span class="text-gray">&yen;<{:round($goods[$var['goods_id']]['price']/100,2)}></span></span>
+            <span class="text-dot margin-right">价格：<span class="text-dot">&yen;<{:round($goods[$var['goods_id']]['mall_price']/100,2)}></span></span>
+            <span class="button button-little bg-yellow" onclick="location='<{:U('favorites/delete',array('favorites_id'=>$var['favorites_id']))}>'">删除</span>
+        </div>
+	</a>
+</li>
+<div class="blank-10 bg"></div>
+</foreach>

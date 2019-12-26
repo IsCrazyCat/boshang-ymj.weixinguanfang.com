@@ -1,0 +1,56 @@
+<include file='public:header'/> 
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('member/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			积分兑换余额
+		</div>
+	</header>
+
+ <!-- 筛选TAB -->
+<style>ul{ padding-left:0px;}</style>
+<ul id="shangjia_tab">
+		<li style="width:33.3333333367%;"><a href="<{:u('money/index')}>">余额充值</a></li>
+        <li style="width:33.3333333367%;"><a href="<{:u('money/exchange')}>" class="on">积分兑换</a></li>
+        <li style="width:33.3333333367%;"><a href="<{:u('logs/moneylogs')}>" >日志管理</a></li>
+</ul>
+<div class="blank-40 bg"></div>
+
+
+
+    <div class="line padding border-bottom">
+        <span class="x12 text-gray">当前用户：<{$MEMBER['account']}></span>
+		<span class="x12 text-gray">您当前积分：<{$MEMBER['integral']}></span>
+	</div>
+
+    <form action="<{:U('money/exchange')}>" method="post" target="x-frame">
+	<div class="line padding border-bottom">
+		<span class="x3 text-gray">兑换积分：</span>
+		<span class="x5"><input type="text" name="exchange" id="money" class="text-input" ></span>
+		<span class="x4"><em class="text-small text-gray">
+        <if condition="!empty($CONFIG[integral][integral_exchange_small])">
+            最少积分：<{$CONFIG[integral][integral_exchange_small]}>
+        </if>
+        <if condition="!empty($CONFIG[integral][integral_exchange_big])">
+            最多积分：<{$CONFIG[integral][integral_exchange_big]}>
+        </if>
+        <em></span>
+	</div>
+
+    
+	<div class="container">
+		<div class="blank-30"></div>
+		<p><span class="text-dot">小提示：</span> 您好，这里可以把积分兑换成余额</p>
+	</div>
+	<div class="container">
+		<div class="blank-30"></div>
+            <button class="button button-big button-block bg-dot">确认兑换</button>
+		<div class="blank-30"></div>
+	</div>
+</form>
+
+
+	
+<include file='public:footer'/>  
+

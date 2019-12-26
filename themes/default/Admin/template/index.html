@@ -1,0 +1,55 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">模版管理</li>
+        <li class="li2 li3">网站风格</li>
+    </ul>
+</div>
+<style>
+    .tableBox table td{border-left: 1px solid #dbdbdb; border-top: 1px solid #dbdbdb;}
+    .tableBox table td.topnone{border-top:none;}
+    .tableBox table td.leftnone{border-left: none;}
+</style>
+<div class="main-jsgl">
+    <div class="jsglNr">
+        <form target="baocms_frm" method="post">
+            <div class="tableBox" style="margin: 0px;">
+                <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="0px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;">
+                    <tr>
+                        <td class="topnone leftnone">模版名称</td>
+                        <td class="topnone">图片</td>
+                        <td class="topnone">操作</td>
+                    </tr>
+                    <foreach name="template" item="var">
+                        <tr>
+                            <td class="leftnone">
+                                <{$var.name}>
+                            </td>
+                            <td>
+                                <img class="w100"   src="__ROOT__/themes/<{$var.theme}>/<{$var.photo}>" />
+                            </td>
+                            <td>
+                        <if condition="!empty($themes[$var['theme']])">
+                            <{:BA('template/uninstall',array("theme"=>$var["theme"]),'卸载','act','remberBtn')}>
+                            <if condition="!$themes[$var['theme']]['is_default']">
+                                <{:BA('template/df',array("theme"=>$var["theme"]),'设置为默认','act','remberBtn')}>
+                                <else />    
+                                <!--<{:BA('template/setting',array(),'配置模版','','remberBtn')}> -->
+                                <{:BA('template/settings',array("theme"=>$var["theme"]),'配置模版','','remberBtn')}>
+                            </if>
+                            <else />
+                            <{:BA('template/install',array("theme"=>$var["theme"]),'安装','act','remberBtn')}>
+                        </if>
+                        <a target="_blank" href="/index.php?theme=<{$var['theme']}>" class="remberBtn">预览模版</a>
+                        </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>       
+

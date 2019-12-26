@@ -1,0 +1,87 @@
+<include file="public:header"/>
+<script type="text/javascript" src="__PUBLIC__/js/jquery.raty.min.js"></script>
+<div class="content_right">
+<div class="tgdd">
+    <div class="tgdd_t password_t">
+        <div class="mytitle">设计师“<{$houseworksettings['user']}>”的点评</div>
+    </div>
+    <form  target="baocms_frm" action="<{:u('members/dianping/lifeservicedianping',array('id'=>$id))}>" method="post">
+        <div class="addAddress_nr">
+            <ul>
+                <li>
+                        <div class="left"><span>工作态度：</span></div>
+                        <div class="lef">
+                            <span id="jq_star" style="float:left;"></span>
+                            <script>
+                                $(document).ready(function () {
+
+                                    $("#jq_star").raty({
+                                        numberMax: 5,
+                                        path: '__PUBLIC__/js/img/',
+                                        starOff: 'star-off.png',
+                                        starOn: 'star-on.png',
+                                        scoreName: 'data[score]'
+                                    });
+
+                                });
+                            </script>         
+                        </div>
+                    </li>
+                <li>
+                    <div class="left"><span>平均薪资：</span></div>
+                    <div class="lef">
+                        <input type="text" name="data[cost]" value="<{$detail.cost|default=''}>" class="addAddress_jd addAddress_wz" />
+                    </div>
+                </li>
+                <li>
+                    <div class="left"><span>评价内容：</span></div>
+                    <div class="lef">
+                        <textarea name="data[contents]" rows="6" cols="30"><{$detail.contents|default=''}></textarea>
+                    </div>
+                </li>
+                <li>
+                         <div class="left">
+                        	<div id="moreToUpload" >上传图片</div>
+                         </div>
+							<script>                                
+									var width_dianping = '<{:thumbSize($CONFIG[attachs][dianping][thumb],0)}>';  //获取宽度                              
+									var height_dianping = '<{:thumbSize($CONFIG[attachs][dianping][thumb],1)}>'; //获取高度 
+                       
+									var uploader = WebUploader.create({                                    
+									auto: true,                                    
+									swf: '/static/default/webuploader/Uploader.swf',                                    
+									server: '<{:U("app/upload/uploadify",array("model"=>"dianping"))}>',                                    
+									pick: '#moreToUpload',                                    
+									fileNumberLimit:10,                                    
+									resize: true, 
+									crop: false,  
+									compress : {width:width_dianping,height:height_dianping,quality: 80,allowMagnify: false,crop: true},														                        
+								});                                                               
+								uploader.on( 'uploadSuccess', function( file,resporse) {                                    
+								var str = '<span style="width: 120px; height: 120px; float: left; margin:0 10px 0 10px; overflow: hidden;">  <img width="200" height="100" src="' + resporse.url + '">  <input type="hidden" name="photos[]" value="' + resporse.url + '" />    <a href="javascript:void(0);">取消</a>  </span>';                                   
+								 $(".jq_uploads_img").append(str);                                
+									 });                                                            
+								 uploader.on( 'uploadError', function( file ) {                                    
+									alert('上传出错');                                
+								 });                                
+								 $(document).on("click", ".jq_uploads_img a", function () {                                    
+									 $(this).parent().remove();                                
+								 });                            
+                             </script>
+                            <div class="jq_uploads_img">
+                                <foreach  name="photos" item="item">
+                                    <span style="width: 120px; height: 120px; float: left; margin-left: 5px; margin-top: 10px;"> 
+                                        <img width="100" height="100" src="<{:config_img($item['pic'])}>">  
+                                        <input type="hidden" name="photos[]" value="<{$item.pic}>" />  
+                                        <a href="javascript:void(0);">取消</a>  
+                                    </span>
+                                </foreach>
+                            </div>	
+                </li>
+            </ul>
+            <div class="addAddress_bcqx addAddress_bcqx2"><input class="bc" type="submit" value="确认点评" /></div>
+        </div>
+    </form>
+</div>
+</div>
+<include file="public:footer"/>

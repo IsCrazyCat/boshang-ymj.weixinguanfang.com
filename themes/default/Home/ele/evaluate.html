@@ -1,0 +1,146 @@
+<include file="public:header" /> 
+<include file="public:top"/>
+<style>
+.app {height: 95px !important;}
+</style>
+<div class="nav">
+    <div class="navList">
+        <!--<div class="navListBg">&nbsp;</div>-->
+        <ul>
+            <li class="navListAll zy_navListAll"><i class="nav-bz left"></i><span class="navListAllt">全部套餐分类<em></em></span>
+                <div class="shadowy navAll">
+                    <include file="public:cate"/>
+                </div>
+            </li>
+            <li class="navLi"><a class="navA <if condition='$ctl eq ele and $act eq index'>on</if> " href="<{:U('ele/index')}>">首页</a></li>
+            <li class="navLi"><a class="navA <if condition='$ctl eq ele and $act eq takeout'>on</if>" href="<{:U('ele/takeout')}>">身边外卖</a></li>
+            <li class="navLi"><a class="navA " href="<{:U('ele/index',array('new'=>1))}>">今日新单</a></li>
+            <li class="navLi"><a class="navA" href="<{:U('ele/index',array('hot'=>1))}>">热门疯抢</a></li>
+        </ul>
+    </div>
+</div>
+<div class="content zy_content content2">
+
+ <div class="cen_r right">
+            <div class="cen_rone">
+                <div class="cen_two">
+                    订餐必读&商家公告
+                </div>
+                <div class="cen_three">
+                     <{$detail['intro']}>
+                </div>
+            </div>
+            <div class="cen_bom">
+                <ul>
+                    <li>起送价：<{:round($detail['since_money']/100,2)}>元</li>
+                    <li><img src="__TMPL__statics/images/tp_21.png"> &nbsp;配送费</li>
+                    <li><img src="__TMPL__statics/images/tp_22.png"> &nbsp;该商家支持在线支付</li>
+                </ul>
+            </div>
+        </div>
+        
+        
+    <div class="evalOne">
+        <ul class="eval_ul">
+            <li class="eval_li1">
+                <img width="100" height="70" src="<{:config_img($shop['logo'])}>" class=""/>
+            </li>
+            <li class="eval_li2">
+                <p class="furit"><{$shop.shop_name}></p>
+                <p><span class="spxq_qgpstarBg"><span class="spxq_qgpstar spxq_qgpstar<{$shop.score}>">&nbsp;</span></span></p>
+                <p><{$detail.intro}></p>
+            </li>
+            <li class="eval_li3">
+                <p>餐厅地址：<{$shop.addr}></p>
+                <p>营业时间：<{$ex.business_time}></p>
+            </li>
+            <li class="eval_de">
+                <p><span class="eval_num"><{:round($shop['score']/10,1)}></span>分</p>
+                <p>商家评分</p>
+            </li>
+            <li class="eval_de">
+                <p class=""><span class="eval_num"><{$detail.distribution}></span>分钟<img src="__TMPL__statics/images/tp_19.png"></p>
+                <p>平均送餐时间</p>
+            </li>
+            <li class="eval_sc">
+                <a mini="act" href="<{:U('shop/favorites',array('shop_id'=>$detail['shop_id']))}>">
+                    <p><img src="__TMPL__statics/images/tp_20.png" onclick="on()" id="image"></p>
+                    <p>收藏</p></a>
+                <p class="app_red">(<{$shop['fans_num']}>)</p>
+            </li>
+        </ul>
+    </div>
+    
+   
+        
+        
+    <script>
+        $(document).ready(function () {
+            $(".appraise_1 input").click(function () {
+                if ($(this).prop('checked') == true) {
+                    location.href = $(this).attr('rel');
+                }
+            });
+        });</script>
+    <div class="app">
+        <div class="appraise">
+            <ul class="pizz">
+                <li><a href="<{:U('ele/shop',array('shop_id'=>$detail['shop_id']))}>">产品分类</a></li>
+                <li class="on"><a href="<{:U('ele/evaluate',array('shop_id'=>$detail['shop_id']))}>">评价</a></li>
+            </ul>
+        </div>
+        <div class="appra">
+            <ul class="appraise_1">
+                <li><label><input type="radio" <if condition="empty($evaluate)">checked="checked"</if> rel="<{:LinkTo('ele/evaluate',$linkArr,array('evaluate'=>0))}>" name="evaluate"></label> <span class="app_red">全部评价</span>（<{$counts}>）</li>
+                <li><label><input type="radio" <eq name="evaluate" value="3">checked="checked"</eq> rel="<{:LinkTo('ele/evaluate',$linkArr,array('evaluate'=>3))}>" name="evaluate"></label> 好评<span class="app_gray">（<{$count3}>）</span></li>
+                <li><label><input type="radio" <eq name="evaluate" value="2">checked="checked"</eq> rel="<{:LinkTo('ele/evaluate',$linkArr,array('evaluate'=>2))}>" name="evaluate"></label> 中评<span class="app_gray">（<{$count2}>）</span></li>
+                <li><label><input type="radio" <eq name="evaluate" value="1">checked="checked"</eq> rel="<{:LinkTo('ele/evaluate',$linkArr,array('evaluate'=>1))}>" name="evaluate"></label> 差评<span class="app_gray">（<{$count1}>）</span></li>
+            </ul>
+            <span class="app_cp">我买过本店产品，<a target="_blank" href="<{:u('members/ele/index')}>">我要评价</a></span>
+        </div>
+    </div>
+    <div class="between">
+        <div class="cen_l left">
+            <div class="newDiv">
+                <foreach name="list" item="item">
+                    <div class="cen_lft">
+                        <div class="cen_lft3 left">
+                            <{:config_user_name($users[$item['user_id']]['nickname'])}>
+                        </div> 
+                        <div class="cen_lft4 left">
+                            <ul class="cen_pj">
+                                <li>总体评价 <span style="margin-right: 10px;" class="spxq_qgpstarBg"><span class="spxq_qgpstar spxq_qgpstar<{:round($item['score']*10)}>">&nbsp;</span></span><if condition="$item['score'] gt 3">好评<elseif condition="$item['score'] eq 3"/>中评<else/>差评</if></li>
+                            </ul>
+                            <ul class="cen_hf">
+                                <li><{$item.contents}></li>
+                            </ul>
+                            <ul class="cen_tp">
+                                <foreach name="pics" item="var">
+                                    <eq name="var.dianping_id" value="$item['dianping_id']">
+                                    <li class="spxq_pjLi"><a href="javascript:void(0);" rel="<{:config_img($var['pic'])}>" ><img src="<{:config_img($var['pic'])}>" width="100" height="100"></a></li>
+                                    </eq>
+                                </foreach>
+                            </ul>
+                            <if condition="!empty($item['reply'])">
+                                <ul class="cen_hf">
+                                    <li class="cen_co">餐厅回复：<{$item['reply']}></li>
+                                </ul>
+                            </if>
+                        </div>  
+                        <div class="cen_lft2 right">
+                            评价时间 <{$item.create_time|date='Y-m-d H:i',###}>
+                        </div> 
+                    </div>
+                </foreach>
+                <div class='x'><{$page}></div>
+            </div>
+
+            <!--  ************************切换2********************* -->
+        </div>
+        
+    </div>
+</div>
+<div class="mask_bg mask_spxq_pjLi_img_mask">
+	<div class="mask_spxq_pjLi_img"><img src="" width="300" height="300" /></div>
+</div>
+<include file="public:footer"/>

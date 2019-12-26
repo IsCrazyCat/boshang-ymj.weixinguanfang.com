@@ -1,0 +1,65 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">支付设置</li>
+        <li class="li2 li3">卡密管理</li>
+    </ul>
+</div>
+<div class="main-jsgl">
+    <p class="attention"><span>注意：</span>这里可以添加充值卡</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin: 10px 20px;">
+            <div class="left">
+                <{:BA('rechargecard/create','remberBtn','添加内容')}>
+            </div>
+            <div class="right">
+                <form method="post" action="<{:U('rechargecard/index')}>">
+                    <span class="search_span">卡名：</span><input type="text" name="keyword" value="<{$keyword}>" class="inptText" /> <input type="submit" class="inptButton" value="  搜索" />
+                </form>
+            </div>
+        </div>
+        <form target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td><input type="checkbox" class="checkAll" rel="card_id" /></td>
+                        <td>充值卡ID</td>
+                        <td>卡名</td>
+                        <td>卡密</td>
+                        <td>面额</td>
+                        <td>状态</td>
+                        <td>过期时间</td>
+                        <td>创建时间</td>
+                        <td>创建IP</td>
+                        <td>操作</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_card_id" type="checkbox" name="card_id[]" value="<{$var.card_id}>" /></td>
+                            <td><{$var.card_id}></td>
+                            <td><{$var.name}></td>
+                            <td><{$var.card_key}></td>
+                            <td><{:round($var['value']/100,2)}></td>
+                            <td><eq name="var.is_used" value="0">未使用<else/>已使用</eq></td>
+                        <td><{$var.end_date}></td>
+                        <td><{$var.create_time|date="Y-m-d H:i:s",###}></td>
+                        <td><{$var.create_ip}></td>
+                        <td>
+                            <{:BA('rechargecard/delete',array("card_id"=>$var["card_id"]),'删除','act','remberBtn')}>
+                        </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr">
+                <div class="left">
+                    <{:BA('rechargecard/delete','','批量删除','list','a2')}>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+<include  file='public:footer'/>       

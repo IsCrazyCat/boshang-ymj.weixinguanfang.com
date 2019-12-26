@@ -1,0 +1,12 @@
+<div class="tgdd_t password_t">
+	<ul>
+		<li <if condition="$act eq 'money'">class="on"</if> ><a href="<{:U('money/money')}>" >余额充值</a></li>
+		<li <if condition="$act eq 'recharge'">class="on"</if> ><a href="<{:U('money/recharge')}>" >代金券充值</a></li>
+        <if condition="!empty($CONFIG[integral][integral_exchange])">
+			<li <if condition="$act eq 'exchange'">class="on"</if> ><a href="<{:U('money/exchange')}>" >积分兑换余额</a></li>
+        </if>
+        <if condition="!empty($CONFIG[cash][is_transfer])">
+			<li <if condition="$act eq 'transfer'">class="on"</if> ><a href="<{:U('money/transfer')}>" >给好友转账</a></li>
+        </if>
+	</ul>
+</div>

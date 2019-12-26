@@ -1,0 +1,92 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">分类信息</li>
+        <li class="li2">分类管理</li>
+        <li class="li2 li3">编辑</li>
+    </ul>
+</div>
+<div class="mainScAdd ">
+    <div class="tableBox">
+        <form target="baocms_frm" action="<{:U('lifecate/edit',array('cate_id'=>$detail['cate_id']))}>" method="post">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td  class="lfTdBt">所属频道：</td>
+                    <td class="rgTdBt"><select class="manageSelect w200" name="data[channel_id]">
+                            <foreach name="channelmeans" item="item" key="key">
+                                <option value="<{$key}>" <eq name="detail.channel_id" value="$key">selected="selected"</eq> ><{$item}></option>
+                            </foreach>
+                        </select>
+                    </td>
+                </tr><tr>
+                    <td  class="lfTdBt">分类名称：</td>
+                    <td class="rgTdBt"><input type="text" name="data[cate_name]" value="<{$detail.cate_name|default=''}>" class="manageInput w200" />
+
+                    </td>
+                </tr><tr>
+                    <td  class="lfTdBt">文本字段1：</td>
+                    <td class="rgTdBt"><input type="text" name="data[text1]" value="<{$detail.text1|default=''}>" class="manageInput w200" />
+                        <code>不用启用就不填写</code>
+                    </td>
+                </tr><tr>
+                    <td  class="lfTdBt">文本字段2：</td>
+                    <td class="rgTdBt"><input type="text" name="data[text2]" value="<{$detail.text2|default=''}>" class="manageInput w200" />
+                        <code>不用启用就不填写</code>
+                    </td>
+                </tr><tr>
+                    <td  class="lfTdBt">文本字段3：</td>
+                    <td class="rgTdBt"><input type="text" name="data[text3]" value="<{$detail.text3|default=''}>" class="manageInput w200" />
+                        <code>不用启用就不填写</code>
+                    </td>
+                </tr><tr>
+                    <td  class="lfTdBt">数字字段1：</td>
+                    <td class="rgTdBt"><input type="text" name="data[num1]" value="<{$detail.num1|default=''}>" class="manageInput w200" />
+
+                        单位<input type="text" name="data[unit1]" value="<{$detail.unit1|default=''}>" class="manageInput w200" />
+                        <code>不用启用就不填写,比如多少元/月</code>
+                    </td>
+                </tr><tr>
+                    <td  class="lfTdBt">数字字段2：</td>
+                    <td class="rgTdBt"><input type="text" name="data[num2]" value="<{$detail.num2|default=''}>" class="manageInput w200" />
+                        单位<input type="text" name="data[unit2]" value="<{$detail.unit2|default=''}>" class="manageInput w200" />
+                        <code>不用启用就不填写,比如多少元/月</code>
+                    </td>
+                </tr><tr>
+                    <td  class="lfTdBt">单选字段1：</td>
+                    <td class="rgTdBt"><input type="text" name="data[select1]" value="<{$detail.select1|default=''}>" class="manageInput w200" />
+                        <code>不用启用就不填写</code>
+                    </td>
+                </tr><tr>
+                    <td  class="lfTdBt">单选字段2：</td>
+                    <td class="rgTdBt"><input type="text" name="data[select2]" value="<{$detail.select2|default=''}>" class="manageInput w200" />
+                        <code>不用启用就不填写</code>
+                    </td>
+                </tr><tr>
+                    <td  class="lfTdBt">单选字段3：</td>
+                    <td><input type="text" name="data[select3]" value="<{$detail.select3|default=''}>" class="manageInput w200" />
+                        <code>不用启用就不填写</code>
+                    </td>
+                </tr><tr>
+                    <td  class="lfTdBt">单选字段4：</td>
+                    <td class="rgTdBt"><input type="text" name="data[select4]" value="<{$detail.select4|default=''}>" class="manageInput w200" />
+                        <code>不用启用就不填写</code>
+                    </td>
+                </tr><tr>
+                    <td  class="lfTdBt">单选字段5：</td>
+                    <td class="rgTdBt"><input type="text" name="data[select5]" value="<{$detail.select5|default=''}>" class="manageInput w200" />
+                        <code>不用启用就不填写</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td  class="lfTdBt">排序：</td>
+                    <td class="rgTdBt"><input type="text" name="data[orderby]" value="<{$detail.orderby|default=''}>" class="manageInput w200" />
+                        <code>数字越小越高</code>
+                    </td>
+                </tr>
+            </table>
+            <div class="smtQr"><input type="submit" value="确定编辑" class="smtQrIpt" /></div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>       

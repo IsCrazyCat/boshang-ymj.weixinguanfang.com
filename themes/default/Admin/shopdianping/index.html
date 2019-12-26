@@ -1,0 +1,82 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">商家点评</li>
+        <li class="li2 li3">发布点评</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>点评在生效日期生效后其他用户才能看到</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('shopdianping/create','','添加点评')}>
+            </div>
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('shopdianping/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <div class="seleK">
+                            <label>
+                                <input type="hidden" id="shop_id" name="shop_id" value="<{$shop_id|default=''}>"/>
+                                <input type="text"   id="shop_name" name="shop_name" value="<{$shop_name}>" class="text" />
+                                <a mini="select"  w="1000" h="600" href="<{:U('shop/select')}>" class="sumit">选择商家</a>
+                            </label>
+                            <label>
+                                <input type="hidden" id="user_id" name="user_id" value="<{$user_id|default=''}>"/>
+                                <input type="text"   id="nickname" name="nickname" value="<{$nickname}>" class="text" />
+                                <a mini="select"  w="1000" h="600" href="<{:U('user/select')}>" class="sumit">选择用户</a>
+                                <input style="float: right;" type="submit" value="   搜索"  class="inptButton" />
+                            </label>
+                        </div>
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="dianping_id" /></td>
+                        <td class="w50">ID</td>
+                        <td>用户</td>
+                        <td>商家</td>
+                        <td>评分</td>
+                        <td>平均花费</td>
+                        <td>创建时间</td>
+                        <td>创建IP</td>
+                        <td>生效日期</td>
+                        <td>操作</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_dianping_id" type="checkbox" name="dianping_id[]" value="<{$var.dianping_id}>" /></td>
+                            <td><{$var.dianping_id}></td>
+                            <td><{$users[$var['user_id']]['account']}>(ID:<{$var.user_id}>)</td>
+                            <td><{$shops[$var['shop_id']]['shop_name']}></td>
+                            <td><{$var.score}></td>
+                            <td><{$var.cost}></td>
+                            <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                            <td><{$var.create_ip}>(来自<{$var.create_ip_area}>)</td>
+                            <td><{$var.show_date}></td>
+                            <td>
+                                <{:BA('shopdianping/edit',array("dianping_id"=>$var["dianping_id"]),'编辑','','remberBtn')}>
+                                <{:BA('shopdianping/delete',array("dianping_id"=>$var["dianping_id"]),'删除','act','remberBtn')}>
+                            </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('shopdianping/delete','','批量删除','list',' a2')}>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>  
+
+

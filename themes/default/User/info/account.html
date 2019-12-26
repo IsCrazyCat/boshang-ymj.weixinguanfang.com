@@ -1,0 +1,76 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('user/member/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			修改帐号
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+
+
+<form action="<{:U('info/account')}>" method="post" target="x-frame">
+	<div class="line padding border-bottom">
+		<span class="x3 text-gray">当前用户</span>
+		<span class="x9"><{$MEMBER['account']}></span>
+	</div>
+	<div class="line padding border-bottom">
+		<span class="x3 text-gray">输入手机</span>
+		<span class="x5"><input type="text" name="mobile" id="mobile" class="text-input" placeholder="请输入11位手机号"></span>
+		<span class="x4"><a class="button button-small bg-dot" id="jq_send" href="javascript:void(0);">获取验证码</a></span>
+	</div>
+	<div class="line padding border-bottom">
+		<span class="x3 text-gray">验证码</span>
+		<span class="x5"><input type="text" name="yzm" id="yzm" class="text-input" placeholder="验证码"></span>
+		<span class="x4"><em class="text-small text-gray">手机收到的验证码<em></span>
+	</div>
+	<div class="container">
+		<div class="blank-30"></div>
+		<p><span class="text-dot">小提示：</span> 在这里您可以将原有微信自动注册的帐号修改为自己注册的帐号！</p>
+	</div>
+	<div class="container">
+		<div class="blank-30"></div>
+		<button class="button button-big button-block bg-dot">提交修改</button>
+		<div class="blank-30"></div>
+	</div>
+</form>
+
+
+<script type="text/javascript">
+	var mobile_timeout;
+	var mobile_count = 100;
+	var mobile_lock = 0;
+	$(function () {
+		$("#jq_send").click(function () {
+
+			if (mobile_lock == 0) {
+				$.ajax({
+					url: '<{:U("info/sendsms")}>',
+					data: 'mobile=' + $("#mobile").val(),
+					type: 'post'
+				});
+				mobile_count = 100;
+				BtnCount();
+				mobile_lock = 1;
+			}
+
+		});
+	});
+	BtnCount = function () {
+		if (mobile_count == 0) {
+			$('#jq_send').html("重新发送");
+			mobile_lock = 0;
+			clearTimeout(mobile_timeout);
+		}
+		else {
+			mobile_count--;
+			$('#jq_send').html("重新发送(" + mobile_count.toString() + ")秒");
+			mobile_timeout = setTimeout(BtnCount, 1000);
+		}
+	};
+</script>       
+
+<include  file='public:footer'/>  

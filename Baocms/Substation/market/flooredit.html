@@ -1,0 +1,32 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">当前位置</li>
+        <li class="li2">楼层设置</li>
+        <li class="li2 li3">编辑</li>
+    </ul>
+</div>
+<form  target="baocms_frm" action="<{:U('market/flooredit',array('market_id'=>$detail['market_id'],'floor_id'=>$floor['floor_id']))}>" method="post">
+    <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+        <tr>
+            <td class="lfTdBt">楼层：</td>
+            <td  class="rgTdBt"><input type="text" name="floor_name" value="<{$floor.floor_name}>" class="manageInput w150" />
+                <code>商场的楼层名称</code>
+            </td>
+        </tr>
+        <tr>
+            <td class="lfTdBt">排序：</td>
+            <td  class="rgTdBt"><input type="text" name="orderby" value="<{$floor.orderby|default='100'}>" class="manageInput w150" />
+                <code>越小的编号排的越前面，建议认真设置</code>
+            </td>
+        </tr>
+
+
+    </table>
+    <div style="margin-left:140px;margin-top:20px">
+        <input type="submit" value="确定编辑" class="smtQrIpt" />
+    </div> 
+</form>
+</div>
+</div>
+<include  file='public:footer'/>       

@@ -1,0 +1,133 @@
+<include file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">订阅设置</li>
+    </ul>
+</div>
+<form target="baocms_frm" action="<{:U('shopdingyue/index')}>
+    " method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px" style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#fff;">
+            <tr>
+                <td class="lfTdBt">
+                    订阅地区设置：
+                </td>
+                <td class="rgTdBt">
+                        <input type="checkbox"  class="city" name="city_id" value="1" <if condition='$Shopdingyueset.city_id eq 1'> checked </if>/>一级&nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" class="area" name="area_id" value="1" <if condition='$Shopdingyueset.area_id eq 1'> checked </if>/>二级&nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" class="business" name="business_id" value="1" <if condition='$Shopdingyueset.business_id eq 1'> checked </if>/>三级<br/>
+                </td>
+            </tr>
+            <tr>
+                 <td class="lfTdBt">
+                    订阅分类设置：
+                </td>
+                <td class="rgTdBt">
+                        <input type="checkbox" class="one_cate"  name="one_cate" value="1" <if condition='$Shopdingyueset.one_cate eq 1'> checked </if>/>一级&nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" class="two_cate" name="two_cate" value="1" <if condition='$Shopdingyueset.two_cate eq 1'> checked </if>/>二级&nbsp;&nbsp;&nbsp;                  
+                </td>
+            </tr>
+            <tr>
+                <td class="lfTdBt">
+                    订阅分类列表限制：
+                </td>
+                <td class="rgTdBt">
+                    <input type="text" name="count_list" value="<{$Shopdingyueset.count_list|default=''}>" class="scAddTextName w160" style="width: 100px;"/>  条
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="lfTdBt">
+                   订阅条数限制：
+                </td>
+                <td class="rgTdBt">
+                    <select id="c_number" name="c_number" style="width: 60px;height: 28px;">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                    </select>
+                    <input type="text" id="count_number" name="count_number" value="<{$Shopdingyueset.count_number|default=''}>" class="scAddTextName w160" style="width: 100px;" />  条
+                </td>
+            </tr>
+             <tr>
+                <td align="right" class="lfTdBt">
+               	 短信条数限制
+                </td>
+                <td class="rgTdBt">
+                    <input type="text" id="sms_number" name="sms_number" value="<{$Shopdingyueset.sms_number|default=''}>" class="scAddTextName w160" style="width: 100px;" />条
+                </td>
+            </tr>
+            <tr>
+                <td align="right" class="lfTdBt">
+               	短信开关
+                </td>
+                <td class="rgTdBt">                
+                    <select id="sms_open" name="sms_open" style="width: 60px;height: 28px;">
+                        <option <if condition="$Shopdingyueset.sms_open eq 1 "> selected="selected"</if> value="1" >开</option>
+                        <option <if condition="$Shopdingyueset.sms_open eq 0 "> selected="selected"</if> value="0">关</option>
+                    </select>
+                </td>
+            </tr>                 
+            </table>
+        </div>
+        <div class="smtQr">
+            <input type="submit" value="确认设置" class="smtQrIpt"/>
+        </div>
+    </div>
+</form>
+<include file='public:footer'/>
+<script type="text/javascript">
+$("#c_number").change(function(){
+    $("#count_number").val($(this).val());
+});
+
+$('input:checkbox').click(function () { 
+   this.blur();
+   this.focus();  
+  });  
+$(".city").change(function() {
+    if ($(".city").is(':checked')) {
+      $("[name = city_id]:checkbox").prop("checked", true);
+      $("[name = area_id]:checkbox").prop("checked", false);
+      $("[name = business_id]:checkbox").prop("checked", false);
+    }
+ });
+$(".area").change(function() {
+    if ($(".area").is(':checked')) {
+      $("[name = city_id]:checkbox").prop("checked", true);
+      $("[name = area_id]:checkbox").prop("checked", true);
+      $("[name = business_id]:checkbox").prop("checked", false);
+    }
+ });
+$(".business").change(function() {
+    if ($(".business").is(':checked')) {
+        $("[name = city_id]:checkbox").prop("checked", true);
+        $("[name = area_id]:checkbox").prop("checked", true);
+        $("[name = business_id]:checkbox").prop("checked", true); 
+    }
+ });
+$(".one_cate").change(function() {
+    if ($(".one_cate").is(':checked')) {
+        $("[name = one_cate]:checkbox").prop("checked", true);
+        $("[name = two_cate]:checkbox").prop("checked", false); 
+    }
+ });
+$(".two_cate").change(function() {
+    if ($(".two_cate").is(':checked')) {
+        $("[name = one_cate]:checkbox").prop("checked", true);
+        $("[name = two_cate]:checkbox").prop("checked", true);
+    }
+ });
+
+
+
+
+</script>

@@ -1,0 +1,72 @@
+﻿<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">功能</li>
+        <li class="li2">贴吧管理</li>
+        <li class="li2 li3">贴吧列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="right">
+                <form  method="get"  action="<{:U('Tieba/index',array('city_id'=>$city_id))}>"> 
+                    <div class="seleHidden" id="seleHidden">
+                        <div class="seleK">
+                            <label>
+                                <span>活动类型</span>
+                                <select id="post_id" name="post_id" class="selecttop w120"  >
+                                    <option value="" <eq name="var.cate_id" value="0">selected="selected"</eq> >请选择</option>
+                                    <foreach name="cates" item="var">
+                                        <option value="<{$var.city_id}>"  <eq name="var.city_id" value="$city_id">selected="selected"</eq> ><{$var.name}></option>                
+                                    </foreach>
+                                </select>
+                            </label>
+                            <input type="submit" value=" 搜索"  class="inptButton" />
+                        </div>
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="activity_id" /></td>
+                        <td class="w50">发帖ID</td>  
+                        <td>发帖城市</td>
+                        <td>发帖用户</td>
+                        <td>发帖标题</td>
+                        <td>发帖时间</td>
+                        <td>是否审核</td>
+                        <td>发布IP</td>
+                        <td class="w300">操作</td>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_activity_id" type="checkbox" name="activity_id[]" value="<{$var.activity_id}>" /> </td>
+                            <td><{$var.post_id}></td>
+                            <td><{$cates[$var['city_id']]['name']}></td>
+                            <td><{$var['nickname']}></td>
+                            <td><{$var.title}></td>
+							<td><{$var.create_time|date="Y-m-d H:i:s",###}></td>
+							<td><eq name="var.audit" value="0">待审核<else/>已审核</eq></td>
+                            <td><{$var.create_ip}></td>
+							<td>
+								<a class="remberBtn"  target="_blank" href="<{:U('home/post/detail',array("post_id"=>$var["post_id"]))}>">查看</a>
+								<{:BA('tieba/delete',array("post_id"=>$var["post_id"]),'删除','act','remberBtn')}>
+								<eq name="var.audit" value="0"> <{:BA('tieba/audit',array("post_id"=>$var["post_id"]),'审核','act','remberBtn')}> </eq>
+
+							</td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>  

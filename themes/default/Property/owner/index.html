@@ -1,0 +1,51 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="javascript:void(0);">小区业主</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <form method="post" action="<{:U('owner/index')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">
+            户号：<input type="text" class="radius3 tuan_topser"  name="keyword" value="<{$keyword}>" />
+            <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/>
+            </div>
+            <div class="right tuan_topfb_r"></div>
+        </div>
+    </div>
+    </form>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>编号</td>
+            <td>称呼</td>
+            <td>头像</td>
+            <td>手机号</td>
+            <td>户号</td>
+            <td>具体地址</td>
+            <td>状态</td>
+            <td>创建时间</td>
+            <td>操作</td>
+        </tr>
+        <foreach name="list" item="var">
+            <tr>
+                <td><{$var.owner_id}></td>
+                <td><{$var.name}></td>
+                <td style="height: 80px;"><img style="width: 80px;  margin: 0px auto;"   src="<{:config_img($users[$var['user_id']]['face'])}>" />
+                </td>
+                <td><{$users[$var['user_id']]['mobile']}></td>
+                <td><{$var.number}></td>
+                <td><{$var.location}></td>
+                <td><eq name="var.audit" value="1">已审核<else/>未审核</eq></td>
+                <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                <td>
+                    <eq name="var.audit" value="0"><a class="radius3 sy_c1an" mini="load" w="800" h="600" href="<{:U('owner/audit',array('owner_id'=>$var['owner_id']))}>">审核</a><else/><a class="radius3 sy_c1an" href="<{:U('order/index',array('user_id'=>$var['user_id']))}>">查看账单</a></eq>
+                <a class="radius3 sy_c1an" mini='comfirm' href="<{:U('owner/delete',array('owner_id'=>$var['owner_id']))}>">删除</a>
+            </td>
+            </tr>
+        </foreach>
+    </table>
+</div>
+
+<include  file='public:footer'/>

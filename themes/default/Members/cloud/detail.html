@@ -1,0 +1,88 @@
+<include file="public:header" /> 
+<!-- <include file="public:top"/> -->
+<div class="content_right">
+    <div class="tgdd">
+        <div class="tgdd_t">
+            <script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+            <form action="<{:U('cloud/index')}>" method="post">
+                <div class="search_form"> 
+                    <span class="search_form_wz">开始时间</span><input class="search_form_time" type="text" name="bg_date" value="<{$bg_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd'});"  />
+                    <span class="search_form_wz">结束时间</span><input class="search_form_time" type="text" name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd'});" />
+                    <span class="search_form_wz">状态</span>
+                    <select name="st" class="search_form_zt">
+                        <option value="999">请选择</option>
+                        <option <eq name="st" value="1">selected="selected"</eq>  value="1">已揭晓</option>
+                        <option <eq name="st" value="0">selected="selected"</eq>  value="0">进行中</option>
+                    </select>
+                    <span class="search_form_wz">商品名称</span>
+                    <input type="text" name="keyword" value="<{$keyword}>" class="search_form_ssk" /><input type="submit" class="search_form_ssan" value="搜索" />
+                </div>
+            </form>
+        </div>
+        <div class="tgdd_nr">
+            <table border="0" cellspacing="0" width="100%"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; text-align:center;">
+                <tr class="tgdd_nrt">
+                    <td colspan="3">
+                        <div class="mine_yiyuan_infor">
+                            <h3>元购记录</h3>
+                            <div class="infor">
+                                <div class="img left"><img src="<{:config_img($detail['photo'])}>" /></div>
+                                <div class="wz">
+                                    <p class="bt"><{$detail.title}></p>
+                                    <p>总需：<{$detail.price}>人次</p>
+                                    <if condition="!empty($winner)">
+                                        <p>获得者：<{$winner.nickname}></p>
+                                        <p>幸运号码：<span style="color:red;"><{$detail.win_number}></span></p>
+                                        <p>揭晓时间：<{$detail.lottery_time|date='Y-m-d H:i:s',###}>.000</p>
+                                    </if>
+                                    <a target="_blank" href="<{:u('home/cloud/detail',array('goods_id'=>$detail['goods_id']))}>" class="btn">查看详情</a>
+                                </div>
+                            </div>
+                            <div class="mine_yiyuan_back">本商品您总共参与了<{$total}>人次，拥有<{$total}>个夺宝号码<a href="<{:U('cloud/index',array('p'=>$p))}>" class="right">&lt;&lt;返回列表</a></div>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="tgdd_nrt">
+                    <th>套餐时间</th>
+                    <th>参与人次</th>
+                    <th width="600">套餐号码</th>
+                </tr>
+                <php>foreach($list as $k=>$val){</php>
+                <tr class="tgdd_nrt">
+                    <td style="vertical-align:top;">
+                    <{$k}>
+                    </td>
+                    <td style="vertical-align:top;"><php>echo count($val);</php>人次</td>
+                <td>
+                    <div class="mine_yiyuan_allnum">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                            
+                            <php>$i=1;</php>
+                            <php>foreach($val as $aa=>$var){</php>
+                            <if condition="$i%5 eq 1">
+                                <tr>
+                                    <td <if condition="$detail['win_number'] eq $var['number']">style="color:red;"</if> ><{$var.number}></td>
+                                <elseif condition="$i%5 eq 0"/>
+                                <td <if condition="$detail['win_number'] eq $var['number']">style="color:red;"</if> ><{$var.number}></td>
+                                </tr>
+                                <else/>
+                                <td <if condition="$detail['win_number'] eq $var['number']">style="color:red;"</if> ><{$var.number}></td>
+                            </if>
+                            <php>$i++;}</php>
+                        </table>
+                    </div>
+                </td>
+                </tr>
+                <php>}</php>
+                <tr class="tgdd_nrt">
+                    <td colspan="3"><p class="mine_yiyuan_back"><a href="<{:U('cloud/index',array('p'=>$p))}>" class="right">&lt;&lt;返回列表</a></p></td>
+                </tr>          
+            </table>
+            <div class="x"><{$page}></div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<include file="public:footer"/>
+

@@ -1,0 +1,55 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">套餐</a> > <a>正在套餐</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+	<form method="post" action="<{:U('tuan/index')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">套餐名称：<input type="text" class="radius3 tuan_topser"  name="keyword" value="<{$keyword}>"/><input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/></div>
+            <div class="right tuan_topfb_r"><a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('tuan/create')}>">发布套餐+</a></div>
+        </div>
+    </div>
+    </form>
+     <include file='tuan:nav'/>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td width="50">套餐ID</td>
+            <td width="120">套餐图片</td>
+            <td width="130">套餐名称</td>
+            <td width="150">套餐时间</td>
+            <td width="70">原价</td>
+            <td width="80">套餐价格</td>
+            <td width="70">销量</td>
+            <td width="70">浏览次数</td>
+            <td width="70">状态</td>
+            <td width="140">操作</td>
+        </tr>
+        <foreach name="list" item="var">
+        <tr>
+            <tr>
+                <td><{$var.tuan_id}></td>
+                <td><img src="<{:config_img($var['photo'])}>"  style="width: 100px; margin: 0px auto;" /></td>
+                <td><{$var.title}></td>
+                <td><{$var.bg_date}>--<{$var.end_date}></td>
+                <td><{$var['price']}></td>
+                <td style="height: 100px;"><{$var['tuan_price']}></td>
+                <td><{$var.sold_num}></td>
+                <td><{$var.views}></td>
+                <td><eq name="var.audit" value="0">等待审核<else/>正常</eq></td>
+                <td>
+                    <a href="<{:U('tuan/edit',array('tuan_id'=>$var['tuan_id']))}>">编辑</a>
+                    <a href="<{:U('tuan/setting',array('tuan_id'=>$var['tuan_id']))}>">设置套餐</a>
+                </td>
+            </tr>
+        </tr>
+        </foreach>
+    </table>
+    <div class="paging">
+        <{$page}>
+    </div>
+</div>
+
+<include  file='public:footer'/>

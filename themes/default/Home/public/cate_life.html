@@ -1,0 +1,35 @@
+<div class="menu_fllist2">
+    <php>$k = 0;</php>            
+    <foreach name="channelmeans" key="key" item="item">
+        <php>$k++;</php>
+        <div <if condition="$i == 1">class="item2 bo"<else/>class="item2"</if> >
+            <h3>
+                <div class="left ico ico_<{$k}>"></div>
+                <div class="wz">
+                	<a class="bt1" title="<{$item}>" target="_blank" href="<{:U('life/index',array('channel'=>$key))}>"><{:msubstr($item,0,4,'utf-8',false)}></a>
+                    <div class="bt2">
+                        <php>$i2=0;</php>
+                        <foreach name="cates" item="var">
+                            <if condition="$var['channel_id'] eq $k">
+                            <php>$i2++;if($i2 <= 2){</php>
+                            <a title="<{$var['cate_name']}>" target="_blank" href="<{:U('life/index',array('channel'=> $k,'cat'=>$var['cate_id']))}>"><{:msubstr($var['cate_name'],0,4,'utf-8',false)}></a>
+                            <php>}</php>
+                            </if>
+                        </foreach>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </h3>
+            <div class="menu_flklist2">
+                <div class="menu_fl2t"><a title="<{$item.cate_name}>" target="_blank" href="<{:U('life/index',array('channel'=>$key))}>"><{$item}></a></div>
+                <div class="menu_fl2nr">
+                    <foreach name="cates" item="var">
+                       <if condition="$var['channel_id'] eq $k">
+                            <a title="<{$var['cate_name']}>" target="_blank" href="<{:U('life/index',array('channel'=> $k,'cat'=>$var['cate_id']))}>"><{$var['cate_name']}></a>
+                        </if>
+                    </foreach>
+                </div>
+            </div>
+        </div>
+    </foreach>
+</div>

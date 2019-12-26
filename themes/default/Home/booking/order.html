@@ -1,0 +1,151 @@
+<include file="public:header" /> 
+<include file="public:top"/>
+<include file="public:nav2"/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<script src="__TMPL__statics/js/jquery.cookie.js"></script>
+<!--主体内容-->
+<div class="pagewd">
+	<!--页面位置-->
+        <div class="spxq_loca"><a href="<{:U('index/index')}>">首页</a>&gt;&gt;<a href="<{:U('booking/index')}>">预订</a>&gt;&gt;<a href="javascript:void(0);"><{$detail.shop_name}></a></div>
+    <!--页面位置end-->
+    <div class="hotel_ord_box mb20 mt10">
+    	<h2 class="mb20"><{$detail.shop_name}></h2>
+        <div class="hotel_ord_infor">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <th>就餐时间</th>
+                    <th>就餐人数</th>
+                    <th>餐位情况</th>
+                </tr>
+                <tr>
+                    <td>
+                    	<div class="hotel_soso">
+                            <div class="int_box time left"><span class="wz">预订</span><input type="text" class="time_select" id="ding_date" value="<{$ding_date}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd',minDate:'%y-%M-{%d}'});" placeholder="日期"><em class="ico ico_2"></em></div>
+                            <div class="left">
+                                <select class="seatOrd_int" id="ding_time">
+                                    <volist name='cfg' id='item'>
+                                        <option value="<{$item}>" <if condition="$item eq $ding_time">selected="selected"</if> ><{$item}></option>
+                                    </volist>
+                                </select>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </td>
+                    <td>
+                    	<div class="left">
+                            <select class="seatOrd_int" id="ding_num">
+                                <volist name='room' id='item'>
+                                    <option value="<{$item}>" <if condition="$item eq $ding_num">selected="selected"</if> ><{$item}></option>
+                                </volist>
+                            </select>
+                        </div>
+                    </td>
+                    <td>
+                    	<label style="margin-right: 30px;"><input class="ding_type mr10" name="ding_type" <if condition="$ding_type eq 1">checked="checked"</if> type="radio" value="1">包厢</label><label><input type="radio" class="ding_type mr10" name="ding_type" <if condition="$ding_type eq 0">checked="checked"</if> class="ml10" value="0">大厅</label>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    
+    <div class="hotel_ord_box mb20">
+    	<h2 class="mb20">联系人信息<small class="graycl">（请填写有效的手机号码）</small></h2>
+        <div class="hotel_ord_user">
+            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <th><span class="pointcl">*</span>就餐人姓名：</th>
+                    <td>
+                    	<input type="text" id="name" value="<{$MEMBER['nickname']}>"><label><input type="radio" value="1" name="sex" checked="checked" class="ml10">先生</label><label><input type="radio" value="2" name="sex" class="ml10">女士</label><span class="ts"><em></em>请输入实际人姓名</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th><span class="pointcl">*</span>手机号码：</th>
+                    <td>
+                    	<input id="mobile" type="text" value="<{$MEMBER['mobile']}>"><span class="ts"><em></em>订单信息会发送至您的手机，请保持手机畅通。</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>补充说明：</th>
+                    <td>
+                    	<textarea placeholder="说出你的需求" id="note"><{$note}></textarea>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <if condition="$dingmenus">
+        <div class="hotel_ord_box mb20">
+            <h2 class="mb20">订单详细</h2>
+            <div class="hotel_ord_infor seat_ord_infor">
+                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <th width="500">详情</th>
+                        <th>数量</th>
+                        <th width="120">单价</th>
+                        <th width="120">总价</th>
+                    </tr>
+                    <foreach name="dingmenus" item="item">
+                    <tr>
+                        <td>
+                            <img src="<{:config_img($item['photo'])}>" width="110" height="80" class="left" />
+                            <div class="pub_wz">
+                                <p class="mt10"><{$item.menu_name}></p>
+                                <p class="graycl">已售：<{$item.sold_num}>份</p>
+                            </div>
+                        </td>
+                        <td><{$item.cart_num}></td>
+                        <td>￥<span><{:round($item['ding_price']/100,1)}></span></td>
+                        <td>￥<span><{:round($item['total_price']/100,1)}></span></td>
+                    </tr>
+                    </foreach>
+                    <tr>
+                        <td colspan="4" class="tongji"><p class="fontcl1">菜品总计：￥<{:round($total_money/100,1)}></p></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </if>
+    <div class="hotel_tongji" id="online_pay">
+        需付定金：<span class="fontcl1">￥<span class="price"><{$detail.deposit}></span></span><a href="javascript:void(0);" id="ding_btn" class="btn">提交订单</a>
+    </div>
+    
+  
+</div>
+<script>
+    $(document).ready(function(){
+        $("#ding_btn").click(function(){
+						
+            var ding_date = $("#ding_date").val();
+            var ding_time = $("#ding_time option:selected").val();
+            var ding_num = $("#ding_num option:selected").val();
+            var ding_type = $(".ding_type:radio:checked").val();
+            var name = $("#name").val();
+            var mobile = $("#mobile").val();
+            var sex = $("input[name='sex']:checked").val();
+            var note = $("#note").val();
+            var url = "<{:U('booking/orderCreate',array('shop_id'=>$detail['shop_id']))}>";
+            $.post(url,{ding_date:ding_date,ding_time:ding_time,ding_num:ding_num,ding_type:ding_type,name:name,mobile:mobile,sex:sex,note:note},function(data){
+                if(data.status == 'login'){
+                    ajaxLogin();
+                }else if(data.status == 'success'){
+                    layer.msg(data.msg);
+                    var link = "<{:U('booking/pay',array('order_id'=>oooo))}>";
+                    var url = "<{:U('members/booking/detail',array('order_id'=>oooo))}>";
+                    setTimeout(function () {
+                        if(data.amount == 0){
+                            window.location.href = url.replace('oooo', data.order_id);
+                        }else{
+                            window.location.href = link.replace('oooo', data.order_id);
+                        }
+                    }, 1000);
+                    
+                }else{
+                    layer.msg(data.msg);
+                }
+            },'json')
+        })
+        
+    })
+</script>
+<!--主体内容结束-->
+<include file="public:footer"/>

@@ -1,0 +1,51 @@
+<include file="public:headercoupon"/>
+<link rel="stylesheet" type="text/css" href="__TMPL__coupon/static/css/Coupon.css?201150408">
+<body style="background:#db1717;">
+<div class="voucherPage">
+	<img src="__TMPL__coupon/static/img/coupon_img5.png" width="100%" height="" />
+    <div class="voucherPage_succse">
+    	<h1><span>优惠券信息</span></h1>
+        <div class="nr">
+        	<p>1.优惠券：<{$coupon.title}></p>
+            <p>2.SN码&nbsp;&nbsp;：<{$detail.sn}></p> <td>
+            <p>3.状 态&nbsp;&nbsp;：<if condition='$detail["is_use"] eq 1'> 已使用<else />未使用</if></p>
+            <p>4.领取时间&nbsp;&nbsp：<{$detail.dateline|date='Y-m-d H:i:s',###}></p>
+        </div>
+    </div>
+    <div class="voucherPage_succse">
+    	<h1><span>领取说明</span></h1>
+        <div class="nr">
+        	<p><{$coupon.intro}></p>
+            <p><{$coupon.stime}> 至 <{$coupon.ltime}></p>
+        </div>
+    </div>
+    <!--<div class="couponpage_intro">
+   		<h2><span class="bg_1"><big>•</big>优惠券信息</span></h2>
+        <div class="nr">
+        	<p>优惠券：<{$coupon.title}></p>
+            <p> SN码&nbsp;&nbsp;：<{$detail.sn}></p>
+            <p> 状 态&nbsp;&nbsp;：<{if $detail.is_use==1}>已使用<{else}>未使用<{/if}></p>
+            <p> 领取时间&nbsp;&nbsp;：<{$detail.dateline|date='Y-m-d H:i:s',###}></p>
+        </div>
+    	<h2><span class="bg_1"><big>•</big>活动介绍</span></h2>
+        <div class="nr">
+        	<p><{$coupon.intro}></p>
+        </div>
+        <h2><span class="bg_2"><big>•</big>活动时间</span></h2>
+        <div class="nr">
+        	<p><{$coupon.stime}> 至 <{$coupon.ltime}></p>
+        </div>
+        
+        <div>
+            <h3>【注意事项】</h3>
+            <p>
+            	<{foreach $condition as $key => $vo}>
+                	<span class="num"></span><{$vo}> <br/>
+                <{/foreach}> 
+            </p>
+        </div>
+    </div>-->
+</div>
+<div class="footer_copy" style="font-size: 14px; line-height: 40px; color: #fff; text-align: center; margin: 20px 0 0; background-color: #6c6c6c;">&copy;<{$CONFIG.site.title}></div>
+</body>
+</html>

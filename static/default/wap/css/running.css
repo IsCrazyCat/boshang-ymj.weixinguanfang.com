@@ -1,0 +1,11 @@
+/*会员中心发布页面css*/
+.text-input{border:none;width:100%}
+.text-select{border:none;width:100%;background:#fff!important}
+.text-area{width:100%;border:none;resize:none;padding:10px}
+.fabu-form .row{padding:10px;border-bottom:thin solid #eee}
+.fabu-form .row .x3{color:#999}
+.fabu-form .text-input{border:none;width:100%}
+.fabu-form .text-select{border:none;width:100%;background:#fff!important}
+.fabu-form .text-area{width:100%;border:thin solid #eee;resize:none}
+#login-input{margin-top:.1rem}
+#login-input input{border:none 0;background:#fff none;width:100%;height:2.4rem;color:#666;text-indent:.1rem;display:block;cursor:pointer;border:solid 1px #eee}

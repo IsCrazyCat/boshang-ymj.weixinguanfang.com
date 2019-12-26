@@ -1,0 +1,56 @@
+<include file="public:header"/>
+<style>
+.tuan_table {border-bottom: solid 1px #ececec;}
+.tuan_table tr {border-top: solid 1px #ececec;}
+.tuan_table td {background-color:#fff;}
+</style>
+<div class="content_right">
+<div class="tgdd">
+       
+    <div class="tgdd_t password_t">
+            <ul>
+                <li> <a href="<{:U('crowd/index')}>">我参加的众筹</a></li>
+                <li> <a href="<{:U('crowd/crowd_list')}>">我发布的众筹</a></li>
+                <a style="display: inline-block; float: right; margin-right: 10px;" class="myInfor_sx" href="<{:U('crowd/type_create',array('goods_id'=>$detail['goods_id']))}>">新增项目</a>
+            </ul>
+    </div>
+    <div class="tgdd_nr">
+        <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+           <td width="50">ID</td>
+            <td width="150">图片</td>
+            <td width="100">价格</td>
+            <td width="100">限购</td>
+            <td width="200">内容</td>
+            <td width="70">运费</td>
+            <td width="100">发货时间</td>
+            <td width="70">已筹数</td>
+            <td width="100">是否抽奖</td>
+            <td width="150">操作</td>
+        </tr>
+        <foreach name="meals" item="var">
+        <tr>
+            <tr>
+                <td><{$var.type_id}></td>
+                <td><img src="<{:config_img($var['img'])}>"  style="width:60px; margin: 0px auto;" /></td>
+                <td><{$var['price']/100}></td>
+                <td><{$var.max_num}></td>
+                <td><a class="tips myInfor_sx myInfor_sx_fk" rel="<{$var.content}>" href="javascript:void(0)">查看说明</a></td>
+                <td><{$var['yunfei']/100}></td>
+                <td><{$var.fahuo}></td>
+                <td><{$var.have_num}></td>
+                  <td><eq name="var.choujiang" value="0">否<else/>是</eq></td>
+                <td>
+                    <a class="myInfor_sx myInfor_sx_fk" href="<{:U('crowd/type_edit',array('type_id'=>$var['type_id']))}>">编辑</a>
+                    <a class="myInfor_sx myInfor_sx_fk"  mini='confirm' href="<{:U('crowd/type_delete',array('type_id'=>$var['type_id']))}>">删除</a>
+                </td>
+            </tr>
+        </tr>
+        </foreach>
+    </table>
+    </div>
+    </div>
+</div>
+</div>
+</div></div>
+<include file="public:footer"/>

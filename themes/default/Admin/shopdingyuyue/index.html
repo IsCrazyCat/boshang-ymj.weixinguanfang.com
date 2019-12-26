@@ -1,0 +1,105 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">餐饮商家</li>
+        <li class="li2">餐饮预约订座</li>
+        <li class="li2 li3">订座预约</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>这里是显示商家订餐的预约！非商家详情页预约！不要混淆了！</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('#','','暂时没功能')}>
+            </div>
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('shopdingyuyue/index')}>">
+                    <!--<div class="seleHidden" id="seleHidden">
+                        <span>只能搜电话号码</span>
+                        <input type="text" name="keyword" value="<{$keyword}>" class="inptText" /><input type="submit" value="   搜索"  class="inptButton" />
+                    </div> -->
+                </form>
+               
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form method="post" action="<{:U('shopdingyuyue/index')}>">
+            <div class="selectNr selectNr2">
+                <div class="left">
+                    <div class="seleK">
+                        <label>
+                            <input type="hidden" id="user_id" name="user_id" value="<{$user_id|default=''}>"/>
+                            <input class="text" type="text"   name="nickname" id="nickname"  value="<{$nickname}>" />
+                            <a mini="select"  w="1000" h="800" href="<{:U('user/select')}>" class="sumit">选择用户</a>
+                        </label>
+                        <label>
+                            <input type="hidden" id="shop_id" name="shop_id" value="<{$shop_id|default=''}>"/>
+                            <input class="text" type="text"   id="shop_name" name="shop_name" value="<{$shop_name}>" />
+                            <a mini="select"  w="1000" h="800" href="<{:U('shop/select')}>" class="sumit">选择商家</a>
+                        </label>
+                        <label>
+                            <span>关键字:</span>
+                            <input type="text" name="keyword" value="<{$keyword}>" class="inptText" />
+                        </label>
+                    </div>
+                </div>
+                <div class="right">
+                    <input type="submit" value="   搜索"  class="inptButton" />
+                </div>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="ding_id" /></td>
+                    <td class="w50">ID</td>
+                    <td>用户</td>
+                    <td>商家</td>
+                    <td>用餐时间</td>
+                    <td>地址</td>
+                    <td>预计人数</td>
+                    <td>支付定金</td>
+                    <td>联系人</td>
+                    <td>电话</td>
+                
+                    <td>操作</td>
+
+                </tr>
+                <foreach name="list" item="var" >
+                    <tr>
+                        <td><input class="child_ding_id" type="checkbox" name="ding_id[]" value="<{$var.ding_id}>" /></td>
+                        <td> <{$var.ding_id}></td>
+                        <td><{$users[$var['user_id']]['account']|default='游客'}></td>
+                        <td><{$shops[$var['shop_id']]['shop_name']}></td>
+                        <td><{$var.last_date}></td>
+                        <td><eq name="var.room_id" value="1"> 包房 <else/> 大厅 </eq></td>
+                        <td><{$var.number}></td>
+                        <td><{:round($dings[$key]['need_price']/100,2)}><eq name="var.is_pay" value="0"> （未付款） <else/> （已付款） </eq> </td>
+                        
+                        <td><{$dings[$key]['name']}></td>
+                        <td><{$dings[$key]['mobile']}></td>
+                       
+                        <td>
+                           <!-- <{:BA('shopdingyuyue/edit',array("ding_id"=>$var["ding_id"]),'编辑','','remberBtn')}>-->
+                            <{:BA('shopdingyuyue/delete',array("ding_id"=>$var["ding_id"]),'删除','act','remberBtn')}>
+                        </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                <{:BA('shopdingyuyue/delete','','批量删除','list',' a2')}>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+
+

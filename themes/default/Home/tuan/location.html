@@ -1,0 +1,230 @@
+<include file="public:header" /> 
+<include file="public:top"/>
+<script>
+    $(function () {
+        $('#selectBoxInput').click(function () {
+            $('.selectList').toggle(300);
+        });
+        $(".selectList li a").click(function () {
+            $("#selectBoxInput").html($(this).html());
+            $('.selectList').hide();
+        });
+    });//头部搜索框js
+    $(function () {
+        $('.sy_flsxAll').click(function () {
+            $('.sy_flsxAllList').toggle();
+        });
+    });
+</script>
+<div class="nav">
+    <div class="navList">
+        <!--<div class="navListBg">&nbsp;</div>-->
+        <ul>
+            <li class="navListAll zy_navListAll"><span class="navListAllt">全部套餐分类<em></em></span>
+                <div class="shadowy navAll">
+                    <include file="public:cate"/>
+                </div>
+            </li>
+            <li class="navLi"><a class="navA <if condition='$ctl eq tuan and $act eq index'>on</if> " href="<{:U('tuan/index')}>">首页</a></li>
+            <li class="navLi"><a class="navA <if condition='$ctl eq tuan and $act eq nearby'>on</if>" href="<{:U('tuan/nearby')}>">身边套餐</a></li>
+            <li class="navLi"><a class="navA " href="<{:U('tuan/index',array('new'=>1))}>">今日新单</a></li>
+            <li class="navLi"><a class="navA" href="<{:U('tuan/index',array('hot'=>1))}>">热门疯抢</a></li>
+        </ul>
+    </div>
+</div>
+<div class="content zy_content">
+    <div class="locaTop">
+        <div class="left locaTop_l">
+            <p class="locaTopP">在地图上<span>选择位置</span>，查看<span>附近套餐</span></p>
+            <if condition="empty($MEMBER)"><p class="locaTopDl">想查看之前保存位置的附近套餐。请<a href="<{:U('passport/login')}>">登录</a></p></if>
+        </div>
+        <div class="right locaTop_r"><span>微信扫一扫，<br />随时随地查看附近套餐</span>
+            <img src="__ROOT__/attachs/<{$CONFIG.site.wxcode}>" width="81" height="81" /></div>
+    </div>
+    <div class="locaNr">
+        <div class="left locaNr_l">
+            <p class="locaNr_serT">我的位置：</p>
+            <form method="post" action="<{:U('tuan/position')}>">
+                <div id="r-result" class="locaNr_serK">
+                    <input type="text" id="suggestId" name="name" class="locaNr_serInt mapinputs" value="请输入完整地址" onblur="if (!value) {
+                                value = defaultValue;
+                                this.style.color = '#999'
+                            }" onclick="if (value == defaultValue) {
+                                        value = '';
+                                        this.style.color = '#000'
+                                    }" />
+                    <input type="button" class="locaNr_serAn selectbotton" value="定位" />
+
+                </div>
+            </form>
+            <div class="locaNr_serNr">
+                <!--<p class="locaNr_serJg">共有760条结果</p> -->
+                <ul id="locaNr_serUl" class="locaNr_serUl">
+
+                </ul>
+            </div>
+        </div>
+        <div class="left locaNr_r">
+            <p class="locaNr_serMapP"><span class="left"><em></em>手机微信扫一扫，随时随地查看附近套餐</span><span class="right">您可以点击地图直接定位</span></p>
+            <div class="locaNr_serMap">
+                <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7b92b3afff29988b6d4dbf9a00698ed8"></script>
+                <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+                <div id="allmap" style="width: 845px; height:560px;"></div>
+                <script type="text/javascript">
+                                // 百度地图API功能
+                                var map = new BMap.Map("allmap");
+                                var addr = null;
+                                var lng = "<{$CONFIG['site']['lng']}>";
+                                var lat = "<{$CONFIG['site']['lat']}>";
+                                if (!lng && !lat) {
+                                    map.centerAndZoom("<{$city}>");
+                                    var point = new BMap.Point(117.260852, 31.825717);
+                                } else {
+                                    map.centerAndZoom(new BMap.Point(lng, lat), 15);
+                                    var point = new BMap.Point(lng, lat);
+                                }
+                                map.centerAndZoom(point, 15);
+                                var marker = new BMap.Marker(point);  // 创建标注
+                                map.clearOverlays();
+                                //map.addOverlay(marker);              // 将标注添加到地图中
+                                //marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                                function showPoint(e) {
+                                    var p = new BMap.Point(e.point.lng, e.point.lat);
+                                    var mk = new BMap.Marker(p);
+                                    map.clearOverlays();
+                                    //removeOverlay(overlay:Overlay);
+                                    map.addOverlay(mk);
+                                    //mk.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                                    var geoc = new BMap.Geocoder();
+                                    geoc.getLocation(p, function (rs) {
+                                        var addComp = rs.addressComponents;
+                                        addr = addComp.province + addComp.city + addComp.district + addComp.street + addComp.streetNumber;
+                                        var opts = {
+                                            width: 200, // 信息窗口宽度
+                                            height: 80, // 信息窗口高度
+                                            enableMessage: false,
+                                        }
+                                        var infoWindow = new BMap.InfoWindow("<div id='addr' style='height:48px; line-height:24px;'>地址:" + addr + "</div>" + "\r\n<div style='height:24px; line-height:24px; text-align:center; padding:0px 15px; border:1px solid #dedede; width:100px; margin:0px auto;'><a id='search_tuan' href='javascript:void(0);'>查看附近套餐</a></div>", opts);  // 创建信息窗口对象
+                                        map.openInfoWindow(infoWindow, p); //开启信息窗口
+                                        setTimeout(function () {
+                                            $('#search_tuan').on('click', function () {
+                                                var href = window.location.href;
+                                                var param = href.split('/location');
+                                                SetCookie('addr', escape(addr));
+                                                SetCookie('lng', e.point.lng);
+                                                SetCookie('lat', e.point.lat);
+                                                window.location.href = param[0] + '/nearby.html';
+                                            });
+                                        }, 100);
+                                    });
+                                }
+                                map.enableScrollWheelZoom(true);
+                                map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+                                map.addEventListener("click", showPoint);
+
+                                $(document).on('click', '.jq_li', function () {
+                                    var addr = $(this).children('p').html();
+                                    var myGeo = new BMap.Geocoder();
+                                    // 将地址解析结果显示在地图上,并调整地图视野
+                                    myGeo.getPoint(addr, function (point) {
+                                        if (point) {
+                                            map.clearOverlays();
+                                            map.centerAndZoom(point, 16);
+                                            var market = new BMap.Marker(point);
+                                            map.addOverlay(market);
+                                            var opts = {
+                                                width: 200, // 信息窗口宽度
+                                                height: 80, // 信息窗口高度
+                                                enableMessage: false,
+                                            }
+                                            var infoWindow = new BMap.InfoWindow("<div id='addr' style='height:48px; line-height:24px;'>地址:" + addr + "</div>" + "\r\n<div style='height:24px; line-height:24px; text-align:center; padding:0px 15px; border:1px solid #dedede; width:100px; margin:0px auto;'><a id='search_tuan' href='javascript:void(0);'>查看附近套餐</a></div>", opts);  // 创建信息窗口对象
+                                            map.openInfoWindow(infoWindow, point); //开启信息窗口
+                                            setTimeout(function () {
+                                                $('#search_tuan').on('click', function () {
+                                                    var href = window.location.href;
+                                                    var param = href.split('/location');
+                                                    SetCookie('addr', escape(addr));
+                                                    SetCookie('lng', point.lng);
+                                                    SetCookie('lat', point.lat);
+                                                    window.location.href = param[0] + '/nearby.html';
+                                                });
+                                            }, 100);
+                                        }
+                                    }, "<{$city.name}>");
+
+                                });
+
+
+
+                                function G(id) {
+                                    return document.getElementById(id);
+                                }
+                                var ac = new BMap.Autocomplete(//建立一个自动完成的对象
+                                        {"input": "suggestId"
+                                            , "location": map
+                                        });
+
+                                ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
+                                    var str = "";
+                                    var _value = e.fromitem.value;
+                                    var value = "";
+                                    if (e.fromitem.index > -1) {
+                                        value = _value.province + _value.city + _value.district + _value.street + _value.business;
+                                    }
+                                    str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+
+                                    value = "";
+                                    if (e.toitem.index > -1) {
+                                        _value = e.toitem.value;
+                                        value = _value.province + _value.city + _value.district + _value.street + _value.business;
+                                    }
+                                    str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+                                    G("searchResultPanel").innerHTML = str;
+                                });
+
+                                var myValue;
+                                ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
+                                    var _value = e.item.value;
+                                    myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+                                    G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+
+                                    setPlace();
+                                });
+
+                                function SetCookie(name, value)//两个参数，一个是cookie的名子，一个是值
+                                {
+                                    var Days = 3650; //此 cookie 将被保存 10年
+                                    var exp = new Date();    //new Date("December 31, 9998");
+                                    exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+                                    document.cookie = name + "=" + value + ";expires=" + exp.toGMTString();
+                                }
+
+                                function setPlace() {
+                                    map.clearOverlays();    //清除地图上所有覆盖物
+
+
+                                    var options = {
+                                        onSearchComplete: function (results) {
+                                            if (local.getStatus() == BMAP_STATUS_SUCCESS) {
+                                                // 判断状态是否正确      
+                                                var s = [];
+                                                for (var i = 0; i < results.getCurrentNumPois(); i++) {
+                                                    s.push("<li class='jq_li'><em></em><a class='locaNr_look' href='javascript:void(0);'>查看附近套餐</a><h3>" + results.getPoi(i).title + "</h3><p class='jq_addr'>地址：" + results.getPoi(i).address + "</p></li>");
+                                                }
+                                                //var r = ["<p class='locaNr_serJg'>共有" + results.getNumPois() + "条结果</p>"];
+                                                //var p = ["<div class='x'>"+results.getPageIndex()+"</div>"];
+                                                document.getElementById("locaNr_serUl").innerHTML = s.join("");
+                                            }
+                                        }
+                                    };
+                                    var local = new BMap.LocalSearch(map, options);
+                                    local.setPageCapacity(6);
+                                    local.search(myValue);
+                                }
+
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="public:footer"/>

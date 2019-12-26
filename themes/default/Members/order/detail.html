@@ -1,0 +1,43 @@
+<include file="public:header"/>
+<div class="content_right">  
+<div class="tgdd">
+    
+   
+        <div class="address_mr">
+            <ul>
+            
+            <li>订单编号：<span class="fontcl2"><{$detail.order_id}></span></li>
+            
+            <li>套餐名称：<span class="fontcl2"><{$tuans['title']}></span></li>
+            <li>套餐单价：<span class="fontcl2"><em>&yen; <{:round($tuans['tuan_price']/100,2)}> 元</em></span></li>
+            <li>套餐数量：<span class="fontcl2"><{$detail.num}></span></li>
+            <li>套餐总价：<span class="fontcl2"><em>&yen; <{:round($detail['total_price']/100,2)}> 元</em></span></li>
+            <li>下单时间：<span class="fontcl2"><{$detail.create_time|date='Y-m-d H:i',###}></span></li>
+            <if condition="$detail['use_integral'] gt 0">
+            <li>使用积分：<{$detail['use_integral']}> 分
+				<em  class="text-dot">&nbsp; &nbsp;&nbsp;抵现：&yen; <{:round($detail['use_integral']/100,2)}> 元</em></span>
+            </li>
+            </if>
+            
+            <if condition="$detail['mobile_fan'] gt 0">
+            <li>手机下单减：<{:round($detail['mobile_fan']/100,2)}> 元</li>
+            </if>
+            
+            
+                
+            <li>实际支付金额：<span class="fontcl2"><em class="text-dot">¥ <{:round($detail['need_pay']/100,2)}> 元</em></span></li>
+            
+            
+            </ul>
+        </div>
+        
+  
+  
+
+
+
+    
+</div>
+</div>
+<include file="public:footer"/>
+

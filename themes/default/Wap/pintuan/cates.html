@@ -1,0 +1,153 @@
+<include file="public:header"/>
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="javascript:history.go(-1)"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<{$cates.name}>
+		</div>
+		<div class="top-search" style="display:none;">
+			<form method="post" action="<{:U('pintuan/index')}>">
+				<input name="keyword" placeholder="输入拼团的关键字"  />
+				<button type="submit" class="icon-search"></button> 
+			</form>
+		</div>
+		<div class="top-signed">
+			<a id="search-btn" href="javascript:void(0);"><i class="icon-search"></i></a>
+		</div>
+	</header>
+    <script>
+		$(function(){
+			$("#search-btn").click(function(){
+				if($(".top-search").css("display")=='block'){
+					$(".top-search").hide();
+					$(".top-title").show(200);
+				}
+				else{
+					$(".top-search").show();
+					$(".top-title").hide(200);
+				}
+			});
+			$("#search-bar li").each(function(e){
+				$(this).click(function(){
+					if($(this).hasClass("on")){
+						$(this).parent().find("li").removeClass("on");
+						$(this).removeClass("on");
+						$(".serch-bar-mask").hide();
+					}
+					else{
+						$(this).parent().find("li").removeClass("on");
+						$(this).addClass("on");
+						$(".serch-bar-mask").show();
+					}
+					$(".serch-bar-mask .serch-bar-mask-list").each(function(i){
+						
+						if(e==i){
+							$(this).parent().find(".serch-bar-mask-list").hide();
+							$(this).show();
+						}
+						else{
+							$(this).hide();
+						}
+						$(this).find("li").click(function(){
+							$(this).parent().find("li").removeClass("on");
+							$(this).addClass("on");
+						});
+					});
+				});
+			});
+		});
+	</script>
+    
+    <div id="filter2" class="filter2">
+    <ul class="tab clearfix">
+        <li class="item"><a href="javascript:void(0);">
+        <if condition="!empty($cates)">
+        <span id="str_b_node" style="color:#f60;"><{:bao_msubstr($cates['name'],0,4,false)}> </span>
+        <else/>
+        <span id="str_d_node">选择分类</span>
+        </if>
+        <em></em></a></li>
+        
+        <li class="item"><a href="javascript:void(0);">
+        <if condition="empty($order)">
+        <span id="str_e_node">价格筛选</span>
+        <elseif condition="$order eq 1"/>
+        <span id="str_b_node" style="color:#f60;">价格排序</span>
+        <elseif condition="$order eq 2"/>
+        <span id="str_b_node" style="color:#f60;">销量排序</span>
+        <elseif condition="$order eq 3"/>
+        <span id="str_b_node" style="color:#f60;">时间排序</span>
+        </if>
+        
+        <em></em></a></li>
+        <li class="item"><a href="javascript:void(0);">
+        <if condition="empty($price)">
+        <span id="str_e_node">价格筛选</span>
+        <elseif condition="$price eq 1"/>
+        <span id="str_b_node" style="color:#f60;">50元以下</span>
+        <elseif condition="$price eq 2"/>
+        <span id="str_b_node" style="color:#f60;">50-100元</span>
+        <elseif condition="$price eq 3"/>
+        <span id="str_b_node" style="color:#f60;">100-200元</span>
+        <elseif condition="$price eq 4"/>
+        <span id="str_b_node" style="color:#f60;">200元以上</span>
+        </if>
+        <em></em></a></li>
+    </ul>
+     <div class="inner" style="display:none;">
+              <ul>
+              <li><a <if condition="empty($id)"> style="color:red;"</if> href="<{:U('pintuan/index')}>">全部分类</a></li>
+              <volist name="autocates" id="a">
+              <li><a <if condition="$id eq $a['id']"> style="color:red;"</if> href="<{:u('wap/pintuan/cates',array('id'=>$a['id'],'order'=>$order,'price'=>$price))}>"><{$a.name}></a></li>
+              </volist>
+            </ul>
+      </div>
+    
+    <div class="inner" style="display:none;">
+      <ul>
+       <li><a <if condition="$order eq 1"> style="color:red;"</if> href="<{:U('pintuan/index',array('id'=>$id,'order'=>'1','price'=>$price))}>">价格排序</a></li>
+       <li><a <if condition="$order eq 2"> style="color:red;"</if> href="<{:U('pintuan/index',array('id'=>$id,'order'=>'2','price'=>$price))}>">销量排序</a></li>
+       <li><a <if condition="$order eq 3">style="color:red;"</if> href="<{:U('pintuan/index',array('id'=>$id,'order'=>'3','price'=>$price))}>">时间排序</a></li>
+     </ul>
+    </div>
+      
+      <div class="inner" style="display:none;">
+        <ul>
+          <li><a <if condition="$price eq 1"> style="color:red;"</if> href="<{:U('pintuan/index',array('id'=>$id,'order'=>$order,'price'=>'1'))}>">50元以下</a></li>
+          <li><a <if condition="$price eq 2">style="color:red;"</if> href="<{:U('pintuan/index',array('id'=>$id,'order'=>$order,'price'=>'2'))}>">50-100元</a></li>
+          <li><a <if condition="$price eq 3">style="color:red;"</if> href="<{:U('pintuan/index',array('id'=>$id,'order'=>$order,'price'=>'2'))}>">100-200元</a></li>
+          <li><a <if condition="$price eq 4">style="color:red;"</if> href="<{:U('pintuan/index',array('id'=>$id,'order'=>$order,'price'=>'2'))}>">200元以上</a></li>
+        </ul>
+      </div>
+      
+      <div id="parent_container" class="inner_parent" style="display:none;">
+        <div class="innercontent"></div>
+      </div>
+      <div id="inner_container" class="inner_child" style="display:none;">
+        <div class="innercontent"></div>
+      </div>
+    
+</div>
+<!--end-->    
+
+<div id="fullbg" class="fullbg" style="display: none; height: 250px;">
+<i class="pull2"></i>
+</div>
+<style>.container {margin-top: 0rem;}</style>
+
+
+	<div class="blank-10 bg"></div>
+	<div class="item-list" id="item-list">
+		<ul></ul>
+	</div>
+
+
+    <script>
+        $(document).ready(function () {
+			showFilter({ibox:'filter2',content1:'parent_container',content2:'inner_container',fullbg:'fullbg'});
+            loaddata('<{$nextpage}>', $("#item-list ul"), true);
+        });
+    </script>
+	
+<include  file='public:footer'/>  

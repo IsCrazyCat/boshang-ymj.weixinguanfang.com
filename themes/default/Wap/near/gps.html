@@ -1,0 +1,24 @@
+<include file="public:header"/>
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a href="<{:U('near/detail',array('id'=>$detail['uid']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			商家地图
+		</div>
+	</header>
+
+	<style type="text/css">
+		body,html,#allmap{width:100%;height:100%;overflow:hidden;}
+		body{padding:50px 0 0 0;}
+		#golist {display: none;}
+		@media (max-device-width: 800px){#golist{display: block!important;}}
+	</style>
+	
+	<script src="http://api.map.baidu.com/components?ak=C9613fa45f450daa331d85184c920119&v=1.0"></script>
+	
+	<lbs-map width="100%" style="height:100%" center="<{$detail.lng}>,<{$detail.lat}>">
+		<lbs-poi name="<{$detail.name}>" location="<{$detail.lng}>,<{$detail.lat}>" addr="<{$detail.address}>" ></lbs-poi>
+	</lbs-map>
+</body>
+</html>

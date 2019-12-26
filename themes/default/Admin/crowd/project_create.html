@@ -1,0 +1,31 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">众筹</li>
+        <li class="li2">项目管理</li>
+        <li class="li2 li3">新增进展</li>
+    </ul>
+</div>
+<div class="mainScAdd ">
+
+    <div class="tableBox">
+        <form  target="baocms_frm" action="<{:U('crowd/project_create',array('goods_id'=>$detail['goods_id']))}>" method="post">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                
+        <tr>
+            <td class="lfTdBt">进展说明：</td>
+             <td class="rgTdBt"> <textarea cols='50' rows='5' name="data[content]"><{$type.content|default=''}></textarea>
+				 <code>简短的进展说明，建议不超过60字</code>
+            </td>
+        </tr>
+        
+       
+ 
+    </table>
+            <div style="margin-left:140px;margin-top:20px">
+                <input type="submit" value="确认添加" class="smtQrIpt" />
+                <div>
+</form>
+</div>
+</div>
+<include  file='public:footer'/>       

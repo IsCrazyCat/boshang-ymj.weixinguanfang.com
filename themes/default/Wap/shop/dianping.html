@@ -1,0 +1,35 @@
+<include  file='public:header'/>  
+<script src="/static/default/wap/js/dialog.js"></script>
+<link href="/static/default/wap/css/dianping.css" rel="stylesheet">
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('shop/detail',array('shop_id'=>$detail['shop_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<{$detail.shop_name}>
+		</div>
+        <div class="top-ping">
+        <a href="<{:U('user/dianping/index',array('shop_id'=>$detail['shop_id']))}>" class="top-addr icon-pencil-square-o"></a>
+		</div>
+	</header>
+<style>
+ul{ padding-left:0px;}
+.container { margin-top: 2rem;}
+.pics_img{width:60px; height:50px;float:left;padding-right:5px}
+</style>    
+<ul id="shangjia_tab">
+        <li style="width:16.66666667%;"><a href="<{:U('shop/detail',array('shop_id'=>$detail['shop_id']))}>">首页</a></li>
+        <li style="width:16.66666667%;"><a href="<{:U('shop/tuan',array('shop_id'=>$detail['shop_id']))}>">套餐</a></li>
+        <li style="width:16.66666667%;"><a href="<{:U('shop/life',array('shop_id'=>$detail['shop_id']))}>">信息</a></li>
+        <li style="width:16.66666667%;"><a href="<{:U('shop/coupon',array('shop_id'=>$detail['shop_id']))}>">优惠</a></li>
+        <li style="width:16.66666667%;"><a href="<{:U('shop/news',array('shop_id'=>$detail['shop_id']))}>">新闻</a></li>
+        <li style="width:16.66666667%;"><a href="<{:U('shop/dianping',array('shop_id'=>$detail['shop_id']))}>"   class="on">评价</a></li>
+</ul>
+
+ <div id="coupon-list" class="coupon-list2"></div>
+    <script>
+        $(document).ready(function () {
+            loaddata('<{:U("shop/dianpingloading",array("shop_id"=>$detail["shop_id"],"p"=>"0000"))}>', $("#coupon-list"), true);
+        });
+    </script>
+<include  file='public:footer'/>   

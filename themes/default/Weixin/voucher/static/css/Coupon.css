@@ -1,0 +1,48 @@
+/* CSS Document by jacy use in vipcard */
+body{ padding:0; margin:0; max-width:640px; margin:0 auto;}
+img{ font-size:0;}
+.fl{float:left;}
+.fr{float:right;}
+.clear{ height:0; line-height:0; font-size:0; clear:both;}
+/*代金券开始*/
+.weiHelp_cont .join_anniu{ text-align:center; margin:20px 0;}
+.weiHelp_cont .join_anniu .butn{ display:inline-block; font-size:18px; line-height:40px; padding:0 15px; background:#fff600; font-weight:bold; color:#950008;}
+.weiHelp_cont .join_anniu .butn em{ padding:10px; background:url(../img/help_ico.png) no-repeat center top; background-size:100% auto; font-size:0; line-height:0; vertical-align:middle; margin-right:5px;}
+.weiHelp_mine{ background:#fdfeb8; border-radius:50px; padding:10px 15px 5px 5px; margin:10px; overflow:hidden;}
+.weiHelp_mine .img{ width:50px; height:50px; border-radius:100%; overflow:hidden;}
+.weiHelp_mine .img img{ width:100%; height:100%;}
+.weiHelp_mine .wz{ margin-left:60px;}
+.weiHelp_mine .wz p{font-size:12px; line-height:20px; color:#656364;}
+.weiHelp_mine .wz .name{font-size:14px; color:#950008;}
+.weiHelp_mine .wz>.fl{ width:40%;}
+.weiHelp_mine .wz>.fr{ width:60%; text-align:right; overflow:hidden;}
+.weiHelp_mine_num{ display:inline-block; text-align:center; margin:0 2px;}
+.weiHelp_mine_num .num{ display:inline-block; padding:0 8px; color:#fff; line-height:20px; font-size:12px;}
+
+.voucherPage_tab{ padding:0 10px; padding-bottom:10px;}
+.voucherPage_tab_list{ display:block; float:left; width:32%; margin-right:2%;}
+.voucherPage_tab_list:last-child{ margin-right:0;}
+.voucherPage_tab_list a{ display:block; background:#de252b; text-align:center; font-size:12px; line-height:30px; color:#fff;}
+.voucherPage_tab_list.on a{background:#ce1914; color:#fbfd94;}
+.voucherPage_list_box{min-height:300px;}
+.voucherPage_list{ display:none; padding:10px;}
+.voucherPage_list .list{ display:block; background:#ff3f64; margin-bottom:10px; height:160px; min-height:160px;}
+.voucherPage_list .list>.fl{ background:url(../img/round_l.png) repeat-y left bottom; background-size:8px auto; width:80%; height:100%;}
+.voucherPage_list .list>.fr{ width:20%; text-align:center; height:100%; position:relative; border-left:1px dashed #fff; box-sizing:border-box; -moz-box-sizing:border-box; -webkit-box-sizing:border-box; background:url(../img/round_r.png) repeat-y right bottom; background-size:8px auto;}
+.voucherPage_list .list>.fr img{ width:20px; height:68px; vertical-align:middle; position:absolute; left:50%; margin-left:-10px; top:50%; margin-top:-34px;}
+.voucherPage_list .list>.fr .cardType{width:20px; height:68px; vertical-align:middle; position:absolute; left:50%; margin-left:-10px; top:50%; margin-top:-34px; font-size:20px; line-height:30px; color:#d72243; font-weight:bold;}
+.voucherPage_list .list>.fr .cardType.on{ color:#aeadad;}
+.voucherPage_list .list .wz{ padding:5px 10px 5px 15px;}
+.voucherPage_list .list .wz p{ font-size:12px; line-height:18px; color:#fff;}
+.voucherPage_list .list .wz .bt{font-size:16px; line-height:30px; color:#ffff79;}
+.voucherPage_list .list .wz .intro{ border:1px dashed #ffff79; padding:0 5px; font-size:12px; line-height:18px; color:#fff; margin:8px 0;}
+.voucherPage_list .list .butn{ display:block; font-size:14px; line-height:30px; background:#ffff79; color:#ff3f64; text-align:center; margin:10px 0;}
+.voucherPage_list .list .time{ font-size:14px; line-height:30px; color:#a5011d; text-align:center;}
+
+.voucherPage_list .list.grey{background:#cfc8c8;}
+.voucherPage_list .list.grey .wz p{color:#aeadad;}
+.voucherPage_list .list.grey .wz .bt{color:#aeadad;}
+.voucherPage_list .list.grey .wz .intro{ border:1px dashed #aeadad; color:#aeadad;}
+.voucherPage_list .list.grey .butn{background:#aeadad; color:#cfc8c8;}
+.voucherPage_list .list.grey .time{color:#aeadad;}
+/*代金券结束*/

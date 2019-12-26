@@ -1,0 +1,28 @@
+ <foreach name="list" item="item">
+	<div class="line padding border-bottom">
+		<div class="x12">
+			<p>
+				<a class="title" href="<{:u('wap/community/tie',array('post_id'=>$item['post_id']))}>">
+					<{:bao_Msubstr($item['title'],0,40,true )}>
+				</a>
+			</p>
+			<p class="text-gray">发布时间：<{$item.create_time|date='H:i',###}></p>
+			<p class="text-gray">作者：<{$users[$item['user_id']]['nickname']}>&nbsp;&nbsp;</p>
+
+		</div>
+	</div>
+	<div class="line padding">
+		<span class="x2"><em class="text-dot"><{$item.reply_num}></em>回复</span>
+		<span class="x3">点击：<{$item.views}></span>
+        <span class="x5">状态：
+        <if condition="$item[audit] eq 0">
+        <a class="button button-small bg-blue">未审核</a>
+        <else/>
+        <a class="button button-small bg-dot">已审核</a>
+        </if>
+        </span>
+		<span class="x2 text-right">
+        <a href="<{:u('user/community/tiebadelete',array('post_id'=>$item['post_id']))}>"  class="jquery-delete button button-small bg-dot">删除</a>
+	</div>
+	<div class="blank-10 bg"></div>
+</foreach>

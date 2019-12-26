@@ -1,0 +1,22 @@
+<foreach  name="shops" item="var">
+<li    <if condition="$var['orderby'] LT 100">class="youxuan"</if>>
+    <a title="<{$var.shop_name}>" href="<{:U('shop/detail',array('shop_id'=>$var['shop_id']))}>">
+        <img src="__ROOT__/attachs/<{$var.logo}>" ><div class="des"><p class="title_default"><{:msubstr($var['shop_name'],0,6,'utf-8',false)}></p>
+            <div class="zwdk">
+                <gt name="var.bao_date" value="$today"> <span class="z">证</span>  </gt>
+                <gt name="var.card_date" value="$today"><span class="k">卡</span></gt>
+                <gt name="var.wei_date" value="$today"> <span class="w">微</span></gt>
+                <gt name="var.yuyue_date" value="$today"><span class="d">订</span></gt>                              
+            </div>
+            <p class="light price">
+                <span title="" class="ald-rate ald-rate-40"></span>
+                <span class="rmb">平均￥<{$shopdetails[$var['shop_id']]['price']}></span></p>
+            <p class="bbt small_font light"><{$shopcates[$shopcates[$var['cate_id']]['parent_id']]['cate_name']}>   <{$shopcates[$var['cate_id']]['cate_name']}>        
+                <span class="fr"> 
+                    <span class="icon_location"></span>  <{$var.d}></span></p>
+        </div>
+    </a>
+</li>
+
+
+</foreach>

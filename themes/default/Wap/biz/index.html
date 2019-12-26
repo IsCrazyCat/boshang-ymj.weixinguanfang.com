@@ -1,0 +1,154 @@
+<include file='public:headnear'/>  
+
+<style>
+/*服务列表*/
+.near-list ul{list-style:none;padding:0;}
+.near-list li{padding:10px;border-bottom:thin solid #eee;}
+.near-list li p{margin:0;height:30px;line-height:30px;color:#999;font-size:12px;}
+.near-list li .tel a{margin-right:10px;}
+.near-list li h5 span{float:right;color:#999;font-size:12px;}
+.top-fixed .top-signed a.search-btn{float:right;}
+.top-fixed .top-signed a#cate-btn{ float:right;}
+</style>	
+
+
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			周边小店
+		</div>
+		<div class="top-search" style="display:none;">
+			<form method="post" action="<{:U('biz/index')}>">
+				<input name="keyword" placeholder="输入搜索关键字"  />
+				<button type="submit" class="icon-search"></button> 
+			</form>
+		</div>
+		<div class="top-share">
+			<a id="search-btn" href="javascript:void(0);"><i class="icon-search"></i></a>
+            <a href="javascript:void(0);" id="cate-btn"><i class="icon-bars"></i></a>
+		</div>
+	</header>
+    
+    
+      <div class="serch-bar-mask" id="cate_menu" style="display:none;top:50px;">
+		<div class="serch-bar-mask-list">
+			<ul>
+            <li><a  href="<{:LinkTo('biz/index',array('change'=>1))}>">全部分类</a></li>
+           <foreach name="getType" item="var" key="index">
+                <li> <a <eq name='var.getType' value='$index'>class="on"</eq> href="<{:U('biz/index',array('type'=>$index,'order'=>$order))}>"><{$var}></a></li>
+                </foreach>
+            
+			</ul>
+		</div>
+	</div>
+	<script>
+		$(document).ready(function () {
+			$("#cate-btn").click(function () {
+				$("#cate_menu").toggle();
+			});
+			
+			$("#cate_menu ul li a").click(function () {
+				$("#cate_menu").toggle();
+			});
+
+		});
+	</script>
+    
+	
+	<div class="line">
+		<div class="blank-10"></div>
+		<div class="padding">
+			<i class="icon-map-marker"></i> <span id="local-addr"></span> (<a href="javascript:reset();" class="text-gray" id="local-reset">重新定位</a>)
+		</div>
+	</div>
+	
+
+
+	
+	
+
+	
+	
+	<div id="allmap" style="width:100%;height:100px; display:none;"></div>
+	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=qfbt1AS4SZZvfZvSXE0A1Mx2"></script>
+	<script>
+		$(document).ready(function () {
+			TouchSlide({ 
+				slideCell:"#focus",
+				titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+				mainCell:".bd", 
+				effect:"left", 
+				autoPlay:false,//自动播放
+				autoPage:true, //自动分页
+			});
+			reset();
+			$("#search-btn").click(function(){
+				if($(".top-search").css("display")=='block'){
+					$(".top-search").hide();
+					$(".top-title").show(200);
+				}
+				else{
+					$(".top-search").show();
+					$(".top-title").hide(200);
+				}
+			});
+			
+		});	
+   
+	function reset() {
+		var addr = $("#local-addr").html();
+		$("#local-addr").html("定位中……");
+			// 百度地图API功能
+	var map = new BMap.Map("allmap");
+	var point = new BMap.Point(116.331398,39.897445);
+	map.centerAndZoom(point,12);
+	var geolocation = new BMap.Geolocation();
+	geolocation.getCurrentPosition(function(r){
+		if(this.getStatus() == BMAP_STATUS_SUCCESS){
+			var mk = new BMap.Marker(r.point);
+			map.addOverlay(mk);
+			map.panTo(r.point);
+			lat=r.point.lat;
+			lng=r.point.lng;
+			getlat(lng,lat);
+			//alert('您的位置：'+lng+','+lat);
+			$("#addr").html(lng+','+lat);
+		}
+		else {
+			//alert('failed'+this.getStatus());
+		}        
+	},{enableHighAccuracy: true})
+		
+		}
+		function getlat(lng,lat){
+	//alert('开始获取');
+	var map = new BMap.Map("allmap"); 
+	var point = new BMap.Point(lng,lat);
+	map.centerAndZoom(point,12);
+	var geoc = new BMap.Geocoder();    
+	var pt = point;
+	geoc.getLocation(pt, function(rs){
+			var addComp = rs.addressComponents;
+			//alert(addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+			$("#local-addr").html(addComp.city + addComp.district + addComp.street + addComp.streetNumber);
+		});        
+		}
+		 
+	</script>
+    
+    
+    
+    
+    <div class="near-list">
+		<ul id="near-list">
+		</ul>
+	</div>
+    
+    <script>
+		$(document).ready(function () {
+			loaddata('<{$nextpage}>', $("#near-list"), true);
+		});
+	</script>
+<include file='public:footer'/> 

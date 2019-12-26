@@ -1,0 +1,62 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">支付设置</li>
+        <li class="li2 li3">缴费类型</li>
+    </ul>
+</div>
+<div class="main-cate">
+    <p class="attention"><span>注意：</span>这里可以配置需要缴费的类型，添加后不可删除，如果需要删除去数据库：bao_bill_type表中处理，编辑已有类型的时候没数据请先清理下缓存再来编辑即可。</p>
+    <div class="jsglNr">
+        <form id="cate_action" action="" target="baocms_frm" method="post">
+            <div class="selectNr" style="border-top: 1px solid #dbdbdb;">
+                <div class="left">
+                    <{:BA('bill/createtype','','添加缴费类型','load','',1000,600)}>
+                </div>
+                <div class="right">
+                </div>
+            </div>
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF; text-align:center;">
+                    <tr bgcolor="#eee" height="48px;" style=" font-size:16px; line-height:48px;">
+                        <td>类型</td>
+                        <td>字段(标签)</td>
+						<td>备注</td>
+                        <td>费率</td>
+                        <td>奖励积分</td>
+                        <td>是否短信通知</td>
+                        <td>是否启用</td>
+                        <td>操作</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr height="48px" style="font-size:14px; color:#545454; text-align:center; line-height:48px;">
+                            <td style="padding-left:20px;"><{$var.bill_type_name}></td>
+                            <php>
+                                $fieldNames = array('mobile' => '手机', 'realname' => '户主', 'account' => '编号');
+                                $fields = explode(',', $var['bill_fields']);
+								$tmpfieldLabels = explode(',', $var['bill_fields_label']);
+								$fieldLabels = array('mobile' => $tmpfieldLabels[1], 'realname' => $tmpfieldLabels[0], 'account' => $tmpfieldLabels[2]);
+                            </php>
+                            <td>
+                                <foreach name="fields" key="k" item="v">
+                                    <if condition="$k gt 0">、</if><{$fieldNames[$v]}>(<{$fieldLabels[$v]}>)
+                                </foreach>
+                            </td>
+							<td><{$var.memo}></td>
+                            <td><{$var.fee_rate}>%</td>
+                            <td><{$var.integral}></td>
+                            <td><if condition="$var.sms_notify eq 1">是<else/>否</if></td>
+                            <td><if condition="$var.enable eq 1">是<else/>否</if></td>
+                            <td style="text-align:center;">
+                                <{:BA('bill/edittype',array("id"=>$var['bill_type_id']),'编辑','load','remberBtn',1000,600)}>
+                               <!-- <{:BA('bill/deletetype',array("id"=>$var['bill_type_id']),'删除','act','remberBtn')}>-->
+                            </td>
+                        </tr>
+                    </foreach>
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
+<include file='public:footer'/>

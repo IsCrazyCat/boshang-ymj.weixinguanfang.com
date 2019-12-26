@@ -1,0 +1,210 @@
+
+<include file="public:header"/>
+<script type="text/javascript" language="javascript">
+	$(document).ready(function(){
+		var i = 1;
+		$('.tgdd_pic').click(function(){
+			i = i + 1 ;
+			$('.tgdd_pic').css('width','100px').css('height','70');
+			if(i%2 == 1){
+				$(this).css('width','100px').css('height','70');
+			}else{
+				$(this).css('width','auto');
+				$(this).css('height','auto');
+			}
+		})
+	})
+</script>
+
+
+
+<div class="content_right">  
+    <div class="tgdd">
+        <div class="tgdd_t">
+            <ul>
+                <li <if condition="$status eq 1 or empty($status)">class="on"</if> ><a href="<{:U('dianping/index',array('status'=>1))}>">商家点评</a></li>
+                <li <if condition="$status eq 2">class="on"</if> ><a href="<{:U('dianping/index',array('status'=>2))}>">套餐点评</a></li>
+                 <if condition="$open_mall eq '1' ">
+                <li <if condition="$status eq 6">class="on"</if> ><a href="<{:U('dianping/index',array('status'=>6))}>">商城（微店）点评</a></li>
+                </if>
+                <li <if condition="$status eq 3">class="on"</if> ><a href="<{:U('dianping/index',array('status'=>3))}>">订餐点评</a></li>
+                <if condition="$open_ding eq '1' ">
+                <li <if condition="$status eq 4">class="on"</if> ><a href="<{:U('dianping/index',array('status'=>4))}>">订座点评</a></li>
+                </if>
+                <li <if condition="$status eq 5">class="on"</if> ><a href="<{:U('dianping/index',array('status'=>5))}>">家政点评</a></li>
+            </ul>
+        </div>
+        <if condition="$status gt 1">
+            <div class="tgdd_t">
+
+                <ul>
+
+                    <li <if condition="$st eq 1 or empty($st)">class="on"</if> ><a href="<{:U('dianping/index',array('status'=>$status,'st'=>1))}>">未点评</a></li>
+
+                    <li <if condition="$st eq 2">class="on"</if> ><a href="<{:U('dianping/index',array('status'=>$status,'st'=>2))}>">已点评</a></li>
+
+                </ul>
+
+            </div>
+
+        </if>
+
+        <if condition="$status eq 1 or empty($status)">
+
+            <div class="tgdd_nr">
+
+             
+
+              <table class="tuan_table3" width="100%" border="0" cellspacing="0" cellpadding="0">
+
+        <tr style="background-color:#F9F9F9;">
+
+            <td width="10%">编号</td>
+
+            <td width="20%">用户</td>
+
+            <td width="5%">评分</td>
+
+            <td width="5%">平均花费</td>
+
+            <td width="30%">评价时间</td>
+
+            <td width="20%">评价IP</td>
+
+            <td width="10%">生效日期</td>
+
+    </table>
+
+    
+
+    <volist name="list" id="var" key="index">
+
+    <table class="dianping" width="100%" border="0">
+
+      <tr class="tr_dianping_1">
+
+        <td class="td_dianping_1"><{$var.dianping_id}></td>
+
+        <td class="td_dianping_2"><{$users[$var['user_id']]['nickname']}>(ID:<{$var.user_id}>)</td>
+
+        <td class="td_dianping_3"><{$var.score}></td>
+
+        <td class="td_dianping_4"><{$var.cost}></td>
+
+        <td class="td_dianping_5"><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+
+        <td class="td_dianping_6"><{$var.create_ip}>(来自<{$var.create_ip_area}>)</td>
+
+        <td class="td_dianping_7"><{$var.show_date}></td>
+
+      </tr>
+
+      <tr class="tr_dianping_2">
+
+        
+
+        <td class="td_dianping_12" colspan="2">
+
+        
+
+        <php>
+
+        $shop = D('Shop') -> where('shop_id ='.$var['shop_id']) -> find();
+
+        </php> 
+
+         <!--商品展示开始-->
+
+        <div class="index__production___yfP3y" >
+
+        <a  target="_blank"  href="<{:u('home/shop/detail',array('shop_id'=>$shop['shop_id']))}>" class="index__pic___TScfk" >
+
+        
+
+        <img src="<{:config_img($shop['photo'])}>" ><span></span></a>
+
+        <div class="index__infos___A6XLq" >
+
+            <p ><a href="<{:u('home/shop/detail',array('shop_id'=>$shop['shop_id']))}>" target="_blank" ><span ></span><span><{$shop['shop_name']}></span><span ></span></a><span></span><span></span></p>
+
+            <span></span>
+
+            <p></p>
+
+            <span></span>
+
+        	</div>
+
+		</div>
+
+       <!--商品展示END-->
+
+        
+
+        </td>
+
+        <td class="td_dianping_9" colspan="3">
+
+        
+
+        
+
+        点评内容：<{$var.contents}>
+
+        	<br/><br/>
+
+            <if condition="$var['pichave'] eq 1">
+
+             <foreach name="pics" item="item">
+
+             <if condition="$var['dianping_id'] eq $item['dianping_id']"> 
+
+             
+
+             <a target="_blank" href="__ROOT__/attachs/<{:config_img($item['pic'])}>"><img src="<{:config_img($item['pic'])}>" width="60"/></a>
+
+              </if>
+
+             </foreach>
+
+          </if>
+
+        
+
+        </td>
+
+        <td class="td_dianping_10" colspan="2"><if condition="!empty($var['reply'])"><span style="color:#F00">商家回复：<{$var.reply}></span><else/>商家无回复</if></td>
+
+      </tr>
+
+      
+
+      
+
+      
+
+    </table>
+
+     </volist>
+
+    <br/>
+
+    
+
+                <div class="x"><{$page}></div>
+
+            </div>
+
+        </if>
+
+    </div> 
+
+</div>
+
+</div>
+
+
+
+
+
+<include file="public:footer"/>

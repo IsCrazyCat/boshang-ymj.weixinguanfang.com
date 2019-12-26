@@ -1,0 +1,70 @@
+<include file="public:header"/>
+<style>
+.icon-sign-out, .top-fixed .top-back i { font-size: 18px;}
+.top-fixed {border-bottom: none;}
+.top-fixed .top-search input {border-radius:2px;}
+.top-fixed .top-share, .top-fixed .top-back {padding-right: 0px;}
+.top-fixed .top-title {font-size: 14px;}
+.top-fixed .top-share a {width: 50px !important;}
+p, .p {margin-bottom: 0px;}
+.member-top { margin-top: 0px;}
+</style>
+<script src="/static/default/wap/other/roll.js"></script>
+
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:u('user/member/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			个人营销中心
+		</div>
+       
+		<div class="top-share">
+			<include file="public:message"/>
+		</div>
+	</header>
+	
+
+    
+    
+<div class="member-top">
+<div class="member-info">
+<div class="user-avatar"> 
+<img src="<{:config_img($MEMBER['face'])}>"> 
+</div>
+<div class="user-name"> 
+<span>
+				<if condition="!empty($MEMBER['nickname'])">
+                <{$MEMBER.nickname}> 
+                <else/>
+                <{$MEMBER.account}> 
+                </if>
+                <sup>VIP <{$MEMBER['rank_id']}></sup></span> 
+</div>
+</div>
+    <div class="member-collect">
+        <span><a href="<{:u('money/index')}>"><em>&yen;<{:round($MEMBER['money']/100,2)}></em><p>我的余额</p></a> </span>
+        <span><a href="<{:U('profit', array('status'=>1))}>"><em>&yen;<{:round($profit_ok/100,2)}></em><p>我的分成</p></a> </span>
+        <span><a href="<{:U('profit', array('status'=>2))}>"><em>&yen;<{:round($profit_cancel/100,2)}></em><p>已取消的分成</p></a> </span>
+    </div>
+</div>   
+
+</div>
+
+<div class="panel-list">
+	<ul>
+        <li><a href="<{:U('profit', array('status'=>1))}>"><span class="icon-btc"></span>收益统计<i class="icon-angle-right"></i></a></li>
+        <li><a href="<{:U('subordinate',array('level'=>1))}>"><span class="icon-arrow-down"></span>我的客户<i class="icon-angle-right"></i></a></li>
+        <li><a href="<{:U('superior')}>"><span class="icon-arrow-up"></span>部门领导<i class="icon-angle-right"></i></a></li>
+
+<!--        <li><a href="<{:U('poster')}>"><span class="icon-tv"></span>我的海报<i class="icon-angle-right"></i></a></li>-->
+	</ul>
+</div>
+
+<div class="blank-10 bg"></div>
+<div class="blank-10"></div>
+<div class="container text-center">
+		<a class="button button-block button-big bg-dot" href="<{:u('wap/passport/logout')}>">退出后台</a>
+</div>
+
+<include  file='distribution:footer'/>

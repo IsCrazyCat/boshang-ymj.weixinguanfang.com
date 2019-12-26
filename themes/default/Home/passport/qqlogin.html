@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+
+<html lang="zh-cn">
+<head>
+    <!-- @fragment_top Start-->
+<meta charset="UTF-8">
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>QQ帐号安全登录</title>
+<meta name="keywords" content="QQ互联、QQ登录、安全登录、网站接入、腾讯开放平台">
+<meta name="description" content="接入QQ互联，可实现与腾讯各项服务的无缝连接，安全帐号登录体系，用户动态同步腾讯各社交平台，调用腾讯公司各业务服务。">
+<meta name="copyright" content="Tencent" >
+<meta name="author" content="rtx://tencent/sng/yuanyan" >
+<link rel="Shortcut Icon" href="http://qzonestyle.gtimg.cn/qzone/openapi/favicon.ico?t=20130219" type="image/x-icon">
+<link rel="icon" href="http://qzonestyle.gtimg.cn/qzone/openapi/favicon.ico?t=20130219" type="image/x-icon">
+<link href="http://qzonestyle.gtimg.cn/open/connect/widget/pc/login/qlogin_v2.min.css?max_age=2592000&v=20140818" rel="stylesheet">
+<script type="text/javascript">
+    window.__start = +new Date();
+    
+    document.domain = 'qq.com';
+    var _speedTiming = [+new Date];
+    (function error(monitorId){
+        var BID = 130;
+        var errorTransport = null;
+        var monitorTransport = null;
+        window.onerror = function(errorMsg, url, lineNumber) {
+            var bid = 'bid=' + BID;
+            var mid = '';
+            var msg = 'msg=' + encodeURIComponent([errorMsg, url, lineNumber, navigator.userAgent].join("|_|"));
+            var src = 'http://badjs.qq.com/cgi-bin/js_report?'+ [bid,mid,msg].join("&");
+            errorTransport = new Image;
+            errorTransport.onerror = errorTransport.onload = function(){
+                errorTransport = errorTransport.onerror = errorTransport.onload = null ;
+            };
+            errorTransport.src = src;
+            monitorTransport = new Image;
+            monitorTransport.onerror = monitorTransport.onload = function(){
+                monitorTransport = monitorTransport.onerror = monitorTransport.onload = null ;
+            };
+            monitorTransport.src = "http://cgi.connect.qq.com/report/report_vm?monitors=" +"["+monitorId+"]";
+        };
+    })(302299);
+</script>
+<!-- @fragment_top End -->
+</head>
+<body style="overflow-x: hidden;">
+
+<div class="page_accredit page_error">
+    <!-- @header Start-->
+<div class="lay_top">
+    <div class="lay_top_inner">
+        <h1 class="logo text_hide">QQ登录</h1>
+        <div class="lat_top_other">
+            <a href="http://connect.qq.com/intro/login" target="_blank" title="什么是QQ登录"><i class="icon_help_white"></i>QQ登录</a>
+            <span class="line">|</span>
+            <a href="http://connect.qq.com/toc/auth_manager?from=auth" id="auth_manager_link" target="_blank" title="登录授权管理">授权管理</a>
+            <span class="line">|</span>
+            <a href="http://connect.qq.com/manage" target="_blank" title="申请接入">申请接入</a>
+        </div>
+    </div>
+</div>
+<!-- @header End -->
+
+    <div class="lay_main lay_main_single">
+        <div class="lay_login_warn">
+            <div class="fn_login_warn">
+                
+                <!-- 以下对错误码为100008的情况单独处理 -->
+                <p><span class="warn_txt">
+                    
+                    <!-- <i class="icon-i"></i> -->
+                    对不起，该网站尚未开通QQ帐号登录（错误码：100008）
+                    
+                    </span></p>
+                
+                <p class="warn_tips">
+                    
+                    <a href="http://wiki.connect.qq.com/%E7%BD%91%E7%AB%99%E6%8E%A5%E5%85%A5%E6%B5%81%E7%A8%8B" target="_blank">了解如何开通</a>
+                    
+                    <span>&nbsp;</span>
+                    
+                </p>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- @footer Start-->
+<div class="lay_footer">
+    <div class="lay_footer_inner">
+        <div class="lay_footer_r">
+            <a href="http://zc.qq.com/chs/index.html" title="注册QQ号" target="_blank">注册QQ号</a>
+            <a href="http://support.qq.com/write.shtml?fid=780" target="_blank" title="反馈意见" id="feed_back_link">反馈意见</a>
+        </div>
+    </div>
+</div>
+<!-- @footer End -->
+
+</div>
+<!--@fragment_bottom Start-->
+<script src="http://qzonestyle.gtimg.cn/c/=/open/connect/widget/pc/login/pt_adapt.js,qlogin_v2.js?v=20140527" charset="UTF-8"></script>
+<script>
+    document.write('<script src="http://tajs.qq.com/stats?sId=36511985" charset="UTF-8"><\/script>');
+</script>
+<!--@fragment_bottom End -->
+
+<script>
+    // PC错误页曝光量
+    Q.monitor(302300);
+    // support论坛逻辑
+    var feed_back_link = document.getElementById("feed_back_link_err");
+    var dmRe = /http:\/\/([^/]*)\/?/i;
+    window.crtDomain = '' || (Q.getParameter && Q.getParameter("redirect_uri"));
+    var errcode = '100008';
+    var dmHost = window.crtDomain.match(dmRe);
+    if(feed_back_link) {
+        feed_back_link.href += ("&SSTAG="+encodeURIComponent((dmHost&&dmHost[1])+".errorcode"+errcode));
+    }
+
+    var t = +new Date() - Q.getParameter('auth_time');
+
+    // 授权失败
+    Q.mta('LoginFailed', {Appid: Q.appid, Ext1: Q.getParameter('error')});
+
+    // mm上报注册
+    var uin = Q.getCookie('uin') || 0;
+    if (uin && (/^o([0-9]+)$/).test(uin)) uin = parseFloat(RegExp.$1);
+
+    Q.mm.init(1000128, uin, 'QC_WEB');
+    Q.mm.report(Q.cgi, Q.getParameter('error'), t);
+</script>
+</body>
+</html>

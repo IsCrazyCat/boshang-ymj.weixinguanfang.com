@@ -1,0 +1,92 @@
+<div class="dhPop">
+    <h2><span  class="bao_closed"></span>积分兑换</h2>
+    <form method="post" target="baocms_frm" action="<{:U('jifen/exchange',array('goods_id'=>$detail['goods_id']))}>">
+        <table cellpadding="0" cellspacing="0" width="100%">
+
+            <if condition="!empty($useraddr)">
+                <tr>
+                    <td colspan="2"><b>请选择收货地址：</b></td>
+                </tr>
+                <foreach name="useraddr" item="item">
+                    <tr>
+                        <td colspan="2">
+                            <label> <input type="radio" class="jq_addr_id" name="addr_id" value="<{$item['addr_id']}>"/> <{$item.name}>,<{$item.mobile}>,<{$item.addr}></label>
+                        </td>
+                    </tr>
+                </foreach>
+                <tr>
+                    <td colspan="2"><b ><input type="radio" class="jq_addr_id" name="addr_id" value="0"/> 新增新地址：</b></td>
+                </tr>
+                <script>
+                    $(document).ready(function(){
+                        $(".jq_spxq_qgjjKk_addr").hide();
+                        $(".jq_addr_id").click(function(){
+                           
+                            if($(this).val() == 0){
+                                $(".jq_exchange_addr").show();
+                            }else{
+                                $(".jq_exchange_addr").hide();
+                            }
+                            
+                        });
+                    });
+                </script>
+            </if>
+
+            <tbody  class="jq_exchange_addr">
+                <tr>
+                    <td align="right">地区：</td>
+                    <td>
+                        <select name="data[area_id]" id="area_id" class="dhInput">
+                            <option value="0">请选择...</option>
+                            <foreach name="areas" item="var">
+                                <eq name="var.city_id" value="$city_id">
+                                <option value="<{$var.area_id}>"><{$var.area_name}></option>
+                                </eq>
+                            </foreach>   
+                        </select>
+                        <script>
+                            $(document).ready(function(e){
+                                $("#area_id").change(function(){
+                                    var url = '<{:U("public/business",array("area_id"=>"0000"))}>';
+                                    if($(this).val() > 0){
+                                        var url2 = url.replace('0000',$(this).val());
+                                        $.get(url2,function(data){
+                                            alert(data);
+                                            $("#business_id").html(data);
+                                        },'html');
+                                    }
+                                
+                                });
+                            });
+                        </script>
+                        <select name="data[business_id]" id="business_id" class="dhInput">
+                            <option value="0">请选择...</option>
+                            <foreach name="business" item="var">
+                                <option value="<{$var.business_id}>"><{$var.business_name}></option>
+                            </foreach>   
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="right">收货地址：</td>
+                    <td><input type="text" name="data[addr]" class="dhInput dhInput2" value="" /></td>
+                </tr>
+                <tr>
+                    <td align="right">收货人：</td>
+                    <td><input type="text" name="data[name]" class="dhInput" value="<if condition="$MEMBER.nickname neq null"><{$MEMBER.nickname}></if>" /></td>
+                </tr>
+                <tr>
+                    <td align="right">联系电话：</td>
+                    <td><input type="text" name="data[mobile]" class="dhInput" value="<if condition="$MEMBER.mobile neq null"><{$MEMBER.mobile}></if>" /></td>
+                </tr>
+            </tbody>
+            <tr>
+                <td align="right"></td>
+                <td><input style="cursor: pointer; margin-bottom: 20px;" class="subBtn" type="submit" value="确认兑换" /></td>
+            </tr>
+        </table>
+    </form>
+
+</div>

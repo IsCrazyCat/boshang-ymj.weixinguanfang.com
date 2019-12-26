@@ -1,0 +1,39 @@
+<style>
+.dealcard{position: relative;box-sizing: border-box; margin: -.08rem 0;}
+.dealcard .dealcard-nobooking {position: absolute;overflow: hidden;width:4rem;height:4rem;z-index: 1;}
+.dealcard .dealcard-nobooking:after {font-size:12px;background: #06c1ae;color: #fff;padding: .15rem;position: absolute;width:5.8rem; text-align: center; -webkit-transform: rotateZ(-45deg);left: -1.35rem; top:0.8rem;}
+</style>
+
+<volist name="list" id="item" key="index"> 
+	<li class="line">	
+        <if condition="$item.xiangou_num elt 0 "><!--不知道是什么--></if>	
+        <a href="<{:U('pintuan/detail',array('id'=>$item['id']))}>">		
+        <div class="x12 dealcard">
+        <style>
+		.dealcard .dealcard-nobooking:after {content: "<{$item.tuan_num}>人团";}
+		</style>
+        <span class="dealcard-nobooking"></span>
+        
+        
+        <img src="<{:config_img($item['list_pic'])}>" />
+        <div class="title">
+				<h1><{$item.name}></h1>
+			</div>
+        </div>
+       		
+            <div class="x12" style="padding:0 10px;">
+             <div class="blank-10"></div>
+                <p class="desc"><{$item.describe}></p>	
+                <p class="info">
+                <span class="text-dot">&yen; <{:round($item['tuan_price']/100,2)}></span>
+                <span class="text-yellow"><{:round(($item['tuan_price']/$item['market_price'])*10,2)}>折</span>
+                <del>市场价:&yen; <{:round($item['market_price']/100,2)}></del>				
+                <em class="button button-small bg-yellow ">去开团 <i class="icon-angle-right"></i></em>
+                </p>
+                <div class="blank-10"></div>	
+            </div>	
+       </a>	
+       
+     </li>
+       <div class="blank-10 bg"></div>
+</volist>

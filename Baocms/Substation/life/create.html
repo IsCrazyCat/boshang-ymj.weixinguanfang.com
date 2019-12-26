@@ -1,0 +1,328 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">分类信息</li>
+        <li class="li2">信息列表</li>
+        <li class="li2 li3">新增</li>
+    </ul>
+</div>
+<div class="mainScAdd ">
+    <div class="tableBox">
+        <form  target="baocms_frm" action="<{:U('life/create')}>" method="post">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">标题：</td>
+                    <td class="rgTdBt"><input type="text" name="data[title]" value="<{$detail.title|default=''}>" class="manageInput w300" />
+                    </td>
+                </tr>    
+                <tr>
+                    <td class="lfTdBt">分类：</td>
+                    <td class="rgTdBt">
+                        <select name="data[cate_id]" id="jq_cate" class="manageSelect">
+                            <foreach name="channelmeans" item="item" key="key">
+                                <option value=""><{$item}></option>
+                                <foreach name="cates" item="it" key="k">
+                                    <eq name="it.channel_id" value="$key">
+                                    <option value="<{$it.cate_id}>">&nbsp;&nbsp;-<{$it.cate_name}></option>
+                                    </eq>
+                                </foreach>
+                            </foreach>
+                        </select>
+
+                    </td>
+                </tr>    
+                <tr>
+                    <td class="lfTdBt"></td>
+                    <td  class="rgTdBt" id="jq_setting">
+
+                    </td>
+                </tr>
+                <script>
+                    var ajaxurl = '<{:U("lifecate/ajax",array("cate_id"=>"0000"))}>';
+                    $(document).ready(function () {
+                        $("#jq_cate").change(function () {
+                            if ($(this).val() > 0) {
+                                var link = ajaxurl.replace('0000', $(this).val());
+                                $.get(link, function (data) {
+                                    $("#jq_setting").html(data);
+                                }, 'html');
+
+                            } else {
+                                alert("请选择分类");
+                            }
+                        });
+                    });
+                </script>
+                
+                
+                 <tr>
+                    <td class="lfTdBt">所在区域：</td>
+                    <td class="rgTdBt jq_bao_city_area">
+                       <select name="data[city_id]" id="city_id"></select>城市
+                       <select name="data[area_id]" id="area_id"></select>← 地区
+                       <select name="data[business_id]" id="business_id"></select>← 商圈
+                    </td>
+                </tr>
+                
+                
+                
+             
+    <script src="<{:U('app/datas/cab',array('name'=>'cityareas'))}>"></script>
+                <script>
+                                var city_id = "<{$city_id}>";
+                                var area_id = 0;
+                                var business_id = 0;
+                                $(document).ready(function () {
+                                    var city_str = ' <option value="0">请选择...</option>';
+                                    for (a in cityareas.city) {
+                                        if (city_id == cityareas.city[a].city_id) {
+                                            city_str += '<option selected="selected" value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+                                        } else {
+                                            city_str += '<option value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+                                        }
+                                    }
+                                    $("#city_id").html(city_str);
+
+                                    $("#city_id").change(function () {
+                                        if ($("#city_id").val() > 0) {
+                                            city_id = $("#city_id").val();
+                                            var area_str = ' <option value="0">请选择...</option>';
+                                            for (a in cityareas.area) {
+                                                if (cityareas.area[a].city_id == city_id) {
+                                                    if (area_id == cityareas.area[a].area_id) {
+                                                        area_str += '<option selected="selected" value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                                    } else {
+                                                        area_str += '<option value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                                    }
+                                                }
+                                            }
+                                            $("#area_id").html(area_str);
+                                            $("#business_id").html('<option value="0">请选择...</option>');
+                                        } else {
+                                            $("#area_id").html('<option value="0">请选择...</option>');
+                                            $("#business_id").html('<option value="0">请选择...</option>');
+                                        }
+
+                                    });
+
+                                    if (city_id > 0) {
+                                        var area_str = ' <option value="0">请选择...</option>';
+                                        for (a in cityareas.area) {
+                                            if (cityareas.area[a].city_id == city_id) {
+                                                if (area_id == cityareas.area[a].area_id) {
+                                                    area_str += '<option selected="selected" value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                                } else {
+                                                    area_str += '<option value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                                }
+                                            }
+                                        }
+                                        $("#area_id").html(area_str);
+                                    }
+
+
+                                    $("#area_id").change(function () {
+                                        if ($("#area_id").val() > 0) {
+                                            area_id = $("#area_id").val();
+                                            var business_str = ' <option value="0">请选择...</option>';
+                                            for (a in cityareas.business) {
+                                                if (cityareas.business[a].area_id == area_id) {
+                                                    if (business_id == cityareas.business[a].business_id) {
+                                                        business_str += '<option selected="selected" value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                                    } else {
+                                                        business_str += '<option value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                                    }
+                                                }
+                                            }
+                                            $("#business_id").html(business_str);
+                                        } else {
+                                            $("#business_id").html('<option value="0">请选择...</option>');
+                                        }
+
+                                    });
+
+                                    if (area_id > 0) {
+                                        var business_str = ' <option value="0">请选择...</option>';
+                                        for (a in cityareas.business) {
+                                            if (cityareas.business[a].area_id == area_id) {
+                                                if (business_id == cityareas.business[a].business_id) {
+                                                    business_str += '<option selected="selected" value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                                } else {
+                                                    business_str += '<option value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                                }
+                                            }
+                                        }
+                                        $("#business_id").html(business_str);
+                                    }
+                                    $("#business_id").change(function () {
+                                        business_id = $(this).val();
+                                    });
+                                });
+                </script> 
+                
+</div>
+                
+                
+                
+              
+                <tr>
+                    <td class="lfTdBt">所在坐标：</td>
+                    <td  class="rgTdBt">
+                        <div class="lt">
+                            经度<input type="text" name="data[lng]" id="data_lng" value="<{$detail.lng|default=''}>" class="manageInput w150" />
+                            纬度 <input type="text" name="data[lat]" id="data_lat" value="<{$detail.lat|default=''}>" class="manageInput w150" />
+                        </div>
+                        <a mini="select"  w="600" h="600" href="<{:U('public/maps')}>" class="seleSj">百度地图</a>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">用户：</td>
+                    <td  class="rgTdBt"> <div class="lt">
+                            <input type="hidden" id="user_id" name="data[user_id]" value="<{$detail.user_id|default=''}>" class="manageInput" />
+                            <input type="text" name="nickname" id="nickname"  value="" class="manageInput w150" />
+                        </div>
+                        <a mini="select"  w="800" h="600" href="<{:U('user/select')}>" class="seleSj">选择用户</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">是否是商家：</td>
+                    <td  class="rgTdBt">
+                        <input type="checkbox" name="data[is_shop]" value="1" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">火急日期：</td>
+                    <td  class="rgTdBt">
+                        <input type="text" name="data[urgent_date]" value="<{$detail.urgent_date|default=''}>" onfocus="WdatePicker();"  class="inputData" />
+
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">置顶日期：</td>
+                    <td  class="rgTdBt"><input type="text" name="data[top_date]" value="<{$detail.top_date|default=''}>" onfocus="WdatePicker();"  class="inputData" />
+
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">缩略图：</td>
+                 <td class="rgTdBt">
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <input type="hidden" name="data[photo]" value="<{$detail.photo}>" id="data_photo" />
+                        <div id="fileToUpload" >上传缩略图</div>
+                    </div>
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <img id="photo_img" width="120" height="80"  src="<{:config_img($detail['photo'])}>" />
+                        <a href="<{:U('setting/attachs')}>">缩略图设置</a>
+                        <{$CONFIG.attachs.life.thumb}>
+                    </div>
+                    <script>                                            
+						var width_life = '<{:thumbSize($CONFIG[attachs][life][thumb],0)}>';                         
+						var height_life = '<{:thumbSize($CONFIG[attachs][life][thumb],1)}>';                         
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"activity"))}>',                             
+						pick: '#fileToUpload',                             
+						resize: true,  
+						compress : {width: width_life,height: height_life,quality: 80,allowMagnify: false,crop: true}                       
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_photo").val(resporse.url);                             
+						$("#photo_img").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+                </td>
+            </tr>
+            
+            
+    <tr>
+                  <td class="lfTdBt">更多详情图：</td>
+                        <td class="rgTdBt">
+                            <div>
+                                <div id="moreToUpload" >上传图片</div>
+                            </div>							
+							<script>                                
+									var width_lifepic = '<{:thumbSize($CONFIG[attachs][lifepic][thumb],0)}>';  //获取宽度                              
+									var height_lifepic = '<{:thumbSize($CONFIG[attachs][lifepic][thumb],1)}>'; //获取高度 
+                       
+									var uploader = WebUploader.create({                                    
+									auto: true,                                    
+									swf: '/static/default/webuploader/Uploader.swf',                                    
+									server: '<{:U("app/upload/uploadify",array("model"=>"lifepic"))}>',                                    
+									pick: '#moreToUpload',                                    
+									fileNumberLimit:10,                                    
+									resize: true, 
+									crop: false,  
+									compress : {width:width_lifepic,height:height_lifepic,quality: 80,allowMagnify: false,crop: true},														
+								});                                                               
+								uploader.on( 'uploadSuccess', function( file,resporse) {                                    
+								var str = '<span style="width: 120px; height: 120px; float: left; margin-left: 5px; margin-top: 10px;">  <img width="200" height="100" src="' + resporse.url + '">  <input type="hidden" name="photos[]" value="' + resporse.url + '" />    <a href="javascript:void(0);">取消</a>  </span>';                                   
+								 $(".jq_uploads_img").append(str);                                
+									 });                                                            
+								 uploader.on( 'uploadError', function( file ) {                                    
+									alert('上传出错');                                
+								 });                                
+								 $(document).on("click", ".jq_uploads_img a", function () {                                    
+									 $(this).parent().remove();                                
+								 });                            
+                             </script>
+                            <div class="jq_uploads_img">
+                                <foreach  name="photos" item="item">
+                                    <span style="width: 200px; height: 120px; float: left; margin-left: 5px; margin-top: 10px;"> 
+                                        <img width="100" height="100" src="<{:config_img($item['photo'])}>">  
+                                        <input type="hidden" name="photos[]" value="<{$item.photo}>" />  
+                                        <a href="javascript:void(0);">取消</a>  
+                                    </span>
+                                </foreach>
+                            </div>					
+                        </td>
+                    </tr>
+             <tr>
+
+
+                <tr>
+                    <td class="lfTdBt">联系人：</td>
+                    <td  class="rgTdBt"><input type="text" name="data[contact]" value="<{$detail.contact|default=''}>" class="manageInput w200" />
+
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">电话：</td>
+                    <td  class="rgTdBt"><input type="text" name="data[mobile]" value="<{$detail.mobile|default=''}>" class="manageInput w200" />
+
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">QQ：</td>
+                    <td  class="rgTdBt"><input type="text" name="data[qq]" value="<{$detail.qq|default=''}>" class="manageInput w200" />
+
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">联系地址：</td>
+                    <td  class="rgTdBt"><input type="text" name="data[addr]" value="<{$detail.addr|default=''}>" class="manageInput w200" />
+
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">浏览量：</td>
+                    <td  class="rgTdBt"><input type="text" name="data[views]" value="<{$detail.views|default=''}>" class="manageInput" />
+
+                    </td>
+                </tr>
+               <tr><td class="lfTdBt">活动介绍：</td><td class="rgTdBt">
+                  <script type="text/plain" id="details" name="details" style="width:800px;height:360px;"><{$ex.details}></script>
+					</td>
+             </tr><link rel="stylesheet" href="__PUBLIC__/qiniu_ueditor/themes/default/css/ueditor.min.css" type="text/css">
+                  <script type="text/javascript" charset="utf-8" src="__PUBLIC__/qiniu_ueditor/ueditor.config.js"></script>
+                  <script type="text/javascript" charset="utf-8" src="__PUBLIC__/qiniu_ueditor/ueditor.all.min.js"></script>
+                  <script type="text/javascript" src="__PUBLIC__/qiniu_ueditor/lang/zh-cn/zh-cn.js"></script>
+				  <script>
+                        um = UE.getEditor('details', {
+                            lang: 'zh-cn',
+                            toolbars:[['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'backcolor', 'fontsize', 'fontfamily', 'justifyleft', 'justifyright', 'justifycenter', 'justifyjustify', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', 'link', 'unlink', 'map', 'template', 'background','inserttable','print','attachment',  'emotion',  'snapscreen','insertimage', 'music', 'insertvideo']],  
+                            });
+                   </script> 
+                <tr>
+            </table>
+            <div class="smtQr"><input type="submit" value="确认添加" class="smtQrIpt" /></div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>       

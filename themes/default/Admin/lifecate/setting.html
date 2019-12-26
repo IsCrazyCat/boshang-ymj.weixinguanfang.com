@@ -1,0 +1,174 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">分类信息</li>
+        <li class="li2">分类管理</li>
+        <li class="li2 li3">配置</li>
+    </ul>
+</div>
+<div class="mainScAdd ">
+    <div class="tableBox">
+        <form  target="baocms_frm" action="<{:U('lifecate/setting',array('cate_id'=>$detail['cate_id']))}>" method="post">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <if condition="!empty($detail['select1'])"> 
+                    <tr>
+                        <td width="140" class="lfTdBt"><{$detail.select1}>:</td>
+                        <td>
+                            <table width="500" style="margin-left: 10px;" class="jq_table1">
+                                <tr>
+                                    <td colspan="3" style="text-align: right;">
+                                        <a class="jq_add" rel="1" href="javascript:void(0);">新增一个</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>属性</th>
+                                    <th>排序</th>
+                                    <th>操作</th>
+                                </tr>
+                                <foreach name="attrs" item="item">
+                                    <eq name="item.type" value="select1">
+                                    <tr>
+                                        <td align="center"><input class="manageInput w150" type="text" value="<{$item.attr_name}>" name="old[<{$item.attr_id}>][attr_name]"/></td>
+                                        <td align="center"><input class="manageInput w150" type="text" value="<{$item.orderby}>" name="old[<{$item.attr_id}>][orderby]"/></td>
+                                        <td align="center"><a class="jd" mini="act" href="<{:U('lifecate/delattr',array('attr_id'=>$item['attr_id']))}>">删除</a></td>
+                                    </tr>  
+                                    </eq>
+                                </foreach>
+                            </table>
+                        </td>
+                    </tr>
+                </if>
+                <if condition="!empty($detail['select2'])"> 
+                    <tr>
+                        <td width="140" class="lfTdBt"><{$detail.select2}>:</td>
+                        <td>
+                            <table width="500" style="margin-left: 10px;" class="jq_table2">
+                                <tr>
+                                    <td colspan="3" style="text-align: right;">
+                                        <a class="jq_add" rel="2" href="javascript:void(0);">新增一个</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>属性</th>
+                                    <th>排序</th>
+                                    <th>操作</th>
+                                </tr>
+                                <foreach name="attrs" item="item">
+                                    <eq name="item.type" value="select2">
+                                    <tr>
+                                        <td align="center"><input class="manageInput w150" type="text" value="<{$item.attr_name}>" name="old[<{$item.attr_id}>][attr_name]"/></td>
+                                        <td align="center"><input class="manageInput w150" type="text" value="<{$item.orderby}>" name="old[<{$item.attr_id}>][orderby]"/></td>
+                                        <td align="center"><a class="jd" mini="act" href="<{:U('lifecate/delattr',array('attr_id'=>$item['attr_id']))}>">删除</a></td>
+                                    </tr>  
+                                    </eq>
+                                </foreach>
+                            </table>
+                        </td>
+                    </tr>
+                </if>
+                <if condition="!empty($detail['select3'])"> 
+                    <tr>
+                        <td width="140" class="lfTdBt"><{$detail.select3}>:</td>
+                        <td>
+                            <table width="500" style="margin-left: 10px;" class="jq_table3">
+                                <tr>
+                                    <td colspan="3" style="text-align: right;">
+                                        <a class="jq_add" rel="3" href="javascript:void(0);">新增一个</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>属性</th>
+                                    <th>排序</th>
+                                    <th>操作</th>
+                                </tr>
+                                <foreach name="attrs" item="item">
+                                    <eq name="item.type" value="select3">
+                                    <tr>
+                                        <td align="center"><input class="manageInput w150" type="text" value="<{$item.attr_name}>" name="old[<{$item.attr_id}>][attr_name]"/></td>
+                                        <td align="center"><input class="manageInput w150" type="text" value="<{$item.orderby}>" name="old[<{$item.attr_id}>][orderby]"/></td>
+                                        <td align="center"><a class="jd" mini="act" href="<{:U('lifecate/delattr',array('attr_id'=>$item['attr_id']))}>">删除</a></td>
+                                    </tr>  
+                                    </eq>
+                                </foreach>
+                            </table>
+                        </td>
+                    </tr>
+                </if>
+                <script>
+                    var num_1 = 1;
+                    $(document).ready(function () {
+                        $(document).on('click', '.jq_delete', function () {
+                            $(this).parent().parent().remove();
+                        });
+
+                        $(".jq_add").click(function () {
+                            var rel = $(this).attr('rel');
+                            num_1++;
+                            var str = '<tr><td align="center"><input class="manageInput w150" type="text" name="data[select' + rel + '][' + num_1 + '][attr_name]"/></td><td align="center"><input class="manageInput w150" type="text" value="100" name="data[select' + rel + '][' + num_1 + '][orderby]"/></td> <td align="center"><a class="jq_delete" href="javascript:void(0);">删除</a></td></tr> ';
+                            $(".jq_table" + rel).append(str);
+                        });
+                    });
+                </script>   
+                <if condition="!empty($detail['select4'])"> 
+                    <tr>
+                        <td width="140" class="lfTdBt"><{$detail.select4}>:</td>
+                        <td>
+                            <table width="500" style="margin-left: 10px;" class="jq_table4">
+                                <tr>
+                                    <td colspan="3" style="text-align: right;">
+                                        <a class="jq_add" rel="4" href="javascript:void(0);">新增一个</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>属性</th>
+                                    <th>排序</th>
+                                    <th>操作</th>
+                                </tr>
+                                <foreach name="attrs" item="item">
+                                    <eq name="item.type" value="select4">
+                                    <tr>
+                                        <td align="center"><input class="manageInput w150" type="text" value="<{$item.attr_name}>" name="old[<{$item.attr_id}>][attr_name]"/></td>
+                                        <td align="center"><input class="manageInput w150" type="text" value="<{$item.orderby}>" name="old[<{$item.attr_id}>][orderby]"/></td>
+                                        <td align="center"><a class="jd" mini="act" href="<{:U('lifecate/delattr',array('attr_id'=>$item['attr_id']))}>">删除</a></td>
+                                    </tr>  
+                                    </eq>
+                                </foreach>
+                            </table>
+                        </td>
+                    </tr>
+                </if>
+                <if condition="!empty($detail['select5'])"> 
+                    <tr>
+                        <td width="140" class="lfTdBt"><{$detail.select5}>:</td>
+                        <td>
+                            <table width="500" style="margin-left: 10px;" class="jq_table5">
+                                <tr>
+                                    <td colspan="3" style="text-align: right;">
+                                        <a class="jq_add" rel="5" href="javascript:void(0);">新增一个</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>属性</th>
+                                    <th>排序</th>
+                                    <th>操作</th>
+                                </tr>
+                                <foreach name="attrs" item="item">
+                                    <eq name="item.type" value="select5">
+                                    <tr>
+                                        <td align="center"><input class="manageInput w150" type="text" value="<{$item.attr_name}>" name="old[<{$item.attr_id}>][attr_name]"/></td>
+                                        <td align="center"><input class="manageInput w150" type="text" value="<{$item.orderby}>" name="old[<{$item.attr_id}>][orderby]"/></td>
+                                        <td align="center"><a class="jd" mini="act" href="<{:U('lifecate/delattr',array('attr_id'=>$item['attr_id']))}>">删除</a></td>
+                                    </tr>  
+                                    </eq>
+                                </foreach>
+                            </table>
+                        </td>
+                    </tr>
+                </if>
+            </table>
+            <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>       

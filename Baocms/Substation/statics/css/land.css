@@ -1,0 +1,155 @@
+@charset "utf-8";
+.land {
+    width: 516px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.land .bgTop {
+    background-image: url(../images/bgTop_03.png);
+    background-repeat: no-repeat;
+    background-position: center top;
+    height: 51px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #FFF;
+    text-align: center;
+    padding-top: 134px;
+}
+.land .mid {
+    background-image: url(../images/landBg_06.png);
+    background-repeat: repeat-y;
+    background-position: center top;
+    padding-bottom: 6px;
+}
+.inputBox {
+    padding-left: 54px;
+    margin-bottom: 14px;
+    height: 42px;
+}
+.land .mid .inputBox span {
+    font-size: 18px;
+    line-height: 42px;
+    color: #FFF;
+    display: inline-block;
+    float: left;
+}
+.land .mid .inputBox .text {
+    background-color: #0099cc;
+    background-image: none;
+    height: 40px;
+    width: 258px;
+    border: 2px solid #FFF;
+    border-radius: 5px;
+    line-height: 40px;
+    float: left;
+}
+.land .mid .inputBox .text.text2 {
+    width: 148px;
+}
+.land .mid .inputBox a {
+    background-image: url(../images/ym_07.png);
+    background-repeat: no-repeat;
+    background-position: center center;
+    display: inline-block;
+    height: 30px;
+    width: 58px;
+    float: left;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    margin-left: 30px;
+}
+.button{
+    background-color: #fff;
+    background-image: none;
+    height: 48px;
+    width: 258px;
+    border: 1px solid #b13e00;
+    border-radius: 5px;
+    line-height: 40px;
+    font-size: 26px;
+    font-weight: bold;
+    color: #0099cc;
+    cursor: pointer;
+}.land .mid .landSbmt {
+    text-align: center;
+}
+.land .bgbuttom {
+    background-image: url(../images/landBg_08.png);
+    background-repeat: no-repeat;
+    background-position: center top;
+    height: 29px;
+}
+.foot {
+    font-size: 16px;
+    line-height: 66px;
+    color: #1a1a1a;
+    text-align: center;
+    margin-right: auto;
+    margin-left: auto;
+}
+.landBox {
+    margin-top: 120px;
+    margin-right: auto;
+    margin-bottom: 120px;
+    margin-left: auto;
+}
+
+.remberBtn{ font: normal 14px/14px 'Microsoft Yahei';display: inline-block; margin-left: 5px; margin-top: 5px;   -moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;background: #65cea7;color: #fff; padding:0px 10px; height: 30px; line-height: 30px;} 
+.remberBtn_small{ font-size:12px; margin-left:5px;display: inline-block; margin-top:5px;   -moz-border-radius: 2px;-webkit-border-radius: 2px;border-radius: 2px;background: #0099cc;color: #fff; padding:2px 8px; height: 22px; line-height: 22px;} 
+
+.remberBtn_small_quxiao{ font-size:12px; margin-left:5px;display: inline-block; margin-top:5px;   -moz-border-radius: 2px;-webkit-border-radius: 2px;border-radius: 2px;background:#F63;color: #fff; padding:2px 8px; height: 22px; line-height: 22px;} 
+
+.remberBtn:hover{color: #fff;}
+
+
+.baomsgbox{
+    min-width: 100px;
+    max-width: 200px;
+    background: #fff;
+    height: 30px;
+    line-height: 30px;
+    border: 1px   #f58505  double;
+    position: fixed; padding: 0 10px;
+    z-index: 100000;
+    top: 20%;
+    left: 45%;
+    -webkit-box-shadow: 3px 3px #a9a9a9 ;
+    -moz-box-shadow: 3px 3px #a9a9a9;
+    box-shadow: 3px 3px #a9a9a9 ;
+    -moz-border-radius: 5px;      /* Gecko browsers */
+    -webkit-border-radius: 5px;   /* Webkit browsers */
+    border-radius:5px;            /* W3C syntax */
+    display: none;
+}
+.baomsgbox img{
+    float: left;
+    margin-top: 7px;
+    width: 16px; height: 16px;
+    display: block;
+}
+.baomsgbox span{
+    float: left;
+    display: block;
+    margin-left: 5px;
+    font-size: 13px; 
+}
+
+.w50 {width: 50px !important;}
+.w100{width: 140px !important;}
+.w120{width: 120px !important;}
+.w150{width: 150px !important;}
+.w80 {width: 80px !important;}
+.w200{width: 200px !important;}
+.w210{width: 210px !important;}
+.w260{width: 260px !important;}
+.w300{width: 300px !important;}
+.w360{width: 360px !important;}
+.remberinput{ border:1px solid #dbdbdb; width:200px; padding:0px 10px; height:24px; line-height:24px;  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;}
+
+
+.tableBox .all{ width: 530px; height: 24px; }
+.tableBox .all .ratio{ text-align: center; float: left;} 
+.tableBox .all .rat{ float: left; margin-left: 10px;}

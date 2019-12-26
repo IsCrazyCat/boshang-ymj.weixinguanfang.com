@@ -1,0 +1,20 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <meta content="application/xhtml+xml;charset=UTF-8" http-equiv="Content-Type">
+    <link rel="stylesheet" type="text/css" href="%THEME%/weixin/static/style/wechat.css" />
+    <title><{if $pager.page_title}><{$pager.page_title}><{elseif $MSITE}><{$MSITE.title}><{else}><{$CONFIG.mobile.title}><{/if}></title>
+</head>
+<body >
+<div class="wxBg">
+	<div class="wcpic">
+		<img src="%THEME%/weixin/static/images/weiPic.png">
+	</div>
+	<p class="wxtext"><{$pager.message}></p>
+    <a href="<{$pager.ok_link}>" class="wbtn sureBtn" ><{$pager.ok_title|default:'确认'}></a>
+    <a href="<{$pager.cancel_link}>" class="wbtn falseBtn" ><{$pager.cancel_title|default:'取消'}></a>
+</div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+     <li class="li1">设置</li>
+        <li class="li2">上传设置</li>
+    </ul>
+</div>
+<form target="baocms_frm" action="<{:U('upset/edit',array('id'=>$detail['id']))}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">类型：</td>
+                    <td class="rgTdBt"><{$detail.type|default=''}>
+                    </td>
+                </tr>
+				<tr>
+                    <td class="lfTdBt">secrectKey：</td>
+                    <td class="rgTdBt"><input type="text" name="para[secrectKey]" value="<{$detail[para][secrectKey]|default=''}>" class="manageInput" />
+                    <code>下面隐藏那个</code>
+                    </td>
+                </tr>
+				<tr>
+                    <td class="lfTdBt">accessKey</td>
+                    <td class="rgTdBt"><input type="text" name="para[accessKey]" value="<{$detail[para][accessKey]|default=''}>" class="manageInput" />
+                    <code>上面显示那个</code>
+                    </td>
+                </tr>
+				<tr>
+                    <td class="lfTdBt">domain</td>
+                    <td class="rgTdBt"><input type="text" name="para[domain]" value="<{$detail[para][domain]|default=''}>" class="manageInput" />
+                    <code>您在七牛云通过审核的域名</code>
+                    </td>
+                </tr>
+				<tr>
+                    <td class="lfTdBt">bucket：</td>
+                    <td class="rgTdBt"><input type="text" name="para[bucket]" value="<{$detail[para][bucket]|default=''}>" class="manageInput" />
+                    <code>空间名</code>
+                    </td>
+                </tr>
+				<tr>
+                    <td class="lfTdBt">timeout：</td>
+                    <td class="rgTdBt"><input type="text" name="para[timeout]" value="<{$detail[para][timeout]|default=''}>" class="manageInput" />
+                    <code>超时设置，默认不要更改</code>
+                    </td>
+                </tr>				
+                <tr>
+                    <td class="lfTdBt">是否启用：</td>
+                    <td class="rgTdBt">
+                        <label>
+                            <input type="radio" <?php if($detail['status'] == 0) echo "checked='checked'";?> name="status" value="0"  />
+                                   不启用
+                        </label>
+                        <label>
+                            <input type="radio" <?php if($detail['status'] == 1) echo "checked='checked'";?> name="status" value="1"  />
+                                   启用
+                        </label>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认编辑" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>       
+

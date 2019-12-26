@@ -1,0 +1,48 @@
+<{include file="weixin/block/header.html"}>
+<header class="ui-header ui-header-stable ui-border-b ucenterTit">
+	<i class="ui-icon-return ucenterIcon_lt" onClick="history.back()"></i>
+	<h1>装修进度</h1>
+</header>
+<div class="h45"></div>
+<div class="managerTit">
+	<h2><{$site.title}></h2>
+	<p>
+		<{foreach $status_list as $k=>$item}>
+			<span  <{if $site.type_id==$k}>class="fontcl1" <{$curr_step=$item}> <{/if}>><{$item}></span>
+		<{/foreach}>
+	</p>
+	<p class="gray">
+		<span>区域:<{$detail.city_name}><{$detail.area_name}></span><span>小区:<{$detail.home_name}></span><span>面积:<{$detail.house_mj}>㎡</span>
+	</p>
+</div>
+<{foreach $items as $item}>			
+<ul class="ui-list ui-list-link ui-list-function ui-border-tb managerCont">
+	<li class="ui-border-t">
+		<div class="ui-list-info">
+			<h4 class="ui-nowrap">施工阶段:<span><{$pm_pro[$item['step']]}></span></h4>
+		</div>
+	</li>
+	<li class="ui-border-t">
+		<div class="ui-list-info">
+			<h4 class="ui-nowrap">发布时间:<span><{$item['dateline']|format:'Y年m月d日 H:i:s'}></span></h4>
+		</div>
+	</li>
+	<li class="ui-border-t">
+		<div class="ui-list-info">
+			<h4 class="ui-nowrap">进度描述:<span><{$item['content']}></span></h4>
+		</div>
+	</li>
+	<{if !empty($attachs[$item['progress_id']])}>
+	<li class="ui-border-t">
+		<div class="ui-list-info">
+			<h4 class="ui-nowrap">附加图片:
+				<{foreach $attachs[$item['progress_id']] as $v}>
+				<span><a href="<{$v}>"><img src="<{$v}>" width='100%' height='200'/></span></a>
+				<{/foreach}>
+			</h4>
+		</div>
+	</li>
+	<{/if}>
+</ul>
+<{/foreach}>
+<{include file="weixin/block/footer.html"}>

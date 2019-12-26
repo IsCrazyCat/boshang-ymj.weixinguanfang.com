@@ -1,0 +1,94 @@
+<include  file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商城</a> > <a href="">订单</a> > <a>待退款订单</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <form method="post" action="<{:U('order/wait_refunded')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">
+            开始时间：<input type="text"  placeholder="输入开始时间" class="radius3 seleFl"  name="bg_date" value="<{$bg_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"/>
+            结束时间：<input type="text"   placeholder="输入结束时间" class="radius3 seleFl"   name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"/>
+            订单编号：<input type="text"  placeholder="输入订单编号" name="keyword" value="<{$keyword}>" class="radius3 seleFl" />
+            <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/>
+            </div>
+        </div>
+    </div>
+    </form>
+     <include file='order:nav'/><!--引入导航-->    
+<div class="blank-20"></div>
+<foreach name="list" item="order">   
+  <table  class="tuan_table1"  width="100%" border="0">
+  <tr class="tr_left_2">
+    <td class="left10" colspan="5">
+    订单ID：<span class="mallorder_jg"><{$order.order_id}></span>
+    <span class="td_top_1">交易时间：<{$order.create_time|date='Y-m-d H:i:s',###}>
+        <span class="td_top_1">收货地址：
+            <if condition="!empty($order['address_id'])">
+           收货地址：<{$addrs[$order['address_id']]['xm']}>--<{$addrs[$order['address_id']]['tel']}>--<{$addrs[$order['address_id']]['area_str']}>---<{$addrs[$order['address_id']]['info']}>
+           </if>
+       </span>
+    </td>
+  </tr>
+  <tr>
+    <td class="td_left_1"> 
+    
+    <foreach name="goods" item="good">
+    <eq name="good.order_id" value="$order.order_id">
+    <table  class="tuan_table2" width="100%" border="0">
+      <tr class="tr_left_1">
+      
+        <td class="left1">
+        
+       <!--商品展示开始-->
+        <div class="index__production___yfP3y" >
+        <a class="index__pic___TScfk" ><img src="<{:config_img($products[$good['goods_id']]['photo'])}>" ></a>
+        <div class="index__infos___A6XLq" >
+            <p ><a href="<{:u('home/mall/detail',array('goods_id'=>$products[$good['goods_id']]['goods_id']))}>" target="_blank" ><span><{$products[$good['goods_id']]['title']}></span></a></p>
+          <span></span>
+        	</div>
+		</div>
+       <!--商品展示END-->
+        </td>
+        <td class="left2">&yen;<{:round($good['price']/100,2)}></td>
+        <td class="left3"><{$good['num']}></td>
+        <td class="left4">&yen;<{:round($good['total_price']/100,2)}></td>
+        <td class="left5"> 
+            <if condition="$order['status'] neq 0  && $order['is_daofu'] neq 0">
+                <{$goodtypes[$good['status']]}>
+            </if>
+        </td>
+      </tr>
+     
+    </table>
+    </eq>
+    </foreach>
+    
+    </td>
+    <td class="left6" width="9%"><{$users[$order['user_id']]['account']}>
+    	<eq name="order.is_mobile" value="1"><br/><img src="/themes/default/Merchant/statics/images/mobile.png" /></eq>
+    </td>
+    <td class="left7" width="8%">
+        <{$types[$order['status']]}><br/>
+        <eq name="order.is_daofu" value="1">货到付款<br/></eq>
+        <eq name="order.is_print" value="1">已打印<br/></eq> 
+        <if condition="$order['status'] eq 4">
+            <a class="href"  mini='confirm' href="<{:U('order/refund',array('order_id'=>$order['order_id']))}>">确认退款</a><br/>
+        </if>
+        <a class="href" href="<{:U('order/detail',array('order_id'=>$order['order_id'],'type'=>wait))}>">订单详情</a>
+     </td>
+    <td class="left8"width="10%">
+    <span>&yen;<{:round($order['need_pay']/100,2)}></span><br/>
+    <span>含配送费：&yen;<{:round($order['express_price']/100,2)}></span><br/>
+    </td>
+  </tr>
+ 
+</table>
+<br/>
+</foreach>
+    <{$page}>
+</div>
+<include  file='public:footer'/>

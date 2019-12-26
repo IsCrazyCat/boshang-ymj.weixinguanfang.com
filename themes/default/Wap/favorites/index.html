@@ -1,0 +1,38 @@
+<include file='public:header'/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		我的收藏
+	</div>
+	<div class="top-share">
+		<a href="<{:U('favorites/lists')}>" id="share-btn"><i class="icon-plus"></i></a>
+	</div>
+
+</header>
+
+<div class="line fav-search">
+	<form method="post"  action="<{:U('favorites/index')}>" >
+		<div class="form-group">
+			<div class="field">
+				<div class="input-group">
+					<span class="addbtn"><button type="button" class="button icon-search"></button></span>
+					<input type="text" class="input" name="keywords" size="50" value="<{$keyword}>" placeholder="输入您要搜索的内容"  />
+					<span class="addbtn"><button type="submit" class="button">搜索</button></span>
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+
+<ul class="fav-list" id="fav-list"></ul>
+
+<script>
+	$(document).ready(function () {
+		loaddata("<{$nextpage}>", $("#fav-list"), true);
+	});
+</script>
+
+
+<include file='public:footer'/>

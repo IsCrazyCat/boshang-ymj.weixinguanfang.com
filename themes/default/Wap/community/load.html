@@ -1,0 +1,13 @@
+                    <volist name="list" id="val">
+         			<li class="commu-my commu-my-two">
+            			<ul class="commu-house">
+                            <a href="<{:u('community/newsdetail',array('news_id'=>$val['news_id']))}>">
+                				<li class="overflow_clear"><{$val.title}></li>
+                				<li class="commu-more"><{$val.create_time|date='Y-m-d',###}></li>
+                				<div class="clear"></div>
+                            </a>
+            			</ul>
+            		</li>
+            		</volist>
+
+

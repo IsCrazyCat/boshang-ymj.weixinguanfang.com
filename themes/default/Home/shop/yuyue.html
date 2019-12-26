@@ -1,0 +1,90 @@
+<div class="pop-box">
+<div class="dialog show radius">
+	<div class="dialog-head">
+		<span class="dialog-close close rotate-hover"></span>
+		<strong>预约<{$detail.shop_name}></strong>
+	</div>
+	
+	<div class="dialog-body">
+		<form method="post" class="form-auto form form-block" target="x-frame" action="<{:U('shop/yuyue',array('shop_id'=>$detail['shop_id']))}>"  id="yuyue_form">
+			<div class="form-group">
+				<div class="field field-icon">
+					<input type="text" class="input" id="dataname" name="data[name]" size="40" data-validate="required:必填信息" placeholder="联系人"  value="<if condition="$MEMBER.nickname neq null"><{$MEMBER.nickname}> <else/></if>" />
+					<span class="icon icon-user"></span>
+				</div>
+			</div>
+
+			<div class="form-group">
+				<div class="field field-icon">
+					<input type="text" class="input" id="datamobile" name="data[mobile]" size="40" data-validate="required:必填信息" placeholder="手机号" value="<if condition="$MEMBER.mobile neq null"><{$MEMBER.mobile}> <else/></if>"  />
+					<span class="icon icon-mobile"></span>
+				</div>
+			</div>
+	
+			<div class="form-group">
+				<div class="field field-icon">
+					<input type="text" class="input" id="datepicker" name="data[yuyue_date]" size="20"  value="<{$yuyue_date}>" placeholder="选择日期"  onfocus="WdatePicker({minDate: '<{$today}>'});"/>
+					<span class="icon icon-calendar"></span>
+					
+                    <select id="yuyue_time" name="data[yuyue_time]" class="input" style="text-indent:5px;" data-validate="required:请选择" >
+                        <for start="0" end="24">
+                        <option value="<{$i}>:00"><{$i}>:00</option>
+                        <option value="<{$i}>:30"><{$i}>:30</option>
+                        </for>
+                    </select>
+                    <script>
+                        $("#yuyue_time").val('<{$yuyue_time}>');
+                    </script>
+				</div>
+			</div>
+					
+			
+
+				
+	
+			<div class="form-group">
+				<div class="field field-icon">
+					<input type="text" class="input" id="datanumber" name="data[number]" size="40" data-validate="required:必填,number:只能填写数字,compare#<100:年龄介于0-100之间" placeholder="参与人数" />
+					<span class="icon icon-users"></span>
+				</div>
+			</div>
+	
+			<div class="form-group">
+				 <textarea rows="5" class="input"  name="data[content]" placeholder="我要留言" style="width:355px;"></textarea>
+			</div>
+	
+			<div class="form-button">
+				<button class="button bg-yellow" type="submit">提交预约</button>
+			</div>
+
+		</form>
+	</div>
+</div>
+
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>  
+<script>
+    $(document).ready(function () {
+        $(".sjsy_ljzx2").click(function () {
+            var url = $(this).attr('rel');
+            $("#yuyue_title").html($(this).attr('data'));
+            $(".mask_box").show();
+            $(".subBtn").click(function(){
+                var yuyue_form = $("#yuyue_form").serialize();
+                $.post(url,yuyue_form,function(data){
+                    if(data.status == 'success'){
+                        $(".mask_box").hide();
+                        layer.msg(data.msg,{icon:1});
+                            setTimeout(function () {
+                                    window.location.href = data.url;
+                            }, 1000)
+                    }else{
+                        layer.msg(data.msg,{icon:2});
+                    }
+                },'json')
+            })
+        });
+        $(".bao_closed").click(function () {
+            $(".mask_box").hide();
+        });
+    })
+</script>

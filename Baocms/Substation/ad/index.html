@@ -1,0 +1,80 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">功能</li>
+        <li class="li2"> 广告</li>
+      
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>广告删除是软删除,图片广告需要上传图片，代码广告可以不用上传图片，文字广告不需要填写图片和代码两项！</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+         <{:BA('ad/create',array('site_id'=>$site_id),'添加内容')}>
+            </div>
+            <div class="right">
+                <form class="" method="post"  action="<{:U('plugin/index')}>"> 
+
+                    <div class="seleHidden" id="seleHidden">
+                        <span>搜索</span>
+                        <input type="text"  class="inptText" name="keyword" value="<{$keyword}>"  />
+
+                        <input type="submit" value=" 搜索"  class="inptButton" />
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                <td><input type="checkbox" class="checkAll" rel="ad_id" /></td>
+                  <td>ID</td>
+                <td>所属广告位</td>
+                <td>所属城市</td>
+                <td>广告名称</td>
+                <td>链接地址</td>
+                <td>开始时间</td>
+                <td>结束时间</td>
+                <td>排序</td>
+                <td>操作</th
+
+                    </tr>
+                    <foreach name="list" item="var">
+                <tr>
+                    <td><input class="child_ad_id" type="checkbox" name="ad_id[]" value="<{$var.ad_id}>" /> </td>
+                    <td><{$var.ad_id}></td>
+                    <td><{$sites[$var['site_id']]['site_name']}></td>
+                    <td><{$citys[$var['city_id']]['name']|default='通用'}></td>
+                    <td><{$var.title}></td>
+                    <td><{$var.link_url}></td>
+                    <td><{$var.bg_date}></td>
+                    <td><{$var.end_date}></td>
+                    <td><{$var.orderby}></td>
+                    <td>
+                        <{:BA('ad/edit',array("ad_id"=>$var["ad_id"]),'编辑','','remberBtn')}>
+                        <{:BA('ad/delete',array("ad_id"=>$var["ad_id"]),'删除','act','remberBtn')}>
+                    </td>
+                </tr>
+            </foreach>
+                    <tr>
+                        <td colspan="20">
+
+                            <{:BA('ad/delete','','批量删除','list',' piliangcaozuo')}>
+
+                        </td>
+                    </tr>
+                </table>
+                <{$page}>
+
+            </div>
+
+
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>  
+

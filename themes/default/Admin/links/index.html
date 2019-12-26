@@ -1,0 +1,101 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">运营</li>
+        <li class="li2"> 友情链接</li>
+        <li class="li2"> 链接列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>新版其他站长可以在前台申请友情链接，后台审核通过有邮箱直接通知申请人，无需登录即可申请，前台底部有申请入口 </p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+            	<{:BA('links/create','','添加友情链接')}>
+            </div>
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('links/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <span>网站名称</span>
+                        <input type="text" name="keyword" value="<{$keyword}>" class="inptText" />
+                         <label>
+                            <span>城市：</span>
+                             <select name="city_id" id="city_id"  class="select w100"></select>
+                        </label>
+						<script src="<{:U('app/datas/cityarea')}>"></script>
+                        <script>
+                            var city_id = <?php echo (int)$city_id;?>;
+                            $(document).ready(function(){
+                                var city_str = '<option value="0">请选择.....</option>';
+                                for(a in cityareas.city){
+                                   if(city_id == cityareas.city[a].city_id){
+                                       city_str += '<option selected="selected" value="'+cityareas.city[a].city_id+'">'+cityareas.city[a].name+'</option>';
+                                   }else{
+                                        city_str += '<option value="'+cityareas.city[a].city_id+'">'+cityareas.city[a].name+'</option>';
+                                   }  
+                                }
+                                $("#city_id").html(city_str);
+                                if(city_id){
+                                    changeCity(city_id);
+                                }
+                                $("#city_id").change(function(){
+                                    city_id = $(this).val();
+                                    changeCity($(this).val());
+                                });
+                            });
+                        </script>
+                        
+                        <input type="submit" value="搜索"  class="inptButton" />
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;">
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="link_id" /></td>
+                        <td class="w50">ID</td>
+                        <td>所属城市</td>
+                        <td>链接名称</td>
+                        <td>链接地址</td>
+                        <td>链接邮箱</td>
+                        <td>链接说明</td>
+                        <td>排序</td>
+                        <td>创建时间</td>
+                        <td>创建IP</td>
+                        <td>操作</td>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_link_id" type="checkbox" name="link_id[]" value="<{$var.link_id}>" /></td>
+                            <td><{$var.link_id}></td>
+                            <td><{$citys[$var['city_id']]['name']}></td>
+                            <td><{$var.link_name}></td>
+                            <td><{$var.link_url}></td>
+                            <td><{$var.link_email}></td>
+                            <td><{$var.link_intro}></td>
+                            <td><{$var.orderby}></td>
+                            <td><{$var.create_time|date="Y-m-d H:i:s",###}></td>
+                            <td><{$var.create_ip}></td>
+                            <td>
+                            <eq name="var.audit" value="0"> <{:BA('links/audit',array("link_id"=>$var["link_id"]),'审核','act','remberBtn')}> </eq>
+                                <{:BA('links/edit',array("link_id"=>$var["link_id"]),'编辑','','remberBtn')}>
+                                <{:BA('links/delete',array("link_id"=>$var["link_id"]),'删除','act','remberBtn')}>
+                            </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('links/delete','','批量删除','list','a2')}>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>  
+

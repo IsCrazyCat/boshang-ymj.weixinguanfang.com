@@ -1,0 +1,52 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">营销管理</a> > <a>刮刮卡</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <form method="post" action="<{:U('scratch/index')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">
+            刮刮卡管理
+            </div>
+            <div class="right tuan_topfb_r"><a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('scratch/create')}>">发布刮刮卡+</a></div>
+        </div>
+    </div>
+    </form>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>刮刮卡</td>
+            <td>标题</td>
+            <td>封面图片</td>
+            <td>二维码图片</td>
+            <td>开始时间</td>
+            <td>结束时间</td>
+            <td>数量</td>
+			<td>浏览量</td>
+            <td>操作</td>
+        </tr>
+        <foreach name="list" item="var">
+            <tr>
+                <td><{$var.scratch_id}></td>
+                <td><{$var.title}></td>
+				<td style="height: 80px;"><img src="<{:config_img($var['photo'])}>"  style="width: 80px;  margin: 0px auto;" /></td>
+                <td style="height: 140px;"><img src="<{:config_img($var['file'])}>"  style="width: 120px; margin: 0px auto;" /></td>
+                <td><{$var.stime}></td>
+                <td><{$var.ltime}></td>
+				<td><{$var.predict_num}></td>
+                <td><{$var.views}></td>
+                <td>
+                    <a class="radius3 sjgl_an tuan_topbt" href="<{:U('scratch/edit',array('scratch_id'=>$var['scratch_id']))}>">编辑</a>
+					<a class="radius3 sjgl_an tuan_topbt" href="<{:U('scratch/goods',array('scratch_id'=>$var['scratch_id']))}>">奖品</a>
+                    <a class="radius3 sjgl_an tuan_topbt" href="<{:U('scratch/sn',array('scratch_id'=>$var['scratch_id']))}>">成员</a>
+                    <a mini='confirm' class="radius3 sjgl_an tuan_topbt" href="<{:U('scratch/delete',array('scratch_id'=>$var['scratch_id']))}>">删除</a>
+                </td>
+            </tr>
+        </foreach>
+    </table>
+    <{$page}>
+</div>
+
+<include  file='public:footer'/>

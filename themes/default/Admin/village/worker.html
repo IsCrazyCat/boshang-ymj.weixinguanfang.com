@@ -1,0 +1,57 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">社区村设置</li>
+        <li class="li2">工作人员管理</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('village/worker_create',array("village_id"=>$village_id),'添加工作人员')}>
+            </div>
+            <div class="clear"></div>
+       
+    </div>
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td><input type="checkbox" class="checkAll" rel="community_id" /></td>
+                    <td>ID</td>
+                    <td>姓名</td>
+                    <td>职务</td>
+                    <td>照片</td>
+                     <td>排序</td>
+                    <td>操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_community_id" type="checkbox" name="id[]" value="<{$var.id}>" /></td>
+                        <td><{$var.id}></td>
+                        <td><{$var.name}></td>
+                        <td><img src="<{:config_img($var['photo'])}>" width="80" height="80"/></td>
+                        <td><{$var.job}></td>
+                        <td><{$var.orderby}></td>
+                        <td>
+                            <{:BA('village/worker_edit',array("id"=>$var["id"]),'编辑','','remberBtn')}>
+                            <{:BA('village/worker_delete',array("id"=>$var["id"]),'删除','act','remberBtn')}>
+
+                        </td>
+
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                <{:BA('village/worker_delete','','批量删除','list',' a2')}>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+

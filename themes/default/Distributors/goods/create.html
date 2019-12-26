@@ -1,0 +1,379 @@
+<include file='public:header'/>
+<link href="/static/default/wap/other/jquery-ui.css" rel="stylesheet">
+<script src="/static/default/wap/other/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/default/webuploader/webuploader.css">
+<script src="/static/default/webuploader/webuploader.min.js"></script>
+<header class="top-fixed bg-yellow bg-inverse">
+<div class="top-back">
+	<a class="top-addr" href="<{:u('mart/index')}>"><i class="icon-angle-left"></i></a>
+</div>
+<div class="top-title">添加商品</div>
+<div class="top-share">
+	<a href="<{:u('mart/goodscate')}>" class="top-addr icon-plus"> 分类</a>
+</div>
+</header>
+<style>
+.fabu-form .form-content {border: none;resize: none;width: 100%;height: 80px;padding: 10px;font-size: 12px;}
+.fabu-form .form-content1 {border: none;resize: none;width: 100%;height: 150px;padding: 10px;font-size: 12px;}
+.shuxing{width: 20px; height: 20px;margin-bottom: 10px;}
+</style>
+<form class="fabu-form" method="post" target="x-frame" action="<{:U('goods/create')}>">
+	<div class="blank-10">
+	</div>
+	<div class="Upload-img-box">
+		<div id="fileToUpload">
+			上传主图
+		</div>
+		<div class="Upload-img">
+			<div class="list-img loading" style="display:none;">
+				<img src="">
+			</div>
+			<div class="list-img jq_photo" style="display:none;">
+			</div>
+		</div>
+	</div>
+	<script>
+    	var width_good = '<{:thumbSize($CONFIG[attachs][goods][thumb],0)}>';                     
+		var height_good = '<{:thumbSize($CONFIG[attachs][goods][thumb],1)}>';  
+        var uploader = WebUploader.create({                 
+			auto: true,                             
+			swf: '/static/default/webuploader/Uploader.swf',                             
+			server: '<{:U("app/upload/uploadify",array("model"=>"goods"))}>',                             
+			pick: '#fileToUpload',                             
+			resize: true,    
+			compress : {width:width_good,height:height_good,quality:60,allowMagnify: false,crop: true}//裁剪       
+        });
+        uploader.on( 'beforeFileQueued', function( file ) {
+            $(".loading").show();
+            if(file.size > 1024000){
+                uploader.option( 'compress', {
+                    width:width_good,//这里裁剪长度
+                    quality:60
+                });
+            }
+        });
+        uploader.on( 'uploadSuccess', function( file,resporse) {
+            $(".loading").hide();
+            var str = '<img src="'+resporse.url+'"><input type="hidden" name="data[photo]" value="' + resporse.url + '" />';
+            $(".jq_photo").show().html(str);
+        });
+        uploader.on( 'uploadError', function( file ) {
+            alert('上传出错');
+        });
+        $(document).ready(function () {
+            $(document).on("click", ".photo img", function () {
+                $(this).parent().remove();
+            });
+        });
+    </script>
+
+	<div class="blank-30"></div>
+    
+	<div class="Upload-img-box">
+		<div id="moreToUpload">
+			上传更多详情图
+		</div>
+        <div class="blank-10"></div>
+		<div class="Upload-img">
+			<div class="list-img loading_photo" style="display:none;">
+				<img src="">
+			</div>
+			<div class="list-img jq_photo_photo" style="display:none;">
+			</div>
+			<div class="jq_photo1">
+			</div>
+		</div>
+	</div>
+	<script>
+    	var width_goods_pic = '<{:thumbSize($CONFIG[attachs][goods][thumb],0)}>';                     
+		var height_goods_pic = '<{:thumbSize($CONFIG[attachs][goods][thumb],1)}>'; 
+        var uploader = WebUploader.create({                 
+			auto: true,                             
+			swf: '/static/default/webuploader/Uploader.swf',                             
+			server: '<{:U("app/upload/uploadify",array("model"=>"goods"))}>',                             
+			pick: '#moreToUpload',
+			fileNumberLimit:10,                    
+			resize: true,    
+			accept: {
+				title: 'Images',
+				extensions: 'gif,jpg,jpeg,png',
+				mimeTypes: 'image/*'
+			}, 
+			compress:{width:width_goods_pic,height:height_goods_pic,quality:80,allowMagnify: false,crop: true}     
+        });
+
+        uploader.on( 'beforeFileQueued', function( file ) {
+            $(".loading_photo").show();
+            if(file.size > 1024000){
+                uploader.option( 'compress', {
+                    width:width_goods_pic,
+                    quality:60
+                });
+            }
+        });
+        uploader.on('uploadSuccess', function( file,resporse) {
+            $(".loading_photo").hide();
+            var str = '<img src="'+resporse.url+'"><input type="hidden" name="photos[]" value="' + resporse.url + '" />';
+            $(".jq_photo1").append(str);  
+        });
+        uploader.on( 'uploadError', function( file ) {
+            alert('上传出错');
+        });
+        $(document).ready(function () {
+            $(document).on("click", ".photo img", function () {
+                $(this).parent().remove();
+            });
+        });
+    </script>
+	<div class="blank-10"></div>
+    
+	<div class="blank-10 bg border-top"></div>
+	<div class="row">
+		<div class="line">
+			<span class="x3">商品名称：</span>
+			<span class="x9">
+			<input type="text" class="text-input" name="data[title]" value="<{$detail.title|default=''}>" />
+			</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="line">
+			<span class="x3">商品简介：</span>
+			<span class="x9">
+			<input type="text" class="text-input" name="data[intro]" value="<{$detail.intro|default=''}>" />
+			</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="line">
+			<span class="x3">产品规格：</span>
+			<span class="x9">
+			<input type="text" class="text-input" name="data[guige]" value="<{$detail.guige|default=''}>" />
+			</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="line">
+			<span class="x3">商品库存：</span>
+			<span class="x9">
+			<input type="text" class="text-input" name="data[num]" value="<{$detail.num|default=''}>" />
+			</span>
+		</div>
+	</div>
+	<!--二开开始-->
+	<div class="row">
+		<div class="line">
+			<span class="x3">是否免运费：</span>
+			<span class="x9">
+			<label><span>免运费</span>
+			<input style="width: 20px; height: 20px;" type="radio" name="data[is_reight]" value="0" <eq name="detail.is_reight" value="0">checked="checked"</eq> >
+			</label>
+			<label><span style="margin-left: 20px;">不免运费</span>
+			<input style="width: 20px; height: 20px;" type="radio" name="data[is_reight]" value="1" <eq name="detail.is_reight" value="1">checked="checked"</eq>>
+			</label>
+			</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="line">
+			<span class="x3">商品重量：</span>
+			<span class="x9">
+			<input type="text" placeholder="不支持小数点" class="text-input" name="data[weight]" value="<{$detail.weight|default=''}>" />
+			</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="line">
+			<span class="x3">运费模板：</span>
+			<span class="x9">
+			<select id="kuaidi_id" name="data[kuaidi_id]" class="text-select">
+				<option value="0" selected="selected">请选择</option>
+				<foreach name="kuaidi" item="var">
+				<option value="<{$var.id}>"  <eq name="var.id" value="$detail.kuaidi_id">selected="selected"</eq> ><{$var.name}></option>
+				</foreach>
+			</select>
+			</span>
+		</div>
+	</div>
+	<!--二开结束-->
+	<div class="row">
+		<div class="line">
+			<span class="x3">商品分类</span>
+			<span class="x4">
+			<select name="parent_id" id="parent_id" class="text-select">
+				<option value="0" selected="selected">请选择</option>
+				<foreach name="cates" item="var">
+				<eq name="var.parent_id" value="0">
+				<option value="<{$var.cate_id}>"><{$var.cate_name}></option>
+				</eq>
+				</foreach>
+			</select>
+			</span>
+			<span class="x5">
+			<select name="data[cate_id]" id="cate_id" class="text-select">
+				<option value="0" selected="selected">← 选择子分类</option>
+			</select>
+			</span>
+			<script>
+                                $(document).ready(function (e) {
+                                    $("#parent_id").change(function () {
+                                        var url = '<{:U("goods/child",array("parent_id"=>"0000"))}>';
+                                        if ($(this).val() > 0) {
+                                            var url2 = url.replace('0000', $(this).val());
+                                            $.get(url2, function (data) {
+                                                $("#cate_id").html(data);
+                                            }, 'html');
+                                        }
+                                    });
+                                });
+                            </script>
+		</div>
+	</div>
+	<div class="row">
+		<div class="line">
+			<span class="x3">自定分类：</span>
+			<span class="x9">
+			<select id="shopcate_id" name="data[shopcate_id]" class="text-select">
+				<option value="0" selected="selected">请选择</option>
+				<foreach name="autocates" item="var">
+				<option value="<{$var.cate_id}>"  <eq name="var.cate_id" value="$detail.cate_id">selected="selected"</eq> ><{$var.cate_name}></option>
+				</foreach>
+			</select>
+			</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="line">
+			<span class="x3">属性：</span>
+			<span class="x9">
+			<label><input class="shuxing" type="checkbox" name="data[is_vs1]" value="1"/>认证商家&nbsp;&nbsp;</label>
+			<label><input class="shuxing" type="checkbox" name="data[is_vs1]" value="2"/>正品保证&nbsp;&nbsp;</label><br/>
+			<label><input class="shuxing" type="checkbox" name="data[is_vs1]" value="3"/>假一赔十&nbsp;&nbsp;</label>
+			<label><input class="shuxing" type="checkbox" name="data[is_vs1]" value="4"/>当日送达&nbsp;&nbsp;</label><br/>
+			<label><input class="shuxing" type="checkbox" name="data[is_vs1]" value="5"/>免运费&nbsp;&nbsp;</label>
+			<label><input class="shuxing" type="checkbox" name="data[is_vs1]" value="6"/>货到付款&nbsp;&nbsp;</label>
+			</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="line">
+			<span class="x3">市场价格：</span>
+			<span class="x9">
+			<input type="text" class="text-input" name="data[price]" value="<{$detail.price|default=''}>" />
+			</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="line">
+			<span class="x3">商城价格：</span>
+			<span class="x9">
+			<input type="text" class="text-input" name="data[mall_price]" value="<{$detail.mall_price|default=''}>" />
+			</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="line">
+			<span class="x3">可使用积分：</span>
+			<span class="x9">
+			<input type="text" class="text-input" name="data[use_integral]" value="<{$detail.use_integral|default=''}>" />
+			</span>
+		</div>
+	</div>
+	<if condition="!empty($SHOP['is_profit'])">
+	<div class="blank-10" bg>
+	</div>
+	<div class="row">
+		<div class="line">
+			<span class="x8">是否分成给上级分销商：</span>
+			<span class="x4">
+			<label><span>是</span>
+			<input style="width: 20px; height: 20px;" type="radio" name="data[profit_enable]" value='1' <if condition="$detail['profit_enable'] eq 1"> checked="checked" </if> />
+			</label>
+			</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="line">
+			<span class="x8">一级会员分成：</span>
+			<span class="x4">
+			<input type="text" name="data[profit_rate1]" value="" class="text-input"/>
+			</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="line">
+			<span class="x8">二级会员分成：</span>
+			<span class="x4">
+			<input type="text" name="data[profit_rate2]" value="" class="text-input"/>
+			</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="line">
+			<span class="x8">三级会员分成：</span>
+			<span class="x4">
+			<input type="text" name="data[profit_rate3]" value="" class="text-input"/>
+			</span>
+		</div>
+	</div>
+	</if>
+	<!--下面是时间-->
+	<div class="blank-10" bg>
+	</div>
+	<div class="blank-20">
+	</div>
+	<div class="row">
+		<div class="line">
+			<span class="x3">过期时间：</span>
+			<span class="x9">
+			<input type="text" class="text-input line-input datepicker" id="svctime1" name="data[end_date]" size="30" readonly="readonly" value="<{$detail['end_date']}>" placeholder="选择过期时间" />
+			</span>
+		</div>
+		<div class="blank-20">
+		</div>
+	</div>
+	<div class="blank-10 bg">
+	</div>
+	<div class="line border-bottom">
+		<textarea class="form-content" name="data[instructions]" placeholder="购买须知,建议不超过100字！"><{$detail.instructions}></textarea>
+	</div>
+	<div class="line border-bottom">
+		<textarea class="form-content1" name="data[details]" placeholder="添加商品详情，建议不超过200字，如需上传文章详情图，请到使用电脑编辑！"><{$detail.details}></textarea>
+	</div>
+	<div class="blank-10 bg">
+	</div>
+	<div class="container">
+		<div class="blank-30">
+		</div>
+		<button type="submit" class="button button-block button-big bg-dot">添加商品</button>
+		<div class="blank-30">
+		</div>
+	</div>
+</form>
+<script>
+		jQuery(function($){
+			$.datepicker.regional['zh-CN'] = {
+				closeText: '关闭',
+				prevText: '&#x3c;上月',
+				nextText: '下月&#x3e;',
+				currentText: '今天',
+				monthNames: ['一月','二月','三月','四月','五月','六月',
+				'七月','八月','九月','十月','十一月','十二月'],
+				monthNamesShort: ['一','二','三','四','五','六',
+				'七','八','九','十','十一','十二'],
+				dayNames: ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],
+				dayNamesShort: ['周日','周一','周二','周三','周四','周五','周六'],
+				dayNamesMin: ['日','一','二','三','四','五','六'],
+				weekHeader: '周',
+				dateFormat: 'yy-mm-dd',
+				firstDay: 1,
+				isRTL: false,
+				showMonthAfterYear: true,
+				yearSuffix: '年'};
+			$.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+		});
+		$(function() {
+			$( ".datepicker" ).datepicker();
+		});
+	</script>
+<include file='public:footer'/>

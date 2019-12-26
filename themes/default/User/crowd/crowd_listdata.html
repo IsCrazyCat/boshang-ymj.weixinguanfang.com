@@ -1,0 +1,52 @@
+<foreach name="list" item="var">
+       <li class="line">
+        <dt>
+            <a class="x3">ID：<{$var.goods_id}></a>
+            <a class="x9 text-right">过期时间：<{$var.ltime}></span> </a>
+        </dt>
+  		<dd class="zhong">
+            <div class="x3">
+               <img src="<{:config_img($var['photo'])}>" width="70" height="70">
+            </div>
+            <div class="x9">
+                <p><a href="<{:U('wap/crowd/detail',array('goods_id'=>$var['goods_id']))}>"><{$var['title']}></a></p>
+                <p class="text-small">
+                    <span class="text-dot1 margin-right">类别：<{$cates[$var['cate_id']]['cate_name']}></span>
+                    <span class="text-dot1 margin-right">区域：<{$citys[$var['city_id']]['name']}> - <{$areas[$var['area_id']]['area_name']}> </span>
+                </p>
+                <p class="text-small">
+                    <span class="text-dot1 margin-right">佣金：&yen;<{:round($var['commission']/100,2)}>元</span>
+                    <span class="text-dot1 margin-right">状态：<eq name="var.audit" value="0">等待审核<else/>正常</eq></span>
+                </p>
+          </div>
+         </dd>
+
+         <div class="card">
+            <div class="card_foot">
+                 <div class="jine"> 筹集金额：<em>&yen;</em><span class="gotham"> <{$var['all_price']/100}>元</span>/<em>已筹：&yen;</em>
+                 <span class="gotham"> <{$var['have_price']/100}> </span>元</div>
+                      <ul>
+                          <li>支持人数<br><span class="gotham"> <{$var['have_num']}></span></li>
+                          <li>项目进度<br><span class="gotham"><{$var['have_price']/$var['all_price']*100}>%</span></li>
+                          <li>剩余天数<br><span><{$var.crowd_time}></span>天</li>
+                     </ul>
+                  <div class="progress_container">
+                    <div class="progress_bar finished" progress="<{$var['have_price']/$var['all_price']*100}>" style="width:<{$var['have_price']/$var['all_price']*100}>%;"></div>
+                  </div>
+            </div>
+        </div>
+          
+        <dl>
+          <p class="text-right padding-top x12">
+             <a class="button button-small bg-blue margin-bottom" href="<{:U('crowd/edit',array('goods_id'=>$var['goods_id']))}>">编辑</a>
+             <a class="button button-small bg-yellow margin-bottom" href="<{:U('crowd/setting',array('goods_id'=>$var['goods_id']))}>">设置众筹</a>
+             <a class="button button-small bg-yellow margin-bottom" href="<{:U('crowd/project',array('goods_id'=>$var['goods_id']))}>">项目进展</a>
+             <a class="button button-small bg-yellow margin-bottom" href="<{:U('crowd/ask',array('goods_id'=>$var['goods_id']))}>">话题</a>
+             <a class="button button-small bg-yellow margin-bottom" href="<{:U('crowd/lists',array('goods_id'=>$var['goods_id']))}>">参与支持</a>
+             <a class="button button-small bg-yellow margin-bottom" href="<{:U('crowd/follow',array('goods_id'=>$var['goods_id']))}>">关注点赞</a>        
+         </p>
+       </dl>
+    </li>
+    <div class="blank-10 bg"></div>
+</foreach>
+

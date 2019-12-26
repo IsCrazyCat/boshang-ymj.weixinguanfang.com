@@ -1,0 +1,45 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家</a> > <a href="">短信管理</a> > <a>购买短信</a></li>
+    </ul>
+</div>
+
+<div class="tuan_content">
+     <include  file='shop:nav'/> 
+
+    <div class="tabnr_change  show">
+		<form method="post" class="password"  action="<{:U('shop/sms')}>"  target="baocms_frm">
+    	<table class="tuanfabu_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td colspan="2"><div class="tuanfabu_nr">亲，您当前共有余额：<font color="red"><{:round($MEMBER['money']/100,2)}></font>
+                <if condition="!empty($nums['num'])">
+                您当前有短信：<font color="red"><{$nums['num']}></font>条。
+                </if>
+                </div></td>
+            </tr>
+
+            <tr>
+                <td><p class="tuanfabu_t">购买短信：</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" style="width:100px; background-color:#eee;" name="num" class="tuanfabu_int tuanfabu_intw2" />
+                <code>价格<{$sms_shop_money}>元一条，一次性最多购买<{$sms_shop_big}>条！最少<{$sms_shop_small}>条，并只能为整数。</code>
+                </div>
+                </td>
+            </tr>
+
+        </table>
+        <div class="tuanfabu_an">
+        <input type="submit" class="radius3 sjgl_an tuan_topbt" value="确认购买" />
+        </div>
+        </form>
+    </div> 
+</div>
+
+    
+
+</div>
+
+
+
+<include  file='public:footer'/>

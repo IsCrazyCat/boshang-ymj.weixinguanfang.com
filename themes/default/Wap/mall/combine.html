@@ -1,0 +1,41 @@
+<include file='public:header'/>    
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('mall/index',array('cat'=>$detail['cate_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			付款中心
+		</div>
+	</header>
+	
+	
+    <div class="pay-form">
+		<div class="row">
+			<span class="float-left">合并付款编号：</span>
+			<span class="float-right"><{$logs.log_id}></span>
+		</div>
+		<hr />
+		<div class="row">
+			<span class="float-left">订单总额：</span>
+			<span class="float-right">￥ <{:round($logs['need_pay']/100,2)}> 元</span>
+		</div>
+		<hr />
+		<div class="row">
+			<span class="float-left">配送费用：</span>
+			<span class="float-right">￥ <{:round($logs['express']/100,2)}> 元</span>
+		</div>
+		<hr />
+		<div class="row">
+			<span class="float-left">还需支付：</span>
+			<span class="float-right">￥ <{:round($logs['express']/100+$logs['need_pay']/100,2)}> 元</span>
+		</div>
+		<hr />
+		
+		<div class="blank-20"></div>
+		<div class="text-center padding-left padding-right">
+			<{$button}>
+		</div>
+		<div class="blank-20"></div>
+    </div>
+
+<include file='public:footer'/>    

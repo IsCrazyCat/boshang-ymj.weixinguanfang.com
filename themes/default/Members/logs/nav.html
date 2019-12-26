@@ -1,0 +1,10 @@
+<div class="tgdd_t">
+  <ul>
+    <li <if condition="$act eq 'integral'">class="on"</if> ><a href="<{:U('logs/integral')}>">积分日志</a></li>
+    <li <if condition="$act eq 'prestigelogs'">class="on"</if> ><a href="<{:U('logs/prestigelogs')}>"><{$CONFIG.prestige.name|default='威望'}>日志</a></li>          
+    <li <if condition="$act eq 'moneylogs'">class="on"</if> ><a href="<{:U('logs/moneylogs')}>">余额日志</a></li>
+    <li <if condition="$act eq 'cashlogs'">class="on"</if> ><a href="<{:U('logs/cashlogs')}>">提现日志</a></li>
+    <li <if condition="$act eq 'rechargecard'">class="on"</if> ><a href="<{:U('logs/rechargecard')}>">代金券日志</a></li>
+   </ul>
+   <a style="display: inline-block; float: right; margin-right: 10px;" class="myInfor_sx" href="<{:U('money/recharge')}>">代金券充值</a>
+</div>

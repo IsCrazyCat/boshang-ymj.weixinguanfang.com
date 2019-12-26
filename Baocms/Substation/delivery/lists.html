@@ -1,0 +1,56 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">频道</li>
+        <li class="li2">配送员管理</li>
+        <li class="li2 li3">配送记录</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+
+    <div class="jsglNr">
+        
+	<div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+        <span style="background:#ff5700;color:#ffffff;height:26px;line-height:26px;font-weight:bold;font-size:16px;padding:0px 4px;border-radius:5px;"><{$delivery.name}>的配送记录</span>
+    </div>
+
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50">ID</td>
+                    <td class="w100">类型</td>
+                    <td>订单编号</td>
+                    <td>商店信息</td>
+                    <td>购买人信息</td>
+                    <td>时间</td>
+                    <td class="w100">状态</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><{$var.order_id}></td>
+                        <td><eq name="var.type" value="0">商城</eq><eq name="var.type" value="1">外卖</eq></td>
+                        <td><{$var.type_order_id}></td>
+                        <td><{$var.shop_name}>&nbsp;&nbsp;|&nbsp;&nbsp;<{$var.shop_addr}>&nbsp;&nbsp;|&nbsp;&nbsp;<{$var.shop_mobile}></td>
+                        <td><{$var.user_name}>&nbsp;&nbsp;|&nbsp;&nbsp;<{$var.user_addr}>&nbsp;&nbsp;|&nbsp;&nbsp;<{$var.user_mobile}></td>
+                        <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                        <td>
+                        	<eq name="var.status" value="0"><span style="color:#f6b300;">等待接单</span></eq>
+                            <eq name="var.status" value="1"><span style="color:#f6b300;">等待接单</span></eq>
+                            <eq name="var.status" value="2"><span style="color:#ff0000;">配送中</span></eq>
+                            <eq name="var.status" value="8"><span style="color:#18c900;">已完成</span></eq>
+                        </td>
+                    </tr>
+                </foreach>
+            </table>
+            
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <{$page}>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+
+

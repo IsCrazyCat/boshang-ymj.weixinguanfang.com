@@ -1,0 +1,102 @@
+<include  file='public:header'/>
+
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">商城</li>
+        <li class="li2"> 商城点评</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>这里可以编辑评价哦，以及删除评价避免恶意评价。</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('malldianping/create','','添加点评')}>
+            </div>
+            <div class="right">
+                <form action="<{:U('malldianping/index')}>" >  
+                    <div class="seleHidden" id="seleHidden">
+
+                        <span>商城订单号:</span>
+                        <input type="text"  name="order_id" value="<{$order_id}>" class="inptText" /><input type="submit" value="   搜索"  class="inptButton" />
+                    </div> 
+                    <a style="display: inline-block;" href="#" class="searchG">高级搜索</a>
+                </form>
+
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form action="<{:U('malldianping/index')}>" >  
+            <div class="selectNr selectNr2">
+                <div class="left">
+                    <div class="seleK">
+                        <span>商家</span>
+                        <input type="hidden" id="shop_id" name="shop_id" value="<{$shop_id|default=''}>"/>
+                        <input type="text"   id="shop_name" name="shop_name" value="<{$shop_name}>" class="text" />
+                        <a  href="<{:U('shop/select')}>" mini='select' w='800' h='600' class="sumit lt ">选择商家</a>
+
+                        <span>用户</span>
+                        <input type="hidden" id="user_id" name="user_id" value="<{$user_id|default=''}>" />
+                        <input type="text" name="nickname" id="nickname"  value="<{$nickname}>"   class="text" />
+                        <a  href="<{:U('user/select')}>" mini='select' w='800' h='600' class="sumit lt ">选择用户</a>
+                    </div>
+
+                </div>
+                <div class="right">
+                    <input type="submit" value="   搜索"  class="inptButton" />
+                </div>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <th class="w50"><input type="checkbox" class="checkAll" rel="order_id" /></th>
+                    <td>套餐订单号</td>
+                    <td>用户</td>
+                    
+                    <td>评分</td>
+                    <td>平均花费</td>
+                    <td>创建时间</td>
+                    <td>创建IP</td>
+                    <td>生效日期</td>
+                    <td>操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_order_id" type="checkbox" name="order_id[]" value="<{$var.order_id}>" /></td>
+                        <td><{$var.order_id}></td>
+                        <td><{$users[$var['user_id']]['account']}>(ID:<{$var.user_id}>)</td>
+                        
+                        <td><{$var.score}></td>
+                        <td>
+                        <if condition="!empty($var['cost'])">
+                        <{$var.cost}>
+                        <else/>
+                        无
+                        </if>
+                        </td>
+                        <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                        <td><{$var.create_ip}>(来自<{$var.create_ip_area}>)</td>
+                        <td><{$var.show_date}></td>
+                        <td>
+                            <{:BA('malldianping/edit',array("order_id"=>$var["order_id"]),'编辑','','remberBtn')}>
+                            <{:BA('malldianping/delete',array("order_id"=>$var["order_id"]),'删除','act','remberBtn')}>
+                        </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                <{:BA('malldianping/delete','','批量删除','list',' a2')}>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  

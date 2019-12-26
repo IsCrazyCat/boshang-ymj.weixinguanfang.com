@@ -1,0 +1,33 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">微接力</a> > <a>成员</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">
+            微接力成员管理
+            </div>
+           
+        </div>
+    </div>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>用户昵称</td>
+            <td>头像</td>
+			<td>助力时间</td>
+        </tr>
+
+        <foreach name="list" item="var">
+            <tr>
+                <td><{$var.nickname}></td>
+                <td style="height: 80px;"><img src="<{:config_img($var['img'])}>"  style="width: 80px;  margin: 0px auto;" /></td>
+                <td><{$var.dateline|date='Y-m-d H:i:s',###}></td>
+            </tr>
+        </foreach>
+    </table>
+    <{$page}>
+</div>
+<include  file='public:footer'/>

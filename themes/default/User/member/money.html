@@ -1,0 +1,101 @@
+<include file="public:header"/>
+
+
+
+<header class="top-fixed bg-yellow bg-inverse">
+
+	<div class="top-back">
+
+		<a class="top-addr" href="<{:u('user/index/index')}>"><i class="icon-angle-left"></i></a>
+
+	</div>
+
+		<div class="top-title">
+
+			账户余额
+
+		</div>
+
+	<div class="top-signed">
+
+		<include file="public:message"/>
+
+	</div>
+
+</header>
+
+
+
+<div class="panel-list">
+
+	<ul>
+
+		<li>
+
+			<a href="javascript:;">
+
+				我的积分：
+
+				<em class="text-gray"><{$MEMBER.integral}></em>
+
+			</a>
+
+		</li>
+
+		<li>
+
+			<a href="javascript:;">
+
+				我的余额：<em><{:round($MEMBER['money']/100,2)}></em>
+
+			</a>
+
+		</li>
+
+		<li>
+
+			<a href="javascript:;">
+
+				我的金块：<em><{:round($MEMBER['gold']/100,2)}></em>
+
+			</a>
+
+		</li>
+
+	</ul>
+
+</div>
+
+<div class="blank-10 bg"></div>
+
+
+
+<p class="padding text-small">
+
+	<strong>友情提示：</strong><br />
+
+	积分：可用于网站礼品兑换、部分团购可用积分抵用现金。<br />
+
+	余额：是个人账户的可用额度，等同站内现金进行支付。<br />
+
+	金块：是商家用于平台购买服务、功能的虚拟货币。<br />
+
+</p>
+
+
+
+<div class="blank-20"></div>
+
+<div class="line text-center">
+
+	<a class="button bg-dot" href="javascript:history.go(-1);">返回上页</a>
+
+	<a class="button bg-main" href="<{:U('money/index')}>">我要冲值</a>
+
+</div>
+
+<div class="blank-20"></div>
+
+
+
+<include  file='public:footer'/>    

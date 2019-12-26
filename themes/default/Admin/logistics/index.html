@@ -1,0 +1,85 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">商城</li>
+        <li class="li2">快递</li>
+        <li class="li2 li3">快递列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>注意添加的时候快递编号不要乱写，网站一般添加几个常用快递足够了！</p>
+    <div class="jsglNr">
+        <div class="selectNr">
+            <div class="left">
+                <{:BA('logistics/create','','添加运单模板')}>
+            </div>
+            <div class="right">
+                <form  method="post"  action="<{:U('logistics/index')}>"> 
+
+                    <div class="seleHidden" id="seleHidden">
+                        <div class="seleK">
+                            <label>
+                                <input type="hidden" id="shop_id" name="shop_id" value="<{$shop_id|default=''}>"/>
+                                <input type="text"   id="shop_name" name="shop_name" value="<{$shop_name}>" class="inptText" />
+                                <a  href="<{:U('shop/select')}>" mini="select" w="800" h="600" class="sumit">选择商家</a> 
+                            </label>
+                            <span>快递名称</span>
+                            <input type="text"  class="inptText" name="keyword" value="<{$keyword}>"  />
+                            <input type="submit" value=" 搜索"  class="inptButton" />
+                        </div>
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+        </div>
+
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="express_id" /></td>
+                    <td class="w50">ID</td>
+                    <td>所属商家</td>
+                    <td>快递编号</td>
+                    <td>快递名称</td>
+                    <td>排序</td>
+                    <td>添加时间</td>
+                    <td class="w360">操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_express_id" type="checkbox" name="express_id[]" value="<{$var.express_id}>" /></td>
+                        <td><{$var.express_id}></td>
+                        <td><{$shops[$var['shop_id']]['shop_name']}></td>
+                        <td><{$var.express_com}></td>
+                        <td><{$var.express_name}></td>
+                        <td><{$var.orderby}></td>
+                        <td><{$var.create_time|date="Y-m-d H:i:s",###}></td>
+                    <td>  
+                    <{:BA('logistics/edit',array("express_id"=>$var["express_id"]),'编辑', '','remberBtn')}>
+                    <{:BA('logistics/delete',array("express_id"=>$var["express_id"]),'删除','act','remberBtn')}>
+                    </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        
+         <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('logistics/delete','','批量删除','list',' a2')}>
+                </div>
+            </div>
+            
+    </form>
+    </div>
+</div>
+<include  file='public:footer'/>
+
+
+
+
+
+
+

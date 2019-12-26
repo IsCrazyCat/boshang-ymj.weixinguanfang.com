@@ -1,0 +1,140 @@
+<include file='public:headnear'/>     
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			智慧小区
+		</div>
+		<div class="top-share">
+			<a href="javascript:void(0);" id="cate-btn"><i class="icon-bars"></i></a>
+		</div>
+	</header>
+    
+<!--定位开始-
+<div class="line">
+		<div class="blank-10"></div>
+		<div class="padding">
+			<i class="icon-map-marker"></i> <span id="local-addr"></span> (<a href="javascript:reset();" class="text-gray" id="local-reset">重新定位</a>)
+		</div>
+	</div>
+
+<!--定位结束-->	
+    <div class="serch-bar-mask" id="cate_menu" style="display:none;top:50px;">
+		<div class="serch-bar-mask-list">
+			<ul>
+            <li><a <if condition="$area_id  eq null">class="on"</if> href="<{:LinkTo('community/index',array('change'=>1))}>">全部</a></li>
+            <volist name="areas" id="var" key="index">
+            <php>if($var['city_id'] == $city_id){</php>
+                <li <if condition="$index%3 eq 2">class="area_spe"</if> ><a <if condition="$var.area_id eq $area_id">class="on"</if>  href="<{:LinkTo('community/index',array('area'=>$var['area_id'],'change'=>1))}>"><{$var.area_name}></a></li>
+                <php>}</php>
+            </volist>
+            
+			</ul>
+		</div>
+	</div>
+	<script>
+		$(document).ready(function () {
+			$("#cate-btn").click(function () {
+				$("#cate_menu").toggle();
+			});
+			
+			$("#cate_menu ul li a").click(function () {
+				$("#cate_menu").toggle();
+			});
+
+		});
+	</script>
+	
+	<div class="line xiaoqu-search">
+		<form method="post"  action="<{:u('community/index',array('change'=>1))}>" id="form1" class="form1">
+			<div class="form-group">
+				<div class="field">
+					<div class="input-group">
+						<span class="addbtn"><button type="button" class="button icon-search"></button></span>
+						<input type="text" class="input" name="keyword" size="50" value="<{$keyword}>" placeholder="输入小区名"  />
+						<span class="addbtn"><button type="submit" class="button">搜索</button></span>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	
+	<div class="xiaoqu-list">
+		<ul id="xiaoqu-list"></ul>  
+	</div>
+
+    <script>
+		$(document).ready(function () {
+			loaddata('<{$nextpage}>', $("#xiaoqu-list"), true);
+		});
+    </script>
+    
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=qfbt1AS4SZZvfZvSXE0A1Mx2"></script>
+	<script>
+		$(document).ready(function () {
+			TouchSlide({ 
+				slideCell:"#focus",
+				titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+				mainCell:".bd", 
+				effect:"left", 
+				autoPlay:false,//自动播放
+				autoPage:true, //自动分页
+			});
+			reset();
+			$("#search-btn").click(function(){
+				if($(".top-search").css("display")=='block'){
+					$(".top-search").hide();
+					$(".top-title").show(200);
+				}
+				else{
+					$(".top-search").show();
+					$(".top-title").hide(200);
+				}
+			});
+			
+		});	
+   
+	function reset() {
+		var addr = $("#local-addr").html();
+		$("#local-addr").html("定位中……");
+			// 百度地图API功能
+	var map = new BMap.Map("allmap");
+	var point = new BMap.Point(116.331398,39.897445);
+	map.centerAndZoom(point,12);
+	var geolocation = new BMap.Geolocation();
+	geolocation.getCurrentPosition(function(r){
+		if(this.getStatus() == BMAP_STATUS_SUCCESS){
+			var mk = new BMap.Marker(r.point);
+			map.addOverlay(mk);
+			map.panTo(r.point);
+			lat=r.point.lat;
+			lng=r.point.lng;
+			getlat(lng,lat);
+			//alert('您的位置：'+lng+','+lat);
+			$("#addr").html(lng+','+lat);
+		}
+		else {
+			//alert('failed'+this.getStatus());
+		}        
+	},{enableHighAccuracy: true})
+		
+		}
+		function getlat(lng,lat){
+	//alert('开始获取');
+	var map = new BMap.Map("allmap"); 
+	var point = new BMap.Point(lng,lat);
+	map.centerAndZoom(point,12);
+	var geoc = new BMap.Geocoder();    
+	var pt = point;
+	geoc.getLocation(pt, function(rs){
+			var addComp = rs.addressComponents;
+			//alert(addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber);
+			$("#local-addr").html(addComp.city + addComp.district + addComp.street + addComp.streetNumber);
+		});        
+		}
+		 
+	</script>
+    
+		
+<include file="public:footer"/>

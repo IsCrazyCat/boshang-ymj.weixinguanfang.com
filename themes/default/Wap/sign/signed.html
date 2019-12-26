@@ -1,0 +1,44 @@
+<include  file='public:header'/>    
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('user/member/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			今日签到
+		</div>
+	</header>
+
+	<div id="main">
+		<div class="blank-10"></div>
+		<div class="banner"></div>
+		<ul class="shadow">
+			
+			<li class="result"><if condition="!empty($MEMBER)">恭喜你已获得了<{$MEMBER.integral}>积分！<else />每日手机登录签到，都能够获取积分！</if></li>
+			<if condition="!empty($MEMBER)">
+			<li class="asset">
+				您已连续签到<span><{$sign.day}></span> 天，积分可兑换礼品哦！
+			</li>
+			</if>
+			<li class="btn">
+				<if condition="!empty($MEMBER)">
+					<if condition="empty($sign['is_sign'])">
+                   	<a class="btn" href="<{:U('sign/signing')}>">立刻签到</a>
+                    <else />
+                    <a class="btn" href="javascript:void(0);">明日签到 +<{$sign.integral}></a>
+                    </if>
+				<else />
+				<a class="btn" href="<{:U('passport/login')}>">立刻登录</a>
+				</if>
+			</li>
+			
+			<li class="btn">
+				<a class="btn" href="<{:U('jifen/index')}>">礼品兑换区</a>
+			</li>
+		</ul>
+		
+		<div class="blank-10"></div>
+		
+	</div>
+
+
+<include file="public:footer"/>

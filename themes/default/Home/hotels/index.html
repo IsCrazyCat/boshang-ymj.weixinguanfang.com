@@ -1,0 +1,301 @@
+<include file="public:header" /> 
+<include file="public:top"/>
+<include file="public:nav2"/>
+<style>
+.hotel_cate .goods_flList_r {width: 880px;}
+</style>
+<script type="text/javascript" src="__TMPL__statics/js/dateRange.js"></script>
+<link rel="stylesheet" type="text/css" href="__TMPL__statics/css/dateRange.css"/>
+<!--主体内容-->
+<div class="pagewd">
+	<!--搜索-->
+    <div class="hotel_banner mt10 mb10">
+        <img src="__TMPL__statics/images/hotel/banner.png" />
+        <script>
+            $(document).ready(function() {
+                $(".hotel_soso_pull_int input").click(function(){
+                    $(this).parent().find(".hotel_soso_pull").slideToggle(200);
+                });
+                $(document).on('click','#area li',function(){
+                //$(".hotel_soso_pull li").click(function(){
+                    $(this).parents(".hotel_soso_pull_int").find(".hotel_soso_pull").hide();
+                    $(this).parents(".hotel_soso_pull_int").find("input").val($(this).html());
+                    $("#area_id").val($(this).attr('rel'));
+                });
+                $(document).on('click','#business li',function(){
+                //$(".hotel_soso_pull li").click(function(){
+                    $(this).parents(".hotel_soso_pull_int").find(".hotel_soso_pull").hide();
+                    $(this).parents(".hotel_soso_pull_int").find("input").val($(this).html());
+                    $("#business_id").val($(this).attr('rel'));
+                });
+                $("#business_btn").click(function(){
+                    var url = "<{:U('hotels/business')}>";
+                    var area_id = $("#area_id").val();
+                    $.post(url,{area_id:area_id},function(data){
+                        if(data.status == 'success'){
+                            var html ="";
+                            var list = data.list;
+                            $.each(list, function (n, value) {
+				html += '<li rel='+value.business_id+'>'+value.business_name+'</li>';					
+                            });
+                            $('#business ul').html(html);
+                        }else{
+                            return false;
+                        }
+                    },'json')
+                })
+                
+            });
+        </script>
+        <div class="hotel_soso">
+            <form action="<{:U('hotels/index')}>" method="post">
+                <div class="int_box hotel_soso_pull_int left">
+                    <input value="" type="text" placeholder="地区" />
+                    <input type="hidden" id="area_id" value="" name="area_id"/>
+                    <em class="ico ico_1"></em>
+                	<div class="hotel_soso_pull" id="area">
+                    	<ul>
+                            <foreach name="areas" item="item">
+                            	<eq name="item.city_id" value="$city_id">
+                                	<li rel="<{$item.area_id}>"><{$item.area_name}></li>
+                                </eq>
+                            </foreach>
+                        </ul>
+                    </div>
+                </div>
+                <div class="int_box  hotel_soso_pull_int left">
+                    <input type="text" id="business_btn" value="" placeholder="商圈" />
+                    <input type="hidden" id="business_id" value="" name="business_id"/>
+                    <em class="ico ico_1"></em>
+                	<div class="hotel_soso_pull" id="business">
+                    	<ul>
+
+                        </ul>
+                    </div>
+                </div>
+                <div id="date_demo" style=" height: 44px; float: left; color: #fff;">
+                <div class="int_box time left"><span class="wz">入住</span><input type="text" value="<{$into_time}>" readonly="readonly" id="ft"/><em class="ico ico_2"></em></div>
+                <div class="int_box time left"><span class="wz">退房</span><input type="text" value="<{$out_time}>" readonly="readonly" id="tt"/><em class="ico ico_2"></em></div>
+                </div>
+                <div class="int_box long left"><input type="text" name="keyword" value="<{$keyword}>" placeholder="酒店名"  /></div>
+                <input type="submit" id="set_cookie" value="搜索" class="btn left"  />
+                <div class="clear"></div>
+            </form>
+        </div>
+    </div>
+    <script>
+        var today = "<{$today}>";
+        var dateRange = new pickerDateRange('date_demo', {
+            //aRecent90Days : 'aRecent7DaysDemo3', //最近7天
+            isTodayValid : true,
+            startDate : "<{$into_time}>",
+            endDate : "<{$out_time}>",
+            needCompare : true,
+            //isSingleDay : true,
+            shortOpr : false,
+            //dayRangeMax : 30,
+            defaultText : ' 至 ',
+            inputTrigger : 'input_trigger_demo3',
+            theme : 'ta',
+            success : function(obj) {
+                    $("#ft").val(obj.startDate);
+                    $("#tt").val(obj.endDate);
+            }
+        });
+        dateRange.setNextMonth();
+        
+        $(document).ready(function(){
+            $("#set_cookie").click(function(){
+                var ft = $("#ft").val();
+                var tt = $("#tt").val();
+                SetCookie('into_time',ft);
+                SetCookie('out_time',tt);
+            })
+        })
+         function SetCookie(name, value)//两个参数，一个是cookie的名子，一个是值
+            {
+                var Days = 30; //此 cookie 将被保存 30天
+                var exp = new Date();    //new Date("December 31, 9998");
+                exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+                document.cookie = name + "=" + value + ";expires=" + exp.toGMTString() +";path=/";
+            }
+    </script>
+    <!--搜索结束-->
+    <!--酒店分类筛选-->
+    <div class="hotel_cate">
+        <div class="goods_flBox">
+            <ul>
+                <li class="goods_flList">
+                        <div class="left goods_flList_l">地区位置：</div>
+                        <div class="left goods_flList_r">
+                            <a  class="<if condition='empty($area_id)'>on</if> goods_flListA"  title="全部地区" href="<{:LinkTo('hotels/index',$linkArr,array('area_id'=>0,'business_id'=>0))}>">全部</a>  
+                            <foreach name="areas" item="item">
+                                <eq name="item.city_id" value="$city_id">
+
+                                <a title="<{$item.area_name}>"  href="<{:LinkTo('hotels/index',$linkArr,array('area_id'=>$item['area_id']))}>"  <eq name="item.area_id" value="$area_id">class="goods_flListA on"<else/>class="goods_flListA"</eq> ><{$item.area_name}></a> 
+                                </eq>
+                            </foreach>
+                        </div>
+                    <if condition="!empty($area_id)">
+                        <div class="left goods_flList_r stycate">
+                            <foreach name="bizs" item="item">
+                                <eq name="item.area_id" value="$area_id">
+                                <a title="<{$item.business_name}>"  class="<eq name='item.business_id' value='$business_id'> on</eq> goods_flListA"  href="<{:LinkTo('hotels/index',$linkArr,array('area_id'=>$area_id,'business_id'=>$item['business_id']))}>"  ><{$item.business_name}></a>
+                                </eq>
+                            </foreach>
+                        </div>    
+                    </if>
+                </li>
+                <li class="goods_flList">
+                    <div class="left goods_flList_l">酒店级别：</div>
+                    <div class="left goods_flList_r">
+                        <a  class="<if condition='empty($cate_id)'>on</if> goods_flListA"  title="不限" href="<{:LinkTo('hotels/index',$linkArr,array('cate_id'=>0))}>">不限</a> 
+                        <volist name="cates" id="item">
+                            <a title="<{$item}>" href="<{:LinkTo('hotels/index',$linkArr,array('cate_id'=>$i))}>" class="<if condition='$cate_id eq $i'>on</if> goods_flListA"><{$item}></a>
+                        </volist>
+                    </div>
+                </li>
+                <li class="goods_flList">
+                    <div class="left goods_flList_l">价格范围：</div>
+                    <div class="left goods_flList_r">
+                        <a  class="<if condition='empty($fp)&&empty($tp)'>on</if> goods_flListA"  title="不限" href="<{:LinkTo('hotels/index',$linkArr,array('fp'=>0,'tp'=>0))}>">不限</a> 
+                        <a title="￥200以下" href="<{:LinkTo('hotels/index',$linkArr,array('fp'=>0,'tp'=>200))}>" class="<if condition='$fp eq 0 && $tp eq 200'>on</if> goods_flListA">￥200以下</a>
+                        <a title="￥200-￥300" href="<{:LinkTo('hotels/index',$linkArr,array('fp'=>200,'tp'=>300))}>" class="<if condition='$fp eq 200 && $tp eq 300'>on</if> goods_flListA">￥200-￥300</a>
+                        <a title="￥300-￥500" href="<{:LinkTo('hotels/index',$linkArr,array('fp'=>300,'tp'=>500))}>" class="<if condition='$fp eq 300 && $tp eq 500'>on</if> goods_flListA">￥300-￥500</a>
+                        <a title="￥500以上" href="<{:LinkTo('hotels/index',$linkArr,array('fp'=>500,'tp'=>0))}>" class="<if condition='$fp eq 500 && $tp eq 0'>on</if> goods_flListA">￥500以上</a>
+                        <span class="hotel_cate_price">自定义<input id="fp" type="text" value="<{$fp|default=''}>" />~<input id='tp' type="text" value="<{$tp|default=''}>" /><a href="javascript:void(0);" id="sure_btn" rel="<{:LinkTo('hotels/index',$linkArr,array('fp'=>'oooo','tp'=>yyyy))}>" class="btn">确定</a></span>
+                    </div>
+                </li>
+                <li class="goods_flList">
+                    <div class="left goods_flList_l">配套设施：</div>
+                    <div class="left goods_flList_r">
+                        
+                        <a class="<if condition='!$is_wifi&&!$is_kt&&!$is_nq&&!$is_xyj&&!$is_tv&&!$is_ly&&!$is_bx&&!$is_base&&!$is_rsh'>on</if> goods_flListA" title="不限" href="<{:LinkTo('hotels/index',$linkArr,array('is_wifi'=>0,'is_kt'=>0,'is_nq'=>0,'is_xyj'=>0,'is_tv'=>0,'is_ly'=>0,'is_bx'=>0,'is_base'=>0,'is_rsh'=>0))}>">不限</a>
+                        <label title="WIFI" class="hotel_cate_int wd can_cancel"><input type="checkbox" <eq name="is_wifi" value="1">checked="checked"</eq>  rel='<{:LinkTo('hotels/index',$linkArr,array('is_wifi'=>'1'))}>' data="<{:LinkTo('hotels/index',$linkArr,array('is_wifi'=>'0'))}>"  name="is_wifi"/>WIFI</label>
+                        <label title="空调" class="hotel_cate_int wd can_cancel"><input type="checkbox" <eq name="is_kt" value="1">checked="checked"</eq>  rel='<{:LinkTo('hotels/index',$linkArr,array('is_kt'=>'1'))}>' data="<{:LinkTo('hotels/index',$linkArr,array('is_kt'=>'0'))}>"  name="is_kt"/>空调</label>
+                        <label title="暖气" class="hotel_cate_int wd can_cancel"><input type="checkbox" <eq name="is_nq" value="1">checked="checked"</eq>  rel='<{:LinkTo('hotels/index',$linkArr,array('is_nq'=>'1'))}>' data="<{:LinkTo('hotels/index',$linkArr,array('is_nq'=>'0'))}>"  name="is_nq"/>暖气</label>
+                        <label title="洗衣机" class="hotel_cate_int wd can_cancel"><input type="checkbox" <eq name="is_xyj" value="1">checked="checked"</eq>  rel='<{:LinkTo('hotels/index',$linkArr,array('is_xyj'=>'1'))}>' data="<{:LinkTo('hotels/index',$linkArr,array('is_xyj'=>'0'))}>"  name="is_xyj"/>洗衣机</label>
+                        <label title="电视机" class="hotel_cate_int wd can_cancel"><input type="checkbox" <eq name="is_tv" value="1">checked="checked"</eq>  rel='<{:LinkTo('hotels/index',$linkArr,array('is_tv'=>'1'))}>' data="<{:LinkTo('hotels/index',$linkArr,array('is_tv'=>'0'))}>"  name="is_tv"/>电视机</label>
+                        <label title="淋浴" class="hotel_cate_int wd can_cancel"><input type="checkbox" <eq name="is_ly" value="1">checked="checked"</eq>  rel='<{:LinkTo('hotels/index',$linkArr,array('is_ly'=>'1'))}>' data="<{:LinkTo('hotels/index',$linkArr,array('is_ly'=>'0'))}>"  name="is_ly"/>淋浴</label>
+                        <label title="电冰箱" class="hotel_cate_int wd can_cancel"><input type="checkbox" <eq name="is_bx" value="1">checked="checked"</eq>  rel='<{:LinkTo('hotels/index',$linkArr,array('is_bx'=>'1'))}>' data="<{:LinkTo('hotels/index',$linkArr,array('is_bx'=>'0'))}>"  name="is_bx"/>电冰箱</label>
+                        <label title="毛巾牙具" class="hotel_cate_int wd can_cancel"><input type="checkbox" <eq name="is_base" value="1">checked="checked"</eq>  rel='<{:LinkTo('hotels/index',$linkArr,array('is_base'=>'1'))}>' data="<{:LinkTo('hotels/index',$linkArr,array('is_base'=>'0'))}>"  name="is_base"/>毛巾牙具</label>
+                        <label title="热水壶" class="hotel_cate_int wd can_cancel"><input type="checkbox" <eq name="is_rsh" value="1">checked="checked"</eq>  rel='<{:LinkTo('hotels/index',$linkArr,array('is_rsh'=>'1'))}>' data="<{:LinkTo('hotels/index',$linkArr,array('is_rsh'=>'0'))}>"  name="is_rsh"/>热水壶</label>
+                    </div>
+                </li>
+                <li class="goods_flList">
+                    <div class="left goods_flList_l">酒店品牌：</div>
+                    <div class="left goods_flList_r">
+                        <a  class="<if condition='empty($type)'>on</if> goods_flListA"  title="不限" href="<{:LinkTo('hotels/index',$linkArr,array('type'=>0))}>">不限</a> 
+                        <foreach name="types" item="item">
+                            <a title="<{$item.title}>" href="<{:LinkTo('hotels/index',$linkArr,array('type'=>$item['type']))}>" class="<if condition='$type eq $item["type"]'>on</if> goods_flListA"><{$item.title}></a>
+                        </foreach>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <script>
+            $(document).ready(function() {
+                $(".hotel_cate .goods_flList_r .more").click(function(){
+                    if($(this).hasClass("on")){
+                            $(this).removeClass("on");
+                            $(this).parent().find(".more_box").hide();
+                    }
+                    else{
+                            $(this).addClass("on");
+                            $(this).parent().find(".more_box").show();
+                    }
+                });
+                $(".can_cancel input").click(function () {
+                    if ($(this).prop('checked') == true) {
+                        location.href = $(this).attr('rel');
+                    } else {
+                        location.href = $(this).attr('data');
+                    }
+                });
+                $("#sure_btn").click(function(){
+                    var link = $(this).attr('rel');
+                    var fp = $("#fp").val();
+                    var tp = $("#tp").val();
+                     window.location.href = link.replace('oooo', fp).replace('yyyy',tp);
+                })
+                
+            });
+        </script>
+    </div>
+    <!--酒店分类筛选结束-->
+    <!--排序-->
+    <div class="nearbuy_sxk">
+        <ul>
+            <li class="nearbuy_sxkLi <eq name='order' value='d'>on</eq>"><a class="nearbuy_sxkLiA" href="<{:LinkTo('hotels/index',$linkArr,array('order'=>'d'))}>">默认</a></li>
+            <li class="nearbuy_sxkLi <eq name='order' value='s'>on</eq>"><a class="nearbuy_sxkLiA" href="<{:LinkTo('hotels/index',$linkArr,array('order'=>'s'))}>">星级<em class="em_up"></em></a></li>
+            <li class="nearbuy_sxkLi <eq name='order' value='p'>on</eq>"><a class="nearbuy_sxkLiA" href="<{:LinkTo('hotels/index',$linkArr,array('order'=>'p'))}>">价格<em class="em_up"></em></a></li>
+            <li class="nearbuy_sxkLi <eq name='order' value='f'>on</eq> "><a class="nearbuy_sxkLiA" href="<{:LinkTo('hotels/index',$linkArr,array('order'=>'f'))}>">评分<em class="em_up"></em></a></li>
+        </ul>
+    </div>
+    <!--排序结束-->
+    <!--酒店列表-->
+    <div class="hotel_list_box">
+        <ul>
+            <foreach name="list" item="item">
+            <li class="hotel_list">
+                <div class="pub_img"><a href="<{:U('hotels/detail',array('hotel_id'=>$item['hotel_id']))}>"><img src="<{:config_img($item['photo'])}>" width="380" height="300" /><if condition="$item['have_tuan'] eq 1"><span class="tag">团</span></if></a></div>
+                <div class="pub_wz">
+                	<h3><a href="<{:U('hotels/detail',array('hotel_id'=>$item['hotel_id']))}>"><{$item.hotel_name}><span class="bq" style="background:#80c269;"><{$cates[$item['cate_id']]}></span></a></h3>
+                    <div class="box">
+                    	<div class="left">
+                            <php>$s = round($item['score']/$item['comments'],1);$sc = $s*20;</php>
+                        	<div><span class="spxq_qgpstarBg"><span class="spxq_qgpstar" style="width:<{$sc}>%;"></span></span> <span class="ml10"><{$s}>分</span> <span class="ml10 pl"><{$item.comments}>条评论</span></div> 
+                            <p class="overflow_clear graycl"><{$item.addr}></p>
+                        </div>
+                        <div class="right">
+                        	<p class="price fontcl1">￥<{$item.price}><small class="blackcl3">/晚起</small></p>
+                                <p class="addr map_icon" rel="<{$item.lng}>" data="<{$item.lat}>"><em class="ico"></em>地图</p>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </li>
+            </foreach>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <div class="x">
+        <{$page}>
+    </div>
+    <!--酒店列表结束-->
+</div>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7b92b3afff29988b6d4dbf9a00698ed8"></script>
+    <div class="map_fixed">
+        <div class="map_fixed_tit">
+                <span>查看地图</span>
+         <a href="javascript:;" title="关闭" class="close">×</a> 
+        </div>
+        <div class="map_fixed_box">
+                <div id="allmap" style="width:700px; height:430px;"></div>
+        </div>
+        <p class="zhu">注：地图位置坐标仅供参考，具体情况以实际道路标识信息为准</p>
+    </div>
+<script>
+    jQuery(document).ready(function($) {
+        $('.map_icon').click(function(){
+            var lng = $(this).attr('rel');
+            var lat = $(this).attr('data');
+            $('.map_fixed').show();
+               var map = new BMap.Map("allmap");
+                map.centerAndZoom(new BMap.Point(lng, lat), 14);
+                var point = new BMap.Point(lng,lat);
+                map.centerAndZoom(point, 14);
+                var marker = new BMap.Marker(point); // 创建标注
+                map.clearOverlays();
+                map.addOverlay(marker); // 将标注添加到地图中
+                marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                map.addControl(new BMap.NavigationControl()); //添加默认缩放平移控件
+        })
+        $('.map_fixed .close').click(function(){
+                $('.map_fixed').fadeOut(100);
+        })
+    })
+</script>
+<!--主体内容结束-->
+
+<include file="public:footer"/>

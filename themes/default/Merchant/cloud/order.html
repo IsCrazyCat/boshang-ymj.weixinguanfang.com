@@ -1,0 +1,66 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">云购</a> > <a>云购支付列表</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+	<form method="post" action="<{:U('cloud/order')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">支付编号：<input type="text" class="radius3 tuan_topser"  name="keyword" value="<{$keyword}>"/>
+            <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/></div>
+            <div class="right tuan_topfb_r"><a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('cloud/create')}>">发布云购+</a></div>
+        </div>
+    </div>
+    </form>
+    <div class="tuanfabu_tab">
+        <ul>
+            <li class="tuanfabu_tabli"><a href="<{:U('cloud/index')}>">云购管理</a></li>
+            <li class="tuanfabu_tabli on"><a href="<{:U('cloud/order')}>">购买列表</a></li>
+        </ul>
+    </div>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td class="w50">支付编号</td>
+            <td>商品名称</td>
+            <td>图片</td>
+            <td>类型</td>
+            <td>数量</td>
+            <td>价格</td>
+            <td>购买人昵称</td>
+            <td>状态</td>
+            <td>创建时间</td>
+            <td>操作</td>
+        </tr>
+        <foreach name="list" item="var">
+        <tr>
+            <tr>
+                 <td><{$var.log_id}></td>
+                 <td><{$cloudgoods[$var['goods_id']]['title']}></td>
+                 <td><img style="width:60px;" src="<{:config_img($cloudgoods[$var['goods_id']]['photo'])}>"/></td>
+                 <td>
+                        <eq name="item.type" value="1">1元区</eq>
+                        <eq name="item.type" value="2">5元区</eq>
+                        <eq name="item.type" value="3">10元区</eq>
+                 </td>
+                 <td><{$var.num}></td>
+                 <td>&yen;<{:round($var['money']/100,2)}></td>
+                 <td><{$users[$var['user_id']]['nickname']}></td>
+                 <td>
+                    <eq name="var.status" value="0">未付款</eq>
+                    <eq name="var.status" value="1">已付款</eq>
+                 </td>
+                 <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                <td>                    
+                	<eq name="var.status" value="0"><a  mini="confirm"  href="<{:U('cloud/order_delete',array('goods_id'=>$var['goods_id']))}>">删除</a></eq>
+                </td>
+            </tr>
+        </tr>
+        </foreach>
+    </table>
+    <div class="paging">
+        <{$page}>
+    </div>
+</div>
+<include  file='public:footer'/>

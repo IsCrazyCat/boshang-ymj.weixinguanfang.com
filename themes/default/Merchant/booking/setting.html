@@ -1,0 +1,87 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">系统设置</a> > <a href="<{:U('booking/setting')}>">订座管理</a> > <a>订座配置</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">订座包厢需要付定金，大厅无需付定金，需要设置一个手机号码接受客户下单的短信通知 </div>
+        </div>
+    </div> 
+    <include  file='booking:nav'/>
+    <div class="tabnr_change  show">
+    	<form method="post"  action="<{:U('booking/setting')}>" target="baocms_frm">
+    	<table class="tuanfabu_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="120"><p class="tuanfabu_t">通知手机：</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[mobile]" value="<{$detail.mobile|default=''}>"  class="tuanfabu_int tuanfabu_intw2" />
+                 客户下单通知的手机号码
+                </div>
+                </td>
+            </tr>
+            <tr>
+                <td width="120"><p class="tuanfabu_t">定金：</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[money]" value="<{:round($detail['money']/100,2)}>" style=" width: 80px;"  class="tuanfabu_int tuanfabu_intw2" />
+                 单位元
+                </div>
+                </td>
+            </tr>
+            <tr>
+                <td width="120"><p class="tuanfabu_t">包厢预定间隔时间：</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[bao_time]" value="<{$detail.bao_time}>"  style=" width: 80px;" class="tuanfabu_int tuanfabu_intw2" />
+                 小时;比如有客人预定了7点的 那么如果间隔是3小时，其他客人只能定10点以后的
+                </div>
+                </td>
+            </tr>
+            <tr>
+                <td width="120"><p class="tuanfabu_t">营业时间：</p></td>
+                <td>
+                    <div class="tuanfabu_nr">
+                        <select  class="tuanfabu_int tuanfabu_intw2" name="data[start_time]" id="data[start_time]">
+                            <option value="0">请选择...</option>
+                            <?php foreach($cfg as $key=>$val){?>
+                            <option value="<{$key}>" <?php if($key == $detail['start_time']) echo  'selected="selected"';?> ><{$val}></option>
+                            <?php }?>
+                        </select> - 
+                        <select class="tuanfabu_int tuanfabu_intw2" name="data[end_time]" id="data[end_time]">
+                            <option value="0">请选择...</option>
+                            <?php foreach($cfg as $key=>$val){?>
+                            <option value="<{$key}>" <?php if($key == $detail['end_time']) echo  'selected="selected"';?> ><{$val}></option>
+                            <?php }?>
+                        </select>
+                    </div>
+                </td>
+            </tr>
+               <tr>
+                <td width="120"><p class="tuanfabu_t">包厢有位：</p></td>
+                <td>
+                    <div class="tuanfabu_nr">
+                        <label><input type="radio" <?php if($detail['is_bao'] == 1) echo 'checked="checked"';?>  name="data[is_bao]" id="data[is_bao]" value="1"/>有</label>
+                        <label><input type="radio" <?php if($detail['is_bao'] == 0) echo 'checked="checked"';?>  name="data[is_bao]" id="data[is_bao]" value="0"/>无</label>
+                        如果饭店已经订满了这里可以关闭！
+                    </div>
+                </td>
+            </tr>
+              <tr>
+                <td width="120"><p class="tuanfabu_t">大厅有位：</p></td>
+                <td>
+                    <div class="tuanfabu_nr">
+                        <label><input type="radio" <?php if($detail['is_ting'] == 1) echo 'checked="checked"';?>  name="data[is_ting]" id="data[is_ting]" value="1"/>有</label>
+                        <label><input type="radio" <?php if($detail['is_ting'] == 0) echo 'checked="checked"';?>  name="data[is_ting]" id="data[is_ting]" value="0"/>无</label>
+                        如果饭店已经订满了这里可以关闭
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div class="tuanfabu_an">
+        <input type="submit" class="radius3 sjgl_an tuan_topbt" value="确认保存" />
+        </div>
+        </form>
+    </div> 
+</div>
+<include  file='public:footer'/>

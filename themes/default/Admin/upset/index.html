@@ -1,0 +1,45 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">上传设置</li>
+
+    </ul>
+</div>
+<style>
+.main-jsgl .jsglNr, .mainScAdd .jsglNr { border: 0px solid #dbdbdb;}
+</style>
+<div class="main-jsgl">
+    <p class="attention"><span>注意：</span>只能开启一种上传方式，不能都设置为启用状态！</p>
+    <div class="jsglNr">
+        <!-- <div class="selectNr" style="margin: 10px 20px;">
+            <div class="left">
+                <{:BA('upset/create','','添加站点')}>
+            </div>
+        </div> -->
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50">ID</td>
+                        <td>名称</td>
+                        <td>参数</td>
+                        <td>是否开启(0关闭1开启)</td>                
+                        <td class="w120">操作</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><{$var.id}></td>
+                            <td><{$var.type}></td>
+                            <td><{$var.para}></td>
+                            <td><{$var.status}></td>            
+                            <td>
+                                <{:BA('upset/edit',array("id"=>$var["id"]),'编辑','','remberBtn')}>
+                            </td>
+                        </tr>
+                    </foreach>
+                </table>
+            </div>
+    </div>
+</div>
+<include  file='public:footer'/>       
+

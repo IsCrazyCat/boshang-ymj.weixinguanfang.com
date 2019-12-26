@@ -1,0 +1,80 @@
+<include  file='public:header'/>
+<div class="local">
+    当前位置：自助建站 > seo管理
+</div>
+<div class="notice">
+    <span>注意：</span> 设置seo标题、seo关键字、seo简介。
+</div>
+<div class="addlist">
+    <form method="post"  action="<{:U('seo/index')}>"  target="baocms_frm">
+        <table cellpadding="0" cellspacing="0" width="100%"> 
+            <tr>
+                <td align="right">seo标题：</td>
+                <td class="tl">
+                    <input type="text" name="data[seo_title]" value="<{$detail.seo_title}>"/>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">seo关键字：</td>
+                <td class="tl">
+                    <input type="text" name="data[seo_keywords]" value="<{$detail.seo_title}>"/>
+
+                </td>
+            </tr>
+            <tr>
+                <td align="right">ICP备案：</td>
+                <td class="tl">
+                    <input type="text" name="data[icp]" value="<{$detail.icp}>"/>
+
+                </td>
+            </tr>
+            <tr>
+                    <td align="right">
+                <js file='__PUBLIC__/js/uploadify/jquery.uploadify.min.js'/>
+                <link rel="stylesheet" href="__PUBLIC__/js/uploadify/uploadify.css">
+                网站LOGO：
+                </td>
+                <td class="tl">
+                    <div style="width: 300px;height: 120px; float: left;">
+                        <input type="hidden" name="data[sitelogo]" value="<{$detail.sitelogo}>" id="data_logo" />
+                        <input id="logo_file" name="logo_file" type="file" multiple="true" value="" />
+                    </div>
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <img id="logo_img" width="80" height="80"  src="__ROOT__/attachs/<{$detail.sitelogo|default='default.jpg'}>" />
+                        建议尺寸:<{$CONFIG.attachs.sitelogo.thumb}>
+                    </div>
+                    <script>
+                            $("#logo_file").uploadify({
+                                'swf'      : '__PUBLIC__/js/uploadify/uploadify.swf?t=<{$nowtime}>',
+                                'uploader' : '<{:U("app/upload/uploadify",array("model"=>"sitelogo"))}>',
+                                'cancelImg' : '__PUBLIC__/js/uploadify/uploadify-cancel.png',
+                                'buttonText' : '上传网站LOGO',
+                                'fileTypeExts': '*.gif;*.jpg;*.png',
+                                'queueSizeLimit':1,
+                                'onUploadSuccess' : function(file, data, response) {
+                                    $("#data_logo").val(data);
+                                    $("#logo_img").attr('src','__ROOT__/attachs/'+data).show();
+                                }
+                            });
+             
+                    </script>
+                </td>
+            </tr>
+            <tr>
+                <td align="right">seo简介：</td>
+                <td class="tl">
+                    <textarea name="data[seo_description]" cols="50" rows="10"><{$detail.seo_description}></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td>&nbsp;</td>
+                <td class="tl">
+                    <input type="submit" class="cjbtn_new" value="确定添加" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">主题</li>
+        <li class="li2">主题管理</li>
+        <li class="li2 li3">主题列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>这里管理主题哈</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('thread/create','','添加主题')}>
+            </div>
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('thread/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <span>关键字(主题名称)</span>
+                        <input type="text" name="keyword" value="<{$keyword}>" class="inptText" /><input type="submit" value="   搜索"  class="inptButton" />
+                    </div> 
+                </form>
+                <a href="javascript:void(0);" class="searchG">高级搜索</a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form method="post" action="<{:U('thread/index')}>">
+            <div class="selectNr selectNr2">
+                <div class="left">
+                    <div class="seleK">
+                        <label>
+                            <span>分类：</span>
+                            <select id="cate_id" name="cate_id" class="select w100">
+                                <option value="0">请选择...</option>
+                                <foreach name="cates" item="var">
+                                    <option value="<{$var.cate_id}>"  <eq name="var.cate_id" value="$cate_id">selected="selected"</eq> ><{$var.cate_name}></option>                
+                                </foreach>
+                            </select>
+                        </label>
+                        <label>
+                            <span>关键字:</span>
+                            <input type="text" name="keyword" value="<{$keyword}>" class="inptText" />
+                        </label>
+                    </div>
+                </div>
+                <div class="right">
+                    <input type="submit" value="   搜索"  class="inptButton" />
+                </div>
+        </form>
+        <div class="clear"></div>
+    </div>
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="thread_id" /></td>
+                    <td class="w50">ID</td>
+                    <td>主题名称</td>
+                    <td>管理员</td>
+                    <td>主题分类</td>
+                    <td>主题图片</td>
+                    <td>主题banner</td>
+                    <td>主题帖子数</td>
+                    <td>主题关注数</td>
+                    <td>是否热门</td>
+                    <td>创建时间</td>
+                    <td>操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_thread_id" type="checkbox" name="thread_id[]" value="<{$var.thread_id}>" /></td>
+                        <td><{$var.thread_id}></td>
+                        <td><{$var.thread_name}></td>
+                        <td><{$users[$var['user_id']]['nickname']}></td>
+                        <td><{$cates[$var['cate_id']]['cate_name']}></td>
+                        <td><a target="_blank" href="<{:config_img($var['photo'])}>"><img src="<{:config_img($var['photo'])}>" class="w80" /></a></td>
+                        <td><a target="_blank"  href="<{:config_img($var['banner'])}>"><img src="<{:config_img($var['banner'])}>" class="w80" /></a></td>
+                        <td><{$var.posts}></td>
+                        <td><{$var.fans}></td>
+                        <td><eq name="var.is_hot" value="1">是<else/>否</eq></td>
+                        <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                    <td>
+                    <{:BA('thread/edit',array("thread_id"=>$var["thread_id"]),'编辑','','remberBtn')}>
+                    <{:BA('threadpost/create',array("thread_id"=>$var["thread_id"]),'发帖','','remberBtn')}>
+                    <{:BA('thread/delete',array("thread_id"=>$var["thread_id"]),'删除','act','remberBtn')}>
+                    </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                <{:BA('thread/delete','','批量删除','list',' a2')}>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+
+

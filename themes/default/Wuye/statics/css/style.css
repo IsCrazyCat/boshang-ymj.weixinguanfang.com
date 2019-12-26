@@ -1,0 +1,514 @@
+@charset "utf-8";
+/* CSS Document */
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: Arial Narrow, Microsoft Yahei, 宋体;
+    font-size: 12px/21px;
+    background: #ededed;
+    color: #333;
+    height: 100%;
+}
+html, body, div, span, dl, dt, dd, ul, ol, li, a, img, object, iframe, form, label, fieldset, legend, table, caption, col, colgroup, thead, tbody, tfoot, tr, th, h1, h2, h3, h4, h5, h6, p, pre, code, samp, var, dfn, kbd, address, abbr, q, blockquote, cite, ins, del, sub, sup, bdo, em, strong, small, big, b, i, u, s, strike, font, center {
+    padding: 0;
+    margin: 0;
+}
+table {
+    border-spacing: 0;
+    border-collapse : collapse;
+}
+img {
+    border: 0 none;
+    display: block;
+}
+ol, ul, li {
+    list-style: none;
+}
+li {
+    list-style: none
+}
+h1, h2, h3, h4, h5, h6 {
+    font-size: 14px;
+}
+a {
+    border: 0 none;
+    color: #333;
+    text-decoration: none;
+}
+a:hover {
+    color: #00b5c6;
+    text-decoration: none;
+}
+.fl {
+    float: left;
+}
+.fr {
+    float: right;
+}
+.center {
+    margin: 0 auto;
+}
+.position {
+    position: relative;
+}
+.clear {
+    clear: both;
+}
+
+
+
+
+
+/*login*/
+
+.loginbar .container{
+    font-family: "微软雅黑";
+    max-width:640px;
+    min-width:320px;
+    margin:0 auto;
+    background-color:#00b9c9;
+    height:100%;
+    overflow: hidden;
+}
+.loginbar .container h1{
+    display:block;
+    text-align:center;
+    font-size:36px;
+    font-family:"Futura Md BT";
+    color:#fff;
+    font-weight:normal;
+    padding:14% 0;
+    text-shadow: 1px 1px 3px #0093ac;
+}	
+.loginbar .container h1 p{
+    font-family:"造字工房悦黑演示版";
+    font-weight:bold;
+    font-size: 30px;
+}
+.login_user, .login_psw{
+    position: relative;
+    margin: 6% auto;
+    width:80%;
+    height: 50px;
+    background-color:#0097a8;
+    border-radius:6px;
+} 
+.login_user i{
+    background: url(../img/login_s1.png) no-repeat scroll 2% center / contain rgba(0, 0, 0, 0);
+    z-index: 999;
+}
+.login_psw i{
+    background: url(../img/login_s2.png) no-repeat scroll 2% center / contain rgba(0, 0, 0, 0);
+    z-index: 999;
+}
+.login_user label, .login_psw label, .login_user input, .login_psw input{
+    font-size: 16px;
+    font-weight: normal;
+    margin-left: 5%;
+    height: 48px;
+    color: #fff;
+    background: #0097a8;
+    border:none;
+}
+.login_user label, .login_psw label {
+    background: none repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: medium none;
+    display: block;
+    line-height: 50px;
+    width: 100%;
+    border: none;
+}
+.login_box{
+    border-radius:6px;
+    width:80%;
+    margin: 4% auto;
+    background: #00b17f;
+    border: solid 2px #82e3ea;
+}
+.login_box input{
+    background: none;
+    border:none;
+    text-align: center;
+    line-height: 50px;
+    width: 100%;
+    font-size: 18px;
+    color: #fff;
+    font-family: "微软雅黑";
+}
+.loginbar .copyright{
+    text-align: center;
+    margin: 20% 0;
+    color: #fff;
+    font-size: 14px;
+}
+.qq_login{}
+
+
+/*dispatch_jump*/
+.exchange_yes {
+    margin: 8px auto;
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    min-width: 320px;
+}
+.exchange_yes .container {
+    position: relative;
+    width: 300px;
+    height: auto;
+    overflow: hidden;
+    margin: 10px auto;
+    background-color: #fff;
+    //border: solid 1px #ccc;
+    border-radius: 8px;
+    padding: 10px;
+}
+.exchange_yes .container .text_column {
+    margin: 5px auto;
+    width: 240px;
+    padding: 15px 20px;
+    height: auto;
+    overflow: hidden;
+    background-color: #f0eaea;
+    border-radius: 8px;
+    font-size: 18px;
+    line-height: 30px;
+    box-shadow: 2px 2px 4px #9e9e9e;
+}
+.exchange_yes .container .lable01 {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 64px;
+    height: 64px;
+    background: url(../img/right_wrong.png) no-repeat scroll -65px 0px transparent;
+}
+.exchange_yes .container .lable02 {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 64px;
+    height: 64px;
+    background: url(../img/right_wrong.png) no-repeat scroll 0px 0px transparent;
+}
+.exchange_yes .container .tbn_01 {
+    display: inline-block;
+    width: 80px;
+    height: 26px;
+    margin: 10px 10px 0px 60px;
+    background-color: #10bf2d;
+    border-radius: 6px;
+    text-align: center;
+    line-height: 26px;
+    color: #fff;
+    font-size: 16px;
+}
+.exchange_yes .container .tbn_02 {
+    display: inline-block;
+    width: 80px;
+    height: 26px;
+    background-color: #ff2323;
+    border-radius: 6px;
+    text-align: center;
+    line-height: 26px;
+    color: #fff;
+    font-size: 16px;
+}
+.exchange_yes .container .cartoon01 {
+    margin: 30px auto;
+    width: 275px;
+    height: 200px;
+    background: url(../img/jf_success.png) no-repeat;
+}
+.exchange_yes .container .cartoon02 {
+    margin: 30px auto;
+    width: 275px;
+    height: 200px;
+    background: url(../img/jf_failure.png) no-repeat;
+}
+
+
+/*index*/
+header{
+    height: 43px;
+    background: #00b5c6;
+    text-align: center;
+    line-height: 43px;
+    color: #fff;
+    font-size: 16px;
+}
+.head_bg {
+    background: url("../img/head_bg.jpg") repeat-x scroll 0 0 rgba(0, 0, 0, 0);
+    height: 170px;
+    position: relative;
+    width: 100%;
+}
+.head_bg span {
+    background: url("../img/head_bg.png") no-repeat scroll center top rgba(0, 0, 0, 0);
+    color: #fff;
+    font-size: 14px;
+    height: 100px;
+    left: 50%;
+    line-height: 14px;
+    margin-left: -48px;
+    position: absolute;
+    text-align: center;
+    top: 16%;
+    width: 100px;
+}
+.head_bg span img {
+    border-radius: 100px;
+    height: 64px;
+    margin: 18% auto;
+    width: 64px;
+}
+.welcome{
+    width: 100%;
+    font-size: 14px;
+    border-bottom:solid 1px #ccc;
+    background: #fff;
+    line-height: 40px;
+    text-indent: 10px;
+}
+.notice, .feedback, .contact{
+    margin: 14px 0;
+    width: 100%;
+    height: 60px;
+    background: #fff;
+    border-top: solid 1px #ccc;
+    border-bottom: solid 1px #ccc;
+    text-indent: 10px;
+    line-height: 60px;
+    font-size: 14px;
+}
+.notice a, .feedback a, .contact a{
+    display: block;
+}
+.notice a:hover, .feedback a:hover, .contact a:hover{color: #00b5c6;
+}
+.notice i, .feedback i, .contact i{
+    margin-top: 10px;
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    float: left;
+    margin-left: 10px;
+    background: url("../img/index_icon.png") no-repeat;
+}
+.feedback i{
+    background-position: 0 -40px;
+}
+.contact i{
+    background-position: 0 -80px;
+}
+.exit a{
+    display: block;
+    width: 80%;
+    margin: 20px auto;
+    background: #00b5c6;
+    text-align: center;
+    line-height: 40px;
+    color: #fff;
+    border-radius: 6px;
+}
+
+
+/*news*/
+.back img {
+    float: left;
+    height: 20px;
+    margin-left: 10px;
+    margin-top: 12px;
+    width: 20px;
+}
+.add img {
+    float: right;
+    height: 20px;
+    margin-right: 10px;
+    margin-top: 12px;
+    width: 20px;
+}
+.news_list li{
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 1px 1px 6px #ccc;
+    height: auto;
+    overflow: hidden;
+    background-color: #fff;
+    border-bottom: solid 1px #ccc;
+}
+.news_list li .news_con{
+    width: 80%;
+}
+.news_list li .news_con a{
+    display: block;
+}
+.news_list li h1{
+    font-size: 16px;
+    font-weight: normal;
+}
+.news_list li p{
+    font-size: 14px;
+    color: #666;
+}
+.news_list .time{
+    margin-top: 10px;
+    font-size: 14px;
+    color: #212121;
+}
+.news_list .operation{
+    width: 20%;
+}
+.news_list li .btn{
+    width: 100%;
+    height: 30px;
+    background-color: #00b5c6;
+    text-align: center;
+    font-size: 14px;
+
+}
+.news_list li .shanchu{
+    margin-top: 10px;
+}
+.news_list li .btn a{
+    display: block;
+    line-height: 30px;
+    color: #fff;
+}
+/*news_add*/
+.news_add, .feedback_reply{
+    padding: 10px;
+}
+.news_add ul li, .feedback_reply ul li{
+    margin: 14px 0;
+}
+.news_add ul li, .feedback_reply ul li{
+	position: relative;
+	padding-left: 36px;
+}
+.news_add ul li span, .feedback_reply ul li span{
+	position: absolute;
+	top: 4px;
+	left: 0;
+	font-size: 14px;
+}
+.news_add input, .feedback_reply input, .news_add textarea,  .feedback_reply textarea{
+    width: 100%;
+    height: 36px;
+    border: solid 1px #ccc; 
+    border-radius: 4px;
+    font-size: 14px;
+    text-indent: 6px;
+}
+.news_add textarea,  .feedback_reply textarea{
+    height: 80px;
+    padding: 6px 0;
+}
+.news_add ul li .btn, .feedback_reply ul li .btn{
+    display: block;
+    margin: 20px auto;
+    background: none repeat scroll 0 0 #00b5c6;
+    border: medium none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    width: 100%;
+    font-family: "Microsoft Yahei";
+}
+
+
+/*news_des*/
+.news_des, .feedback_des{
+    padding: 10px;
+}
+.news_des h1, .feedback_des h1{
+    text-align: center;
+    line-height: 30px;
+    color: #1a1a1a;
+    font-weight: normal;
+    font-size: 16px;
+}
+.news_des input{
+	border: solid 1px #ccc;
+	border-radius: 4px;
+	margin-bottom: 14px;
+	width: 100%;
+	height: 36px;
+}
+.news_des p, .feedback_des p{
+    color: #666;
+    font-size: 14px;
+}
+.news_des .time, .feedback_des .time{
+    margin-top: 10px;
+    font-size: 14px;
+    color: #333;
+}
+.news_des .news_con, .feedback_des .feedback_con{
+    font-size: 14px;
+    margin: 20px 0;
+}
+.news_des .news_con textarea{
+	width: 100%;
+}
+.news_des .btn, .feedback_des .btn{
+	border-radius: 6px;
+	margin: 20px 0;
+	text-align: center;
+	height: 40px;
+	background-color: #00b5c6;
+	color: #fff;
+	font-size: 16px;
+        font-family: "微软雅黑";
+        cursor: pointer;
+}
+.feedback_des .btn a{
+
+	display: block;
+	line-height: 40px;
+	color: #fff;
+}
+
+/*feedback*/
+.feedback_list li{
+    padding: 10px;
+    margin-bottom: 10px;
+    box-shadow: 1px 1px 6px #ccc;
+    height: auto;
+    overflow: hidden;
+    background-color: #fff;
+    border-bottom: solid 1px #ccc;
+}
+.feedback_list li .feedback_con a{
+    display: block;
+}
+.feedback_con{
+    width: 80%;
+}
+.feedback_con .time{
+	margin-top: 10px;
+	font-size: 14px;
+	color:#333; 
+}
+.feedback_list .operation{
+	margin: 10px 0;
+	width: 20%;
+	background-color: #00b5c6;
+	line-height: 30px;
+}
+.feedback_list .operation .huifu{
+	width: 100%;	
+}
+.feedback_list .operation .huifu a{
+	display: block;
+	color: #fff;
+	text-align: center;
+	background-color: #00b5c6;
+}
+

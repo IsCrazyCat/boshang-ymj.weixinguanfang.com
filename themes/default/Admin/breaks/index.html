@@ -1,0 +1,81 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商家</li>
+        <li class="li2">商家优惠</li>
+        <li class="li2 li3">买单列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>显示买单订单列表</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('breaks/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <div class="seleK">
+                            <label>
+                                <span>订单编号</span>
+                                <input type="text" placeholder="输入订单编号" name="keyword" value="<{$keyword}>"  class="inptText">
+                            </label>
+                            
+                            <label>
+                                <input type="hidden" id="shop_id" name="shop_id" value="<{$shop_id|default=''}>"/>
+                                <input type="text"   id="shop_name" name="shop_name" value="<{$shop_name}>" class="text" />
+                                <a mini="select"  w="1000" h="600" href="<{:U('shop/select')}>" class="sumit">选择商家</a>
+                            </label>
+                            <label>
+                                <input type="hidden" id="user_id" name="user_id" value="<{$user_id|default=''}>"/>
+                                <input type="text"   id="nickname" name="nickname" value="<{$nickname}>" class="text" />
+                                <a mini="select"  w="1000" h="600" href="<{:U('user/select')}>" class="sumit">选择用户</a>
+                                <input style="float: right;" type="submit" value="   搜索"  class="inptButton" />
+                            </label>
+                        </div>
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="order_id" /></td>
+                        <td class="w50">订单ID</td>
+                        <td>买单用户</td>
+                        <td>商家</td>
+                        <td>买单金额</td>
+                        <td>未参与优惠金额</td>
+                        <td>优惠金额</td>
+                        <td>实际付款金额</td>
+                        <td>状态</td>
+                        <td>下单时间</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_order_id" type="checkbox" name="order_id[]" value="<{$var.order_id}>" /></td>
+                            <td><{$var.order_id}></td>
+                            <td><{$users[$var['user_id']]['account']}>(ID:<{$var.user_id}>)</td>
+                            <td><{$shops[$var['shop_id']]['shop_name']}></td>
+                            <td><{$var.amount}></td>
+                            <td><{$var.exception}></td>
+                            <td><php>$yh_money = $var['amount']-$var['need_pay'];</php><{$yh_money}></td>
+                            <td> <{$var.need_pay}></td>
+                            <td><if condition="$var.status eq 1"><span class="text-green">已支付</span><else/>未支付</if></td>
+                            <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>  
+
+

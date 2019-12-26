@@ -1,0 +1,39 @@
+<include file='public:header'/>   
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('shop/detail',array('shop_id'=>$detail['shop_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			认领<{$detail.shop_name}>
+		</div>
+	</header>
+
+
+	<div class="send-form">
+		<form method="post" action="<{:U('shop/recognition',array('shop_id'=>$detail['shop_id']))}>"  target="x-frame">
+        
+        <div class="row">
+				<span class="icon icon-user"></span>
+				<input type="text" class="line-input" id="name" name="data[name]" placeholder="填写联系人姓名"  value="<if condition="$MEMBER.nickname neq null"><{$MEMBER.nickname}><else/></if>"/>
+			</div>
+			<div class="row">
+				<span class="icon icon-mobile"></span>
+				<input type="text"   onkeyup="this.value=this.value.replace(/[^0-9-]+/,'')"   class="line-input" id="tel" name="data[mobile]" placeholder="填写手机号码" value="<if condition="$MEMBER.mobile neq null"><{$MEMBER.mobile}><else/></if>" />
+			</div>
+		
+			<div class="row">
+				<span class="icon icon-pencil-square-o"></span>
+				<input type="text" class="line-input" id="contents" name="data[content]" placeholder="留言信息" />
+			</div>
+			
+			<div class="blank-40"></div>
+			
+            <php>if(empty($MEMBER)){</php>
+            <div class="container text-center"><a href="<{:u('wap/passport/login')}>" class="button button-block button-big bg-black" type="submit">立即登录</a></div>
+            <php>}else{</php>
+            <div class="container text-center"><button class="button button-block button-big bg-dot" type="submit">提交订单</button></div>                          
+            <php>}</php>
+			
+		</form>
+	</div>
+<include file='public:footer'/>  

@@ -1,0 +1,48 @@
+<include file='public:header'/>    
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			更多服务
+		</div>
+		<div class="top-signed">
+		</div>
+	</header>
+
+<style>
+.more-service .more-list a .icon{display: block;
+    margin: auto;
+    margin-bottom: 0.38rem;
+    font-family: cate_icon;
+    width: 2.6rem;
+    height: 2.6rem;
+    border-radius: 20rem;
+    text-align: center;
+    line-height: 2.7rem;
+    font-size: 1.4rem;
+    color: white;}
+
+</style>
+
+<div class="more-service">
+    	<p class="more-title">
+    		<em></em>
+    		<span>更多服务列表</span>
+    	</p>
+
+    	<div class="more-list">
+ 		<volist name='nav' id='item'>
+			<a href="/wap/<{$item.url}>">
+                <div class="icon <{$item.ioc}> <{$item.colour}>"></div>
+    			<p><{$item.nav_name}></p>
+    		</a>
+		 </volist>
+    	</div>
+    	</div>
+    </div>	
+
+
+
+
+<include file='public:footer'/>  

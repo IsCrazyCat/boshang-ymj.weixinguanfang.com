@@ -1,0 +1,43 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+           <li class="li1">社区村设置</li>
+        <li class="li2"><if condition='$type eq 1'>通知添加<else/>展示添加</if></li>
+    </ul>
+</div>
+<form  target="baocms_frm" action="<{:U('village/notice_create',array('village_id'=>$village_id))}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+
+                <tr>
+                    <td class="lfTdBt">标题：</td>
+                    <td class="rgTdBt"><input type="text" name="data[title]"  class="scAddTextName" />
+                        <input type="hidden" name="data[village_id]" value="<{$village_id}>"  />
+                            <input type="hidden" name="data[type]" value="<{$type}>"  />
+                    </td>
+                </tr>    
+             
+              
+             <tr><td class="lfTdBt">意见内容：</td><td class="rgTdBt">
+                  <script type="text/plain" id="data_context" name="data[context]" style="width:800px;height:360px;"><{$detail.context}></script>
+					</td>
+             </tr><link rel="stylesheet" href="__PUBLIC__/qiniu_ueditor/themes/default/css/ueditor.min.css" type="text/css">
+                  <script type="text/javascript" charset="utf-8" src="__PUBLIC__/qiniu_ueditor/ueditor.config.js"></script>
+                  <script type="text/javascript" charset="utf-8" src="__PUBLIC__/qiniu_ueditor/ueditor.all.min.js"></script>
+                  <script type="text/javascript" src="__PUBLIC__/qiniu_ueditor/lang/zh-cn/zh-cn.js"></script>
+				  <script>
+                      um = UE.getEditor('data_context', {
+                       lang: 'zh-cn',
+                       toolbars:[['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'backcolor', 'fontsize','attachment']],                     });
+                   </script> 
+                   
+     
+                 <!--添加结束-->
+                    
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认添加" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>   

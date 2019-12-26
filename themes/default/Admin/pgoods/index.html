@@ -1,0 +1,107 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">拼团商城</li>
+        <li class="li2">商家产品</li>
+        <li class="li2 li3">商品列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>商家必须入住了商城才能发布产品</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('pgoods/create','','添加内容')}>  
+            </div>
+            <div class="right">
+                <form method="post" action="<{:U('pgoods/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <div class="seleK">
+                            <label>
+                                <input type="hidden" id="id" name="shop_id" value="<{$id|default=''}>"/>
+                                <input type="text"   id="name" name="shop_name" value="<{$shop_name}>" class="inptText w200" />
+                                <a mini="select"  w="1000" h="600" href="<{:U('pshop/select')}>" class="sumit">选择商家</a>
+                            </label>
+                        <span>分类</span>
+                        <select id="cate_id" name="cate_id" class="selecttop w120">
+                            <option value="0">请选择...</option>
+                            <foreach name="cates" item="var">
+                                <option value="<{$var.id}>"><{$var.name}></option>         
+                            </foreach>
+                        </select>
+                        <span>  状态：</span>   
+
+                        <select class="selecttop" name="audit">
+                            <option value="0"  >全部</option>
+                            <option value="-1" <eq name="is_show" value="-1">selected="selected"</eq> >上架</option>
+                            <option value="1" <eq name="is_show" value="1">selected="selected"</eq>>下架</option>
+                        </select>
+                        <span>  关键字：</span>  
+                        <input type="text" name="keyword" value="<{$keyword|default=''}>" class="inptText" /><input type="submit" class="inptButton" value="  搜索" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="goods_id" /></td>
+                        <td class="w50">ID</td>
+                        <td>缩略图</td>
+                        <td>产品名称</td>
+                        <td>商品分类</td>
+                        <td>商家名称</td>
+                        <td>单独购买</td>
+                        <td>是否拼团</td>
+                        <td>拼团人数</td>
+                        <td>拼团价格</td>
+                        <td>库存量</td>
+                        <td>真实销售</td>
+                        <td>虚拟销售</td>
+                        <td>是否上架</td>
+
+                        <td>操作</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_goods_id" type="checkbox" name="goods_id[]" value="<{$var.id}>" /> </td>
+                            <td><{$var.id}></td>
+                            <td><img src="<{:config_img($var['goods_pic'])}>" class="w80" /></td>
+                            <td><{$var.name}></td>
+                            <td><{$cates[$var['cate_id']]['name']}></td>
+                            <td><{$shops[$var['shop_id']]['name']}></td>
+                            <td><{:round($var['one_price']/100,2)}></td>
+                            <td><eq name="var.open_tuanj" value="0">关闭拼团</eq>
+                            	<eq name="var.open_tuanj" value="1">1级拼团</eq>
+                            <eq name="var.open_tuanj" value="2">2级拼团</eq>
+                            <eq name="var.open_tuanj" value="3">3级拼团</eq></td>
+                            <td><{$var.tuan_num}></td>
+                            <td><{:round($var['tuan_price']/100,2)}></td>
+                            <td><{$var.xiangou_num}></td>
+                            <td><{$var.sales_num}></td>
+                            <td><{$var.virtual_sales_num}></td>
+                            <td><eq name="var.is_show" value="0">下架<else/>上架</eq></td>
+
+                        <td>
+                            <{:BA('porder/lists',array("goods_id"=>$var["id"]),'订单','','remberBtn')}>
+                            <{:BA('pgoods/edit',array("goods_id"=>$var["id"]),'编辑','','remberBtn')}>
+                            <eq name="var.is_show" value="0"> <{:BA('pgoods/show',array("goods_id"=>$var["id"]),'上架','act','remberBtn')}> </eq>
+                        </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('pgoods/delete','','批量删除','list','a2')}>
+                    <{:BA('pgoods/show','','批量上架','list','remberBtn')}>
+                </div>
+            </div>
+        </form>
+    </div>
+    <include  file='public:footer'/>       

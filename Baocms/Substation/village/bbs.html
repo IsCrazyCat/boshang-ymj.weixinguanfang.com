@@ -1,0 +1,52 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">社区村设置</li>
+        <li class="li2">帖子管理</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <div class="jsglNr">
+  
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td><input type="checkbox" class="checkAll" rel="post_id" /></td>
+                    
+                    <td>标题</td>
+                    <td>时间</td>
+                    <td>发布者</td>
+                    <td>是否首页</td>
+                    <td>操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_post_id" type="checkbox" name="post_id[]" value="<{$var.post_id}>" /></td>
+                        <td><{$var.title}></td>
+                        <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                        <td><{$var.username}></td>
+                        <td><{$var.hot}></td>
+                        <td>
+                        <eq name="var.audit" value="0"> <{:BA('village/bbs_audit',array("post_id"=>$var["post_id"]),'审核','act','remberBtn')}> </eq>
+                            <{:BA('village/bbs_view',array("post_id"=>$var["post_id"]),'查看帖子回复','','remberBtn')}>
+                            <{:BA('village/bbs_delete',array("post_id"=>$var["post_id"]),'删除','act','remberBtn')}>
+
+                        </td>
+
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+            <div class="left">
+                <{:BA('village/bbs_delete','','批量删除','list',' a2')}>
+                <{:BA('village/bbs_audit','','批量审核','list','remberBtn')}>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+

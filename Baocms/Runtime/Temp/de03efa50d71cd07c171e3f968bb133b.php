@@ -1,0 +1,3 @@
+<?php
+//000000086400a:1:{s:7:"default";a:2:{s:5:"theme";s:7:"default";s:7:"setting";a:1:{s:5:"floor";a:6:{s:5:"first";a:3:{s:4:"name";s:12:"休闲零食";s:5:"value";s:2:"21";s:2:"ad";s:2:"24";}s:6:"second";a:3:{s:4:"name";s:12:"厨房用品";s:5:"value";s:1:"1";s:2:"ad";s:2:"25";}s:5:"third";a:3:{s:4:"name";s:12:"家具电器";s:5:"value";s:2:"14";s:2:"ad";s:2:"26";}s:6:"fourth";a:3:{s:4:"name";s:12:"婚庆用品";s:5:"value";s:1:"2";s:2:"ad";s:2:"27";}s:5:"fifth";a:3:{s:4:"name";s:12:"生活用品";s:5:"value";s:1:"6";s:2:"ad";s:2:"28";}s:5:"sixth";a:3:{s:4:"name";s:12:"建材专区";s:5:"value";s:2:"33";s:2:"ad";s:2:"29";}}}}}
+?>

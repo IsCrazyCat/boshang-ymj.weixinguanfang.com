@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>验证套餐码</title>
+<link href="../css/style.css" rel="stylesheet" type="text/css">
+<script src="../js/jquery.js"></script>
+<script src="../js/js.js"></script>
+<script>
+$(function () {
+	$('#selectBoxInput').click(function(){
+		$('.selectList').toggle(300);
+	});
+	$(".selectList li a").click(function () {
+		$("#selectBoxInput").html($(this).html());
+		$('.selectList').hide();
+	});
+});//头部搜索框js
+</script>
+</head>
+
+<body style="background-color:transparent;">
+<div style="min-height:1000px;">
+    <div class="test-tab">
+        <ul>
+            <li class="on"><a href="#">优惠券消费明细</a></li>
+        </ul>
+    </div>
+    <div class="test-tab-table">
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr bgcolor="#f7f7f7">
+                <td>优惠券名称</td>
+                <td>会员</td>
+                <td>下载时间</td>
+                <td>过期时间</td>
+                <td>消费门店</td>
+                <td>消费时间</td>
+            </tr>
+            <tr>
+                <td>消费50抵扣50</td>
+                <td>18205514135</td>
+                <td>2015-05-27 08:15:37</td>
+                <td>永久消费</td>
+                <td>桥亭活鱼小镇（万象城店）</td>
+                <td>未消费</td>
+            </tr>
+            <tr>
+                <td>消费50抵扣50</td>
+                <td>18205514135</td>
+                <td>2015-05-27 08:15:37</td>
+                <td>永久消费</td>
+                <td>桥亭活鱼小镇（万象城店）</td>
+                <td>未消费</td>
+            </tr><tr>
+                <td>消费50抵扣50</td>
+                <td>18205514135</td>
+                <td>2015-05-27 08:15:37</td>
+                <td>永久消费</td>
+                <td>桥亭活鱼小镇（万象城店）</td>
+                <td>未消费</td>
+            </tr>
+            
+        </table>
+    </div>
+
+    
+    
+</div>
+</body>
+</html>

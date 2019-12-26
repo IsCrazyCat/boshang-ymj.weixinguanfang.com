@@ -1,0 +1,31 @@
+<foreach name="meals" item="var">
+       <li class="line">
+        <dt>
+            <a class="x3">ID：<{$var.list_id}></a>
+            <a class="x9 text-right">过期时间：<{$var.dateline|date='Y-m-d H:i:s',###}></span> </a>
+        </dt>
+  		<dd class="zhong">
+            <div class="x12">
+                <p class="text-small">
+                    <span class="text-dot1 margin-right">购买姓名：<{$users[$var['uid']]['nickname']}></span>
+                    <span class="text-dot1 margin-right">购买价格：&yen;<{:round($var['price']/100,2)}>元</span>
+                </p>
+                <p class="text-small">
+                    <span class="text-dot1 margin-right">购买信息：<{$var.name}>，<{$var.mobile}>，<{$var.addr}></span>
+                </p>
+          </div>
+         </dd>
+          
+        <dl>
+          <p class="text-right padding-top x12">
+          <if condition="$var[is_zhong] EQ '0'">
+                <a class="button button-small bg-blue" target="x-frame" href="<{:U('crowd/zhong',array('list_id'=>$var['list_id']))}>">设为中奖</a>
+              <else/>
+                <a class="button button-small bg-dot">已中奖</a>
+              </if>
+         </p>
+       </dl>
+    </li>
+    <div class="blank-10 bg"></div>
+</foreach>
+

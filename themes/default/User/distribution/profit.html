@@ -1,0 +1,35 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('distribution/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			收益统计
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+
+
+<!-- 筛选TAB -->
+<ul id="shangjia_tab">
+        <li style="width:50%;"><a href="<{:LinkTo('profit',array('status'=>1))}>" <eq name='status' value='1'>class="on"</eq>>已分成</a></li>
+        <li style="width:50%;"><a href="<{:LinkTo('profit',array('status'=>2))}>" <eq name='status' value='2'>class="on"</eq>>已取消分成</a></li>
+</ul>
+
+
+<div class="list-media-x" id="list-media">
+<div class="blank-10 bg"></div>
+	<ul></ul>
+</div>	
+
+
+<script>
+	$(document).ready(function () {
+		loaddata('<{$nextpage}>', $("#list-media ul"), true);
+	});
+</script>
+
+
+<include  file='distribution:footer'/>

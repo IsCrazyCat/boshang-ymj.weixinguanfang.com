@@ -1,0 +1,140 @@
+
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">众筹</li>
+        <li class="li2">众筹订单</li>
+        <li class="li2 li3">众筹订单列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>这里只是明细查询的地方，如果验证请到对应发起人的后台操作即可</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none; padding-bottom: 0px;">
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('crowd/order')}>"> 
+                    <div class="seleHidden" id="seleHidden">
+                        <div class="seleK"> 
+                            <label>
+                                <input type="hidden" id="user_id" name="user_id" value="<{$user_id|default=''}>" />
+                                <input type="text" name="nickname" id="nickname"  value="<{$nickname}>"   class="text" />
+                                <a mini="select"  w="800" h="600" href="<{:U('user/select')}>" class="sumit">选择用户</a>
+                            </label>
+                            <label>
+                                <span>状态</span>
+                                <select name="st" class="select w100">
+                                    <option value="999">请选择</option>
+                                    <foreach name="types" key="key" item="item">
+                                        <option <eq name="st" value="$key">selected="selected"</eq>  value="<{$key}>"><{$item}></option>
+                                    </foreach>
+
+                                </select>
+                            </label>
+                            <label>
+                                <span>订单编号</span>
+                                <input type="text" name="keyword" value="<{$keyword}>" class="inptText" />
+
+                                <input type="submit" value="   搜索"  class="inptButton" />
+                            </label>
+                        </div>
+                    </div> 
+                </form>
+                <a href="javascript:void(0);" class="searchG">高级搜索</a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form method="post" action="<{:U('crowd/order')}>">
+            <div class="selectNr selectNr2">
+                <div class="left">
+                    <div class="seleK">
+                        <label>
+                            <input type="hidden" id="user_id" name="user_id" value="<{$user_id|default=''}>" />
+                            <input type="text" name="nickname" id="nickname"  value="<{$nickname}>"   class="text w150" />
+                            <a style="margin-right: 5px;" mini="select"  w="800" h="600" href="<{:U('user/select')}>" class="sumit">选择用户</a>
+                        </label>
+                        <label>
+                            <span>状态</span>
+                            <select name="st" class="select w80">
+                                <option value="999">请选择</option>
+                                <foreach name="types" key="key" item="item">
+                                    <option <eq name="st" value="$key">selected="selected"</eq>  value="<{$key}>"><{$item}></option>
+                                </foreach>
+
+                            </select>
+                        </label>
+                        <label>
+                            <span>开始时间</span>
+                            <input type="text" name="bg_date" value="<{$bg_date|default=''}>"  onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w150" />
+                        </label>
+                        <label>
+                            <span>结束时间</span>
+                            <input type="text" name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text w150" />
+                        </label>
+                        <label>
+                            <span>订单编号</span>
+                            <input type="text" name="keyword" value="<{$keyword}>" class="inptText w100" />
+                        </label>
+                    </div>
+                </div>
+                <div class="right">
+                    <input type="submit" value="   搜索"  class="inptButton" />
+                </div>
+                <div class="clear"></div>
+            </div>
+        </form>
+        <div class="tableBox">
+
+           <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="order_id" /></td>
+                        <td class="w50">订单ID</td>
+                        <td>会员信息</td>    
+                        <td>信息</td>
+                        <td>价格</td>
+                        <td>运费</td>
+                        <td>众筹劵</td>
+                        <td>状态</td>
+                        <td>操作</td>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_order_id" type="checkbox" name="order_id[]" value="<{$var.order_id}>" /> </td>
+                            <td><{$var.order_id}></td>
+                            <td><{$users[$var['user_id']]['nickname']}></td>
+                            <td><{$type[$var['type_id']]['content']}></td>
+                            <td>&yen;<{:round($var['price']/100,2)}></td>
+                            <td>&yen;<{:round($var['yunfei']/100,2)}></td>
+                            <td><{$var.code}></td>
+                            <td> 
+                                <if condition="$var['status'] eq 0">
+                                    <a class="remberBtn ">未付款</a>
+                                <elseif condition="$var['status'] eq 1" />
+                                    <a class="remberBtn ">已付款</a>
+                                <elseif condition="$var['status'] eq 8" />
+                                    <a class="remberBtn ">已完成</a>
+                                </if>
+                            </td>
+                            <td>
+                            <foreach name="crowdlist" item="item"> 
+                                <eq name="item.order_id" value="$var.order_id">
+                                    <if condition="$item['is_zhong'] eq 1">
+                                        <a class="remberBtn ">已中奖</a>
+                                    </if>
+                                </eq>
+                            </foreach>   
+                            <if condition="$var['is_check'] eq 1">
+                                <a class="remberBtn ">已验证</a>
+                            </if>
+                            </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            
+
+        </form>
+        </div>
+        <include  file='public:footer'/>       

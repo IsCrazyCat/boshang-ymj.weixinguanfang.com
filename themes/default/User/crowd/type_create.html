@@ -1,0 +1,139 @@
+<include file='public:header'/>
+<link rel="stylesheet" type="text/css" href="/static/default/webuploader/webuploader.css">
+<script src="/static/default/webuploader/webuploader.min.js"></script>
+<header class="top-fixed bg-yellow bg-inverse">
+<div class="top-back">
+	<a class="top-addr" href="<{:u('crowd/crowd_list',array('aready'=>1))}>"><i class="icon-angle-left"></i></a>
+</div>
+<div class="top-title">
+	添加支持项目
+</div>
+</header>
+<style>
+#login-input input.mapinputs{ width:48%; float:left; margin-right:5px;}
+#login-input input.mapinputs2{ width:100%; float:left; margin:10px 0px;}
+.crowd_radio{ width:20px; height:20px;}
+.fabu-form .form-content {border: none;resize: none;width: 100%;height:200px;padding: 10px;font-size: 12px;}
+.fabu-form .form-content1 {border: none;resize: none;width: 100%;height: 150px;padding: 10px;font-size: 12px;}
+.shuxing{width: 20px; height: 20px;margin-bottom: 10px;}
+.Upload-img .jq_photo_more span.resporse_photo, .Upload-img .moreToUpload_img{margin:0 5px 5px 0; float:left; z-index:3;}
+.Upload-img .jq_photo_more span.resporse_photo img, .Upload-img .jq_uploads_img img{width:100%;margin-bottom:3px;}
+.Upload-img .jq_photo_more span.resporse_photo a.resporse_a, .Upload-img .jq_uploads_img .moreToUpload_img a{ font-size:12px; color:#FFF;margin-right: 0px;bottom:0;width:45px;height:20px;line-height:20px;text-align:center;background: #06c1ae;padding: 0 10px;}
+</style>
+<form class="fabu-form" method="post" target="x-frame" action="<{:U('crowd/type_create',array('goods_id'=>$detail['goods_id']))}>">
+	<div class="blank-10">
+	</div>
+	<div class="Upload-img-box">
+		<div id="fileToUpload">
+			上传图片
+		</div>
+		<div class="Upload-img">
+			<div class="list-img loading" style="display:none;">
+				<img src="">
+			</div>
+			<div class="list-img jq_photo" style="display:none;">
+			</div>
+		</div>
+	</div>
+	<script>
+    	var width_goods = '<{:thumbSize($CONFIG[attachs][goods][thumb],0)}>';                     
+		var height_goods = '<{:thumbSize($CONFIG[attachs][goods][thumb],1)}>';  
+        var uploader = WebUploader.create({                 
+			auto: true,                             
+			swf: '/static/default/webuploader/Uploader.swf',                             
+			server: '<{:U("app/upload/uploadify",array("model"=>"goods"))}>',                             
+			pick: '#fileToUpload',                             
+			resize: true,    
+			compress : {width:width_goods,height:height_goods,quality:60,allowMagnify: false,crop: true}//裁剪       
+        });
+        uploader.on( 'beforeFileQueued', function( file ) {
+            $(".loading").show();
+            if(file.size > 1024000){
+                uploader.option( 'compress', {
+                    width:width_goods,//这里裁剪长度
+                    quality:60
+                });
+            }
+        });
+        uploader.on( 'uploadSuccess', function( file,resporse) {
+            $(".loading").hide();
+            var str = '<img src="'+resporse.url+'"><input type="hidden" name="data[img]" value="' + resporse.url + '" />';
+            $(".jq_photo").show().html(str);
+        });
+        uploader.on( 'uploadError', function( file ) {
+            alert('上传出错');
+        });
+        $(document).ready(function () {
+            $(document).on("click", ".photo img", function () {
+                $(this).parent().remove();
+            });
+        });
+    </script>
+	
+
+    
+	<div class="blank-12 bg border-top">
+	</div>
+	<div class="row">
+		<div class="line">
+			<span class="x3">价格：</span>
+			<span class="x9">
+			<input type="text" class="text-input" name="data[price]" value="<{$detail.price|default=''}>" />
+			</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="line">
+			<span class="x3">限购：</span>
+			<span class="x9">
+			<input type="text" class="text-input" name="data[max_num]" value="<{$detail.max_num|default=''}>" />
+			</span>
+		</div>
+	</div>
+    
+	<div class="row">
+		<div class="line">
+			<span class="x3">运费：</span>
+			<span class="x9">
+			<input type="text" class="text-input" name="data[yunfei]" value="<{$detail.yunfei|default='0'}>" />
+			</span>
+		</div>
+	</div>
+	<div class="row">
+		<div class="line">
+			<span class="x3">发货天数：</span>
+			<span class="x9">
+			<input type="text" class="text-input" name="data[fahuo]" value="<{$detail.fahuo|default=''}>" />
+			</span>
+		</div>
+	</div>
+	
+	<div class="row">
+        <div class="line">
+           <span class="x3">是否抽奖：</span>
+           <span class="x9">
+               <label><span>是</span>
+               <input class="crowd_radio" type="radio" name="choujiang" id="is_open" value="1"/>
+               </label>
+               <label><span style="margin-left:20px;">否</span>
+               <input class="crowd_radio" type="radio" checked="checked" name="choujiang" id="is_open" value="0"/>
+               </label>
+           </span>
+        </div>
+     </div>
+	
+	<div class="blank-10 bg"></div>
+	<div class="line border-bottom">
+		<textarea class="form-content" name="data[content]" placeholder="添加支持项目描述，80字以内"><{$type.content|default=''}></textarea>
+	</div>
+
+	
+	<div class="container">
+		<div class="blank-30">
+		</div>
+		<button type="submit" class="button button-block button-big bg-dot">添加支持项目</button>
+		<div class="blank-30">
+		</div>
+	</div>
+</form>
+<include file='crowd:footer'/>

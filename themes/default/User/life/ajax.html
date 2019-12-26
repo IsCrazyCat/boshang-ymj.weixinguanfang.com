@@ -1,0 +1,130 @@
+<if condition="!empty($cate['text1'])"> 
+<div class="row">
+	<div class="line">
+		<span class="x3"><{$cate.text1}></span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[text1]" value="<{$detail.text1|default=''}>" />
+		</span>
+	</div>
+</div>
+</if>
+<if condition="!empty($cate['text2'])"> 
+<div class="row">
+	<div class="line">
+		<span class="x3"><{$cate.text2}></span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[text2]" value="<{$detail.text2|default=''}>" />
+		</span>
+	</div>
+</div>
+</if>
+<if condition="!empty($cate['text3'])"> 
+<div class="row">
+	<div class="line">
+		<span class="x3"><{$cate.text3}></span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[text3]" value="<{$detail.text3|default=''}>" />
+		</span>
+	</div>
+</div>
+</if>
+<if condition="!empty($cate['num1'])"> 
+<div class="row">
+	<div class="line">
+		<span class="x3"><{$cate.num1}></span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[num1]" value="<{$detail.num1|default=''}>" />
+		</span>
+	</div>
+</div>
+</if>
+<if condition="!empty($cate['num2'])"> 
+<div class="row">
+	<div class="line">
+		<span class="x3"><{$cate.num2}></span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[num2]" value="<{$detail.num2|default=''}>" />
+		</span>
+	</div>
+</div>
+</if>
+<if condition="!empty($cate['select1'])"> 
+<div class="row">
+	<div class="line">
+		<span class="x3"><{$cate.select1}></span>
+		<span class="x9">
+			<select name="data[select1]" class="text-select">
+			<foreach name="attrs" item="item">
+                <eq name="item.type" value="select1">
+                <option value="<{$item.attr_id}>"  <eq name="detail.select1" value="$item.attr_id">selected="selected"</eq>  ><{$item.attr_name}></option>
+                </eq>
+             </foreach>   
+			</select>
+		</span>
+	</div>
+</div>
+</if>
+<if condition="!empty($cate['select2'])"> 
+<div class="row">
+	<div class="line">
+		<span class="x3"><{$cate.select2}></span>
+		<span class="x9">
+			<select name="data[select2]" class="text-select">
+			  <foreach name="attrs" item="item">
+               <eq name="item.type" value="select2">
+               <option value="<{$item.attr_id}>"  <eq name="detail.select2" value="$item.attr_id">selected="selected"</eq>  ><{$item.attr_name}></option>
+               </eq>
+             </foreach>   
+			</select>
+		</span>
+	</div>
+</div>
+</if>
+<if condition="!empty($cate['select3'])"> 
+<div class="row">
+	<div class="line">
+		<span class="x3"><{$cate.select3}></span>
+		<span class="x9">
+			<select name="data[select3]" class="text-select">
+			<foreach name="attrs" item="item">
+              <eq name="item.type" value="select3">
+              <option value="<{$item.attr_id}>"  <eq name="detail.select3" value="$item.attr_id">selected="selected"</eq>  ><{$item.attr_name}></option>
+              </eq>
+            </foreach>   
+			</select>
+		</span>
+	</div>
+</div>
+</if>
+<if condition="!empty($cate['select4'])"> 
+<div class="row">
+	<div class="line">
+		<span class="x3"><{$cate.select4}></span>
+		<span class="x9">
+			<select name="data[select4]" class="text-select">
+			<foreach name="attrs" item="item">
+              <eq name="item.type" value="select4">
+              <option value="<{$item.attr_id}>"  <eq name="detail.select4" value="$item.attr_id">selected="selected"</eq>  ><{$item.attr_name}></option>
+              </eq>
+            </foreach>   
+			</select>
+		</span>
+	</div>
+</div>
+</if>
+<if condition="!empty($cate['select5'])"> 
+<div class="row">
+	<div class="line">
+		<span class="x3"><{$cate.select5}></span>
+		<span class="x9">
+			<select name="data[select4]" class="text-select">
+			<foreach name="attrs" item="item">
+               <eq name="item.type" value="select5">
+               <option value="<{$item.attr_id}>"  <eq name="detail.select5" value="$item.attr_id">selected="selected"</eq>  ><{$item.attr_name}></option>
+               </eq>
+           </foreach> 
+			</select>
+		</span>
+	</div>
+</div>
+</if>

@@ -1,0 +1,106 @@
+<include  file='public:header'/>   
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('crowd/index',array('aready'=>1))}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			众筹详情
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+<style>
+.card{background-color:#2f2e2e;}
+.card .card_top{padding:12px;position:relative;background-color:#fff;border-top-left-radius:10px;border-top-right-radius:10px}
+.card .card_top .heart{position:absolute;top:12px;right:0;width:40px;height:40px;text-align:center;line-height:40px}
+.card .card_top .heart img{width:19px;height:19px;background-position:-27px -347px}
+.card .card_top .zanheart img{background-position:-49px -347px}
+.card .card_top .top_title{font-size:19px;line-height:30px;color:#000;width:93%;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;margin-top:1px}
+.card .card_top .top_title i.xf{color:#fff;margin-left:8px;background-position:-33px -535px;width:41px;height:14px;display:inline-block;margin-left:1px;position:absolute;top:22px}
+.card .card_top .top_title i.ct{color:#fff;margin-left:8px;background-position:-79px -535px;width:41px;height:14px;display:inline-block;position:absolute;top:22px}
+.card .card_top .sub_tit{color:#999;font-size:14px;margin-top:-2px;font-weight:400; }
+.card .card_con{position:relative}
+.card .card_con i{position:absolute;top:18px;left:20px;color:#f06}
+.card .card_con img{width:100%}
+.card .card_foot{color:#aaa;padding:10px 0}
+.card .card_foot .jine{margin:-15px 10px 10px 10px;padding:9px 0;border-bottom:1px dotted #676767;position:relative}
+.card .card_foot .jine span{font-size:22px;padding-left:5px;letter-spacing:-1px}
+.card .card_foot .jine em{font-size:12px;padding-left:5px;margin-right:-10px}
+.card .card_foot .jine .yure_rest{position:absolute;top:10px;right:10px}
+.card .card_foot ul{padding:0;margin:0 0 8px 0;display:box;display:-webkit-box;display:-moz-box;display:-moz-box}
+.card .card_foot ul li{box-flex:1;-webkit-box-flex:1;-moz-box-flex:1;text-align:center}
+.card .card_foot ul li span{font-size:20px;font-family:gotham;font-weight:400;padding:0 3px;letter-spacing:-1px}
+.card .card_foot ul li i{color:#999;font-size:12px}
+.card .progress_container{background-color:#616161;height:4px;-moz-border-radius:10px;-webkit-border-radius:10px;border-radius:10px;font-size:0;margin:10px}
+.card .progress_bar{background-color:#e13045;display:block;height:4px;border-radius:10px;width:0}
+</style>
+<div class="card">
+	<div class="card_foot">
+         <div class="jine"> 筹集金额：<em>&yen;</em><span class="gotham"> <{$crowd['all_price']/100}>元</span>/<em>已筹：&yen;</em>
+         <span class="gotham"> <{$crowd['have_price']/100}> </span>元</div>
+              <ul>
+                  <li>支持人数<br><span class="gotham"> <{$crowd['have_num']}></span></li>
+                  <li>项目进度<br><span class="gotham"><{$crowd['have_price']/$crowd['all_price']*100}>%</span></li>
+                  <li>剩余天数<br><span><{$crowd_time}></span>天</li>
+             </ul>
+          <div class="progress_container">
+          	<div class="progress_bar finished" progress="<{$crowd['have_price']/$crowd['all_price']*100}>" style="width:<{$crowd['have_price']/$crowd['all_price']*100}>2%;"></div>
+          </div>
+	</div>
+</div>
+<div class="panel-list">
+	<ul>
+		<li><a href="javascript:;">订单编号<em><{$detail.order_id}></em></a></li>
+		<li><a href="javascript:;">订单金额<em>  &yen; <{:round($detail['price']/100,2)}> 元</em></a></li>
+		<li><a href="javascript:;">配送费用
+                <if condition="empty($detail['yunfei'])"><em class="text-dot">免邮</em>
+                <else/><em class="text-dot">&yen; <{:round($detail['yunfei']/100,2)}> 元</em></if>
+			</a>
+		</li>
+		<li><a href="javascript:;">实际支付:<em class="text-dot"> &yen; <{:round($detail['need_pay']/100 ,2)}> 元</em></a></li>
+		<li><a href="javascript:;">下单时间<em><{$detail.create_time|date='Y-m-d H:i',###}></em></a></li>
+	</ul>
+</div>
+<div class="blank-10 bg"></div>
+<div class="panel-list">
+	<ul>
+		<li><a href="javascript:;">收货姓名<em><{$paddress['xm']}></em></a></li>
+		<li><a href="javascript:;">手机号码<em><{$paddress['tel']}></em></a></li>
+		<li><a href="javascript:;">配送地址<small class="text-small margin-left text-gray"> <{$paddress.area_str}> <{$paddress.info}></small></a></li>
+	</ul>
+</div>
+		
+<div class="blank-10 bg"></div>
+<div class="list-media-x">
+	<ul>
+		<li class="line padding">
+			<div class="x3">
+				<img style="width:90%;" src="<{:config_img($crowd['photo'])}>" />
+			</div>
+			<div class="x9">
+				<p><{$crowd['title']}></p>
+				<p class="text-small padding-top">小计：<span class="text-dot">价格&yen; <{:round($detail['price']/100,2)}> + 运费&yen; <{:round($detail['yunfei']/100,2)}>  = 实付&yen; <{:round($detail['need_pay']/100,2)}> 元</span></p
+			></div>
+		</li> 
+	</ul>
+</div>
+
+<div class="blank-30"></div>
+	<div class="container text-center">
+    	<if condition="$detail['status'] eq 0">
+           <a class="button button-block button-big bg-dot margin-top" href="<{:u('wap/crowd/pay',array('order_id'=>$detail['order_id'],'address_id'=>$detail['address_id']))}>">去付款</a>
+        <elseif condition="$detail['status'] eq 1" />
+           <a class="button button-block button-big bg-yellow margin-top"  href="<{:U('crowd/qrcode',array('order_id'=>$detail['order_id']))}>">二维码</a> 
+        <elseif condition="$detail['status'] eq 8" />
+           <a class="button button-block button-big bg-blue margin-top">已完成</a>
+        </if>
+                    
+        <if condition="$detail['is_check'] eq 0">
+           <a class="button button-block button-big bg-gray margin-top">未验证</a>
+        <else/>
+           <a class="button button-block button-big bg-dot margin-top">已验证【验证时间：<{$detail.check_time|date='Y-m-d H:i:s',###}>】</a>
+        </if>
+	</div>
+<div class="blank-20"></div>
+<include  file='public:footer'/>   

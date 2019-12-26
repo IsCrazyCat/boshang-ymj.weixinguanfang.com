@@ -1,0 +1,160 @@
+<include file="public:header" /> 
+<include file="public:top"/>
+<div class="nav">
+    <div class="navList">
+        <!--<div class="navListBg">&nbsp;</div>-->
+        <ul>
+            <li class="navListAll"><span class="navListAllt">全部套餐分类</span>
+                <div class="shadowy navAll">
+                    <include file="public:cate"/>
+                </div>
+            </li>
+            <li class="navLi"><a class="navA <if condition='$ctl eq tuan and $act eq index'>on</if> " href="<{:U('tuan/index')}>">首页</a></li>
+            <li class="navLi"><a class="navA <if condition='$ctl eq tuan and $act eq nearby'>on</if>" href="<{:U('tuan/nearby')}>">身边套餐</a></li>
+            <li class="navLi"><a class="navA " href="<{:U('tuan/index',array('new'=>1))}>">今日新单</a></li>
+            <li class="navLi"><a class="navA" href="<{:U('tuan/index',array('hot'=>1))}>">热门疯抢</a></li>
+        </ul>
+    </div>
+</div>
+<div class="content zy_content">
+    <div class="left zy_content_l">
+        <div class="nearbuy_area addr_list">
+            <if condition="!empty($arounds)">
+                <foreach name="arounds" item="item">
+                    <a <if condition="$around_id eq $item['around_id']"> class="on"</if> href="<{:U('tuan/nearby',array('around_id'=>$item['around_id']))}>"><if condition="$item['type'] eq 1">常去<elseif condition="$item['type'] eq 2"/>我家<else/>公司</if></a>
+                </foreach>
+            </if>
+            <if condition="$specil eq 1"><a <if condition="empty($around_id)">class="on"</if> href="<{:U('tuan/nearby')}>">新地址</a></if>
+        </div>
+        <script>
+            
+            
+        </script>
+        <div class="nearbuy_area"><span class="nearbuy_dz"><em>&nbsp;</em><span class="j_addr"></span></span><a class="nearbuy_xg" href="<{:U('tuan/location')}>"><em></em>修改</a><span class="nearbuy_bc">如果您经常使用该地址，请<a class=" radius3 nearbuy_bcAn" id="around" href="javascript:void(0);">保存</a></span></div>
+        <script>
+            $(document).ready(function () {
+                var addr = "<{$addr}>";
+                addr = unescape(addr);
+                $(".j_addr").html(addr);
+                $("#around").click(function () {
+                    var lng = "<{$linkArr['lng']}>";
+                    var lat = "<{$linkArr['lat']}>";
+                    layer.open({
+                        type: 1,
+                        title: '保存地址',
+                        skin: 'layui-layer-demo', //加上边框
+                        area: ['450px', '230px'], //宽高
+                        content: '<div style="margin-top:10px;" class="add-message"><p>' + addr + '</p><p>类型：<input class="mt10" type="radio" value="1" name="type">常去<input class="mt10" type="radio" value="2" name="type">我家<input class="mt10" type="radio" value="3" name="type">公司</p></div> <div class="add-button" style="padding-top:15px;"><input type="button" id="go_addr" class="add-hold" value="立刻保存"/></div>',
+                    });
+                    $('#go_addr').click(function () {
+                        var type = $("input[name='type']:checked").val();
+                        $.post("<{:U('tuan/around')}>", {addr: addr, lng: lng, lat: lat, type: type}, function (result) {
+                            if (result.status == 'login') {
+                                layer.closeAll();
+                                ajaxLogin();
+
+                            } else if (result.status == 'success') {
+                                layer.msg(result.msg, {icon: 1});
+                                setTimeout(function () {
+                                    window.location.href = result.url;
+                                }, 1500);
+                            } else {
+                                layer.msg(result.msg, {icon: 2});
+                            }
+                        }, 'json');
+                    })
+                })
+				
+				
+				$('.nearbuy_zjClear').click(function(){
+					$.post('<{:U("tuan/emptyviews")}>',{},function(result){
+						if(result.status=='success'){
+							layer.msg(result.msg);
+							$('#before_look').html('');
+						}
+					},'json')
+				})
+				
+            })
+        </script>
+
+        <div class="nearbuy_sxk">
+            <ul>
+                <li <if condition="$order eq 'd' or empty($order)">class="nearbuy_sxkLi on"<else/>class="nearbuy_sxkLi"</if> ><a class="nearbuy_sxkLiA" href="<{:LinkTo('tuan/nearby',$linkArr,array('order'=>'d'))}>">距离<em></em></a></li>
+                <li class="nearbuy_sxkLi <eq name='order' value='s'>on</eq> "><a class="nearbuy_sxkLiA" href="<{:LinkTo('tuan/nearby',$linkArr,array('order'=>'s'))}>">销量<em class="em_up"></em></a></li>
+                <li class="nearbuy_sxkLi <eq name='order' value='p'>on</eq> "><a class="nearbuy_sxkLiA" href="<{:LinkTo('tuan/nearby',$linkArr,array('order'=>'p'))}>">价格<em></em></a></li>
+                <li class="nearbuy_sxkLi <eq name='order' value='t'>on</eq> "><a class="nearbuy_sxkLiA" href="<{:LinkTo('tuan/nearby',$linkArr,array('order'=>'t'))}>">发布时间<em class="em_up"></em></a></li>
+            </ul>
+        </div>
+        <div class="nearbuy_cpList">
+            <ul>
+                <foreach name="list" item="item">
+                    <li class="nearbuy_cpLi">
+                        <div class="sy_sjcpLi nearbuy_cpLik">
+                            <a target="_blank" href="<{:U('tuan/detail',array('tuan_id'=>$item['tuan_id']))}>"><img src="<{:config_img($item['photo'])}>" width="306" height="190" />
+                                <p class="sy_hottjbt"><{$item.title}></p>
+                                <p class="sy_hottjp"><{$item.intro}></p></a>
+                            <p class="sy_hottjJg"><span class="left">¥<{:round($item['tuan_price']/100,2)}><del>¥<{:round($item['price']/100,2)}></del></span><span class="right">已售<{$item.sold_num}></span></p>
+                            <hr style=" border:none 0px; border-bottom: 1px solid #e0e0e0; margin-top:6px;" />
+                            <p class="nearbuy_cpLiPf"><span class="left"><em></em>距离位置<span><{$item.d}></span></span><span class="right"><a target="_blank" class="sy_hottjJd" href="<{:U('tuan/detail',array('tuan_id'=>$item['tuan_id']))}>">立即购买</a></span></p>
+                            <div class="sy_sjcpBq"><if condition="$item['freebook'] eq 1"><span class="sy_sjcpBq1">免预约</span></if><if condition="$item['is_new'] eq 1"><span class="sy_sjcpBq2">新单</span></if><if condition="$item['is_hot'] eq 1"><span class="sy_sjcpBq3">热门</span></if><if condition="$item['is_chose'] eq 1"><span class="sy_sjcpBq4">精选</span></if></div>
+                   
+                        </div>
+                    </li>
+                </foreach>
+            </ul>
+        </div>
+        <div class="x">
+            <{$page}>
+        </div>
+    </div>
+    <div class="right zy_content_r">
+         <div class="nearbuy_wx"><img src="__ROOT__/attachs/<{$CONFIG.site.wxcode}>" width="100" height="100" /></div>
+        <div class="nearbuy_hotCp">
+            <div class="nearbuy_hotCpT">
+                <div class="left">热卖排行</div>
+            </div>
+            <ul>
+                <php>$i =0;</php>
+                <calldata mdl="Tuan" order="sold_num desc" where=" bg_date ELT '{$today}' AND end_date EGT '{$today}' AND audit=1 AND closed=0  AND city_id ='{$city_id}' " format='true' cache="3600" limit="0,5">
+                    <php>$i++;</php>
+                    <li>
+                        <egt name="i" value="2"><hr style=" border:none 0px; border-bottom: 1px solid #e0e0e0; margin-bottom:18px;" /></egt>
+                        <div class="sy_hottjList"><a target="_blank" href="<{:U('tuan/detail',array('tuan_id'=>$item['tuan_id']))}>"><img src="<{:config_img($item['photo'])}>" width="180" height="115" />
+                                <p class="sy_hottjbt"><{$item.title}></p> 
+                                <p class="sy_hottjJg"><span class="left">¥<{:round($item['tuan_price']/100,2)}><del>¥<{:round($item['price']/100,2)}></del></span><span class="right">已售<{$item.sold_num}></span></p>
+                                </a>
+                            <div class="nearbuy_hotNum"><{$index}></div>
+                        </div>
+                    </li>
+                </calldata>
+            </ul>
+        </div>
+        <div class="nearbuy_hotCp">
+            <div class="nearbuy_hotCpT">
+                <div class="left">浏览足迹</div>
+                <div class="right"><a class="nearbuy_zjClear" href="javascript:void(0);">清空</a></div>
+            </div>
+            
+            
+            <ul id="before_look">
+                <php>$i =0;</php>
+                <foreach name="views" item="item">
+                    <php>$i++;</php>
+                    <li>
+                        <egt name="i" value="2">
+                            <hr style=" border:none 0px; border-bottom: 1px solid #e0e0e0; margin-bottom:16px;" />
+                        </egt>
+                        <div class="sy_hottjList"><a target="_blank" target="_blank" href="<{:U('tuan/detail',array('tuan_id'=>$item['tuan_id']))}>">
+                                <div class="left nearbuy_zj_l"><img src="<{:config_img($item['photo'])}>" width="82" height="50" /></div>
+                                <p style="height: 36px; overflow: hidden;" class="nearbuy_zjP"><{$item.title}></p> 
+                                <p style="font-weight: normal;" class="nearbuy_zjJg">¥<{$item['tuan_price']}><del>¥<{$item['price']}></del></p>
+                                </a>
+                        </div>
+                    </li>
+                </foreach>
+            </ul>
+        </div>
+    </div>
+</div>
+<include file="public:footer"/>

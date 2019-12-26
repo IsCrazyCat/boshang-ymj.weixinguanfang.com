@@ -1,0 +1,106 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">功能</li>
+        <li class="li2">广告</li>
+        <li class="li2 li3">新增</li>
+    </ul>
+</div>
+<form  target="baocms_frm" action="<{:U('ad/create',array('site_id'=>$site_id))}>" method="post">
+    <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+        <tr>
+            <td class="lfTdBt">所属广告位：</td>
+            <td class="rgTdBt">
+                <select name="data[site_id]" class="manageSelect">
+                    <foreach name="sites" item="var">
+                        <option value="<{$var.site_id}>" <eq name="var.site_id" value="$site_id">selected="selected"</eq> ><{$var.site_name}>（<{$types[$var['site_type']]}>）</option>
+                    </foreach>
+                </select>
+
+            </td>
+        </tr><tr>
+            <td class="lfTdBt">所属城市：</td>
+            <td class="rgTdBt">
+                <select name="data[city_id]" class="manageSelect" style="display: inline-block;">
+                     <option value="0">请选择</option>
+                    <foreach name="citys" item="var">
+                        <option value="<{$var.city_id}>" <eq name="var.city_id" value="$detail['city_id']">selected="selected"</eq> ><{$var.name}></option>
+                    </foreach>
+                </select>
+                <code>不选择则表示全站通用</code>
+            </td>
+        </tr><tr>
+            <td class="lfTdBt">广告名称：</td>
+            <td class="rgTdBt"><input type="text" name="data[title]" value="<{$detail.title|default=''}>" class="manageInput" />
+
+            </td>
+        </tr><tr>
+            <td class="lfTdBt">链接地址：</td>
+            <td class="rgTdBt"><input type="text" name="data[link_url]" value="<{$detail.link_url|default=''}>" class="manageInput" />
+
+            </td>
+        </tr>
+        
+        
+        
+        
+        <tr>
+                    <td class="lfTdBt"> 缩略图：</td>
+                 <td class="rgTdBt">
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <input type="hidden" name="data[photo]" value="<{$detail.photo}>" id="data_photo" />
+                        <div id="fileToUpload" >上传缩略图</div>
+                    </div>
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <img id="photo_img" width="80" height="80"  src="<{:config_img($detail['photo'])}>" />
+                    </div>
+                    <script>                                                                  
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"ad"))}>',                             
+						pick: '#fileToUpload',                             
+						resize: true,  
+						compress : {quality: 80}                                         
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_photo").val(resporse.url);                             
+						$("#photo_img").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+                </td>
+            </tr>
+        <tr>
+    <td class="lfTdBt">代码广告：</td>
+    <td class="rgTdBt"><textarea  name="data[code]" cols="50" rows="10" ><{$detail.code|default=''}></textarea>
+
+    </td>
+</tr><tr>
+    <td class="lfTdBt">开始时间：</td>
+    <td class="rgTdBt"><input type="text" name="data[bg_date]" value="<{$detail.bg_date|default=''}>" onfocus="WdatePicker();"  class="inputData" />
+
+    </td>
+</tr><tr>
+    <td class="lfTdBt">结束时间：</td>
+    <td class="rgTdBt"><input type="text" name="data[end_date]" value="<{$detail.end_date|default=''}>" onfocus="WdatePicker();"  class="inputData" />
+
+    </td>
+</tr><tr>
+    <td class="lfTdBt">排序：</td>
+    <td class="rgTdBt"><input type="text" name="data[orderby]" value="<{$detail.orderby|default=''}>" class="inputData" />
+
+    </td>
+</tr>
+
+</table>
+<div style="margin-left:140px;margin-top:20px">
+
+    <input type="submit" value="确定编辑" class="smtQrIpt" />
+</div>
+</form>
+
+
+<include  file='public:footer'/>       

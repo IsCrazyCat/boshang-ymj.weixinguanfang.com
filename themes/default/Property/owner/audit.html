@@ -1,0 +1,35 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="javascript:void(0);">小区业主</a> > <a href="javascript:void(0);">审核业主，并且设置户号</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">户号可根据业主填写的具体地址来命名</div>
+        </div>
+    </div> 
+    <div class="tabnr_change  show">
+        <form method="post"  action="<{:U('owner/audit',array('owner_id'=>$detail['owner_id']))}>"  target="baocms_frm">
+    	<table class="tuanfabu_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="120"><p class="tuanfabu_t">具体地址：</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="location" readonly="readonly" value="<{$detail.location|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+                </div></td>
+            </tr>
+            <tr>
+                <td width="120"><p class="tuanfabu_t">户号：</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="number" value="<{$detail.number|default='0'}>" class="tuanfabu_int tuanfabu_intw2" />
+                </div></td>
+            </tr>
+        </table>
+        <div class="tuanfabu_an">
+        <input type="submit" class="radius3 sjgl_an tuan_topbt" value="确认审核" />
+        </div>
+        </form>
+    </div> 
+</div>
+<include  file='public:footer'/>

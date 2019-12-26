@@ -1,0 +1,82 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">基本设置</li>
+        <li class="li2 li3"><{$CONFIG.prestige.name|default='威望'}>设置</li>
+    </ul>
+</div>
+<style>
+.profit {text-align: center;color: #333;font-weight: bold; background: #F5F5FB;}
+</style>
+<p class="attention"><span>注意：</span>这里跟用户升级有关系， 配置了不要随意去修改哦，去看看 <a style="color:#00F" href="<{:U('userrank/index')}>"> 会员等级制度</a></p>
+<form  target="baocms_frm" action="<{:U('setting/prestige')}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">项目名称：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[name]" value="<{$CONFIG.prestige.name}>" class="scAddTextName w80" />
+                        <code>用于前台，后台显示什么名称，比如：威望，声望，名望，以及其他</code>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="lfTdBt">每日登录：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[login]" value="<{$CONFIG.prestige.login}>" class="scAddTextName w80" />
+                        <code>会员每增登录一次增加多少<{$CONFIG.prestige.name|default='威望'}></code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">点评商家：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[dianping_shop]" value="<{$CONFIG.prestige.dianping_shop}>" class="scAddTextName w80" />
+                        <code>会员点评一次商家增加多少<{$CONFIG.prestige.name|default='威望'}></code>
+                    </td>
+                </tr>
+                
+                <tr>
+                    <td class="lfTdBt">回复贴吧：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[thread]" value="<{$CONFIG.prestige.thread}>" class="scAddTextName w80" />
+                        <code>回复帖子一次奖励多少<{$CONFIG.prestige.name|default='威望'}></code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">绑定手机：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[mobile]" value="<{$CONFIG.prestige.mobile}>" class="scAddTextName w80" />
+                        <code>用户绑定手机奖励多少<{$CONFIG.prestige.name|default='威望'}></code>
+                    </td>
+                </tr>  
+                <tr>
+                    <td class="lfTdBt">邮件认证：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[email]" value="<{$CONFIG.prestige.email}>" class="scAddTextName w80" />
+                        <code>用户邮箱认证后奖励多少<{$CONFIG.prestige.name|default='威望'}></code>
+                    </td>
+                </tr>  
+                <tr>
+                    <td class="rgTdBt profit" colspan="2"> 下面是单独开发的，一般不建议用户开启</td>
+                </tr>
+                
+                <tr>
+                    <td class="lfTdBt">购买商品返<{$CONFIG.prestige.name|default='威望'}>：</td>
+                    <td class="rgTdBt">
+                    <label>
+                    <input type="radio" name="data[is_goods]" <eq name="CONFIG.prestige.is_goods" value="1">checked="checked"</eq> value="1"/>开启</label>
+                    <label>
+                    <input type="radio" name="data[is_goods]"  <eq name="CONFIG.prestige.is_goods" value="0">checked="checked"</eq> value="0"/>关闭</label>
+                    <code>这里是用户在商城已消费多少金额奖励多少<{$CONFIG.prestige.name|default='威望'}>【不含运费】，选择开启才有效</code>
+                    </td>
+                </tr>  
+                
+             
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>       

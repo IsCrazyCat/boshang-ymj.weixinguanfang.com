@@ -1,0 +1,154 @@
+<include file='public:header'/>
+<header class="top-fixed bg-yellow bg-inverse">
+<div class="top-back">
+	<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+</div>
+<div class="top-title">
+			提现申请
+</div>
+</header>
+<style>
+ul { padding-left: 0px;}
+.layui-layer-molv .layui-layer-title {background-color: #F8F8F8;border-bottom: 1px solid #eee;color: #333;}
+</style>
+<!-- 筛选TAB -->
+<ul id="shangjia_tab">
+	<li class="x3"><a href="<{:U('money/index')}>">商家资金</a></li>
+	<li class="x3"><a href="<{:U('money/detail')}>">资金日志</a></li>
+	<li class="x3"><a href="<{:U('money/cashlogs')}>">提现日志</a></li>
+	<li class="x3"><a href="<{:U('money/cash')}>"   class="on">申请提现</a></li>
+</ul>
+<div class="blank-10 bg">
+</div>
+<div class="line padding border-bottom" style="margin-top:2rem;">
+	<span class="x12 text-gray">你好：<{$MEMBER['account']}>  &nbsp;您的店铺：<{$SHOP.shop_name}></span>
+	<span class="x12 text-gray">可提现余额：<{:round($gold/100,2)}>元<if condition="!empty($MEMBER['frozen'])">，冻结金：<{:round($MEMBER['frozen']/100,2)}>元。</if>
+    </span>
+    <if condition="!empty($CONFIG[cash][shop_cash_commission])">
+    <span class="x12 text-dot">当前提现手续费：<{$CONFIG[cash][shop_cash_commission]}>%</span>
+    </if>
+</div>
+<div class="blank-10 bg">
+</div>
+<form action="<{:u('money/cash')}>" method="post" target="x-frame">
+	<div class="line padding border-bottom">
+		<span class="x3 text-gray">提现金额：</span>
+		<span class="x5"><input type="text" name="gold" id="money" class="text-input"></span>
+		<span class="x4"><em class="text-small text-gray">
+		<if condition="!empty($cash_money)">
+        单笔最少
+		<{$cash_money}>元<br/>
+		</if>
+		<if condition="!empty($cash_money_big)">
+        单笔最多
+		<{$cash_money_big}>元
+		</if>
+		<em></span>
+	</div>
+<!--	<div class="line padding border-bottom">-->
+<!--		<span class="x3 text-gray">开户银行：</span>-->
+<!--		<span class="x9"><input type="text" name="bank_name" id="bank_name" class="text-input" value="<{$info.bank_name}>"  placeholder="请输入开户银行" ></span>-->
+<!--	</div>-->
+<!--	<div class="line padding border-bottom">-->
+<!--		<span class="x3 text-gray">银行账号：</span>-->
+<!--		<span class="x9"><input type="text"  name="bank_num" id="bank_num" class="text-input"  value="<{$info.bank_num}>"   placeholder="请输入银行账户" ></span>-->
+<!--	</div>-->
+<!--	<div class="line padding border-bottom">-->
+<!--		<span class="x3 text-gray">具体支行：</span>-->
+<!--		<span class="x9"><input type="text" name="bank_branch" id="bank_branch" class="text-input" value="<{$info.bank_branch}>"  placeholder="请输入具体支行名字" ></span>-->
+<!--	</div>-->
+<!--	<div class="line padding border-bottom">-->
+<!--		<span class="x3 text-gray">开户名：</span>-->
+<!--		<span class="x9"><input type="text" name="bank_realname" id="bank_realname" class="text-input" value="<{$info.bank_realname}>"  placeholder="输入开户名" ></span>-->
+<!--	</div>-->
+	<php>$mobile = substr_replace($MEMBER['mobile'],'****',3,4);</php>
+	<!--验证码-->
+	<if condition="!empty($MEMBER['mobile'])">
+	<div class="line padding border-bottom">
+		<span class="x3 text-gray">输入手机</span>
+		<span class="x5">
+		<input type="text" name="mobile1" id="mobile1" class="text-input" value="<{$MEMBER['mobile']}>" disabled="disabled">
+		</span>
+		<span class="x4"><a class="button button-small bg-dot" id="get_yzm" href="javascript:void(0);">获取验证码</a></span>
+	</div>
+	<div class="line padding border-bottom">
+		<span class="x3 text-gray">验证码</span>
+		<span class="x5"><input type="text" name="yzm" id="yzm" class="text-input" placeholder="验证码"></span>
+		<span class="x4"><em class="text-small text-gray">手机收到的验证码<em></span>
+	</div>
+	<else/><!--绑卡流程-->
+	<div class="line padding border-bottom">
+		<span class="x3 text-gray">输入手机</span>
+		<span class="x9"><a <if condition="!empty($res['mobile'])">id="change_mobile"<else/>id="bind_mobile"</if> href="javascript:void(0);">
+				绑定手机
+		<notempty name="res.mobile"><em class="text-green"><{$mobile}></em><else/><em class="text-gray">未绑定</em></notempty>
+		</a></span>
+	</div>
+	</if>
+
+	<!--结束-->
+	<div class="container">
+		<div class="blank-30">
+		</div>
+		<p>
+			<span class="text-dot">小提示：</span><if condition="!empty($userscash)"><a style="color:red;">您已经有过提现记录，如需修改提现账户，请联系网站管理员。</a></if>请您认真填写!
+		</p>
+	</div>
+	<div class="container">
+		<div class="blank-30">
+		</div>
+		<eq name="money" value="0">
+		<button class="button button-big button-block bg-gray">您的余额不足</button>
+		<else/>
+		<button class="button button-big button-block bg-dot">确认申请</button>
+		</eq>
+		<div class="blank-30">
+		</div>
+	</div>
+</form>
+<notempty name="MEMBER.mobile">
+<script>
+	$('#change_mobile').click(function(){
+		change_user_mobile('<{:U("wap/tuan/tuan_sendsms")}>','<{:U("wap/tuan/tuan_mobile")}>');
+	})
+</script>
+<else/>
+<script>
+	check_user_mobile('<{:U("wap/tuan/tuan_sendsms")}>','<{:U("wap/tuan/tuan_mobile")}>');
+	$('#bind_mobile').click(function(){
+		check_user_mobile('<{:U("wap/tuan/tuan_sendsms")}>','<{:U("wap/tuan/tuan_mobile")}>');
+	})
+</script>
+</notempty>
+<script type="text/javascript">
+	var mobile_timeout1;
+	var mobile_count1 = 100;
+	var mobile_lock1 = 0;
+	$(function () {
+		$("#get_yzm").click(function () {
+			if (mobile_lock1 == 0) {
+				$.ajax({
+					url: '<{:U("money/sendsms")}>',
+					data: 'mobile=' + $("#mobile1").val(),
+					type: 'post'
+				});
+				mobile_count1 = 100;
+				BtnCount1();
+				mobile_lock1 = 1;
+			}
+		});
+	});
+	BtnCount1 = function () {
+		if (mobile_count1 == 0) {
+			$('#get_yzm').html("重新发送");
+			mobile_lock1 = 0;
+			clearTimeout(mobile_timeout1);
+		}
+		else {
+			mobile_count1--;
+			$('#get_yzm').html("重新发送(" + mobile_count1.toString() + ")秒");
+			mobile_timeout1 = setTimeout(BtnCount, 1000);
+		}
+	};
+</script>
+<include file='public:footer'/>

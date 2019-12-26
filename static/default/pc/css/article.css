@@ -1,0 +1,12 @@
+﻿@charset "utf-8";
+.art-l{border: 1px solid #CCC;border-radius: 6px 0px 0px 6px;float:left;}
+.art-l .art-l-t{font-family:"Microsoft YaHei"; line-height: 40px; color: #666; font-weight: bolder; font-size: 16px; background: #F0F0F0 ; height: 40px; padding-left: 24px; border-width: 1px; border-style: solid; border-color: #FFF #FFF #CCC; border-radius: 4px 0px 0px;}
+.art-l ul{padding:0;}
+.art-l ul li{width:150px; margin: -1px 0px 0px 18px; border-top: 1px solid #CCC;}
+.art-l ul li a{width:150px; height: 39px; padding: 11px 0px 1px 5px; color: #7B7B7B; font-size: 14px; display: block;}
+.art-l ul li a.active{color:#F60;}
+.art-r .art-c{padding:15px;margin-left:10px;border: 1px solid #CCC;float:right;width:930px;}
+.art-r .art-c .c-hd{border-bottom: 4px solid #EEE;}
+.art-r .art-c .c-hd h1{height: 36px; line-height: 36px; color: #E74C3C;}
+.art-r .art-c .c-hd h1 span{font-family:"Microsoft YaHei"; font-size: 18px; float: left; max-width: 250px; white-space: nowrap; overflow: hidden; border-bottom: 4px solid #E74C3C; font-weight: bold;}
+.art-r .art-c .c-bd{font-size:13px;line-height:30px;margin-top:20px;}

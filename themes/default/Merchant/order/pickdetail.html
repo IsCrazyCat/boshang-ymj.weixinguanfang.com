@@ -1,0 +1,30 @@
+<include  file='public:header'/>
+<div class="tuan_content">
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <td style="width: 150px;">商品名称</td>
+                <td style="width: 60px;">数量</td>
+                <td style="width: 60px;">单价</td>
+                <td style="width: 60px;">总价</td>
+                <td style="width: 100px;">货到付款</td>
+                <td style="width: 100px;">是否缺货</td>
+        </tr>
+        <foreach name="goods" item="good">
+                        <tr class="no">
+                            <td><{$products[$good['goods_id']]['title']}></td>
+                            <td><{$good.num}></td>
+                            <td><{:round($good['price']/100,2)}></td>
+                            <td><{:round($good['total_price']/100,2)}></td>
+                            <td>
+                        	<eq name="good.is_daofu" value="1"> <font style="color: red;">货到付款</font><else/>在线支付</eq>
+                            </td>
+                            <td></td>
+                        </tr>
+        </foreach>
+        <tr>
+            <td colspan="8"> <input type="button"  onclick="window.print();" value=" 打 印 " /></td>
+        </tr>
+    </table>
+    <{$page}>
+</div>
+<include  file='public:footer'/>

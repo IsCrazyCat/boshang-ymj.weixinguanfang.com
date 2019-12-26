@@ -1,0 +1,114 @@
+<include file="public:header"/>
+<style>
+ul{ padding-left:0px;}
+li {list-style: none;}
+.container { margin-top:3rem;}
+.container2 {margin: 0 auto; }
+.coupon-list .item {  padding: 5px 0px 0px 5px;}
+.coupon-list .item .intro { height: initial;}
+.panel-head { background-color: #fff;}
+p, .p {margin-bottom: 0px; }
+.list-group, .list-link {border: solid 0px #eee;}
+</style>
+
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('shop/main')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<{$detail.name}>
+		</div>
+		<div class="top-share">
+		</div>
+	</header>
+
+<ul id="shangjia_tab">
+     <li style="width:25%;"><a href="<{:U('shop/branches',array('shop_id'=>$detail['shop_id'],'branch_id'=>$detail['branch_id']))}>" class="on">首页</a></li>
+     <li style="width:25%;"><a href="<{:U('branch/tuan',array('shop_id'=>$detail['shop_id'],'branch_id'=>$detail['branch_id']))}>">套餐</a></li>
+     <li style="width:25%;"><a href="<{:U('branch/dianping',array('shop_id'=>$detail['shop_id'],'branch_id'=>$detail['branch_id']))}>">评价</a></li>
+     <li style="width:25%;"><a href="<{:U('shop/detail',array('shop_id'=>$detail['shop_id']))}>">总店</a></li>
+</ul>
+	
+	<div class="container">
+		<div class="line detail-base">
+			<div class="x4">
+				<div class="pic">
+                    <img src="<{:config_img($detail['photo'])}>" />
+				</div>
+			</div>
+			<div class="x8">
+				<h1><{$detail.name}></h1>
+				<p><span class="ui-starbar"><span style="width:<{:round($detail['score']*2,2)}>%"></span></span></p>
+				<p>浏览量: <{$detail.view}> 次</p>
+				<p class="text-small"><span class="text-yellow"><{$detail.business_time}> </span></p>
+			</div>
+		</div>
+       </div>
+       
+       
+		<div class="blank-10 bg"></div>
+	<div class="container2">
+		<div class="line detail-contact">
+			<div class="x12">
+				<p class="addr"><i class="icon icon-map-marker"></i> <{$detail.addr}> </p>
+				<p class="margin-top"><i class="icon icon-phone"></i> 
+                <if condition="!empty($detail['telephone'])"> 
+                <a class="text-large" href="tel:<{$detail.telephone}>"><{$detail.telephone}></a>
+                <else/>
+                <a class="text-large">暂无联系方式</a><!--该商家暂无联系方式-->
+                </if>
+                </p>
+			</div>
+		</div>
+		
+        
+        <php>
+        $rsb = D('ShopBranch') -> where('shop_id ='.$detail['shop_id']) -> count();
+        </php>
+        <if condition="!empty($rsb)"> 
+           <div class="list-link detail-link radius-none">
+		    <a href="<{:U('shop/branch/',array('shop_id'=>$detail['shop_id']))}>">
+				<span class="txt txt-little radius-little bg-yellow">店</span> 查看另外<{$rsb}>家分店
+				<span class="float-right icon-angle-right"></span>
+			</a>
+           </div>
+        <else/>
+       <!--该商家无分店-->
+        </if>
+       </div> 
+       
+      <div class="container2"> 
+      <div class="blank-10"></div>
+        <div class="list-link detail-link radius-none">
+		    <if condition="!empty($tuans)"> 	
+               	<a href="<{:U('tuan/index',array('shop_id'=>$detail['shop_id']))}>">
+				   	<span class="txt txt-little radius-little bg-green">团</span> 去逛逛商家套餐
+			    	<span class="float-right icon-angle-right"></span>
+			    </a>		   
+            </if>		           
+            <if condition="!empty($goods)">			
+                <a href="<{:U('mart/lists',array('id'=>$weidian_id))}>">
+				    <span class="txt txt-little radius-little bg-yellow">商</span> 去逛逛商家超市
+				    <span class="float-right icon-angle-right"></span>
+		        </a>
+            </if>
+
+		</div>
+	</div>
+        
+    <div class="blank-10 bg"></div>
+     <div class="container2">
+		<div class="panel detail-intro radius-none">
+			<div class="panel-head">分店介绍</div>
+			<div class="panel-body">
+				<{:cleanhtml($detail['details'])}>
+				<gt name="detail.niu_date" value="$today" >
+				<span class="niu"><img src="/static/default/wap/image/shop/icon-niu.png" /></span>
+				</gt>
+			</div>
+		</div>		
+	</div>
+	<div class="blank-10"></div>	
+
+	
+<include file="public/footer" />

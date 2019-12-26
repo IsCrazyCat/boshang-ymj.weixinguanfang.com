@@ -1,0 +1,102 @@
+<include  file='public:header'/> 
+<body id="micro_shop">
+	<header>
+		<a href="<{:U('index/index')}>"><i class="icon-goback"></i></a>
+		<div class="title">缴费站</div>
+		<div ><a  href="<{:U('index/search')}>" ><i class="icon-menu" id="ico_2"></i></a></div>
+
+	</header>
+    <div id="seat" class="page-center-box">
+    	<style>		
+    		#jiaofei { font-size:20px; }		
+    		.jf {display:block;font-size: 0.18rem;text-align: center;height: 0.5rem;line-height: 0.5rem;    background: #EEA146;    color: #FFF;margin-top:2px;}	
+    		input {height:40px;margin-top:5px;}
+    		input.tijiao {margin-left:100px;}
+    	</style>
+    	<script>
+	    	function checkMobile(str) {
+				var re = /^1\d{10}$/;
+				if (re.test(str)) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+	    	function MoneyCheck(money) {
+	            var isNum = /^\d+(\.\d{0,2})?$/;
+	           // var money = document.getElementById("Money").value;
+	            if(!isNum.test(money)){
+	                //alert("请输入正确的金钱");
+	                return false;
+	            }else{
+		            return true;
+	                //alert("输入正确");
+	            }
+	        }
+    	
+    		$(function(){
+				$('#phone').focus(function(){
+
+						if(this.value=='请输入手机号'){
+							this.value = '';	
+						}
+						
+					}).blur(function(){
+						if(this.value==''){
+							this.value = '请输入手机号';	
+						}else{
+							if(!checkMobile(this.value)){
+								alert('请输入正确的手机格式！');
+								this.value='请输入手机号';
+							}
+						}
+						
+						});
+
+				$('#fare').focus(function(){
+
+					if(this.value=='请输入金额'){
+						this.value = '';	
+					}
+					//val=this.value;
+					//this.value='';
+				}).blur(function(){
+
+					if(this.value==''){
+						this.value = '请输入金额';	
+					}else{
+						if(!MoneyCheck(this.value)){
+							alert('请输入正确的金额格式！');
+							this.value='请输入金额';
+						}
+					}
+					//this.value = val;
+					});
+
+				$("form").submit( function () {
+
+					if(confirm("确定要缴费吗？")){
+						return true;
+					}else{
+						return false;
+					}
+					  
+					});
+
+				
+        		});
+    	</script>
+     	
+     	<div id="jiaofei">
+     		<div class='jf'>手机缴费</div>     	     
+     		<form action='__URL__/dopayphone' method='post'>
+     			手机　号：<input type='text' name='mobile' value='请输入手机号' id='phone' /><br />
+     			缴费金额：<input type='text' name='money' value='请输入金额'  id='fare' /><br />
+     			<input type='submit' value='确认提交' class='tijiao' />
+     		</form>
+     	
+     	</div> 
+       
+    </div>
+    <iframe id="baocms_frm" name="baocms_frm" style="display:none;"></iframe>
+<include file="public:footer"/>

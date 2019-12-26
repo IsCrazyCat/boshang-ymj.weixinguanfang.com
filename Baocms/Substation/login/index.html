@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><{$CONFIG.site.title}>分站管理后台3.0登录</title>
+<meta name="description" content="<{$CONFIG.site.title}>管理后台" />
+<meta name="keywords" content="<{$CONFIG.site.title}>管理后台" />
+<script> var BAO_PUBLIC = '__PUBLIC__'; var BAO_ROOT = '__ROOT__';
+</script>
+<script src="__PUBLIC__/js/jquery.js"></script>
+<script src="__PUBLIC__/js/web.js"></script>
+<script src="__PUBLIC__/js/layer/layer.js"></script>
+<script>
+function psw(el) {
+        if (el.value == '密码') {
+            el.value = '';
+            el.type = 'password';
+        }
+    }
+function txt(el) {
+	if (!el.value) {
+		el.type = 'text';
+		el.value = '密码';
+	}
+}
+</script>
+
+<style>
+*{margin:0px;padding:0px;font-family:"microsoft yahei";font-size:14px}
+.sj_login{background:url('') top #d9f1fd no-repeat;padding-bottom:80px}
+.right{float:right}
+.login_topli{color:#333;display:block;line-height:90px;height:90px;min-width:70px;text-align:center;cursor:pointer;position:relative;z-index:1;margin-left:20px}
+.login_topli a{color:#333;display:block}
+.login_top{border-bottom:solid 2px #28a796}
+.login_topnr{width:1200px;margin:0 auto;height:88px}
+.login_topt{font-size:30px;color:#1a1a1a;line-height:88px}
+.login_topt img{width:167px;vertical-align:middle}
+.login_topli{color:#333;display:block;line-height:90px;height:90px;min-width:70px;text-align:center;cursor:pointer;position:relative;z-index:1;margin-left:20px}
+.login_topli span{color:#333;display:block;background-color:#0d9885;color:#fff;padding:0 22px}
+.login_topli a{color:#333;display:block}
+.login_topli em{background:rgba(0,0,0,0) url("/Baocms/Fenzhan/statics/images/topico_09.png") no-repeat scroll center top;display:inline-block;height:10px;margin-left:5px;width:20px}
+.login_topli:hover em{background-position:center bottom}
+.login_topxl{width:150px;position:absolute;z-index:2;top:90px;right:0px;padding:15px 35px;background-color:#f7f7f7;text-align:center;display:none;line-height:22px}
+.login_topli:hover .login_topxl{display:block}
+.login_topxl img{border:1px solid #f4eeee}
+.login_topxl p{color:#1ca290}
+.login_nr{width:1200px;margin:0 auto;overflow:hidden;height:auto;background:#f4fbfe;padding:20px 0px 60px 0px}
+.login_nr_l{width:630px;padding-left:108px}
+.login_nr_r{padding-top:28px}
+.login_intnr{width:337px;background:#fff}
+.login_t{padding:0px 25px;font-size:18px;color:#1ca290;line-height:48px}
+.login_intBox{padding:0 25px 25px 25px}
+.login_intyz{padding-bottom:20px;position:relative}
+.login_intyz em{width:24px;height:35px;position:absolute;left:2px;top:4px;background:url('/Baocms/Fenzhan/statics/images/icon.png');background-size:31px}
+.login_intyz .em_1{background-position:-2px -4px}
+.login_intyz .em_2{background-position:-2px -55px}
+.login_intyz .em_3{background-position:-4px -104px}
+.loginintw{width:100%;color:#aaa}
+.loginintw2{width:160px}
+.login_yzm{display:inline-block;width:75px;height:40px;overflow:hidden;padding-left:10px;vertical-align:middle}
+.login_dl{font-size:16px !important;line-height:40px !important}
+.mask_an.login_dl{color:#1ca290}
+.mask_qd.login_dl{color:#fff;width:100%;border:0px;font-weight:normal}
+.login_rz{margin-top:10px;height:40px;width:88%;line-height:40px;text-align:center;font-size:16px;background:#fb9335!important}
+.tuanfabu_int{border:solid 1px #999;height:40px;line-height:28px;text-indent:10px;color:#999;background:none;width:92%}
+.login_intyz .tuanfabu_int{padding-left:22px}
+.login_intnr{width:337px;background:#fff}
+.login_nr_r{padding-top:28px}
+.left{float:left}
+.login_nr_l{width:630px;padding-left:108px}
+.btn_yzm{width:60%}
+.mask_an.login_dl{color:#1ca290}
+.login_rz{margin-top:10px;height:40px;width:88%;line-height:40px;text-align:center;font-size:16px;background:#fb9335!important}
+.mask_an{display:inline-block;color:#333;line-height:40px;padding:0px 18px;cursor:pointer;background:-moz-linear-gradient(top,#f2f2f2,#dcdcdc);background:-webkit-gradient(linear,top,#f2f2f2,#dcdcdc);background:-webkit-linear-gradient(top,#f2f2f2,#dcdcdc);background:-o-linear-gradient(top,#f2f2f2,#dcdcdc);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=1,startColorstr=#f2f2f2,endColorstr=#dcdcdc);-ms-filter:progid:DXImageTransform.Microsoft.gradient (GradientType=1,startColorstr=#f2f2f2,endColorstr=#dcdcdc)}
+.mask_qd{color:#fff;margin-right:10px;background:-moz-linear-gradient(top,#34beab,#1da391);background:-webkit-gradient(linear,top,#34beab,#1da391);background:-webkit-linear-gradient(top,#34beab,#1da391);background:-o-linear-gradient(top,#34beab,#1da391);filter:progid:DXImageTransform.Microsoft.gradient(GradientType=1,startColorstr=#34beab,endColorstr=#1da391);-ms-filter:progid:DXImageTransform.Microsoft.gradient (GradientType=1,startColorstr=#34beab,endColorstr=#1da391);background:#2fbdaa}
+.mask_qd.login_dl{color:#fff;width:100%;border:0px;font-weight:normal}
+.footerCopy{text-align:center;height:60px;line-height:60px;color:#777}
+</style>
+</head>
+
+<body class="sj_login">
+<iframe id="baocms_frm" name="baocms_frm" style="display:none;"></iframe>
+
+    <div class="login_topnr">
+        <div class="left login_topt">分站3.0管理中心</div>
+        <div class="right">
+            <ul>
+                <li class="left login_topli"><a href="<{:U('home/index/index')}>">回到首页</a></li>
+            </ul>
+        </div>
+    </div>
+
+<div class="login_nr">
+    <div class="left login_nr_l"><img src="__TMPL__statics/images/loginimg_03.png" /></div>
+    <div class="left login_nr_r">
+        <div class="radius3 login_intnr">
+            <div class="login_t">分站管理员登录</div>
+            <div class="login_intBox">
+                <form method="post" action="<{:U('login/loging')}>" target="baocms_frm" >
+                <div class="login_intyz">
+                    <em class="em_1"></em>
+                    <input type="text" value="请输入您的账号" onblur="if (!value) { value = defaultValue; this.style.color = '#999' }" onclick="if (value == defaultValue) { value = ''; this.style.color = '#000' }" class=" tuanfabu_int " name="username" />
+                </div>
+                <div class="login_intyz">
+                    <em class="em_2"></em>
+                    <input type="text" value="密码" name="password" onfocus="psw(this)" onblur="txt(this)" class=" tuanfabu_int " />
+                </div>
+                <div class="login_intyz">
+                    <em class="em_3"></em>
+                    <input type="text" name="yzm" value="验证码" onblur="if (!value) { value = defaultValue; this.style.color = '#999' }" onclick="if (value == defaultValue) { value = ''; this.style.color = '#000' }" class=" tuanfabu_int btn_yzm  " /><span class="login_yzm">
+                <a href="#" class="yzm_code"><img id="yzm_code" src="__ROOT__/index.php?g=app&m=verify&a=index&mt=<{:time()}>" width="75" height="36" /></a>
+                </span></div>
+                <div class="login_intyz">
+                    <input class=" mask_an mask_qd login_dl" type="submit" value="分站管理员登录" />
+
+                    <a class=" mask_an mask_qd login_rz" href="<{:U('home/apply/index')}>" />商家入驻 </a>
+                </div>
+                </form> 
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footerCopy"><{$Think.SERVER.HTTP_HOST}><{$CONFIG.site.sitename}>版权所有 - <{$CONFIG.site.icp}> <{$CONFIG.site.tongji}></div>
+<script>
+$(document).ready(function (e) {
+    $(".yzm_code").click(function () {
+        $(this).find('img').attr('src', BAO_ROOT + '/index.php?g=app&m=verify&a=index&mt=' + Math.random());
+    });
+});
+function yzmCode() { //更换验证码
+    $(".yzm_code").click();
+}
+</script>
+</body>
+</html>

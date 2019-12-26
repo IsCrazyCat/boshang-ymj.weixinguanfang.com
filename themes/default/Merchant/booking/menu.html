@@ -1,0 +1,55 @@
+<include file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">其他</a> > <a href="">预订设置</a> > <a>菜单管理</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <form method="post" action="<{:U('booking/menu')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            菜品名称：<input type="text" name="keyword" value="<{$keyword}>" class="radius3 tuan_topser" />
+            <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/>
+            <div class="right tuan_topfb_r"><a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('booking/menucreate')}>">添加菜品+</a></div>
+        </div>
+    </div>
+    </form>
+   <include  file='booking:nav'/>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td>菜名</td>
+            <td>分类</td>
+            <td>缩略图</td>
+            <td>价格</td>
+            <td>优惠价</td>
+            <td>是否新品</td>
+            <td>是否优惠</td>
+            <td>是否推荐</td>
+            <td>操作</td>
+        </tr>
+        <foreach name="list" item="var">
+            <tr>
+                <td><{$var.menu_name}></td>
+                <td><{$dingcates[$var['cate_id']]['cate_name']}></td>
+                <td><img style="margin: 10px auto; width:80px;" src="<{:config_img($var['photo'])}>" /></td>
+                <td><{:round($var['price']/100,2)}></td>
+                <td><{:round($var['ding_price']/100,2)}></td>
+                <td><eq name="var.is_new" value="1">新品<else/>无</eq></td>
+            <td>
+            <eq name="var.is_sale" value="1">优惠<else/>无</eq>
+            </td>
+            <td>
+            <eq name="var.is_tuijian" value="1">推荐<else/>无</eq>
+            </td>
+            <td>
+                <a href="<{:U('booking/menuedit',array('menu_id'=>$var['menu_id']))}>">编辑</a>
+                <a mini='confirm' href="<{:U('booking/menudelete',array('menu_id'=>$var['menu_id']))}>">删除</a>
+            </td>
+            </tr>
+        </foreach>
+    </table>
+    <div class="paging">
+        <{$page}>
+    </div>
+</div>
+<include file='public:footer'/>

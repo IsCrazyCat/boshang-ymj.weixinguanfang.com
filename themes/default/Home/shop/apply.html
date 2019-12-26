@@ -1,0 +1,391 @@
+<include  file='public:header'/>  
+<include  file='public:top'/>   
+<link rel="stylesheet" type="text/css" href="/static/default/webuploader/webuploader.css">
+<script src="/static/default/webuploader/webuploader.min.js"></script>
+<style>
+.main {float: none;width: 1200px;margin: auto;}
+</style>
+<div class="cl"></div>
+<div class="main">
+    <ul class="fbMenu">
+        <li class="cur">1.提交资料</li>
+        <li>2.等待审核</li>
+        <li>3.开店成功</li>
+    </ul>
+    <div class="fbMain">
+        <h3>基本资料</h3>
+        <form method="post" action="<{:U('shop/apply')}>" target="baocms_frm">
+            <table cellpadding="0" cellspacing="0" width="100%">
+                <tr>
+                    <th><span class="color_r">*</span>商户名称：</th>
+                    <td><input type="text" name="data[shop_name]"  class="but"  /><p>商户名称是店铺的名称，显示在店铺详情，最多20个字符</p></td>
+                </tr>
+
+				  <tr>
+                         <p class="tuanfabu_t">店铺图片：</p>
+                 <div class="tuanfabu_nr">
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <input type="hidden" name="data[photo]" value="<{$detail.photo}>" id="data_photo" />
+                        <div id="fileToUpload" >上传店铺图片</div>
+                    </div>
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <img id="photo_img" width="80" height="80"  src="<{:config_img($detail['photo'])}>" />
+                        <a href="<{:U('setting/attachs')}>">缩略图设置</a>
+                        <{$CONFIG.attachs.shoplogo.thumb}>
+                    </div>
+                    <script>                                            
+						var width_shoplogo = '<{:thumbSize($CONFIG[attachs][shoplogo][thumb],0)}>';                         
+						var height_shoplogo = '<{:thumbSize($CONFIG[attachs][shoplogo][thumb],1)}>';                         
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"shoplogo"))}>',                             
+						pick: '#fileToUpload',                             
+						resize: true,  
+						compress : {width: width_shoplogo,height: height_shoplogo,quality: 80,allowMagnify: false,crop: true}                       
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_photo").val(resporse.url);                             
+						$("#photo_img").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+                    </div>
+                 </tr>
+
+
+             
+                  <tr>
+                         <p class="tuanfabu_t">店铺LOGO：</p>
+                 <div class="tuanfabu_nr">
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <input type="hidden" name="data[logo]" value="<{$detail.logo}>" id="data_logo" />
+                        <div id="fileToUpload2" >上传LOGO</div>
+                    </div>
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <img id="logo_img" width="80" height="80"  src="<{:config_img($detail['logo'])}>" />
+                        <a href="<{:U('setting/attachs')}>">LOGO设置</a>
+                        <{$CONFIG.attachs.shoplogo.thumb}>
+                    </div>
+                    <script>                                            
+						var width_shoplogo = '<{:thumbSize($CONFIG[attachs][shoplogo][thumb],0)}>';                         
+						var height_shoplogo = '<{:thumbSize($CONFIG[attachs][shoplogo][thumb],1)}>';                         
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"shoplogo"))}>',                             
+						pick: '#fileToUpload2',                             
+						resize: true,  
+						compress : {width: width_shoplogo,height: height_shoplogo,quality: 80,allowMagnify: false,crop: true}                       
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_logo").val(resporse.url);                             
+						$("#logo_img").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+                    </div>
+                 </tr>
+                 
+                 
+                <tr>
+                    <th><span class="color_r">*</span> 分类：</th>
+                    <td>
+                        <div class="rcleix">
+                            <select name="parent_id" id="parent_id" class="selects">
+                                <option value="0">请选择...</option>
+                                <foreach name="cates" item="var">
+                                    <eq name="var.parent_id" value="0">
+                                    <option value="<{$var.cate_id}>"><{$var.cate_name}></option>
+                                    </eq>
+                                </foreach>
+                            </select>
+                            <select id="cate_id" name="data[cate_id]" class="selects">
+                                <option value="0">请选择...</option>
+                            </select>
+                            <script>
+                                $(document).ready(function (e) {
+                                    $("#parent_id").change(function () {
+                                        var url = '<{:U("public/shopcate",array("parent_id"=>"0000"))}>';
+                                        if ($(this).val() > 0) {
+                                            var url2 = url.replace('0000', $(this).val());
+                                            $.get(url2, function (data) {
+                                                $("#cate_id").html(data);
+                                            }, 'html');
+                                        }
+                                    });
+
+                                });
+                            </script>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th><span class="color_r">*</span> 地区：</th>
+                    <td>
+                        <div class="rcleix">
+                            <select name="data[city_id]" style="float: left;"  id="city_id" class="selects"></select>
+                            <select name="data[area_id]" style="float: left;"  id="area_id" class="selects"></select>
+                            <select name="data[business_id]"  style="float: left;" id="business_id" class="selects"></select>
+                        </div>
+                    </td>
+                </tr>
+
+
+
+                <script src="<{:U('app/datas/cab',array('name'=>'cityareas'))}>"></script>
+                <script>
+                                var city_id = "<{$city_id}>";
+                                var area_id = 0;
+                                var business_id = 0;
+                                $(document).ready(function () {
+                                    var city_str = ' <option value="0">请选择...</option>';
+                                    for (a in cityareas.city) {
+                                        if (city_id == cityareas.city[a].city_id) {
+                                            city_str += '<option selected="selected" value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+                                        } else {
+                                            city_str += '<option value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+                                        }
+                                    }
+                                    $("#city_id").html(city_str);
+
+                                    $("#city_id").change(function () {
+                                        if ($("#city_id").val() > 0) {
+                                            city_id = $("#city_id").val();
+                                            var area_str = ' <option value="0">请选择...</option>';
+                                            for (a in cityareas.area) {
+                                                if (cityareas.area[a].city_id == city_id) {
+                                                    if (area_id == cityareas.area[a].area_id) {
+                                                        area_str += '<option selected="selected" value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                                    } else {
+                                                        area_str += '<option value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                                    }
+                                                }
+                                            }
+                                            $("#area_id").html(area_str);
+                                            $("#business_id").html('<option value="0">请选择...</option>');
+                                        } else {
+                                            $("#area_id").html('<option value="0">请选择...</option>');
+                                            $("#business_id").html('<option value="0">请选择...</option>');
+                                        }
+
+                                    });
+
+                                    if (city_id > 0) {
+                                        var area_str = ' <option value="0">请选择...</option>';
+                                        for (a in cityareas.area) {
+                                            if (cityareas.area[a].city_id == city_id) {
+                                                if (area_id == cityareas.area[a].area_id) {
+                                                    area_str += '<option selected="selected" value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                                } else {
+                                                    area_str += '<option value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                                }
+                                            }
+                                        }
+                                        $("#area_id").html(area_str);
+                                    }
+
+
+                                    $("#area_id").change(function () {
+                                        if ($("#area_id").val() > 0) {
+                                            area_id = $("#area_id").val();
+                                            var business_str = ' <option value="0">请选择...</option>';
+                                            for (a in cityareas.business) {
+                                                if (cityareas.business[a].area_id == area_id) {
+                                                    if (business_id == cityareas.business[a].business_id) {
+                                                        business_str += '<option selected="selected" value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                                    } else {
+                                                        business_str += '<option value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                                    }
+                                                }
+                                            }
+                                            $("#business_id").html(business_str);
+                                        } else {
+                                            $("#business_id").html('<option value="0">请选择...</option>');
+                                        }
+
+                                    });
+
+                                    if (area_id > 0) {
+                                        var business_str = ' <option value="0">请选择...</option>';
+                                        for (a in cityareas.business) {
+                                            if (cityareas.business[a].area_id == area_id) {
+                                                if (business_id == cityareas.business[a].business_id) {
+                                                    business_str += '<option selected="selected" value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                                } else {
+                                                    business_str += '<option value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                                }
+                                            }
+                                        }
+                                        $("#business_id").html(business_str);
+                                    }
+                                    $("#business_id").change(function () {
+                                        business_id = $(this).val();
+                                    });
+                                });
+                </script> 
+
+
+                <tr>
+                    <th><span class="color_r">*</span>地址：</th>
+                    <td>
+                        <input type="text" name="data[addr]"  class="but"/>
+                    </td>
+                </tr>
+                <tr>
+                    <th>靠近：</th>
+                    <td>
+                        <input type="text" name="data[near]" class="but"/>
+                    </td>
+                </tr>
+
+                <tr>
+                    <th >商家坐标：</th>
+                    <td>
+
+                        <span class="mr10"><input type="text" name="data[lng]" id="lng" value="<{$detail.lng|default=''}>" class="mapinputs w100" />经度</span>
+                        <span><input type="text" name="data[lat]" id="lat" value="<{$detail.lat|default=''}>" class="w100 mapinputs" />纬度</span>
+
+                    </td>
+                </tr>
+                <tr>
+                    <th>地图：</th>
+                    <td>
+                        <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7b92b3afff29988b6d4dbf9a00698ed8"></script>
+                        <div class="top" style="width:700px; margin-bottom: 20px;">
+                            <div id="r-result"><input type="text" id="suggestId" class="mapinputs" size="20" value="合肥" />请输入</div>    
+                        </div>
+                        <div id="searchResultPanel" style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;"></div>
+                        <div id="allmap" style="width: 600px; height:500px;"></div>
+                        <script type="text/javascript">
+
+                            // 百度地图API功能
+                            var map = new BMap.Map("allmap");
+                            var lng = "<{$CONFIG['site']['lng']}>";
+                            var lat = "<{$CONFIG['site']['lat']}>";
+                            if (!lng && !lat) {
+                                map.centerAndZoom("合肥");
+                                var point = new BMap.Point(117.260852, 31.825717);
+                            } else {
+                                map.centerAndZoom(new BMap.Point(lng, lat), 15);
+                                var point = new BMap.Point(lng, lat);
+                            }
+                            map.centerAndZoom(point, 15);
+                            var marker = new BMap.Marker(point);  // 创建标注
+                            map.clearOverlays();
+                            map.addOverlay(marker);              // 将标注添加到地图中
+                            marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                            function showPoint(e) {
+                                document.getElementById('lat').value = e.point.lat;
+                                document.getElementById('lng').value = e.point.lng;
+                                var p = new BMap.Point(e.point.lng, e.point.lat);
+                                var mk = new BMap.Marker(p);
+                                map.clearOverlays();
+                                map.addOverlay(mk);
+                                mk.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                            }
+                            map.enableScrollWheelZoom(true);
+                            map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+                            map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}));  //右上角，仅包含平移和缩放按钮
+                            map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT, type: BMAP_NAVIGATION_CONTROL_PAN}));  //左下角，仅包含平移按钮
+                            map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, type: BMAP_NAVIGATION_CONTROL_ZOOM}));  //右下角，仅包含缩放按钮
+                            map.addEventListener("click", showPoint);
+                            function G(id) {
+                                return document.getElementById(id);
+                            }
+
+                            var ac = new BMap.Autocomplete(//建立一个自动完成的对象
+                                    {"input": "suggestId"
+                                        , "location": map
+                                    });
+
+                            ac.addEventListener("onhighlight", function (e) {  //鼠标放在下拉列表上的事件
+                                var str = "";
+                                var _value = e.fromitem.value;
+                                var value = "";
+                                if (e.fromitem.index > -1) {
+                                    value = _value.province + _value.city + _value.district + _value.street + _value.business;
+                                }
+                                str = "FromItem<br />index = " + e.fromitem.index + "<br />value = " + value;
+
+                                value = "";
+                                if (e.toitem.index > -1) {
+                                    _value = e.toitem.value;
+                                    value = _value.province + _value.city + _value.district + _value.street + _value.business;
+                                }
+                                str += "<br />ToItem<br />index = " + e.toitem.index + "<br />value = " + value;
+                                G("searchResultPanel").innerHTML = str;
+                            });
+
+                            var myValue;
+                            ac.addEventListener("onconfirm", function (e) {    //鼠标点击下拉列表后的事件
+                                var _value = e.item.value;
+                                myValue = _value.province + _value.city + _value.district + _value.street + _value.business;
+                                G("searchResultPanel").innerHTML = "onconfirm<br />index = " + e.item.index + "<br />myValue = " + myValue;
+
+                                setPlace();
+                            });
+
+
+                            function setPlace() {
+                                map.clearOverlays();    //清除地图上所有覆盖物
+                                function myFun() {
+                                    var pp = local.getResults().getPoi(0).point;    //获取第一个智能搜索的结果
+                                    map.centerAndZoom(pp, 18);
+                                    map.addOverlay(new BMap.Marker(pp));    //添加标注
+                                }
+                                var local = new BMap.LocalSearch(map, {//智能搜索
+                                    onSearchComplete: myFun
+                                });
+                                local.search(myValue);
+                            }
+
+                        </script>
+                    </td>
+                </tr>
+                <tr>
+                    <th><span class="color_r">*</span>电话：</th>
+                    <td><input type="text" name="data[tel]" class="but"/></td>
+                </tr>
+                <tr>
+                    <th><span class="color_r">*</span>联系人：</th>
+                    <td><input type="text" name="data[contact]" class="but"/></td>
+                </tr>
+                <tr>
+                    <th><span class="color_r">*</span>营业时间：</th>
+                    <td width="859"><input type="text" name="data[business_time]"  class="but"  /><p>营业时间为商户经营时间设置，最多50个字符</p></td>
+                </tr>
+                <tr>
+                    <th><span class="color_r">*</span>商铺描述：</th>
+                    <td>
+                        <textarea name="details" cols="100" rows="10" style="border:1px #dddddd solid;"></textarea>
+                        <p style="float: none;">商铺描述信息，最多300个字符</p>
+                    </td>
+                </tr>
+                <tr>
+                    <th>验证码：</th>
+
+                    <td>
+                        <input type="text" name="yzm" class="yz" value="" />
+                        <span class="yzm_code" rel="apply_code"><img  id="apply_code" src="__ROOT__/index.php?g=app&m=verify&a=index&mt=<{:time()}>" /></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td colspan="2">
+                        <div class="btn_box"><input type="submit" class="aniu" value="立即开店"/></div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+</div>
+<div class="cl"></div>
+<!--main end-->
+<include  file='public:footer'/>  

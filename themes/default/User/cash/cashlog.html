@@ -1,0 +1,50 @@
+<include file='public:header'/> 
+<link rel="stylesheet" href="/static/default/wap/css/housekeeping.css"/>  
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('member/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			提现记录
+		</div>
+	</header>
+
+<style>
+.list-media-x { margin-top: 0.0rem;}
+ul{ padding-left:0px;}
+</style>
+
+<ul id="shangjia_tab">
+		<li style="width:33.3333333367%;"><a href="<{:u('money/index')}>">余额充值</a></li>
+        <li style="width:33.3333333367%;"><a href="<{:u('cash/index')}>" class="on">申请提现</a></li>
+        <li style="width:33.3333333367%;"><a href="<{:u('logs/moneylogs')}>" >日志管理</a></li>
+</ul>
+<div class="blank-40 bg"></div>
+
+<!-- 筛选TAB -->
+<div class="line tab-bar">
+	<div class="button-toolbar">
+		<div class="button-group">
+			<a class="block button <eq name='aready' value='0'>bg-dot active</eq>" href="<{:LinkTo('cash/index')}>">申请提现</a>
+			<a class="block button bg-dot active" href="<{:LinkTo('cash/cashlog')}>">提现记录</a>
+		</div>
+	</div>
+</div>
+
+
+
+   	
+    
+	<div class="list-media-x" id="list-media">
+	<ul></ul>
+</div>	
+
+
+<script>
+	$(document).ready(function () {
+		loaddata('<{:U("cash/cashlogloaddata",array("t"=>$nowtime,"p"=>"0000"))}>', $("#list-media ul"), true);
+	});
+</script>
+	
+<include file='public:footer'/>  
+

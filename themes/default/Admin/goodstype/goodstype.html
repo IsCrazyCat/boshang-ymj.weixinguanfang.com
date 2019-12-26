@@ -1,0 +1,26 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商城</li>
+        <li class="li2">类型</li>
+        <li class="li2 li3">编辑类型</li>
+    </ul>
+</div>
+    <div class="mainScAdd">
+        <div class="tableBox">
+        <form target="baocms_frm"  action="<{:U('goodstype/addEditGoodsType')}>" method="post">   
+        <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+        <tr>
+          <td class="lfTdBt">类型名称：</td>
+          <td class="rgTdBt"><input type="text" value="<{$goodsType.name}>" name="name"  class="manageInput" /></td>
+        </tr>
+         
+       </table>
+       <div style="margin-left:140px;margin-top:20px">
+       <input type="hidden" name="id" value="<{$goodsType.id}>">
+       <td><input type="submit" value="确定编辑" class="smtQrIpt" /></td>
+       </div> 
+	  </form>
+      <div></div>
+
+<include  file='public:footer'/>      

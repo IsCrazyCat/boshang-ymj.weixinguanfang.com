@@ -1,0 +1,54 @@
+	<foreach name="list" item="var">
+		<li class="line ">
+		<dt><a class="x4">订单ID：<{$var.order_id}></a><a class="x8 text-right">下单日期：<{$var.create_time|date='m-d,i:s',###}></a></dt>
+		<dd class="zhong">
+		<div class="x4">
+			<img src="<{:config_img($tuan[$var['tuan_id']]['photo'])}>"  style="width:90%;">
+		</div>
+		<div class="x8">
+			<p class="text-small">
+				<span class="text-dot1 margin-right">名称：<{:bao_msubstr($tuan[$var['tuan_id']]['title'],0,12,false)}></span>
+			</p>
+			<p class="text-small">
+				<span class="text-dot1 margin-right">订单金额：<span class="text-dot">&yen;<{:round($var['total_price']/100,2)}></span>&nbsp;数量：X<{$var.num}></span>
+			</p>
+            <p class="text-small">
+				<span class="text-dot1 margin-right">实付金额：<span class="text-dot">&yen;<{:round($var['need_pay']/100,2)}></span></span>
+			</p>
+		</div>
+		</dd>
+		
+		<dl>
+			<p class="text-right padding-top x12">
+				<if condition="$var['status'] eq 0">
+					<a class="button button-little bg-gray">待付款</a>
+				<elseif condition="$var['status'] eq 1"/>
+				<php>
+                  $rtc = D('TuanCode')-> where('order_id ='.$var['order_id']) -> find();
+				</php>
+                    <eq name="rtc.is_used" value="1">
+                    <if condition="$dianping[$var['order_id']]['order_id'] eq null">
+                        <a class="button button-little bg-gray">待评价</a>
+                    </if>
+                    <else/>
+                    	<a class="button button-little bg-gray">未消费</a>
+                    </eq>
+				</eq>
+				<elseif condition="$var['status'] eq 3"/>
+					<a class="button button-little bg-gray">正在退款</a>
+				<elseif condition="$var['status'] eq 4"/>
+					<a class="button button-little bg-gray"> 已退款</a>
+				<elseif condition="$var['status'] eq -1"/>
+					<a class="button button-little bg-blue">到店付</a>
+                <elseif condition="$var['status'] eq 8"/>
+					<a class="button button-little bg-blue">已完成</a>
+				</if>
+				<eq name="var.is_mobile" value="1">
+					<a class="button button-little bg-blue">手机订单</a>
+				</eq>
+				<a href="<{:u('tuan/detail',array('order_id'=>$var['order_id']))}>" class="button button-little bg-dot">详情</a>
+			</p>
+		</dl>
+		</li>
+		<div class="blank-10 bg"></div>
+	</foreach>

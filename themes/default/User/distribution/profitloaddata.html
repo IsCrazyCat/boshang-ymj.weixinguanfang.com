@@ -1,0 +1,41 @@
+<foreach name="list" item="item">
+       <li class="line">
+        <dt>
+            <a class="x3">编号：<{$item.log_id}></a>
+            <a class="x9 text-right">分成时间：<{$item.create_time|date='Y-m-d H:i',###}> </a>
+        </dt>
+        
+          <dd class="zhong">
+                <div class="x12">
+                    <p>
+                    分成类型：
+                    <if condition="$item['order_type'] eq 0">
+                    团购
+                    <elseif condition="$item['order_type'] eq 1"/>
+                    商城
+                    <elseif condition="$item['order_type'] eq 2"/>
+                    优惠买单
+                    </if>
+                    
+                    </p>
+                    <p class="text-small">
+                        <span class="text-dot1 margin-right">
+                        收益金额：<span class="text-dot">&yen;<{:round($item['money']/100,2)}>元 </span> 
+                        </span>
+                        <span class="text-dot1 margin-right">
+                        <if condition="$item['order_type'] eq 0">
+                        团购
+                        <elseif condition="$item['order_type'] eq 1"/>
+                        商城
+                        <elseif condition="$item['order_type'] eq 2"/>
+                        优惠买单
+                        </if>
+                        订单ID：<span class="text-dot"><{$item.order_id}></span> 
+                        </span>
+                    </p>
+              </div>
+          </dd>
+    </li>
+    <div class="blank-10 bg"></div>
+</foreach>
+

@@ -1,0 +1,108 @@
+<include  file='public:header'/>   
+<link href="/static/default/wap/other/jquery-ui.css" rel="stylesheet">
+<script src="/static/default/wap/other/jquery-ui.js"></script>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('wuye/order/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		添加账单
+	</div>
+</header>
+
+<style>
+input[readonly]{background: #FFF;}
+.fabu-form .form-content {border: none;resize: none;width: 100%;height: 80px;padding: 10px;font-size: 12px;}
+.fabu-form .form-content1 {border: none;resize: none;width: 100%;height: 150px;padding: 10px;font-size: 12px;}
+.shuxing{width: 20px; height: 20px;margin-bottom: 10px;}
+</style>
+
+<form class="fabu-form" method="post"  target="x-frame" action="<{:U('order/create',array('user_id'=>$detail['user_id']))}>">
+
+<div class="blank-10 bg border-top"></div>
+<div class="row">
+	<div class="line">
+		<span class="x3">账单时间：</span>
+		<span class="x9">
+         <input type="text" class="text-input"  placeholder="点击选择年/月"  name="order_date" value="<{$detail.order_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM'});"/>
+		</span>
+	</div>
+</div>
+
+
+<div class="blank-10 bg"></div>  
+<php>$i=0;</php>
+<volist name="types" id="item" key="index">
+<php>$i++;</php>
+<div class="row">
+	<div class="line">
+		<span class="x3"><{$item}>：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[<{$index}>][money]" value="0" />
+		</span>
+	</div>
+</div>
+
+
+<div class="blank-20"></div>  
+<div class="row">
+   <div class="line">
+     <span class="x3">开始时间：</span>
+     <span class="x9">
+     <input type="text" class="text-input line-input datepicker" id="svctime<{$i}>" name="data[<{$index}>][bg_date]" size="30"  readonly="readonly"  value="<{$detail['bg_date']}>" placeholder="<{$item}>开始时间" />
+     </span>
+   </div>
+</div>
+<div class="blank-20"></div>       
+<div class="row">
+   <div class="line">
+     <span class="x3">结束时间：</span>
+     <span class="x9">
+     <input type="text" class="text-input line-input datepicker" id="svctime<{$i+10}>" name="data[<{$index}>][end_date]" size="30"  readonly="readonly"  value="<{$detail['end_date']}>" placeholder="<{$item}>结束时间" />
+     </span>
+   </div>
+   <div class="blank-20"></div> 
+</div>
+
+<div class="blank-10 bg"></div> 
+</volist>
+  
+
+
+	<div class="container">
+		<div class="blank-30"></div>
+		<button  type="submit" class="button button-block button-big bg-dot">添加账单</button>
+		<div class="blank-30"></div>
+	</div>
+</form>
+
+<script>
+		jQuery(function($){
+			$.datepicker.regional['zh-CN'] = {
+				closeText: '关闭',
+				prevText: '&#x3c;上月',
+				nextText: '下月&#x3e;',
+				currentText: '今天',
+				monthNames: ['一月','二月','三月','四月','五月','六月',
+				'七月','八月','九月','十月','十一月','十二月'],
+				monthNamesShort: ['一','二','三','四','五','六',
+				'七','八','九','十','十一','十二'],
+				dayNames: ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'],
+				dayNamesShort: ['周日','周一','周二','周三','周四','周五','周六'],
+				dayNamesMin: ['日','一','二','三','四','五','六'],
+				weekHeader: '周',
+				dateFormat: 'yy-mm-dd',
+				firstDay: 1,
+				isRTL: false,
+				showMonthAfterYear: true,
+				yearSuffix: '年'};
+			$.datepicker.setDefaults($.datepicker.regional['zh-CN']);
+		});
+		$(function() {
+			$( ".datepicker" ).datepicker();
+		});
+	</script>
+    
+   
+<include  file='public:footer'/>

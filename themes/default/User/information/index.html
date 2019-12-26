@@ -1,0 +1,132 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('member/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			账户信息
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+<php>$mobile = substr_replace($res['mobile'],'****',3,4);</php>
+<style>
+.layui-layer-molv .layui-layer-title {background-color: #F8F8F8;border-bottom: 1px solid #eee;color: #333;}
+</style>
+<div class="container">
+		<div class="blank-10"></div>
+		<p><span class="text-dot">小提示：</span> 如果您是微信登录的用户，请绑定手机后都改登录密码，然后就可以登录电脑版了！</p>
+	</div>
+<div class="panel-list border-top">
+	<ul>
+		<li>
+			<a href="<{:U('info/face')}>">
+				上传头像
+				<i class="icon-angle-right"></i>
+			</a>
+		</li>
+		<li>
+			<a href="<{:U('info/nickname')}>">
+				用户昵称<em><{$res.nickname}> ID：<{$res.user_id}></em>
+			</a>
+		</li>
+<!--		<li>-->
+<!--			<a href="<{:u('addrs/index')}>">-->
+<!--				外卖收货地址<em><{$addr_count}>个</em>-->
+<!--			</a>-->
+<!--		</li>-->
+        <li>
+			<a href="<{:u('wap/address/addlist')}>">
+				商城收货地址 <i class="icon-angle-right"></i>
+			</a>
+		</li>
+	</ul>
+</div>
+<div class="blank-10 bg"></div>
+<div class="panel-list">
+	<ul>
+		<li><a href="<{:U('money/index')}>">余额充值<i class="icon-angle-right"></i></a></li>
+		<li><a href="<{:U('logs/moneylogs')}>">日志列表<i class="icon-angle-right"></i></a></li>
+<!--        <if condition="!empty($CONFIG[integral][integral_exchange])">-->
+<!--        	<li><a href="<{:U('money/exchange')}>">积分兑换余额<i class="icon-angle-right"></i></a></li>-->
+<!--        </if>-->
+<!--        <if condition="!empty($CONFIG[cash][is_transfer])">-->
+<!--        	<li><a href="<{:U('money/transfer')}>">给好友转账<i class="icon-angle-right"></i></a></li>-->
+<!--        </if>-->
+	</ul>
+</div>
+<div class="blank-10 bg"></div>
+<div class="panel-list border-top">
+	<ul>
+		<li>
+			<a <if condition="!empty($res['mobile'])">id="change_mobile"<else/>id="bind_mobile"</if> href="javascript:void(0);">
+				绑定手机<notempty name="res.mobile"><em class="text-green"><{$mobile}></em><else/><em class="text-gray">未绑定</em></notempty>
+			</a>
+		</li>
+		<!--<li>
+			<?php if(!isset($bind['weixin'])){?>
+			<a href="<{:u('wap/passport/wxlogin')}>">
+				绑定微信<em class="text-gray">未绑定</em>
+			</a>
+			<?php }else{?>
+			<a href="javascript:;">
+				绑定微信<em class="text-green">已绑定</em>
+			</a>
+			<?php }?>
+		</li>
+		<li>
+			<?php if(!isset($bind['qq'])){?>
+			<a href="<{:u('wap/passport/qqlogin')}>">
+				绑定QQ<em class="text-gray">未绑定</em>
+			</a>
+			<?php }else{?>
+			<a href="javascript:;">
+				绑定QQ<em class="text-green">已绑定</em>
+			</a>
+			<?php }?>
+		</li>
+		<li>
+			<?php if(!isset($bind['weibo'])){?>
+			<a href="<{:u('wap/passport/wblogin')}>">
+				绑定微博<em class="text-gray">未绑定</em>
+			</a>
+			<?php }else{?>
+			<a href="javascript:;">
+				绑定微博<em class="text-green">已绑定</em>
+			</a>
+			<?php }?>
+		</li>-->
+        
+        <li>
+			<a href="<{:U('info/password')}>">
+				修改密码登录
+				<i class="icon-angle-right"></i>
+			</a>
+		</li>
+        <li>
+			<a href="<{:U('info/pay_password')}>">
+				修改支付密码
+				<i class="icon-angle-right"></i>
+			</a>
+		</li>
+	</ul>
+</div>
+<div class="blank-10 bg"></div>
+
+
+<notempty name="res.mobile">
+<script>
+	$('#change_mobile').click(function(){
+		change_user_mobile('<{:U("wap/tuan/tuan_sendsms")}>','<{:U("wap/tuan/tuan_mobile")}>');
+	})
+</script>
+<else/>
+<script>
+	check_user_mobile('<{:U("wap/tuan/tuan_sendsms")}>','<{:U("wap/tuan/tuan_mobile")}>');
+	$('#bind_mobile').click(function(){
+		check_user_mobile('<{:U("wap/tuan/tuan_sendsms")}>','<{:U("wap/tuan/tuan_mobile")}>');
+	})
+</script>
+</notempty>
+<include file='public:footer'/>

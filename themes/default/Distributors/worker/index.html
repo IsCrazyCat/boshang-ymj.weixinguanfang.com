@@ -1,0 +1,100 @@
+<include file='public:header'/>    
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:u('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			员工列表
+		</div>
+		<div class="top-share">
+			<a href="<{:u('worker/create')}>" class="top-addr icon-plus"> 增加</a>
+		</div>
+	</header>
+ <style>
+ul { padding-left: 0px;}
+.xiaoqu-list { margin-top:2rem;}
+</style>
+<!-- 筛选TAB -->
+<ul id="shangjia_tab">
+<!--        <li style="width: 25%;"><a href="<{:u('distributors/branch/index')}>">分店管理</a></li>-->
+        <li style="width: 25%;"><a href="<{:u('distributors/worker/index')}>"  class="on">员工管理</a></li>
+        <li style="width: 25%;"><a href="<{:u('distributors/shop/about')}>">基本设置</a></li>
+<!--        <li style="width: 25%;"><a href="<{:u('distributors/shop/photo/')}>">环境图</a></li>-->
+</ul>	   
+
+<div class="xiaoqu-list">
+<ul id="xiaoqu-list">
+       
+
+<div class="blank-10 bg"></div>
+<if condition="!empty($list)">
+<volist name="list" id="var">
+<li class="line">
+		<div class="x10">	
+            <p class="addr">员工姓名：<{$var.name}>&nbsp;id:<{$var.user_id}></p>
+            <if condition="!empty($var['work'])">
+            <p class="addr">员工职位：<{$var.work}></p>
+            </if>
+            <if condition="!empty($var['tel'])">
+            <p class="addr">员工tel：<{$var.tel}></p>
+            </if>
+            <if condition="!empty($var['mobile'])">
+			<p class="addr">员工手机：<{$var.mobile}></p>
+            </if>
+            <p class="addr">QQ/微信：<{$var.qq}>/<{$var.weixin}></p>
+            <if condition="!empty($var['addr'])">
+            <p class="addr">员工地址：<{$var.addr}></p>
+            </if>
+            <php>
+            $Users = D('Users') -> where('user_id ='.$var['user_id']) -> find();
+            </php>
+            <p class="addr">最后登录时间：<{$Users.last_time|date='Y-m-d H:i:s',###}></p>
+		</div>
+        <div class="x2">
+        <a class="button button-small margin-top bg-dot "  href="<{:U('worker/edit',array('worker_id'=>$var['worker_id']))}>">编辑</a>
+        <a href="javascript:void(0);" href="<{:U('worker/delete',array('worker_id'=>$var['worker_id']))}>" rel="<{$var.worker_id}>"  class="jquery-delete button button-small  margin-top bg-blue">删除</a>
+        </div>
+</li>
+<div class="blank-10 bg"></div>
+</volist>
+<else/>
+<div class="container login-open">
+<div class="blank-60"></div>
+<h5 style="text-align:center; padding:10px; color:#F03">！暂时无员工</h5>
+</div>
+</if>
+
+</ul> 
+<div class="blank-20"></div>
+<div class="container login-open">
+<h5 style="text-align:center"><{$page}><!--分页代码不要忘记加--> </h5>
+</div>
+</div>
+<script>
+	$(document).ready(function () {
+		$(document).on('click', ".jquery-delete", function (e) {
+			var worker_id = $(this).attr('rel');
+			layer.confirm('您确定要删除该员工？', {
+				skin: 'layer-ext-demo', 
+				area: ['50%', 'auto'], //宽高
+				btn: ['是的', '不'], //按钮
+				shade: false //不显示遮罩
+			}, function () {
+				$.post("<{:U('worker/delete')}>", {worker_id: worker_id}, function (result) {
+					if (result.status == "success") {
+						layer.msg(result.msg);
+						setTimeout(function () {
+							location.reload();
+						}, 1000);
+					} else {
+						layer.msg(result.msg);
+					}
+				}, 'json');
+			});
+		});
+	});
+</script>
+<include file="public:footer"/>
+
+
+

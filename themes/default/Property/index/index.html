@@ -1,0 +1,66 @@
+<include file='public:header'/>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".leftMenu_a").click(function () {
+            $(".leftMenu_a").removeClass("on");
+            $(this).addClass("on");
+            $(".leftNav2").hide();
+            $(this).parent().find(".leftNav2").show();
+        });
+        $(".leftNav2 li").click(function () {
+            $(".leftNav2 li a").removeClass('on');
+            $(this).find('a').addClass('on');
+        });
+    });
+</script>
+<div class="sjgl_top">
+    <div class="left sjgl_toplogo">
+    物业后台
+    </div>
+
+    <div class="right sjgl_top_r">
+        <ul>
+            <li class="left sjgl_topli sjgl_toplixl"><a href="<{:U('wuye/index/index')}>"><{$COMMUNITY.name}></a> </li>
+             <li class="left sjgl_topli"><a  target="main_frm" href="<{:U('message/index')}>">网站通知 <if condition="$msg_day gt 0"><i style="font-style:normal">(<{$msg_day}>)</i></if></a></li>
+            <li class="left sjgl_topli"><a href="<{:U('login/logout')}>"><em class="toptc"><img src="__TMPL__statics/images/toptc_03.png" /></em>退出</a></li>
+        </ul>
+    </div>
+</div>
+<div class="sjglBox">
+    <div class="left sjgl_leftmenu">
+    		<div class="menuClik">
+    	    <div class="side-user">
+              <div class="avatar"><img src="<{:config_img($COMMUNITY['pic'])}>" alt="Avatar" width="46" height="46"></div>
+              <div class="info">
+                <a href="<{:u('Property/index/index')}>">您好！<{$COMMUNITY.name}></a>
+                <img src="/Baocms/Backstage/statics/images/state_online.png" alt="Status"> 
+              </div>
+            </div> 
+            </div>  
+        <ul>          
+            <li class="leftMenu_li"><a class="leftMenu_a on" target="main_frm" href="<{:U('index/main')}>"><em>&nbsp;</em>首页</a></li>
+            <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a2"  target="main_frm" href="<{:U('news/index')}>"><em>&nbsp;</em>公告通知</a>
+            </li>
+            <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a3" target="main_frm" href="<{:U('feedback/index')}>"><em>&nbsp;</em>问题反馈</a>
+            </li>
+            <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a4" target="main_frm" href="<{:U('phone/index')}>"><em>&nbsp;</em>便民电话</a>
+            </li>
+            <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a11" target="main_frm" href="<{:U('ad/index')}>"><em>&nbsp;</em>小区广告</a>
+            </li>
+            <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a5" target="main_frm" href="<{:U('owner/index')}>"><em>&nbsp;</em>小区业主</a>
+            </li>
+            <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a10" target="main_frm" href="<{:U('order/index')}>"><em>&nbsp;</em>小区账单</a>
+            </li>
+            <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a13" target="main_frm" href="<{:U('logs/index')}>"><em>&nbsp;</em>账单日志</a>
+            </li>
+            <li class="leftMenu_li"><a class="leftMenu_a leftMenu_a12" target="main_frm" href="<{:U('bbs/index')}>"><em>&nbsp;</em>小区论坛</a>
+            </li>
+        </ul>
+    </div>
+    <div id="sjgl_right" style="padding-left:200px; height:100%;">
+        <div class="sjgl_main" style="height:1000px;">
+            <iframe src="<{:U('index/main')}>" marginheight="0" marginwidth="0" frameborder="0" width="100%" height=100% id="main_frm" name="main_frm"></iframe>
+        </div>
+    </div>
+</div>
+<include file='public:footer'/>

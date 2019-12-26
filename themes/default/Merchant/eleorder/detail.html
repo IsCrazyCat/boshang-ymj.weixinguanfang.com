@@ -1,0 +1,136 @@
+<include file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+       <li><a>外卖</a> > <a href="<{:U('eleorder/index')}>">订单列表</a> >订单详情</li>
+    </ul>
+</div>
+<style>
+.tuanfabu_nr {text-align: initial;}
+</style>
+
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">订单详情</div>
+             <div class="right tuan_topfb_r">
+                <a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('eleorder/detail',array('order_id'=>$order['order_id']))}>">刷新订单状态</a>
+                <a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('eleorder/index')}>">返回订单列表</a>
+            </div>
+        </div>
+    </div> 
+    
+    <div class="tabnr_change show">
+    	
+    	<table class="order_goods_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="120"><p class="tuanfabu_t">订单编号：</p></td><td>
+                <div class="tuanfabu_nr">
+                	<{$order.order_id}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    下单账户：<{$users['nickname']}>【<{$users['user_id']}>】&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    下单时间：<{$order.create_time|date='Y-m-d H:i',###}>
+                </div></td>
+            </tr>
+            
+             <tr>
+                <td width="120"><p class="tuanfabu_t">费用明细：</p></td>
+                <td>
+                <div class="tuanfabu_nr">
+                订单金额 &yen; <{:round($order['total_price']/100,2)}> 元 &nbsp;&nbsp;&nbsp;&nbsp;
+                
+                配送费用：<if condition="empty($order['logistics'])">
+						免邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <else/>
+                        &yen; <{:round($order['logistics']/100,2)}> 元&nbsp;&nbsp;&nbsp;&nbsp;
+                        </if>
+            
+               <a style="color:#F00">实际支付： &yen; <{:round($order['need_pay']/100,2)}> 元&nbsp;&nbsp;&nbsp;&nbsp;</a>
+               <if condition="empty($order['is_daofu'])">
+               	 <a style="color:#09C">结算费用： &yen; <{:round($order['settlement_price']/100,2)}> 元&nbsp;&nbsp;</a>
+               <else/>
+                 <a style="color:#09C">当前订单为货到付款，不支持线上结算</a>
+               </if>
+               </div>
+               </td>
+            </tr>
+            <tr>
+                <td width="120"><p class="tuanfabu_t">收货地址：</p></td><td><div class="tuanfabu_nr">
+                <{$addr.addr}>
+                <{$addr.name}>
+                <{$addr.mobile}>
+                </div></td>
+            </tr>
+            
+            <tr>
+                <td width="120"><p class="tuanfabu_t">其他信息：</p></td><td><div class="tuanfabu_nr">
+                
+                <if condition="!empty($order['message'])">
+                <a href="javascript:;">留言：<em><{$order['message']}></em></a>
+                </if>
+                
+                <a href="javascript:;">配送方式：<em>
+                <notempty name='do'>第三方配送<else/>商家配送</notempty><!-- （配送费 <span class="fontcl1">￥<{:round($order['logistics']/100,2)}></span>）-->
+                </em></a>
+                <notempty name='do'>               
+                <a href="javascript:;">配送员：<gt name="do.delivery_id" value="0"><{$delivery.name}>(<{$delivery.mobile}>)<else/>还未接单</gt></a>
+                </notempty>
+                        
+                
+                
+                </div></td>
+            </tr>
+            
+        </table>
+
+        <div style="margin-top:10px;"></div>
+        <table class="order_goods_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        	
+            <tr class="order_goods_table_tr">
+                <td><p class="tuanfabu_nr">标题</p></td>
+                <td><div class="tuanfabu_nr">缩略图</div></td>
+                <td <p class="tuanfabu_nr">单价</p></td>
+                <td><p class="tuanfabu_nr">数量</p></td>
+                <td><p class="tuanfabu_nr">总价</p></td>
+                <td><p class="tuanfabu_nr">备注</p></td>
+            </tr>
+           <volist name="op" id="op">  
+            	<tr>
+                    <td><p class="tuanfabu_nr"><{$ep[$op['product_id']]['product_name']}></p></td>
+                    <td><div class="tuanfabu_nr">
+                    <img style="margin: 10px auto; width:60px;" src="<{:config_img($ep[$op['product_id']]['photo'])}>" /></div></td>
+                    <td><p class="tuanfabu_nr"> <{:round($ep[$op['product_id']]['price']/100,2)}>元</p></td>
+                    <td><p class="tuanfabu_nr"><{$op.num}></p></td>
+                    <td><p class="tuanfabu_nr"><{:round($op['total_price']/100,2)}> 元</p></td>
+                    <td <p class="tuanfabu_nr">备注</p></td>
+                </tr>
+            </volist>   
+            <tr>
+            	<td colspan="6" class="tuanfabu_t"> 订单总价 ： <{:round($order[need_pay]/100,2)}>元 &nbsp;&nbsp; 运费：&yen;<{:round($order['logistics']/100,2)}>元 &nbsp;&nbsp;&nbsp; </td>
+            </tr>
+            
+            <td colspan="6" class="tuanfabu_order_express"> </td>
+            </tr>
+        </table>
+
+            <div class="tuanfabu_an">
+            
+            <empty name="do">
+                <eq name="order.status" value="0">
+                  <a href="<{:U('eleorder/queren',array('order_id'=>$order['order_id']))}>" class="radius3 sjgl_an tuan_topbt">接单</a>
+                </eq>
+                <eq name="order.status" value="1">
+                   <a class="radius3 sjgl_an tuan_topbt" href="<{:U('eleorder/queren',array('order_id'=>$order['order_id']))}>" >确定配送</a>
+                </eq>
+                <eq name="order.status" value="2">
+                  <a class="radius3 sjgl_an tuan_topbt" href="<{:U('eleorder/send',array('order_id'=>$order['order_id']))}>" >确定完成</a>
+                </eq>
+                <eq name="order.status" value="8">
+                  <a class="radius3 sjgl_an tuan_topbt" >已完成</a>
+                </eq>
+            </empty>
+            <a class="radius3 sjgl_an tuan_topbt" ><{$types[$order['status']]}></a>
+          
+         </div>
+      
+    </div> 
+</div>
+<include file='public:footer'/>

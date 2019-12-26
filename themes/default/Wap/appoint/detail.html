@@ -1,0 +1,276 @@
+<php>$mobile_title = $detail['name'];</php>
+<include  file='public:header'/>   
+<script src="/static/default/wap/other/roll.js"></script> 
+<script src="__TMPL__statics/js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+<style>
+.appoint_right {float: right;}
+.maskOne{display:none;width:80%;position:fixed;z-index:101;left:50%;margin-left:-40%;top:35%;margin-top:-1rem;background:#fff;overflow:hidden;border-radius:.05rem}
+.maskOne .appoint_title .close{font-size:18px;line-height: 36px;}
+.maskOne .appoint_title{background:#eee;padding: 0 0.5rem;line-height:2.4rem;font-size:16px;color:#333;overflow:hidden}
+.maskOne .cont{padding:1.8rem .6rem}
+.font_line24{line-height:.84rem}
+.font_size14{font-size:14px;margin-left: 30px;}
+.pub_btn{display:inline-block;opacity:1;cursor:pointer;text-align:center;color:#fff;border-radius:.3rem;outline:0;-webkit-appearance:none;border:none;background-color:#2fbdaa;height:2.3rem;line-height:2.3rem;font-size:14px}
+.pub_btn.bgcl1{background:#f60}
+.mask_bg{position:fixed;width:100%;height:100%;display:none;z-index:100;background:rgba(0,0,0,.3);filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#BF000000, endColorstr=#BF000000)}
+.hatudou_appoint_mask .btn_box{text-align:center}
+.hatudou_appoint_mask .btn_box .pub_btn{padding:0 .1rem;margin:.2rem .05rem}
+.hatudou_appoint_mask .btn_box .pub_btn{padding:0 .6rem;margin:.6rem .55rem}
+.hatudou_appoint_mask .cont, .hatudou_appoint_mask .cont {height:9rem;margin: 0.6rem 0;overflow-y: scroll;}
+.hatudou_appoint_mask .list,.hatudou_appoint_mask .list{display:block;width:6.5rem;margin:0 auto;text-align:center;height:2.0rem;line-height:2.0rem;background:#daecea;margin-bottom:.12rem;font-size:14px;color:#666}
+</style>
+
+	<header class="top-fixed bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('appoint/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			家政服务详情
+		</div>
+		<div class="top-search" style="display:none;">
+			<form method="post" action="<{:U('appoint/index')}>">
+				<input name="keyword" placeholder="输入家政的关键字"  />
+				<button type="submit" class="icon-search"></button> 
+			</form>
+		</div>
+       <div class="top-signed">
+			<a id="search-btn" href="javascript:void(0);"><i class="icon-search"></i></a>
+		</div>
+	</header>  
+    
+    <!--立即预约弹出层-->
+<div class="hatudou_appoint_mask">
+    <div class="maskOne">
+    	<div class="appoint_title">立即预约 <a href="javascript:;" class="close appoint_right"></a></div>
+        <div class="cont">
+            <p class="font_size14 font_line24"><{$detail.yuyue_num}>已成功预约</p>
+            <div class="btn_box">
+                <a href="<{:U('appoint/worker_list',array('appoint_id'=>$detail['appoint_id']))}>" class="pub_btn">选择技师</a>
+                <a href="<{:U('appoint/yuyue',array('appoint_id'=>$detail['appoint_id']))}>" class="pub_btn bgcl1">直接预约</a>
+            </div>
+        </div>
+    </div>
+    <div class="mask_bg"></div>
+</div>
+
+
+	<script type="text/javascript">
+	$(function(){
+		$("#search-btn").click(function(){
+			if($(".top-search").css("display")=='block'){
+				$(".top-search").hide();
+				$(".top-title").show(200);
+			}
+			else{
+				$(".top-search").show();
+				$(".top-title").hide(200);
+			}
+		});
+		$("#search-bar li").each(function(e){
+			$(this).click(function(){
+				if($(this).hasClass("on")){
+					$(this).parent().find("li").removeClass("on");
+					$(this).removeClass("on");
+					$(".serch-bar-mask").hide();
+				}
+				else{
+					$(this).parent().find("li").removeClass("on");
+					$(this).addClass("on");
+					$(".serch-bar-mask").show();
+				}
+				$(".serch-bar-mask .serch-bar-mask-list").each(function(i){
+					
+					if(e==i){
+						$(this).parent().find(".serch-bar-mask-list").hide();
+						$(this).show();
+					}
+					else{
+						$(this).hide();
+					}
+					$(this).find("li").click(function(){
+						$(this).parent().find("li").removeClass("on");
+						$(this).addClass("on");
+					});
+				});
+			});
+		});
+	});
+	</script>
+    
+<div class="tuan-detail">   
+    <div class="line banner">	
+			<div id="focus" class="focus">
+		<div class="hd">
+			<ul></ul>
+		</div>
+		<div class="bd">
+			<ul>
+            
+          		<li><a href="javascript:void(0);"><img src="<{:config_img($detail['photo'])}>" /></a></li>
+                <php>$i=0;</php>
+                <foreach name="detail.thumb" item="item">
+                <php>$i++;if($i<=3){</php>
+                <li><a href="javascript:void(0);"><img src="<{:config_img($item)}>" /></a></li>
+                <php>}</php>
+                </foreach>
+                
+			</ul>
+		</div>
+	</div>
+			<div class="title">
+				<h1><{:bao_msubstr($detail['title'],0,20)}></h1>
+				<p><{:bao_msubstr($detail['intro'],0,40)}></p>
+			</div>	
+		</div>
+</div>            
+            
+  
+	<script type="text/javascript">
+		TouchSlide({ 
+			slideCell:"#focus",
+			titCell:".hd ul", //开启自动分页 autoPage:true ，此时设置 titCell 为导航元素包裹层
+			mainCell:".bd ul", 
+			effect:"left", 
+			autoPlay:true,//自动播放
+			autoPage:true, //自动分页
+			switchLoad:"_src" //切换加载，真实图片路径为"_src" 
+		});
+	</script>
+    
+	
+	<div class="hd-detail tuan-detail">
+		<div class="detail-ctrl">
+			<span><em><{$detail.yuyue_num}></em>人已成功预约</span>
+            <if condition="!empty($appointworker)">
+            	<a class="btn-sign float-right hatudou_appoint_show">立刻预约</a>	
+            <else/>
+            	<a class="btn-sign float-right"  href="<{:U('appoint/yuyue',array('appoint_id'=>$detail['appoint_id']))}>">立刻预约</a>	
+            </if>
+		</div>
+		<div class="blank-10 bg"></div>
+        
+        <div class="line status">
+			<div class="x6">
+				<span class="ui-starbar"><span style="width:<{:round($score*20,2)}>%"></span></span>
+			</div>
+			<div class="x6">
+				<span class="float-right margin-small-top"><a href="<{:U('appoint/dianping',array('appoint_id'=>$detail['appoint_id']))}>"><{$pingnum}>人评价了该家政</a> <i class="icon-angle-right"></i></span>
+			</div>
+		</div>
+        <div class="blank-10 bg"></div>
+        <if condition="!empty($appointworker)">
+        <div class="goods_title">
+        	<span class="left">推荐技师</span>
+            <span class="float-right">
+                <a href="<{:U('appoint/worker_list',array('appoint_id'=>$detail['appoint_id']))}>">查看全部技师</a> 
+                <i class="icon-angle-right"></i>
+            </span>
+        </div>
+        <div class="goods_limit_buy mb10">
+            	<div class="locatLabel_switch swiper-container5 swiper-container-horizontal swiper-container-free-mode">
+                    <div class="swiper-wrapper">
+                    <foreach name="appointworker" item="var">
+						<div class="box swiper-slide">
+                            <a href="<{:U('appoint/worker',array('worker_id'=>$var['worker_id'],'appoint_id'=>$var['appoint_id']))}>"><img src="<{:config_img($var['photo'])}>" width="" height="">
+                            <p class="txt_center overflow_clear"><{$var['name']}></p>
+                            <p class="txt_center fontcl1">服务价格：&yen;<{:round($var['price']/100,2)}></p></a> 
+                        </div>  
+                       </foreach>                       
+                    </div>
+                </div>
+                
+		         <script>
+                    var swiper = new Swiper('.swiper-container5', {
+                        pagination: '.swiper-pagination5',
+                        slidesPerView: 3,
+                        paginationClickable: true,
+                        spaceBetween: 10,
+						autoplay: 3000,
+                        freeMode: true
+                    });
+                </script>
+            </div>
+         </if>   
+        
+		<div class="detail-info">
+			<h1>家政基本信息</h1>
+			<p>类别：<{$cates[$detail['cate_id']]['cate_name']}></p>
+			<p>计件方式：<b class="pointcl"><{:round($detail['price']/100,2)}></b>元/<{$detail.unit}></p>
+            <p>服务时间：<{$detail.biz_time}></p>
+			<p>联系人：<{$detail.user_name}></p>
+            <p>点击量：<{$detail.views}></p>
+            
+		</div>
+        <php>
+        </php>
+        
+        <div class="blank-10 bg"></div>
+		<div class="detail-info">
+			<h1>家政商家信息</h1>
+			<p>提供商家：<a href="<{:U('shop/detail',array('shop_id'=>$shops['shop_id']))}>"><{$shops['shop_name']}></a></p>
+			<p>联系电话：<a href="tel:<{$shop.tel}>"><{$shops['tel']}></a></p>
+			<p>商家地址：<{$shops['addr']}></p>
+			<p>位置导航：<a href="<{:U('shop/gps',array('shop_id'=>$shops['shop_id']))}>">到这里去</a></p>
+		</div>
+        
+        
+		<div class="blank-10 bg"></div>
+		<div class="detail-info">
+			<h1>服务须知</h1>
+			<p><{$detail.title}></p>
+		</div>
+		<div class="blank-10 bg"></div>
+		<div class="detail-info2">
+			<h1>家政服务详情</h1>
+            <div id="focus" class="global_focus intro-bd">
+             <p><{$detail.contents}></p>
+            </div>
+		</div>
+    
+		<div class="blank-20"></div>
+
+    <section class="appoint_buy_btn">
+        <div class="appoint_buy_segment">
+            <div class="appoint_buy_wrapper">
+                 <if condition="!empty($appointworker)">
+                    <a class="button button-block button-big bg-yellow hatudou_appoint_show" id="sub_btn">立即预约</a>
+                 <else/>
+                    <a class="button button-block button-big bg-yellow" href="<{:U('appoint/yuyue',array('appoint_id'=>$detail['appoint_id']))}>">立即预约</a>
+                 </if>
+            </div>
+        </div>
+    </section>
+ </div>
+<script>
+	$(document).ready(function() {
+		$(".hatudou_appoint_show").click(function(){
+			$(".hatudou_appoint_mask .maskOne").show();
+			$(".hatudou_appoint_mask .mask_bg").show();
+		});
+		
+		$(".seatYuyue_num_show").click(function(){
+			$(".hatudou_appoint_mask .maskOne").show();
+			$(".hatudou_appoint_mask .mask_bg").show();
+		});
+		$(".hatudou_appoint_mask .list").click(function(){
+			$(".hatudou_booking input").val($(this).html());
+			$(".hatudou_appoint_mask .maskOne").hide();
+			$(".hatudou_appoint_mask .mask_bg").hide();
+		});
+		
+		$(".hatudou_appoint_show").click(function(){
+			$("hatudou_appoint_mask .maskOne").show();
+			$(".hatudou_appoint_mask .mask_bg").show();
+		});
+		$(".hatudou_appoint_mask .list").click(function(){
+			$(".hatudou_booking_show input").val($(this).html());
+			$(".hatudou_appoint_mask .maskOne").hide();
+			$(".hatudou_appoint_mask .mask_bg").hide();
+		});
+		
+		$(".maskOne .close").click(function(){
+			$(".maskOne").hide();
+			$(".mask_bg").hide();
+		});
+	});
+</script>    

@@ -1,0 +1,37 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('index/index')}>" ><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			跑腿中心
+		</div>
+	<div class="top-signed">
+		<a href="<{:U('passport/logout')}>">退出</a>
+	</div>
+</header>
+<style>
+.list-media-x{ margin-top:2.2rem;}
+.table th, .table td{padding: 8px 0px;}
+.text-title{ overflow:hidden;}
+</style>
+<ul id="shangjia_tab">
+    <li class="x4"><a href="<{:U('running/index',array('aready'=>1))}>" <eq name='aready' value='1'>class="on"</eq>>抢新单</a></li>
+    <li class="x4"><a href="<{:U('running/index',array('aready'=>2))}>"<eq name='aready' value='2'>class="on"</eq>>配送中</a></li>
+    <li class="x4"><a href="<{:U('running/index',array('aready'=>3))}>"<eq name='aready' value='3'>class="on"</eq>>已完成</a></li>
+</ul>
+
+
+
+<div class="container1">
+<div class="list-media-x" id="list-media">
+<div class="blank-10 bg"></div>
+   <ul></ul>
+</div> 
+</div> 
+<script>
+    $(document).ready(function () {
+       loaddata('<{$nextpage}>', $("#list-media"), true);
+    });
+</script>
+<include  file='public:footer'/>

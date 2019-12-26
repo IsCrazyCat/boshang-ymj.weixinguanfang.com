@@ -1,0 +1,37 @@
+<php>$seo_title = $news[title]; </php>
+<include file='public:header'/>    
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:u('user/community/tongzhi')}>">
+            
+            <i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			通知详情
+		</div>
+	</header>
+<style>
+.tab-bar {border-top: thin solid #eee;}
+.border-bottom {border-bottom: 1px #eee dashed !important;}
+</style>	
+	<div class="container">
+		<div class="blank-20"></div>
+		<h4 class="text-center"><{$detail.title}></h4>
+		<p class="text-center border-bottom padding text-small text-gray">
+			<span>发布时间：<{$detail.create_time|date='Y-m-d H:i:s',###}> 小区：<{$community.name}></span>
+		</p>
+        <p class="text-center border-bottom padding text-small text-gray">
+			<span>文章简介：<{$detail.intro}></span>
+		</p>
+      
+        
+		<div class="padding">
+			<{$detail.details}>
+		</div>
+ 
+        </if>
+	</div>
+
+<div class="blank-20"></div>
+	
+<include  file='public:footer'/>

@@ -1,0 +1,68 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">功能</li>
+        <li class="li2">便民电话</li>
+        <li class="li2 li3">电话列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('convenientphone/create','','添加内容')}>  
+            </div>
+            <div class="right">
+                <form method="post" action="<{:U('convenientphone/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <span>  关键字：</span>   <input type="text" name="keyword" value="<{$keyword|default=''}>" class="inptText" /><input type="submit" class="inptButton" value="  搜索" />
+
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="phone_id" /></td>
+                    <td class="w50">ID</td>
+                    <td>服务名称</td>
+                    <td>服务电话</td>
+                    <td>过期时间</td>
+                    <td>排序</td>
+                    <td>操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_phone_id" type="checkbox" name="phone_id[]" value="<{$var.phone_id}>" /></td>
+                        <td><{$var.phone_id}></td>
+                        <td><{$var.name}></td>
+                        <td><{$var.phone}></td>
+                        <td><{$var.expiry_date}></td>
+                        <td><{$var.orderby}></td>
+                        <td>
+                                <if condition="$var.audit eq 0">
+                                <{:BA('convenientphone/setaudit',array("phone_id"=>$var["phone_id"]),'审核','act','remberBtn')}>
+                                </if>
+                            <{:BA('convenientphone/set',array("phone_id"=>$var["phone_id"]),'入驻小区','','remberBtn')}>
+                                 <{:BA('convenientphone/setvillage',array("phone_id"=>$var["phone_id"]),'入驻社区村','','remberBtn')}>
+                            <{:BA('convenientphone/edit',array("phone_id"=>$var["phone_id"]),'编辑','','remberBtn')}>
+                            <{:BA('convenientphone/delete',array("phone_id"=>$var["phone_id"]),'删除','act','remberBtn')}>
+
+                        </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('convenientphone/delete','','批量删除','list',' a2')}>
+                    <{:BA('convenientphone/setaudit','','批量审核','list',' a2')}>
+                </div>
+            </div>
+        </form>
+    </div>
+    <include  file='public:footer'/>       

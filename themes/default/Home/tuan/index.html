@@ -1,0 +1,586 @@
+<include file="public:header" /> 
+<include file="public:top"/>
+<script type="text/javascript" src="__TMPL__statics/js/jquery.qrcode.min.js"></script><!--二维码-->
+<style>
+.goods_sjcpDwBox {height: 195px;}
+.sy_sjcpwx canvas{width: 102px;height: 102px;margin: 0px auto;padding: 10px;background: #fff;}
+</style>
+<div class="nav">
+    <div class="navList">
+        <ul>
+
+            <li class="navListAll"><span class="navListAllt">全部套餐分类</span>
+
+                <div class="shadowy navAll">
+
+                    <include file="public:cate"/>
+
+                </div>
+
+            </li>
+
+            <li class="navLi"><a class="navA <if condition='$ctl eq tuan and $act eq index'>on</if> " href="<{:U('tuan/index')}>">首页</a></li>
+
+            <li class="navLi"><a class="navA <if condition='$ctl eq tuan and $act eq nearby'>on</if>" href="<{:U('tuan/nearby')}>">身边套餐</a></li>
+
+            <li class="navLi"><a class="navA " href="<{:U('tuan/index',array('new'=>1))}>">今日新单</a></li>
+
+            <li class="navLi"><a class="navA" href="<{:U('tuan/index',array('hot'=>1))}>">热门疯抢</a></li>
+
+        </ul>
+
+    </div>
+
+</div>
+
+<div class="content zy_content">
+
+    <div class="left zy_content_l">
+
+        <div class="goods_flBox">
+
+            <ul>
+
+                <if condition="!empty($selArr)">
+
+                    <li class="goods_flListLf">
+
+                        <ul>
+
+                            <li class="goods_flLi"><a class="goods_flLiA" href="<{:U('tuan/index')}>">全部</a></li>
+
+                            <li class="goods_flLi goods_flLix">&gt;</li>
+
+                            <script>
+
+                                $(function () {
+
+                                    $('.goods_flLiLf .goods_flLiA').hover(function () {
+
+                                        $(this).parent().find('.goods_flLiLfk').show();
+
+                                        $(this).addClass("on");
+
+                                    });
+
+                                    $('.goods_flLiLf').hover(function () {
+
+                                    }, function () {
+
+                                        $(this).find('.goods_flLiLfk').hide();
+
+                                        $(this).children(".goods_flLiA").removeClass("on");
+
+                                    });
+
+                                    $('.goods_flLiFl').hover(function () {
+
+                                        $(this).parent().find('.goods_flLiLfk').hide();
+
+                                        $(this).parent().find(".goods_flLiA").removeClass("on");
+
+                                    });
+
+                                });
+
+                            </script>
+
+
+
+                            <if condition="!empty($cat)">
+
+                                <li class="goods_flLi goods_flLiLf"><a class="goods_flLiA" href="<{:LinkTo('tuan/index',$linkArr,array('cat'=>$cat))}>"><{$cates[$cat]['cate_name']}><em></em></a><a href="<{:LinkTo('tuan/index',$linkArr,array('cat'=>0))}>" class="goods_flLiFl">ｘ</a>
+
+                                    <div class="goods_flLiLfk"><a href="<{:LinkTo('tuan/index',$linkArr,array('cat'=>0))}>">全部</a>
+
+                                        <foreach name="cates" item="item">
+
+                                            <eq name="item.parent_id" value="0">
+
+                                            |<a <eq name="item.cate_id" value="$cat">class="on"</eq>  href="<{:LinkTo('tuan/index',$linkArr,array('cat'=>$item['cate_id'],'cate_id'=>0))}>"><{$cates[$item['cate_id']]['cate_name']}></a>
+
+                                            </eq>
+
+                                        </foreach>
+
+                                    </div>
+
+                                </li>
+
+                                <li class="goods_flLi goods_flLix">&gt;</li>
+
+                            </if>
+
+                            <if condition="!empty($cate_id)">
+
+                                <li class="goods_flLi goods_flLiLf"><a class="goods_flLiA" href="<{:LinkTo('tuan/index',$linkArr,array('cat'=>$cat,'cate_id'=>$cate_id))}>"><{$cates[$cate_id]['cate_name']}><em></em></a><a href="<{:LinkTo('tuan/index',$linkArr,array('cat'=>$cat,'cate_id'=>0))}>" class="goods_flLiFl">ｘ</a>
+
+                                    <div class="goods_flLiLfk"><a href="<{:LinkTo('tuan/index',$linkArr,array('cat'=>$cat,'cate_id'=>0))}>">全部</a>
+
+                                        <foreach name="cates" item="item">
+
+                                            <eq name="item.parent_id" value="$cat">
+
+                                            |<a <eq name="item.cate_id" value="$cate_id">class="on"</eq> href="<{:LinkTo('tuan/index',$linkArr,array('cat'=>$cat,'cate_id'=>$item['cate_id']))}>"><{$cates[$item['cate_id']]['cate_name']}></a>
+
+                                            </eq>
+
+                                        </foreach>
+
+                                    </div>
+
+                                </li>
+
+                                <li class="goods_flLi goods_flLix">&gt;</li>
+
+                            </if>
+
+                            <if condition="!empty($area_id)">
+
+                                <li class="goods_flLi goods_flLiLf"><a class="goods_flLiA" href="<{:LinkTo('tuan/index',$linkArr,array('area'=>$area_id))}>"><{$areas[$area_id]['area_name']}><em></em></a><a href="<{:LinkTo('tuan/index',$linkArr,array('area'=>0,'business'=>0))}>" class="goods_flLiFl">ｘ</a>
+
+                                    <div class="goods_flLiLfk"><a href="<{:LinkTo('tuan/index',$linkArr,array('area'=>0))}>">全部</a>
+
+                                        <foreach name="areas" item="item">
+
+                                                                    <eq name="item.city_id" value="$city_id">
+
+
+
+                                            |<a <eq name="item.area_id" value="$area_id">class="on"</eq> href="<{:LinkTo('tuan/index',$linkArr,array('area'=>$item['area_id'],'business'=>0))}>"><{$areas[$item['area_id']]['area_name']}></a>
+
+                                            </eq>
+
+                                        </foreach>
+
+                                    </div>
+
+                                </li>
+
+                                <li class="goods_flLi goods_flLix">&gt;</li>
+
+                            </if>
+
+                            <if condition="!empty($business_id)">
+
+                                <li class="goods_flLi goods_flLiLf"><a class="goods_flLiA" href="<{:LinkTo('tuan/index',$linkArr,array('area'=>$area_id,'business'=>$business_id))}>"><{$bizs[$business_id]['business_name']}><em></em></a><a href="<{:LinkTo('tuan/index',$linkArr,array('area'=>$area_id,'business'=>0))}>" class="goods_flLiFl">ｘ</a>
+
+                                    <div class="goods_flLiLfk"><a href="<{:LinkTo('tuan/index',$linkArr,array('area'=>$area_id,'business'=>0))}>">全部</a>
+
+                                        <foreach name="bizs" item="item">
+
+                                            <eq name="item.area_id" value="$area_id">
+
+                                            |<a <eq name="item.business_id" value="$business_id">class="on"</eq> href="<{:LinkTo('tuan/index',$linkArr,array('area'=>$area_id,'business'=>$item['business_id']))}>"><{$bizs[$item['business_id']]['business_name']}></a>
+
+                                            </eq>
+
+                                        </foreach>
+
+                                    </div>
+
+                                </li>
+
+                                <li class="goods_flLi goods_flLix">&gt;</li>
+
+                            </if>
+
+        
+
+                        </ul>
+
+                    </li>
+
+                </if>
+
+                <if condition="empty($cat)">
+
+                    <li class="goods_flList">
+
+                        <div class="left goods_flList_l">分类：</div>
+
+                        <div class="left goods_flList_r">
+
+                            <a class="goods_flListA on" href="<{:LinkTo('tuan/index',$linkArr)}>">全部</a>
+
+                            <foreach name="cates" item="item">
+
+                                <eq name="item.parent_id" value="0">
+
+                                <a class="goods_flListA" href="<{:LinkTo('tuan/index',$linkArr,array('cat'=>$item['cate_id']))}>"><{$cates[$item['cate_id']]['cate_name']}></a>
+
+                                </eq>
+
+                            </foreach>
+
+                        </div>
+
+                    </li>
+
+                </if>
+
+                <if condition="!empty($cat) and empty($cate_id)">
+
+                    <li class="goods_flList">
+
+                        <div class="left goods_flList_l">分类：</div>
+
+                        <div class="left goods_flList_r">
+
+                            <a class="goods_flListA on" href="<{:LinkTo('tuan/index',$linkArr,array('cat'=>$cat))}>">全部</a>
+
+                            <foreach name="cates" item="item">
+
+                                <eq name="item.parent_id" value="$cat">
+
+                                <a class="goods_flListA" href="<{:LinkTo('tuan/index',$linkArr,array('cat'=>$cat,'cate_id'=>$item['cate_id']))}>"><{$cates[$item['cate_id']]['cate_name']}></a>
+
+                                </eq>
+
+                            </foreach>
+
+                        </div>
+
+                    </li>
+
+                </if>
+
+                <if condition="empty($area_id)">
+
+                    <li class="goods_flList">
+
+                        <div class="left goods_flList_l">地区：</div>
+
+                        <div class="left goods_flList_r">
+
+                            <a class="goods_flListA on" href="<{:LinkTo('tuan/index',$linkArr)}>">全部</a>
+
+                            <foreach name="areas" item="item">
+
+                                        <eq name="item.city_id" value="$city_id">
+
+
+
+                                <a class="goods_flListA" href="<{:LinkTo('tuan/index',$linkArr,array('area'=>$item['area_id']))}>"><{$item.area_name}></a>
+
+                                </eq>
+
+                            </foreach>
+
+                        </div>
+
+                    </li>
+
+                </if>
+
+                <if condition="!empty($area_id) and empty($business_id)">
+
+                    <li class="goods_flList">
+
+                        <div class="left goods_flList_l">商圈：</div>
+
+                        <div class="left goods_flList_r">
+
+                            <a class="goods_flListA on" href="<{:LinkTo('tuan/index',$linkArr)}>">全部</a>
+
+                            <foreach name="bizs" item="item">
+
+                                <eq name="item.area_id" value="$area_id">
+
+                                <a class="goods_flListA" href="<{:LinkTo('tuan/index',$linkArr,array('business'=>$item['business_id']))}>"><{$item.business_name}></a>
+
+                                </eq>
+
+                            </foreach>
+
+                        </div>
+
+                    </li>
+
+                </if>
+
+            </ul>
+
+        </div>
+
+        <div class="nearbuy_sxk">
+
+            <ul>
+
+                <li class="nearbuy_sxkLi <eq name='order' value='d'>on</eq> "><a class="nearbuy_sxkLiA" href="<{:LinkTo('tuan/index',$linkArr,array('order'=>'d'))}>">默认</a></li>
+
+                <li class="nearbuy_sxkLi <eq name='order' value='s'>on</eq>"><a class="nearbuy_sxkLiA" href="<{:LinkTo('tuan/index',$linkArr,array('order'=>'s'))}>">销量<em class="em_up"></em></a></li>
+
+                <li class="nearbuy_sxkLi <eq name='order' value='p'>on</eq>"><a class="nearbuy_sxkLiA" href="<{:LinkTo('tuan/index',$linkArr,array('order'=>'p'))}>">价格<em></em></a></li>
+
+                <li class="nearbuy_sxkLi <eq name='order' value='v'>on</eq>"><a class="nearbuy_sxkLiA" href="<{:LinkTo('tuan/index',$linkArr,array('order'=>'v'))}>">浏览<em class="em_up"></em></a></li>
+
+                <li class="nearbuy_sxkLi <eq name='order' value='t'>on</eq>"><a class="nearbuy_sxkLiA" href="<{:LinkTo('tuan/index',$linkArr,array('order'=>'t'))}>">发布时间<em class="em_up"></em></a></li>
+
+                <li class="nearbuy_sxkLi nearbuy_sxkLi3"><label <eq name="new" value="1">class="on seat-check"<else/> class="seat-check"</eq> </label><input type="checkbox" <eq name="new" value="1">checked="checked"</eq>  rel='<{:LinkTo('tuan/index',$linkArr,array('new'=>'1'))}>' data="<{:LinkTo('tuan/index',$linkArr,array('new'=>'0'))}>"  name="is_new" /></label>新单</li>
+
+                <li class="nearbuy_sxkLi nearbuy_sxkLi3"><label <eq name="hot" value="1">class="on seat-check"<else/> class="seat-check"</eq> </label><input type="checkbox" <eq name="hot" value="1">checked="checked"</eq>  rel='<{:LinkTo('tuan/index',$linkArr,array('hot'=>'1'))}>' data="<{:LinkTo('tuan/index',$linkArr,array('hot'=>'0'))}>"  name="is_hot" /></label>热门</li>
+
+                <li class="nearbuy_sxkLi nearbuy_sxkLi3"><label <eq name="tui" value="1">class="on seat-check"<else/> class="seat-check"</eq> </label> <input type="checkbox" <eq name="tui" value="1">checked="checked"</eq>  rel='<{:LinkTo('tuan/index',$linkArr,array('tui'=>'1'))}>' data="<{:LinkTo('tuan/index',$linkArr,array('tui'=>'0'))}>"  name="is_chose" /></label>精选</li>
+
+                <li class="nearbuy_sxkLi nearbuy_sxkLi3"><label <eq name="freebook" value="1">class="on seat-check"<else/> class="seat-check"</eq> </label> <input type="checkbox" <eq name="freebook" value="1">checked="checked"</eq>  rel='<{:LinkTo('tuan/index',$linkArr,array('freebook'=>'1'))}>' data="<{:LinkTo('tuan/index',$linkArr,array('freebook'=>'0'))}>"  name="freebook" /></label>免预约</li>
+
+            </ul>
+
+        </div>
+
+        <script>
+
+            $(document).ready(function () {
+
+                $(".nearbuy_sxkLi input").click(function () {
+
+                    if ($(this).prop('checked') == true) {
+
+                        location.href = $(this).attr('rel');
+
+                    } else {
+
+                        location.href = $(this).attr('data');
+
+                    }
+
+                });
+
+            });
+
+        </script>
+
+        <div class="nearbuy_cpList">
+
+            <ul>
+
+                <foreach name="list" item="item">
+
+                    <li class="nearbuy_cpLi">
+
+                        <div class="sy_sjcpLi nearbuy_cpLik">
+
+                            <a href="<{:U('tuan/detail',array('tuan_id'=>$item['tuan_id']))}>"><img src="<{:config_img($item['photo'])}>" width="306" height="190" /></a>
+
+                            <p class="sy_hottjbt"><{$item.title}></p>
+
+                            <p class="sy_hottjp"><{$item.intro}></p>
+
+                            <p class="sy_hottjJg"><span class="left">¥<{$item['tuan_price']}><del>¥<{$item['price']}></del></span><span class="right">已售<{$item.sold_num}></span></p>
+
+                            <hr style=" border:none 0px; border-bottom: 1px solid #e0e0e0; margin-top:6px;" />
+
+                            <p class="nearbuy_cpLiPf"><span style="cursor: pointer;" title="<{$shops[$item['shop_id']]['addr']}>" class="left"><em></em><{:bao_msubstr($shops[$item['shop_id']]['addr'],0,16,false)}></span><span class="right"><a class="sy_hottjJd" target="_blank" href="<{:U('tuan/detail',array('tuan_id'=>$item['tuan_id']))}>" ><if condition="$item['bg_date'] elt $today">立即购买<else/>即将开抢</if></a></span></p>
+
+                            <div class="sy_sjcpBq"><if condition="$item['freebook'] eq 1"><span class="sy_sjcpBq1">免预约</span></if><if condition="$item['is_new'] eq 1"><span class="sy_sjcpBq2">新单</span></if><if condition="$item['is_hot'] eq 1"><span class="sy_sjcpBq3">热门</span></if><if condition="$item['is_chose'] eq 1"><span class="sy_sjcpBq4">精选</span></if></div>
+
+                      
+
+                            <div class="sy_sjcpLiDw">
+
+                                <div class="sy_sjcpDwBox goods_sjcpDwBox">
+
+                                    
+
+                               <script type="text/javascript">
+
+                                $(function () {
+
+                                    var str = "<{$host}><{:u('wap/tuan/detail',array('tuan_id'=>$item['tuan_id']))}>";
+
+                                    $("#code_<{$item.tuan_id}>").empty();
+
+                                    $('#code_<{$item.tuan_id}>').qrcode(str);
+
+                                })
+
+                               </script>
+
+                               <div class="sy_sjcpDwNr" style="padding-top:15px;">
+
+                                <if condition="!empty($item['mobile_fan'])">
+
+                                <p>手机下单立减 <span style="color:#F00; font-size:16px; font-weight:bold"><{$item['mobile_fan']}></span>元</p>
+
+                                <else/>
+
+                                <p>扫描二维码购买</p>
+
+                                </if>
+
+                                 
+
+                          <a href="<{:U('tuan/detail',array('tuan_id'=>$item['tuan_id']))}>"><div class="sy_sjcpwx"  id="code_<{$item.tuan_id}>"></div></a>
+
+                                    </div>
+
+                                    <div class="sy_sjcpDwBg">&nbsp;</div>
+
+                                </div>
+
+                            </div>
+
+                           
+
+                        </div>
+
+                    </li>
+
+                </foreach>
+
+            </ul>
+
+        </div>
+
+        <div class="x">
+
+            <{$page}>
+
+        </div>
+
+    </div>
+
+    <div class="right zy_content_r">
+
+       
+
+        <div class="nearbuy_hotCp">
+
+            <div class="nearbuy_hotCpT">
+
+                <div class="left">热卖排行</div>
+
+            </div>
+
+            <php>
+
+                $cat = $cat; 
+
+                $cate_id = $cate_id;
+
+                $catstr = "";
+
+                if(!empty($cate_id)){
+
+                $cateids = $cate_id;
+
+                $catstr = "AND cate_id IN ({$cateids})";
+
+                }else{
+
+                if(empty($cat)){
+
+                $catstr = "";
+
+                }else{
+
+                $catarray = D('Tuancate')->getChildren($cat);
+
+                if(!empty($catarray)){
+
+                $cateids = join(',',$catarray);
+
+                $catstr = "AND cate_id IN ({$cateids})";
+
+                }else{
+
+                $cateids = $cat;
+
+                $catstr = "AND cate_id IN ({$cateids})";
+
+                }
+
+                }
+
+                }
+
+            </php>
+
+            <ul>
+
+                <php>$i =0;</php>
+
+                <calldata mdl="Tuan" order="sold_num desc" where=" bg_date ELT '{$today}' AND end_date EGT '{$today}' AND audit=1 AND closed=0 $catstr" format='true' cache="3600" limit="0,5">
+
+                    <php>$i++;</php>
+
+                    <li>
+
+                        <egt name="i" value="2">
+
+                            <hr style=" border:none 0px; border-bottom: 1px solid #e0e0e0; margin-bottom:16px;" />
+
+                        </egt>
+
+                        <div class="sy_hottjList"><a target="_blank" href="<{:U('tuan/detail',array('tuan_id'=>$item['tuan_id']))}>"><img src="<{:config_img($item['photo'])}>" width="180" height="115" />
+
+                                <p class="sy_hottjbt"><{$item.title}></p> 
+
+                                <p class="sy_hottjJg"><span class="left">¥<{:round($item['tuan_price']/100,2)}><del>¥<{:round($item['price']/100,2)}></del></span><span class="right">已售<{$item.sold_num}></span></p>
+
+                                </a>
+
+                            <div class="nearbuy_hotNum"><{$index}></div>
+
+                        </div>
+
+                    </li>
+
+                </calldata>
+
+            </ul>
+
+        </div>
+
+        <div class="nearbuy_hotCp">
+
+            <div class="nearbuy_hotCpT">
+
+                <div class="left">浏览足迹</div>
+
+                <div class="right"><a class="nearbuy_zjClear" mini='act' href="<{:U('tuan/index',array('clean'=>1))}>">清空</a></div>
+
+            </div>
+
+            <ul>
+
+                <php>$i =0;</php>
+
+                <foreach name="views" item="item">
+
+                    <php>$i++;</php>
+
+                    <li>
+
+                        <egt name="i" value="2">
+
+                            <hr style=" border:none 0px; border-bottom: 1px solid #e0e0e0; margin-bottom:16px;" />
+
+                        </egt>
+
+                        <div class="sy_hottjList"><a target="_blank" target="_blank" href="<{:U('tuan/detail',array('tuan_id'=>$item['tuan_id']))}>">
+
+                                <div class="left nearbuy_zj_l"><img src="<{:config_img($item['photo'])}>" width="82" height="50" /></div>
+
+                                <p style="height: 36px; overflow: hidden;" class="nearbuy_zjP"><{$item.title}></p> 
+
+                                <p style="font-weight: normal;" class="nearbuy_zjJg">¥<{$item['tuan_price']}><del>¥<{$item['price']}></del></p>
+
+                                </a>
+
+                        </div>
+
+                    </li>
+
+                </foreach>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</div>
+
+<include file="public:footer"/>

@@ -1,0 +1,21 @@
+<style>
+footer .icon{color:#fff;}
+</style>
+<footer class="footer-cart eleFooter-cart">
+    <div class="cart">
+        <a id="cart_1" href="<{:U('running/index')}>"><i class="icon icon-clock-o"></i></a>
+    </div>
+    <if condition="$detail[status] eq 0">
+    	<div class="price">等待订单付款</p></div>
+    <elseif condition="$detail[status] eq 1"/>
+    	<div class="price">订单已付款</p></div>
+    <elseif condition="$detail[status] eq 2"/>
+    	<div class="price">跑腿员已接单</p></div>
+     <elseif condition="$detail[status] eq 3"/>
+    	<div class="price">跑腿员已完成配送</p></div>
+    <elseif condition="$detail[status] eq 8"/>
+    	<div class="price">订单已完成</p></div>
+    </if>
+    
+    <div id="cart_2" class="btn"><a href="<{:U('running/index')}>" style="color:#FFF;">返回列表</a></div>
+</footer>

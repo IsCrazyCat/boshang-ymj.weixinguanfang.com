@@ -1,0 +1,34 @@
+<div class="am-offcanvas user" id="offcanvas">
+<div class="am-offcanvas-bar am-offcanvas-bar-overlay">
+    <ul class="am-menu-nav">
+        <li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left">
+        <if condition="empty($MEMBER)">
+            <div class="am-u-sm-4 am-list-thumb"><img src="/static/default/amazeui/image/noavatar_small.gif"></div>
+            <div class="am-u-sm-8 am-list-main">
+                <h3 class="am-list-item-hd">
+                 <a href="<{:U('passport/login')}>">您还未登录，立即登录?</a><span>
+                 <a href="<{:U('passport/register')}>" class="d_nouid">还没有注册？ 立即注册</a></span> 
+                </h3>
+            </div>
+        <else/>
+            <div class="am-u-sm-4 am-list-thumb"><img src="<{:config_img($MEMBER['face'])}>"></div>
+            <div class="am-u-sm-8 am-list-main">
+                <h3 class="am-list-item-hd">
+                 <a href="<{:U('user/member/index')}>"><{$MEMBER['nickname']}></a><span>
+                 <a class="d_nouid">余额：<{:round($MEMBER['money']/100,2)}></a></span> 
+                </h3>
+            </div>
+        </if>
+        </li>
+        <li class="am-parent"><a href="<{:U('user/information/index')}>" class="am-icon-angle-right am-icon-sm"><span class="micon"></span>个人设置</a></li>
+        <li class="am-parent"><a href="<{:U('user/money/index')}>" class="am-icon-angle-right am-icon-sm"><span class="micon"></span>账户余额</a></li>
+        <li class="am-parent"><a href="<{:U('user/favorites/index')}>" class="am-icon-angle-right am-icon-sm"><span class="micon"></span>我的收藏</a></li>
+        <li class="am-parent"><a href="<{:U('user/coupon/index')}>" class="am-icon-angle-right am-icon-sm"><span class="micon"></span>优惠券</a></li>
+        <li class="am-parent"><a href="<{:U('user/tuan/index')}>" class="am-icon-angle-right am-icon-sm"><span class="micon"></span>団购</a></li>
+        <li class="am-parent"><a href="<{:U('user/eleorder/index')}>" class="am-icon-angle-right am-icon-sm"><span class="micon"></span>外卖</a></li>
+        <li class="am-parent"><a href="<{:U('user/goods/index')}>" class="am-icon-angle-right am-icon-sm"><span class="micon"></span>商品订单</a></li>
+        <li class="am-parent"><a href="<{:U('user/exchange/index')}>" class="am-icon-angle-right am-icon-sm"><span class="micon"></span>积分兑换</a></li>
+        <li class="am-parent"><a href="<{:U('user/addrs/index')}>" class="am-icon-angle-right am-icon-sm"><span class="micon"></span>收货地址</a></li>
+    </ul>
+</div>
+</div>

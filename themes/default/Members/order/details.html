@@ -1,0 +1,96 @@
+<include file="public:header"/>
+<div class="content_right">  
+<div class="tgdd">
+
+<php>
+  $need_pay = D('Paymentlogs')->where(array('type'=>goods,'oeder_id'=>$detail['oeder_id']))->find();
+  $addarres = D('Paddress')->find($detail['address_id']);
+</php>
+
+	
+	<table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+    	<tbody><tr>
+            <td colspan="4">
+            	<div class="mallorder_tBox">
+                    <span class="mallorder_t">订单编号：<span class="mallorder_jg"><{$detail.order_id}></span></span>
+                    <span class="mallorder_t">订单金额：<span class="mallorder_jg">¥ <{:round($detail['need_pay']/100,2)}> 元</span></span>
+                    <span class="mallorder_t">配送费用：<span class="mallorder_jg">¥ <{:round($detail['express_price']/100,2)}> 元</span></span>
+                 </div>
+            </td>
+        </tr>
+        
+       <tr style="background-color:#F9F9F9;">
+            <th width="340">详情</th>
+            <th>优惠价</th>
+            <th>数量</th>
+            <th>单价</th>
+        </tr>
+     
+     	<foreach name="ordergoods" item="item">
+        <tr>
+        	
+            <td>
+            
+            	<div class="mallorder_xq"><img width="60" src="<{:config_img($goods[$item['goods_id']]['photo'])}>"><p><{$goods[$item['goods_id']]['title']}></p></div>
+            </td>
+            <td><span class="mallorder_jg">￥<{:round($item['price']/100,2)}></span></td>
+            <td><{$item.num}></td>
+            <td><span class="mallorder_jg"><{:round($item['total_price']/100,2)}> 元</span></td>
+            
+            
+        </tr>  
+        </foreach> 
+        
+            
+        <tr>
+            <td colspan="4"><div class="con_ri">
+            <php>
+            $daofu_price = $detail['need_pay'] + $detail['express_price'];
+            </php>
+            <if condition="$detail['is_daofu'] ==1">
+            	货到付款<span class="mallorder_jg"> &yen; <{:round($daofu_price/100 ,2)}> 元</span>
+            <else/>
+            	实际支付:<span class="mallorder_jg"> &yen; <{:round($detail['need_pay']/100 ,2)}> 元</span>
+            </if>
+            </div></td>
+        </tr>        
+        <tr>
+            <td colspan="4" style="background-color:;">
+            	<div class="mallorder_tBox">
+                	<p class="">收货姓名：<{$addarres['xm']}></p>
+                    <p class="">手机号码：<{$addarres.tel}></p>
+                    <p class="">配送地址：<{$addarres['area_str']}><{$addarres['info']}></p>
+                </div>
+            </td>
+        </tr>        
+                 <tr>
+            <td colspan="4" style="background-color:;">
+            	<div class="mallorder_tBox">
+                <eq name="detail.is_daofu" value="0">
+                    <eq name="detail.status" value="0">
+                    	<p class=""><a class="myInfor_sx myInfor_sx_fk" href="<{:u('wap/mall/pay',array('order_id'=>$detail['order_id']))}>">去付款</a></p>
+                    <else />
+                    	<p class=""><a class="myInfor_sx myInfor_sx_fk"><{$types[$detail['status']]}></a></p>
+                    </eq>
+                   		 <else />
+                    <eq name="detail.status" value="0">
+                   		<p class=""><a class="myInfor_sx myInfor_sx_fk"> 货到付款</a></p>
+                    	<else />
+                    	<p class=""><a class="myInfor_sx myInfor_sx_fk"><{$types[$detail['status']]}></a></p>
+                    </eq>
+                </eq>
+                </div>
+            </td>
+        </tr>
+                               
+        
+        
+    </tbody></table>
+
+
+
+
+    
+</div>
+</div>
+<include file="public:footer"/>

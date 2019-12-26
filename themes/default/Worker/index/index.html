@@ -1,0 +1,188 @@
+<include file="public:header"/>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+<script>
+	wx.config({
+	debug: false,
+	appId: "<{$sign.appId}>",
+	timestamp: <{$sign.timestamp}>,
+	nonceStr: "<{$sign.nonceStr}>",
+	signature: "<{$sign.signature}>",
+	jsApiList: [
+		'chooseImage',
+		'previewImage',
+		'uploadImage',
+		'scanQRCode',
+	]
+	});
+	
+$(function(){
+	$('#makebtn').click(function(){
+		
+		//$(this).attr("disabled",true);
+		wx.scanQRCode({
+			needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+			scanType: ["qrCode"], // 可以指定扫二维码还是一维码，默认二者都有
+			success: function (res) {
+                var snstr = res.resultStr;
+                location.href="/worker/index/scanaudit?snstr="+snstr;
+                // $.post("<{:U('index/scanaudit')}>",{snstr:snstr},function(data){
+                // 	alert(data.info);
+                // 	//alert("请等待商家审核通过!");
+                // },'json');
+			}
+		});
+	})
+})	
+</script>
+
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+	</div>
+		<div class="top-title">
+			员工验证中心
+		</div>
+	<div class="top-signed">
+    <if condition="$is_weixin">
+    <a id="makebtn" ><i class="icon-qrcode"></i></a>
+	<else/>
+    <a href="<{:U('passport/logout')}>"><i class="icon-sign-out"></i></a>  
+    </if>
+	</div>
+</header>
+
+<div class="worker_container worker_bg">
+		<div class="worker_line worker_detail-base">
+			<div class="x3">
+				<div class="pic">
+                <!--<i class="icon-qrcode"></i>-->	
+					<img src="<{:config_img($SHOP['logo'])}>">	
+                </div>
+			</div>
+			<div class="x9">
+				<h1>欢迎您：<{$worker.name}> </h1>
+				<p class="text-small">店铺：<{$SHOP.shop_name}></p>
+                <php>$mobile = substr_replace($worker['mobile'],'******',3,6);</php>
+                <p class="text-small">电话：<{$mobile}>&nbsp;&nbsp;&nbsp;职务：<{$worker.work}></p>
+			</div>
+			
+		</div>
+       </div>
+<div class="blank-10 bg"></div>
+<div class="panel-list">
+	<ul>
+
+<if condition="$worker['tuan'] eq 1">
+<li>
+	<a href="<{:U('tuan/used')}>"><span class="icon-tags"></span>套餐劵验证
+    <font>
+        <if condition="$counts['tuan_order_code_is_used'] gt 0">
+        待消费<{$counts['tuan_order_code_is_used']}>人，
+        </if>
+        <if condition="$counts['tuan'] gt 0">
+        共<{$counts['tuan']}>单
+        </if>
+        <if condition="$counts['tuan_audit'] gt 0">
+        ，待审核<b><{$counts['tuan_audit']}></b>单
+        </if>
+    </font>
+    <i class="icon-angle-right"></i></a>
+</li>
+</if>
+<if condition="$worker['coupon'] eq 1">
+<li>
+    <a href="<{:U('coupon/index')}>"><span class="icon-key"></span>优惠劵验证
+        <if condition="$counts['coupon_is_used'] gt 0">
+        <font>待核销<b><{$counts['coupon_is_used']}></b>人</font>
+        </if>
+    <i class="icon-angle-right"></i></a>
+</li>
+</if>
+
+<!--<if condition="$worker['is_appoint'] eq 1">-->
+<!--<li>-->
+<!--    <a href="<{:U('appoint/index')}>"><span class="icon-paw"></span>家政管理-->
+<!--        <font>-->
+<!--            <if condition="$counts['appoint'] gt 0">-->
+<!--            <{$counts['appoint']}>预订-->
+<!--            </if>-->
+<!--            <if condition="$counts['appoint_audit'] gt 0">-->
+<!--            ，<b><{$counts['appoint_audit']}></b>订单待处理-->
+<!--            </if>-->
+<!--        </font>-->
+<!--    <i class="icon-angle-right"></i></a>-->
+<!--</li>-->
+<!--</if>-->
+
+
+<!--<if condition="$worker['is_job'] eq 1">-->
+<!--<li>-->
+<!--    <a href="<{:U('nearwork/index')}>"><span class="icon-github"></span>人才招聘中心-->
+<!--        <font>-->
+<!--            <if condition="$counts['work'] gt 0">-->
+<!--            <{$counts['work']}>条招聘-->
+<!--            </if>-->
+<!--            <if condition="$counts['work_audit'] gt 0">-->
+<!--            ，<b><{$counts['work_audit']}></b>条待审核-->
+<!--            </if>-->
+<!--        </font>-->
+<!--    <i class="icon-angle-right"></i></a>-->
+<!--</li>-->
+<!--</if>-->
+
+<!--<if condition="$worker['is_yuyue'] eq 1">-->
+<!--<li><a href="<{:U('yuyue/index')}>"><span class="icon-phone-square"></span>预约管理-->
+<!--<font>-->
+<!--<if condition="$counts['shopyuyue_one'] gt 0">-->
+<!--<{$counts['shopyuyue_one']}>条预约-->
+<!--</if>-->
+<!--<if condition="$counts['shopyuyue_eight'] gt 0">-->
+<!--，<b><{$counts['shopyuyue_eight']}></b>条待确认-->
+<!--</if>-->
+<!--</font>-->
+<!--<i class="icon-angle-right"></i></a></li>-->
+<!--</if>-->
+
+
+<if condition="$worker['is_news'] eq 1">
+<li><a href="<{:U('news/index')}>"><span class="icon-newspaper-o"></span>文章管理
+<font>
+<if condition="$counts['news'] gt 0">
+<{$counts['news']}>篇文章
+</if>
+<if condition="$counts['news_autit'] gt 0">
+，<b><{$counts['news_autit']}></b>篇待审核
+</if>
+</font>
+<i class="icon-angle-right"></i></a></li>
+</if>
+
+
+
+<!--<if condition="$worker['is_dianping'] eq 1">-->
+<!--<li><a href="<{:U('dianping/index')}>"><span class="icon-commenting"></span>商家点评管理<i class="icon-angle-right"></i></a></li>-->
+<!--</if>-->
+
+
+   <li>
+			<a href="<{:U('message/index')}>">
+				<span class="icon-volume-up"></span>店员通知
+                <font>
+                <if condition="$msg_day gt 0">
+                最新<{$msg_day}>条消息
+                </if>
+                </font>
+				<i class="icon-angle-right"></i>
+			</a>
+		</li>
+        
+
+
+	</ul>
+</div>
+<div class="blank-10"></div>
+<div class="container text-center">
+		<a class="button button-block button-big bg-dot" href="<{:U('passport/logout')}>">注销登录</a>
+</div>
+<div class="blank-20"></div>
+<include  file='public:footer'/>
+

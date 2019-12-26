@@ -1,0 +1,136 @@
+<include file="public:header" /> <include file="public:topOne" />
+<div class="between">
+    <div class="bet_bj">
+        <div class="all">
+            <div class="all_2">
+                <ul>
+                    <li class="on">1.提交订单<em>&nbsp;</em></li>
+                    <li>2.去支付<em>&nbsp;</em></li>
+                    <li>3.完成<em>&nbsp;</em></li>
+                </ul>
+            </div>
+            <div class="all_3">
+                <ul class="ul_3">
+                    <li><a href="javascript:void(0);"><img src="__PUBLIC__/img/tp_5.png">
+                            <p>随时退</p>
+                        </a></li>
+                    <li><a href="javascript:void(0);"><img src="__PUBLIC__/img/tp_6.png">
+                            <p>不满意免单</p>
+                        </a></li>
+                    <li><a href="javascript:void(0);"><img src="__PUBLIC__/img/tp_7.png">
+                            <p>过期退</p>
+                        </a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="mode_dingdan">
+            <form method="post" target="baocms_frm" action="<{:U('tuan/order',array('tuan_id'=>$detail['tuan_id']))}>">
+                <input type="hidden" name="order" value="<{$order}>"/>
+                <table class="order" width="100%"  >
+                    <tr bordercolor="#ccc">
+                        <th>商品</th>
+                        <th>单价</th>
+                        <th>数量（限购<span>99</span>件）</th>
+                        <th>优惠</th>
+                        <th>合计</th>
+                    </tr>
+                    <tr>
+                        <td width="380px">
+                            <div class="tab_nr"> <a href="<{:U('tuan/detail',array('tuan_id'=>$detail['tuan_id']))}>" title="<{$detail.title}>" target="_blank">
+                                    <div class="left tab_img"><img src="<{:config_img($detail['photo'])}>" width="134" height="85" /></div>
+                                    <div class="left tab_wz">
+                                        <p class="title"><{$detail.title}></p>
+                                        <p class="intro"><{$detail.intro}></p>
+                                    </div>
+                                </a> </div>
+                        </td>
+                        <td>￥<{$detail['tuan_price']}></td>
+                        <td align="center">
+                            <div class="ko"> <span class="jian"><a href="javascript:void(0);">—</a></span>
+                                <input type="text" value="<{$num}>" name="num" id="jq_num" class="ordernum" />
+                                <span class="jia"><a href="javascript:void(0);">+</a></span> </div>
+                        </td>
+                        <td>-￥0.00</td>
+                        <td><span id="jq_total">￥<{$detail['tuan_price']*$num}></span></td>
+                    </tr>
+                </table>
+                <script>
+                    function changetotal(num) {
+                        var price = "<{$detail.tuan_price}>";
+                        $("#jq_total").html('￥' + (Math.round(price * num * 100) / 100));
+                        $("#jqtotal").html(Math.round(price * num * 100) / 100);
+                    }
+                    $(document).ready(function () {
+                        $(".jia").click(function () {
+                            var num = $("#jq_num").val();
+                            if (num < 99) {
+                                num++;
+                            }
+                            $("#jq_num").val(num);
+                            changetotal(num);
+                        });
+                        $(".jian").click(function () {
+                            var num = $("#jq_num").val();
+                            if (num > 1) {
+                                num--;
+                            }
+                            $("#jq_num").val(num);
+                            changetotal(num);
+                        });
+                        $("#jq_num").keyup(function () {
+                            var num = $("#jq_num").val();
+                            if (num > 99) {
+                                layer.msg("抱歉，您最多能买99件！");
+                                $("#jq_num").val(99);
+                                changetotal($(this).val());
+                            } else if (num <= 0) {
+                                $("#jq_num").val(1);
+                                changetotal($(this).val());
+                            } else {
+                                changetotal($(this).val());
+                            }
+                        });
+                    });
+                </script>
+                <div class="order_p1">
+                    <div class=" order_s3"> 应付总额：<span class="order_s4">￥<span id="jqtotal"  class="order_s4"><{$detail['tuan_price']*$num}></span></span> </div>
+                    <div class="cha"><a href="<{:U('tuan/detail',array('tuan_id'=>$detail['tuan_id']))}>" class="back">返回上一步</a>
+                        <input style="cursor: pointer;" type="submit" value="确认" class="sub">
+                    </div>
+                </div>
+                <div class="clear"></div>
+                <if condition="!empty($MEMBER['mobile'])">
+                    <div class="admin admin-two"> 将发送套餐卷密码至手机号：<font class="fontcl2"><{$MEMBER['mobile']}></font> <a id="mobile_change" href="javascript:void(0);">更换手机号</a> </div>
+                    <else/>
+                    <div class="admin admin-two"> 您还未绑定手机号，<a style="padding-left: 0px;" id="mobile_bind" href="javascript:void(0);">立即绑定</a> </div>
+                </if>
+                <div class="clear"></div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    $(document).ready(function () {
+        var user_id = "<{$MEMBER.user_id}>";
+        var mobile = "<{$MEMBER.mobile}>";
+        if (user_id == '' || user_id == null) {
+            ajaxLogin();
+            $("#mobile_bind").click(function () {
+                ajaxLogin();
+            });
+        } else {
+            if (mobile == '' || mobile == null) {
+                check_user_mobile_for_pc('<{:U("tuan/tuan/tuan_sendsms")}>', '<{:U("tuan/tuan/tuan_mobile")}>');
+            }
+            $("#mobile_bind").click(function () {
+                check_user_mobile_for_pc('<{:U("tuan/tuan/tuan_sendsms")}>', '<{:U("tuan/tuan/tuan_mobile")}>');
+            });
+            $("#mobile_change").click(function () {
+                change_user_mobile_for_pc('<{:U("mobile/tuan/tuan_sendsms")}>', '<{:U("mobile/tuan/tuan_mobile2")}>');
+            });
+        }
+    })
+</script> 
+<include file="public:footer"/>

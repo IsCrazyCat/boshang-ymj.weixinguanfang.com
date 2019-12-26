@@ -1,0 +1,94 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">系统设置</a> > <a href="">店铺管理</a> > <a>店铺文字资料</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">店铺文字资料介绍店铺的基本信息 </div>
+        </div>
+    </div> 
+    <include  file='shop:nav'/>
+    <div class="tabnr_change  show">
+    	<form method="post"  action="<{:U('shop/about')}>" target="baocms_frm">
+    	<table class="tuanfabu_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="120"><p class="tuanfabu_t">店铺地址：</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[addr]" value="<{$SHOP.addr|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+                </div></td>
+            </tr>
+            <tr>
+                <td><p class="tuanfabu_t">联系人：</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[contact]" value="<{$SHOP.contact|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+                </div></td>
+            </tr>
+            
+            <tr>
+                <td><p class="tuanfabu_t">座机：</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[tel]" value="<{$SHOP.tel|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+                <code>没有不填写</code>
+                </div></td>
+            </tr>
+            
+             <tr>
+                <td><p class="tuanfabu_t">手机：</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[mobile]" value="<{$SHOP.mobile|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+                <code>必须填写，用来接收商家订单，建议填写跟您会员绑定的手机号一致！</code>
+                </div></td>
+            </tr>
+
+            <tr>
+
+                <td><p class="tuanfabu_t">店铺qq:</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[qq]" value="<{$SHOP.qq|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+				<code>用来当客服用，建议填写</code>
+                </div></td>
+
+            </tr>
+
+            <tr>
+                <td><p class="tuanfabu_t">营业时间：</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[business_time]" value="<{$ex.business_time|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+                </div></td>
+            </tr>
+
+<!--            <tr>-->
+
+<!--                <td><p class="tuanfabu_t">配送等候时间：</p></td>-->
+<!--                <td><div class="tuanfabu_nr">-->
+<!--                <input type="text" name="data[delivery_time]" value="<{$ex.delivery_time|default='30'}>" class="tuanfabu_int tuanfabu_intw2" />分钟，一般用不上，开通第三方配送的时候才有用，默认不填写。-->
+<!--                </div></td>-->
+<!--            </tr>-->
+
+             <!--详情开始--> 
+                <tr><td><p class="tuanfabu_t">商家详情：</p></td> <td><div class="tuanfabu_nr">
+                <script type="text/plain" id="details" name="details" style="width:800px;height:360px;"><{$ex.details}></script>
+                <link rel="stylesheet" href="/Public/qiniu_ueditor/themes/default/css/ueditor.min.css" type="text/css">
+                <script type="text/javascript" charset="utf-8" src="/Public/qiniu_ueditor/ueditor.config.js"></script>
+                <script type="text/javascript" charset="utf-8" src="/Public/qiniu_ueditor/ueditor.all.min.js"></script>
+                <script type="text/javascript" src="/Public/qiniu_ueditor/lang/zh-cn/zh-cn.js"></script>
+                <script>
+                    um = UE.getEditor('details', {
+                        lang: 'zh-cn',
+						toolbars:[['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'backcolor', 'fontsize', 'fontfamily', 'justifyleft', 'justifyright', 'justifycenter', 'justifyjustify', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', 'link', 'unlink', 'map', 'template', 'background','inserttable','print','attachment',  'emotion',  'snapscreen','insertimage', 'music', 'insertvideo']],  
+                        });
+                </script>
+                </div></td></tr>
+                <!--详情结束--> 
+        </table>
+
+        <div class="tuanfabu_an">
+        <input type="submit" class="radius3 sjgl_an tuan_topbt" value="确认保存" />
+        </div>
+        </form>
+    </div> 
+</div>
+<include  file='public:footer'/>

@@ -1,0 +1,44 @@
+<div class="shNav">
+    <h3>平台管理中心</h3>
+    <foreach name="shopmenu" item="var"> 
+        <eq name="var.parent_id" value="0">  
+        <dl class="menu_id_<{$var.menu_id}>">
+            <foreach name="shopmenu" item="var1"> 
+                <eq name="var1.parent_id" value="$var.menu_id">  
+                <dt class="cur"><{$var1.menu_name}></dt>
+                <dd>
+                    <ul>
+                        <foreach name="shopmenu" item="var2"> 
+                            <eq name="var2.parent_id" value="$var1.menu_id">  
+                            <eq name="var2.is_show" value="1">
+                            <li><a href="<{:U($var2['menu_action'])}>" <eq name="var2.menu_action" value="$menu_action"> style="color:red;"</eq> ><{$var2.menu_name}></a></li>
+                            </eq>
+                            </eq>
+                        </foreach>
+                    </ul>
+                </dd>
+                </eq>
+            </foreach>
+        </dl>
+        </eq>
+    </foreach>
+
+
+</div>
+<script>
+    $(document).ready(function(){
+        $(".shNav dl").hide();
+            <if condition="!empty($select_menu)">
+            $(".menu_id_<{$select_menu}>").show();
+            <else/>
+            $(".shNav dl").eq(1).show();
+            </if>      
+        }); 
+    
+        $(".shmenubox li").click(function(){
+            if(!$(this).hasClass('no')){
+                $(".shNav dl").hide();
+                $(".menu_id_"+$(this).find('a').attr('rel')).show();
+            }
+        });
+</script>

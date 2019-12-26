@@ -1,0 +1,147 @@
+<include file='public:header'/>  
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('mart/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			微店产品分类
+		</div>
+		<div class="top-share">
+            <a class="sh_waimai_cate_add  icon-plus" href="javascript:void(0);" id="cate-btn"> 分类</a>
+		</div>
+	</header>
+<style>
+ul {padding-left: 0px !important;}
+</style>
+
+<section>
+
+
+	<div class="sh_mask_box sh_waimai_cate_add_mask_box" style="display:none;">
+	    <div class="sh_mask_nr">
+	        <div class="sh_mask_bt">添加产品分类</div>
+            <div class="sh_waimai_cate_add_mask">
+            	<div class="sh_waimai_cate_add_input mb10"><span>名称</span><input type="text" value="" name="cate_name" id="cate_name"></div>
+                <div class="sh_waimai_cate_add_input mb10"><span>排序</span><input type="text" value="" name="orderby" id="orderby"></div>
+            </div>
+            <div class="sh_mask_btn">
+            	<input class="reco" type="button" value="确认" id="add">
+                <input class="cancel" type="button" value="取消" id="add_close">
+            </div>
+        </div>
+
+		<script type="text/javascript" language="javascript">
+        	$(document).ready(function(){
+				$('#add').click(function(){
+					var cate_name = $('.sh_waimai_cate_add_mask_box #cate_name').val();
+					var orderby = $('.sh_waimai_cate_add_mask_box #orderby').val();
+					$.post('<{:U("mart/create")}>',{cate_name:cate_name,orderby:orderby},function(result){
+						if(result.status == 'success'){
+							layer.msg(result.message,{icon:1});
+							setTimeout(function(){
+								location.reload(true);
+							},2500)
+						}else{
+							layer.msg(result.message,{icon:2});
+						}
+					},'json')
+				})
+				$('#add_close').click(function(){
+					$('.sh_waimai_cate_add_mask_box').hide();
+				})
+			})
+        </script>
+
+
+	</div>
+    <div class="sh_mask_box sh_waimai_cate_edit_mask_box" style="display:none;">
+	    <div class="sh_mask_nr">
+	        <div class="sh_mask_bt">编辑产品分类</div>
+            <div class="sh_waimai_cate_add_mask">
+            	<div class="sh_waimai_cate_add_input mb10"><span>名称</span><input type="text" value="" name="cate_name" id="cate_name"></div>
+                <div class="sh_waimai_cate_add_input mb10"><span>排序</span><input type="text" value="" name="orderby" id="orderby"></div>
+            </div>
+            <div class="sh_mask_btn">
+            	<input class="reco" type="button" value="确认" id="edit">
+                <input class="cancel edit_close" type="button" value="取消">
+            </div>
+        </div>
+	</div>
+    
+	<script type="text/javascript" language="javascript">
+        $(document).ready(function(){
+            $('.edit_close').click(function(){
+                $('.sh_waimai_cate_edit_mask_box').hide();
+            })
+        })
+    </script>
+	<script>
+		$(function(){
+			$(".sh_prompt_infor_closs").click(function(){
+				$(".sh_prompt_infor_box").hide();
+			});
+		});
+    </script>
+	<div class="sh_prompt_infor_box">
+        <div class="sh_prompt_infor_closs"></div>
+    </div>
+    
+    <div class="blank-10 bg"></div>
+    <div class="sh_buy_fabu">
+        <div class="sh_list_public_box">
+            <ul>
+            	<volist name="autocates" id="a">
+                <li class="list_box mb10">
+                	<div class="sh_waimai_cate_list">
+                	    <div class="fl left">
+                            <div class="nr">
+                                <p>ID：<span class="black3"><{$a.cate_id}></span></p>
+                                <p>名称：<span class="black3"><{$a.cate_name}></span></p>
+                            </div>
+                        </div>
+
+                        <div class="fr right"><a href="javascript:void(0);" v="<{$a.cate_id}>" n="<{$a.cate_name}>" s="<{$a.orderby}>" class="btn sh_waimai_cate_edit">编辑</a></div>
+                        <div class="clear"></div>
+                    </div>
+                </li>
+				</volist>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<script>
+	$(function(){
+		$(".sh_waimai_cate_add").click(function(){
+			$(".sh_waimai_cate_add_mask_box").show();
+		});
+		$(".sh_waimai_cate_edit").click(function(){
+			var v = $(this).attr('v');
+			var n = $(this).attr('n');
+			var s = $(this).attr('s');
+			$(".sh_waimai_cate_edit_mask_box").show();
+			$(".sh_waimai_cate_edit_mask_box").find('#cate_name').val(n);
+			$(".sh_waimai_cate_edit_mask_box").find('#orderby').val(s);
+			$('#edit').attr('cate_id',v);
+		});
+		$('#edit').click(function(){
+			var cate_name = $('.sh_waimai_cate_edit_mask_box #cate_name').val();
+			var orderby = $('.sh_waimai_cate_edit_mask_box #orderby').val();
+			var v = $(this).attr('cate_id');
+			$.post('<{:U("mart/edit")}>',{cate_name:cate_name,orderby:orderby,v:v},function(result){
+					if(result.status == 'success'){
+						$(".sh_waimai_cate_edit_mask_box").hide();
+						layer.msg(result.message,{icon:1});
+						setTimeout(function(){
+							location.reload(true);
+						},2500)
+					}else{
+						layer.msg(result.message,{icon:2});
+					}
+			},'json')
+		})
+	});
+
+</script>
+</body>
+</html>

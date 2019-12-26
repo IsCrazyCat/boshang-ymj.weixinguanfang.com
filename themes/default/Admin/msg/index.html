@@ -1,0 +1,103 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">手机</li>
+        <li class="li2">手机功能</li>
+        <li class="li2 li3">消息管理</li>
+    </ul>
+</div>
+<style>
+.Biaoti{color:#00F; display: inline-block;}
+
+</style>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span> 请选择分类再按照分类推送，如果不选择用户，那么就是全局的消息,如果外链地址不为空的话，那么点击消息的时候将会直接打开外链</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('msg/create','','添加内容')}>
+            </div>
+            <div class="right">
+                <form class="" method="post"  action="<{:U('msg/index')}>"> 
+                    <div class="seleHidden" id="seleHidden">
+                    
+                        <span>选择通知分类</span>
+                        <select id="cate_id" name="cate_id" class="selecttop w120">
+                            <option value="0">请选择...</option>
+                            <foreach name="getMsgCate" item="var" key="index">  
+                                    <option value="<{$index}>"  <eq name="var.cate_id" value="$cate_id">selected="selected"</eq> ><{$var}></option>                               </foreach>
+                        </select>
+                        
+                        
+                        <span>搜索关键字</span>
+                        <input type="text"  class="inptText" name="keyword" value="<{$keyword}>"  />
+                        <input type="submit" value=" 搜索"  class="inptButton" />
+                    </div> 
+                </form>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="msg_id" /></td>
+                        <td class="w50">ID</td>
+                        <td>通知分类组</td>
+                        <td>标题</td>
+                        <td>外链地址</td>
+                        <td>阅读次数</td>
+                        <td>创建时间</td>
+                        <td>创建IP</td>
+                        <td>操作</td>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_msg_id" type="checkbox" name="msg_id[]" value="<{$var.msg_id}>" /></td>
+                            <td><{$var.msg_id}></td>
+                            <td>
+                            <volist name="getMsgCate" id="v" key="index">
+                            <if condition="$msg[$var['msg_id']]['cate_id'] eq $index" ><{$v}></if>
+                            </volist>
+                            </td>
+                            
+                            <td><{:bao_msubstr($var['title'],0,10,false)}><a class="tips Biaoti" rel="<{$var['title']}>"  href="javascript:void(0)">[查看]</a></td>
+                               
+                               
+                               
+                            <td><if condition="!empty($var['link_url'])" ><{$var.link_url}><else/>无外链</if></td>
+                            <td><{$var.views}></td>
+                            <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                            <td><{$var.create_ip}></td>
+                            <td>
+                                <{:BA('msg/edit',array("msg_id"=>$var["msg_id"]),'编辑','','remberBtn')}>
+                                <{:BA('msg/detail',array("msg_id"=>$var["msg_id"]),'详细','','remberBtn')}>
+                                <{:BA('msg/delete',array("msg_id"=>$var["msg_id"]),'删除','act','remberBtn')}>
+                            </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('msg/delete','','批量删除','list','a2')}>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+ <script>
+       $(document).ready(function (e) {
+    
+			$(".tips").click(function () {
+				var tipnr = $(this).attr('rel');
+				layer.tips(tipnr, $(this), {
+					tips: [4, '#1ca290'],
+					time: 4000
+				});
+			})
+		});
+    </script>
+<include  file='public:footer'/>  
+

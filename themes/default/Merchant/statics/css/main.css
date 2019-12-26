@@ -1,0 +1,99 @@
+.shmenu{ height:71px; background:#fb9827; width:100%}
+.shmenubox{ width:1200px; margin:0 auto;font:normal 14px/71px 'Microsoft Yahei';}
+.shmenubox h3{ float:left; width:203px; height:71px;}
+.shmenubox ul{ float:left; width:880px;}
+.shmenubox ul li{  text-align:center; width:110px; float:left}
+.shmenubox ul li a{ color:#fff}
+.shmenubox span{ float:right; font-size:12px;}
+.shmenubox  span a{ color:#b35e30}
+.shbox{ margin-top:20px; border:1px solid #e9e9e9; min-height: 600px;}
+.shNav{ width:166px; font:normal 14px/36px 'Microsoft Yahei'; border-right:1px solid #f4daae; float:left }
+.shNav h3{ height:47px; border-right:5px solid #fbeccb; font-size:16px; line-height:47px; color:#3c3c3c; font-weight:normal; text-align:center; padding-left:20px;}
+.shNav dl dt{ border-left:3px solid #fb9827; height:45px; color:#f46c08; background:#fbeccb url(../images/sicon1.jpg) no-repeat 30px 15px; padding-left:45px; position:relative}
+.shNav dl dt.cur{ background:#fbeccb url(../images/scur.jpg) no-repeat right 10px; position:relative; width:119px; overflow:hidden}
+.shNav dl dd{ padding-left:50px;}
+.shNav dl dd ul li{ height:36px; background:url(../images/sicon2.jpg) no-repeat 0px 17px; padding-left:10px;}
+.shcontent{ width:980px; float:left; margin:10px 0 0 25px; display:inline; font:normal 13px/22px 'Microsoft Yahei'}
+.shlocal{ border-bottom:1px solid #e9e9e9; padding-bottom:5px; color:#3c3c3c}
+.shlocal a{ color:#f46c08}
+.userbar{ padding:20px 0 0 0}
+.userbar dt{ width:114px; float:left}
+.userbar dt img{ width:114px; height:114px}
+.userbar dt p{ text-align:center; height:30px; line-height:30px;}
+.userbar dt p a{ color:#0557a8}
+.userbar dd{ width:520px; float:left; line-height:28px; margin-left:25px; display:inline}
+.userbar dd img{ display:inline}
+.userbar ul li{ width:260px; float:left; height:30px; color:#7a7a7a}
+.userbar ul li b{ color:#383838; font-size:14px;}
+.userbar ul li em{ display:inline-block; width:41px; height:20px; background:url(../images/sindex.gif) no-repeat 0px -69px; line-height:20px; text-align:center; color:#fff; margin:5px 0 0 10px}
+
+.sjcount{ background:#e9e9e9; height:32px; line-height:32px; font-size:14px; margin-top:60px;}
+.sjcount h3{ width:100px; text-align:center; background:#f46c08; height:32px; color:#fff }
+.sjcount ul li{ width:480px; float:left; line-height:31px; height:31px; overflow:hidden; margin:10px 0 0 0; display:inline}
+.sjcount ul li span{ display:block; float:left; text-align:center; color:#7a7a7a}
+.sjcount ul li span.sjtit{ background:#fbeccb; font-size:14px; width:140px; color:#f46c08}
+.sjcount ul li span.snum{ width:210px; float:left}
+.sjcount ul li span.ck{ text-align:center; width:130px;}
+.sjcount ul li a{ color:#f46c08}
+.sjcount ul li em{ color:#f46c08}
+.cjinput{ border:1px solid #eee; width:280px; padding:0px 0; height:25px; line-height:25px;}
+.shtable select{ width:100px; height:25px; border:1px solid #eee}
+.shtable{ padding:10px 0 0 20px}
+.shtable table tr td{ padding:10px 0; height:25px; line-height:25px; color:#8b8a88}
+.cjbtn{ width:110px; height:33px; border:none; background:url(../images/sindex.gif) no-repeat; cursor:pointer}
+.cjbtn_new{ width:98px; height:36px; border: none;  background:#F9510D; border-radius: 5px; cursor:pointer; color: #fff; font-size: 20px;  font-family: "微软雅黑";}
+
+.shcenter{}
+.shcenter h3 a{width:54px; height:26px; display:block; float:right; text-align:center; color:#fff; line-height:26px; font-size:14px; background:url(../images/sindex.gif) no-repeat 0px -35px;}
+.shcenter table { margin-top:10px; clear:both}
+.shcenter table tr th{ height:34px; text-align:center; background:#ececec; font-size:12px; color:#656c7e}
+.shcenter table tr td{ height:40px; }
+.shcenter table tr.shcbg{ background:#f5f5f5}
+.shcenter a{ color:#2255dd}
+.shaction{ color:#fb9827; padding-left:35px;}
+.shaction em{ display:inline-block; width:16px; height:16px; background:url(../images/sindex.gif) no-repeat -94px -53px; float:left; margin:5px 10px 0 0} 
+
+.loginBox{ margin-top:230px; background:#f58505; height:350px;}
+h1.glzx{ margin:140px 50px 0 150px; font-size: 40px; float:left; color: #d4d4d4;  display:inline}
+.login{ background:#fff; border-radius:8px; width:460px; height:295px; float:left; margin-top:25px;}
+.login table{ width:100%; margin-top:40px}
+.login table tr td{ padding:10px 0; font-size:14px; color:#da4709; font-weight:bold}
+.loginInput1,.loginPass,.yzm{ width:250px; height:40px; background:url(../images/btn.gif) no-repeat; border:none; line-height:40px; overflow:hidden; padding-left:48px; font-size:14px; color:#d4d4d4}
+.loginPass{ background-position:0px -50px;}
+.yzm{ width:130px; background-position:0px -100px; padding-left:35px; float:left; margin-right:15px;}
+.loginBtn{ width:120px; height:35px; background:url(../images/btn.gif) no-repeat 0px -150px; border:none; cursor:pointer}
+.manageInput{ width:308px; padding:0px 10px; line-height:26px; border:1px solid #eee; color:#686666; height:26px; line-height:26px;}
+.remberSubmit{ background:url(../images/newsbtn.gif) no-repeat 0px -39px; width:63px; height:26px; cursor:pointer; border:none; font:normal 14px/26px 'Microsoft Yahei'; text-align:center; color:#fff}
+
+
+
+
+/* new center  */
+.clear{font-size:0px;height:0px;line-height:0px;clear:both;}
+
+.wp{ width: 100%; background: #ff751a;}
+.s_header{ height: 30px; line-height: 30px; width: 1200px; margin: 0px auto; color: #fff;  font-size: 12px; font-family: "宋体";}
+.s_header .s_left{ float: left; margin-left: 20px; height: 30px; line-height: 30px;}
+.s_header .s_right{ float: right; width: 250px; margin-right: 20px;}
+.s_header .s_right .item{ float: left; margin-left: 20px; width: 70px;}
+.s_header .s_right .item a{ color: #fff; font-size: 12px; font-family: "宋体";}
+.s_header .s_right .logout{ width: 50px; background: url(../images/logout.png) no-repeat left center; text-indent: 20px;}
+.s_header .s_right .setting{ background: url(../images/setting.png) no-repeat left center; text-indent: 20px;}
+.s_main{min-height: 900px; width:100%; position: relative;}
+.s_main .s_list{ position: absolute; left: 0px; top: 0px; width: 192px; height: 100%;}
+.s_main .s_list .s_pic{ margin-top: 28px;  width: 192px;}
+
+
+.s_main .right{ position: absolute; top: 0px; left: 192px; font-family: "微软雅黑"; height: 100%; width: 100%;}
+.s_main .right .s_top{ height: 85px; position: relative;}
+.s_main .right .s_top .s_name{ height: 85px; line-height: 85px; font-size: 34px; font-family: "黑体"; width: 300px; text-align: center; color: #ff5a00; float: left;}
+.s_main .right .s_top .menu{ position: absolute; left:300px; top:23px; background: none; color: #000; height: 40px; line-height: 40px; text-align: left;}
+.s_main .right .s_top .menu ul{ position: absolute;left: 0px;}
+.s_main .right .s_top .menu ul li{ float: left; width: 80px; font-size: 18px; font-family: "微软雅黑"; }
+.s_main .right .s_top .menu ul li a{ display: block; width: 80px; height: 40px; line-height: 40px; color: #000;}
+.s_main .right .s_top .menu ul li.index a{background: url(../images/li_bg.png) no-repeat center center; color: #fff;}
+.s_main .right .s_content{border: 1px solid #dedede; min-height: 780px; width: 88%;  border-radius:5px; }
+
+
+.remberBtn{ font: normal 14px/14px 'Microsoft Yahei';display: inline-block; margin-left: 5px; margin-top: 5px;   -moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius: 3px;background: #ff5a00;color: #fff; padding:0px 10px; height: 30px; line-height: 30px;} 
+.remberBtn:hover{color: #fff;}

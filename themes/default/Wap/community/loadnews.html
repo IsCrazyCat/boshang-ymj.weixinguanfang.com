@@ -1,0 +1,5 @@
+<foreach name="list" item="item">
+	<li class="padding border-bottom">
+		<a href="<{:u('community/news',array('news_id'=>$item['news_id']))}>"><{:bao_Msubstr($item['title'],0,14,false)}><span><{$item.create_time|date='Y-m-d',###}></span></a>
+	</li>
+</foreach>

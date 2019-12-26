@@ -1,0 +1,56 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">拼团商家</li>
+        <li class="li2">商家分类</li>
+        <li class="li2 li3">分类列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>暂时1级分类</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="border-top: 1px solid #e1e6eb;">
+            <div class="left">
+                <{:BA('pcate/create','','添加一级分类','load','',600,550)}>
+            </div>
+        </div>
+
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="id" /></td>
+                    <td class="w50">ID</td>
+                    <td>分类名称</td>
+                    <td>分类图标</td>
+                    <td>分类排序</td>
+                    <td class="w360">操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_id" type="checkbox" name="cate_id[]" value="<{$var.id}>" /></td>
+                        <td><{$var.id}></td>
+                        <td><{$var.name}></td>
+                        <td><img src="<{:config_img($var['picurl'])}>" class="w80" /></td>
+                        <td><{$var.csort}></td>
+                    <td>       
+                    <{:BA('pcate/edit',array("cate_id"=>$var["id"]),'编辑','load','remberBtn',600,550)}>
+                    <{:BA('pcate/delete',array("cate_id"=>$var["id"]),'删除','act','remberBtn')}>
+                    </td>
+                    </tr>
+                </foreach>
+            </table>
+            <{$page}>
+        </div>
+    </form>
+    </div>
+</div>
+<include  file='public:footer'/>
+
+
+
+
+
+
+

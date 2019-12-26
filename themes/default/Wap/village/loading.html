@@ -1,0 +1,5 @@
+<foreach name="list" item="item">
+	<li class="padding border-bottom">
+		<a href="<{:U('village/tie',array('post_id'=>$item['post_id']))}>"><{:bao_Msubstr($item['title'],0,14,false)}><span><{$users[$item['user_id']]['nickname']}></span></a>
+	</li>
+</foreach>

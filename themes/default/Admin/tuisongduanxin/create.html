@@ -1,0 +1,63 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">营销</li>
+        <li class="li2">推送短信</li>
+        <li class="li2 li3">新增短信推送</li>
+    </ul>
+</div>
+<div class="mainScAdd ">
+
+    <div class="tableBox">
+
+        <form  target="baocms_frm" action="<{:U('tuisongduanxin/create')}>" method="post">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+            
+                <tr>
+                    <td class="lfTdBt">短信内容：</td>
+                    <td class="rgTdBt"><input style="width:600px;" type="text" name="data[title]" value="<{$detail.title|default=''}>" class="manageInput"  />
+					 <code>建议不超过70字</code>
+                    </td>
+                </tr>
+                
+                
+                <tr>
+                    <td class="lfTdBt">用户：</td>
+                    <td class="rgTdBt">
+                        <div class="lt">
+                            <input type="hidden" id="user_id" name="data[user_id]" value="<{$detail.user_id|default=''}>"/>
+                            <input class="scAddTextName"  type="text" name="nickname" id="nickname"  value="" />
+                        </div>
+                        <a style="margin-left: 10px;" mini="select"  w="800" h="600" href="<{:U('user/select')}>" class="seleSj">选择用户</a>
+                        <code>一般不要选择如果勾选，则只是对单一用户推送短信</code>
+                    </td>
+                </tr>
+                
+                
+                
+                <tr>
+            <td class="lfTdBt">会员等级：</td>
+            <td class="rgTdBt">
+                <select name="data[rank_id]" class="seleFl w200">
+                    <option value="0">不选择</option>
+                    <foreach name="ranks" item="item">
+                        <option <eq name="item.rank_id" value="$detail.rank_id">selected="selected"</eq> value="<{$item.rank_id}>"><{$item.rank_name}></option>
+                    </foreach>
+                </select>
+                <code>默认为0就是全部选中，如果要选择会员组则删选出对应的会员组发送！</code>
+            </td>
+        </tr>
+        
+        
+        
+            
+
+    </table>
+                 <div style="margin-left:140px;margin-top:20px">
+                <input type="submit" value="确认添加" class="smtQrIpt" />
+                <div>
+</form>
+</div>
+</div>
+<include  file='public:footer'/>   

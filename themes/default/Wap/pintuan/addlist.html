@@ -1,0 +1,66 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+       <a class="top-addr" href="javascript:history.go(-1"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			拼团收货地址
+		</div>
+	<div class="top-signed">
+		<include file="public:message"/>
+	</div>
+</header>
+ <style>
+ .list-media-x{ margin-top:0rem;}
+ </style>   
+    
+    <div class="list-media-x" id="list-media">
+	<ul>
+    
+    <foreach name="defaultadd" item="var">
+        <div class="line padding border-bottom">
+            <div class="x12">
+                <p class="text-gray"><{$var.xm}></p>
+                <p class="text-gray"><{$var.area_str}></p>
+                <p class="text-gray"><{$var.info}></p>
+            </div>
+        </div>
+        <div class="line padding">
+            <span class="text-right  x12">
+              <a class="jquery-delete button button-small bg-dot">当前默认地址</a>
+              <a onclick="javascript:window.location.href='<{$editUrl}><{$var.id}>'" class="jquery-delete button button-small bg-gray">编辑</a>
+            </span>
+        </div>
+        <div class="blank-10 bg"></div>
+    </foreach>
+    
+     <foreach name="addlist" item="var">
+        <div class="line padding border-bottom">
+            <div class="x12">
+                <p class="text-gray"><{$var.xm}></p>
+                <p class="text-gray"><{$var.area_str}></p>
+                <p class="text-gray"><{$var.info}></p>
+            </div>
+        </div>
+        <div class="line padding">
+            <span class="text-right  x12">
+              <a onclick="javascript:window.location.href='<{$editUrl}><{$var.id}>'" class="jquery-delete button button-small bg-blue">编辑</a>
+              <a onclick="javascript:window.location.href='<{$delUrl}><{$var.id}>'" class="jquery-delete button button-small bg-gray">删除</a>
+            </span>
+        </div>
+        <div class="blank-10 bg"></div>
+    </foreach>
+    
+    
+  
+  </ul>
+</div>
+	
+	<div class="container">
+		<div class="blank-30"></div>
+		<a href="<{$addrcat}>" id="add_addr" class="button button-block button-big bg-blue text-center add_addr">新增收货地址</a>
+	</div>
+</ul>
+
+ 
+<include  file='public:footer'/>  

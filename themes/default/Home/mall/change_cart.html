@@ -1,0 +1,165 @@
+<include file="public:header" />
+<style type="text/css">
+.tab_nr{position: relative;}
+.key_name{position:absolute;bottom:5px;}
+</style>
+<script>
+    $(function () {
+        $(".order-add").click(function () {
+            $(".order-cover").show();
+        });
+        $(".order-xg").click(function () {
+            $(".order-cover").show();
+        });
+        $(".add-off").click(function () {
+            $(".order-cover").hide();
+        })
+        $(".add-close").click(function () {
+            $(".order-cover").hide();
+        })
+    })
+
+</script>
+<include file="public:topOne" />
+
+
+<div class="between">
+    <div class="bet_bj">
+        <div class="all" style="padding-bottom: 40px;">
+            <div class="all_2">
+                <ul>
+                    <li class="on">1.提交订单<em>&nbsp;</em></li>
+                    <li>2.去支付<em>&nbsp;</em></li>
+                    <li>3.完成<em>&nbsp;</em></li>
+                </ul>
+            </div>
+            <div class="all_3">
+                <ul class="ul_3">
+                    <li><a href="javascript:void(0);"><img src="__PUBLIC__/img/tp_5.png"><p>随时退</p></a></li>
+                    <li><a href="javascript:void(0);"><img src="__PUBLIC__/img/tp_6.png"><p>不满意免单</p></a></li>
+                    <li><a href="javascript:void(0);"><img src="__PUBLIC__/img/tp_7.png"><p>过期退</p></a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="mode_dingdan">
+            <form method="post" id="change_cart">
+                <input type="hidden" name="order_id" value="<{$order_id}>"/>
+                <div class="order-box">
+                    <table class="order" width="100%">
+                        <tr>
+                            <th>项目</th>
+                            <th>单价</th>
+                            <th>数量</th>
+                            <th width="120">总价</th>
+                        </tr>
+                        <php>$total_money = 0;</php>
+                        <foreach name="cart_goods" item="item">
+                        	<php>$item = reset($item);</php>
+                            <tr>
+                                <td>
+                                    <div class="tab_nr">
+                                        <div class="left tab_img"><a target="_blank" href="<{:U('mall/detail',array('goods_id'=>$item['goods_id']))}>"><img src="<{:config_img($item['photo'])}>" width="134" height="85" class="img_3"></a></div>
+                                        <div class="left tab_wz">
+                                            <p class="tab_nr1"><{$item.title}></p>
+                                            <p class="key_name"><{$item.key_name}>1</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td width="115"><div class="tab_price">￥<span class="price"><{:round($item['mall_price']/100,2)}></span></div></td>               
+                                <td width="116">
+                                    <div class="ko">
+                                        <span data="<{$item.goods_id}>"  class="jian">—</span>
+                                        <input type="text" value="<{$item.buy_num}>" data="<{$item.goods_spec}>" rel="<{:round($item['mall_price']/100,2)}>" name="num[<{$item['goods_spec']}>]" class="spinner">
+                                        <span data="<{$item.goods_id}>" class="jia">+</span>
+                                    </div>
+                                </td>
+                                <td><span id="jq_total_<{$item.goods_id}>" class="money2">￥<{:round($item['mall_price'] *  $item['buy_num']/100,2)}></span></td>
+                            <php>
+                                $total_money+= $item['mall_price'] *  $item['buy_num'];
+                            </php>
+                            </tr>
+                        </foreach>
+                    </table>
+                    <script>
+                        function changetotal(obj) {
+                            var money = obj.parent().find('.spinner').attr('rel');
+                            var num = obj.parent().find('.spinner').val();
+                            var total = Math.round(money * num * 100) / 100;
+                            $("#jq_total_" + obj.attr('data')).html('￥' + total);
+                            changealltotal();
+                        }
+                        function changealltotal() {
+
+                            var total_price = 0;
+                            $(".spinner").each(function () {
+                                total_price += Math.round($(this).val() * $(this).attr('rel') * 100) / 100;
+                            });
+                            $("#jq_total").html(total_price);
+                        }
+                        $(document).ready(function (e) {
+                            $(".jian").click(function () {
+                                var v = $(this).parent().find(".spinner").val();
+                                if (v > 1) {
+                                    v--;
+                                    $(this).parent().find(".spinner").val(v);
+                                }
+
+                                changetotal($(this));
+
+                            });
+                            $(".jia").click(function () {
+                                var v = $(this).parent().find(".spinner").val();
+                                if (v < 99) {
+                                    v++;
+                                    $(this).parent().find(".spinner").val(v);
+                                }
+                                changetotal($(this));
+                            });
+
+                            $(".spinner").change(function () {
+                                if ($(this).val() < 1) {
+                                    $(this).val('1');
+                                }
+                                if ($(this).val() > 99) {
+                                    $(this).val('99');
+                                }
+                                changetotal($(this));
+                            });
+                        });
+                    </script>
+                    <div class="order_p1">
+                        <div class="order_s3">
+                            应付总额：<span class="rmb">￥</span><label id="jq_total" class="money"><{:round($total_money/100,2)}></label>
+
+                        </div>       
+                        <div class="cha"><a href="javascript:history.go(-1)" class="back">返回上一步</a><input type="button" value="确认" class="sub"></div>
+                    </div>
+                </div>   
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $(".sub").click(function () {
+            var url = "<{:U('mall/order_change')}>";
+            var change_cart = $("#change_cart").serialize();
+            $.post(url, change_cart, function (data) {
+                if (data.status == 'login') {
+                    ajaxLogin();
+                } else if (data.status == 'success') {
+                    layer.msg(data.msg,{icon: 1}, function () {
+                        setTimeout(function () {
+                            window.location.href = data.url;
+                        }, 1000)
+                    });
+                } else {
+                    layer.msg(data.msg, {icon: 2});
+                }
+            }, 'json')
+        })
+    });
+</script>
+<include file="public:footer" />

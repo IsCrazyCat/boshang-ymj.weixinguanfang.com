@@ -1,0 +1,511 @@
+<include file="public:header"/>
+<style type="text/css">
+  
+  .my-btn{
+    width: 80px;
+    height: 25px;
+    border: 1px solid #C3C3C3;
+    text-align: center;
+    line-height: 25px;
+    float: left;
+    background: white;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+  .my-btn:hover{
+    background: #FD8F52;
+    color:white;
+  }
+  #chosenCates{
+    height:50px;
+    border-bottom:1px solid #dcdcdc;
+    margin-bottom: 10px;
+  }
+  .cate-label{
+    float:left;
+    background:#FD8F52;
+    color:white;
+    padding:2px;
+  }
+  .remove-cate-btn{
+    float:left;
+    background:#FD8F52;
+    color:white;
+    margin-right: 4px;
+    padding:2px;
+    cursor: pointer;
+  }
+</style>
+<div class="content_right">  
+    <div class="tgdd">    
+    
+    
+     <div class="tgdd_t password_t">
+        <ul>
+            <li><a href="<{:U('life/index')}>">分类信息列表</a></li>
+            <li class="on"><a href="<{:U('shopdingyue/base')}>">订阅设置</a></li>
+            <li><a href="<{:U('shopdingyue/index')}>">我的订阅</a></li>
+            <li><a href="<{:U('sms/index')}>">购买短信</a></li>
+            <li><a href="<{:U('money/money')}>">余额充值</a></li>
+            <a style="display: inline-block; float: right; margin-right: 10px;" class="myInfor_sx" href="<{:u('home/life/fabu')}>">发布信息</a>
+        </ul>
+    </div>
+    
+    
+        
+        <form method="post" onsubmit="return checkForm();" target="baocms_frm" action="<{:U('shopdingyue/base')}>" >
+            
+            <div class="password_nr">  
+                <div id="chosenCates"></div>             
+                <div class="password_input">
+                    
+                <script src="<{:U('app/datas/cab',array('name'=>'cityareas'))}>"></script>
+                <script>
+                  Array.prototype.remove=function(dx) 
+                  { 
+                      if(isNaN(dx)||dx>this.length){return false;} 
+                      for(var i=0,n=0;i<this.length;i++) 
+                      { 
+                          if(this[i]!=this[dx]) 
+                          { 
+                              this[n++]=this[i] 
+                          } 
+                      } 
+                      this.length-=1 
+                  } 
+
+                    var city_id = "<{$city_id}>";
+                    var area_id = 0;
+                    var business_id = 0;
+                    $(document).ready(function () {
+                        var city_str = ' <option value="0">请选择...</option>';
+                        for (a in cityareas.city) {
+                            if (city_id == cityareas.city[a].city_id) {
+                                city_str += '<option selected="selected" value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+                            } else {
+                                city_str += '<option value="' + cityareas.city[a].city_id + '">' + cityareas.city[a].name + '</option>';
+                            }
+                        }
+                        $("#city_id").html(city_str);
+
+                        $("#city_id").change(function () {
+                            if ($("#city_id").val() > 0) {
+                                city_id = $("#city_id").val();
+                                var area_str = ' <option value="0">请选择...</option>';
+                                for (a in cityareas.area) {
+                                    if (cityareas.area[a].city_id == city_id) {
+                                        if (area_id == cityareas.area[a].area_id) {
+                                            area_str += '<option selected="selected" value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                        } else {
+                                            area_str += '<option value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                        }
+                                    }
+                                }
+                                $("#area_id").html(area_str);
+                                $("#business_id").html('<option value="0">请选择...</option>');
+                            } else {
+                                $("#area_id").html('<option value="0">请选择...</option>');
+                                $("#business_id").html('<option value="0">请选择...</option>');
+                            }
+
+                        });
+
+                        if (city_id > 0) {
+                            var area_str = ' <option value="0">请选择...</option>';
+                            for (a in cityareas.area) {
+                                if (cityareas.area[a].city_id == city_id) {
+                                    if (area_id == cityareas.area[a].area_id) {
+                                        area_str += '<option selected="selected" value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                    } else {
+                                        area_str += '<option value="' + cityareas.area[a].area_id + '">' + cityareas.area[a].area_name + '</option>';
+                                    }
+                                }
+                            }
+                            $("#area_id").html(area_str);
+                        }
+
+
+                        $("#area_id").change(function () {
+                            if ($("#area_id").val() > 0) {
+                                area_id = $("#area_id").val();
+                                var business_str = ' <option value="0">请选择...</option>';
+                                for (a in cityareas.business) {
+                                    if (cityareas.business[a].area_id == area_id) {
+                                        if (business_id == cityareas.business[a].business_id) {
+                                            business_str += '<option selected="selected" value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                        } else {
+                                            business_str += '<option value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                        }
+                                    }
+                                }
+                                $("#business_id").html(business_str);
+                            } else {
+                                $("#business_id").html('<option value="0">请选择...</option>');
+                            }
+
+                        });
+
+                        if (area_id > 0) {
+                            var business_str = ' <option value="0">请选择...</option>';
+                            for (a in cityareas.business) {
+                                if (cityareas.business[a].area_id == area_id) {
+                                    if (business_id == cityareas.business[a].business_id) {
+                                        business_str += '<option selected="selected" value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                    } else {
+                                        business_str += '<option value="' + cityareas.business[a].business_id + '">' + cityareas.business[a].business_name + '</option>';
+                                    }
+                                }
+                            }
+                            $("#business_id").html(business_str);
+                        }
+                        $("#business_id").change(function () {
+                            business_id = $(this).val();
+                        });
+                    });
+                </script> 
+                    <div class="left">分类：</div>
+                    <div class="lef select_box">
+                        <select id="channel_id" name="channel_id" class="selecttop">
+                            <option value="0">请选择...</option>                      
+                            <foreach name="channelmeans" item="var">
+                                <option value="<{$key}>"><{$var}></option>            
+                            </foreach>                                               
+                        </select>   
+                    </div> 
+                    <div class="lef select_box">
+                    <select name="cate_id"  id="cate_id" class="cate_twotwo">
+                        <option value="0">请选择...</option>          
+                    </select>
+                    </div>
+                    <br/><br/>   <br/>                     
+                    <div id="attr_id" >                        
+                    </div>       
+                    
+                    <p style="padding-top: 50px;"></p>
+                    <div style='height:1px;border-bottom:1px solid #dcdcdc;'></div>
+                    </br>
+                    <div class="left"><span style='font-size:14px;'>所在地区：</span></div>
+                    <div class="lef select_box">
+                        <select name="city_id" id="city_id" class="manageSelect">
+                            <option value="0">请选择...</option>
+                        </select>
+                        <select name="area_id" id="area_id" class="manageSelect">
+                            <option value="0">请选择...</option>
+                        </select>                     
+                        <select name="business_id" id="business_id" class="manageSelect">
+                            <option value="0">请选择...</option>
+                        </select>
+                        
+                    </div>
+                    <div class="left">短信提醒</div>
+                    <div class="lef select_box">
+                    <select id="sms" name="sms">
+                    	<option value="1" selected="selected">通知</option>
+                    	<option value="-1">不通知</option>
+                    </select>
+                    </div>
+
+<script type="text/javascript">
+var choseIds = new Array();
+var choseIdCombines = new Array();
+$("#channel_id").change(function(){
+        var value = $(this).val();  
+        $.ajax({
+            type:"POST",
+            dataType:"JSON",
+            url:'<{:U("Shopdingyue/catajax")}>',
+            data:{"channel_id":value
+
+                 },           
+            success:function(data){
+                $("#cate_id").empty();
+                var count = data.length;
+                var i = 0;
+                var b="";
+                    b=" <option value='0'>请选择...</option>"
+                   for(i=0;i<count;i++){
+                       b+="<option value='"+data[i].cate_id+"'>"+data[i].cate_name+"</option>";
+                   }
+                $("#cate_id").append(b);
+            }
+        });
+   });
+
+$("#cate_id").change(function(){
+        var value = $(this).val();  
+        $.ajax({
+            type:"POST",
+            dataType:"JSON",
+            url:'<{:U("Shopdingyue/attrajax")}>',
+            data:{"cate_id":value
+                 },
+                success:function(data){
+                $("#attr_id").empty();
+                var count = data.attr.length;
+                var num = data.select.length;               
+                var i = 0;
+                var b1="",b2="",b3="",b4="",b5="";     
+                var g1=0,g2=0,g3=0,g4=0,g5=0;
+                var n=0,gg1=0,gg2=0,gg3=0,gg4=0,gg5=0;             
+                for(n=0;n<count;n++){
+                     switch (data.attr[n].type) {
+                      case 'select1':  gg1+=1;
+                      break; 
+                      case 'select2':  gg2+=1;
+                      break; 
+                      case 'select3':  gg3+=1;
+                      break; 
+                      case 'select4':  gg4+=1;
+                      break; 
+                      case 'select5':  gg5+=1;
+                      break; 
+                    }
+                }
+                   for(i=0;i<count;i++){
+                      switch (data.attr[i].type) {
+                      case 'select1':                        
+                        if (g1<1) {
+                            b1+="<div class='left'><span style='font-size:14px;'>"+data.select[0].select1+"：</span></div><div class='lef select_box'><select id='"+data.attr[i].type+"' class='manageSelect'><option value=0>不选择</option>";
+                        }
+                        g1=g1+1;
+                        b1+= "<option name='"+data.attr[i].type+"[]"+"' value='1-"+data.attr[i].attr_id+"'>"+data.attr[i].attr_name+"</option>"; 
+                        if (gg1==g1) {
+                            b1+="</select></div>";
+                        }
+                        break;
+                      case 'select2':
+                        if (g2<1) {
+                           b2+="<div class='left'><span style='font-size:14px;'>"+data.select[0].select2+"：</span></div><div class='lef select_box'><select id='"+data.attr[i].type+"' class='manageSelect'><option value=0>不选择</option>";
+                        }
+                        g2=g2+1;
+                         b2+="<option name='"+data.attr[i].type+"[]"+"' value='2-"+data.attr[i].attr_id+"'>"+data.attr[i].attr_name+"</option>"; 
+                        if (gg2==g2) {
+                            b2+="</select></div>";
+                        }
+                        break;
+                      case 'select3': 
+                        if (g3<1) {
+                           b3+="<div class='left'><span style='font-size:14px;'>"+data.select[0].select3+"：</span></div><div class='lef select_box'><select id='"+data.attr[i].type+"' class='manageSelect'><option value=0>不选择</option>";
+                        }
+                        g3=g3+1;
+                        b3+= "<option name='"+data.attr[i].type+"[]"+"' value='3-"+data.attr[i].attr_id+"'>"+data.attr[i].attr_name+"</option>"; 
+                        if (gg3==g3) {
+                            b3+="</select></div>";
+                        }
+                        break;
+                      case 'select4':
+                        if (g4<1) {
+                           b4+="<div style='clear:both;height:6px;'></div><div class='left'><span style='font-size:14px;'>"+data.select[0].select4+"：</span></div><div class='lef select_box'><select id='"+data.attr[i].type+"' class='manageSelect'><option value=0>不选择</option>";
+                        }
+                        g4=g4+1; 
+                         b4+= "<option name='"+data.attr[i].type+"[]"+"' value='4-"+data.attr[i].attr_id+"'>"+data.attr[i].attr_name+"</option>"; 
+                         if (gg4==g4) {
+                            b4+="</select></div>";
+                        }
+                        break;
+                      case 'select5': 
+                         if (g5<1) {
+                           b5+="<div class='left'><span style='font-size:14px;'>"+data.select[0].select5+"：</span></div><div class='lef select_box'><select id='"+data.attr[i].type+"' class='manageSelect'><option value=0>不选择</option>";
+                        }
+                        g5=g5+1;
+                         b5+= "<option name='"+data.attr[i].type+"[]"+"' value='5-"+data.attr[i].attr_id+"'>"+data.attr[i].attr_name+"</option>"; 
+                         if (gg5==g5) {
+                            b5+="</select></div>";
+                        }
+                        break;
+                      default: 
+                         b+= "<input type='checkbox' name='"+data.attr[i].type+"[]"+"' value='"+data.attr[i].attr_id+"' />"+data.attr[i].attr_name; 
+                        break;
+                    }                     
+                                        
+                   }
+                   b=b1+b2+b3+b4+b5;
+                   // 增加添加按钮
+                   b = b + "<div id='addCates' onclick='addCates();'class='my-btn'>添加</div>";
+                $("#attr_id").append(b);
+            }            
+        });
+   });
+
+function addCates(){
+  var combinedId = "";
+  var text = "";
+  var success=1;
+  $("#attr_id .manageSelect").each(function(){
+    if($(this).val()==0){
+      alert("请选择全部条件");
+      success=0;
+      return false;
+    }
+    combinedId = combinedId+$(this).val()+"|";
+
+    text = text + " "+$(this).find("option:selected").text();
+  });
+  if(success==1){
+    if(jQuery.inArray(combinedId, choseIdCombines)<0){
+      $("#chosenCates").append("<div class='cate-label' id='"+combinedId+"'>"+text+"</div><div class='remove-cate-btn' onclick='removeCateBtn(this,\""+combinedId+"\");'>&times;</div>");
+        choseIdCombines.push(combinedId);
+    }else{
+      alert("该条件已存在");
+      return false;
+    }
+  }else{
+    return false;
+  }
+  
+  // if($(this).val()!=0 && jQuery.inArray($(this).val(), choseIds)<0){
+    
+  $("#chosenIdsForSubmit").val(choseIdCombines);
+}
+
+function removeCateBtn(obj,id){
+  choseIdCombines.remove(jQuery.inArray(id, choseIdCombines));
+  $(obj).prev().remove();
+  $(obj).remove();
+  $("#chosenIdsForSubmit").val(choseIdCombines);
+}
+
+function checkForm(){
+  var chosenIds = $("#chosenIdsForSubmit").val();
+  if(chosenIds==""){
+    alert("请至少添加一组分类！");
+    return false;
+  };
+  // var city_id = $("#city_id").val();
+  
+  // var area_id = $("#area_id").val();
+  // var business_id = $("#business_id").val();
+  // if(city_id==0 || area_id==0 || business_id==0){
+  //   alert("请选择所在地区！");
+  //   return false;
+  // };
+}
+</script>
+<input type="hidden" id="chosenIdsForSubmit" name="chosenIds" />
+                <input class="submit" type="submit" value="订阅" style="width: 100px;height: 30px; font-size: 14px;float: right;"/>            
+                </div>     
+            </div>
+        </form>       
+    </div>
+    <div class="tgdd_nr">
+        <table border="0" cellspacing="0" width="100%"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; text-align:center;">
+            <tr class="tgdd_nrt">
+                <th width="5%">订阅id</th>
+                <th>地址</th>
+                <th>分类</th>
+                <th>分类详情</th>
+                <th>审核状态</th>
+                <th>短信提醒</th>
+                <th>操作</th>
+            </tr>
+            <foreach name="list" item="list">                
+                <tr class="tgdd_nrC">
+                    <td class="tgdd_tdtw"><div class="tgdd_tw">
+                           <{$list.dingyue_id}></td>
+                   
+                    <td class="tgdd_nrCtd" id="price-color">
+
+                    <foreach name="list['sitelist']" item="s">   
+                        <{$s}>  &nbsp;&nbsp;
+                    </foreach>
+                    </td>
+                    <td class="tgdd_nrCtd" id="price-color">
+                         <foreach name="list['catlist']" item="c">  
+                         <{$c}>&nbsp;&nbsp;
+                         </foreach>
+                    </td>
+									<td class="tgdd_nrCtd" id="price-color">
+                         <foreach name="list['select1']" item="s1">  
+                         <{$s1}>&nbsp;&nbsp;
+                         </foreach><br/>
+                         <foreach name="list['select2']" item="s2">  
+                         <{$s2}>&nbsp;&nbsp;
+                         </foreach><br/>
+                         <foreach name="list['select3']" item="s3">  
+                         <{$s3}>&nbsp;&nbsp;
+                         </foreach><br/>
+                         <foreach name="list['select4']" item="s4">  
+                         <{$s4}>&nbsp;&nbsp;
+                         </foreach><br/>
+                         <foreach name="list['select5']" item="s5">  
+                         <{$s5}>&nbsp;&nbsp;
+                         </foreach><br/>
+
+                    </td>
+                    <if condition="$list.audit eq 1"> 
+                    <td>通过</td>
+					<elseif condition="$list.audit eq 0"/>
+					<td>审核中</td>
+					<elseif condition="$list.audit eq -1"/>
+					<td>审核失败</td>
+					<else /> 
+					<td>未审核</td>
+					</if>
+					
+					<if condition="$list.sms eq 1"> 
+                    <td> 
+                    <div style="cursor: pointer;" id="sms_open<{$list.dingyue_id}>">开</div>
+                    </td>
+					<elseif condition="$list.sms eq -1"/>
+					<td><div style="cursor: pointer;" id="sms_open<{$list.dingyue_id}>">关</div></td>
+					<else /> 
+					<td>未设置</td>
+					</if>
+                     <script type="text/javascript">
+                        $("#sms_open<{$list.dingyue_id}>").click(function(){
+                                var sms ="<{$list.sms}>";
+                                var id="<{$list.dingyue_id}>";
+                                var urla="<{:U('shopdingyue/sms_open')}>";
+                                $.ajax({
+                                    type:"post",
+                                    dataType:"json",
+                                    url:urla,
+                                    data:{"sms":sms,
+                                          "dingyue_id":id
+                                        },
+                                    success:function(response){
+                                         if (response.status == 1) {
+                                            var sms=response.sms;
+                                            $("#sms_open<{$list.dingyue_id}>").html(sms);
+                                         }else{
+                                            alert('不能双击开关！请刷新页面');
+                                         }
+                                        
+                                    }
+                            });
+                         });
+                    </script>
+
+                    <td class="tgdd_nrCtd"><a href="<{:U('shopdingyue/del',array('dingyue_id'=>$list['dingyue_id']))}>">删除</a></td>
+                </tr>
+            </foreach>
+        </table>
+       
+        <div class='x'><{$page}></div>
+     </div>
+     <div id="<{$hideb}>"></div>
+     <div id="<{$hidea}>"></div>
+     <div id="<{$hidet}>"></div>
+    <script>
+    $(document).ready(function(){ 
+    	if($("#hidearea_id").length>0){
+    		$("#city_id").show();
+    		$("#business_id").hide();
+    		$("#area_id").hide();
+    	}else if($("#hidebusiness_id").length>0){
+    		$("#city_id").show();
+    		$("#area_id").show();
+    		$("#business_id").hide();
+    	}else{
+    		$("#city_id").show();
+    		$("#area_id").show();
+    		$("#business_id").show();
+    	}
+    	//分类
+    	/*if($("#hidetwocate_id").length>0){  
+    		$(".cate_twotwo").hide(); 
+    	}*/
+   	}) 
+    </script>
+</div>
+<include file="public:footer"/>

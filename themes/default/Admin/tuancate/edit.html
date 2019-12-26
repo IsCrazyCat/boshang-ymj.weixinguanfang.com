@@ -1,0 +1,32 @@
+<div class="mainScAdd ">
+    <div class="tableBox">
+        <form target="baocms_frm" action="<{:U('tuancate/edit',array('cate_id'=>$detail['cate_id']))}>" method="post">
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">分类：</td>
+                    <td class="rgTdBt"><input type="text" name="data[cate_name]" value="<{$detail.cate_name|default=''}>" class="manageInput" />
+
+                    </td>
+                </tr>
+                 <tr>
+                    <td class="lfTdBt">结算费率：</td>
+                    <td class="rgTdBt"><input type="text" name="data[rate]" value="<{$detail.rate|default=''}>" class="manageInput" />
+                        <code>千分之，比如是60‰ 就填60</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">排序：</td>
+                    <td class="rgTdBt"><input type="text" name="data[orderby]" value="<{$detail.orderby|default=''}>" class="manageInput" />
+                        <code>数字越小越高</code>
+                    </td>
+                </tr>
+                 
+                <tr>
+                    <td colspan="2">
+                        <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+</div>

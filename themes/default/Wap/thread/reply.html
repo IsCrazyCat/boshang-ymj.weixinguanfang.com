@@ -1,0 +1,92 @@
+<include  file='public:header'/>
+<link rel="stylesheet" type="text/css" href="/static/default/wap/other/webuploader.css"> 
+<script src="/static/default/wap/other/webuploader.js"></script>
+<style>
+.shuxing{width: 20px; height: 20px;margin-bottom: 10px;}
+.Upload-img .jq_photo_more span.resporse_photo, .Upload-img .moreToUpload_img{margin:0 5px 5px 0; float:left; z-index:3;}
+.Upload-img .jq_photo_more span.resporse_photo img, .Upload-img .jq_uploads_img img{width:100%;margin-bottom:3px;}
+.Upload-img .jq_photo_more span.resporse_photo a.resporse_a, .Upload-img .jq_uploads_img .moreToUpload_img a{ font-size:12px; color:#FFF;margin-right: 0px;bottom:0;width:45px;height:20px;line-height:20px;text-align:center;background: #06c1ae;padding: 0 10px;}
+</style>
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('tieba/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			回复帖子
+		</div>
+		<div class="top-share">
+		</div>
+	</header>
+
+	<form class="post-form" action="<{:U('thread/reply',array('post_id'=>$post_id,'commment_id'=>$comment_id))}>" method="post" target="x-frame" >
+		<input type="hidden" name="comment_id" value="<{$comment_id}>"/>
+		<div class="line border-bottom">
+			<textarea class="form-content" name="contents" placeholder="文明上网，登陆发言"></textarea>
+		</div>
+	<div class="blank-10 clearfix"></div>
+		<div class="container">
+
+    <div class="Upload-img-box">
+		<div id="moreToUpload">
+			上传图片
+		</div>
+        <div class="blank-10"></div>
+		<div class="Upload-img">
+			<div class="list-img loading_photo" style="display:none;"></div>
+			<div class="list-img jq_photo_photo" style="display:none;"></div>
+			<div class="jq_photo_more"></div>
+		</div>
+	</div>
+	<script>
+    	var width_thread = '<{:thumbSize($CONFIG[attachs][thread][thumb],0)}>';                     
+		var height_thread = '<{:thumbSize($CONFIG[attachs][thread][thumb],1)}>'; 
+        var uploader = WebUploader.create({                 
+			auto: true,                             
+			swf: '/static/default/webuploader/Uploader.swf',                             
+			server: '<{:U("app/upload/uploadify",array("model"=>"thread"))}>',                             
+			pick: '#moreToUpload',
+			fileNumberLimit:10,                    
+			resize: true,    
+			accept: {
+				title: 'Images',
+				extensions: 'gif,jpg,jpeg,png',
+				mimeTypes: 'image/*'
+			}, 
+			compress:{width:width_thread,height:height_thread,quality:80,allowMagnify: false,crop: true}     
+        });
+
+        uploader.on( 'beforeFileQueued', function( file ) {
+            $(".loading_photo").show();
+            if(file.size > 1024000){
+                uploader.option( 'compress', {
+                    width:width_thread,
+                    quality:60
+                });
+            }
+        });
+        uploader.on('uploadSuccess', function( file,resporse) {
+            $(".loading_photo").hide();
+			var str = '<span class="resporse_photo x3"><img src="' + resporse.url + '">  <input type="hidden" name="photos[]" value="' + resporse.url + '" /><a class="resporse_a" href="javascript:void(0);">取消</a> </span>';     
+            $(".jq_photo_more").append(str);  
+        });
+        uploader.on( 'uploadError', function( file ) {
+            alert('上传出错');
+        });
+        $(document).ready(function () {
+            $(document).on("click", ".jq_uploads_img a", function () {
+                $(this).parent().remove();
+            });
+			$(document).on("click", ".jq_photo_more a", function () {
+                $(this).parent().remove();
+            });
+        });
+    </script>
+          <div class="container text-center">
+                <button class="button button-block button-big bg-dot" type="submit">发表</button>
+        </div>
+                
+            </div>
+		</div>
+	</form>
+	
+<include  file='public:footer'/> 

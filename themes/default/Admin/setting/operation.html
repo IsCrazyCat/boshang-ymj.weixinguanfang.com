@@ -1,0 +1,218 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">设置</li>
+        <li class="li2">站点功能</li>
+        <li class="li2">功能开关</li>
+    </ul>
+</div>
+
+<div class="main-jsgl main-sc">
+
+    <p class="attention"><span>注意：</span>目前只支持部分板块，关闭后只是前台用户看不到，后台还是可看到功能列表。默认保留外卖、自媒体、套餐、关闭的功能请不要开启导航了！</p>
+
+    <form  target="baocms_frm" action="<{:U('setting/operation')}>" method="post">
+
+        <div class="tableBox">
+
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+            
+<tr>
+<td class="lfTdBt">直接关闭PC：</td>
+<td class="rgTdBt">
+<label><input type="radio" name="data[pchome]" <eq name="CONFIG.operation.pchome" value="1">checked="checked"</eq> value="1"  />开启PC</label>
+<label><input type="radio" name="data[pchome]"  <eq name="CONFIG.operation.pchome" value="0">checked="checked"</eq>  value="0"  />关闭PC</label>
+<code>选择关闭，就打不开PC了</code>
+</td>
+</tr>               
+                
+                
+               
+
+
+<tr>
+<td class="lfTdBt">家政频道：</td>
+<td class="rgTdBt">
+<label><input type="radio" name="data[appoint]" <eq name="CONFIG.operation.appoint" value="1">checked="checked"</eq> value="1"  />开启</label>
+<label><input type="radio" name="data[appoint]"  <eq name="CONFIG.operation.appoint" value="0">checked="checked"</eq>  value="0"  />关闭</label>
+<code>不运营家政的可以关闭。</code>
+</td>
+</tr>
+
+<tr>
+<td class="lfTdBt">众筹频道：</td>
+<td class="rgTdBt">
+<label><input type="radio" name="data[crowd]" <eq name="CONFIG.operation.crowd" value="1">checked="checked"</eq> value="1"  />开启</label>
+<label><input type="radio" name="data[crowd]"  <eq name="CONFIG.operation.crowd" value="0">checked="checked"</eq>  value="0"  />关闭</label>
+<code>不运营众筹的可以关闭。</code>
+</td>
+</tr>
+
+<tr>
+<td class="lfTdBt">预订频道：</td>
+<td class="rgTdBt">
+<label><input type="radio" name="data[booking]" <eq name="CONFIG.operation.booking" value="1">checked="checked"</eq> value="1"  />开启</label>
+<label><input type="radio" name="data[booking]"  <eq name="CONFIG.operation.booking" value="0">checked="checked"</eq>  value="0"  />关闭</label>
+<code>不运营订座的可以关闭。</code>
+</td>
+</tr>
+
+<tr>
+<td class="lfTdBt">酒店频道：</td>
+<td class="rgTdBt">
+<label><input type="radio" name="data[hotels]" <eq name="CONFIG.operation.hotels" value="1">checked="checked"</eq> value="1"  />开启</label>
+<label><input type="radio" name="data[hotels]"  <eq name="CONFIG.operation.hotels" value="0">checked="checked"</eq>  value="0"  />关闭</label>
+<code>不运营酒店的可以关闭。</code>
+</td>
+</tr>
+
+
+<tr>
+<td class="lfTdBt">跑腿频道：</td>
+<td class="rgTdBt">
+<label><input type="radio" name="data[running]" <eq name="CONFIG.operation.running" value="1">checked="checked"</eq> value="1"  />开启</label>
+<label><input type="radio" name="data[running]"  <eq name="CONFIG.operation.running" value="0">checked="checked"</eq>  value="0"  />关闭</label>
+<code>自己觉得没多大用，建议关闭。</code>
+</td>
+</tr>          
+        
+<tr>
+<td class="lfTdBt">五折卡频道：</td>
+<td class="rgTdBt">
+<label><input type="radio" name="data[zhe]" <eq name="CONFIG.operation.zhe" value="1">checked="checked"</eq> value="1"  />开启</label>
+<label><input type="radio" name="data[zhe]"  <eq name="CONFIG.operation.zhe" value="0">checked="checked"</eq>  value="0"  />关闭</label>
+<code>新功能，有需要的可以开启，记得去五折卡设置那边设置下购买周卡，年卡的价格。</code>
+</td>
+</tr>  
+
+<tr>
+<td class="lfTdBt">贴吧部落：</td>
+<td class="rgTdBt">
+<label><input type="radio" name="data[thread]" <eq name="CONFIG.operation.thread" value="1">checked="checked"</eq> value="1"  />开启</label>
+<label><input type="radio" name="data[thread]"  <eq name="CONFIG.operation.thread" value="0">checked="checked"</eq>  value="0"  />关闭</label>
+<code>比如整合了dz的可以不需要贴吧。</code>
+</td>
+</tr>
+
+<tr>
+<td class="lfTdBt">农家频道乐：</td>
+<td class="rgTdBt">
+<label><input type="radio" name="data[farm]" <eq name="CONFIG.operation.farm" value="1">checked="checked"</eq> value="1"  />开启</label>
+<label><input type="radio" name="data[farm]"  <eq name="CONFIG.operation.farm" value="0">checked="checked"</eq>  value="0"  />关闭</label>
+<code>一般不需要开启农家乐吧。</code>
+</td>
+</tr>
+
+<tr>
+<td class="lfTdBt">拼团频道：</td>
+<td class="rgTdBt">
+<label><input type="radio" name="data[pintuan]" <eq name="CONFIG.operation.pintuan" value="1">checked="checked"</eq> value="1"  />开启</label>
+<label><input type="radio" name="data[pintuan]"  <eq name="CONFIG.operation.pintuan" value="0">checked="checked"</eq>  value="0"  />关闭</label>
+<code>一般建议关闭。</code>
+</td>
+</tr>
+
+<tr>
+<td class="lfTdBt">拼车频道：</td>
+<td class="rgTdBt">
+<label><input type="radio" name="data[pinche]" <eq name="CONFIG.operation.pinche" value="1">checked="checked"</eq> value="1"  />开启</label>
+<label><input type="radio" name="data[pinche]"  <eq name="CONFIG.operation.pinche" value="0">checked="checked"</eq>  value="0"  />关闭</label>
+<code>注意，一般不要开启拼车。</code>
+</td>
+</tr>
+
+<tr>
+<td class="lfTdBt">新闻资讯：</td>
+<td class="rgTdBt">
+<label><input type="radio" name="data[news]" <eq name="CONFIG.operation.news" value="1">checked="checked"</eq> value="1"  />开启</label>
+<label><input type="radio" name="data[news]"  <eq name="CONFIG.operation.news" value="0">checked="checked"</eq>  value="0"  />关闭</label>
+<code>这个一般都需要的吧。</code>
+</td>
+</tr>
+
+<tr>
+<td class="lfTdBt">分类信息：</td>
+<td class="rgTdBt">
+<label><input type="radio" name="data[life]" <eq name="CONFIG.operation.life" value="1">checked="checked"</eq> value="1"  />开启</label>
+<label><input type="radio" name="data[life]"  <eq name="CONFIG.operation.life" value="0">checked="checked"</eq>  value="0"  />关闭</label>
+<code>一般需要用。</code>
+</td>
+</tr>
+
+<tr>
+<td class="lfTdBt">积分商城：</td>
+<td class="rgTdBt">
+<label><input type="radio" name="data[jifen]" <eq name="CONFIG.operation.jifen" value="1">checked="checked"</eq> value="1"  />开启</label>
+<label><input type="radio" name="data[jifen]"  <eq name="CONFIG.operation.jifen" value="0">checked="checked"</eq>  value="0"  />关闭</label>
+<code>一般需要开启，还是有用的。</code>
+</td>
+</tr>
+
+
+<tr>
+<td class="lfTdBt">卖场频道：</td>
+<td class="rgTdBt">
+<label><input type="radio" name="data[market]" <eq name="CONFIG.operation.market" value="1">checked="checked"</eq> value="1"  />开启</label>
+<label><input type="radio" name="data[market]"  <eq name="CONFIG.operation.market" value="0">checked="checked"</eq>  value="0"  />关闭</label>
+<code>没鸟用，建议关闭。</code>
+</td>
+</tr>  
+
+
+
+<tr>
+<td class="lfTdBt">商城频道：</td>
+<td class="rgTdBt">
+<label><input type="radio" name="data[mall]" <eq name="CONFIG.operation.mall" value="1">checked="checked"</eq> value="1"  />开启</label>
+<label><input type="radio" name="data[mall]"  <eq name="CONFIG.operation.mall" value="0">checked="checked"</eq>  value="0"  />关闭</label>
+<code>真心觉得本地没啥用，商城的话。</code>
+</td>
+</tr> 
+
+<tr>
+<td class="lfTdBt">云购频道：</td>
+<td class="rgTdBt">
+<label><input type="radio" name="data[cloud]" <eq name="CONFIG.operation.cloud" value="1">checked="checked"</eq> value="1"  />开启</label>
+<label><input type="radio" name="data[cloud]"  <eq name="CONFIG.operation.cloud" value="0">checked="checked"</eq>  value="0"  />关闭</label>
+<code>一般没啥用</code>
+</td>
+</tr> 
+
+<tr>
+<td class="lfTdBt">活动频道：</td>
+<td class="rgTdBt">
+<label><input type="radio" name="data[huodong]" <eq name="CONFIG.operation.huodong" value="1">checked="checked"</eq> value="1"  />开启</label>
+<label><input type="radio" name="data[huodong]"  <eq name="CONFIG.operation.huodong" value="0">checked="checked"</eq>  value="0"  />关闭</label>
+<code>一般开启吧！</code>
+</td>
+</tr> 
+ 
+ <tr>
+<td class="lfTdBt">小区频道：</td>
+<td class="rgTdBt">
+<label><input type="radio" name="data[community]" <eq name="CONFIG.operation.community" value="1">checked="checked"</eq> value="1"  />开启</label>
+<label><input type="radio" name="data[community]"  <eq name="CONFIG.operation.community" value="0">checked="checked"</eq>  value="0"  />关闭</label>
+<code>一般开启吧！</code>
+</td>
+</tr> 
+
+<tr>
+<td class="lfTdBt">村镇频道：</td>
+<td class="rgTdBt">
+<label><input type="radio" name="data[village]" <eq name="CONFIG.operation.village" value="1">checked="checked"</eq> value="1"  />开启</label>
+<label><input type="radio" name="data[village]"  <eq name="CONFIG.operation.village" value="0">checked="checked"</eq>  value="0"  />关闭</label>
+<code>一般开启吧！</code>
+</td>
+</tr>                 
+
+            </table>
+
+        </div>
+
+        <div class="smtQr"><input type="submit" value="确认保存" class="smtQrIpt" /></div>
+
+    </form>
+
+</div>
+
+<include  file='public:footer'/>       

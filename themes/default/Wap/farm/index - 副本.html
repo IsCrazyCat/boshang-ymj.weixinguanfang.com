@@ -1,0 +1,156 @@
+<include file="public:header_baocms"/>
+<script>
+    $(function () {
+        $("#search-bar li").each(function (e) {
+            $(this).click(function () {
+                if ($(this).hasClass("on")) {
+                    $(this).parent().find("li").removeClass("on");
+                    $(this).removeClass("on");
+                    $(".serch-bar-mask").hide();
+                }
+                else {
+                    $(this).parent().find("li").removeClass("on");
+                    $(this).addClass("on");
+                    $(".serch-bar-mask").show();
+                }
+                $(".serch-bar-mask .serch-bar-mask-list").each(function (i) {
+
+                    if (e == i) {
+                        $(this).parent().find(".serch-bar-mask-list").hide();
+                        $(this).show();
+                    }
+                    else {
+                        $(this).hide();
+                    }
+                    $(this).find("li").click(function () {
+                        $(this).parent().find("li").removeClass("on");
+                        $(this).addClass("on");
+                    });
+                });
+            });
+        });
+    });
+</script>
+<body>
+<?php if(!$is_app){?>
+<header>
+    <a href="<{:U('index/index')}>"><i class="icon-goback"></i></a>
+    <div class="title">
+    	<div class="box_search">
+            <a href="<{:U('index/search')}>"><i></i>搜索关键词</a>
+        </div>
+    </div>
+    <i class="icon-menu"></i>
+</header>
+<?php }?>
+<div class="page-center-box">
+	<!--banner部分-->
+    <div class="banner">
+        <div class="flexslider" style="max-height: 1.2rem;"> 
+            <ul class="slides">
+                <li><a href="javascript:void(0);"><img src="__TMPL__statics/img/farm/banner.png"  width="100%"/></a></li>
+                <li><a href="javascript:void(0);"><img src="__TMPL__statics/img/farm/banner.png"  width="100%"/></a></li> 
+                <li><a href="javascript:void(0);"><img src="__TMPL__statics/img/farm/banner.png"  width="100%"/></a></li> 
+            </ul>  
+        </div>
+    </div> 
+	<!--banner部分end-->
+    <!--功能部分-->
+    <div class="farm_fuct mb10">
+        <ul>
+            <volist name="cate" id="c">
+                <li class="list"><a href="<{:U('wap/farm/lists',array('play'=>$key))}>"><img src="__TMPL__statics/img/farm/fuct<{$key}>.png"><p><{$c}></p></a></li>
+            </li>
+            </volist>
+            
+            <li class="list"><a href="<{:U('wap/farm/lists')}>"><img src="__TMPL__statics/img/farm/fuct8.png"><p>更多</p></a></li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <!--功能部分end-->
+    <!--推荐-->
+    <div class="farm_recmd mb10">
+        <ul>
+            <li class="list listOne">
+                <div class="box">
+                    <h3 class="colr_1"><em class="ico"></em>景区</h3>
+                    <p>最佳季节最好去处</p>
+                    <img src="__TMPL__statics/img/farm/recmdImg1.png">
+                </div>
+            </li>
+            <li class="list listTwo">
+                <div class="box">
+                	<img src="__TMPL__statics/img/farm/recmdImg2.png">
+                    <div class="pub_wz">
+                        <h3 class="colr_2"><em class="ico"></em>旅游套餐</h3>
+                        <p>省心省事儿必选</p>
+                    </div>
+                </div>
+            </li>
+            <li class="list listThree">
+                <div class="box">
+                    <h3 class="colr_3"><em class="ico"></em>商户住宿</h3>
+                    <p>总有你喜欢的</p>
+                    <img src="__TMPL__statics/img/farm/recmdImg3.png">
+                </div>
+            </li>
+            <li class="list listThree">
+                <div class="box">
+                    <h3 class="colr_4"><em class="ico"></em>攻略</h3>
+                    <p>记录旅游足迹</p>
+                    <img src="__TMPL__statics/img/farm/recmdImg4.png">
+                </div>
+            </li>
+        </ul>
+        <div class="clear"></div>
+    </div>
+    <!--推荐end-->
+    <!--热门-->
+    <div class="farm_hot mb10">
+    	<div class="title">当季热门</div>
+        <div>
+            <ul>
+                <volist name="hot" id="h">
+                    <li class="list">
+                        <div class="box"><a href="<{:U('farm/detail',array('farm_id'=>$h['farm_id']))}>">
+                            <img src="<{:config_img($h['photo'])}>">
+                            <p class="bt"><{$h.farm_name}></p>
+                            <span class="tag">热门农家</span></a>
+                        </div>
+                    </li>
+                </volist>
+            </ul>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <!--热门end-->
+    <!--精选农家-->
+    <div class="seat_list_box farm_jing_box mb10">
+    	<div class="title">精选农家<a href="<{:U('farm/lists')}>" class="more fr">更多&gt;&gt;</a></div>
+        <div id="scroll">
+         <ul class='list-have-pic'>
+            
+	</ul>
+        <script>
+            $(document).ready(function () {
+                loaddata('<{$nextpage}>', $(".list-have-pic"), true);
+            });
+        </script>
+        </div>
+    </div>
+    <!--精选农家end-->
+</div>
+<script src="__TMPL__statics/js/jquery.flexslider-min.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    $(document).ready(function () {
+        /*轮播幻灯图开始*/
+        $('.flexslider').flexslider({
+            directionNav: true,
+            pauseOnAction: false,
+            /*slideshow: false,*/
+            /*touch:true,*/
+        });
+        /*轮播幻灯图结束*/
+    });
+</script>
+<include file="public:footer_baocms"/>

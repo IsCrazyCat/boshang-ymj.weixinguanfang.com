@@ -1,0 +1,178 @@
+<include file='public:header'/>    
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			智慧乡村
+		</div>
+		<div class="top-search" style="display:none;">
+			<form method="post" action="<{:U('village/index',array('change'=>1))}>">
+				<input name="keyword" placeholder="输入搜索的关键字"  />
+				<button type="submit" class="icon-search"></button> 
+			</form>
+		</div>
+		<div class="top-signed">
+			<a id="search-btn" href="javascript:void(0);"><i class="icon-search"></i></a>
+		</div>
+	</header>
+    
+    <script>
+	$(function(){
+		$("#search-btn").click(function(){
+			if($(".top-search").css("display")=='block'){
+				$(".top-search").hide();
+				$(".top-title").show(200);
+			}
+			else{
+				$(".top-search").show();
+				$(".top-title").hide(200);
+			}
+		});
+
+		$("#search-bar li").each(function(e){
+			$(this).click(function(){
+				if($(this).hasClass("on")){
+					$(this).parent().find("li").removeClass("on");
+					$(this).removeClass("on");
+					$(".serch-bar-mask").hide();
+				}
+				else{
+					$(this).parent().find("li").removeClass("on");
+					$(this).addClass("on");
+					$(".serch-bar-mask").show();
+				}
+				$(".serch-bar-mask .serch-bar-mask-list").each(function(i){
+					
+					if(e==i){
+						$(this).parent().find(".serch-bar-mask-list").hide();
+						$(this).show();
+					}
+					else{
+						$(this).hide();
+					}
+					$(this).find("li").click(function(){
+						$(this).parent().find("li").removeClass("on");
+						$(this).addClass("on");
+					});
+				});
+			});
+		});
+		});
+    </script>
+    
+    
+     <div id="filter2" class="filter2">
+    <ul class="tab clearfix">
+      <li class="item">
+        <a href="javascript:void(0);"> 
+        <if condition="!empty($area_id)">
+        <span id="str_b_node" style="color:#f60;"><{$areass[$area_id]['area_name']}></span>
+        <else/>
+        <span id="str_d_node">选择地区</span>
+        </if>
+        <em></em>
+        </a>
+      </li>
+      <li class="item">
+        <a href="javascript:void(0);"> 
+        <if condition="!empty($cate)">
+            <foreach name="getVillageCate" item="var" key="index">  
+                <if condition="$index eq $cate "> 
+                    <span id="str_b_node" style="color:#f60;"><{$var}></span>  
+                </if>
+            </foreach>
+        <else/>
+        <span id="str_d_node">选择分类</span>
+        </if>
+        <em></em>
+        </a>
+      </li>
+      <li class="item">
+        <a href="javascript:void(0);">
+         <if condition="empty($order)">
+        <span id="str_e_node">选择排序</span>
+        <elseif condition="$order eq 1"/>
+        <span id="str_b_node" style="color:#f60;">默认排序</span>
+        <elseif condition="$order eq 2"/>
+        <span id="str_b_node" style="color:#f60;">发布时间</span>
+        <elseif condition="$order eq 3"/>
+        <span id="str_b_node" style="color:#f60;">距离排序</span>
+        </if>
+        <em></em>
+        </a>
+      </li>
+    </ul>
+    <!--地区-->
+    <div class="inner" style=" display:none">
+        <ul>
+       <li class="<if condition='empty($cate_id)'> style="color:red;"</if>"><a href="<{:LinkTo('village/index',array('change'=>1))}>" >全部地区</a></li>
+				 
+				<volist name="areas" id="var" key="index">  
+						<li  <if condition="$var.area_id eq $area_id"> style="color:red;"</if> > 
+							<a title="<{$var}>" href="<{:LinkTo('village/index',array('area'=>$var['area_id'],'change'=>1))}>"><{$var.area_name}></a>
+						</li>
+				 </volist>
+               
+
+            </ul>
+    
+    </div>
+    
+    <div class="inner" style=" display:none">
+        <ul>
+         <li class="<if condition='empty($cate)'> style="color:red;"</if>"><a href="<{:LinkTo('village/index',array('change'=>1))}>" >全部分类</a></li>
+				<foreach name="getVillageCate" item="var" key="index">    
+						<li <if condition="$var.cate_id eq $cat"> style="color:red;"</if>> 
+							<a title="<{$var}>" href="<{:LinkTo('village/index',array('cate'=>$index,'change'=>1))}>"><{$var}></a>
+						</li>
+				 </foreach>
+               
+
+            </ul>
+    
+    </div>
+    
+    <div class="inner" style="display:none;">
+              <ul>
+              <li <if condition="$_GET['order'] eq 3"> style="color:red;"</if> > 
+					<a href="<{:LinkTo('village/index',array('area'=>$area_id,'cate'=>$cate,'order'=>3,'change'=>1))}>">距我最近</a>
+				</li>
+				<li <if condition="$_GET['order'] eq 2"> style="color:red;"</if> >
+					<a href="<{:LinkTo('village/index',array('area'=>$area_id,'cate'=>$cate,'order'=>2,'change'=>1))}>">发布时间</a>
+				</li>
+                <li <if condition="$_GET['order'] eq 1"> style="color:red;"</if> >
+					<a href="<{:LinkTo('village/index',array('area'=>$area_id,'cate'=>$cate,'order'=>1,'change'=>1))}>">默认排序</a>
+				</li>
+             
+            </ul>
+      </div>
+      
+      <div id="parent_container" class="inner_parent" style="display:none;">
+        <div class="innercontent"></div>
+      </div>
+      <div id="inner_container" class="inner_child" style="display:none;">
+        <div class="innercontent"></div>
+      </div>
+    
+</div>
+<!--end-->    
+
+<div id="fullbg" class="fullbg" style="display: none; height: 250px;">
+<i class="pull2"></i>
+</div>
+
+
+    
+    
+    <div class="xiaoqu-list">
+		<ul id="xiaoqu-list"></ul>  
+	</div>
+    <script>
+        $(document).ready(function () {
+			showFilter({ibox:'filter2',content1:'parent_container',content2:'inner_container',fullbg:'fullbg'});
+            loaddata('<{$nextpage}>', $("#xiaoqu-list"), true);
+        });
+    </script>
+
+<include file='public:footer'/>   

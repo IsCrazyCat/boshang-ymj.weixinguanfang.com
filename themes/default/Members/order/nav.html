@@ -1,0 +1,16 @@
+<div class="tgdd_t">
+  <ul>
+    <li <if condition="$ctl eq 'order' and ($act eq 'index' or $act eq 'noindex')">class="on"</if> ><a href="<{:U('order/index')}>">套餐订单</a></li>
+    <li <if condition="$ctl eq 'ele'">class="on"</if> ><a href="<{:U('ele/index')}>">订餐订单</a></li>
+    <if condition="$open_mall eq '1' ">
+    <li <if condition="$ctl eq 'order' and $act eq 'goods'">class="on"</if> ><a href="<{:U('order/goods')}>">商城订单</a></li>
+    </if>
+    <li <if condition="$ctl eq 'appoint'">class="on"</if> ><a href="<{:U('appoint/index')}>">我的家政</a></li>
+    <li <if condition="$ctl eq 'booking'">class="on"</if> ><a href="<{:U('booking/index')}>">我的预订</a></li>
+    <li <if condition="$ctl eq 'cloud'">class="on"</if> ><a href="<{:U('cloud/index')}>">我的拼吧</a></li>
+    <li <if condition="$ctl eq 'hotels'">class="on"</if> ><a href="<{:U('hotels/index')}>">我的酒店</a></li>
+    <li <if condition="$ctl eq 'coupon'">class="on"</if> ><a href="<{:U('coupon/index')}>">我的优惠劵</a></li>
+    <li <if condition="$ctl eq 'yuyue'">class="on"</if> ><a href="<{:U('yuyue/index')}>">我的预约</a></li>
+    <li <if condition="$ctl eq 'exchange'">class="on"</if> ><a href="<{:U('exchange/index')}>">我的兑换</a></li>
+   </ul>
+</div>

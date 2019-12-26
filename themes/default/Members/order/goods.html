@@ -1,0 +1,207 @@
+<include file="public:header"/>
+<div class="content_right">
+    <div class="tgdd">
+        <include file="order:nav"/><!--订单导航-->
+        <div class="tgdd_t">
+            <script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+            <form action="<{:U('order/goods')}>" method="post">
+                <div class="search_form"> 
+                    <span class="search_form_wz">开始时间</span><input class="search_form_time" type="text" name="bg_date" value="<{$bg_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  />
+                    <span class="search_form_wz">结束时间</span><input class="search_form_time" type="text" name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});" />
+                    
+                <span class="search_form_wz">状态</span>
+                <select name="st" class="search_form_zt">
+                    <option value="999">请选择</option>
+                    <option <eq name="st" value="0">selected="selected"</eq>  value="0">等待付款</option>
+                    <option <eq name="st" value="1">selected="selected"</eq>  value="1">等待发货</option>
+                    <option <eq name="st" value="2">selected="selected"</eq>  value="2">仓库已捡货</option>
+                    <option <eq name="st" value="3">selected="selected"</eq>  value="3">已收货</option>
+                    <option <eq name="st" value="4">selected="selected"</eq>  value="4">申请退款</option>
+                    <option <eq name="st" value="5">selected="selected"</eq>  value="5">已退款</option>
+                    <option <eq name="st" value="8">selected="selected"</eq>  value="8">已完成</option>
+                </select>
+                
+                
+                    <span class="search_form_wz">订单编号</span>
+                    <input type="text" name="keyword" value="<{$keyword}>" class="search_form_ssk" /><input type="submit" class="search_form_ssan" value="搜索" />
+                </div>
+            </form>
+        </div>
+        <div class="tgdd_nr">
+  
+     <table class="tuan_table3" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#F9F9F9;">
+            <td width="26%">商品详情</td>
+            <td width="10%">单价</td>
+            <td width="5%">数量</td>
+            <td width="9%">总价</td>
+            <td width="15%">状态</td>
+            <td width="20%">实付金额</td>
+            <td width="15%">评价</td>
+     </table>
+     <div class="blank-10"></div>
+     
+           
+                
+<foreach name="list" item="order">  
+
+	<php>
+    $addarres = D('Paddress')->find($order['address_id']);
+    </php>
+              
+  <table  class="tuan_table1"  width="100%" border="0">
+  <tr class="tr_left_2">
+    <td class="left10" colspan="4">
+    订单ID：<span class="mallorder_jg"><{$order.order_id}></span>
+    <span class="td_top_1">交易时间：<{$order.create_time|date='Y-m-d H:i:s',###}>
+    <if condition="!empty($addarres)">
+    	<span class="td_top_1">收货地址：<{$addarres['xm']}> --- <{$addarres['tel']}> --- <{$addarres['area_str']}> --- <{$addarres['info']}></span>
+    </if>
+    </td>
+  </tr>
+  <tr>
+    <td class="td_left_1"> 
+    
+    <foreach name="shops" item="shop">
+    <volist name="goods" id="good" key="index">
+    <if condition="($good['shop_id'] eq $shop['shop_id']) AND ($good['order_id'] eq $order['order_id'])">  
+    <table  class="tuan_table2" width="100%" border="0">
+      <tr class="tr_left_1">
+      
+        <td class="left1">
+        <!--商品展示开始-->
+        <div class="index__production___yfP3y" >
+        <a  target="_blank"  href="<{:u('home/mall/detail',array('goods_id'=>$products[$good['goods_id']]['goods_id']))}>" class="index__pic___TScfk" >
+        
+        
+        <img src="<{:config_img($products[$good['goods_id']]['photo'])}>" ><span></span></a>
+
+        <div class="index__infos___A6XLq" >
+            <p ><a href="<{:u('home/mall/detail',array('goods_id'=>$products[$good['goods_id']]['goods_id']))}>" target="_blank" ><span ></span><span><{$products[$good['goods_id']]['title']}></span><span ></span></a><span></span><span></span></p>
+            <span></span>
+            <p><a href="<{:u('home/mall/detail',array('goods_id'=>$products[$good['goods_id']]['goods_id']))}>" style="margin-right:8px;" target="_blank" <img src="https://img.alicdn.com/tps/i4/T1BCidFrNlXXaSQP_X-16-16.png" ></a>
+			<span style="color:red;"><{$good[key_name]}></span>
+</p>
+            <span></span>
+            
+        	</div>
+		</div>
+       <!--商品展示END-->
+        
+        </td>
+        <td class="left2">￥<{:round($good['price']/100,2)}></td>
+        <td class="left3"><{$good['num']}></td>
+        <td class="left4">￥<{:round($good['total_price']/100,2)}></td>
+        <td class="left5"> <if condition="$order['status'] neq 0  && $order['is_daofu'] neq 0">
+			<{$goodtypes[$good['status']]}>
+            </if></td>
+      </tr>
+     
+    </table>
+    </if>
+   </volist>
+  </foreach>
+    
+    </td>
+    <td class="left7" width="15%">
+    
+     <eq name="order.is_daofu" value="0">
+                   <eq name="order.status" value="0">
+                   <a class="myInfor_sx myInfor_sx_fk" href="<{:u('home/mall/pay',array('order_id'=>$order['order_id']))}>" target="_blank">去付款</a>
+                    <else />
+                    <{$types[$order['status']]}>
+                    </eq>
+                    <else />
+                    <eq name="order.status" value="0">
+                    货到付款
+                    <else />
+                    <{$types[$order['status']]}>
+                    </eq>
+                    </eq>
+       <eq name="order.is_mobile" value="1"><br/><img src="/themes/default/Merchant/statics/images/mobile.png" /></eq>              
+     </td>
+     
+     
+    <td class="left8" width="20%">
+    
+    <eq name="order.is_daofu" value="0">
+     	<span>实付金额：<{:round($order['need_pay']/100,2)}></span>
+      	<if condition="!empty($order['express_price'])">
+      	<br/>
+      	<span>配送费用：<{:round($order['express_price']/100,2)}></span>
+      	</if>
+    <else/>
+        <php>
+        $daofu_price = $order['need_pay'] + $order['express_price'];
+        </php>
+        <a>到付应付款：<{:round($daofu_price/100,2)}></a><br/>
+    	<a>订单金额：<{:round($order['need_pay']/100,2)}> 
+            <if condition="!empty($order['express_price'])">
+            	<br/> + 配送费用：<{:round($order['express_price']/100,2)}>
+            </if>
+        </a>
+    </eq>
+     
+      
+      <if condition="$order['mobile_fan'] gt 0">
+      手机优惠：<{:round($order['mobile_fan']/100,2)}>元
+      </if>
+      <br/>
+      <if condition="$order['use_integral'] gt 0">
+      使用积分：<{$order['use_integral']}> <br/>
+      抵扣现金：<{:round($order['use_integral']/100,2)}>元
+      </if>           
+
+    </td>
+    <td class="left9" width="15%">
+      <if condition="$order['is_daofu']==1"><!--如果是货到付款-->
+            <if condition="$order['status']==0">
+                <a mini='confirm' href="<{:U('order/goodsdel',array('order_id'=>$order['order_id']))}>">取消订单</a>
+            <elseif condition="$order['status']==2" />
+                <a mini='confirm'href="<{:U('order/goodsshou',array('order_id'=>$order['order_id']))}>">确认收货</a>
+            <elseif condition="$order['status']==8" />
+                 <eq name="order.is_dianping" value="0">
+                     <a href="<{:U('order/dianping',array('order_id'=>$order['order_id']))}>">点评</a>
+                 </eq> 
+                 <eq name="order.is_dianping" value="1">
+                    <a>已点评</a>
+                 </eq> 
+            </if>
+        <else/><!--如果不是货到付款-->
+            <if condition="$order['status']==0">
+                <a mini='confirm' href="<{:U('order/goodsdel',array('order_id'=>$order['order_id']))}>">取消订单</a>
+            <elseif condition="$order['status']==1" />
+            	<a mini='confirm' href="<{:U('order/refund',array('order_id'=>$order['order_id']))}>">申请退款</a>
+            <elseif condition="$order['status']==2" />
+                <a mini='confirm' href="<{:U('order/goodsshou',array('order_id'=>$order['order_id']))}>">确认收货</a>
+            <elseif condition="$order['status']==8" />
+            
+                 <eq name="order.is_dianping" value="0">
+                     <a href="<{:U('order/dianping',array('order_id'=>$order['order_id']))}>">点评</a>
+                 </eq> 
+                 <eq name="order.is_dianping" value="1">
+                    <a>已点评</a>
+                 </eq>  
+
+      		<elseif condition="$order['status']==4" />
+            	<a mini='confirm' href="<{:U('order/cancel_refund',array('order_id'=>$order['order_id']))}>">取消退款</a>
+            </if> 
+     </if> 
+     <br/>  
+     <a href="<{:U('order/details',array('order_id'=>$order['order_id']))}>">订单详情</a>
+    </td>
+  </tr>
+ 
+</table>
+<br/>
+</foreach>
+
+
+            
+            <div class="x"><{$page}></div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<include file="public:footer"/>

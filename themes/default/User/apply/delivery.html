@@ -1,0 +1,114 @@
+<include  file='public:header'/>   
+<link rel="stylesheet" type="text/css" href="/static/default/wap/other/webuploader.css"> 
+<script src="/static/default/webuploader/webuploader.min.js"></script>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('member/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		申请配送员
+	</div>
+</header>
+<style>
+#login-input input.mapinputs{ width:48%; float:left; margin-right:5px;}
+#login-input input.mapinputs2{ width:100%; float:left; margin:10px 0px;}
+</style>
+
+
+<if condition="empty($user_delivery)">
+<form class="fabu-form" method="post"  target="x-frame" action="<{:U('apply/delivery')}>">
+<div class="blank-10"></div>
+<div class="Upload-img-box">
+   <div  id="fileToUpload">上传身份证正面</div>
+   <div class="Upload-img">
+   <div class="list-img loading" style="display:none;"><img src=""></div>
+   <div class="list-img jq_photo" style="display:none;"></div>
+  </div>
+</div>
+    <script>
+    	var width_delivery_user_photo = '<{:thumbSize($CONFIG[attachs][delivery_user_photo][thumb],0)}>';                     
+		var height_delivery_user_photo = '<{:thumbSize($CONFIG[attachs][delivery_user_photo][thumb],1)}>';  
+        var uploader = WebUploader.create({                 
+			auto: true,                             
+			swf: '/static/default/webuploader/Uploader.swf',                             
+			server: '<{:U("app/upload/uploadify",array("model"=>"delivery_user_photo"))}>',                             
+			pick: '#fileToUpload',                             
+			resize: true,    
+			compress : {width:width_delivery_user_photo,height:height_delivery_user_photo,quality:60,allowMagnify: false,crop: true}//裁剪       
+        });
+        //监听文件处理
+        uploader.on( 'beforeFileQueued', function( file ) {
+            $(".loading").show();
+            if(file.size > 1024000){
+                uploader.option( 'compress', {
+                    width:width_delivery_user_photo,//这里裁剪长度
+                    quality:60
+                });
+            }
+        });
+        //上传成功替换页面图片
+        uploader.on( 'uploadSuccess', function( file,resporse) {
+            $(".loading").hide();
+            var str = '<img src="'+resporse.url+'"><input type="hidden" name="data[photo]" value="' + resporse.url + '" />';
+            $(".jq_photo").show().html(str);
+        });
+        //上传失败提醒
+        uploader.on( 'uploadError', function( file ) {
+            alert('上传出错');
+        });
+
+        $(document).ready(function () {
+            $(document).on("click", ".photo img", function () {
+                $(this).parent().remove();
+            });
+        });
+    </script>
+
+<div class="blank-10 bg"></div>
+<div class="row">
+	<div class="line">
+		<span class="x3">姓名：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[name]" value="<if condition="$MEMBER.nickname neq null"><{$MEMBER.nickname}><else/></if>"/>
+		</span>
+	</div>
+</div>
+<div class="row">
+	<div class="line">
+		<span class="x3">手机：</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[mobile]"  value="<if condition="$MEMBER.mobile neq null"><{$MEMBER.mobile}><else/></if>" />
+		</span>
+	</div>
+</div>
+
+<div class="row">
+	<div class="line">
+		<span class="x3">地址:</span>
+		<span class="x9">
+			<input type="text" class="text-input" name="data[addr]"/>
+		</span>
+	</div>
+</div>
+
+	<div class="container">
+		<div class="blank-30"></div>
+		<button  type="submit" class="button button-block button-big bg-dot">点击申请</button>
+		<div class="blank-30"></div>
+	</div>
+		
+</form>
+<elseif condition="$user_delivery['audit'] eq 0" />
+<div class="container">
+		<div class="blank-30"></div>
+		<button  type="submit" class="button button-block button-big bg-gray">审核中</button>
+		<div class="blank-30"></div>
+	</div>
+<elseif condition="$user_delivery['audit'] eq 1" />
+<div class="container">
+		<div class="blank-30"></div>
+		<a  href="<{:U('delivery/index/index')}>" class="button button-block button-big bg-dot">已审核,点击登录</a>
+		<div class="blank-30"></div>
+	</div>	
+    </if>
+<include  file='public:footer'/>

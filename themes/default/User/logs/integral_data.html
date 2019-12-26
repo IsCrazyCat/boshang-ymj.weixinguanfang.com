@@ -1,0 +1,10 @@
+<foreach name="list" item="var">
+<li class="line ">
+	<dd class="zhong">
+		<div class="12">
+			<p class="text-small">积分：<{$var.integral}>， &nbsp;	备注：<{$var.intro}></p>
+			<p class="text-small">时间：<{$var.create_time|date='Y-m-d H:i:s',###}></p>
+		</div>
+	</dd>
+</li>
+</foreach>    

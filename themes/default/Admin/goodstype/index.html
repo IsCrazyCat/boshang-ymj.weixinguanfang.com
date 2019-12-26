@@ -1,0 +1,55 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商城</li>
+        <li class="li2">商品类型</li>
+        <li class="li2 li3">类型列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span> 这里显示所有的商品类型</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('Goodstype/addEditGoodsType','','添加属性')}>  
+            </div>
+            <div class="right">
+               
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td><input type="checkbox" class="checkAll" rel="id" /></td>
+                        <td>ID</td>
+                        <td>类型名</td>
+                        <td>操作</td>
+                     <foreach name="goodsTypeList" item="var">
+                        <tr>
+                            <td><input class="child_id" type="checkbox" name="id[]" value="<{$var.id}>" /> </td>
+                            <td><{$var.id}></td>
+                            <td><{$var.name}></td>
+                            <td>
+                                <{:BA('Goodstype/goodsAttributeList',array('type_id'=>$var[id]),'属性列表','','remberBtn')}>
+                                <{:BA('Goodstype/addEditGoodsType',array('id'=>$var['id']),'编辑','','remberBtn')}>
+                                <{:BA('Goodstype/delGoodsType',array("id"=>$var["id"]),'删除','act','remberBtn')}>
+                            </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('Goodstype/delGoodsType','','批量删除','list','a2')}>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>  
+
+<

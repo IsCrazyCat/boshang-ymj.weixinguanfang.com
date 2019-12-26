@@ -1,0 +1,109 @@
+<include file="public:header" /> 
+<div class="content_right">
+    <div class="tgdd">
+        <include file="order:nav"/><!--订单导航-->
+        <div class="tgdd_t">
+            <script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+            <form action="<{:U('cloud/index')}>" method="post">
+                <div class="search_form"> 
+                    <span class="search_form_wz">开始时间</span><input class="search_form_time" type="text" name="bg_date" value="<{$bg_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd'});"  />
+                    <span class="search_form_wz">结束时间</span><input class="search_form_time" type="text" name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd'});" />
+                    <span class="search_form_wz">状态</span>
+                    <select name="st" class="search_form_zt">
+                        <option value="999">请选择</option>
+                        <option <eq name="st" value="1">selected="selected"</eq>  value="1">已揭晓</option>
+                        <option <eq name="st" value="0">selected="selected"</eq>  value="0">进行中</option>
+                    </select>
+                    <span class="search_form_wz">商品名称</span>
+                    <input type="text" name="keyword" value="<{$keyword}>" class="search_form_ssk" /><input type="submit" class="search_form_ssan" value="搜索" />
+
+                </div>
+            </form>
+        </div>
+
+        <div class="tgdd_nr">
+
+            <table border="0" cellspacing="0" width="100%"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; text-align:center;">
+
+                <tr class="tgdd_nrt">
+
+                    <th>商品图片</th>
+
+                    <th align="left" style="padding-left: 20px;">商品名称</th>
+
+                    <th>云购状态</th>
+
+                    <th>参与次数</th>
+
+                    <th>操作</th>
+
+                </tr>
+
+                <volist name="list" id="item" key="index">
+
+                    <tr class="tgdd_nrt">
+
+                        <td><div class="activityImg"><a target="_blank" href="<{:u('home/cloud/detail',array('goods_id'=>$item['goods_id']))}>"><img style="margin: 10px auto 1px " width="100" height="81" src="<{:config_img($item['photo'])}>" /></a></div></td>
+
+                        <td>
+
+                            <div class="mine_yiyuan">
+
+                                <if condition="$item.status eq 1">
+
+                                    <a class="myInfor_sx" target="_blank" href="<{:u('home/cloud/detail',array('goods_id'=>$item['goods_id']))}>"><{$item['title']}></a>
+
+                                    <p>总需：<{$item.price}>人次</p>
+
+                                    <p>获得者：<b style="color:red;"><{$users[$item['win_user_id']]['nickname']}></b>(本期共参与<span style="color:red;"><{$item.sum2}></span>人次)</p>
+
+                                    <p>幸运号码：<{$item.win_number}></p>
+
+                                    <p>揭晓时间：<{$item.lottery_time|date='Y-m-d H:i:s',###}>.000</p>
+
+                                    <else/>
+
+                                    <a class="myInfor_sx" target="_blank" href="<{:u('home/cloud/detail',array('goods_id'=>$item['goods_id']))}>"><{$item['title']}></a>
+
+                                    <p>总需：<{$item.price}>人次</p>
+
+                                    <php>$lefts = $item['price'] - $item['join']; $tt = round($item['join']/$item['price']*100,2);</php>
+
+                                    <div><p class="w-progressBar-wrap"><span class="w-progressBar-bar" style="width:<{$tt}>%;"></span></p></div>
+
+                                    <div class="w-progressBar-txt"><span class="left">以参与人次：<{$item.join}></span><span class="right">剩余人次：<{$lefts}></span></div>
+
+                                </if>
+
+                            </div>
+
+                        </td>
+
+                        <td><eq name="item.status" value="1"><span style="color:red;">已揭晓</span><else/><span style="color: #1ca290;">正在云</span></eq></td>
+
+                    <td><{$item.sum}></td>
+
+                    <td><a href="<{:U('cloud/detail',array('goods_id'=>$item['goods_id'],'p'=>$_GET['p']))}>">详情</a></td>
+
+                    </tr>
+
+                </volist>
+
+            </table>
+
+            <div class="x"><{$page}></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+<include file="public:footer"/>
+
+
+

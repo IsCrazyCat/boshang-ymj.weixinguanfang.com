@@ -1,0 +1,190 @@
+<include file='public:header'/>  
+<script src="/static/pintuan/common.js" type="text/javascript"></script>  
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="javascript:history.back(-1)"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			订单设定
+		</div>
+	</header>
+<style>
+.icon-angle-right{ float:right; font-size:20px;}
+#order_beizu{width:100%; margin-top:5px;border: thin solid #eee;resize: none; height:80px;border-radius: 4px;}
+#payForm{ margin:10px;}
+.pay-method, li.media.media-x.payment{border-top: thin solid #eee;}
+</style>  
+
+
+<div class="list-media-x border-bottom">
+	<ul>
+		<li class="line padding">
+			<div class="x3">
+				<img style="width:90%;" src="<{:config_img($detail['goods_pic'])}>">
+			</div>
+			<div class="x9">
+				<p><{$detail.name}></p>
+				<p class="text-small">小计：<span class="text-dot"><{:round($price/100,2)}>/<{$detail.goods_unit}> <if condition="$tstatus eq 1">团长价</if></span></p>
+                
+			</div>
+		</li>  
+	</ul>
+</div>
+
+<div class="blank-10 bg"></div>
+<div class="pay-form">  
+		<div class="row">
+			<span class="float-left">应付款：</span>
+			<span class="float-right">￥ <{:round(($express_price +$price)/100,2)}></span>
+		</div>
+		<hr />
+		<div class="row">
+			<span class="float-left">配送费用：</span>
+			<span class="float-right">￥<{:round($express_price/100,2)}>元
+        </if></span>
+		</div>
+		<hr />
+		<div class="row">
+			<span class="float-left">请选择收货地址</span>
+		</div>
+		<hr />
+ 
+		<div class="row">
+        <span class="x10">
+				<{$defaultAddress.xm}> <{$defaultAddress.tel}> 
+            <p onclick="location='<{$changeAddressUrl}>'"><{$defaultAddress.area_str}> <{$defaultAddress.info}></p>
+         </span>
+          <span class="x2" onclick="location='<{$changeAddressUrl}>'"><i class="icon-angle-right padding-top"></i></span>
+		</div>
+		<hr />
+
+		
+		<div class="blank-10 bg"></div>
+        
+        <ul id="payjsb" class="pay-method">
+		<if condition="$is_weixin eq 1">
+          <li data-rel="weixin" class="media media-x payment">
+				<a class="float-left" href="javascript:;">
+					<img src="/static/default/wap/image/pay/weixin_mobile.png">
+				</a>
+				<div class="media-body">
+					<div class="line">
+						<div class="x10">
+						微信支付
+						</div>
+						<div class="x2">
+							<span class="radio txt txt-small radius-circle bg-green"><i class="icon-check"></i></span>
+						</div>
+					</div>
+				</div>
+			</li>
+        <else />
+        <li data-rel="alipay" class="media media-x payment">
+				<a class="float-left" href="javascript:;">
+					<img src="/static/default/wap/image/pay/alipay_mobile.png">
+				</a>
+				<div class="media-body">
+					<div class="line">
+						<div class="x10">
+						支付宝<p>推荐已安装支付宝客户端的用户使用</p>
+						</div>
+						<div class="x2">
+							<span class="radio txt txt-small radius-circle bg-green"><i class="icon-check"></i></span>
+						</div>
+					</div>
+				</div>
+			</li>	
+        </if>
+		</ul>
+					
+           
+		
+           <form name="payForm" id="payForm" >
+                        <div class="buy_order_beizu">
+                            <textarea name="order_beizu" id="order_beizu" placeholder="备注、留言"></textarea>
+                        </div>
+                        <div><input type="button" name="submit" class="button button-big button-block bg-yellow id_pay_btn" id="id_pay_btn1" value="提交订单"/>
+                            <input type="hidden" name="goods_id" value="<{$detail.id}>" />
+                            <input id="code" type="hidden" name="code" value="" />
+                            <input type="hidden" name="address_id" value="<{$defaultAddress.id}>" />
+                            <input type="hidden" name="tstatus" value="<{$tstatus}>" />
+                            <input type="hidden" name="tlevel" value="<{$tlevel}>" />
+                            <input type="hidden" name="tuan_id" value="<{$tuan_id|default='0'}>" />
+                            <input type="hidden" name="goods_price" value="<{$price}>" />
+                            <input type="hidden" name="express_name" value="<{$express}>" />
+                            <input type="hidden" name="express_price" value="<{$express_price}>" />
+                            <input type="hidden" name="goods_num" id="goods_num" value="1" />
+                            <input type="hidden" name="order_id" value="<{$order_id|default='0'}>" />
+                        </div>
+                    </form>
+		
+
+		
+		<div class="blank-20"></div>
+</div>
+</div>
+ <script>
+ window.onload=function(){
+        if(typeof local_kingkr_obj=='undefined'){
+         document.getElementById('payjsa').style.display = "none";
+         document.getElementById('payjsb').style.display = "block";
+        }else{
+        document.getElementById('payjsa').style.display = "block";
+        document.getElementById('payjsb').style.display = "none";
+        }
+    }
+$(function() {
+    FastClick.attach(document.body);
+});
+var submintPayStatus = 0;
+var tuanurl;
+$("#payjsb li").click(function(){
+				var code = $(this).attr("data-rel");
+				$("#code").val(code);
+				$("#goTenPay .pay2_list").each(function(){
+					$(this).removeClass("active");
+				});
+				$(this).addClass("active");
+			});
+
+$(".id_pay_btn").click( function () { 
+    if(submintPayStatus == 1){
+        return false;
+    }
+    var code       = $("#code").val();
+    if(code == ""){
+        tusi("请选择支付方式！");
+        return false;
+    }
+    submintPayStatus = 1;
+    $.ajax({
+        type: "GET",
+        url: "<{:U('pintuan/pay')}>",
+        dataType : "json",
+        data: $('#payForm').serialize(),
+        success: function(data){
+            if(data.status == 200) {
+                tusi("下单成功，马上去支付！");
+                setTimeout(function(){window.location.href='<{$CONFIG.site.host}>/wap/payment/payment/log_id/'+data.log_id;},500);
+            }else if(data.status == 303){
+                tusi("有人比您早一步下单了");
+                setTimeout(function(){window.location.href='<{$CONFIG.site.host}>/wap/pintuan/tuan/id/'+data.tuan_id;},1888);
+            }else if(data.status == 304){
+                tusi("商品库存不足");
+                setTimeout(function(){window.location.href='<{$CONFIG.site.host}>/wap/pintuan/tuan/id/'+data.tuan_id;},1888);
+            }else if(data.status == 305){
+                tusi("下单失败，参加的团已满");
+                setTimeout(function(){window.location.href='<{$CONFIG.site.host}>/wap/pintuan/tuan/id/'+data.tuan_id;},1888);
+            }else if(data.status == 306){
+                tusi("你的购买数量超过限额");
+                setTimeout(function(){window.location.href='<{$CONFIG.site.host}>/wap/pintuan/tuan/id/'+data.tuan_id;},1888);
+            }else{
+                tusi("下单异常");
+                setTimeout(function(){window.location.href='<{$CONFIG.site.host}>/wap/pintuan/tuan/id/'+data.tuan_id;},1888);
+            }
+        }
+    });
+});
+</script>   
+
+<include  file='public:footer'/>       

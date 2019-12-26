@@ -1,0 +1,43 @@
+<include file="public:header"/>
+   <header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			发现
+		</div>
+		<div class="top-share">
+		</div>
+	</header>
+    <ul id="shangjia_tab">
+            <li class="x4"><a href="<{:U('thread/index')}>" <if condition="$act eq 'index'">class="on"</if> >推荐</a></li>
+            <li class="x4"><a href="<{:U('thread/lists')}>" <if condition="$act eq 'lists'">class="on"</if> >发现</a></li>
+            <li class="x4"><a href="<{:U('thread/attent')}>" <if condition="$act eq 'attent'">class="on"</if> >关注</a></li>
+    </ul>  
+
+<!--头部切换end-->
+<div class="page-center-box">
+    <div class="fl faxian_cont-left">
+        <ul >
+         
+            <li class=" left-list txt_center border_b "><a href="<{:U('thread/lists')}>" class="<if condition='!$cate_id'>on</if> border_r">全部部落</a></li>
+            <foreach name="cates" item="item">
+                <li class=" left-list txt_center border_b ">
+                    <a href="<{:U('thread/lists',array('cate_id'=>$item['cate_id']))}>" class="<eq name='item.cate_id' value='$cate_id'>on</eq> border_r"><{$item.cate_name}></a>
+                </li>
+            </foreach>
+        </ul>
+    </div>
+    <div class="fl faxian_cont-rig">
+        <ul>
+            
+        </ul>
+    </div>
+    <div class="clear"></div>
+</div>
+<script>
+    $(document).ready(function () {
+    loaddata('<{$nextpage}>', $(".faxian_cont-rig ul"), true);
+    });
+</script>
+<include file="public:footer"/>

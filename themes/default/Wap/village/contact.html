@@ -1,0 +1,41 @@
+<include file='public:header'/>    
+	<script src="/static/default/wap/other/roll.js"></script>
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:u('Property/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<{$detail.name}>
+		</div>
+		<div class="top-share">
+			<a href="<{:u('Property/index',array('change'=>1))}>" id="cate-btn"><i class="icon-refresh"></i></a>
+		</div>
+	</header>
+
+	<div class="cite-title padding border-bottom">
+		<h5><i class="icon-phone"></i>  联系物业</h5>
+	</div>
+	<div class="text-list">
+		<ul>
+			<li class="padding border-bottom">
+				<a class="line" href="tel:<{$detail.tel}>">
+					<em class="x4">物业公司</em>
+					<em class="x8"><{$detail.property}><span><i class="icon-angle-right"></i></span></em>
+				</a> 
+			</li>
+			<li class="padding border-bottom">
+				<a class="line" href="tel:<{$detail.tel}>">
+					<em class="x4">联系电话</em>
+					<em class="x8"><{$detail.tel}><span><i class="icon-angle-right"></i></span></em>
+				</a> 
+			</li>
+			<li class="padding border-bottom">
+				<a class="line" href="tel:<{$detail.tel}>">
+					<em class="x4">物业地址</em>
+					<em class="x8"><{$detail.addr}><span><i class="icon-angle-right"></i></span></em>
+				</a> 
+			</li>
+		</ul>
+	</div>
+
+<include  file='public:footer'/>    

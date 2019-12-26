@@ -1,0 +1,87 @@
+<include file="public:header"/>
+<div class="content_right"> 
+<div class="tgdd">
+    <div class="tgdd_nr">
+ 	<include file="order:nav"/><!--订单导航-->
+     <table class="tuan_table3" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#F9F9F9;">
+            <td width="35%">兑换商品</td>
+            <td width="12%">花费积分</td>
+            <td width="13%">收货地址</td>
+            <td width="18%">兑换时间</td>
+            <td width="15%">状态</td>
+     </table>
+     <div class="blank-10"></div>
+   <volist name="list" id="var">  
+  <table class="tuan_table1" width="100%" border="0">
+  <tbody><tr class="tr_left_2">
+    <td class="left10" colspan="4">
+    兑换编号：<span class="mallorder_jg"><{$var.exchange_id}></span>
+    <span class="td_top_1">兑换时间：<{$var.create_time|date='Y-m-d H:i',###}>  </span></td>
+  </tr>
+  <tr>
+    <td class="td_left_1"> 
+    <table class="tuan_table2" width="100%" border="0">
+      <tbody><tr class="tr_left_1">
+        <td class="left1">
+        <!--商品展示开始-->
+        <div class="index__production___yfP3y">
+        <a target="_blank" href="<{:u('home/jifen/detail',array('goods_id'=>$var['goods_id']))}>" class="index__pic___TScfk">
+        <img src="<{:config_img($goods[$var['goods_id']]['face_pic'])}>"><span></span></a>
+        <div class="index__infos___A6XLq">
+            <p><a href="<{:u('home/jifen/detail',array('goods_id'=>$var['goods_id']))}>" target="_blank"><span>商铺：<{$shops[$var['shop_id']]['shop_name']}></span></p>
+            <span><p><{:bao_msubstr($goods[$var['goods_id']]['title'],0,20,false)}></p></span>
+        	</div>
+		</div>
+       <!--商品展示END-->
+        </td>
+        <td class="left2">
+        </td>
+        <td class="left3"><{$goods[$var['goods_id']]['integral']}> </td>
+      </tr>
+    </tbody></table>    
+
+    </td>
+
+    <td class="left7" width="15%"><{$areas[$addrs[$var['addr_id']]['area_id']]['area_name']}>
+                        <{$business[$addrs[$var['addr_id']]['business_id']]['business_name']}>
+                        <{$addrs[$var['addr_id']]['addr']}>,
+                        <{$addrs[$var['addr_id']]['name']}>,
+                        <{$addrs[$var['addr_id']]['mobile']}></a>
+
+     </td>
+    <td class="left8" width="20%">
+   <{$var.create_time|date="Y-m-d H:i:s",###}>
+    </td>
+
+    <td class="left9" width="15%">
+
+   <eq name="var.audit" value="1">已审核<else/>未审核</eq>
+
+    </td>
+
+  </tr>
+
+ 
+
+</tbody>
+
+</table>
+
+<br/> 
+
+</volist>
+
+       
+
+        <div class="x"><{$page}></div>
+
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+<include file="public:footer"/>

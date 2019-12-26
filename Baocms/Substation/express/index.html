@@ -1,0 +1,94 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">频道</li>
+        <li class="li2">快递众包管理</li>
+        <li class="li2 li3">快递众包列表</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <{:BA('express/create','','添加快递众包')}>
+            </div>
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('express/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <label>
+                            <span>关键词</span>
+                            <input type="text" name="keyword" value="<{$keyword|default=''}>" class="inptText" />
+                            <input type="submit" value="搜索"  class="inptButton" />
+                        </label>
+                    </div> 
+                </form>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+
+    <div class="selectNr selectNr2">
+
+        <div class="clear"></div>
+    </div>
+    <form  target="baocms_frm" method="post">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                <tr>
+                    <td class="w50"><input type="checkbox" class="checkAll" rel="user_id" /></td>
+                    <td class="w50">ID</td>
+                    <td>标题</td>
+                    <td>寄件信息</td>
+                    <td>收件信息</td>
+                    <td>发布时间</td>
+                    <td>状态</td>
+                    <td>操作</td>
+                </tr>
+                <foreach name="list" item="var">
+                    <tr>
+                        <td><input class="child_express_id" type="checkbox" name="express_id[]" value="<{$var.express_id}>" /></td>
+                        <td><{$var.express_id}></td>
+                        <td><{$var.title}></td>
+                        <td>
+                            <{$var.from_name}>|<{$var.from_mobile}><br>
+                            <{$var.from_addr}>
+                        </td>
+                        <td>
+                            <{$var.to_name}>|<{$var.to_mobile}><br>
+                            <{$var.to_addr}>
+                        </td>
+                        <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                        <td>
+                         <if condition="$var.status eq 0">
+                            <a class="remberBtn ">未处理</a>
+                            <elseif condition="$var.status eq 1"/>
+                            <a class="remberBtn ">配送中</a>
+                            <elseif condition="$var.status eq 2"/>
+                            <a class="remberBtn ">已完成</a>
+                            <else/>
+                            <a class="remberBtn ">已拒收</a>
+                            </if>
+                        </td>
+                        <td>
+                        <{:BA('express/edit',array("express_id"=>$var["express_id"]),'编辑','','remberBtn')}>
+                        <{:BA('express/delete',array("express_id"=>$var["express_id"]),'删除','act','remberBtn')}>
+                        
+                        </td>
+                    </tr>
+                </foreach>
+            </table>
+             <{$page}>
+        </div>
+        
+        <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                     <{:BA('express/delete','','批量删除','list','remberBtn')}>
+                </div>
+            </div>
+    </form>
+</div>
+</div>
+<include  file='public:footer'/>  
+
+

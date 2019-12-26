@@ -1,0 +1,177 @@
+<include  file='public:header'/>
+
+
+
+<div class="mainBt">
+
+    <ul>
+
+        <li class="li1">便民电话</li>
+
+        <li class="li2">编辑</li>
+
+    </ul>
+
+</div>
+
+<div class="mainScAdd ">
+
+<div class="tableBox">
+
+        <form target="baocms_frm" action="<{:U('convenientphone/edit',array('phone_id'=>$detail['phone_id']))}>" method="post">
+
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+
+                <tr>
+
+                    <td class="lfTdBt">服务名称：</td>
+
+                    <td class="rgTdBt"><input type="text" name="data[name]" value="<{$detail.name|default=''}>" class="manageInput w210" />
+
+
+
+                    <code>请填写电话名称</code></td>
+
+                </tr><tr>
+
+                    <td class="lfTdBt">便民电话：</td>
+
+                    <td class="rgTdBt"><input type="text" name="data[phone]" value="<{$detail.phone|default=''}>" class="manageInput w210" />
+
+<code>请填写电话号码</code>
+
+                    </td>
+
+                </tr>
+                
+                <tr>
+
+                    <td class="lfTdBt">选择区域：</td>
+
+                    <td class="rgTdBt">
+
+                        <select name="data[area_id]" id="area_id" class="manageSelect w210">
+
+                            <option value="0">请选择...</option>
+
+                            <foreach name="areas" item="var">
+
+                                <option value="<{$var.area_id}>"><{$var.area_name}></option>
+
+                            </foreach>   
+
+                        </select>
+
+<code>选择区域</code>
+
+                    </td>
+
+                </tr>
+
+                <script>
+
+                    $(document).ready(function (e) {
+
+                        $("#area_id").change(function () {
+
+                            var url = '<{:U("community/child",array("area_id"=>"0000"))}>';
+
+                            if ($(this).val() > 0) {
+
+                                var url2 = url.replace('0000', $(this).val());
+
+                                $.get(url2, function (data) {
+
+                                    $("#community_id").html(data);
+
+                                }, 'html');
+
+                            }
+
+
+
+                        });
+
+                    });
+
+                </script>
+
+                <tr>
+                    <td class="lfTdBt">选择小区：</td>
+                    <td class="rgTdBt">
+                        <select name="data[community_id]" id="community_id" class="manageSelect w210">
+                            <option value="0">请选择...</option>
+                            <foreach name="communitys" item="var">
+                                <option value="<{$var.community_id}>" <eq name="var.community_id" value="$detail.community_id">selected="selected"</eq> ><{$var.name}></option>
+                            </foreach>   
+                        </select>
+
+<code>请选择小区</code>
+                    </td>
+                </tr>
+                <tr>
+
+                    <td class="lfTdBt">过期时间：</td>
+
+                    <td class="rgTdBt"><input type="text" name="data[expiry_date]" value="<{$detail.expiry_date|default=''}>" onfocus="WdatePicker();"  class="inputData w200" />
+
+
+
+                    </td>
+
+                </tr>
+
+                
+
+                
+
+                  <tr>
+
+                    <td class="lfTdBt">简短介绍：</td>
+
+                    <td class="rgTdBt">
+
+                        <textarea name="data[details]" rows="5" cols="40"><{$detail.details|default=''}></textarea><code>可不填写</code>
+
+                    </td>
+
+                </tr>
+
+                
+
+                
+
+                
+
+                <tr>
+
+                    <td class="lfTdBt">排序：</td>
+
+                    <td class="rgTdBt"><input type="text" name="data[orderby]" value="<{$detail.orderby|default=''}>" class="manageInput w210" />
+
+                        <code>数字越小排序越高</code>
+
+                    </td>
+
+                </tr>
+
+            
+
+            </table>
+
+                       <div style="margin-left:140px;margin-top:20px">
+
+             
+
+                 <input type="submit" value="确认保存" class="smtQrIpt" />
+
+            </div> 
+
+        </form>
+
+</div>
+
+    </div>
+
+<include  file='public:footer'/>
+

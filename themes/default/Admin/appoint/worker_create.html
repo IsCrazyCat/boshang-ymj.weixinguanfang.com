@@ -1,0 +1,102 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">家政</li>
+        <li class="li2">家政管理</li>
+        <li class="li2 li3">新增员工</li>
+    </ul>
+</div>
+<div class="mainScAdd ">
+
+    <div class="tableBox">
+        <form  target="baocms_frm" action="<{:U('appoint/worker_create',array('appoint_id'=>$detail['appoint_id']))}>" method="post">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+               
+                         <tr>
+                    <td class="lfTdBt">价格：</td>
+                    <td class="rgTdBt"><input type="text" name="data[price]" value="<{$worker['price']/100}>" class="manageInput" />
+                     <code>技师的预约价格</code>
+
+                    </td>
+                </tr> 
+          
+              <tr>
+                    <td class="lfTdBt">
+                头像：
+                </td>
+                 <td class="rgTdBt">
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <input type="hidden" name="data[photo]" value="<{$worker['photo']}>" id="data_photo" />
+                        <div id="fileToUpload" >上传头像</div>
+                    </div>
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <img id="photo_photo" width="80" height="80"  src="<{:config_img($worker['photo'])}>" />
+                        <a href="<{:U('setting/attachs')}>">缩略图设置</a>
+                        <{$CONFIG.attachs.appoint_worker.thumb}>
+                    </div>
+                    <script>                                            
+						var width_appoint_worker = '<{:thumbSize($CONFIG[attachs][appoint_worker][thumb],0)}>';                         
+						var height_appoint_worker = '<{:thumbSize($CONFIG[attachs][appoint_worker][thumb],1)}>';                         
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"appoint_worker"))}>',                             
+						pick: '#fileToUpload',                             
+						resize: true,  
+						compress : {width: width_appoint_worker,height: height_appoint_worker,quality: 80,allowMagnify: false,crop: true}                       
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_photo").val(resporse.url);                             
+						$("#photo_photo").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+                </td>
+            </tr>
+               
+
+          <tr>
+            <td class="lfTdBt">姓名：</td>
+            <td class="rgTdBt"><input type="text" name="data[name]" value="<{$worker.name|default=''}>" class="manageInput" />
+           <code>技师姓名</code>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="lfTdBt">职务：</td>
+            <td class="rgTdBt"><input type="text" name="data[office]" value="<{$worker.office|default=''}>" class="manageInput" />
+           <code>技师职务</code>
+            </td>
+        </tr>
+        
+          <tr>
+            <td class="lfTdBt">技师简介：</td>
+            <td class="rgTdBt"><input type="text" name="data[intro]" value="<{$worker.intro|default=''}>" class="manageInput" />
+           <code>技师风采技术一句话介绍</code>
+            </td>
+        </tr>
+        
+        <tr>
+            <td class="lfTdBt">技师手机：</td>
+            <td class="rgTdBt"><input type="text" name="data[mobile]" value="<{$worker.mobile|default=''}>" class="manageInput" />
+           <code>技师联系方式，方便预约人员联系</code>
+            </td>
+        </tr>
+ 
+        <tr>
+            <td class="lfTdBt">描述：</td>
+             <td class="rgTdBt"> <textarea cols='50' rows='5' name="data[content]"><{$worker.content|default=''}></textarea>
+				 <code>技师或者员工的详细介绍</code>
+            </td>
+        </tr>
+        
+    </table>
+            <div style="margin-left:140px;margin-top:20px">
+                <input type="submit" value="确认添加" class="smtQrIpt" />
+                <div>
+</form>
+</div>
+</div>
+<include  file='public:footer'/>       

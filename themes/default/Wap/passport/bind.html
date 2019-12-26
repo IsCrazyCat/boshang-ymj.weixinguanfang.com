@@ -1,0 +1,50 @@
+<include  file='public:header'/>  
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{$backurl}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			绑定账号
+		</div>
+		<div class="top-share">
+			<a href="<{:U('passport/register')}>">注册</a>
+		</div>
+	</header>
+	
+	<div class="line">
+		<div class="blank-40"></div>
+		<form class="login-form" action="<{:U('passport/login')}>" method="post" target="x-frame">
+        <input type="hidden" name="backurl" value="<{$backurl}>">
+			<div class="form-group">
+				<div class="field field-icon">
+					<span class="icon icon-user"></span>
+					<input id="account" name="account" type="text" class="input" placeholder="用户名">
+				</div>
+			</div>
+			<div class="blank-20"></div>
+			<div class="form-group">
+				<div class="field field-icon">
+					<span class="icon icon-key"></span>
+					<input id="password" type="password" name="password" class="input" placeholder="密码">
+				</div>
+			</div>
+			
+			<div class="blank-40"></div>
+			<div class="container">
+				<div class="form-button"><button class="button button-block button-big bg-dot" type="submit">立刻绑定</button></div>
+			</div>
+		</form>
+
+		<div class="blank-40"></div>
+        <div class="container login-open">
+			<h5><a style="color:#333" href="<{:U('passport/register')}>">没有帐号？立即注册</a></h5>
+			
+		</div>
+		<div class="blank-40"></div>
+	</div>
+		
+	</div>
+	
+<include file="public:footer"/>
+
+

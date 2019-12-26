@@ -1,0 +1,125 @@
+<include file="public:header"/>
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			智惠生活
+		</div>
+		<div class="top-search" style="display:none;">
+			<form method="post" action="<{:U('coupon/index')}>">
+				<input name="keyword" placeholder="输入搜索的关键字"  />
+				<button type="submit" class="icon-search"></button> 
+			</form>
+		</div>
+		<div class="top-signed">
+			<a id="search-btn" href="javascript:void(0);"><i class="icon-search"></i></a>
+		</div>
+	</header>
+	<script>
+	$(function(){
+		$("#search-btn").click(function(){
+			if($(".top-search").css("display")=='block'){
+				$(".top-search").hide();
+				$(".top-title").show(200);
+			}
+			else{
+				$(".top-search").show();
+				$(".top-title").hide(200);
+			}
+		});
+	});
+	</script>
+	<div class="line">
+		<div class="banner main-banner">
+			<div class="carousel">
+				<calldata mdl="Ad" where="closed=0 AND site_id=53 and bg_date ELT '{$today}' AND end_date EGT '{$today}' " limit="0,5" cache="43200" order="orderby asc">
+				<div class="item"><a href="<{$item.link_url}>" target="_blank" ><img src="<{:config_img($item['photo'])}>" /></a></div>
+				</calldata>
+			</div>
+		</div>
+	</div>
+	<div class="main-cate">
+		<table class="table table-bordered border-x-none">
+			<tr>
+				<td class="border-top-none">
+					<a href="<{:U('coupon/index',array('cat'=>'112'))}>">	
+						<img src="/static/default/wap/image/coupon/icon-1.png" />
+						<p>购物</p>	
+					</a>
+				</dt>
+				<td class="border-top-none">
+					<a href="<{:U('coupon/index',array('cat'=>'12'))}>">	
+						<img src="/static/default/wap/image/coupon/icon-2.png" />
+						<p>娱乐</p>	
+					</a>
+				</dt>
+				<td class="border-top-none">
+					<a href="<{:U('coupon/index',array('cat'=>'1'))}>">	
+						<img src="/static/default/wap/image/coupon/icon-3.png" />
+						<p>餐饮</p>	
+					</a>
+				</dt>
+				<td class="border-right-none border-top-none">
+					<a href="<{:U('coupon/index',array('cat'=>'13'))}>">	
+						<img src="/static/default/wap/image/coupon/icon-4.png" />
+						<p>酒店</p>	
+					</a>
+				</dt>
+			</tr>
+			<tr>
+				<td>
+					<a href="<{:U('coupon/index',array('cat'=>'125'))}>">	
+						<img src="/static/default/wap/image/coupon/icon-5.png" />
+						<p>美妆</p>	
+					</a>
+				</dt>
+				<td>
+					<a href="<{:U('coupon/index',array('cat'=>'6'))}>">	
+						<img src="/static/default/wap/image/coupon/icon-6.png" />
+						<p>结婚</p>	
+					</a>
+				</dt>
+				<td>
+					<a href="<{:U('coupon/index',array('cat'=>'7'))}>">	
+						<img src="/static/default/wap/image/coupon/icon-7.png" />
+						<p>家居</p>	
+					</a>
+				</dt>
+				<td class="border-right-none">
+					<a href="<{:U('coupon/index')}>">	
+						<img src="/static/default/wap/image/coupon/icon-8.png" />
+						<p>更多</p>	
+					</a>
+				</dt>
+			</tr>
+		</table>
+	</div>
+	<div class="blank-10 bg"></div>
+	
+
+		
+	<div class="coupon-list border-top">	
+		<volist name='shops' id='var'>
+		<h2 class="shop"><{$var['shop_name']}> <span class="text-gray"><{$var.d}></span></h2>
+		<volist name='list' id='var1'>
+		<eq name="var1.shop_id" value="$var.shop_id" >
+		<a href="<{:U('coupon/detail',array('coupon_id'=>$var1['coupon_id']))}>" class="item">	
+			<div class="line">
+				<div class="x4"><img class="pic" src="<{:config_img($var1['photo'])}>"  style="width:90%"></div>
+				<div class="x8">
+					<h3><{$var1['title']}></h3>
+					<p class="intro"><{$var1['intro']}></p>
+					<p class="info">
+						<span class="float-left">下载：<em class="text-yellow"><{$var1.downloads}></em>人</span>	
+						<span class="float-right">有效期至：<em class="text-yellow"><{$var1['expire_date']}></em></span>
+					</p>
+				</div>
+			</div>
+		</a>
+		</eq>
+		</volist>
+		</volist>
+	</div>
+
+ <include file='public:footer'/>      		

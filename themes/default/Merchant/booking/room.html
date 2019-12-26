@@ -1,0 +1,68 @@
+<include file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">订座</a> > <a href="<{:U('booking/room')}>">包厢设置</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <form method="post" action="<{:U('booking/room')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            包厢名称：
+            <input type="hidden" name="type_id" id="type_id" value="<{$type_id}>" />
+            <input type="text" name="keyword" value="<{$keyword}>" class="radius3 tuan_topser" />
+            <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/>
+            <div class="right tuan_topfb_r"><a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('booking/roomcreate')}>">添加包厢+</a></div>
+        </div>
+    </div>
+    </form>
+    <div class="tuanfabu_tab">
+        <ul>
+            <li class="tuanfabu_tabli tabli_change <if condition="$type_id eq 0"> on</if>"><a href="<{:U('booking/room')}>">全部包厢</a></li>
+            <?php foreach($types as $k=>$val){?>
+                <li class="tuanfabu_tabli tabli_change <?php if($type_id == $k)echo 'on';?>">
+                	<a href="<{:U('booking/room',array('type_id'=>$k))}>"><{$val}></a>
+                </li>
+            <?php }?>
+  
+        </ul>
+    </div>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+           <td>包厢名称</td>
+           <td>包厢图片</td>
+           <td>人数</td>
+           <td>包厢说明</td>
+           <td>消费限制</td>
+           <td>操作</td>
+        </tr>
+        <foreach name="list" item="var">
+            <td>
+                <{$var.name}>
+            </td>
+            <td style="height:60px;"><img src="<{:config_img($var['photo'])}>"  style="width:50px; margin 0px auto;" /></td>
+            <td>
+                <{$types[$var['type_id']]}>
+            </td>
+            <td>
+                <{$var.intro}>
+            </td>
+            <td>
+                <{:round($var['money']/100,2)}>
+            </td>
+            <td>
+                <a href="<{:U('booking/roomedit',array('room_id'=>$var['room_id']))}>">编辑</a>
+                <eq name="var.closed" value="0">
+                <a mini='confirm' href="<{:U('booking/roomdelete',array('room_id'=>$var['room_id']))}>">关闭预定</a>
+                <else/>
+                <a mini='confirm' href="<{:U('booking/roomdelete',array('room_id'=>$var['room_id']))}>">开启预定</a>
+                </eq>
+            </td>
+            </tr>
+        </foreach>
+    </table>
+    <div class="paging">
+        <{$page}>
+    </div>
+</div>
+<include file='public:footer'/>

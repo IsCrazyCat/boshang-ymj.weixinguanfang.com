@@ -1,0 +1,288 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">家政设置</li>
+        <li class="li2">家政项目配置</li>
+        <li class="li2 li3"> 家政修改</li>
+    </ul>
+</div>
+<div class="mainScAdd ">
+
+    <div class="tableBox">
+        <form  target="baocms_frm" action="<{:U('housework/setting2',array('id'=>$detail['id']))}>" method="post">
+            <div class="mainScAdd">
+                <div class="tableBox">
+                    <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                    
+                    
+                      <tr>
+                    <td class="lfTdBt">所在区域：</td>
+                    <td class="rgTdBt">
+                        
+                        <select name="data[city_id]" id="city_id" style="float: left;" class="seleFl w210"></select>
+                       <select name="data[area_id]" id="area_id" style="float: left;"  class="seleFl w210"></select>
+
+                    </td>
+                </tr>
+                 <script src="<{:U('app/datas/cityarea')}>"></script>
+                <script>
+                    var city_id = <?php echo (int)$detail['city_id'];?>;
+                    var area_id = <?php echo (int)$detail['area_id'];?>;
+                    function changeCity(cid){
+                        var area_str = '<option value="0">请选择.....</option>';
+                        for(a in cityareas.area){
+                           if(cityareas.area[a].city_id ==cid){
+                                if(area_id == cityareas.area[a].area_id){
+                                    area_str += '<option selected="selected" value="'+cityareas.area[a].area_id+'">'+cityareas.area[a].area_name+'</option>';
+                                }else{
+                                     area_str += '<option value="'+cityareas.area[a].area_id+'">'+cityareas.area[a].area_name+'</option>';
+                                }  
+                            }
+                        }
+                        $("#area_id").html(area_str);
+                    }
+                    $(document).ready(function(){
+                        var city_str = '<option value="0">请选择.....</option>';
+                        for(a in cityareas.city){
+                           if(city_id == cityareas.city[a].city_id){
+                               city_str += '<option selected="selected" value="'+cityareas.city[a].city_id+'">'+cityareas.city[a].name+'</option>';
+                           }else{
+                                city_str += '<option value="'+cityareas.city[a].city_id+'">'+cityareas.city[a].name+'</option>';
+                           }  
+                        }
+                        $("#city_id").html(city_str);
+                        if(city_id){
+                            changeCity(city_id);
+                        }
+                        $("#city_id").change(function(){
+                            city_id = $(this).val();
+                            changeCity($(this).val());
+                        });
+                        
+                        $("#area_id").change(function () {
+                            var url = '<{:U("business/child",array("area_id"=>"0000"))}>';
+                            if ($(this).val() > 0) {
+                                var url2 = url.replace('0000', $(this).val());
+                                $.get(url2, function (data) {
+                                    $("#business_id").html(data);
+                                }, 'html');
+                            }
+
+                        });
+                    });
+                </script>
+                
+                    
+                    <tr>
+                    <td class="lfTdBt">活动商家：</td>
+                    <td class="rgTdBt">
+                        <div class="lt">
+                            <input type="hidden" id="shop_id" name="data[shop_id]" value="<{$detail.shop_id|default=''}>" class="manageInput" />
+                            <input type="text" name="shop_name" id="shop_name"   value="<{$shops.shop_name}>" class="scAddTextName w150 sj"/>
+                        </div>
+                        <a mini="select"  w="800" h="600" href="<{:U('shop/select')}>" class="seleSj">选择家政服务商家</a>
+                    </td>
+                </tr>
+                
+                
+                 <tr>
+                    <td class="lfTdBt">活动类型：</td>
+                    <td class="rgTdBt"> 
+
+                        <select id="cate_id" name="data[cate_id]" class="manageSelect w150">
+                            <foreach name="cates" item="var">
+                                <eq name="var.parent_id" value="0">
+                                <option value="<{$var.cate_id}>"  <eq name="var.cate_id" value="$detail.cate_id">selected="selected"</eq> ><{$var.cate_name}></option>                
+                                <foreach name="cates" item="var2">
+                                    <eq name="var2.parent_id" value="$var.cate_id">
+                                    <option value="<{$var2.cate_id}>"  <eq name="var2.cate_id" value="$detail.cate_id">selected="selected"</eq> > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<{$var2.cate_name}></option>
+                                    </eq>
+                                </foreach>
+                                </eq>
+                            </foreach> 
+                        </select>
+                    </td> 
+                </tr>
+                
+                
+                
+                         <tr>
+                            <td class="lfTdBt">家政服务名称：</td>
+                            <td class="rgTdBt">
+                                <input name="name" value="<{$detail.name}>" type="text" class="manageInput" />
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="lfTdBt">服务建议：</td>
+                            <td class="rgTdBt">
+                                <textarea  name="title" cols="60" rows="6" ><{$detail.title|default=''}></textarea>
+
+                            </td>
+                        </tr>
+
+
+                        <tr>
+                            <td class="lfTdBt">服务价格：</td>
+                            <td class="rgTdBt">
+                                <input name="price" value="<{:round($detail['price']/100,2)}>" type="text" style="width: 80px;" class="manageInput" />
+                                元/
+                                <input name="unit" value="<{$detail['unit']}>" type="text" style="width: 80px;" class="manageInput" />
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td class="lfTdBt">联系人姓名：</td>
+                            <td class="rgTdBt">
+                                <input name="user" value="<{$detail.user}>" type="text" class="manageInput" />
+                            </td>
+                        </tr>
+                        
+                        
+                        <tr>
+                            <td class="lfTdBt">联系人电话：</td>
+                            <td class="rgTdBt">
+                                <input name="tel" value="<{$detail.tel}>" type="text" class="manageInput" />
+                            </td>
+                        </tr>
+                        
+                        
+                        <tr>
+                            <td class="lfTdBt">工具：</td>
+                            <td class="rgTdBt">
+                                <input name="gongju" value="<{$detail.gongju}>" type="text" class="manageInput" />
+                            </td>
+                        </tr>
+                        
+                        
+                          <tr>
+                    <td class="lfTdBt">缩略图：</td>
+                 <td class="rgTdBt">
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <input type="hidden" name="photo" value="<{$detail.photo}>" id="data_photo" />
+                        <div id="fileToUpload" >上传缩略图</div>
+                    </div>
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <img id="photo_img" width="120" height="80"  src="<{:config_img($detail['photo'])}>" />
+                        <a href="<{:U('setting/attachs')}>">缩略图设置</a>
+                        <{$CONFIG.attachs.lifeservice.thumb}>
+                    </div>
+                    <script>                                            
+						var width_lifeservice = '<{:thumbSize($CONFIG[attachs][lifeservice][thumb],0)}>';                         
+						var height_lifeservice = '<{:thumbSize($CONFIG[attachs][lifeservice][thumb],1)}>';                         
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"lifeservice"))}>',                             
+						pick: '#fileToUpload',                             
+						resize: true,  
+						compress : {width: width_lifeservice,height: height_lifeservice,quality: 80,allowMagnify: false,crop: true}                       
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_photo").val(resporse.url);                             
+						$("#photo_img").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+                </td>
+            </tr>
+            
+            
+            
+                   
+                    <tr>
+                  <td class="lfTdBt">更多详情图：</td>
+                        <td class="rgTdBt">
+                            <div>
+                                <div id="moreToUpload" >上传图片</div>
+                            </div>							
+							<script>                                
+									var width_lifeservice_pic = '<{:thumbSize($CONFIG[attachs][lifeservice][thumb],0)}>';  //获取宽度                              
+									var height_lifeservice_pic = '<{:thumbSize($CONFIG[attachs][lifeservice][thumb],1)}>'; //获取高度 
+									var uploader = WebUploader.create({                                    
+									auto: true,                                    
+									swf: '/static/default/webuploader/Uploader.swf',                                    
+									server: '<{:U("app/upload/uploadify",array("model"=>"lifeservice"))}>',                                    
+									pick: '#moreToUpload',                                    
+									fileNumberLimit:10,                                    
+									resize: true, 
+									crop: false,  
+									compress : {width:width_lifeservice_pic,height:height_lifeservice_pic,quality: 80,allowMagnify: false,crop: true},														
+								});                                                               
+								uploader.on( 'uploadSuccess', function( file,resporse) {                                    
+								var str = '<span style="width: 240px; height: 135px; float: left; margin-left: 5px; margin-top: 10px;">  <img width="240" height="135" src="' + resporse.url + '">  <input type="hidden" name="thumb[]" value="' + resporse.url + '" />    <a href="javascript:void(0);">取消</a>  </span>';                                   
+								 $(".jq_uploads_img").append(str);                                
+									 });                                                            
+								 uploader.on( 'uploadError', function( file ) {                                    
+									alert('上传出错');                                
+								 });                                
+								 $(document).on("click", ".jq_uploads_img a", function () {                                    
+									 $(this).parent().remove();                                
+								 });                            
+                             </script>
+                            <div class="jq_uploads_img">
+                                <foreach  name="thumb" item="item">
+                                    <span style="width: 200px; height: 120px; float: left; margin-left: 5px; margin-top: 10px;"> 
+                                        <img width="240" height="135" src="<{:config_img($item)}>">  
+                                        <input type="hidden" name="thumb[]" value="<{$item}>" />  
+                                        <a href="javascript:void(0);">取消</a>  
+                                    </span>
+                                </foreach>
+                            </div>					
+                        </td>
+                    </tr>
+             <tr>
+             
+             
+             
+                
+                
+                
+                        <tr>
+                            <td class="lfTdBt">营业时间：</td>
+                            <td class="rgTdBt">
+                                <input name="biz_time" value="<{$detail.biz_time}>" type="text" class="manageInput" />
+                            </td>
+                        </tr>
+
+
+ 				<tr>
+                    <td class="lfTdBt">服务内容：</td>
+                    <td class="rgTdBt">
+                        <script type="text/plain" id="contents" name="contents" style="width:800px;height:360px;"><{$detail.contents}></script>
+                    </td>
+                </tr><link rel="stylesheet" href="__PUBLIC__/qiniu_ueditor/themes/default/css/ueditor.min.css" type="text/css">
+                    <script type="text/javascript" charset="utf-8" src="__PUBLIC__/qiniu_ueditor/ueditor.config.js"></script>
+                    <script type="text/javascript" charset="utf-8" src="__PUBLIC__/qiniu_ueditor/ueditor.all.min.js"></script>
+                    <script type="text/javascript" src="__PUBLIC__/qiniu_ueditor/lang/zh-cn/zh-cn.js"></script>
+                <script>
+                    um = UE.getEditor('contents', {
+                        lang: 'zh-cn',
+						toolbars:[['fullscreen', 'source', 'undo', 'redo', 'bold', 'italic', 'underline', 'fontborder', 'backcolor', 'fontsize', 'fontfamily', 'justifyleft', 'justifyright', 'justifycenter', 'justifyjustify', 'strikethrough', 'superscript', 'subscript', 'removeformat', 'formatmatch', 'autotypeset', 'blockquote', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', 'link', 'unlink', 'map', 'template', 'background','inserttable','print','attachment',  'emotion',  'snapscreen','insertimage', 'music', 'insertvideo']],  
+                        });
+                </script>
+                
+                
+                
+                
+                        
+                        <tr>
+                            <td class="lfTdBt">浏览量：</td>
+                            <td class="rgTdBt">
+                                <input name="views" value="<{$detail.views}>" type="text" class="manageInput" />
+                            </td>
+                        </tr>
+                        
+                        
+
+                    </table>
+                </div>
+                <div class="smtQr"><input type="submit" value="确定设置" class="smtQrIpt" /></div>
+            </div>
+        </form>
+    </div>
+</div>  
+<include  file='public:footer'/>  

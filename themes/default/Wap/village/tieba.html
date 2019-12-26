@@ -1,0 +1,69 @@
+<include file='public:header'/>    
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('village/detail',array('village_id'=>$detail['village_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			<{$detail.name}>-贴吧
+		</div>
+	</header>
+	<div class="bar-top">
+		<div class="photo"><img src="/static/default/wap/image/tieba/city.jpg" /></div>
+		<div class="line">
+			<div class="x4 text-center">
+				<div class="blank-60"></div>
+				<span class="tag-1 bg-yellow">帖子：<{$count.post}></span>
+			</div>
+            
+            
+			<div class="x4 text-center"><div class="logo"><img src="<{:config_img($detail['pic'])}>" /></div></div>
+			<div class="x4 text-center">
+				<div class="blank-60"></div>
+				<span class="tag-2 bg-white">评论：<{$count.reply}></span>
+			</div>
+		</div>
+		<div class="blank-50"></div>
+		<h4 class="text-center"><{$detail.name}>贴吧</h4>
+		<p class="tips text-center"><{$CONFIG['site']['cityname']}>->"<{$detail.name}>"->社区村聊天社交平台</p>
+	</div>
+	
+	<ul id="tie-list" class="tie-list"></ul>
+	
+	
+    <script>
+		$(document).ready(function () {
+			loaddata('<{$nextpage}>', $("#tie-list"), true);
+			//点击"赞"按钮
+			$("body").delegate(".ctrl-zan","click",function(){
+				var postid = $(this).attr("data");
+				var url = "/mobile/village/zantie/post_id/" + postid + ".html";
+				$.get(url,function(data){
+					if( data == "-1"){
+						alert("你已经赞过该帖了！");
+					}else if( data == '-2'){
+						alert("您还没有登录！");
+					}else{
+						$("#zan-" + postid).find("em").html(data);
+                                                alert("点赞成功，您之间的友好度提升！");
+					}
+				},'html');
+				
+			});
+		});
+	</script>
+		
+<nav class="foot-bar">
+	<div class="line">
+		<div class="x2">
+			<a class="back-icon" href="<{:U('village/detail',array('village_id'=>$detail['village_id']))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="x10">
+			<a class="post-icon" href="<{:U('village/post',array('village_id'=>$detail['village_id']))}>">
+				<i class="icon-pencil-square"></i>
+				发帖子
+			</a>
+		</div>
+	</div>
+</nav>
+</body>
+</html>

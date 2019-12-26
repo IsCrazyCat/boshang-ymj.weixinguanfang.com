@@ -1,0 +1,23 @@
+<include file='public:header'/>  
+<body>
+    <header>
+        <div class="header_color">
+            <a class="back" href="<{:u('members/index')}>"><img  src="__TMPL__statics/img/back_icon.png"></a>
+            充值管理
+        </div>
+    </header>
+    <section class="order_se">
+        <ul class="money">
+            <li class="current"><a href="<{:u('members/money')}>">余额充值</a></li>
+            <li><a href="<{:u('members/recharge')}>">代金券充值</a></li>
+            <li><a href="<{:u('members/gold')}>">金块充值</a></li>
+        </ul>
+    </section>
+    <div class="ui-content" style="margin-top: 10px;">
+        <ul class="register">
+            <li>充值：<{:round($money/100,2)}></li>
+            <li>需要支付金额：<span style="line-height: 30px; color:#f12000;"><{:round($money/100,2)}></li>
+        </ul>
+        <div class="radius"><{$button}></div>
+    </div>
+<include file='public:footer'/>  

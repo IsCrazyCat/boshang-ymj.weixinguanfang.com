@@ -1,0 +1,113 @@
+<include file='public:header'/>  
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>  
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('worker/index/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			优惠券验证
+		</div>
+		<div class="top-signed">
+		
+     	</div>
+	</header>
+<style>
+ul{ padding-left:0px;}
+p, .p {margin-bottom: 10px;}
+.xiaoqu-search {padding:0 10px;background: #fafafa;border-bottom: thin solid #eee;padding-bottom: 1px;margin-top: 2rem;}
+.sh_prompt_infor_box {position: relative;background-color: #fafafa; padding: 0.9rem 0.35rem 0.04rem 0.8rem;}
+</style>
+
+<!-- 筛选TAB -->
+<ul id="shangjia_tab">
+        <li style="width: 50%;"><a href="<{:U('worker/coupon/lists')}>">优惠劵列表</a></li>
+        <li style="width: 50%;"><a href="<{:U('worker/coupon/index')}>" class="on">优惠劵验证</a></li>
+</ul>
+
+
+
+
+	<script>
+	$(function(){
+		$(".sh_search_more_int .center").click(function(){
+				$(this).find(".sh_search_more_pull").toggle();
+		});
+		$(".sh_search_more_pull li").click(function(){
+				$(".sh_search_more_int .center input").val($(this).html());
+				v = $(this).attr('v');
+				$('#st').val(v);
+		});
+	});
+</script>
+	
+	<div class="xiaoqu-search">
+	<div class="sh_prompt_infor_box">
+    	<p>每个里面输入一个！可以验证优惠券哦</p>
+        <div class="sh_prompt_infor_closs"></div>
+    </div>
+	</div>
+
+    
+    
+
+    
+ <div class="blank-20"></div>   
+
+			
+		
+    
+  <form method="post" action="<{:U('Coupon/index')}>">
+    <div class="sh_buy_tab_box">
+    	<div class="sh_buy_content">
+        	<div class="sh_buy_add_btn"><input class="btn" type="button" id="add" value="新增+"></div>
+            <div class="blank-10"></div> 
+            <div class="sh_list_public_box" id="jq_code">
+                <ul style="padding:0px;">
+                    <li class="list_box mb10 tuaned_int" style="border-top:1px solid #dedede;">
+                        <div class="sh_buy_add_int">
+                        	<input name="code[1]" class="text" type="text" value="">
+                            <input class="sh_buy_add_int_del" type="button" value="移除">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+          <div class="blank-20"></div> 	
+            <div class="container">
+				<div class="form-button"><button id="btn" class="button button-block button-big bg-dot" type="submit">确认消费</button></div>
+			</div>
+        </div>
+    </div>
+    </form>
+    
+  </ul>
+
+<div class="blank-20"></div> 	
+
+<script>
+var code_num = 1;
+$(document).ready(function (e) {
+	$(document).on('click', '.sh_buy_add_int_del', function () {
+		$(this).parents(".tuaned_int").remove();
+	});
+	$("#add").click(function () {
+		code_num++;
+		var str = '<li class="list_box mb10 tuaned_int" style="border-top:1px solid #dedede;"><div class="sh_buy_add_int">';
+		str += '<input name="code[' + code_num + ']" class="text" type="text" value="" />';
+		str += '<input class="sh_buy_add_int_del" type="button" value="移除"></div></li>';
+		$("#jq_code ul").append(str);
+	});
+	$('#submit').click(function () {
+		$('form').submit()
+	});
+});
+</script>
+        
+        
+
+
+
+
+		
+<include file="public:footer"/>
+
+

@@ -1,0 +1,9 @@
+<style>
+.main-sc .jsglNr .selectNr .left a.on {background-color: #F00;}
+</style>
+<a <if condition="$act eq 'setting' ">class="on"</if> href="<{:U('crowd/setting',array('goods_id'=>$detail['goods_id']))}>">项目管理</a>
+<a <if condition="$act eq 'project' ">class="on"</if>  href="<{:U('crowd/project',array('goods_id'=>$detail['goods_id']))}>">进展管理</a>
+<a <if condition="$act eq 'ask' ">class="on"</if> href="<{:U('crowd/ask',array('goods_id'=>$detail['goods_id']))}>">话题管理</a>
+<a <if condition="$act eq 'follow' ">class="on"</if> href="<{:U('crowd/follow',array('goods_id'=>$detail['goods_id']))}>">点赞管理</a>
+<a <if condition="$act eq 'lists' ">class="on"</if> href="<{:U('crowd/lists',array('goods_id'=>$detail['goods_id']))}>">支持列表</a>
+<{:BA('crowd/index','','返回众筹列表')}>

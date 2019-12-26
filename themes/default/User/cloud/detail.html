@@ -1,0 +1,60 @@
+<include file='public:header'/>  
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('cloud/index',array('status'=>0))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			云购订单详情
+		</div>
+		<div class="top-share">
+			<a href="#" id="cate-btn"></a>
+		</div>
+	</header>
+<body>   
+
+<style>
+.panel-list li.padding10 { padding:0 10px;}
+.panel-list li a.button-small { margin:10px 0; padding:0 10px; text-align:center; font-size:14px;}
+</style>
+<div class="panel-list">
+	<ul>
+		<li><a href="javascript:;">订单编号：<em><{$detail.log_id}></em></a></li>
+        <li><a href="javascript:;">订单总额：<{:round($detail['money']/100,2)}></a></li>
+        <li><a href="javascript:;">下单时间：<{$detail.create_time|date='Y-m-d H:i:s',###}></a></li>
+	</ul>
+</div>
+<div class="blank-10 bg"></div>
+<div class="panel-list">
+	<ul>
+        <li class="padding10">
+         <if condition="$detail['status'] eq 0">
+                  <a class="button button-small bg-dot"  href="<{:U('wap/cloud/pay',array('log_id'=>$detail['log_id']))}>">去付款</a>
+                  <a target="x-frame" class="button button-small bg-gray" href="<{:U('cloud/delete',array('log_id'=>$detail['log_id']))}>">取消订单</a>
+             <elseif condition="$detail[status] eq 1" />
+                  <a class="button button-small bg-dot" >已付款</a>
+             </if>       
+             
+             
+        </li>
+	</ul>
+</div>
+<div class="blank-30"></div>
+<style>
+.container a{ text-align:center}
+</style>
+    <div class="container login-open">
+        <if condition="!$detail['status']">
+           <a class="button button-block button-big bg-dot"  id="pay_btn">立即在线支付:￥<{:round($detail['money']/100,2)}></a>
+         </if>
+    </div>
+<script>
+    $(document).ready(function(){
+        $("#pay_btn").click(function(){
+            var url = "<{:U('wap/cloud/pay',array('log_id'=>$detail['log_id']))}>";
+            window.location.href = url;
+        })
+    })
+</script>
+
+<div class="blank-20"></div>
+<include file="public:footer"/>

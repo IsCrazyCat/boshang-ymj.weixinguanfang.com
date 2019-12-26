@@ -1,0 +1,74 @@
+ <include  file='public:header'/>
+    <div class="main-jsgl">
+     
+        <div class="jsglNr">
+ <div class="tableBox">
+   
+        <foreach name="list" item="order">
+                <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin-top:20px; vertical-align:middle; background-color:#FFF;"  >
+            
+            <tr class="no"  style="border-top:  1px #000  double;">
+                <td>订单</td>
+                <td>卖家</td>
+                <td>价格</td>
+                <td>购买时间</td>
+                <td>配送地址</td>
+                <td>是否货到付款</td>
+            </tr>
+            <tr class="no" style="border-bottom:  1px #000 double;">
+                <td> <{$order.order_id}></td>
+                 <td> <{$shops[$order['shop_id']]['shop_name']}></td>
+                <td><{:round($order['total_price']/100,2)}>元</td>
+                
+                  <td><{$order.create_time|date='Y-m-d H:i:s',###}></td>
+                  <td>
+                    <{$areas[$addrs[$order['addr_id']]['area_id']]['area_name']}>、
+                    <{$business[$addrs[$order['addr_id']]['business_id']]['business_name']}>、
+
+                    <{$addrs[$order['addr_id']]['addr']}>
+                    <br/>
+                    <{$addrs[$order['addr_id']]['name']}>
+                    <{$addrs[$order['addr_id']]['mobile']}>
+
+                </td>
+                <td>
+            <eq name="order.is_daofu" value="1"><font style="color: red;">货到付款</font><else />已支付</eq>
+                </td>
+            </tr>
+
+            </table>
+            <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin-top:10px; vertical-align:middle; background-color:#FFF;"  >
+            
+            <tr class="no">
+                <td>商品图片</td>
+                <td>商品名称</td>
+                <td>数量</td>
+                <td>单价</td>
+                <td>是否缺货</td>
+            </tr>    
+         
+                <foreach name="goods" item="good">
+                    <if condition="$good['order_id'] eq $order['order_id']">    
+                        <tr class="no">
+                            <td><img width="80" src="<{:config_img($products[$good['goods_id']]['photo'])}>" /></td>
+                            <td><{$products[$good['goods_id']]['title']}></td>
+                            
+                            <td><{$good.num}></td>
+                            <td><{:round($good['price']/100,2)}>元</td>
+                            <td style="width: 200px;">
+                                
+                            </td>
+                        </tr>
+                    </if>
+                </foreach>
+           
+     
+             </table>
+
+
+        </foreach>
+
+    </table>
+    <input type="button"  onclick="window.print();" value=" 打 印 " />
+</div>
+<include  file='public:footer'/>       

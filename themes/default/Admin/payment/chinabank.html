@@ -1,0 +1,48 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">支付设置</li>
+        <li class="li2">支付方式</li>
+        <li class="li2 li3">安装</li>
+    </ul>
+</div>
+<form target="baocms_frm" action="<{:U('payment/install',array('payment_id'=>$detail['payment_id']))}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                <tr>
+                    <td class="lfTdBt">支付方式:</td>
+                    <td class="rgTdBt">
+                        <img src="__PUBLIC__/images/<{$detail.logo}>" />
+                    </td>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">支付方式介绍:</td>
+                    <td class="rgTdBt" style="font-size: 14px;">
+                        <{$detail.contents}>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="lfTdBt">商户账号：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[chinabank_account]" value="<{$detail.setting.chinabank_account}>"  class="manageInput" />
+                    </td>
+                </tr>  
+              
+                <tr>
+                    <td class="lfTdBt">密钥：</td>
+                    <td class="rgTdBt">
+                        <input type="text" name="data[chinabank_key]" value="<{$detail.setting.chinabank_key}>"  class="manageInput" />
+                    </td>
+                </tr>  
+              
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确定安装" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>       
+
+
+

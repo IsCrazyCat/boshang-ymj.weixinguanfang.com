@@ -1,0 +1,56 @@
+<include  file='public:header'/>
+
+<div class="mainBt">
+    <ul>
+        <li class="li1">新功能</li>
+        <li class="li2">小区</li>
+        <li class="li2 li3">小区邻居交友管理</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>后期再开发！</p>
+    <div class="jsglNr">
+        <div class="selectNr" style="margin-top: 0px; border-top:none;">
+            <div class="left">
+                <!--<{:BA('feedback/create','','添加内容')}>  -->
+            </div>
+            
+        </div>
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50">ID</td>
+                        <td>发信人</td>
+                        <td>内容</td>
+                        <td>创建时间</td>
+                        <td>操作</td>
+                    </tr>
+					
+                    <foreach name="list" item="var">
+					
+                        <tr>
+                            <td><{$var.msg_id}></td>
+                            <td><{$users[$var[send_id]][nickname]}>(id:<{$var.send_id}>)</td>
+                            <td><{$var.content}></td>
+                            <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                        <td>
+                            <{:BA('message/edit',array("msg_id"=>$var["msg_id"]),'编辑','','remberBtn')}>
+                            <{:BA('message/delete',array("msg_id"=>$var["msg_id"]),'删除','act','remberBtn')}>
+                           
+
+                        </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <!--<{:BA('message/delete','','批量删除','list','a2')}>-->
+         
+                </div>
+            </div>
+        </form>
+    </div>
+    <include  file='public:footer'/>       

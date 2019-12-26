@@ -1,0 +1,68 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">众筹</li>
+        <li class="li2">众筹产品</li>
+        <li class="li2 li3">众筹类别</li>
+    </ul>
+</div>
+<div class="main-cate">
+     <p class="attention" style="height:50px;"><span>注意：</span>暂时2级分类,分类名称后面（）内的是分类的ID</p>
+    <div class="jsglNr">
+        <form id="cate_action" action="" target="baocms_frm" method="post">
+            <div class="selectNr" style="border-top: 1px solid #dbdbdb;">
+                <div class="left">
+                    <{:BA('crowdcate/create','','添加一级分类','load','',600,300)}>
+                </div>
+                <div class="right">
+                    <{:BA('crowdcate/update','','更新','list','remberBtn')}>
+                </div>
+            </div>
+            <div class="tableBox">
+                <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF; text-align:center;">
+                    <tr bgcolor="#dbdbdb" height="48px;" style="color:#333; font-size:16px; line-height:48px;">
+                        <td>分类</td>
+                        <td>排序</td>
+                        <td>项目数量</td>
+                        <td>操作</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <if condition="($var.parent_id eq 0)">  
+                            <tr bgcolor="#f1f1f1" height="48px" style="font-size:14px; color:#545454; text-align:left; line-height:48px;">
+                                <td style="padding-left:20px;"><{$var.cate_name}>(<{$var.cate_id}>)</td>
+                                <td style="padding-left:70px;"><input name="orderby[<{$var.cate_id}>]" value="<{$var.orderby}>" type="text" class="remberinput w80" /></td> 
+                                <td>(<{$var.count}>)</td>
+                                <td style="text-align: center;">
+                                    <{:BA('crowdcate/create',array("parent_id"=>$var["cate_id"]),'添加子分类','load','remberBtn',600,300)}>
+                                    <{:BA('crowdcate/edit',array("cate_id"=>$var["cate_id"]),'编辑','load','remberBtn',600,300)}>
+                                    <{:BA('crowdcate/delete',array("cate_id"=>$var["cate_id"]),'删除','act','remberBtn')}>
+                                </td>
+                            </tr>
+                            <foreach name="list" item="var2">
+                                <eq name="var2.parent_id" value="$var.cate_id">
+                                <tr height="48px" style="font-size:14px; color:#545454; text-align:center; line-height:48px;">
+                                    <td><{$var2.cate_name}>(<{$var2.cate_id}>)</td>
+                                    <td><input name="orderby[<{$var2.cate_id}>]" value="<{$var2.orderby}>" type="text" class="remberinput w80" /></td>
+                                    <td>(<{$var2.count}>)</td>
+                                    <td>
+                                        <{:BA('crowdcate/edit',array("cate_id"=>$var2["cate_id"]),'编辑','load','remberBtn',600,300)}>
+                                        <{:BA('crowdcate/delete',array("cate_id"=>$var2["cate_id"]),'删除','act','remberBtn')}>
+                                    </td>
+                                </tr>
+                                </eq>
+                            </foreach>
+                        </if>
+                    </foreach>        
+                </table>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>
+
+
+
+
+
+
+

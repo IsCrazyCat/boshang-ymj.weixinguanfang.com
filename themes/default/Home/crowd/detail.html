@@ -1,0 +1,452 @@
+<include file="public:header" /><include file="public:top"/><include file="public:nav2"/>
+<script type="text/javascript" src="__TMPL__statics/js/jquery.jcarousel.min.js"></script>
+<script type="text/javascript" src="__TMPL__statics/js/jquery.pikachoose.min.js"></script>
+<style>
+body { background: #f9f9f9; }
+.report_from{cursor:pointer; margin-right:30px;}
+.report_from_mask{position: fixed;z-index: 1000;width: 100%;height: 100%;top: 0;left: 0;background: rgba(0,0,0,0.3);filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#BF000000,endColorstr=#BF000000);}
+.report_from_mask .cont {width: 460px; padding:40px 20px 20px;position: absolute; left:50%; margin-left:-250px;top:50%; margin-top:-200px;background: #fff; box-shadow: 0 0 6px #eee;}
+.report_from_mask .cont .box input {width: 100%;border: 1px solid #e6e6e6;background: #fff;height: 40px;line-height: 40px;text-indent: 10px;font-size:14px;color: #333;margin-bottom: 10px;}
+.report_from_mask .cont .box textarea {width: 100%;border: 1px solid #e6e6e6;background: #fff;text-indent: 10px;color: #333;margin-bottom: 10px;}
+.report_from_mask .cont .btn_box{ text-align:center;}
+.report_from_mask .cont .btn {display:inline-block;width: 100px;margin:0 10px;height: 40px;border-radius: 5px;background: #2fbdaa none;font-size:16px;color: #fff;border: none 0; cursor:pointer;}
+.report_from_mask .cont .btn.bggrey {background: #bbb;}
+.box-grade .box-content .btn {padding: 10px 30px;}
+</style>
+
+<!--主体内容-->
+<div class="pagewd">
+    <!--位置-->
+   <div class="spxq_loca">
+        <a href="<{:U('index/index')}>">网站首页</a>&gt;&gt;
+        <a href="<{:U('crowd/index')}>">众筹首页</a>&gt;&gt;
+        <if condition="!empty($catstr)">
+            <if condition="empty($catestr)">
+            	<a href="<{:U('crowd/index',array('cat'=>$detail['cate_id']))}>"><{$catstr}></a>&gt;&gt;
+            <else/>
+                <a href="<{:U('crowd/index',array('cat'=>$cat))}>"><{$catstr}></a>&gt;&gt;
+                <!--<a href="<{:U('crowd/index',array('cat'=>$cat,'cate_id'=>$detail['cate_id']))}>"><{$catestr}></a>&gt;&gt;-->
+            </if>
+        </if>
+        <if condition="!empty($detail['area_id'])">
+            <a href="<{:U('crowd/index',array('area'=>$detail['area_id']))}>">
+            <{$areas[$detail['area_id']]['area_name']}></a>&gt;&gt;
+        </if>
+        <a href="<{:U('crowd/detail',array('goods_id'=>$detail['goods_id']))}>"><{$detail['title']}></a>
+        
+        
+    </div>
+    <!--位置结束--> 
+    <!--开始-->
+    <div class="crowdDetl_page">
+        <div class="crowdDetl_mainNr"> <span class="tag tag_1"></span> <img src="<{:config_img($detail['photo'])}>" width="650" height="420" class="left" />
+            <div class="pub_wz">
+                <h1 class="overflow_clear"><{$detail.title}></h1>
+                <h3>已筹到</h3>
+                <p class="price"><small>￥</small><{$detail['have_price']/100}></p>
+                <div class="mall_progressBar_wrap"><span class="mall_progressBar_bar" style="width:<{$detail['have_price']/$detail['all_price']*100}>%;"></span></div>
+                <div class="bar_wz">
+                    <ul>
+                        <li class="list left">
+                            <p class="maincl">当前进度 <{$detail['have_price']/$detail['all_price']*100|ceil}>%</p>
+                        </li>
+                        <li class="list right"><{$detail['have_num']}>名支持者</li>
+                    </ul>
+                </div>
+                <p class="blackcl6">此项目必须在 <span class="pointcl"><{$detail[ltime]}></span> 前得到 <span class="pointcl">￥<{$detail['all_price']/100}></span>的支持才可成功！ 剩余 <span class="pointcl">
+                <if condition="$detail['all_price']-$detail['have_price'] gt '0'">
+                                    <{$detail['all_price']/100-$detail['have_price']/100}>
+                                    <else/>
+                                    0
+                                    </if>
+                </span>元!</p>
+                <div class="btn_box"> <a  mini='act' href="<{:U('crowd/favorites',array('goods_id'=>$detail['goods_id']))}>" class="btn"><em class="ico ico_1"></em>关注<small>(<{$detail['follow_num']}>)</small></a> <a mini='act' href="<{:U('crowd/zan',array('goods_id'=>$detail['goods_id']))}>" class="btn btn2 ml10"><em class="ico ico_2"></em>赞<small>(<{$detail['zan_num']}>)</small></a> </div>
+                <p class="graycl">
+                    <a class="report_from crowd_prove" href="<{:U('crowd/prove',array('goods_id'=>$detail['goods_id']))}>">我要证明</a>
+                    <a class="report_from" onclick="report_from(100,2)">我要举报</a>
+                </p>
+                <p class="graycl">分享给小伙伴</p>
+                <div  class="bdsharebuttonbox">
+                    <a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a>
+                    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+                    <a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+				</div>
+                <script>
+				window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+				</script>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="crowdDetl_cont mb20">
+            <div class="left crowdDetl_cont_l">
+                <script>
+				$(document).ready(function() {
+                    $(".crowdDetl_tab .list").each(function(e) {
+                        $(this).click(function(){
+							$(".crowdDetl_tab .list").removeClass("on");
+							$(this).addClass("on");
+							$(".crowdDetl_tab_cont .list_box").each(function(i){
+								if(e==i){
+									$(".crowdDetl_tab_cont .list_box").hide();
+									$(this).show();
+								}
+								else{
+									$(this).hide();
+								}
+							});
+							
+						});
+                    });
+                });
+            </script>
+                <div class="crowdDetl_tab_box">
+                    <div class="crowdDetl_tab">
+                        <ul>
+                            <li class="list on">项目主页</li>
+                            <li class="list">项目进展<span class="num"><{$projectcount}></span></li>
+                            <li class="list">话题<span class="num"><{$askcount}></span></li>
+                            <li class="list">支持者<span class="num"><{$listcount}></span></li>
+                        </ul>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="crowdDetl_tab_cont"> 
+                    <!--项目主页-->
+                    <div class="list_box crowdDetl_infor"> 
+                        <div class="supporter">
+                            <div class="title"></div>
+                            <{$detail.details}>
+                            <div class="clear"></div>
+                        </div>
+                        <!--最新支持者end--> 
+                    </div>
+                    <!--项目主页end--> 
+                    <!--项目进展-->
+                    <div class="list_box crowdDetl_progress" style="display:none;">
+                        <div class="cont mb20">
+                            <p class="cue">这里记录了项目发起人更新的项目进展，您可以提问了解更多项目相关细节</p>
+                            
+                            <div class="pro-list" id="proList"> 
+                                <!--一条完整的进展-->
+                               <volist name='project' id='item'>
+                                <div class="pro-list-wrap">
+                                    <div class="pro-detail"> <span class="pro-point"></span> <span class="pro-day"> <{$item[dateline]|date='m-d',###}> </span>
+                                        <p><{$item.content}></p>
+                                    </div>
+                                    
+                                </div>
+                                </volist>
+                               
+                            </div>
+                        </div>
+                    </div>
+                    <!--项目进展end--> 
+                    <!--话题-->
+                    <div class="list_box crowdDetl_topic" style="display:none;">
+                        <div class="crowdDetl_tab_box mt10">
+                            <script>
+							$(document).ready(function() {
+								$(".crowdDetl_tabTwo .list").each(function(e) {
+									$(this).click(function(){
+										$(".crowdDetl_tabTwo .list").removeClass("on");
+										$(this).addClass("on");
+										$(".crowdDetl_tabTwo_cont .list_boxTwo").each(function(i){
+											if(e==i){
+												$(".crowdDetl_tab_cont .list_boxTwo").hide();
+												$(this).show();
+											}
+											else{
+												$(this).hide();
+											}
+										});
+										
+									});
+								});
+							});
+						</script>
+                            <div class="crowdDetl_tabTwo">
+                                <ul>
+                                    <li class="list on">项目答疑</li>
+                                    <li class="list">我的提问</li>
+                                </ul>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                        <div class="crowdDetl_tabTwo_cont">
+                            <div class="list_boxTwo">
+                                <div class="pro-dialog" id="qaBox">
+                                    <volist name="ask_list" id="item">
+                                        <div class="dialog-li-l" id="44593">
+                                            <div class="dialog-img"><img src="<{:config_img($users[$item['uid']]['face'])}>" alt="">
+                                                <div class="dialog-name"><{:config_user_name($users[$item['uid']]['nickname'])}></div>
+                                                <div class="dialog-img-bg"></div>
+                                            </div>
+                                            <div class="dialog-content">
+                                                <div class="dialog-detail"><span class="tag"></span><span><{$item.ask_c}></span></div>
+                                                <div class="dialog-time"> <{$item['dateline']|date="Y-m-d",###}>  </div>
+                                            </div>
+                                        </div>
+                                        <if condition="$item['answer_c']">
+                                            <div class="dialog-li-r">
+                                                <div class="dialog-img"><img src="<{:config_img($shop['photo'])}>" alt="">
+                                                    <div class="dialog-img-bg"></div>
+                                                    <div class="dialog-name"><{$shop.shop_name}></div>
+                                                </div>
+                                                <div class="dialog-content">
+                                                    <div class="dialog-detail"><span class="tag"></span><span><{$item.answer_c}></span></div>
+                                                    <div class="dialog-time"><{$item['answer_time']|date="Y-m-d",###}></div>
+                                                </div>
+                                            </div>
+                                        </if>
+                                    </volist>
+                                </div>
+                                <div class="dialog-write">
+                                    <div class="dialog-write-limit">
+                                        <p class="left">有什么疑问想告诉项目发起人？</p>
+                                        <p class="right">还可以输入<span class="num" id="limitNum">200</span>字</p>
+                                    </div>
+                                     <form target="baocms_frm" action="<{:U('crowd/ask',array('goods_id'=>$detail['goods_id']))}>" method="post">
+                                     
+                                        <textarea class="dialog-textarea" name="ask_c" id="dialogTextarea" placeholder="相关问题的答复会发送到账户绑定邮箱和站内私信呦~"></textarea>
+                                        <div class="dialog-submit">
+                                            <div class="right">
+                                                <input class="btn ml10" type="submit" value="提交">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="list_boxTwo" style="display:none;">
+                                <div class="pro-dialog" id="qaBox">
+                                    <volist name='ask' id='item'>
+                                    	<if condition="$MEMBER[user_id] EQ $item[uid]">
+                                        <div class="dialog-li-l" id="44593">
+                                            <div class="dialog-img"><img src="<{:config_img($users[$item['uid']]['face'])}>" alt="">
+                                                <div class="dialog-name"><{:config_user_name($users[$item['uid']]['nickname'])}></div>
+                                                <div class="dialog-img-bg"></div>
+                                            </div>
+                                            <div class="dialog-content">
+                                                <div class="dialog-detail"><span class="tag"></span><span><{$item.ask_c}></span></div>
+                                                <div class="dialog-time"> <{$item['dateline']|date="Y-m-d",###}>  </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="dialog-li-r">
+                                            <div class="dialog-img"><img src="<{:config_img($shop['photo'])}>" alt="">
+                                                <div class="dialog-img-bg"></div>
+                                                <div class="dialog-name"><{$shop.shop_name}></div>
+                                            </div>
+                                            <div class="dialog-content">
+                                                <div class="dialog-detail"><span class="tag"></span><span><{$item.answer_c}></span></div>
+                                                <div class="dialog-time"><{$item['answer_time']|date="Y-m-d",###}></div>
+                                            </div>
+                                        </div>
+                                        </if>
+                                    </volist>
+                                </div>
+                                <div class="dialog-write">
+                                    <div class="dialog-write-limit">
+                                        <p class="left">有什么疑问想告诉项目发起人？</p>
+                                        <p class="right">还可以输入<span class="num" id="limitNum">200</span>字</p>
+                                    </div>
+                                     <form target="baocms_frm" action="<{:U('crowd/ask',array('goods_id'=>$detail['goods_id']))}>" method="post">
+                                     
+                                        <textarea class="dialog-textarea" name="ask_c" id="dialogTextarea" placeholder="相关问题的答复会发送到账户绑定邮箱和站内私信呦~"></textarea>
+                                        <div class="dialog-submit">
+                                            <div class="right">
+                                                <input class="btn ml10" type="submit" value="提交">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--话题end-->
+                    <!--支持者-->
+                    <div class="list_box crowdDetl_support" style="display:none;">
+                        <ul>
+                        
+                        	 <volist name='goods_list' id='item'>
+                                     <li class="list">
+                                        <img src="<{:config_img($users[$item['uid']]['face'])}>" width="60" height="60" class="left" />
+                                        <div class="pub_wz">
+                                            <p class="name"><{:config_user_name($users[$item['uid']]['nickname'])}></p>
+                                            <p class="blackcl6">支持项目<span class="pointcl">￥<{$item['price']/100}>元</span></p>
+                                        </div>
+                                        <div class="clear"></div>
+                                    </li>
+                            </volist>
+                        </ul>
+                    </div>
+                    <!--支持者end-->
+                </div>
+            </div>
+            <div class="right crowdDetl_cont_r">
+                <div class="box-promoters">
+                    <div class="common-title">项目发起人</div>
+                    <php>$users = D('Users')->find($detail['user_id']);$Userrank = D('Userrank')->find($users['rank_id']);</php>
+                    <div class="promoters">
+                        <div class="pub_img left">
+                            <a href="javascript:void(0)" target="_blank">
+                            <img src="<{:config_img($users['face'])}>" alt=""></a>
+                        </div>
+                        
+                        <div class="pub_wz">
+                            <p class="name"><a href="javascript:void(0)" target="_blank" title=""><{:config_user_name($users['nickname'])}></a></p>
+                            <p class="graycl">等级：<{$Userrank.rank_name}></p>
+                            <div class="btn_box mt10">联系电话：<{:config_user_name($users['mobile'])}></div>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <volist name='goodstype' id='item'>
+                    <if condition="$item[have_num] egt $item[max_num]">
+                    		<div class="box-grade">
+                                <div class="common-title">
+                                    <div class="t-price ">￥<span><{$item['price']/100}></span></div>
+                                    <div class="t-full"></div>
+                                    <div class="t-people t-people_show"><span><{$item[have_num]}></span>位支持者<em class="ico"></em></div>
+                                    
+                                    <div class="clear"></div>
+                                </div>
+                                <!--折叠展开控制-->
+                                <div class="box-content" style="display:none;">
+                                    <div class="box-limit"><span class="limit-num">限额 <span><{$item[max_num]}></span>位 | 剩余 <span><{$item[max_num]-$item[have_num]}></span>位</span>
+                                          <if condition="$item[choujiang] eq 1">
+                                             <span class="app-tag">抽奖档</span>
+                                          </if>
+                                       </div>
+                                   <div class="box-imglist">
+                                    <ul>
+                                        <li><img src="<{:config_img($item['img'])}>"></li>
+                                    </ul>
+                                </div>
+                                <p class="box-item">配送费用：<span class="font-b">
+                                	  <if condition="$item[yunfei] gt 0">
+                                      	<{$item[yunfei]/100}>元
+                                      <else/>
+                                      		免运费
+                                      </if>
+                                </span></p>
+                                <p class="box-item">预计回报发送时间：<span class="font-b">项目成功结束后<span class="font-red"><{$item.fahuo}></span>天内</span></p>
+                                </div>
+                            </div>
+                    
+                    <else/>
+                        <div class="box-grade">
+                	
+                            <div class="common-title">
+                                <div class="t-price ">￥<span><{$item['price']/100}></span></div>
+                                <div class="t-people"><span><{$item[have_num]}></span>位支持者</div>
+                                <div class="clear"></div>
+                            </div>
+                            <!--折叠展开控制-->
+                            <div class="box-content">
+                                <div class="box-limit"><span class="limit-num">限额 <span><{$item[max_num]}></span>位 | 剩余 <span><{$item[max_num]-$item[have_num]}></span>位</span>
+                                  <if condition="$item[choujiang] eq 1">
+                                     <span class="app-tag">抽奖档</span>
+                                  </if>
+                               </div>
+                                <p class="box-intro"><{$item[content]}></p>
+                                
+                                <div class="box-imglist">
+                                    <ul>
+                                        <li><img src="<{:config_img($item['img'])}>"></li>
+                                    </ul>
+                                </div>
+                                <p class="box-item">配送费用：<span class="font-b">
+                                	  <if condition="$item[yunfei] gt 0">
+                                      	<{$item[yunfei]/100}>元
+                                      <else/>
+                                      		免运费
+                                      </if>
+                                </span></p>
+                                <p class="box-item">预计回报发送时间：<span class="font-b">项目成功结束后<span class="font-red"><{$item.fahuo}></span>天内</span></p>
+                                <p class="box-btn">
+                         <a class="btn"   target="baocms_frm" href="<{:U('crowd/buy',array('goods_id'=>$detail['goods_id'],'type_id'=>$item['type_id']))}>">支持￥<{$item['price']/100}></a>
+                               </p>
+                            </div>
+                        </div>
+                    </if>
+                </volist>
+                
+               
+                
+                <script>
+					$(document).ready(function() {
+						$(".box-grade .t-people_show").click(function(){
+							if($(this).hasClass("on")){
+								$(this).removeClass("on")
+								$(this).parents(".box-grade").find(".box-content").slideUp();
+							}
+							else{
+								$(this).addClass("on")
+								$(this).parents(".box-grade").find(".box-content").slideDown();
+							}
+						});
+					});
+				</script>
+                
+                <div class="crowdDetl_intro">
+                    <div class="common-title">风险说明</div>
+                    <{$detail.instructions}>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="crowdDetl_like mb10">
+            <div class="title mb10">
+                <h3 class="left"><em class="ico"></em>猜你喜欢</h3>
+                <a onClick="getResult();" class="right more graycl"><em class="ico"></em>换一组</a>
+            </div>
+            <ul class="box" id='crowd_show'>
+               
+            </ul>
+        </div>
+    </div>
+</div>
+<!--主体内容结束--> 
+
+
+
+<!--举报弹出层-->
+<div class="report_from_mask" style="bottom:0;display:none;">
+    <div class="cont"> 
+    	<form target="baocms_frm" action="<{:U('crowd/report',array('goods_id'=>$detail['goods_id']))}>" method="post">
+            <div class="box">
+                <input type="text" name="data[name]" placeholder="输入姓名">
+                <input type="text" name="data[mobile]" placeholder="填写您电话">
+                <textarea cols='50' rows='5' name="data[contents]" placeholder="请认真填写举报理由，否则不予处理！"></textarea>
+            </div>
+            <div class="btn_box">
+                <input type="button" class="btn bggrey cancel" value="取消">
+                <input type="submit" class="btn" value="确认举报">
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+$(document).ready(function() {
+	getResult();
+	$(".report_from_mask .cancel").click(function(){
+		$(".report_from_mask").hide();
+	});
+});
+
+//举报
+function report_from(price,type_id){
+	$('#price').val(price);
+	$('#type_id').val(type_id);
+	$(".report_from_mask").show();
+}
+
+function getResult(){
+	var link = "<{:U('crowd/detail_c',array('goods_id'=>$detail['goods_id']))}>";
+	$("#crowd_show").load(link);
+}
+</script>
+<!--去支持弹出层end-->
+
+<include file="public:footer"/>

@@ -1,0 +1,37 @@
+<include file="public:header"/>
+<div class="content_right">
+<style>
+.password_input .left {width:140px;}
+.password_input .lef code{ margin-left:10px; color:#F00;}
+</style>
+<div class="tgdd">
+	<include file="money:nav"/>
+		<form method="post"  action="<{:U('money/exchange')}>" target="baocms_frm">
+			<div class="password_nr">
+                <div class="password_input">
+					<if condition="!empty($CONFIG[integral][integral_exchange_small])">
+                    	一次性最少输入积分：<{$CONFIG[integral][integral_exchange_small]}>
+                    </if>
+                    
+                    <if condition="!empty($CONFIG[integral][integral_exchange_big])">
+                    	最多输入积分：<{$CONFIG[integral][integral_exchange_big]}>
+                    </if>
+   
+                    
+                    
+				</div>
+				<div class="password_input">
+					<div class="left">输入兑换的积分数量</div>
+					<div class="lef">
+						<input type="text" name="exchange" class="cjinput"  /><code>您当前有积分：<{$MEMBER['integral']}></code>
+					</div>
+				</div>
+				<div class="password_subm">
+					<input class="submit" type="submit" value="立刻兑换" />
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+</div>
+<include file="public:footer"/> 

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<!--HTML5 doctype-->
+<html>
+<head>
+<script>
+(function() {
+    if ("-ms-user-select" in document.documentElement.style && navigator.userAgent.match(/IEMobile\/10\.0/)) {
+        var msViewportStyle = document.createElement("style");
+        msViewportStyle.appendChild(
+            document.createTextNode("@-ms-viewport{width:auto!important}")
+        );
+        document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
+    }
+})();
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+<title><{$CONFIG.site.title}></title>
+<link rel="stylesheet" href="%THEME%/weixin/static/css/frozen.css">
+<link rel="stylesheet" href="%THEME%/weixin/static/css/icon-full.css">
+<link rel="stylesheet" href="%THEME%/weixin/static/css/common.css">
+<link rel="stylesheet" href="%THEME%/weixin/static/css/append.css">
+<script type="text/javascript" charset="utf-8" src="<{$pager.res}>/script/kt.j.js"></script>
+<script type="text/javascript" charset="utf-8" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+</head>

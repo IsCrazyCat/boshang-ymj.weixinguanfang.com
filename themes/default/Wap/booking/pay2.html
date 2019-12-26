@@ -1,0 +1,59 @@
+<include file='public:header'/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('ding/pay',array('order_id'=>$order_id))}>"><i class="icon-angle-left"></i></a>
+	</div>
+	<div class="top-title">
+		支付定金
+	</div>
+</header>
+<form method="post" action="<{:U('ding/pay3',array('order_id'=>$order_id))}>">
+	<div class="padding line border-bottom">
+		<span class="x3">所定店铺: </span>
+		<span class="x9"><span class="text-dot"> <{$shop['shop_name']}></span></span>
+	</div>
+	<div class="padding line border-bottom">
+		<span class="x3">预付定金: </span>
+		<span class="x9"><span class="text-dot"> ￥<{:round($order['need_price']/100,2)}></span></span>
+	</div>
+	<div class="blank-10 bg"></div>
+	<ul id="pay-method" class="pay-method">
+		<foreach name="payment" item="var">
+		<li data-rel="<{$var.code}>" class="media media-x payment">
+			<a class="float-left"  href="javascript:;">
+				<img src="/static/default/wap/image/pay/<{$var.mobile_logo}>">
+			</a>
+			<div class="media-body">
+				<div class="line">
+					<div class="x10">
+					<{$var.name}><p>推荐已安装<{$var.name}><{$var.id}>客户端的用户使用</p>
+					</div>
+					<div class="x2">
+						<span class="radio txt txt-small radius-circle bg-green"><i class="icon-check"></i></span>
+					</div>
+				</div>
+			</div>
+		</li>
+		</foreach>
+	</ul>
+	<input id="code" type="hidden" name="code" value="" />
+	<script>
+		$(document).ready(function(){
+			$("#pay-method li").click(function(){
+				var code = $(this).attr("data-rel");
+				$("#code").val(code);
+				$("#pay-method li").each(function(){
+					$(this).removeClass("active");
+				});
+				$(this).addClass("active");
+			});
+		});
+	</script>
+	<nav class="cart-bar">
+		<div class="result">
+			<button class="button bg-dot" type="submit">进入支付</a>
+		</div>
+	</nav>  
+</form>
+<body>
+</html>

@@ -1,0 +1,131 @@
+<include file='public:header'/>
+<script src="__PUBLIC__/js/highcharts/highcharts.js"></script>
+<script src="__PUBLIC__/js/highcharts/modules/exporting.js"></script>
+<div class="sjgl_lead">
+    <ul>
+        <li><em class="sjgl_leadico"></em><a href="#">首页</a></li>
+    </ul>
+</div>
+<div class="sy_content">
+    <div class="sy_c1">
+        <ul>
+            <li class="left sy_c1Li">
+                <div class="sy_c1Linr">
+                    <div class="sy_c1Linr_t">
+                    
+                        小区（<{$COMMUNITY.name}>）
+                         <if condition="$counts['order'] gt 0">
+                        应收<{:round($counts['order']/100,2)}>元
+                        </if>
+                        <if condition="$counts['order_1'] gt 0">
+                        ，已收<{:round($counts['order_1']/100,2)}>元
+                        </if>
+                        <if condition="$counts['order_0'] gt 0">
+                        ，还有<b style="font-size:16px; color:#F00"><{:round($counts['order_0']/100,2)}></b>元未缴。
+                        </if>
+                
+                </div>
+                    <div class="sy_c1List">
+                        <ul>
+                            <li class="sy_c1nrLi">
+                                <div class="left sy_c1nrLit">已有小区广告</div>
+                                <div class="left sy_c1nrLit sy_c1nrLis"><{$counts['ad']}>条</div>
+                                <div class="right"><a class="radius3 sy_lookan" href="<{:u('Property/ad/index')}>">查看</a></div>
+                            </li>
+                            
+                             <li class="sy_c1nrLi">
+                                <div class="left sy_c1nrLit">通知管理</div>
+                                <div class="left sy_c1nrLit sy_c1nrLis">
+                                共<{$counts['feedback']}>条，
+                                 <if condition="$counts['news_audit'] gt 0">
+                                ，<b><{$counts['news_audit']}></b>待审
+                                </if>
+                                <if condition="$counts['news_day'] gt 0">
+                                ，今日<{$counts['news_day']}>。
+                                </if>
+                                </div>
+                                <div class="right"><a class="radius3 sy_lookan" href="<{:u('Property/news/index')}>">查看</a></div>
+                            </li>
+                            
+                            
+                            <li class="sy_c1nrLi">
+                                <div class="left sy_c1nrLit">便民报修</div>
+                                <div class="left sy_c1nrLit sy_c1nrLis">
+                                共<{$counts['feedback']}>条
+                                 <if condition="$counts['feedback_audit'] gt 0">
+                                ，<b><{$counts['feedback_audit']}></b>待审
+                                </if>
+                                <if condition="$counts['feedback_day'] gt 0">
+                                ，今日<{$counts['feedback_day']}>。
+                                </if>
+                                </div>
+                                <div class="right"><a class="radius3 sy_lookan" href="<{:u('Property/feedback/index')}>">查看</a></div>
+                            </li>
+                            <li class="sy_c1nrLi">
+                                <div class="left sy_c1nrLit">便民电话</div>
+                                <div class="left sy_c1nrLit sy_c1nrLis"><{$counts['phone']}>个</div>
+                                <div class="right"><a class="radius3 sy_lookan" href="<{:u('Property/phone/index')}>">查看</a></div>
+                            </li>
+                            
+                            
+                            <li class="sy_c1nrLi">
+                                <div class="left sy_c1nrLit">业主管理</div>
+                                <div class="left sy_c1nrLit sy_c1nrLis">
+                                <{$counts.owner}>个
+                                
+                                 <if condition="$counts['owner_audit'] gt 0">
+                                ，<b><{$counts['owner_audit']}></b>待审
+                                </if>
+                                <if condition="$counts['owner_day'] gt 0">
+                                ，今日<{$counts['owner_day']}>。
+                                </if>
+                
+              				  </div>
+                                <div class="right"><a class="radius3 sy_lookan" href="<{:u('Property/owner/index')}>">查看</a></div>
+                            </li>
+                            
+                            
+                            
+                            <li class="sy_c1nrLi">
+                                <div class="left sy_c1nrLit">待缴费小区账单</div>
+                                <div class="left sy_c1nrLit sy_c1nrLis">
+                                
+                                 <if condition="$counts['order'] gt 0">
+                                应收<{:round($counts['order']/100,2)}>元
+                                </if>
+                                <if condition="$counts['order_1'] gt 0">
+                                ，已收<{:round($counts['order_1']/100,2)}>元
+                                </if>
+                                <if condition="$counts['order_0'] gt 0">
+                                ，还有<b><{:round($counts['order_0']/100,2)}></b>元未缴。
+                                </if>
+                                
+                                </div>
+                                <div class="right"><a class="radius3 sy_lookan" href="<{:u('Property/order/index')}>">查看</a></div>
+                            </li>
+                            
+                            <li class="sy_c1nrLi">
+                                <div class="left sy_c1nrLit">待回复小区论坛</div>
+                                <div class="left sy_c1nrLit sy_c1nrLis">共
+                                <{$counts['bbs']}>条
+                                <if condition="$counts['bbs_audit'] gt 0">
+                                ，<b><{$counts['bbs_audit']}></b>待审
+                                </if>
+                                <if condition="$counts['bbs_day'] gt 0">
+                                ，今日<{$counts['bbs_day']}>。
+                                </if>
+                                </div>
+                                <div class="right"><a class="radius3 sy_lookan" href="<{:u('Property/bbs/index')}>">查看</a></div>
+                            </li>
+                            
+                            
+                        </ul>
+                    </div>
+                </div>
+            </li>
+            
+        </ul>
+    </div>
+    
+</div>
+<include file='public:footer'/>

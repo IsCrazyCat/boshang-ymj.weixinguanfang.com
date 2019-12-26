@@ -1,0 +1,68 @@
+<volist name="list" id="item">
+	<li class="tie-item" onclick="location='<{:U('tieba/detail',array('post_id'=>$item['post_id']))}>'">
+		<div class="item-head line">
+			<span class="avatar x2">
+
+            <img src="<{:config_img($users[$item['user_id']]['face'])}>" />
+				
+			</span>
+			<span class="info x10">
+				<em><{:config_user_name($users[$item['user_id']]['nickname'])}></em>
+				<span class="float-right"><{$item.create_time|date="Y-m-d",###}></span>
+				<p class="title">
+					<{:msubstr($item['title'],0,25)}>
+				</p>
+			</span>
+			<span class="coner"></span>
+		</div>
+		<div class="item-body">
+			<a href="<{:U('tieba/detail',array('post_id'=>$item['post_id']))}>">
+           
+			<if condition="!empty($item['details'])">
+            
+			<p><{:bao_msubstr(cleanhtml($item['details']),0,100,false)}></p>
+			</if>
+			</a>
+            
+            
+           <php>
+			  if($item['pic'] ==''){
+				$gallery = getImgs($item['details']);
+			  }else{
+			    $gallery = explode(',',$item['pic']);
+			  }
+		   </php>
+           
+            <if condition="!empty($gallery)">
+			<div class="pic">
+				<ul class="gallery">
+                <php>$i=0;</php>  
+					<foreach name="gallery" item="var">
+                        <php>$i++;if($i <= 3){</php>
+                            <li><a href="<{:U('tieba/detail',array('post_id'=>$item['post_id']))}>"><img src="<{:config_img($var)}>" /></a></li>
+                        <php>}</php>
+					</foreach>
+				</ul>
+			</div>
+			<div class="blank-10"></div>
+            </if>
+         
+			<div class="ctrl">
+				<a class="ctrl-zan" id="zan-<{$item.post_id}>" data="<{$item.post_id}>"><i class="icon-thumbs-up"></i> <em><{$item['zan_num']}></em></a>
+				<a class="ctrl-reply" href="<{:U('tieba/reply',array('post_id'=>$item['post_id']))}>"><i class="icon-comments"></i> <em><{$item['reply_num']}></em></a>
+			</div>
+		</div>
+		<if condition="!empty($item['reply'])">
+		<div class="item-foot">
+			<foreach name="item.reply" item="var">
+            
+				<p><em><{:config_user_name($var[user][nickname])}> :</em>
+                <php>$descc = msubstr(strip_tags($var['contents']),0,50);</php>
+			<if condition="$descc neq '...'">
+                 <{$descc}></p>
+			</foreach>
+		</div>
+		</if>
+	</li>
+    <div class="blank-10 bg"></div>
+</volist>

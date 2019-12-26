@@ -1,0 +1,207 @@
+<include  file='public:header'/> 
+<include  file='public:top'/> 
+<include  file='public:nav2'/>
+<div class="pagewd">
+    <div class="seat_banner mt10">
+        <!--banner-->
+        <div class="flexslider seat_flexslider">
+            <ul class="slides">
+                <calldata mdl="Ad" where=" bg_date ELT '{$today}' AND  city_id IN ({$city_ids}) AND end_date EGT '{$today}' AND closed=0 AND site_id=15" limit="0,3" cache="21600" order="orderby asc">
+                    <li class="list"><a target="_blank" href="<{$item.link_url}>"><img src="<{:config_img($item['photo'])}>" width="1200" height="400" /></a></li>
+		</calldata>
+                
+            </ul>
+        </div>
+        <!--banner结束-->
+        <!--表单-->
+        <div class="seat_form_box">
+            <form action="<{:U('booking/lists')}>" method="post">
+                <select name='area_id' class="long">
+                    <option>请选择地区</option>
+                    <volist name='areas' id='item'>
+                        <eq name="item.city_id" value="$city_id">
+                            <option value="<{$item.area_id}>"><{$item.area_name}></option>
+                        </eq>
+                    </volist>
+                </select>
+                <div class="short_box">
+                    <script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+                    <input class="long date left" type="text" name="date" value="<{$ding_date}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd',minDate:'%y-%M-{%d}'});" placeholder="日期" />
+                    <select name="time" class="long time right">
+                        <option>时间</option>
+                        <volist name='cfg' id='item'>
+                            <option value="<{$item}>" <if condition="$item eq $ding_time">selected="selected"</if> ><{$item}></option>
+                        </volist>
+                    </select>
+                </div>
+                <select name="number" class="long num">
+                    <option>人数</option>
+                    <volist name='room' id='item'>
+                        <option value="<{$item}>" <if condition="$item eq $ding_num">selected="selected"</if> ><{$item}></option>
+                    </volist>
+                </select>
+                <input class="long" name="name" type="text" value="商户名" onfocus="if (value == defaultValue) { value = '';}" onblur="if (!value) {value = defaultValue;}" />
+                <input class="btn" id="set_cookie" type="submit" value="立刻查询" />
+            </form>
+            
+            <div class="style"> 
+                <p>您还可以选择以下就餐类型：</p>
+                <volist name='dingtypes' id='item'>
+                    <if condition="$i elt 3">
+                        <a href="<{:LinkTo('booking/lists',array('type_id'=>$i))}>" ><{$item}></a> 
+                    </if>
+                </volist>
+            </div>
+        </div>
+        <!--表单end-->
+    </div>
+    <script>
+        $(document).ready(function(){
+            $("#set_cookie").click(function(){
+                var date = $(".date").val();
+                var time = $(".time option:selected").val();
+                var num = $(".num option:selected").val();
+                SetCookie('ding_date',date);
+                SetCookie('ding_time',time);
+                SetCookie('ding_num',num);
+            })
+        })
+        
+         function SetCookie(name, value)//两个参数，一个是cookie的名子，一个是值
+		 {
+                var Days = 30; //此 cookie 将被保存 30天
+                var exp = new Date();    //new Date("December 31, 9998");
+                exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000);
+                document.cookie = name + "=" + value + ";expires=" + exp.toGMTString() +";path=/";
+            }
+    </script>
+    <!--筛选类别-->
+    <div class="seat_cateSelct">
+    	<ul>
+        	<li class="list on">热门推荐</li>
+            <li>|</li>
+            <li class="list">口味超赞</li>
+            <li>|</li>
+            <li class="list">精品推荐</li>
+            <li>|</li>
+            <li class="list">宴请首选</li>
+        </ul>
+    </div>
+    <script>
+	$(document).ready(function() {
+            $(".seat_cateSelct .list").each(function(e) {
+                $(this).click(function(){
+                    $(".seat_cateSelct .list").removeClass("on");
+                    $(this).addClass("on");
+                    $(".seat_cateSelct_cont .list_box").each(function(i){
+                        if(e==i){
+                            $(".seat_cateSelct_cont .list_box").hide();
+                            $(this).show();
+                        }else{
+                            $(this).hide();
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+    <!--筛选类别end-->
+    <!--筛选内容-->
+	<div class="seat_cateSelct_cont">
+             <div class="list_box seat_goodsList_box">
+                <ul>
+                    <calldata mdl="Booking" where="audit = 1 AND closed=0 AND city_id=$city_id" limit="0,20" cache="21600" order="orders desc">
+                        <li class="seat_goodsList">
+                            <div class="pub_img"><a target="_blank" href="<{:U('booking/detail',array('shop_id'=>$item['shop_id']))}>">
+                            <img src="<{:config_img($item['photo'])}>" />
+                                <p><{:bao_msubstr($item[addr],0,15)}></p></a>
+                            </div>
+                            <div class="pub_wz">
+                                <h3 class="overflow_clear"><a target="_blank" href="<{:U('booking/detail',array('shop_id'=>$item['shop_id']))}>"><{$item.shop_name}></a></h3>
+                                <p class="mt10 mb10">口味：<span class="fontcl1 mr10"><{$item['kw_score']}></span>环境：<span class="fontcl1 mr10"><{$item['hj_score']}></span>服务：<span class="fontcl1 mr10"><{$item['fw_score']}></span></p>
+                                <div class="btn_box">
+                                    <div class="left">人均：<span class="fontcl1">￥<{$item.price}></span></div>
+                                    <a target="_blank" href="<{:U('booking/detail',array('shop_id'=>$item['shop_id']))}>" class="btn right">立即预订</a>
+                                </div>
+                            </div>
+                        </li>
+                    </calldata>
+                </ul>
+                <div class="clear"></div>
+            </div>
+         
+        <div class="list_box seat_goodsList_box" style="display:none;">
+            <ul>
+            	<calldata mdl="Booking" where="audit = 1 AND closed=0 AND city_id=$city_id" limit="0,4" cache="10800" order="kw_score desc">
+                    <li class="seat_goodsList">
+                        <div class="pub_img"><a target="_blank" href="<{:U('booking/detail',array('shop_id'=>$item['shop_id']))}>">
+                        <img src="<{:config_img($item['photo'])}>" />
+                            <p><{:bao_msubstr($item[addr],0,15)}></p></a>
+                        </div>
+                        <div class="pub_wz">
+                            <h3 class="overflow_clear"><a target="_blank" href="<{:U('booking/detail',array('shop_id'=>$item['shop_id']))}>"><{$item.shop_name}></a></h3>
+                            <p class="mt10 mb10">口味：<span class="fontcl1 mr10"><{$item['kw_score']}></span>环境：<span class="fontcl1 mr10"><{$item['hj_score']}></span>服务：<span class="fontcl1 mr10"><{$item['fw_score']}></span></p>
+                            <div class="btn_box">
+                                <div class="left">人均：<span class="fontcl1">￥<{$item.price}></span></div>
+                                <a target="_blank" href="<{:U('booking/detail',array('shop_id'=>$item['shop_id']))}>" class="btn right">立即预订</a>
+                            </div>
+                        </div>
+                    </li>
+                </calldata>
+            </ul>
+            <div class="clear"></div>
+    	</div>
+        <div class="list_box seat_goodsList_box" style="display:none;">
+            <ul>
+            	<calldata mdl="Booking" where="audit = 1 AND closed=0 AND city_id=$city_id" limit="0,4" cache="21600" order="score desc">
+                    <li class="seat_goodsList">
+                        <div class="pub_img"><a target="_blank" href="<{:U('booking/detail',array('shop_id'=>$item['shop_id']))}>"><img src="__ROOT__/attachs/<{$item['photo']}>" />
+                            <p><{:bao_msubstr($item[addr],0,15)}></p></a>
+                        </div>
+                        <div class="pub_wz">
+                            <h3 class="overflow_clear"><a target="_blank" href="<{:U('booking/detail',array('shop_id'=>$item['shop_id']))}>"><{$item.shop_name}></a></h3>
+                            <p class="mt10 mb10">口味：<span class="fontcl1 mr10"><{$item['kw_score']}></span>环境：<span class="fontcl1 mr10"><{$item['hj_score']}></span>服务：<span class="fontcl1 mr10"><{$item['fw_score']}></span></p>
+                            <div class="btn_box">
+                                <div class="left">人均：<span class="fontcl1">￥<{$item.price}></span></div>
+                                <a target="_blank" href="<{:U('booking/detail',array('shop_id'=>$item['shop_id']))}>" class="btn right">立即预订</a>
+                            </div>
+                        </div>
+                    </li>
+                </calldata>
+            </ul>
+            <div class="clear"></div>
+    	</div>
+        <div class="list_box seat_goodsList_box" style="display:none;">
+            <ul>
+            	<calldata mdl="Booking" where="audit = 1 AND closed=0 AND city_id=$city_id" limit="0,4" cache="21600" order="hj_score desc,fw_score desc">
+                    <li class="seat_goodsList">
+                        <div class="pub_img"><a target="_blank" href="<{:U('booking/detail',array('shop_id'=>$item['shop_id']))}>">
+                        <img src="<{:config_img($item['photo'])}>" />
+                            <p><{:bao_msubstr($item[addr],0,15)}></p></a>
+                        </div>
+                        <div class="pub_wz">
+                            <h3 class="overflow_clear"><a target="_blank" href="<{:U('booking/detail',array('shop_id'=>$item['shop_id']))}>"><{$item.shop_name}></a></h3>
+                            <p class="mt10 mb10">口味：<span class="fontcl1 mr10"><{$item['kw_score']}></span>环境：<span class="fontcl1 mr10"><{$item['hj_score']}></span>服务：<span class="fontcl1 mr10"><{$item['fw_score']}></span></p>
+                            <div class="btn_box">
+                                <div class="left">人均：<span class="fontcl1">￥<{$item.price}></span></div>
+                                <a target="_blank" href="<{:U('booking/detail',array('shop_id'=>$item['shop_id']))}>" class="btn right">立即预订</a>
+                            </div>
+                        </div>
+                    </li>
+                </calldata>
+            </ul>
+            <div class="clear"></div>
+    	</div>
+    </div>
+    <!--筛选内容end-->
+    <a target="_blank" href="<{:LinkTo('booking/lists')}>" class="seat_goodsList_more">更多优惠订座，请点击查看 &gt;</a>
+</div>
+<script>
+$(document).ready(function () {
+	$('.flexslider').flexslider({
+		directionNav: false,
+		pauseOnAction: false
+	});
+});
+</script>
+<include file="public:footer"/>

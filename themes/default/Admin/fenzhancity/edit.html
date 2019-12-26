@@ -1,0 +1,78 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+     <li class="li1">设置</li>
+        <li class="li2">区域设置</li>
+        <li class="li2 li3">城市站点</li>
+    </ul>
+</div>
+<form target="baocms_frm" action="<{:U('city/edit',array('city_id'=>$detail['city_id']))}>" method="post">
+    <div class="mainScAdd">
+        <div class="tableBox">
+            <table  bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;" >
+                   <tr>
+                    <td class="lfTdBt">城市名称：</td>
+                    <td class="rgTdBt"><input type="text" name="data[name]" value="<{$detail.name|default=''}>" class="manageInput" />
+
+                    </td>
+                </tr><tr>
+                    <td class="lfTdBt">城市拼音：</td>
+                    <td class="rgTdBt"><input type="text" name="data[pinyin]" value="<{$detail.pinyin|default=''}>" class="manageInput" />
+
+                    </td>
+                </tr>
+                
+                
+                <tr>
+                    <td class="lfTdBt">城市模板风格：</td>
+                    <td class="rgTdBt">
+                        <select name="data[theme]" class="select">
+                            <option value="">请选择</option>
+                            <foreach name="themes" item="item"> 
+                                <option <eq name="detail.theme" value="$item.theme"> selected="selected"</eq> value="<{$item.theme}>"><{$item.name}></option>
+                            </foreach>
+                        </select>
+                    </td>
+                </tr>
+                 <tr>
+                    <td class="lfTdBt">首字母：</td>
+                    <td class="rgTdBt"><input type="text" name="data[first_letter]" value="<{$detail.first_letter|default=''}>" class="manageInput" />
+                        <code>大写字母</code>
+                    </td>
+                </tr>
+                  <tr>
+                    <td class="lfTdBt">城市中心坐标：</td>
+                    <td class="rgTdBt">
+                        <div class="lt">
+                            经度<input type="text" name="data[lng]" id="data_lng" value="<{$detail.lng|default=''}>" class="scAddTextName w200" />
+                            纬度 <input type="text" name="data[lat]" id="data_lat" value="<{$detail.lat|default=''}>" class="scAddTextName w200" />
+                        </div>
+                        <a style="margin-left: 10px;" mini="select"  w="600" h="600" href="<{:U('public/maps')}>" class="seleSj">百度地图</a>
+                </tr>
+                <tr>
+                    <td class="lfTdBt">排序：</td>
+                    <td class="rgTdBt"><input type="text" name="data[orderby]" value="<{$detail.orderby|default=''}>" class="manageInput" />
+
+                    </td>
+                </tr>
+                 <tr>
+                    <td class="lfTdBt">是否启用：</td>
+                    <td class="rgTdBt">
+                        <label>
+                            <input type="radio" <?php if($detail['is_open'] == 0) echo "checked='checked'";?> name="data[is_open]" value="0"  />
+                                   不启用
+                        </label>
+                        <label>
+                            <input type="radio" <?php if($detail['is_open'] == 1) echo "checked='checked'";?> name="data[is_open]" value="1"  />
+                                   启用
+                        </label>
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+        <div class="smtQr"><input type="submit" value="确认编辑" class="smtQrIpt" /></div>
+    </div>
+</form>
+<include  file='public:footer'/>       
+

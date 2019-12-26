@@ -1,0 +1,134 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+	<div class="top-back">
+		<a class="top-addr" href="<{:U('index/index')}>"><i class="icon-angle-left"></i></a>
+	</div>
+		<div class="top-title">
+			配送订单详情
+		</div>
+	<div class="top-signed">
+
+	</div>
+</header>
+<style>
+.container {padding: 10px;}
+</style>
+<!-- 筛选TAB -->
+<ul id="shangjia_tab">
+        <li style="width: 50%;"><a href="<{:LinkTo('lists/state',array('order_id'=>$detail['order_id']))}>" >订单状态</a></li>
+        <li style="width: 50%;"><a href="<{:LinkTo('lists/detail',array('order_id'=>$detail['order_id']))}>"  class="on">订单详情</a></li>
+     
+</ul>
+<div class="panel-list" style="margin-top:2.2rem;"> 
+	<ul>
+		<li>
+			<a href="javascript:;">
+				订单编号：
+				<em><{$detail.order_id}></em>
+			</a>
+		</li>
+		<li>
+			<a href="javascript:;">
+				实际支付：<em class="text-dot"> &yen; <{:round($lists['need_pay']/100 ,2)}> 元</em>
+			</a>
+		</li>
+        
+        <if condition="$detail['type'] eq 1">
+		<li>
+			<a href="javascript:;">
+				外卖配送费用：
+                <if condition="empty($lists['logistics'])">
+                <em class="text-dot">免邮</em>
+                <else/>
+                <em class="text-dot">&yen; <{:round($lists['logistics']/100,2)}> 元</em>
+                </if>
+				
+			</a>
+		</li>
+        <else/>
+        <li>
+            <a href="javascript:;">
+                    商城配送费用：
+                    <if condition="empty($lists['express_price'])">
+                    <em class="text-dot">免邮</em>
+                    <else/>
+                    <em class="text-dot">&yen; <{:round($lists['express_price']/100,2)}> 元</em>
+                    </if>
+                    
+                </a>
+          </li>
+        </if>
+ 	
+		<li>
+			<a href="javascript:;">
+				下单时间：
+				<em><{$detail.create_time|date='Y-m-d H:i',###}></em>
+			</a>
+		</li>
+	</ul>
+</div>
+
+<div class="blank-10 bg"></div>
+<div class="list-media-x">
+	<ul>
+		<foreach name="new_list" item="var">
+		<li class="line padding">
+			<div class="x3">
+				<img style="width:90%;" src="<{:config_img($var['photo'])}>" />
+			</div>
+			<div class="x9">
+				<p><{:bao_msubstr($var['title'],0,18,false)}></p>
+				<p class="text-small padding-top">小计：<span class="text-dot">&yen; <php>echo round(($var['total_price']/$var['num'])/100,2);</php> x <{$var.num}> </span></p>
+			</div>
+		</li> 
+		</foreach>  
+	</ul>
+</div>
+
+
+<div class="blank-10 bg"></div>
+<div class="panel-list">
+	<ul>
+    <if condition="$detail['type'] eq 1">
+   		<li><a href="javascript:;">收货姓名：<em><{$addrs['name']}></em></a></li>
+		<li><a href="tel:<{$addrs['mobile']}>">手机号码：<em><{$addrs['mobile']}></em></a></li>
+		<li><a href="javascript:;">配送地址：<small class="text-small margin-left text-gray"> <{$addrs['addr']}></small></a></li>
+    <else/>
+   		<li><a href="javascript:;">收货姓名：<em><{$addarres['xm']}></em></a></li>
+		<li><a href="javascript:;">手机号码：<em><{$addarres.tel}></em></a></li>
+		<li><a href="javascript:;">配送地址：<small class="text-small margin-left text-gray"> <{$addarres.area_str}> <{$addarres.info }></small></a></li>
+    </if>
+	</ul>
+</div>
+		
+
+<div class="blank-10 bg"></div>
+<div class="panel-list">
+	<ul>
+   		<li><a href="javascript:;">商家名称：<em><{$shops['shop_name']}></em></a></li>
+		<li><a href="tel:<{$shops['tel']}>">商家电话：<em><{$shops['tel']}></em></a></li>
+		<li><a href="javascript:;">取货地址：<small class="text-small margin-left text-gray"> <{$shops['addr']}></small></a></li>
+	</ul>
+</div>
+<div class="blank-30"></div>
+	<div class="container text-center">
+		<if condition="$detail[status] eq 0">
+    		<a class="button button-block button-big bg-yellow">货到付款，待抢单</a>
+        <elseif condition="$detail[status] eq 1"/>
+       		<a class="button button-block button-big bg-blue">已付款，待抢单</a>
+        <elseif condition="$detail[status] eq 2"/>
+       		<a class="button button-block button-big bg-dot">已被接单</a>
+        <elseif condition="$detail[status] eq 2"/>
+       		<a class="button button-block button-big bg-gray">已完成配送</a>
+        </if>
+
+        <eq name="lists.is_daofu" value="1">
+       		<div class="blank-10"></div>
+        	<a href="javascript:void(0);" class="button button-block button-big bg-dot">货到付款</a>
+        </eq>
+
+	</div>
+<div class="blank-20"></div>
+
+    
+<include file='lists:footer'/>

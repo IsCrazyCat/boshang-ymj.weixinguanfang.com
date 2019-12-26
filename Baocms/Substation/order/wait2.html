@@ -1,0 +1,173 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">商城</li>
+        <li class="li2">商城订单</li>
+        <li class="li2 li3">货到付款捡货</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <p class="attention"><span>注意：</span>可以先加入捡货单，然后捡货！加入捡货单后可以点击立刻创建按钮进行清单创建！建议将商家地址比较接近的单子一起捡货！如果后期自建仓库的话，可以考虑联系官方开发者，升级经销存智能化管理！
+    </p>
+    <div class="jsglNr">
+        <div class="selectNr" style="border-top: none; margin-top: 0px;">
+            <div class="right">
+                <form class="search_form" method="post" action="<{:U('order/wait2')}>"> 
+                    <div class="seleHidden" id="seleHidden">
+                        <div class="seleK">
+                            <label>
+                                <input type="hidden" id="user_id" name="user_id" value="<{$user_id|default=''}>" />
+                                <input type="text" name="nickname" id="nickname"  value="<{$nickname}>"   class="text" />
+                                <a mini="select"  w="800" h="600" href="<{:U('user/select')}>" class="sumit">选择用户</a>
+                            </label>
+                            <label>
+                                <span>状态</span>
+                                <select name="st" class="select w120">
+                                    <option value="999">请选择</option>
+                                    <foreach name="types" key="key" item="item">
+                                        <option <eq name="st" value="$key">selected="selected"</eq>  value="<{$key}>"><{$item}></option>
+                                    </foreach>
+                                </select>
+                            </label>
+                            <label>
+                                <span>订单编号</span>
+                                <input type="text" name="keyword" value="<{$keyword}>" class="inptText" />
+                                <input type="submit" value="   搜索"  class="inptButton" />
+                            </label>
+                        </div>
+                    </div> 
+                </form>
+                <a href="javascript:void(0);" class="searchG">高级搜索</a>
+                <div class="clear"></div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <form method="post" action="<{:U('order/wait2')}>">
+            <div class="selectNr selectNr2">
+                <div class="left">
+                    <div class="seleK">
+                        <label>
+                            <input type="hidden" id="user_id" name="user_id" value="<{$user_id|default=''}>" />
+                            <input type="text" name="nickname" id="nickname"  value="<{$nickname}>"   class="text w150" />
+                            <a style="margin-right: 5px;" mini="select"  w="800" h="600" href="<{:U('user/select')}>" class="sumit">选择用户</a>
+                        </label>
+                        <label>
+                            <span>商家</span>
+                            <input type="hidden" id="shop_id" name="shop_id" value="<{$shop_id|default=''}>"/>
+                            <input type="text"   id="shop_name" name="shop_name" value="<{$shop_name}>" class="text w150" />
+                            <a style="margin-right: 5px;" href="<{:U('shop/select')}>" mini='select' w='800' h='600' class="sumit lt ">选择商家</a>
+                        </label>
+                        <label>
+                            <span>状态</span>
+                            <select name="st" class="select w100" style="margin-right: 5px;">
+                                <option value="999">请选择</option>
+                                <foreach name="types" key="key" item="item">
+                                    <option <eq name="st" value="$key">selected="selected"</eq>  value="<{$key}>"><{$item}></option>
+                                </foreach>
+                            </select>
+                        </label>
+                        <label>
+                            <span>开始时间</span>
+                            <input type="text" name="bg_date" value="<{$bg_date|default=''}>"  onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text" />
+                        </label>
+                        <label>
+                            <span>结束时间</span>
+                            <input type="text" name="end_date" value="<{$end_date|default=''}>" onfocus="WdatePicker({dateFmt: 'yyyy-MM-dd HH:mm:ss'});"  class="text" />
+                        </label>
+                        <label>
+                            <span>订单编号</span>
+                            <input type="text" name="keyword" value="<{$keyword}>" class="inptText w120" />
+                        </label>
+                    </div>
+                </div>
+                <div class="right">
+                    <input type="submit" value="   搜索"  class="inptButton" />
+                </div>
+                <div class="clear"></div>
+            </div>
+        </form>
+        <div class="tableBox">
+            <form  target="baocms_frm" method="post">
+                <foreach name="list" item="order">
+                    <table bordercolor="#dbdbdb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; vertical-align:middle; background-color:#FFF; margin-top: 10px;"  >
+                        <tr class="no">
+                            <td><input class="child_order_id" <if condition="isset($picks[$order['order_id']])"> checked="checked"</if>  name="order_id[]"  type="checkbox" value="<{$order.order_id}>" /> ID</td>
+                        <td><{$order.order_id}></td>
+                        <td>买家 </td>
+                        <td><{$users[$order['user_id']]['account']}></td>
+                        <td>创建时间</td>
+                        <td><{$order.create_time|date='Y-m-d H:i:s',###}></td>
+                        <td>创建IP</td>
+                        <td><{$order.create_ip}></td>
+                        </tr>
+                        <tr class="no">
+                            <td>总价值</td>
+                            <td><{:round($order['total_price']/100,2)}></td>
+                            <td>
+                                卖家
+                            </td>
+                            <td>
+                                <{$shops[$order['shop_id']]['shop_name']}>
+                            </td>
+                            <td>收货地址</td>
+                            <td>
+                                <{$areas[$addrs[$order['addr_id']]['area_id']]['area_name']}>、
+                                <{$business[$addrs[$order['addr_id']]['business_id']]['business_name']}>、
+
+                                <{$addrs[$order['addr_id']]['addr']}>
+                                <br/>
+                                <{$addrs[$order['addr_id']]['name']}>
+                                <{$addrs[$order['addr_id']]['mobile']}>
+                            </td>
+                            <td>状态</td>
+                            <td style="color: red;">
+                                <eq name="order.is_daofu" value="1">货到付款 ---</eq>
+                                <{$types[$order['status']]}>
+                            </td>
+                        </tr>
+                        <tr class="no">
+                            <td colspan="8">
+                                <table>
+                                    <tr class="no">
+                                        <th>图片</th>
+                                        <th>商品名称</th>
+                                        <th>数量</th>
+                                        <th>单价</th>
+                                        <th>总价</th>
+                                        <th>状态</th>
+                                    </tr>  
+                                    <foreach name="goods" item="good">
+                                        <eq name="good.order_id" value="$order.order_id">
+                                        <tr class="no">
+                                            <td><img width="80" src="<{:config_img($products[$good['goods_id']]['photo'])}>" /></td>
+                                            <td><{$products[$good['goods_id']]['title']}></td>
+                                            <td><{$good.num}></td>
+                                            <td><{:round($good['price']/100,2)}></td>
+                                            <td><{:round($good['total_price']/100,2)}></td>
+                                            <td  style="color: red;">
+                                        <if condition="$order['status'] neq 0  && $order['is_daofu'] neq 0">
+                                            <{$goodtypes[$good['status']]}>
+                                        </if>        
+                                        </td>
+                                        </tr>
+                                        </eq>
+                                    </foreach>
+                                </table>
+                            </td>                    
+                        </tr>
+                    </table>
+                </foreach>
+                <{$page}>
+                <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                    <div class="left">
+                        <input type="checkbox" class="checkAll" rel="order_id" />全选
+                        <{:BA('order/pick',array('wait'=>1),'加入捡货列表','list','remberBtn')}>
+                        <{:BA('order/clean',array('wait'=>1),'清空捡货队列','act','remberBtn')}>
+                        <{:BA('order/create','','创建捡货单','act','remberBtn')}>
+                    </div>
+                </div>
+            </form>  
+        </div>
+    </div>
+    <include  file='public:footer'/>       
+

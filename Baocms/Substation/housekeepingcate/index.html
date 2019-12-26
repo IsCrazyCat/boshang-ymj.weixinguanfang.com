@@ -1,0 +1,44 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">手机:</li>
+        <li class="li2">家政</li>
+        <li class="li2 li3">家政分类</li>
+    </ul>
+</div>
+<div class="main-cate">
+    <p class="attention"><span>注意：</span>这里是一级分类,不可以添加下级分类！</p>
+    <div class="jsglNr">
+        <form  target="baocms_frm" method="post">
+            <div class="selectNr" style="border-top: 1px solid #e1e6eb;">
+                <div class="left">
+                    <{:BA('housekeepingcate/create','','添加分类','load','',600,300)}>
+                </div>
+                <div class="right">
+                    <{:BA('housekeepingcate/update','','更新','list','remberBtn')}>
+                </div>
+            </div>
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF; text-align:center;">
+                    <tr bgcolor="#F5F6FA" height="35px;" style="color:#333; font-size:16px; line-height:35px;">
+						<td class="w50">ID</td>  
+                        <th>分类</th>
+                        <th>排序</th>
+                        <th>操作</th>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr bgcolor="#f1f1f1" height="48px" style="font-size:14px; color:#545454;  line-height:48px;">
+                        	<td><{$var.cate_id}> </td>
+                            <td ><{$var.cate_name}></td>
+                            <td><input name="orderby[<{$var.cate_id}>]" value="<{$var.orderby}>" type="text" class="remberinput w80" /></td>
+                            <td >
+                                <{:BA('housekeepingcate/edit',array("cate_id"=>$var["cate_id"]),'编辑','load','remberBtn',600,300)}>
+                                <{:BA('housekeepingcate/delete',array("cate_id"=>$var["cate_id"]),'删除','act','remberBtn')}>
+                            </td>  
+                        </tr>
+                    </foreach>       
+                </table>
+                <{$page}>
+        </form>
+    </div>
+    <include  file='public:footer'/>       

@@ -1,0 +1,81 @@
+<include file='public:header'/>  
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('appoint/index',array('st'=>1))}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			家政订单详情
+		</div>
+		<div class="top-share">
+			<a href="#" id="cate-btn"></a>
+		</div>
+	</header>
+<body>   
+
+<style>
+.panel-list li.padding10 { padding:0 10px;}
+.panel-list li a.button-small { margin:10px 0; padding:0 10px; text-align:center; font-size:14px;}
+</style>
+<div class="panel-list">
+	<ul>
+		<li><a href="javascript:;">订单编号：<em><{$detail.order_id}></em></a></li>
+		<li><a href="javascript:;">服务时间：<{$detail.svctime}></a></li>
+		<li><a href="javascript:;">预约姓名：<em><{$detail.name}>，<{$detail.mobile}></em></a></li>
+		<li><a href="javascript:;">预约地址：<em><{$detail.addr}></em></a></li>
+        <if condition="!empty($detail['worker_id'])">
+		<li><a href="javascript:;">预约技师：<em><{$appointworker.name}>，职务：<{$appointworker.office}></em></a></li>
+        </if>
+        <li><a href="javascript:;">支付定金：<{:round($detail['need_pay']/100,2)}></a></li>
+	</ul>
+</div>
+<div class="blank-10 bg"></div>
+<div class="panel-list">
+	<ul>
+        <li class="padding10">
+         <if condition="$detail['status'] eq 0">
+                  <a class="button button-small bg-dot"  href="<{:U('wap/appoint/pay',array('order_id'=>$detail['order_id']))}>">去付款</a>
+                  <a target="x-frame" class="button button-small bg-gray" href="<{:U('appoint/orderdel',array('order_id'=>$detail['order_id']))}>">取消订单</a>
+             <elseif condition="$detail[status] eq 1" />
+                  <a class="button button-small bg-dot" >已付款</a>
+                  <a target="x-frame"  class="button button-little bg-dot"  href="<{:U('appoint/refund',array('order_id'=>$detail['order_id']))}>">申请退款</a>
+             <elseif condition="$detail[status] eq 2" />
+                  <a class="button button-small bg-yellow" >已确认</a>
+             <elseif condition="$detail[status] eq 3" />
+                  <a class="button button-small bg-blue" >已付款</a>
+                  <a target="x-frame"  class="button button-small bg-dot"  href="<{:U('appoint/cancel_refund',array('order_id'=>$detail['order_id']))}>">取消退款</a>
+             <elseif condition="$detail[status] eq 4" />
+                  <a class="button button-little bg-gray" >已退款</a>
+                  <a target="x-frame" class="button button-small bg-gray" href="<{:U('appoint/orderdel',array('order_id'=>$detail['order_id']))}>">删除订单</a>
+             <elseif condition="$detail[status] eq 8" />
+                  <a class="button button-small bg-blue" >完成</a>
+                  <if condition="$detail['comment_status'] eq 1">
+                      <a class="button button-small bg-blue" >已点评</a>
+                  <else/>
+                      <a class="button button-small bg-dot" href="<{:U('appoint/comment',array('order_id'=>$detail['order_id']))}>">去点评</a>
+                  </if>
+             </if>       
+             
+             
+        </li>
+	</ul>
+</div>
+<div class="blank-30"></div>
+<style>
+.container a{ text-align:center}
+</style>
+    <div class="container login-open">
+        <if condition="!$detail['status']">
+           <a class="button button-block button-big bg-dot"  id="pay_btn">立即在线支付:￥<{:round($detail['need_pay']/100,2)}></a>
+         </if>
+    </div>
+<script>
+    $(document).ready(function(){
+        $("#pay_btn").click(function(){
+            var url = "<{:U('wap/appoint/pay',array('order_id'=>$detail['order_id']))}>";
+            window.location.href = url;
+        })
+    })
+</script>
+
+<div class="blank-20"></div>
+<include file="public:footer"/>

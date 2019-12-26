@@ -1,0 +1,120 @@
+<include  file='public:header'/>
+<script src="__PUBLIC__/js/my97/WdatePicker.js"></script>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">优惠券</a> > <a>编辑优惠券</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">商家发布的所有优惠券都要在后台审核之后才能显示在前台</div>
+        </div>
+    </div> 
+    <div class="tabnr_change  show">
+    	<form method="post"  action="<{:U('coupon/edit',array('coupon_id'=>$detail['coupon_id']))}>"  target="baocms_frm">
+        <js file='__PUBLIC__/js/uploadify/jquery.uploadify.min.js'/>
+        <link rel="stylesheet" href="__PUBLIC__/js/uploadify/uploadify.css">
+    	<table class="tuanfabu_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+                <td width="120"><p class="tuanfabu_t"><em>·</em>标题：</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[title]" value="<{$detail.title|default=''}>" class="tuanfabu_int tuanfabu_intw2" />
+                </div></td>
+            </tr>
+            
+            
+             <tr>
+                 <td><p class="tuanfabu_t">优惠劵图片：</p></td>
+                 <td><div class="tuanfabu_nr">
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <input type="hidden" name="data[photo]" value="<{$detail.photo}>" id="data_photo" />
+                        <div id="fileToUpload" >上传缩略图</div>
+                    </div>
+                    <div style="width: 300px;height: 100px; float: left;">
+                        <img id="photo_img" width="80" height="80"  src="<{:config_img($detail['photo'])}>" />
+                        <a href="<{:U('setting/attachs')}>">缩略图设置</a>
+                        <{$CONFIG.attachs.coupon.thumb}>
+                    </div>
+                    <script>                                            
+						var width_coupon = '<{:thumbSize($CONFIG[attachs][coupon][thumb],0)}>';                         
+						var height_coupon = '<{:thumbSize($CONFIG[attachs][coupon][thumb],1)}>';                         
+						var uploader = WebUploader.create({                             
+						auto: true,                             
+						swf: '/static/default/webuploader/Uploader.swf',                             
+						server: '<{:U("app/upload/uploadify",array("model"=>"coupon"))}>',                             
+						pick: '#fileToUpload',                             
+						resize: true,   
+						compress : {width: width_coupon,height: height_coupon,quality: 80,allowMagnify: false,crop: true}                       
+					});                                                 
+					uploader.on( 'uploadSuccess', function( file,resporse) {                             
+						$("#data_photo").val(resporse.url);                             
+						$("#photo_img").attr('src',resporse.url).show();                         
+					});                                                
+					uploader.on( 'uploadError', function( file ) {                             
+						alert('上传出错');                         
+					});                     
+                    </script>
+                    </div>
+                </td>
+            </tr>
+            
+         
+            
+               <tr>
+                <td  width="120"><p class="tuanfabu_t">总数量：</p></td>
+                <td>
+                    <div class="tuanfabu_nr">
+                    <input type="text" name="data[num]" value="<{$detail.num|default=''}>"   class="manageInput" />
+                   总数量为0的时候，就不能下载了
+                   </div>
+                </td>
+            </tr>
+             <tr>
+                <td  width="120"><p class="tuanfabu_t">单人限制下载：</p></td>
+                <td >
+                    <div class="tuanfabu_nr">
+                    <input type="text" name="data[limit_num]" value="<{$detail.limit_num|default=''}>"   class="manageInput" />
+                  0为不限制，如果填入数字代码该用户只能下载多少次
+                  </div>
+                </td>
+            </tr>
+             <tr>
+                <td  width="120"><p class="tuanfabu_t">满多少钱：</p></td>
+                <td >
+                    <div class="tuanfabu_nr">
+                    <input type="text" name="data[full_price]" value="<{:round($detail['full_price']/100,2)}>"   class="manageInput" />
+                  就是当前优惠劵满多钱，暂时不支持打折
+                  </div>
+                </td>
+            </tr>
+            
+            <tr>
+                <td  width="120"><p class="tuanfabu_t">减多少钱：</p></td>
+                <td >
+                    <div class="tuanfabu_nr">
+                    <input type="text" name="data[reduce_price]" value="<{:round($detail['reduce_price']/100,2)}>"   class="manageInput" />
+                 用户付款的时候减去多少钱
+                  </div>
+                </td>
+            </tr>
+            <tr>
+                <td width="120"><p class="tuanfabu_t">过期日期：</p></td>
+                <td><div class="tuanfabu_nr">
+                <input type="text" name="data[expire_date]" value="<{$detail.expire_date|default=''}>" onfocus="WdatePicker();"  class="tuanfabu_int tuanfabu_intw2" />
+                </div></td>
+            </tr>
+            <tr>
+                <td width="120"><p class="tuanfabu_t">优惠券描述：</p></td>
+                <td><div class="tuanfabu_nr">
+                <textarea  name="data[intro]" cols="50" rows="10" ><{$detail.intro|default=''}></textarea>
+                </div></td>
+            </tr>
+        </table>
+        <div class="tuanfabu_an">
+        <input type="submit" class="radius3 sjgl_an tuan_topbt" value="确认发布" />
+        </div>
+        </form>
+    </div> 
+</div>
+<include  file='public:footer'/>

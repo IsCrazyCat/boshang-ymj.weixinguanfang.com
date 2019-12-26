@@ -1,0 +1,3 @@
+<foreach name="tuans" item="item"> 
+<li><a href="<{:U('tuan/detail',array('tuan_id'=>$item['tuan_id']))}>"><img src="<{:config_img($item['photo'])}>"><div class="pos_btn"><{$item.title}><span class="price"><em>￥</em><{:round($item['price']/100,2)}></span></div></a></li>
+</foreach>

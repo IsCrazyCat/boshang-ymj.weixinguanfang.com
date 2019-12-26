@@ -1,0 +1,100 @@
+<include file="public:header"/>
+<header class="top-fixed bg-yellow bg-inverse">
+<div class="top-back">
+	<a class="top-addr" href="<{:u('index/index')}>"><i class="icon-angle-left"></i></a>
+</div>
+<div class="top-title">
+			优惠券管理
+</div>
+<div class="top-share">
+	<a href="<{:u('coupon/create')}>" class="top-addr icon-plus"> 优惠劵</a>
+</div>
+</header>
+<style>
+ul { padding-left: 0px;}
+.list-media-x{ margin-top:2.2rem;}
+.list-media-x p {margin-top: .01rem; line-height:20px;font-size: 12px;}
+</style>
+<!-- 筛选TAB -->
+<ul id="shangjia_tab">
+	<li style="width:33.3333367%;"><a href="<{:U('coupon/sale')}>" class="on">优惠劵列表</a></li>
+	<li style="width:33.3333367%;"><a href="<{:U('coupon/download')}>">优惠劵下载</a></li>
+	<li style="width:33.3333367%;"><a href="<{:U('coupon/index')}>">优惠劵验证</a></li>
+</ul>
+<div class="list-media-x" id="list-media">
+	<ul>
+		<div class="blank-10 bg">
+		</div>
+		<foreach name="list" item="var">
+		<li class="line">
+		<dt><a class="x2">ID：<{$var.coupon_id}></a><a class="x10 text-right text-gray">过期时间：<{$var.expire_date}></a></dt>
+		<dd class="zhong">
+		<div class="x3">
+			<img src="<{:config_img($var['photo'])}>" style="width:90%;">
+		</div>
+		<div class="9">
+			<p class="text-small">
+				标题：<{$var.title}>
+			</p>
+			<p class="text-gray">
+				浏览量：<{$var.views}> &nbsp;库存：<{$var.num}>
+			</p>
+			<p class="text-small">
+				<span class="text-dot1 margin-right">下载次数：<span class="text-dot"><{$var.downloads}></span></span>
+                <if condition="$var['limit_num'] gt 0">
+                <span class="text-dot1 margin-right">每人限领取<{$var.limit_num}>次</span>
+                </if>
+			</p>
+            <p class="text-small">
+				<span class="text-dot1 margin-right">满多少：<span class="text-dot">&yen;<{:round($detail['full_price']/100,2)}></span></span>
+                <span class="text-dot1 margin-right">减多少：&yen;<{:round($detail['reduce_price']/100,2)}></span>
+			</p>
+		</div>
+		</dd>
+		<dl>
+			<p class="text-right padding-top x12">
+				<eq name="var.audit" value="0">
+				<a class="button button-small bg-gray">待审</a>
+				<else/>
+				<a href="<{:u('wap/coupon/detail',array('coupon_id'=>$var['coupon_id']))}>" class="button button-small bg-dot">详情</a>
+				</eq>
+				<a href="<{:U('coupon/edit',array('coupon_id'=>$var['coupon_id']))}>" class="button button-small bg-dot">编辑</a>
+				<a href="javascript:void(0);" rel="<{$var.coupon_id}>"  class="jquery-delete button button-small bg-gray">删除</a>
+			</p>
+		</dl>
+		</li>
+		<div class="blank-10 bg">
+		</div>
+		</foreach>
+	</ul>
+</div>
+<script>
+	$(document).ready(function () {
+		$(document).on('click', ".jquery-delete", function (e) {
+			var coupon_id = $(this).attr('rel');
+			layer.confirm('您确定要删除该优惠劵？', {
+				skin: 'layer-ext-demo', 
+				area: ['50%', 'auto'], //宽高
+				btn: ['是的', '不'], //按钮
+				shade: false //不显示遮罩
+			}, function () {
+				$.post("<{:U('coupon/delete')}>", {coupon_id: coupon_id}, function (result) {
+					if (result.status == "success") {
+						layer.msg(result.msg);
+						setTimeout(function () {
+							location.reload();
+						}, 1000);
+					} else {
+						layer.msg(result.msg);
+					}
+				}, 'json');
+			});
+		});
+	});
+</script>
+<div class="blank-20">
+</div>
+<div class="container login-open">
+	<h5 style="text-align:center"><{$page}><!--分页代码不要忘记加--></h5>
+</div>
+<include file='public:footer'/>

@@ -1,0 +1,221 @@
+<include file="public:header"/>
+<link rel="stylesheet" href="/static/default/wap/css/tieba.css">
+<link href="/static/default/wap/other/jquery-ui.css" rel="stylesheet">
+<script src="/static/default/wap/other/jquery-ui.js"></script>
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:u('worker/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			修改员工
+		</div>
+	</header>
+
+    <form class="fabu-form" method="post" target="x-frame" action="<{:U('worker/edit',array('worker_id'=>$detail['worker_id']))}>">
+        <input type="hidden" class="text-input" name="data[user_id]" value="<{$detail.user_id|default=''}>" >    
+        <div class="row">
+            <div class="line">
+                <span class="x3">员工姓名：</span>
+                <span class="x9">
+                   <input type="text" class="text-input"  name="data[name]" value="<{$detail.name|default=''}>"  placeholder="员工姓名" />
+                </span>
+            </div>
+        </div>
+        
+          <div class="row">
+            <div class="line">
+                <span class="x3">员工座机：</span>
+                <span class="x9">
+                   <input type="text" class="text-input"  name="data[tel]" value="<{$detail.tel|default=''}>"  placeholder="员工座机" />
+                </span>
+            </div>
+        </div>
+
+         <div class="row">
+            <div class="line">
+                <span class="x3">员工手机：</span>
+                <span class="x9">
+                   <input type="text" class="text-input"  name="data[mobile]" value="<{$detail.mobile|default=''}>"  placeholder="员工手机" />
+                </span>
+            </div>
+        </div>
+
+         <div class="row">
+            <div class="line">
+                <span class="x3">QQ：</span>
+                <span class="x9">
+                   <input type="text" class="text-input"  name="data[qq]" value="<{$detail.qq|default=''}>"  placeholder="QQ" />
+                </span>
+            </div>
+        </div>
+
+         <div class="row">
+            <div class="line">
+                <span class="x3">员工微信：</span>
+                <span class="x9">
+                   <input type="text" class="text-input"  name="data[weixin]" value="<{$detail.weixin|default=''}>"  placeholder="员工微信" />
+                </span>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="line">
+                <span class="x3">联系地址：</span>
+                <span class="x9">
+                    <input type="text" class="text-input"  name="data[addr]" value="<{$detail.addr|default=''}>" placeholder="联系地址" />
+                </span>
+            </div>
+        </div>
+
+       <div class="row">
+            <div class="line">
+                <span class="x3">员工职务：</span>
+                <span class="x9">
+                    <input type="text" class="text-input"  name="data[work]" value="<{$detail.work|default=''}>" placeholder="员工职务" />
+                </span>
+            </div>
+        </div>
+
+         <div class="row">
+            <div class="line">
+                <span class="x3">团购权限：</span>
+                <span class="x9">
+                    <label><span>是</span>
+                            <input style="width: 20px; height: 20px;" type="radio" name="data[tuan]" value="1"  checked="checked" /></label>
+                            <label><span style="margin-left: 20px;">否</span>
+                            <input style="width: 20px; height: 20px;" type="radio" name="data[tuan]" value="0"/> </label>
+                </span>
+            </div>
+        </div>
+
+<!--         <div class="row">-->
+<!--            <div class="line">-->
+<!--                <span class="x3">优惠权限：</span>-->
+<!--                <span class="x9">-->
+<!--                      <label><span>是</span>-->
+<!--                            <input style="width: 20px; height: 20px;" type="radio" name="data[coupon]" value="1" ></label>-->
+<!--                            <label><span style="margin-left: 20px;">否</span>-->
+<!--                            <input style="width: 20px; height: 20px;" type="radio" name="data[coupon]" value="0" checked="checked"></label>-->
+<!--                </span>-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <div class="row">
+            <div class="line">
+                <span class="x3">商城权限：</span>
+                <span class="x9">
+                      <label><span>是</span>
+                            <input style="width: 20px; height: 20px;" type="radio" name="data[is_mall]" value="1" ></label>
+                            <label><span style="margin-left: 20px;">否</span>
+                            <input style="width: 20px; height: 20px;" type="radio" name="data[is_mall]" value="0" checked="checked" ></label>
+                </span>
+            </div>
+        </div>
+
+<!--         <div class="row">-->
+<!--            <div class="line">-->
+<!--                <span class="x3">订座权限：</span>-->
+<!--                <span class="x9">-->
+<!--                      <label><span>是</span>-->
+<!--                            <input style="width: 20px; height: 20px;" type="radio" name="data[is_ding]" value="1"  ></label>-->
+<!--                            <label><span style="margin-left: 20px;">否</span>-->
+<!--                            <input style="width: 20px; height: 20px;" type="radio" name="data[is_ding]" value="0" checked="checked"></label>-->
+
+<!--                </span>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--         <div class="row">-->
+<!--            <div class="line">-->
+<!--                <span class="x3">分类信息：</span>-->
+<!--                <span class="x9">-->
+<!--                      <label><span>是</span>-->
+<!--                            <input style="width: 20px; height: 20px;" type="radio" name="data[is_life]" value="1" > </label>-->
+<!--                            <label><span style="margin-left: 20px;">否</span>-->
+<!--                            <input style="width: 20px; height: 20px;" type="radio" name="data[is_life]" value="0"  checked="checked"></label>-->
+
+<!--                </span>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--         <div class="row">-->
+<!--            <div class="line">-->
+<!--                <span class="x3">招聘权限：</span>-->
+<!--                <span class="x9">-->
+<!--                      <label><span>是</span>-->
+<!--                            <input style="width: 20px; height: 20px;" type="radio" name="data[is_job]" value="1" ></label>-->
+<!--                            <label><span style="margin-left: 20px;">否</span>-->
+<!--                            <input style="width: 20px; height: 20px;" type="radio" name="data[is_job]" value="0"  checked="checked"></label>-->
+
+<!--                </span>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--         <div class="row">-->
+<!--            <div class="line">-->
+<!--                <span class="x3">预约权限：</span>-->
+<!--                <span class="x9">-->
+<!--                      <label><span>是</span>-->
+<!--                            <input style="width: 20px; height: 20px;" type="radio" name="data[is_yuyue]" value="1" ></label>-->
+<!--                            <label><span style="margin-left: 20px;">否</span>-->
+<!--                            <input style="width: 20px; height: 20px;" type="radio" name="data[is_yuyue]" value="0"  checked="checked"></label>-->
+<!--                </span>-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--         <div class="row">-->
+<!--            <div class="line">-->
+<!--                <span class="x3">点评权限：</span>-->
+<!--                <span class="x9">-->
+<!--                      <label><span>是</span>-->
+<!--                            <input style="width: 20px; height: 20px;" type="radio" name="data[is_dianping]" value="1" checked="checked" ></label>-->
+<!--                            <label><span style="margin-left: 20px;">否</span>-->
+<!--                            <input style="width: 20px; height: 20px;" type="radio" name="data[is_dianping]" value="0" checked="checked"></label>-->
+<!--                </span>-->
+<!--            </div>-->
+<!--        </div>-->
+
+         <div class="row">
+            <div class="line">
+                <span class="x3">文章权限：</span>
+                <span class="x9">
+                      <label><span>是</span>
+                            <input style="width: 20px; height: 20px;" type="radio" name="data[is_news]" value="1" checked="checked" ></label>
+                            <label><span style="margin-left: 20px;">否</span>
+                            <input style="width: 20px; height: 20px;" type="radio" name="data[is_news]" value="0" checked="checked"></label>
+                </span>
+            </div>
+        </div>
+<!--        -->
+<!--        <div class="row">-->
+<!--            <div class="line">-->
+<!--                <span class="x3">家政权限：</span>-->
+<!--                <span class="x9">-->
+<!--                      <label><span>是</span>-->
+<!--                            <input style="width: 20px; height: 20px;" type="radio" name="data[is_appoint]" value="1" checked="checked" ></label>-->
+<!--                            <label><span style="margin-left: 20px;">否</span>-->
+<!--                            <input style="width: 20px; height: 20px;" type="radio" name="data[is_appoint]" value="0" checked="checked"></label>-->
+<!--                </span>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        -->
+<!--        <div class="row">-->
+<!--            <div class="line">-->
+<!--                <span class="x3">订座权限：</span>-->
+<!--                <span class="x9">-->
+<!--                      <label><span>是</span>-->
+<!--                            <input style="width: 20px; height: 20px;" type="radio" name="data[is_booking]" value="1" checked="checked" ></label>-->
+<!--                            <label><span style="margin-left: 20px;">否</span>-->
+<!--                            <input style="width: 20px; height: 20px;" type="radio" name="data[is_booking]" value="0" checked="checked"></label>-->
+<!--                </span>-->
+<!--            </div>-->
+<!--        </div>-->
+          
+
+            <div class="container">
+                <div class="blank-30"></div>
+                <button type="submit" class="button button-block button-big bg-dot">确认编辑</button>
+                <div class="blank-30"></div>
+            </div>
+    </form>
+<include file='public:footer'/>  

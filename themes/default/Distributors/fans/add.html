@@ -1,0 +1,76 @@
+<include file='public:header'/>  
+	<header class="top-fixed bg-yellow bg-inverse">
+		<div class="top-back">
+			<a class="top-addr" href="<{:U('fans/index')}>"><i class="icon-angle-left"></i></a>
+		</div>
+		<div class="top-title">
+			增加积分
+		</div>
+		<div class="top-share">
+			<a  href="javascript:void(0);" id="cate-btn"></a>
+		</div>
+	</header>
+
+<style>
+.tab-bar {padding:0; }
+
+</style>  
+ <div class="line tab-bar">
+	<div class="button-toolbar">
+		<div class="button-group">
+			<a class="block button bg-dot active" style="border-radius:0px;">注意：亲，您给粉丝所加的积分必须不大于自己的积分额！</a>
+		</div>
+	</div>
+</div>   
+
+  
+<form class="fabu-form" method="post"  target="x-frame" action="<{:U('fans/add',array('user_id'=>$user['user_id']))}>">
+<div class="blank-10 bg border-top"></div>
+
+<div class="row">
+	<div class="line">
+		<span class="x3">您的积分：</span>
+		<span class="x9">
+			<input type="text" class="text-input"  disabled="disabled" value=""  placeholder="<{$shop['shop_name']}>您的积分：<{$jifen}>" />
+		</span>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="line">
+		<span class="x3">用户名：</span>
+		<span class="x9">
+			<input type="text" class="text-input"  disabled="disabled" value="" placeholder="用户名：<{$user['nickname']}>"/>
+		</span>
+	</div>
+</div>
+
+
+<div class="row">
+	<div class="line">
+		<span class="x3">用户积分：</span>
+		<span class="x9">
+			<input type="text" class="text-input"  disabled="disabled" value=""  placeholder="用户积分：<{$user['integral']}>" />
+		</span>
+	</div>
+</div>
+
+<div class="row">
+	<div class="line">
+		<span class="x3">赠送积分：</span>
+		<span class="x9">
+			<input type="text" class="text-input"  name="integral"  value=""  placeholder="输入您要赠送的积分" />
+		</span>
+	</div>
+</div>
+
+
+<div class="container">
+		<div class="blank-30"></div>
+		<button  type="submit" class="button button-block button-big bg-dot">确认赠送</button>
+		<div class="blank-30"></div>
+</div>  
+</form>  
+
+<include file="public:footer"/>

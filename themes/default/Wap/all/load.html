@@ -1,0 +1,24 @@
+    <foreach name="list" item="item">
+   	 <li class="line" onclick="location='<{:U($item['t_url'],array($item['t_param']=>$item['t_id']))}>'">
+          <dd class="zhong">
+            <div class="x3">
+                   <if condition="!empty($item['t_photo'])">
+                   <img style="width:80%;" src="<{:config_img($item['t_photo'])}>">
+                   <else/>
+                   <img style="width:80%;" src="__ROOT__/attachs/no.png">
+                   </if>
+                   </div>
+             <div class="x9">
+                <p class="text-small">名称：<{:bao_msubstr($item['t_title'],0,26,false)}></p>
+                <p class="text-gray">类型：<span class="sou"><{$item.t_name}></p>  
+                <if condition="!empty($item['t_note'])">   
+                <p class="text-small">
+                   <span class="text-dot1 margin-right">说明：<span class="text-dot"><{$item.t_note}></span></span>
+                </p>
+                </if>
+             </div>
+          </dd>
+        </li>
+     </foreach>
+
+

@@ -1,0 +1,42 @@
+<div class="menu_fllist2">
+    <php>$i=0;</php>             
+    <foreach name="goodscate" item="item">
+        <eq name="item.parent_id" value="0"> 
+        <php>$i++;if($i <= 8){</php>
+        <div <if condition="$i == 1">class="item2 bo"<else/>class="item2"</if> >
+            <h3>
+                <div class="left ico ico_<{$i}>"></div>
+                <div class="wz">
+                	<a class="bt1" title="<{$item.cate_name}>" target="_blank" href="<{:U('mall/index',array('cat'=>$item['cate_id']))}>"><{:msubstr($item['cate_name'],0,2,'utf-8',false)}></a>
+                    <div class="bt2">
+                        <php>$i2=0;</php>
+                        <foreach name="goodscate" item="item2">
+                            <eq name="item2.parent_id" value="$item.cate_id"> 
+                            <php>$i2++;if($i2 <= 2){</php>
+                            <a title="<{$item2.cate_name}>" target="_blank" href="<{:U('mall/index',array('cat'=>$item['cate_id'],'cate_id'=>$item2['cate_id']))}>"><{:msubstr($item2['cate_name'],0,4,'utf-8',false)}></a>
+                            <php>}</php>
+                            </eq>
+                        </foreach>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </h3>
+            <div class="menu_flklist2">
+                <div class="menu_fl2t"><a title="<{$item.cate_name}>" target="_blank" href="<{:U('mall/index',array('cat'=>$item['cate_id'],'cate_id'=>$item2['cate_id']))}>"><{$item.cate_name}></a></div>
+                <div class="menu_fl2nr">
+                    <php>$k=0;</php>
+                    <foreach name="goodscate" item="item2">
+                        <eq name="item2.parent_id" value="$item.cate_id"> 
+                            <a title="<{$item2.cate_name}>" target="_blank" href="<{:U('mall/index',array('cat'=>$item['cate_id'],'cate_id'=>$item2['cate_id']))}>"><{$item2['cate_name']}></a>
+                        </eq>
+                    </foreach>
+                </div>
+            </div>
+        </div>
+        <php>}</php>
+        </eq>
+    </foreach>
+</div>
+
+
+

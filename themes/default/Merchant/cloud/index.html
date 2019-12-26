@@ -1,0 +1,64 @@
+<include  file='public:header'/>
+<div class="sjgl_lead">
+    <ul>
+        <li><a href="#">商家管理</a> > <a href="">云购</a> > <a>云购商品列表</a></li>
+    </ul>
+</div>
+<div class="tuan_content">
+	<form method="post" action="<{:U('cloud/index')}>">
+    <div class="radius5 tuan_top">
+        <div class="tuan_top_t">
+            <div class="left tuan_topser_l">云购名称：<input type="text" class="radius3 tuan_topser"  name="keyword" value="<{$keyword}>"/>
+            <input type="submit" style="margin-left:10px;" class="radius3 sjgl_an tuan_topbt" value="搜 索"/></div>
+            <div class="right tuan_topfb_r"><a class="radius3 sjgl_an tuan_topbt" target="main_frm" href="<{:U('cloud/create')}>">发布云购+</a></div>
+        </div>
+    </div>
+    </form>
+    <div class="tuanfabu_tab">
+        <ul>
+            <li class="tuanfabu_tabli on"><a href="<{:U('cloud/index')}>">云购管理</a></li>
+            <li class="tuanfabu_tabli "><a href="<{:U('cloud/order')}>">购买列表</a></li>
+        </ul>
+    </div>
+    <table class="tuan_table" width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr style="background-color:#eee;">
+            <td class="w50">ID</td>
+            <td>产品名称</td>
+            <td>商家</td>
+            <td>类型</td>
+            <td>缩略图</td>
+            <td>总需次数</td>
+            <td>已参加次数</td>
+            <td>结算价格</td>
+            <td>创建时间</td>
+            <td>创建IP</td>
+            <td>是否审核</td>
+            <td>操作</td>
+        </tr>
+        <foreach name="list" item="var">
+        <tr>
+            <tr>
+                 <td><{$var.goods_id}></td>
+                 <td><{$var.title}></td>
+                 <td><{$shops[$var['shop_id']]['shop_name']|default='平台发布'}></td>
+                 <td><{$types[$var['type']]['type_name']}></td>
+                 <td><img style="width:60px;" src="<{:config_img($var['photo'])}>"/></td>
+                 <td><{$var.price}></td>
+                 <td><{$var.join}></td>
+                 <td><{:round($var['settlement_price']/100,2)}></td>
+                 <td><{$var.create_time|date='Y-m-d H:i:s',###}></td>
+                 <td><{$var.create_ip}></td>
+                 <td><eq name="var.audit" value="0">等待审核<else/>正常</eq></td>
+                <td>
+                    <a href="<{:U('cloud/edit',array('goods_id'=>$var['goods_id']))}>">编辑</a>
+                    <a  mini="confirm"  href="<{:U('cloud/delete',array('goods_id'=>$var['goods_id']))}>">删除</a>
+                </td>
+            </tr>
+        </tr>
+        </foreach>
+    </table>
+    <div class="paging">
+        <{$page}>
+    </div>
+</div>
+<include  file='public:footer'/>

@@ -1,0 +1,30 @@
+<foreach name='list' item='var'>
+<div class="item">	
+	<div class="line">
+		<div class="x2">
+           <img class="pic"  src="<{:config_img($users[$var['user_id']]['face'])}>" />
+        </div>
+		<div class="x10">
+			<h5><{:config_user_name($users[$var['user_id']]['nickname'])}></h5> 
+            <p class="intro"><{$var.contents}></p>
+            <php>$stars= intval(($var['score'])*20);</php>
+			<p class="intro ui-starbar" ><span style="width:<{$stars}>%"></span></p>
+            <span class="intro intro1 float-right "><{$var.create_time|date='Y-m-d H:i',###}></span>
+			<p class="info7 x12" >
+				<volist name="pics" id="pic" key="index"> 
+                    <eq name="pic.order_id" value="$var['order_id']"> 
+                        <div class="pics" class="ac"  onclick="location='<{:U('ele/img',array('dianping_id'=>$var['dianping_id']))}>'">
+                          <img class="pics_img" src="<{:config_img($pic['pic'])}>" >       
+                        </div>
+                    </eq>
+           		</volist> 
+			</p>
+            <br/>
+            <if condition="!empty($var['reply'])">
+            	<p class="intro x12">商家回复：<a style="color:#FF6430"><{$var.reply}></a></p>
+            </if>
+		</div>
+	</div>
+</div>
+<div class="blank-10 bg"></div>
+</foreach>

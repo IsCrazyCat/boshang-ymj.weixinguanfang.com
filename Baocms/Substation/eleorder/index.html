@@ -1,0 +1,107 @@
+<include  file='public:header'/>
+<div class="mainBt">
+    <ul>
+        <li class="li1">餐饮管理</li>
+        <li class="li2">订单管理</li>
+    </ul>
+</div>
+<div class="main-jsgl main-sc">
+    <div class="jsglNr">
+        <div class="selectNr" style="border-top: none; margin-top: 0px;">
+            <div class="right">
+                <form method="post" action="<{:U('eleorder/index')}>">
+                    <div class="seleHidden" id="seleHidden">
+                        <div class="seleK">
+                            <label>
+                                <input type="hidden" id="shop_id" name="shop_id" value="<{$shop_id|default=''}>"/>
+                                <input type="text"   id="shop_name" name="shop_name" value="<{$shop_name}>" class="text " />
+                                <a mini="select"  w="1000" h="600" href="<{:U('shop/select')}>" class="sumit">选择商家</a>
+                            </label>
+                            <label>
+                                <input type="hidden" id="user_id" name="user_id" value="<{$user_id|default=''}>" />
+                                <input type="text" name="nickname" id="nickname"  value="<{$nickname}>"   class="text " />
+                                <a mini="select"  w="800" h="600" href="<{:U('user/select')}>" class="sumit">选择用户</a>
+                            </label>
+                            <label>
+                                <span>状态：</span>
+                                <select class="select w120" name="st">
+                                    <option <eq name="st" value="999">selected="selected"</eq> value="999">请选择</option>
+                                    <option <eq name="st" value="0">selected="selected"</eq>  value="0">等待付款</option>
+                                    <option <eq name="st" value="1">selected="selected"</eq>  value="1">等待审核</option>
+                                    <option <eq name="st" value="2">selected="selected"</eq>  value="2">正在配送</option>
+                                    <option <eq name="st" value="3">selected="selected"</eq>  value="2">等待退款</option>
+                                    <option <eq name="st" value="4">selected="selected"</eq>  value="2">退款完成</option>
+                                    <option <eq name="st" value="8">selected="selected"</eq>  value="8">已完成</option>
+                                </select>
+                            </label>
+                            <label>
+                                <span>  订单ID：</span>   <input type="text" name="order_id" value="<{$order_id|default=''}>" class="inptText" /><input type="submit" class="inptButton" value="搜索" /></label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <form  target="baocms_frm" method="post">
+            <div class="tableBox">
+                <table bordercolor="#e1e6eb" cellspacing="0" width="100%" border="1px"  style=" border-collapse: collapse; margin:0px; vertical-align:middle; background-color:#FFF;"  >
+                    <tr>
+                        <td class="w50"><input type="checkbox" class="checkAll" rel="order_id" /></td>
+                        <td class="w50">ID</td>
+                        <td>商家</td>
+                        <td>用户</td>
+                        <td>地址</td>
+                        <td>订单金额</td>
+                        <td>支付金额</td>
+                        <td>数量</td>
+                        <!--<td>减多少钱</td>
+                        <td>返利金额</td>
+                        <td>结算价格</td>-->
+                        <td>状态</td>
+                        <td>支付方式</td>
+                        <td>创建时间</td>
+                        <td>操作</td>
+                    </tr>
+                    <foreach name="list" item="var">
+                        <tr>
+                            <td><input class="child_order_id" type="checkbox" name="order_id[]" value="<{$var.order_id}>" /></td>
+                            <td><{$var.order_id}></td>
+                            <td><{$shops[$var['shop_id']]['shop_name']}></td>
+                            <td><{$users[$var['user_id']]['nickname']}></td>
+                            <td><{$areas[$addrs[$var['addr_id']]['area_id']]['area_name']}>、
+                                <{$business[$addrs[$var['addr_id']]['business_id']]['business_name']}>、
+                                <{$addrs[$var['addr_id']]['addr']}>
+                                <br/>
+                                <{$addrs[$var['addr_id']]['name']}>
+                                <{$addrs[$var['addr_id']]['mobile']}></td>
+                            <td><{:round($var['total_price']/100,2)}></td>
+                            <td><{:round($var['need_pay']/100,2)}></td>
+                            <td><{$var.num}></td>
+                            <!--<td><{:round($var['new_money']/100,2)}></td>
+                            <td><{:round($var['fan_money']/100,2)}></td>
+                            <td><{:round($var['settlement_price']/100,2)}></td>-->
+                            <td><{$cfg[$var['status']]}></td>
+                            <td><if condition="$var['is_pay'] eq 0">餐到付款 <else/>在线支付</if></td>
+                        <td><{$var.create_time|date="Y-m-d H:i:s",###}></td>
+                        <td>
+                        <if condition="$var['status'] egt 4">
+                            <{:BA('eleorder/delete',array("order_id"=>$var["order_id"]),'删除订单','act','remberBtn')}>
+                        </if>
+                        <if condition="$var['status'] eq 3">
+                            <{:BA('eleorder/tui',array("order_id"=>$var["order_id"]),'同意退款','act','remberBtn')}>
+                        </if>
+                        </td>
+                        </tr>
+                    </foreach>
+                </table>
+                <{$page}>
+            </div>
+            <div class="selectNr" style="margin-bottom: 0px; border-bottom: none;">
+                <div class="left">
+                    <{:BA('eleorder/delete','','批量取消订单','list','a2')}>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<include  file='public:footer'/>       
