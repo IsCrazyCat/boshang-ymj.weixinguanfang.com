@@ -12184,3 +12184,29 @@ NOTIC: [2048] Declaration of SettingModel::fetchAll() should be compatible with 
 NOTIC: [2048] Declaration of SettingModel::save() should be compatible with Model::save($data = '', $options = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 32 行.
 SQL: SHOW COLUMNS FROM `bao_setting` [ RunTime:0.003734s ]
 
+[ 2019-12-26T17:39:18+08:00 ] 127.0.0.1 /admin/index/check.html
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.001066s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001269s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.000904s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001052s ]
+SQL: SHOW COLUMNS FROM `bao_admin` [ RunTime:0.004238s ]
+SQL: SELECT * FROM `bao_admin` WHERE ( `admin_id` = 1 ) LIMIT 1   [ RunTime:0.000282s ]
+NOTIC: [2048] Declaration of SettingModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 32 行.
+NOTIC: [2048] Declaration of SettingModel::save() should be compatible with Model::save($data = '', $options = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 32 行.
+SQL: SHOW COLUMNS FROM `bao_setting` [ RunTime:0.003763s ]
+
+[ 2019-12-26T17:40:18+08:00 ] 127.0.0.1 /admin/index/check.html
+INFO: [ route_check ] --START--
+INFO: CheckRoute Behavior ::run [ RunTime:0.001471s ]
+INFO: [ route_check ] --END-- [ RunTime:0.001668s ]
+INFO: [ app_begin ] --START--
+INFO: ReadHtmlCache Behavior ::run [ RunTime:0.001121s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001272s ]
+SQL: SHOW COLUMNS FROM `bao_admin` [ RunTime:0.004422s ]
+SQL: SELECT * FROM `bao_admin` WHERE ( `admin_id` = 1 ) LIMIT 1   [ RunTime:0.000342s ]
+NOTIC: [2048] Declaration of SettingModel::fetchAll() should be compatible with CommonModel::fetchAll($field = '*', $where = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 32 行.
+NOTIC: [2048] Declaration of SettingModel::save() should be compatible with Model::save($data = '', $options = Array) E:\PhpStorm\boshang-ymj.weixinguanfang.com\Baocms\Lib\Model\SettingModel.class.php 第 32 行.
+SQL: SHOW COLUMNS FROM `bao_setting` [ RunTime:0.003739s ]
+
