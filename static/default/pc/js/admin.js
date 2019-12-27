@@ -13,6 +13,7 @@ function loading(){
 
 
 function success(msg, timeout, callback) {
+    alert(1);
     var boxHtml = '<div class="ajax-box"></div>';
     if ($(".ajax-box").length == 0) {
         $("body").append(boxHtml);
@@ -27,6 +28,7 @@ function success(msg, timeout, callback) {
 }
 
 function error(msg, timeout, callback) {
+    alert(1);
     var boxHtml = '<div class="dialog-mask"></div><div class="ajax-box"></div>';
     if ($(".ajax-box").length == 0) {
         $("body").append(boxHtml);

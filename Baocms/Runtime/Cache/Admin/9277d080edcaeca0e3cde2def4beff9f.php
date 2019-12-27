@@ -146,19 +146,23 @@ function position_fixed(el, eltop, elleft){
                             <td>ID</td>
                             <td>姓名</td>
                             <td>电话</td>
-                            <td>原价</td>
-                            <td>折扣价</td>
-                            <td>预约时间</td>
+<!--                            <td>原价</td>-->
+<!--                            <td>折扣价</td>-->
+                            <td>订单时间</td>
                             <td>状态</td>
                             <td>操作</td>
                         </tr>
                         <tr class="no">
                             <td><input class="child_order_id" name="order_id[]"  type="checkbox" value="<?php echo ($order["order_id"]); ?>" /> </td>
                             <td><?php echo ($order["order_id"]); ?></td>
-                            <td><?php echo ($users[$order['user_id']]['ext0']); ?></td>
+                            <td>
+                                <?php if(empty($users[$order['user_id']]['ext0']) != true): echo ($users[$order['user_id']]['ext0']); ?>
+                                <?php else: ?>
+                                    <?php echo ($users[$order['user_id']]['nickname']); endif; ?>
+                            </td>
                             <td><?php echo ($users[$order['user_id']]['mobile']); ?></td>
-                            <td><?php echo round($order['total_price']/100,2);?>元</td>
-                            <td><?php echo round($order['total_price']/100,2);?>元</td>
+<!--                            <td><?php echo round($order['total_price']/100,2);?>元</td>-->
+<!--                            <td><?php echo round($order['total_price']/100,2);?>元</td>-->
                             <td><?php echo (date('Y-m-d H:i:s',$order["create_time"])); ?></td>
                             <td style="color: red;">
                                 <?php echo ($types[$order['status']]); ?>
@@ -181,8 +185,9 @@ function position_fixed(el, eltop, elleft){
                                         <th>单价</th>
                                         <th>总价</th>
                                         <td>预计返款</td>
+                                        <td>已返款</td>
                                         <th>状态</th>
-                                        <th>返款记录</th>
+<!--                                        <th>返款记录</th>-->
                                     </tr>  
                                     <?php if(is_array($goods)): foreach($goods as $key=>$good): if(($good["order_id"]) == $order["order_id"]): ?><tr class="no">
                                             <td><img width="60" src="<?php echo config_img($products[$good['goods_id']]['photo']);?>" /></td>
@@ -194,13 +199,14 @@ function position_fixed(el, eltop, elleft){
                                             <td><?php echo ($good["num"]); ?></td>
                                             <td><?php echo round($good['price']/100,2);?></td>
                                             <td><?php echo round($good['total_price']/100,2);?></td>
-                                            <td><?php echo round($good['price']/100,2);?>-<?php echo round($good['total_price']/100,2);?></td>
+                                            <td><?php echo round(($good['back_count']*$good['back_money'])/100,2);?></td>
+                                            <td><?php echo round(($good['cur_back_count']*$good['back_money'])/100,2);?></td>
                                             <td  style="color: red;">
                                                 <?php echo ($goodtypes[$good['status']]); ?>
                                             </td>
-                                            <td>
-                                                <?php echo BA('order/backrecord',array("order_id"=>$order["order_id"],"goods_id"=>$good["goods_id"]),'查看','','remberBtn');?>
-                                            </td>
+<!--                                            <td>-->
+<!--                                                <?php echo BA('order/backrecord',array("order_id"=>$order["order_id"],"goods_id"=>$good["goods_id"]),'查看','','remberBtn');?>-->
+<!--                                            </td>-->
                                         </tr><?php endif; endforeach; endif; ?>
 
 

@@ -124,9 +124,31 @@
 <script src="__TMPL__statics/js/jquery.flexslider-min.js" type="text/javascript" charset="utf-8"></script>
 <script src="__TMPL__statics/js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
 <style>
-.top-fixed .top-search{margin: 0 0 0 27%;}
-.top-fixed .top-search { width:48%}
-.top-fixed .top-search input {border-radius: 0px;}
+	.top-fixed {background: #Fff;}
+	.bg-inverse, .bg-inverse a{color:#333}
+.top-fixed .top-search{margin: 0 0 0 22%;}
+.top-fixed .top-search { width:72%}
+.top-fixed .top-search input {border-radius: 20px;background: rgb(228,228,228);}
+/* 轮播部分 */
+.bd{margin:0 10px}
+.focus .bd li img{border-radius: 6px;}
+.container1 .icon-angle-right{font-size: 28px;
+    margin-top: 4px;
+    display: inline-block;
+    color: #999;}
+	.goods_limit_buy .locatLabel_switch .box{
+		padding: 5px;
+		box-sizing: border-box;
+		border-radius: 8px;
+	}
+	.goods_limit_buy .locatLabel_switch .box:nth-child(even){
+		background:rgb(225,232,248) ;
+	
+	}
+	.goods_limit_buy .locatLabel_switch .box:nth-child(odd){
+		background:rgb(224,243,250) ;
+		
+	}
 </style>
 <header class="top-fixed bg-yellow bg-inverse">
 			<div class="top-local">
@@ -170,6 +192,14 @@
 <!--		<section class="invote index_house">-->
 <!--			<a href="<?php echo U('community/index');?>"><img src="/static/default/wap/image/house.png">我的社区服务</a>-->
 <!--		</section>-->
+	<style>	
+		.navtab{
+			padding: 10px;
+			border: 1px solid  red;
+		}
+	</style>
+
+		
         <div id="index" class="page-center-box">
        
 
@@ -180,8 +210,9 @@
                 pauseOnAction: false,
              });
           });
-        </script>
-        <div class="banner_navigation">
+		</script>
+		
+        <!-- <div class="banner_navigation"> 
                 <div class="navigation_index_cate"> 
                     <ul class="slides">
                         <?php if(is_array($nav)): $i = 0; $__LIST__ = $nav;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$item): $mod = ($i % 2 );++$i; if($i%8 == 1): ?><li class="list">
@@ -204,9 +235,9 @@
                                         <p><?php echo ($item["nav_name"]); ?></p></a>
                                 </li><?php endif; endforeach; endif; else: echo "" ;endif; ?>
                     </ul>  
-                </div>
-            </div>
-        <?php else: ?>
+                </div> 
+            </div> -->
+         <?php else: ?> 
 			<script>
 				$(document).ready(function() {
 					$('.flexslider_cate').flexslider({
@@ -215,8 +246,8 @@
 					});
 				});
 			</script>
-			<div class="banner mb10">
-				<div class="flexslider_cate">
+			<!-- <div class="banner mb10">
+				 <div class="flexslider_cate">
 					<ul class="slides">
 						<?php if(is_array($nav)): $i = 0; $__LIST__ = $nav;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$item): $mod = ($i % 2 );++$i; if($i%8 == 1): ?><li class="list">
 									<ul class="cate">
@@ -250,35 +281,162 @@
 								</li><?php endif; endforeach; endif; else: echo "" ;endif; ?>
 					</ul>
 				</div><?php endif; ?>
-			</div>
-  
-         
-         <!--下一段开始-->   
-          
-            <div class="goods_title">
-            <span class="left">最新商品</span></div>
-            <div class="goods_limit_buy mb10">
-            	<div class="locatLabel_switch swiper-container5">
-                    <div class="swiper-wrapper">
-						<?php  $cache = cache(array('type'=>'File','expire'=> 600)); $token = md5("Goods,audit =1 AND closed=0 AND city_id = $city_id AND end_date >= '{$today}',orderby asc,sold_num desc,0,10,600,,"); if(!$items= $cache->get($token)){ $items = D("Goods")->where("audit =1 AND closed=0 AND city_id = $city_id AND end_date >= '{$today}'")->order("orderby asc,sold_num desc")->limit("0,10")->select(); $cache->set($token,$items); } ; $index=0; foreach($items as $item): $index++; ?><div class="box swiper-slide">
-                            <a href="<?php echo U('mall/detail',array('goods_id'=>$item['goods_id']));?>"><img src="<?php echo config_img($item['photo']);?>" width="" height="">
-                            <p class="txt_center overflow_clear"><?php echo bao_msubstr($item['title'],0,4,false);?></p>
-                            <p class="txt_center fontcl1">&yen;<?php echo ($item['price']/100); ?></p></a> 
-                        </div> <?php endforeach; ?>
-                    </div>
-                </div>
-                
-		         <script>
-                    var swiper = new Swiper('.swiper-container5', {
-                        pagination: '.swiper-pagination5',
-                        slidesPerView: 3,
-                        paginationClickable: true,
-                        spaceBetween: 10,
-						autoplay: 3000,
-                        freeMode: true
-                    });
-                </script>
-            </div>
+			</div> -->
+			<div class="banner mb10">
+				<div class="flexslider_cate">
+					<ul class="slides">
+						<?php if(is_array($nav)): $i = 0; $__LIST__ = $nav;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$item): $mod = ($i % 2 );++$i; if($i%8 == 1): ?><li class="list">
+									<ul class="cate">
+										<li>
+											<a href="<?php echo config_navigation_url($item['url'],2);?>?nav_id=<?php echo ($item['nav_id']); ?>">
+												<div>
+													<img src="/static/default/wap/image/indexicon/01.png" alt="">
+												</div>
+												<p>
+													脸部轮廓
+												</p>
+											</a>
+										</li>
+										<li>
+											<a href="<?php echo config_navigation_url($item['url'],2);?>?nav_id=<?php echo ($item['nav_id']); ?>">
+												<div>
+													<img src="/static/default/wap/image/indexicon/02.png" alt="">
+												</div>
+												<p>
+													玻尿酸
+												</p>
+											</a>
+										</li>
+										<li>
+											<a href="<?php echo config_navigation_url($item['url'],2);?>?nav_id=<?php echo ($item['nav_id']); ?>">
+												<div>
+													<img src="/static/default/wap/image/indexicon/03.png" alt="">
+												</div>
+												<p>
+													除皱瘦脸
+												</p>
+											</a>
+										</li>
+										<li>
+											<a href="<?php echo config_navigation_url($item['url'],2);?>?nav_id=<?php echo ($item['nav_id']); ?>">
+												<div>
+													<img src="/static/default/wap/image/indexicon/04.png" alt="">
+												</div>
+												<p>
+													眼部
+												</p>
+											</a>
+										</li>
+										<li>
+											<a href="<?php echo config_navigation_url($item['url'],2);?>?nav_id=<?php echo ($item['nav_id']); ?>">
+												<div>
+													<img src="/static/default/wap/image/indexicon/05.png" alt="">
+												</div>
+												<p>
+													鼻部整形
+												</p>
+											</a>
+										</li>
+										<li>
+											<a href="<?php echo config_navigation_url($item['url'],2);?>?nav_id=<?php echo ($item['nav_id']); ?>">
+												<div>
+													<img src="/static/default/wap/image/indexicon/06.png" alt="">
+												</div>
+												<p>
+													生活美容
+												</p>
+											</a>
+										</li>
+										<li>
+											<a href="<?php echo config_navigation_url($item['url'],2);?>?nav_id=<?php echo ($item['nav_id']); ?>">
+												<div>
+													<img src="/static/default/wap/image/indexicon/07.png" alt="">
+												</div>
+												<p>
+													皮肤管理
+												</p>
+											</a>
+										</li>
+
+										<li>
+											<a href="<?php echo config_navigation_url($item['url'],2);?>?nav_id=<?php echo ($item['nav_id']); ?>">
+												<div>
+													<img src="/static/default/wap/image/indexicon/08.png" alt="">
+												</div>
+												<p>
+													美体塑型
+												</p>
+											</a>
+										</li>
+										<li>
+											<a href="<?php echo config_navigation_url($item['url'],2);?>?nav_id=<?php echo ($item['nav_id']); ?>">
+												<div>
+													<img src="/static/default/wap/image/indexicon/09.png" alt="">
+												</div>
+												<p>
+													纹眉睫毛
+												</p>
+											</a>
+										</li>
+										<li>
+											<a href="<?php echo config_navigation_url($item['url'],2);?>?nav_id=<?php echo ($item['nav_id']); ?>">
+												<div>
+													<img src="/static/default/wap/image/indexicon/10.png" alt="">
+												</div>
+												<p>
+													医学美肤
+												</p>
+											</a>
+										</li>
+									</ul>
+								</li><?php endif; endforeach; endif; else: echo "" ;endif; ?>
+					</ul>
+				</div>
+         <style>
+			 .newgoods{
+				 background: #fff;
+				}
+		 </style>
+		<div>
+			
+		</div>
+
+
+		 <!--下一段开始 最新商品-->   
+		 <div class="blank-10 bg" style="border-bottom: thin solid #eee;">	</div>
+			<div class="newgoods">
+
+			
+		
+				<div class="goods_title">
+					<span class="left">最新商品</span>
+				</div>
+				<div class="goods_limit_buy mb10">
+					<div class="locatLabel_switch swiper-container5">
+						<div class="swiper-wrapper">
+							<?php  $cache = cache(array('type'=>'File','expire'=> 600)); $token = md5("Goods,audit =1 AND closed=0 AND city_id = $city_id AND end_date >= '{$today}',orderby asc,sold_num desc,0,9,600,,"); if(!$items= $cache->get($token)){ $items = D("Goods")->where("audit =1 AND closed=0 AND city_id = $city_id AND end_date >= '{$today}'")->order("orderby asc,sold_num desc")->limit("0,9")->select(); $cache->set($token,$items); } ; $index=0; foreach($items as $item): $index++; ?><div class="box swiper-slide">
+								<a href="<?php echo U('mall/detail',array('goods_id'=>$item['goods_id']));?>">
+									
+								    <p class="txt_center overflow_clear"><?php echo bao_msubstr($item['title'],0,4,false);?></p>
+									<!-- <p class="txt_center fontcl1">&yen;<?php echo ($item['price']/100); ?></p> -->
+									<img src="<?php echo config_img($item['photo']);?>" width="" height="">
+								</a> 
+							</div> <?php endforeach; ?>
+						</div>
+					</div>
+					
+					<script>
+						var swiper = new Swiper('.swiper-container5', {
+							pagination: '.swiper-pagination5',
+							slidesPerView: 3,
+							paginationClickable: true,
+							spaceBetween: 10,
+							autoplay: 3000,
+							freeMode: true
+						});
+					</script>
+				</div>
+			</div>	
             <!--首页限时套餐结束-->
 <!--			<div class="index-ads">-->
 <!--				<div class="line border-bottom border-top">-->
@@ -308,6 +466,7 @@
 <!--					</div>-->
 <!--				</div>-->
 <!--			</div>-->
+<!-- 今日资讯 -->
 			<div class="blank-10 bg" style="border-bottom: thin solid #eee;">
 			</div>
 			<div class="tab index-tab" data-toggle="click">
@@ -327,11 +486,12 @@
 										<h5><?php echo bao_msubstr($item['title'],0,14,false);?></h5>
 										<p class="info"><span>作者：<?php echo ($item["source"]); ?></span></p>
 									</div>
-									<div class="des x2">
+									<i class="icon-angle-right"></i>
+									<!-- <div class="des x2">
 										<div class="intro2">
 											<?php echo ($item["views"]); ?>
 										</div>
-									</div>
+									</div> -->
 								</div><?php endforeach; endif; else: echo "" ;endif; ?>
 						</ul>
 						<div class="more">
@@ -344,7 +504,7 @@
 						<ul class="line index-tuan">
 							<?php if(is_array($shoplist)): $index = 0; $__LIST__ = $shoplist;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$item): $mod = ($index % 2 );++$index;?><div class="container1" onclick="location='<?php echo U('shop/detail',array('shop_id'=>$item['shop_id']));?>'">
 									<img class="x2" src="<?php echo config_img($item['photo']);?>">
-									<div class="des x10">
+									<div class="des x8">
 				<?php $business = D('Business') -> where('business_id ='.$item['business_id']) -> find(); $business_name = $business['business_name']; ?>
 										<h5><?php echo bao_msubstr($item['shop_name'],0,10,false);?>
                                         	<a style="color:#999; margin-left:10px;"><?php echo ($business_name); ?>商圈 &nbsp;<?php echo ($item["d"]); ?></a>
